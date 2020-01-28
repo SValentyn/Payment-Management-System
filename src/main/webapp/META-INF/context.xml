@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+    <!-- Specify a JDBC datasource -->
+    <Resource name="jdbc/pool"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/PMS_DB?useSSL=false&amp;useUnicode=true&amp;autoReconnect=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
+              username="root"
+              password="pppp"
+              validationQuery="select 1"
+              maxWait="10000"
+              maxActive="100"
+              maxIdle="100">
+    </Resource>
+
+</Context>
