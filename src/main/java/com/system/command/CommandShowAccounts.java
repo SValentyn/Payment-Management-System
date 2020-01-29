@@ -21,6 +21,7 @@ public class CommandShowAccounts implements ICommand {
             request.setAttribute("showAccounts", false);
         } else {
             request.setAttribute("showAccounts", true);
+            request.setAttribute("showAccountInfo", false);
             request.setAttribute("accounts", allAccounts);
         }
 

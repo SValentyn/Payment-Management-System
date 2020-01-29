@@ -25,7 +25,67 @@
         </div>
         <div class="col-md-10" style="padding-left: 30px;">
             <c:choose>
-                <c:when test="${showAccounts}">
+                <c:when test="${showAccounts && !showAccountInfo}">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fmt:message key="home.allaccounts" var="allaccounts"/>
+                                <fmt:message key="home.account.number" var="number"/>
+                                <fmt:message key="home.account.balance" var="balance"/>
+                                <fmt:message key="home.account.status" var="status"/>
+                                <fmt:message key="home.account.action" var="action"/>
+                                <fmt:message key="home.account.status.active" var="statusActive"/>
+                                <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
+                                <fmt:message key="home.account.button.block" var="block"/>
+                                <fmt:message key="home.account.button.showInfo" var="showInfo"/>
+
+                                <div class="content-box-large">
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                                ${allaccounts}
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <table>
+                                            <th>${number}</th>
+                                            <th>${balance}</th>
+                                            <th>${status}</th>
+                                            <th>${action}</th>
+                                            <th></th>
+
+                                            <c:forEach items="${accounts}" var="account">
+                                                <tr>
+                                                    <td>${account.number}</td>
+                                                    <td>${account.balance}</td>
+                                                    <td>
+                                                        <c:choose>
+                                                            <c:when test="${account.isBlocked}">
+                                                                ${statusBlocked}
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${statusActive}
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                    <td>
+                                                        <c:if test="${!account.isBlocked}">
+                                                            <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
+                                                        </c:if>
+                                                    </td>
+                                                    <td>
+                                                        <a href="?command=showInfo&accountId=${account.accountId}">${showInfo}</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:when>
+                <c:when test="${showAccounts && showAccountInfo}">
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
@@ -88,6 +148,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fmt:message key="home.allcards" var="allcards"/>
+                                <fmt:message key="home.card.number" var="cardNumber"/>
                                 <fmt:message key="home.card.cvv" var="cvv"/>
                                 <fmt:message key="home.card.date" var="date"/>
 
@@ -99,7 +160,7 @@
 
                                 <div class="content-box-large box-with-header">
                                     <table>
-                                        <th>${number}</th>
+                                        <th>${cardNumber}</th>
                                         <th>${cvv}</th>
                                         <th>${date}</th>
                                         <th>${status}</th>

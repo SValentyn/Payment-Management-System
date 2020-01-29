@@ -21,6 +21,7 @@ public class CommandShowAccountInfo implements ICommand {
 
         String accountId = request.getParameter("accountId");
         if (accountId != null) {
+            request.setAttribute("showAccountInfo", true);
             request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(Integer.parseInt(accountId)));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
         }
