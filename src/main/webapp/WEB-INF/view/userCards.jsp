@@ -114,7 +114,7 @@
                         <div class="col-md-12">
                             <div class="content-box-header">
                                 <div class="panel-title">
-                                    <fmt:message key="home.cards"/>
+                                    <fmt:message key="home.allcards"/>
                                 </div>
                             </div>
                             <div class="content-box-large box-with-header">

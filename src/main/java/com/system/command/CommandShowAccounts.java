@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.Account;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
@@ -7,14 +8,22 @@ import com.system.service.AccountService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CommandShowAccounts implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+
         User user = (User) request.getSession().getAttribute("currentUser");
-        request.setAttribute("showAccounts", true);
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+        List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        if (allAccounts.isEmpty()) {
+            request.setAttribute("showAccounts", false);
+        } else {
+            request.setAttribute("showAccounts", true);
+            request.setAttribute("accounts", allAccounts);
+        }
+
         return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
     }
 

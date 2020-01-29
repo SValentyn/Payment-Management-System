@@ -49,7 +49,6 @@ public class CommandRegistration implements ICommand {
                 registrationError(request);
             } else {
                 request.setAttribute("created", true);
-                return page;
             }
         }
 

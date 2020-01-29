@@ -11,7 +11,7 @@
 <head>
     <title><fmt:message key="admin.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/styles.css" rel="stylesheet">
 </head>
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-12 panel-warning">
 
-                    <form action="all-users" method="post">
+                    <form action="all-users" method="POST">
                         <fmt:message key="admin.showAllUsers" var="showAllUsers"/>
                         <input type="hidden" name="command" value="showAllUsers">
                         <input type="submit" value="${showAllUsers}">

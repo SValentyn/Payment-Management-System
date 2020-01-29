@@ -56,7 +56,7 @@
                         <fmt:message key="login.placeholder.password" var="password"/>
                         <fmt:message key="login.submit" var="submit"/>
 
-                        <form action="" method="POST">
+                        <form action="/" method="POST">
                             <input type="hidden" name="command" value="login"/>
                             <input class="form-control" name="login" type="text" placeholder="${phone}"
                                    style="margin-bottom: 18px;"

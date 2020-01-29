@@ -101,10 +101,11 @@
                             <label for="passwordConfirmation" class="reg-error-label">
                                 <c:if test="${passwordConfirmationError}">
                                     <fmt:message key="registration.passwordConfirmationError"/>
-                                </c:if>&nbsp;
+                                </c:if>
                                 <c:if test="${errorMessage}">
                                     <fmt:message key="registration.errorMessage"/>
-                                </c:if>&nbsp;
+                                </c:if>
+                                &nbsp;
                             </label>
 
                             <div class="action">
