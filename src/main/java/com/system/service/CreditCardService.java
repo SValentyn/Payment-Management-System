@@ -39,11 +39,11 @@ public class CreditCardService {
      */
     public int addNewCard(String accountId, String number, String CVV, String validity) {
         int status = 0;
-        if (number != null && CVV != null && validity != null && accountId != null) {
+        if (accountId != null && number != null && CVV != null && validity != null) {
             if (creditCardDao.findCreditCardByCardNumber(number) != null) {
                 LOGGER.info("Trying to add an existing map!");
             } else {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = null;
                 try {
                     date = formatter.parse(validity);
@@ -55,7 +55,7 @@ public class CreditCardService {
                 creditCard.setAccountId(Integer.parseInt(accountId));
                 creditCard.setNumber(number);
                 creditCard.setCVV(CVV);
-                creditCard.setValidity(date.toString()); // creditCard.setValidity(date.toGMTString());
+                creditCard.setValidity(date.toString());
                 creditCard.setIsActive(true);
                 status = creditCardDao.create(creditCard);
             }
