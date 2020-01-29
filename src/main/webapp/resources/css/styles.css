@@ -655,12 +655,27 @@ body {
     clear: both;
 }
 
-th {
-    text-align: center;
+table {
+    width: 100%;
+    border: 1px solid #333333;
 }
 
-tr {
+td, th, tr {
+    text-align: center;
+    padding: 4px;
+    border: 1px solid #333333;
+}
 
+th {
+    background: rgba(208, 204, 204, 0.15);
+}
+
+tr:hover {
+    background: rgba(208, 204, 204, 0.15);
+}
+
+td a:hover {
+    text-decoration: none;
 }
 
 /****************/

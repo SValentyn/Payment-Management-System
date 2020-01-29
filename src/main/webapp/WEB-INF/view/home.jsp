@@ -33,7 +33,7 @@
                                 <fmt:message key="home.account.number" var="number"/>
                                 <fmt:message key="home.account.balance" var="balance"/>
                                 <fmt:message key="home.account.status" var="status"/>
-                                <fmt:message key="userCards.action" var="action"/>
+                                <fmt:message key="home.account.action" var="action"/>
                                 <fmt:message key="home.account.status.active" var="statusActive"/>
                                 <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
                                 <fmt:message key="home.account.button.block" var="block"/>
@@ -47,7 +47,7 @@
                                     </div>
 
                                     <div class="panel-body">
-                                        <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                                        <table>
                                             <th>${number}</th>
                                             <th>${balance}</th>
                                             <th>${status}</th>
@@ -55,7 +55,7 @@
                                             <th></th>
 
                                             <c:forEach items="${accounts}" var="account">
-                                                <tr align="center">
+                                                <tr>
                                                     <td>${account.number}</td>
                                                     <td>${account.balance}</td>
                                                     <td>
@@ -98,7 +98,7 @@
                                 </div>
 
                                 <div class="content-box-large box-with-header">
-                                    <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                                    <table>
                                         <th>${number}</th>
                                         <th>${cvv}</th>
                                         <th>${date}</th>
@@ -106,7 +106,7 @@
                                         <th>${action}</th>
 
                                         <c:forEach items="${cards}" var="card">
-                                            <tr align="center">
+                                            <tr>
                                                 <td>${card.number}</td>
                                                 <td>${card.CVV}</td>
                                                 <td>${card.validity}</td>
@@ -151,7 +151,7 @@
                                 </div>
 
                                 <div class="content-box-large box-with-header">
-                                    <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                                    <table>
                                         <th>${receiverCard}</th>
                                         <th>${payment_sum}</th>
                                         <th>${payment_date}</th>
@@ -160,7 +160,7 @@
                                         <th></th>
 
                                         <c:forEach items="${payments}" var="payment">
-                                            <tr align="center">
+                                            <tr>
                                                 <td>${payment.cardNumber}</td>
                                                 <td>${payment.sum}</td>
                                                 <td>${payment.date}</td>
@@ -176,9 +176,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="?command=repeatPayment&paymentId=${payment.paymentId}">
-                                                            ${payment_repeat}
-                                                    </a>
+                                                    <a href="?command=repeatPayment&paymentId=${payment.paymentId}">${payment_repeat}</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

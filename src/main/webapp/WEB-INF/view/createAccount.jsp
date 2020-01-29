@@ -84,7 +84,7 @@
                             <fmt:message key="home.account.number" var="number"/>
                             <fmt:message key="home.account.balance" var="balance"/>
                             <fmt:message key="home.account.status" var="status"/>
-                            <fmt:message key="userCards.action" var="action"/>
+                            <fmt:message key="home.account.action" var="action"/>
                             <fmt:message key="home.account.status.active" var="statusActive"/>
                             <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
                             <fmt:message key="home.account.button.block" var="block"/>
@@ -97,7 +97,7 @@
                             </div>
 
                             <div class="content-box-large box-with-header">
-                                <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                                <table>
                                     <th>${number}</th>
                                     <th>${balance}</th>
                                     <th>${status}</th>
@@ -105,7 +105,7 @@
                                     <th></th>
 
                                     <c:forEach items="${accounts}" var="account">
-                                        <tr align="center">
+                                        <tr>
                                             <td>${account.number}</td>
                                             <td>${account.balance}</td>
                                             <td>
