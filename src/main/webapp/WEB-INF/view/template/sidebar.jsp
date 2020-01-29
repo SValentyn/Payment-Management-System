@@ -30,8 +30,15 @@
         </li>
         <li>
             <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=createPayment">
-                    <fmt:message key="sidebar.createPayment"/>
+                <a href="?command=makePayment">
+                    <fmt:message key="sidebar.makePayment"/>
+                </a>
+            </c:if>
+        </li>
+        <li>
+            <c:if test="${currentUser.role.id == 1}">
+                <a href="?command=addCard">
+                    <fmt:message key="sidebar.addCard"/>
                 </a>
             </c:if>
         </li>
