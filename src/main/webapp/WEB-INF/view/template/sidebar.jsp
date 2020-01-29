@@ -8,23 +8,38 @@
 <fmt:setBundle basename="message"/>
 <div class="sidebar content-box" style="display: block;">
     <ul class="nav">
-        <li class="current"><a href="/">
-            <i class="glyphicon glyphicon-home"></i>
-            <fmt:message key="sidebar.home"/></a>
+        <li class="current">
+            <a href="/"><i class="glyphicon glyphicon-home"></i>
+                <fmt:message key="sidebar.home"/>
+            </a>
         </li>
 
         <li>
             <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=create-payment">
+                <a id="linkOnShowAccounts" href="?command=showAccounts">
+                    <fmt:message key="sidebar.showAccounts"/>
+                </a>
+            </c:if>
+        </li>
+        <li>
+            <c:if test="${currentUser.role.id == 1}">
+                <a id="" href="?command=createAccount">
+                    <fmt:message key="sidebar.createAccount"/>
+                </a>
+            </c:if>
+        </li>
+        <li>
+            <c:if test="${currentUser.role.id == 1}">
+                <a href="?command=createPayment">
                     <fmt:message key="sidebar.createPayment"/>
                 </a>
             </c:if>
         </li>
         <li>
             <c:if test="${currentUser.role.id == 2}">
-                <form action="add-user" method="POST">
+                <form action="?command=addUser" method="POST">
                     <fmt:message key="sidebar.addUser" var="addNewUser"/>
-                    <input type="hidden" name="command" value="adduser">
+                    <input type="hidden" name="command" value="addUser">
                     <input type="submit" value="${addNewUser}">
                 </form>
             </c:if>

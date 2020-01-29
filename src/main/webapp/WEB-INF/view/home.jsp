@@ -19,76 +19,91 @@
 <jsp:include page="template/header.jsp"/>
 
 <div class="page-content">
-    <div class="row">
+    <div class="row" style="margin-top: 50px;">
         <div class="col-md-2">
             <jsp:include page="template/sidebar.jsp"/>
         </div>
-        <div class="col-md-10">
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="?command=showAccounts"><fmt:message key="home.showAccounts"/></a>
-                    <c:if test="${showAccouts}">
-                        <div class="content-box-large">
-                            <div class="panel-heading">
-                                <div class="panel-title">
-                                    <fmt:message key="home.allaccounts"/>
+        <div class="col-md-10" style="padding-left: 30px;">
+            <c:choose>
+                <c:when test="${showAccounts}">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fmt:message key="home.allaccounts" var="allaccounts"/>
+                                <fmt:message key="home.account.number" var="number"/>
+                                <fmt:message key="home.account.balance" var="balance"/>
+                                <fmt:message key="home.account.status" var="status"/>
+                                <fmt:message key="userCards.action" var="action"/>
+                                <fmt:message key="home.account.status.active" var="statusActive"/>
+                                <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
+                                <fmt:message key="home.account.button.block" var="block"/>
+                                <fmt:message key="home.account.button.showInfo" var="showInfo"/>
+
+                                <div class="content-box-large">
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                                ${allaccounts}
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                                            <th>${number}</th>
+                                            <th>${balance}</th>
+                                            <th>${status}</th>
+                                            <th>${action}</th>
+                                            <th></th>
+
+                                            <c:forEach items="${accounts}" var="account">
+                                                <tr align="center">
+                                                    <td>${account.number}</td>
+                                                    <td>${account.balance}</td>
+                                                    <td>
+                                                        <c:choose>
+                                                            <c:when test="${account.isBlocked}">
+                                                                ${statusBlocked}
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${statusActive}
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                    <td>
+                                                        <c:if test="${!account.isBlocked}">
+                                                            <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
+                                                        </c:if>
+                                                    </td>
+                                                    <td>
+                                                        <a href="?command=showInfo&accountId=${account.accountId}">${showInfo}</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <fmt:message key="home.account.number" var="number"/>
-                            <fmt:message key="home.account.status" var="status"/>
-                            <fmt:message key="home.account.status.active" var="statusActive"/>
-                            <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
-                            <fmt:message key="home.account.button.block" var="block"/>
-                            <fmt:message key="home.account.button.showInfo" var="showInfo"/>
-
-                            <div class="panel-body">
-                                <table border="1" width="100%" cellpadding="4" cellpacing="3">
-                                    <th>${number}</th>
-                                    <th><fmt:message key="home.account.balance"/></th>
-                                    <th>${status}</th>
-                                    <th><fmt:message key="userCards.action"/></th>
-                                    <th></th>
-
-                                    <c:forEach items="${accounts}" var="account">
-                                        <tr align="center">
-                                            <td>${account.number}</td>
-                                            <td>${account.balance}</td>
-                                            <td><c:if test="${!account.isBlocked}">${statusActive}</c:if>
-                                                <c:if test="${account.isBlocked}">${statusBlocked}</c:if></td>
-                                            <td>
-                                                <c:if test="${!account.isBlocked}">
-                                                    <a href="?command=blockaccount&accountId=${account.accountId}">${block}</a>
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <a href="?command=showinfo&accountId=${account.accountId}">${showInfo}</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </table>
-                            </div>
                         </div>
-                    </c:if>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <c:if test="${showAccouts}">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fmt:message key="home.allcards" var="allcards"/>
+                                <fmt:message key="home.card.cvv" var="cvv"/>
+                                <fmt:message key="home.card.date" var="date"/>
 
                                 <div class="content-box-header">
                                     <div class="panel-title">
-                                        <fmt:message key="home.cards"/>
+                                            ${allcards}
                                     </div>
                                 </div>
 
                                 <div class="content-box-large box-with-header">
                                     <table border="1" width="100%" cellpadding="4" cellpacing="3">
                                         <th>${number}</th>
-                                        <th><fmt:message key="home.card.cvv"/></th>
-                                        <th><fmt:message key="home.card.date"/></th>
+                                        <th>${cvv}</th>
+                                        <th>${date}</th>
                                         <th>${status}</th>
-                                        <th><fmt:message key="userCards.action"/></th>
+                                        <th>${action}</th>
 
                                         <c:forEach items="${cards}" var="card">
                                             <tr align="center">
@@ -96,8 +111,14 @@
                                                 <td>${card.CVV}</td>
                                                 <td>${card.validity}</td>
                                                 <td>
-                                                    <c:if test="${card.isActive}">${statusActive}</c:if>
-                                                    <c:if test="${!card.isActive}">${statusBlocked}</c:if>
+                                                    <c:choose>
+                                                        <c:when test="${card.isActive}">
+                                                            ${statusActive}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${statusBlocked}
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                                 <td>
                                                     <c:if test="${card.isActive}">
@@ -108,57 +129,79 @@
                                         </c:forEach>
                                     </table>
                                 </div>
-                            </c:if>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 panel-warning">
-                    <c:if test="${showAccouts}">
-
-                        <div class="content-box-header panel-heading">
-                            <div class="panel-title ">
-                                <fmt:message key="home.payments"/>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12 panel-warning">
+                                <fmt:message key="home.allpayments" var="allpayments"/>
+                                <fmt:message key="home.payments.receiverCard" var="receiverCard"/>
+                                <fmt:message key="home.payments.sum" var="payment_sum"/>
+                                <fmt:message key="home.payments.date" var="payment_date"/>
+                                <fmt:message key="home.payments.appointment" var="payment_appointment"/>
+                                <fmt:message key="home.payments.success" var="payment_success"/>
+                                <fmt:message key="home.payments.error" var="payment_error"/>
+                                <fmt:message key="home.payments.repeat" var="payment_repeat"/>
 
-                        <div class="content-box-large box-with-header">
-                            <table border="1" width="100%" cellpadding="4" cellpacing="3">
-                                <th><fmt:message key="home.payments.receiverCard"/></th>
-                                <th><fmt:message key="home.payments.appointment"/></th>
-                                <th><fmt:message key="home.payments.date"/></th>
-                                <th><fmt:message key="home.payments.sum"/></th>
-                                <th>${status}</th>
-                                <th></th>
+                                <div class="content-box-header panel-heading">
+                                    <div class="panel-title ">
+                                            ${allpayments}
+                                    </div>
+                                </div>
 
-                                <c:forEach items="${payments}" var="payment">
-                                    <tr align="center">
-                                        <td>${payment.cardNumber}</td>
-                                        <td>${payment.appointment}</td>
-                                        <td>${payment.date}</td>
-                                        <td>${payment.sum }</td>
-                                        <td>
-                                            <c:if test="${payment.condition}">
-                                                <fmt:message key="home.payments.success"/>
-                                            </c:if>
-                                            <c:if test="${!payment.condition}">
-                                                <fmt:message key="home.payments.error"/>
-                                            </c:if>
-                                        </td>
-                                        <td>
-                                            <a href="?command=repeatPayment&paymentId=${payment.paymentId}">
-                                                <fmt:message key="home.payments.repeat"/>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
+                                <div class="content-box-large box-with-header">
+                                    <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                                        <th>${receiverCard}</th>
+                                        <th>${payment_sum}</th>
+                                        <th>${payment_date}</th>
+                                        <th>${payment_appointment}</th>
+                                        <th>${status}</th>
+                                        <th></th>
+
+                                        <c:forEach items="${payments}" var="payment">
+                                            <tr align="center">
+                                                <td>${payment.cardNumber}</td>
+                                                <td>${payment.sum}</td>
+                                                <td>${payment.date}</td>
+                                                <td>${payment.appointment}</td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${payment.condition}">
+                                                            ${payment_success}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${payment_error}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td>
+                                                    <a href="?command=repeatPayment&paymentId=${payment.paymentId}">
+                                                            ${payment_repeat}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </c:if>
-                </div>
-            </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <span class="showOrCreate-label">
+                        <label>
+                            <b>
+                                <a id="linkOnShowAccounts" href="?command=showAccounts">
+                                    <fmt:message key="sidebar.showAccounts"/></a>
+                                OR
+                                <a href="?command=createAccount">
+                                    <fmt:message key="sidebar.createAccount"/></a>
+                            </b>
+                        </label>
+                    </span>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>

@@ -39,24 +39,25 @@ public class ControllerHelper {
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
-        adminCommands.put("adduser", new CommandAddUser());
-        adminCommands.put("addCard", new CommandAddCard());
+        adminCommands.put("addUser", new CommandAddUser());
         adminCommands.put("addAccount", new CommandAddAccount());
-        adminCommands.put("unblockCard", new CommandUnblockCreditCard());
-        adminCommands.put("showcards", new CommandShowUserCards());
-        adminCommands.put("showAllUsers", new CommandShowAllUsers());
-        adminCommands.put("showuserinfo", new CommandShowUserInfo());
-        adminCommands.put("unblock", new CommandUnblockAccount());
+        adminCommands.put("addCard", new CommandAddCard());
         adminCommands.put("deleteCard", new CommandDeleteCard());
         adminCommands.put("add-funds", new CommandAddFunds());
+        adminCommands.put("showcards", new CommandShowUserCards());
+        adminCommands.put("showuserinfo", new CommandShowUserInfo());
+        adminCommands.put("showAllUsers", new CommandShowAllUsers());
+        adminCommands.put("unblock", new CommandUnblockAccount());
+        adminCommands.put("unblockCard", new CommandUnblockCreditCard());
 
         // Client commands
         userCommands.put("logout", new CommandLogout());
-        userCommands.put("blockaccount", new CommandBlockAccount());
-        userCommands.put("showinfo", new CommandShowAccountInfo());
-        userCommands.put("create-payment", new CommandCreatePayment());
         userCommands.put("showAccounts", new CommandShowAccounts());
+        userCommands.put("createAccount", new CommandCreateAccount());
+        userCommands.put("showInfo", new CommandShowAccountInfo());
+        userCommands.put("createPayment", new CommandCreatePayment());
         userCommands.put("repeatPayment", new CommandRepeatPayment());
+        userCommands.put("blockAccount", new CommandBlockAccount());
         userCommands.put("blockCard", new CommandBlockCreditCard());
     }
 

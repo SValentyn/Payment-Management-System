@@ -13,6 +13,7 @@ public class ResourceManager {
     public static final String HOME = "HOME";
     public static final String ADMIN = "ADMIN";
     public static final String ERROR = "ERROR";
+    public static final String CREATE_ACCOUNT = "CREATE_ACCOUNT";
     public static final String ADD_USER = "ADD_USER";
     public static final String ADD_CARD = "ADD_CARD";
     public static final String SHOW_CARDS = "SHOW_CARDS";

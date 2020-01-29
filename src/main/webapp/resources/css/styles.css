@@ -262,16 +262,15 @@
 }
 
 .sidebar .nav > li > a {
+    border-top: 0px;
+    display: block;
+    padding: 15px 15px;
+    background: none;
+    font-weight: bold;
     font-size: 14px;
     line-height: 20px;
-    padding: 15px 15px;
-    color: #999;
-    display: block;
-    font-weight: bold;
-    background: none;
     text-decoration: none;
-    border-top: 0px;
-    font-weight: bold;
+    color: rgba(103, 100, 100, 0.8);
 }
 
 .sidebar .nav > li > a > i {
@@ -427,6 +426,23 @@ body {
     font-size: 12px;
     font-weight: lighter;
     color: #ba0000;
+}
+
+.create-error-label {
+    text-align: left;
+    padding-bottom: 2px;
+    font-size: 12px;
+    font-weight: lighter;
+    color: #ba0000;
+}
+
+.showOrCreate-label {
+    font-size: 28px;
+    text-decoration: none;
+}
+
+.showOrCreate-label:hover {
+    text-decoration: none;
 }
 
 .login-wrapper .box {
@@ -637,6 +653,14 @@ body {
 
 .panel-body {
     clear: both;
+}
+
+th {
+    text-align: center;
+}
+
+tr {
+
 }
 
 /****************/

@@ -16,11 +16,10 @@ public class CommandAddAccount implements ICommand {
         // Data
         String userId = request.getParameter("userId");
         String number = request.getParameter("number");
-        String balance = request.getParameter("balance");
 
         // Checks and creates
-        if (userId != null && number != null && balance != null) {
-            AccountService.getInstance().createAccount(Integer.parseInt(userId), number, new BigDecimal(balance));
+        if (userId != null && number != null) {
+            AccountService.getInstance().createAccount(Integer.parseInt(userId), number);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
             request.getSession().setAttribute("userId", userId);
         }

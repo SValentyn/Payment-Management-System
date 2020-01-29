@@ -20,12 +20,14 @@ import java.util.List;
 public class AccountService {
 
     private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
-    private static AccountService instance = null;
+
     private AccountDao accountDao = DaoFactory.createAccountDao();
     private CreditCardDao creditCardDao = DaoFactory.createCreditCardDao();
 
     private AccountService() throws SQLException {
     }
+
+    private static AccountService instance = null;
 
     public static synchronized AccountService getInstance() throws SQLException {
         if (instance == null) {
@@ -37,14 +39,17 @@ public class AccountService {
     /**
      * Creates new account
      */
-    public void createAccount(Integer userId, String number, BigDecimal balance) {
-        if (number != null && userId != null && balance != null) {
+    public int createAccount(Integer userId, String number) {
+        int status = 0;
+        if (userId != null && number != null) {
             Account account = new Account();
             account.setUserId(userId);
             account.setNumber(number);
-            account.setBalance(balance);
+            account.setBalance(new BigDecimal(0));
             account.setIsBlocked(false);
+            status = accountDao.create(account);
         }
+        return status;
     }
 
     /**
