@@ -15,84 +15,103 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/styles.css" rel="stylesheet">
-    <link href="resources/css/forms.css" rel="stylesheet">
+    <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css"/>
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
 </head>
 <body>
 <jsp:include page="template/header.jsp"/>
 
 <div class="page-content">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2" style="margin-top: 50px;">
             <jsp:include page="template/sidebar.jsp"/>
         </div>
-        <div class="col-md-10">
+
+        <div class="page-content container">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="content-box-large">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <fmt:message key="addCard.addNewCard"/>
-                            </div>
-                            <c:if test="${cardError}">
-                                <fmt:message key="addCard.cardError"/>
-                            </c:if>
-                        </div>
-                        <fmt:message key="addCard.number" var="number"/>
-                        <fmt:message key="addCard.cvv" var="cvv"/>
-                        <fmt:message key="addCard.validity" var="validity"/>
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-wrapper"
+                         style="top: 0px; display: inline-block;  margin-top: 50px;margin-bottom: 30px;">
+                        <div class="box" style="padding-bottom: 0px;">
+                            <div class="content-wrap">
+                                <fmt:message key="addCard.addNewCard" var="addNewCard"/>
+                                <fmt:message key="addCard.number" var="number"/>
+                                <fmt:message key="addCard.cvv" var="cvv"/>
+                                <fmt:message key="addCard.validity" var="validity"/>
 
-                        <div class="panel-body">
-                            <form action="accounts" class="form-horizontal" role="form" method="POST">
-                                <input type="hidden" name="command" value="addCard"> <input
-                                    type="hidden" name="accountId" value="${accountId}">
+                                <h4 style="font-size: 26px; margin-bottom: 30px; text-align: center;">
+                                    ${addNewCard}
+                                </h4>
 
-                                <div class="form-group">
-                                    <label for="number" class="col-sm-2 control-label">${number}</label>
-                                    <label>
+                                <form action="?command=addCard" class="form-horizontal" role="form" method="POST">
+                                    <input type="hidden" name="command" value="addCard">
+
+                                    <select name="accountId" class="form-control"
+                                            style="text-align: center; height: 42px; margin-bottom: 2px; font-size: 18px;">
+                                        <option>
+                                            <fmt:message key="addCard.selectAccount"/>
+                                        </option>
+                                        <c:forEach items="${accounts}" var="account">
+                                            <option value="${account.accountId}">${account.number}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label class="create-error-label"> <!-- for="accountId" -->
+                                        <c:if test="${accountIdError}">
+                                            <fmt:message key="addCard.accountIdError"/>
+                                        </c:if>
+                                    </label>
+
+                                    <input type="text" name="number" class="form-control"
+                                           id="number" placeholder="${number}*"
+                                           value="${numberValue}"
+                                    />
+                                    <label for="number" class="create-error-label">
                                         <c:if test="${numberError}">
                                             <fmt:message key="addCard.numberError"/>
                                         </c:if>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="number" class="form-control"
-                                               id="number" placeholder="${number}" value="${numberValue}">
-                                    </div>
-                                </div>
+                                    </label>&nbsp;
 
-                                <div class="form-group">
-                                    <label for="cvv" class="col-sm-2 control-label">${cvv}</label>
-                                    <label>
+                                    <input type="text" name="cvv" class="form-control"
+                                           id="cvv" placeholder="${cvv}*"
+                                           value="${cvvValue}"
+                                    />
+                                    <label for="cvv" class="create-error-label">
                                         <c:if test="${cvvError}">
                                             <fmt:message key="addCard.cvvError"/>
                                         </c:if>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="cvv" class="form-control"
-                                               id="cvv" placeholder="${cvv}" value="${cvvValue}">
-                                    </div>
-                                </div>
+                                    </label>&nbsp;
 
-                                <div class="form-group">
-                                    <label for="validity" class="col-sm-2 control-label">${validity}</label>
-                                    <label>
+                                    <div style="width: 100%;">
+                                        <input name="validity" class="form-control"
+                                               id="validity" style="height: 42px; "
+                                               value="${validityValue}"
+                                        />
+                                    </div>
+
+                                    <label for="validity" class="create-error-label">
                                         <c:if test="${validityError}">
                                             <fmt:message key="addCard.validityError"/>
                                         </c:if>
                                     </label>
-                                    <div class="col-sm-10">
-                                        <input type="date" name="validity" class="form-control"
-                                               id="validity" placeholder="${validity}" value="${validityValue}">
-                                    </div>
-                                </div>
+                                    <label for="validity" class="create-error-label">
+                                        <c:if test="${cardError}">
+                                            <fmt:message key="addCard.cardError"/>
+                                        </c:if>
+                                    </label>&nbsp;
+                                    <script type="text/javascript">
+                                        jQuery(function ($) {
+                                            $("#validity").shieldDatePicker();
+                                        });
+                                    </script>
 
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-primary">
+                                    <div class="action">
+                                        <button type="submit" class="btn btn-primary signup">
                                             <fmt:message key="addCard.button.add"/>
                                         </button>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
