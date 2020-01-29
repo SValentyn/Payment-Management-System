@@ -28,6 +28,13 @@
             </div>
         </div>
     </div>
+    <form class="language-form">
+        <select id="language" name="language" onchange="submit()">
+            <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
+            <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
+            <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
+        </select>
+    </form>
 </div>
 
 <!-- Alert -->
