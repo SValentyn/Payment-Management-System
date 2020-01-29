@@ -17,7 +17,16 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2" style="margin-left: 300px;">
+    <div style="margin-left: 350px;">
+        <form class="language-form">
+            <select id="language" name="language" onchange="submit()">
+                <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
+                <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
+                <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
+            </select>
+        </form>
+    </div>
+    <div class="col-md-2" style="margin-left: 20px;">
         <div class="navbar navbar-inverse" role="banner">
             <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                 <ul class="nav navbar-nav">
@@ -29,7 +38,8 @@
                         <ul class="dropdown-menu animated fadeInUp" style="width: 140px;">
                             <li>
                                 <a href="?command=logout" style="display: inline-flex;">
-                                    <p style="margin-bottom: 0px; margin-right: 60px;"><fmt:message key="header.logout"/></p>
+                                    <p style="margin-bottom: 0px; margin-right: 60px;"><fmt:message
+                                            key="header.logout"/></p>
                                     <img src="resources/images/exit-icon.png"
                                          alt="<fmt:message key="header.logout"/>"
                                          title="<fmt:message key="header.logout"/>"
