@@ -6,7 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.CreditCardService;
-import com.system.utils.StringValidator;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +19,12 @@ public class CommandAddCard implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADD_CARD);
+
         User user = (User) request.getSession().getAttribute("currentUser");
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
         request.setAttribute("created", false);
+        request.setAttribute("cardCreateError", false);
+        request.setAttribute("numberExistError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -55,7 +58,8 @@ public class CommandAddCard implements ICommand {
             // Create
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, validity);
             if (status == 0) {
-                cardCreateError(request);
+                request.setAttribute("cardCreateError", true);
+                setRequestAttributes(request, number, CVV, validity);
             } else {
                 request.setAttribute("created", true);
             }
@@ -65,24 +69,15 @@ public class CommandAddCard implements ICommand {
     }
 
     private boolean checkAccountId(HttpServletRequest request, String accountId) {
-        if (accountId == null || accountId.isEmpty() || !isNumeric(accountId)) {
+        if (accountId == null || accountId.isEmpty() || !Validator.isNumeric(accountId)) {
             request.setAttribute("accountIdError", true);
             return true;
         }
         return false;
     }
 
-    private boolean isNumeric(String strNum) {
-        try {
-            Integer.parseInt(strNum);
-        } catch (NumberFormatException | NullPointerException e) {
-            return false;
-        }
-        return true;
-    }
-
     private boolean checkCardNumber(HttpServletRequest request, String number) {
-        if (number.isEmpty() || !StringValidator.checkCardNumber(number)) {
+        if (number.isEmpty() || !Validator.checkCardNumber(number)) {
             request.setAttribute("numberError", true);
             return true;
         }
@@ -90,7 +85,7 @@ public class CommandAddCard implements ICommand {
     }
 
     private boolean checkCVV(HttpServletRequest request, String CVV) {
-        if (CVV.isEmpty() || !StringValidator.checkCVV(CVV)) {
+        if (CVV.isEmpty() || !Validator.checkCVV(CVV)) {
             request.setAttribute("cvvError", true);
             return true;
         }
@@ -103,10 +98,6 @@ public class CommandAddCard implements ICommand {
             return true;
         }
         return false;
-    }
-
-    private void cardCreateError(HttpServletRequest request) {
-        request.setAttribute("cardError", true);
     }
 
     private void setRequestAttributes(HttpServletRequest request, String number, String CVV, String validity) {

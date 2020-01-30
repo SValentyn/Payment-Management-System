@@ -17,6 +17,7 @@ public class CommandBlockAccount implements ICommand {
 
         User user = (User) request.getSession().getAttribute("currentUser");
         String accountId = request.getParameter("accountId");
+        request.setAttribute("blockAccountError", false);
 
         if (accountId != null) {
             AccountService.getInstance().blockAccount(Integer.parseInt(accountId));
@@ -26,6 +27,8 @@ public class CommandBlockAccount implements ICommand {
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
             request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(Integer.parseInt(accountId)));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
+        } else {
+            request.setAttribute("blockAccountError", true);
         }
 
         return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
