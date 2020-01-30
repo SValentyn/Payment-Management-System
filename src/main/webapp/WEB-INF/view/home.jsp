@@ -58,16 +58,18 @@
                                                 <tr>
                                                     <td>${account.number}</td>
                                                     <td>${account.balance}</td>
-                                                    <td>
-                                                        <c:choose>
-                                                            <c:when test="${account.isBlocked}">
-                                                                ${statusBlocked}
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                ${statusActive}
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
+                                                    <c:choose>
+                                                        <c:when test="${account.isBlocked}">
+                                                            <td style="color: darkred;">
+                                                                    ${statusBlocked}
+                                                            </td>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <td style="color: darkgreen;">
+                                                                    ${statusActive}
+                                                            </td>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                     <td>
                                                         <c:if test="${!account.isBlocked}">
                                                             <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
@@ -118,16 +120,18 @@
                                                 <tr>
                                                     <td>${account.number}</td>
                                                     <td>${account.balance}</td>
-                                                    <td>
-                                                        <c:choose>
-                                                            <c:when test="${account.isBlocked}">
-                                                                ${statusBlocked}
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                ${statusActive}
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
+                                                    <c:choose>
+                                                        <c:when test="${account.isBlocked}">
+                                                            <td style="color: darkred;">
+                                                                    ${statusBlocked}
+                                                            </td>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <td style="color: darkgreen;">
+                                                                    ${statusActive}
+                                                            </td>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                     <td>
                                                         <c:if test="${!account.isBlocked}">
                                                             <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
@@ -171,16 +175,18 @@
                                                 <td>${card.number}</td>
                                                 <td>${card.CVV}</td>
                                                 <td>${card.validity}</td>
-                                                <td>
-                                                    <c:choose>
-                                                        <c:when test="${card.isActive}">
-                                                            ${statusActive}
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${statusBlocked}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
+                                                <c:choose>
+                                                    <c:when test="${card.isActive}">
+                                                        <td style="color: darkgreen;">
+                                                                ${statusActive}
+                                                        </td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td style="color: darkred;">
+                                                                ${statusBlocked}
+                                                        </td>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <td>
                                                     <c:if test="${card.isActive}">
                                                         <a href="?command=blockCard&cardNumber=${card.number}">${block}</a>
@@ -226,16 +232,18 @@
                                                 <td>${payment.sum}</td>
                                                 <td>${payment.date}</td>
                                                 <td>${payment.appointment}</td>
-                                                <td>
-                                                    <c:choose>
-                                                        <c:when test="${payment.condition}">
-                                                            ${payment_success}
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${payment_error}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
+                                                <c:choose>
+                                                    <c:when test="${payment.condition}">
+                                                        <td style="color: darkgreen;">
+                                                                ${payment_success}
+                                                        </td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td style="color: darkred;">
+                                                                ${payment_error}
+                                                        </td>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <td>
                                                     <a href="?command=repeatPayment&paymentId=${payment.paymentId}">${payment_repeat}</a>
                                                 </td>
