@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,13 +24,15 @@ import java.util.List;
 public class PaymentService {
 
     private static final Logger LOGGER = LogManager.getLogger(PaymentService.class);
-    private static PaymentService instance = null;
+
     private AccountDao accountDao = DaoFactory.createAccountDao();
     private CreditCardDao creditCardDao = DaoFactory.createCreditCardDao();
     private PaymentDao paymentDao = DaoFactory.createPaymentDao();
 
     private PaymentService() throws SQLException {
     }
+
+    private static PaymentService instance = null;
 
     public static synchronized PaymentService getInstance() throws SQLException {
         if (instance == null) {
@@ -41,28 +44,31 @@ public class PaymentService {
     /**
      * Checks all conditions, forms payment and adds is to database
      */
-    public synchronized int formPayment(Integer accountId, String number, BigDecimal sum, Double percent, String appointment) {
+    public synchronized int formPayment(Integer accountId, String number, BigDecimal amount, String appointment) {
+        int status = 0;
         Payment payment = new Payment();
         payment.setAccountId(accountId);
         payment.setCardNumber(number);
-        payment.setSum(sum);
+        payment.setSum(amount);
         payment.setAppointment(appointment);
-        payment.setDate(new Date().toString());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        payment.setDate(formatter.format(new Date()));
 
         Account accountFrom = accountDao.findAccountById(accountId);
         CreditCard receiverCard = checkAvailableCard(number);
-        BigDecimal finalSum = checkAvailableSum(sum, accountFrom, percent);
 
-        if (receiverCard != null && finalSum != null) {
+        if (receiverCard != null && checkAvailableSum(accountFrom, amount)) {
             Account accountTo = accountDao.findAccountById(receiverCard.getAccountId());
-            withdrawFunds(accountFrom, accountFrom.getBalance().subtract(finalSum));
-            addFunds(accountTo, accountTo.getBalance().add(finalSum));
+            transaction(accountFrom, accountTo, amount);
             payment.setCondition(true);
+            status = paymentDao.create(payment);
         } else {
             payment.setCondition(false);
             LOGGER.error("Payment arrangement error!");
+            return status;
         }
-        return paymentDao.create(payment);
+
+        return status;
     }
 
     /**
@@ -71,7 +77,7 @@ public class PaymentService {
     private synchronized CreditCard checkAvailableCard(String number) {
         CreditCard creditCard = creditCardDao.findCreditCardByCardNumber(number);
         if (creditCard != null) {
-            if (!creditCard.getIsActive())
+            if (!creditCard.getIsActive()) // blocked
                 creditCard = null;
         }
         return creditCard;
@@ -80,35 +86,23 @@ public class PaymentService {
     /**
      * Checks and form final sum with percent for payment
      */
-    private synchronized BigDecimal checkAvailableSum(BigDecimal paymentSum, Account account, Double percent) {
-        BigDecimal finalSum = null;
+    private synchronized boolean checkAvailableSum(Account account, BigDecimal paymentSum) {
         BigDecimal balance = account.getBalance();
-        BigDecimal checkSum = paymentSum.add(paymentSum.multiply(BigDecimal.valueOf(percent)));
-        if (checkSum.compareTo(balance) < 0 || checkSum.compareTo(balance) == 0) {
-            finalSum = checkSum;
-        }
-
-        return finalSum;
+        return balance.compareTo(paymentSum) >= 0;
     }
 
     /**
-     * Checks if account isn't blocked and withdraw funds from account
+     * Checks if accounts are locked and performs a transaction between them
      */
-    private synchronized void withdrawFunds(Account account, BigDecimal balance) {
-        if (!account.getIsBlocked()) {
-            account.setBalance(balance);
-            accountDao.update(account);
+    private synchronized void transaction(Account accountFrom, Account accountTo, BigDecimal amount) {
+        if (!accountFrom.getIsBlocked() && !accountTo.getIsBlocked()) {
+            accountFrom.setBalance(accountFrom.getBalance().subtract(amount));
+            accountTo.setBalance(accountTo.getBalance().add(amount));
+            accountDao.update(accountFrom);
+            accountDao.update(accountTo);
         } else {
-            LOGGER.info("Attempt to withdraw funds in blocked account!");
+            LOGGER.info("Trying to withdraw or add funds to a blocked account!");
         }
-    }
-
-    /**
-     * Set new balance to account who receives funds
-     */
-    private synchronized void addFunds(Account account, BigDecimal balance) {
-        account.setBalance(balance);
-        accountDao.update(account);
     }
 
     /**
