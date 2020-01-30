@@ -15,85 +15,125 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/styles.css" rel="stylesheet">
-    <link href="resources/css/forms.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="template/header.jsp"/>
 
 <div class="page-content">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2" style="margin-top: 50px;">
             <jsp:include page="template/sidebar.jsp"/>
         </div>
-        <div class="col-md-10">
+
+        <!-- Alert Success -->
+        <c:if test="${created == true}">
+            <div id="alert" class="alert alert-success fade in" role="alert" style="width: 302px; margin-top: 20px;">
+                <p><strong>Success!</strong> Payment completed.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <!-- Alert Danger -->
+        <c:if test="${numberNotExistError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 430px; margin-top: 20px;">
+                <p><strong>Failed!</strong> Perhaps such a card is not in the system.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <!-- Alert Danger -->
+        <c:if test="${paymentError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 260px; margin-top: 20px;">
+                <p><strong>Failed!</strong> Insufficient funds.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <div class="page-content container">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="content-box-large">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-wrapper" style="top: 0px; display: inline-block; margin-top: 50px;">
+                        <div class="box" style="height: 530px;">
+                            <div class="content-wrap">
+                                <fmt:message key="makepayment.createNewPayment" var="createNewPayment"/>
+                                <fmt:message key="makepayment.fromAccount" var="from"/>
+                                <fmt:message key="makepayment.toCreditCard" var="to"/>
+                                <fmt:message key="makepayment.number" var="number"/>
+                                <fmt:message key="makepayment.amount" var="amount"/>
+                                <fmt:message key="makepayment.appointment" var="appointment"/>
 
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <fmt:message key="makepayment.createNewPayment"/>
-                            </div>
-                        </div>
+                                <h4 style="font-size: 26px; margin-bottom: 30px; text-align: center;">
+                                    ${createNewPayment}
+                                </h4>
 
-                        <div class="panel-body">
-                            <form class="form-horizontal" role="form" method="POST">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                        <fmt:message key="makepayment.selectAccountYouWantToSendFrom"/>
+                                <form action="?command=makePayment" class="form-horizontal" role="form" method="POST">
+                                    <input type="hidden" name="command" value="makePayment">
+
+                                    <select name="accountId" class="form-control"
+                                            style="text-align: center; height: 42px; margin-bottom: 2px; font-size: 18px;">
+                                        <option>
+                                            ${from}
+                                        </option>
+                                        <c:forEach items="${accounts}" var="account">
+                                            <option value="${account.accountId}">${account.number}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label class="create-error-label"> <!-- for="accountId" -->
+                                        <c:if test="${accountIdError}">
+                                            <fmt:message key="makepayment.accountIdError"/>
+                                        </c:if>
                                     </label>
-                                    <div class="col-sm-10">
-                                        <select name="account">
-                                            <option>
-                                                <fmt:message key="makepayment.selectAccount"/>
-                                            </option>
-                                            <c:forEach items="${accounts}" var="account">
-                                                <option value="${account.accountId}">${account.number}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                        <fmt:message key="makepayment.enterNumber"/>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <fmt:message key="home.account.number" var="number"/>
+                                    <div style="width: 100%;">
+                                        <label for="number">
+                                            ${to}
+                                        </label>
                                         <input type="text" name="number" class="form-control"
-                                               id="number" placeholder="${number}" value="${numberValue}">
+                                               id="number" placeholder="${number}*"
+                                               value="${numberValue}"
+                                        />
                                     </div>
-                                </div>
+                                    <label for="number" class="create-error-label">
+                                        <c:if test="${numberError}">
+                                            <fmt:message key="makepayment.numberError"/>
+                                        </c:if>
+                                    </label>&nbsp;
 
-                                <div class="form-group">
-                                    <label for="summa" class="col-sm-2 control-label">
-                                        <fmt:message key="makepayment.enterSum"/>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <fmt:message key="home.payments.sum" var="summa"/>
-                                        <input type="text" name="summa" class="form-control"
-                                               id="summa" placeholder="${summa}" value="${summaValue}">
+                                    <input type="text" name="amount" class="form-control"
+                                           id="amount" placeholder="${amount}*"
+                                           value="${amountValue}"
+                                    />
+                                    <label for="amount" class="create-error-label">
+                                        <c:if test="${amountError}">
+                                            <fmt:message key="makepayment.amountError"/>
+                                        </c:if>
+                                    </label>&nbsp;
+
+                                    <div style="width: 100%;">
+                                        <label for="appointment">
+                                            ${appointment}
+                                        </label>
+                                        <textarea name="appointment" id="appointment" class="form-control"
+                                                  style="width: 100%; height: 75px; resize: none; outline: none; overflow-x: hidden;"
+                                        ></textarea>
+                                        <div class="counter" style="color: #929292; font-size: 14px; text-align: right; padding-right: 3px;">
+                                            < <span id="counter"></span> >
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="appointment" class="col-sm-2 control-label"><fmt:message
-                                            key="makepayment.appointment"/></label>
-                                    <div class="col-sm-10">
-											<textarea name="appointment" id="appointment" rows="5" cols="50">
-                                                ${appointmentValue}
-                                            </textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-primary">
-                                            <fmt:message key="makepayment.ok"/>
+                                    <div class="action" style="padding-bottom: 0px;padding-top: 30px;">
+                                        <button type="submit" class="btn btn-primary signup">
+                                            <fmt:message key="makepayment.makePayment"/>
                                         </button>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

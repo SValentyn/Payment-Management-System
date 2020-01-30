@@ -44,7 +44,7 @@ public class CommandRepeatPayment implements ICommand {
             request.setAttribute("appointmentValue", appointment);
             return ResourceManager.getInstance().getProperty(ResourceManager.MAKE_PAYMENT);
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
-            PaymentService.getInstance().formPayment(accountId, number, sum, PERCENT, appointment);
+            PaymentService.getInstance().formPayment(accountId, number, sum, appointment);
         }
 
         return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
