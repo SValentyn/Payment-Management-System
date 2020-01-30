@@ -55,7 +55,7 @@ public class CreditCardService {
                 creditCard.setAccountId(Integer.parseInt(accountId));
                 creditCard.setNumber(number);
                 creditCard.setCVV(CVV);
-                creditCard.setValidity(date.toString());
+                creditCard.setValidity(formatter.format(date));
                 creditCard.setIsActive(true);
                 status = creditCardDao.create(creditCard);
             }
