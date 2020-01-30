@@ -104,6 +104,13 @@ public class CreditCardService {
     }
 
     /**
+     * Finds all credit card by card number
+     */
+    public CreditCard findCardByCardNumber(String number) {
+        return creditCardDao.findCreditCardByCardNumber(number);
+    }
+
+    /**
      * Finds all credit cards in the DB
      */
     public List<CreditCard> findAllCards() {
