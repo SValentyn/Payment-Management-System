@@ -121,7 +121,7 @@
                                         </label>
                                         <textarea name="appointment" id="appointment" class="form-control"
                                                   style="width: 100%; height: 75px; resize: none; outline: none; overflow-x: hidden;"
-                                        ></textarea>
+                                        >${appointmentValue}</textarea>
                                         <div class="counter" style="color: #929292; font-size: 14px; text-align: right; padding-right: 3px;">
                                             < <span id="counter"></span> >
                                         </div>
