@@ -77,67 +77,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12" style="margin-top: 350px;">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <fmt:message key="home.allaccounts" var="allaccounts"/>
-                            <fmt:message key="home.account.number" var="number"/>
-                            <fmt:message key="home.account.balance" var="balance"/>
-                            <fmt:message key="home.account.status" var="status"/>
-                            <fmt:message key="home.account.action" var="action"/>
-                            <fmt:message key="home.account.status.active" var="statusActive"/>
-                            <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
-                            <fmt:message key="home.account.button.block" var="block"/>
-                            <fmt:message key="home.account.button.showInfo" var="showInfo"/>
-
-                            <div class="content-box-header">
-                                <div class="panel-title">
-                                    ${allaccounts}
-                                </div>
-                            </div>
-
-                            <div class="content-box-large box-with-header">
-                                <table>
-                                    <th>${number}</th>
-                                    <th>${balance}</th>
-                                    <th>${status}</th>
-                                    <th>${action}</th>
-                                    <th></th>
-
-                                    <c:forEach items="${accounts}" var="account">
-                                        <tr>
-                                            <td>${account.number}</td>
-                                            <td>${account.balance}</td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${account.isBlocked}">
-                                                        ${statusBlocked}
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        ${statusActive}
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
-                                            <td>
-                                                <c:if test="${!account.isBlocked}">
-                                                    <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <a href="?command=showInfo&accountId=${account.accountId}">${showInfo}</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
-
 <jsp:include page="template/footer.jsp"/>
 </body>
 </html>
