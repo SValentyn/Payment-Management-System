@@ -15,7 +15,8 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/styles.css" rel="stylesheet">
-    <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css"/>
+    <link id="themecss" rel="stylesheet" type="text/css"
+          href="//www.shieldui.com/shared/components/latest/css/light/all.min.css"/>
     <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
 </head>
@@ -42,7 +43,7 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="login-wrapper"
-                         style="top: 0px; display: inline-block;  margin-top: 50px;margin-bottom: 30px;">
+                         style="top: 0px; display: inline-block; margin-top: 50px;">
                         <div class="box" style="padding-bottom: 0px;">
                             <div class="content-wrap">
                                 <fmt:message key="addCard.addNewCard" var="addNewCard"/>
@@ -97,7 +98,11 @@
                                         </c:if>
                                     </label>&nbsp;
 
-                                    <div style="width: 100%;">
+                                    <div style="width: 100%; text-align: center;">
+                                        <label for="validity"
+                                               style="margin-right: 15px; margin-bottom: 0px; color: #555555; font-weight: normal; font-size: 18px;">
+                                            ${validity}
+                                        </label>
                                         <input name="validity" class="form-control"
                                                id="validity" style="height: 42px; "
                                                value="${validityValue}"
