@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
@@ -15,84 +16,89 @@ public class CommandAddCard implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String accountId = request.getParameter("accountId");
-        String method = request.getMethod();
-
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADD_CARD);
+        User user = (User) request.getSession().getAttribute("currentUser");
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+        request.setAttribute("created", false);
 
+        String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            request.setAttribute("accountId", accountId);
+            return page;
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Data
+            String accountId = request.getParameter("accountId");
             String number = request.getParameter("number");
             String CVV = request.getParameter("cvv");
             String validity = request.getParameter("validity");
 
             // Check
-            if (checkCardNumber(request, accountId, number, CVV, validity) ||
-                    checkCVV(request, accountId, number, CVV, validity) ||
-                    checkValidity(request, accountId, number, CVV, validity)) {
+            if (checkAccountId(request, accountId) ||
+                    checkCardNumber(request, number) ||
+                    checkCVV(request, CVV) ||
+                    checkValidity(request, validity)) {
+                setRequestAttributes(request, number, CVV, validity);
                 return page;
             }
 
             // Create
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, validity);
             if (status == 0) {
-                cardCreateError(request, accountId, number, CVV, validity);
+                cardCreateError(request);
             } else {
-                // change page (ADD_CARD -> SHOW_CARDS) and set attributes
-                page = ResourceManager.getInstance().getProperty(ResourceManager.SHOW_CARDS);
-                String userId = (String) request.getSession().getAttribute("userId");
-                if (userId != null)
-                    request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
-                if (accountId != null)
-                    request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(Integer.parseInt(accountId)));
+                request.setAttribute("created", true);
             }
         }
 
         return page;
     }
 
-    private boolean checkCardNumber(HttpServletRequest request, String accountId, String number, String CVV, String validity) {
+    private boolean checkAccountId(HttpServletRequest request, String accountId) {
+        if (accountId == null || accountId.isEmpty() || !isNumeric(accountId)) {
+            request.setAttribute("accountIdError", true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isNumeric(String strNum) {
+        try {
+            Integer.parseInt(strNum);
+        } catch (NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkCardNumber(HttpServletRequest request, String number) {
         if (number.isEmpty() || !StringValidator.checkCardNumber(number)) {
             request.setAttribute("numberError", true);
-            request.setAttribute("accountId", accountId);
-            request.setAttribute("numberValue", number);
-            request.setAttribute("cvvValue", CVV);
-            request.setAttribute("validityValue", validity);
             return true;
         }
         return false;
     }
 
-    private boolean checkCVV(HttpServletRequest request, String accountId, String number, String CVV, String validity) {
+    private boolean checkCVV(HttpServletRequest request, String CVV) {
         if (CVV.isEmpty() || !StringValidator.checkCVV(CVV)) {
             request.setAttribute("cvvError", true);
-            request.setAttribute("accountId", accountId);
-            request.setAttribute("numberValue", number);
-            request.setAttribute("cvvValue", CVV);
-            request.setAttribute("validityValue", validity);
             return true;
         }
         return false;
     }
 
-    private boolean checkValidity(HttpServletRequest request, String accountId, String number, String CVV, String validity) {
-        if (validity.isEmpty()) {
+    private boolean checkValidity(HttpServletRequest request, String validity) {
+        if (validity == null || validity.isEmpty()) {
             request.setAttribute("validityError", true);
-            request.setAttribute("accountId", accountId);
-            request.setAttribute("numberValue", number);
-            request.setAttribute("cvvValue", CVV);
-            request.setAttribute("validityValue", validity);
             return true;
         }
         return false;
     }
 
-    private void cardCreateError(HttpServletRequest request, String accountId, String number, String CVV, String validity) {
+    private void cardCreateError(HttpServletRequest request) {
         request.setAttribute("cardError", true);
-        request.setAttribute("accountId", accountId);
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, String number, String CVV, String validity) {
         request.setAttribute("numberValue", number);
         request.setAttribute("cvvValue", CVV);
         request.setAttribute("validityValue", validity);
