@@ -4,9 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Checks input strings on valid pattern uses for form validation
+ * Validates input strings for validity for form validation
  */
-public class StringValidator {
+public class Validator {
 
     public static boolean checkPhoneNumber(String number) {
         Pattern p = Pattern.compile("\\d{10}");
@@ -37,4 +37,25 @@ public class StringValidator {
         Matcher m = p.matcher(CVV);
         return m.matches();
     }
+
+    public static boolean isNegative(String strNum) {
+        try {
+            if (Integer.parseInt(strNum) < 0) {
+                return true;
+            }
+        } catch (NumberFormatException | NullPointerException e) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isNumeric(String strNum) {
+        try {
+            Integer.parseInt(strNum);
+        } catch (NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        return true;
+    }
+
 }

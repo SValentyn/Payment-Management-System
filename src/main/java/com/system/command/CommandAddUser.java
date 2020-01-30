@@ -3,7 +3,7 @@ package com.system.command;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
-import com.system.utils.StringValidator;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,7 +70,7 @@ public class CommandAddUser implements ICommand {
     }
 
     private boolean checkPhone(HttpServletRequest request, String name, String surname, String phone) {
-        if (phone == null || phone.isEmpty() || !StringValidator.checkPhoneNumber(phone)) {
+        if (phone == null || phone.isEmpty() || !Validator.checkPhoneNumber(phone)) {
             request.setAttribute("phoneError", true);
             request.setAttribute("nameValue", name);
             request.setAttribute("surnameValue", surname);

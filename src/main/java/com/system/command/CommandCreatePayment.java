@@ -7,7 +7,7 @@ import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.CreditCardService;
 import com.system.service.PaymentService;
-import com.system.utils.StringValidator;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +52,7 @@ public class CommandCreatePayment implements ICommand {
             List<String> allCardNumbers = new ArrayList<>();
 
             for (CreditCard card : allCards) {
-               allCardNumbers.add(card.getNumber());
+                allCardNumbers.add(card.getNumber());
             }
 
             if (!allCardNumbers.contains(number)) {
@@ -74,7 +74,7 @@ public class CommandCreatePayment implements ICommand {
     }
 
     private boolean checkAccountId(HttpServletRequest request, String accountId) {
-        if (accountId == null || accountId.isEmpty() || !isNumeric(accountId)) {
+        if (accountId == null || accountId.isEmpty() || !Validator.isNumeric(accountId)) {
             request.setAttribute("accountIdError", true);
             return true;
         }
@@ -82,7 +82,7 @@ public class CommandCreatePayment implements ICommand {
     }
 
     private boolean checkCardNumber(HttpServletRequest request, String number) {
-        if (number.isEmpty() || !StringValidator.checkCardNumber(number)) {
+        if (number.isEmpty() || !Validator.checkCardNumber(number)) {
             request.setAttribute("numberError", true);
             return true;
         }
@@ -90,7 +90,7 @@ public class CommandCreatePayment implements ICommand {
     }
 
     private boolean checkAmount(HttpServletRequest request, String amount) {
-        if (amount == null || amount.isEmpty() || isNegative(amount)) {
+        if (amount == null || amount.isEmpty() || Validator.isNegative(amount)) {
             request.setAttribute("amountError", true);
             return true;
         }
@@ -105,26 +105,6 @@ public class CommandCreatePayment implements ICommand {
         request.setAttribute("numberValue", number);
         request.setAttribute("amountValue", amount);
         request.setAttribute("appointmentValue", appointment);
-    }
-
-    private boolean isNumeric(String strNum) {
-        try {
-            Integer.parseInt(strNum);
-        } catch (NumberFormatException | NullPointerException e) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isNegative(String strNum) {
-        try {
-            if (Integer.parseInt(strNum) < 0) {
-                return true;
-            }
-        } catch (NumberFormatException | NullPointerException e) {
-            return true;
-        }
-        return false;
     }
 
 }

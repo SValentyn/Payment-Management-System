@@ -3,12 +3,10 @@ package com.system.command;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
-import com.system.utils.StringValidator;
+import com.system.utils.Validator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class CommandRegistration implements ICommand {
@@ -72,7 +70,7 @@ public class CommandRegistration implements ICommand {
     }
 
     private boolean checkPhone(HttpServletRequest request, String phone) {
-        if (phone == null || phone.isEmpty() || !StringValidator.checkPhoneNumber(phone)) {
+        if (phone == null || phone.isEmpty() || !Validator.checkPhoneNumber(phone)) {
             request.setAttribute("phoneError", true);
             return true;
         }
@@ -80,7 +78,7 @@ public class CommandRegistration implements ICommand {
     }
 
     private boolean checkPassword(HttpServletRequest request, String password) {
-        if (password == null || password.isEmpty() || !StringValidator.checkPassword(password)) {
+        if (password == null || password.isEmpty() || !Validator.checkPassword(password)) {
             request.setAttribute("passwordError", true);
             return true;
         }

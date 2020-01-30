@@ -5,7 +5,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
-import com.system.utils.StringValidator;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +60,7 @@ public class CommandCreateAccount implements ICommand {
     }
 
     private boolean checkNumber(HttpServletRequest request, String number) {
-        if (number == null || number.isEmpty() || !StringValidator.checkAccountNumber(number)) {
+        if (number == null || number.isEmpty() || !Validator.checkAccountNumber(number)) {
             request.setAttribute("numberError", true);
             request.setAttribute("numberValue", number);
             return true;
