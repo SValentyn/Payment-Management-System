@@ -22,6 +22,7 @@ public class CommandCreateAccount implements ICommand {
         User user = (User) request.getSession().getAttribute("currentUser");
         List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
         request.setAttribute("accounts", allAccounts);
+        request.setAttribute("created", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {

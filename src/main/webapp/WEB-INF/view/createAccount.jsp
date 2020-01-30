@@ -51,7 +51,7 @@
                                     <input id="number" name="number" class="form-control" type="text"
                                            placeholder="${numberNewAccount}*"
                                            value="${numberValue}">
-                                    <label for="number" class="create-error-label" style="padding-left: 6px;">
+                                    <label for="number" class="create-error-label">
                                         <c:if test="${numberError}">
                                             <fmt:message key="createAccount.numberError"/>
                                         </c:if>

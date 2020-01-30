@@ -431,6 +431,7 @@ body {
 .create-error-label {
     text-align: left;
     padding-bottom: 2px;
+    padding-left: 6px;
     font-size: 12px;
     font-weight: lighter;
     color: #ba0000;

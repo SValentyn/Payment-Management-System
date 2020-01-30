@@ -27,7 +27,7 @@
         </form>
     </div>
     <div class="col-md-2" style="margin-left: 20px;">
-        <div class="navbar navbar-inverse" role="banner">
+        <div class="navbar navbar-inverse" role="banner" style="width: 300px;">
             <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
