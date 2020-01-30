@@ -39,6 +39,26 @@
             </div>
         </c:if>
 
+        <!-- Alert cardCreateError -->
+        <c:if test="${cardCreateError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 430px; margin-top: 20px;">
+                <p>Failed to add the card to your account.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <!-- Alert numberExistError -->
+        <c:if test="${numberExistError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 460px; margin-top: 20px;">
+                <p><strong>Failed!</strong> A card with the same number already exists.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
         <div class="page-content container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
@@ -81,11 +101,6 @@
                                         <c:if test="${numberError}">
                                             <fmt:message key="addCard.numberError"/>
                                         </c:if>
-                                    </label>
-                                    <label for="number" class="create-error-label">
-                                        <c:if test="${numberExistError}">
-                                            <fmt:message key="addCard.numberExistError"/>
-                                        </c:if>
                                     </label>&nbsp;
 
                                     <input type="text" name="cvv" class="form-control"
@@ -113,12 +128,8 @@
                                         <c:if test="${validityError}">
                                             <fmt:message key="addCard.validityError"/>
                                         </c:if>
-                                    </label>
-                                    <label for="validity" class="create-error-label">
-                                        <c:if test="${cardError}">
-                                            <fmt:message key="addCard.cardError"/>
-                                        </c:if>
                                     </label>&nbsp;
+
                                     <script type="text/javascript">
                                         jQuery(function ($) {
                                             $("#validity").shieldDatePicker();
