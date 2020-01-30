@@ -21,7 +21,9 @@ public class CommandBlockCreditCard implements ICommand {
         }
 
         request.setAttribute("showAccounts", true);
+        request.setAttribute("showAccountInfo", true);
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+
         return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
     }
 
