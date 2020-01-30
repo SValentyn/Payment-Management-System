@@ -55,7 +55,8 @@ public class ControllerHelper {
         userCommands.put("showAccounts", new CommandShowAccounts());
         userCommands.put("createAccount", new CommandCreateAccount());
         userCommands.put("showInfo", new CommandShowAccountInfo());
-        userCommands.put("createPayment", new CommandCreatePayment());
+        userCommands.put("addCard", new CommandAddCard());
+        userCommands.put("makePayment", new CommandCreatePayment());
         userCommands.put("repeatPayment", new CommandRepeatPayment());
         userCommands.put("blockAccount", new CommandBlockAccount());
         userCommands.put("blockCard", new CommandBlockCreditCard());

@@ -28,6 +28,16 @@
             <jsp:include page="template/sidebar.jsp"/>
         </div>
 
+        <!-- Alert -->
+        <c:if test="${created == true}">
+            <div id="alert" class="alert alert-success fade in" role="alert" style="width: 272px; margin-top: 20px;">
+                <p><strong>Success!</strong> Card created.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
         <div class="page-content container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
@@ -69,6 +79,11 @@
                                     <label for="number" class="create-error-label">
                                         <c:if test="${numberError}">
                                             <fmt:message key="addCard.numberError"/>
+                                        </c:if>
+                                    </label>
+                                    <label for="number" class="create-error-label">
+                                        <c:if test="${numberExistError}">
+                                            <fmt:message key="addCard.numberExistError"/>
                                         </c:if>
                                     </label>&nbsp;
 

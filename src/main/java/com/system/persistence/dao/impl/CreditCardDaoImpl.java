@@ -16,6 +16,9 @@ import java.util.List;
 public class CreditCardDaoImpl implements CreditCardDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CreditCardDaoImpl.class);
+
+    private QueryExecutor executor = QueryExecutor.getInstance();
+
     /**
      * SQL queries
      */
@@ -24,11 +27,12 @@ public class CreditCardDaoImpl implements CreditCardDao {
     private static final String DELETE_CARD = "DELETE FROM credit_cards WHERE card_id = ?";
     private static final String FIND_CARD_BY_NUMBER = "SELECT * FROM credit_cards WHERE number = ?";
     private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM credit_cards WHERE account_id = ?";
-    private static CreditCardDaoImpl instance = null;
-    private QueryExecutor executor = QueryExecutor.getInstance();
+    private static final String FIND_ALL_CARDS = "SELECT * FROM credit_cards";
 
     private CreditCardDaoImpl() throws SQLException {
     }
+
+    private static CreditCardDaoImpl instance = null;
 
     public static synchronized CreditCardDaoImpl getInstance() throws SQLException {
         if (instance == null) {
@@ -72,6 +76,20 @@ public class CreditCardDaoImpl implements CreditCardDao {
         List<CreditCard> creditCards = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_CARDS_BY_ACCOUNT_ID, accountId);
+            while (rs.next()) {
+                creditCards.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return creditCards;
+    }
+
+    @Override
+    public List<CreditCard> findAllCards() {
+        List<CreditCard> creditCards = new ArrayList<>();
+        try {
+            ResultSet rs = executor.getResultSet(FIND_ALL_CARDS);
             while (rs.next()) {
                 creditCards.add(createEntity(rs));
             }

@@ -21,11 +21,13 @@ import java.util.List;
 public class CreditCardService {
 
     private static final Logger LOGGER = LogManager.getLogger(CreditCardDaoImpl.class);
-    private static CreditCardService instance = null;
+
     private CreditCardDao creditCardDao = DaoFactory.createCreditCardDao();
 
     private CreditCardService() throws SQLException {
     }
+
+    private static CreditCardService instance = null;
 
     public static synchronized CreditCardService getInstance() throws SQLException {
         if (instance == null) {
@@ -99,6 +101,13 @@ public class CreditCardService {
      */
     public List<CreditCard> findCardsByAccountId(Integer accountId) {
         return creditCardDao.findCardsByAccountId(accountId);
+    }
+
+    /**
+     * Finds all credit cards in the DB
+     */
+    public List<CreditCard> findAllCards() {
+        return creditCardDao.findAllCards();
     }
 
 }

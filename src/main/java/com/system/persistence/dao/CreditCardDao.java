@@ -35,4 +35,10 @@ public interface CreditCardDao {
      * Retrieves credit cards by accountId
      */
     List<CreditCard> findCardsByAccountId(Integer id);
+
+    /**
+     * Retrieves all credit cards
+     */
+    List<CreditCard> findAllCards();
+
 }

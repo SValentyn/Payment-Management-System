@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.CreditCard;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
@@ -10,6 +11,7 @@ import com.system.utils.StringValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CommandAddCard implements ICommand {
 
@@ -39,6 +41,15 @@ public class CommandAddCard implements ICommand {
                     checkValidity(request, validity)) {
                 setRequestAttributes(request, number, CVV, validity);
                 return page;
+            }
+
+            List<CreditCard> allCards = CreditCardService.getInstance().findAllCards();
+            for (CreditCard card : allCards) {
+                if(card.getNumber().equals(number)) {
+                    request.setAttribute("numberExistError", true);
+                    setRequestAttributes(request, number, CVV, validity);
+                    return page;
+                }
             }
 
             // Create
