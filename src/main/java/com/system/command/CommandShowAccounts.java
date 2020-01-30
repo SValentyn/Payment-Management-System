@@ -17,7 +17,10 @@ public class CommandShowAccounts implements ICommand {
 
         User user = (User) request.getSession().getAttribute("currentUser");
         List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        request.setAttribute("noAccounts", false);
+
         if (allAccounts.isEmpty()) {
+            request.setAttribute("noAccounts", true);
             request.setAttribute("showAccounts", false);
         } else {
             request.setAttribute("showAccounts", true);
