@@ -6,7 +6,7 @@
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
-<div class="header">
+<div class="header" style="padding-right: 60px;">
     <div class="container" style="margin-left: 0px;margin-right: 0px;">
         <div class="row">
             <div class="col-md-12">
@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div style="margin-left: 350px;">
+    <div style="margin-left: 0px;">
         <form class="language-form">
             <select id="language" name="language" onchange="submit()">
                 <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>

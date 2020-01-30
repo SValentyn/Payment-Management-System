@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="content-box-large box-with-header">
-                            <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                            <table>
                                 <th><fmt:message key="admin.name"/></th>
                                 <th><fmt:message key="admin.surname"/></th>
                                 <th><fmt:message key="admin.email"/></th>
@@ -50,7 +50,7 @@
                                 <th></th>
 
                                 <c:forEach items="${users}" var="user">
-                                    <tr align="center">
+                                    <tr>
                                         <td>${user.name}</td>
                                         <td>${user.surname}</td>
                                         <td>${user.email}</td>
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="content-box-large box-with-header">
-                            <table border="1" width="100%" cellpadding="4" cellpacing="3">
+                            <table>
                                 <th><fmt:message key="admin.name"/></th>
                                 <th><fmt:message key="admin.surname"/></th>
                                 <th><fmt:message key="admin.email"/></th>
@@ -88,7 +88,7 @@
                                 <th></th>
                                 <th></th>
 
-                                <tr align="center">
+                                <tr>
                                     <td>${user.name}</td>
                                     <td>${user.surname}</td>
                                     <td>${user.email}</td>

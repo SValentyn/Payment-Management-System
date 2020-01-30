@@ -31,7 +31,7 @@
 
         <!-- Alert -->
         <c:if test="${created == true}">
-            <div id="alert" class="alert alert-success fade in" role="alert" style="width: 272px; margin-top: 20px;">
+            <div id="alert" class="alert alert-success fade in" role="alert" style="width: 255px; margin-top: 20px;">
                 <p><strong>Success!</strong> Card created.</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
