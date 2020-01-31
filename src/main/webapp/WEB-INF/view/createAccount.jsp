@@ -7,13 +7,14 @@
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
-<html>
+<!DOCTYPE html>
+<html lang="${language}">
 <head>
     <title><fmt:message key="home.createAccount.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
-    <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
 <jsp:include page="template/header.jsp"/>

@@ -8,15 +8,14 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
 <!DOCTYPE html>
-<html>
+<html lang="${language}">
 <head>
     <title>Add card</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
-    <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/css/styles.css" rel="stylesheet">
-    <link id="themecss" rel="stylesheet" type="text/css"
-          href="//www.shieldui.com/shared/components/latest/css/light/all.min.css"/>
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css"/>
     <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
 </head>

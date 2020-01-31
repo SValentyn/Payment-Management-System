@@ -11,12 +11,11 @@
 <html lang="${language}">
 <head>
     <title><fmt:message key="login.title"/></title>
-    <meta http-equiv="Content-Language" content="en"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
-    <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="resources/css/styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body class="login-bg">
 <div class="header">

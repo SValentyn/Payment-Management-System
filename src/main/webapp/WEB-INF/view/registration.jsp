@@ -8,13 +8,13 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
 <!DOCTYPE html>
-<html>
+<html lang="${language}">
 <head>
     <title><fmt:message key="registration.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
-    <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/styles.css" >
 </head>
 <body class="login-bg">
 <div class="header">

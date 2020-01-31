@@ -7,13 +7,14 @@
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
-<html>
+<!DOCTYPE html>
+<html lang="${language}">
 <head>
     <title><fmt:message key="home.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
-    <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
 <jsp:include page="template/header.jsp"/>
@@ -21,7 +22,9 @@
 <!-- Alert noAccounts -->
 <c:if test="${noAccounts == true}">
     <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 440px; margin-top: 20px;">
-        <p><strong>Failed!</strong> You do not have an account. <a href="/?command=createAccount" class="alert-link">Create</a> it now.</p>
+        <p><strong>Failed!</strong> You do not have an account.
+            <a href="/?command=createAccount" class="alert-link">Create</a>it now.
+        </p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
