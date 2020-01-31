@@ -39,14 +39,14 @@ public class ControllerHelper {
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
-        adminCommands.put("addUser", new CommandAddUser());
         adminCommands.put("addAccount", new CommandAddAccount());
         adminCommands.put("addCard", new CommandAddCard());
+        adminCommands.put("addUser", new CommandAddUser());
         adminCommands.put("deleteCard", new CommandDeleteCard());
         adminCommands.put("showCards", new CommandShowUserCards());
         adminCommands.put("showUserInfo", new CommandShowUserInfo());
         adminCommands.put("showAllUsers", new CommandShowAllUsers());
-        adminCommands.put("unblock", new CommandUnblockAccount());
+        adminCommands.put("unblockAccount", new CommandUnblockAccount());
         adminCommands.put("unblockCard", new CommandUnblockCreditCard());
 
         // Client commands

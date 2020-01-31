@@ -48,5 +48,12 @@
                 </a>
             </c:if>
         </li>
+        <li>
+            <c:if test="${currentUser.role.id == 2}">
+                <a href="?command=addUser">
+                    <fmt:message key="sidebar.addUser"/>
+                </a>
+            </c:if>
+        </li>
     </ul>
 </div>
