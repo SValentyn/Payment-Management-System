@@ -27,7 +27,9 @@ public class CommandCreatePayment implements ICommand {
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
         request.setAttribute("created", false);
         request.setAttribute("numberNotExistError", false);
-        request.setAttribute("paymentError", false);
+        request.setAttribute("accountFromBlockedError", false);
+        request.setAttribute("receiverAccountOrCardBlockedError", false);
+        request.setAttribute("insufficientFundsError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -58,13 +60,20 @@ public class CommandCreatePayment implements ICommand {
             if (!allCardNumbers.contains(number)) {
                 setRequestAttributes(request, number, amount, appointment);
                 request.setAttribute("numberNotExistError", true);
+                return page;
             }
 
             // Create
-            int status = PaymentService.getInstance().formPayment(Integer.valueOf(accountId), number, new BigDecimal(amount), appointment);
-            if (status == 0) {
+            int status = PaymentService.getInstance().formingPayment(Integer.valueOf(accountId), number, new BigDecimal(amount), appointment);
+            if (status == -1) {
+                request.setAttribute("accountFromBlockedError", true);
                 setRequestAttributes(request, number, amount, appointment);
-                paymentCreateError(request);
+            } else if (status == -2) {
+                request.setAttribute("receiverAccountOrCardBlockedError", true);
+                setRequestAttributes(request, number, amount, appointment);
+            } else if (status == -3) {
+                request.setAttribute("insufficientFundsError", true);
+                setRequestAttributes(request, number, amount, appointment);
             } else {
                 request.setAttribute("created", true);
             }
@@ -95,10 +104,6 @@ public class CommandCreatePayment implements ICommand {
             return true;
         }
         return false;
-    }
-
-    private void paymentCreateError(HttpServletRequest request) {
-        request.setAttribute("paymentError", true);
     }
 
     private void setRequestAttributes(HttpServletRequest request, String number, String amount, String appointment) {
