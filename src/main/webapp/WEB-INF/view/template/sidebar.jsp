@@ -13,17 +13,16 @@
                 <fmt:message key="sidebar.home"/>
             </a>
         </li>
-
         <li>
             <c:if test="${currentUser.role.id == 1}">
-                <a id="linkOnShowAccounts" href="?command=showAccounts">
+                <a href="?command=showAccounts">
                     <fmt:message key="sidebar.showAccounts"/>
                 </a>
             </c:if>
         </li>
         <li>
             <c:if test="${currentUser.role.id == 1}">
-                <a id="" href="?command=createAccount">
+                <a href="?command=createAccount">
                     <fmt:message key="sidebar.createAccount"/>
                 </a>
             </c:if>
@@ -40,15 +39,6 @@
                 <a href="?command=addCard">
                     <fmt:message key="sidebar.addCard"/>
                 </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 2}">
-                <form action="?command=addUser" method="POST">
-                    <fmt:message key="sidebar.addUser" var="addNewUser"/>
-                    <input type="hidden" name="command" value="addUser">
-                    <input type="submit" value="${addNewUser}">
-                </form>
             </c:if>
         </li>
     </ul>
