@@ -1,4 +1,3 @@
-
 /* Header & Navigation */
 .header {
     height: 66px;
@@ -346,7 +345,7 @@
 
 /* Body */
 body {
-    overflow:  hidden;
+    overflow: hidden;
     font-family: 'Open Sans', sans-serif;
     background-color: #f7f7f7;
     position: relative;
@@ -385,6 +384,18 @@ body {
     font-size: 36px;
     text-align: right;
     margin-top: 10px;
+}
+
+.counter {
+    position: inherit;
+    width: 20px;
+    height: 20px;
+    padding-right: 0px;
+    margin-left: 284px;
+    margin-top: 4px;
+    font-size: 14px;
+    text-align: right;
+    color: #929292;
 }
 
 .login-bg {
