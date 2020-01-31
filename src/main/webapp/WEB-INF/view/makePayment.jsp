@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><fmt:message key="makepayment.title"/></title>
+    <title><fmt:message key="home.makepayment.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -35,20 +35,40 @@
             </div>
         </c:if>
 
-        <!-- Alert Danger -->
+        <!-- Alert numberNotExistError -->
         <c:if test="${numberNotExistError == true}">
-            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 430px; margin-top: 20px;">
-                <p><strong>Failed!</strong> Perhaps such a card is not in the system.</p>
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 432px; margin-top: 20px;">
+                <p><strong>Failed!</strong> Such a recipient card is not in the system.</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </c:if>
 
-        <!-- Alert Danger -->
-        <c:if test="${paymentError == true}">
-            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 260px; margin-top: 20px;">
-                <p><strong>Failed!</strong> Insufficient funds.</p>
+        <!-- Alert accountFromBlockedError -->
+        <c:if test="${accountFromBlockedError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 357px; margin-top: 20px;">
+                <p><strong>Failed!</strong> The selected account is locked.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <!-- Alert receiverAccountOrCardBlockedError -->
+        <c:if test="${receiverAccountOrCardBlockedError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 408px; margin-top: 20px;">
+                <p><strong>Failed!</strong> Recipient's account or card is blocked.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <!-- Alert paymentError -->
+        <c:if test="${insufficientFundsError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 378px; margin-top: 20px;">
+                <p><strong>Failed!</strong> Not enough funds in your account.</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,12 +81,12 @@
                     <div class="login-wrapper" style="top: 0px; display: inline-block; margin-top: 50px;">
                         <div class="box" style="height: 530px;">
                             <div class="content-wrap">
-                                <fmt:message key="makepayment.createNewPayment" var="createNewPayment"/>
-                                <fmt:message key="makepayment.fromAccount" var="from"/>
-                                <fmt:message key="makepayment.toCreditCard" var="to"/>
-                                <fmt:message key="makepayment.number" var="number"/>
-                                <fmt:message key="makepayment.amount" var="amount"/>
-                                <fmt:message key="makepayment.appointment" var="appointment"/>
+                                <fmt:message key="home.makepayment.createNewPayment" var="createNewPayment"/>
+                                <fmt:message key="home.makepayment.fromAccount" var="from"/>
+                                <fmt:message key="home.makepayment.toCreditCard" var="to"/>
+                                <fmt:message key="home.makepayment.number" var="number"/>
+                                <fmt:message key="home.makepayment.amount" var="amount"/>
+                                <fmt:message key="home.makepayment.appointment" var="appointment"/>
 
                                 <h4 style="font-size: 26px; margin-bottom: 30px; text-align: center;">
                                     ${createNewPayment}
@@ -86,7 +106,7 @@
                                     </select>
                                     <label class="create-error-label"> <!-- for="accountId" -->
                                         <c:if test="${accountIdError}">
-                                            <fmt:message key="makepayment.accountIdError"/>
+                                            <fmt:message key="home.makepayment.accountIdError"/>
                                         </c:if>
                                     </label>
 
@@ -101,7 +121,7 @@
                                     </div>
                                     <label for="number" class="create-error-label">
                                         <c:if test="${numberError}">
-                                            <fmt:message key="makepayment.numberError"/>
+                                            <fmt:message key="home.makepayment.numberError"/>
                                         </c:if>
                                     </label>&nbsp;
 
@@ -111,25 +131,27 @@
                                     />
                                     <label for="amount" class="create-error-label">
                                         <c:if test="${amountError}">
-                                            <fmt:message key="makepayment.amountError"/>
+                                            <fmt:message key="home.makepayment.amountError"/>
                                         </c:if>
                                     </label>&nbsp;
 
-                                    <div style="width: 100%;">
+                                    <div style="width: 100%; height:105px; position: relative;">
                                         <label for="appointment">
                                             ${appointment}
                                         </label>
-                                        <textarea name="appointment" id="appointment" class="form-control"
-                                                  style="width: 100%; height: 75px; resize: none; outline: none; overflow-x: hidden;"
-                                        >${appointmentValue}</textarea>
-                                        <div class="counter" style="color: #929292; font-size: 14px; text-align: right; padding-right: 3px;">
-                                            < <span id="counter"></span> >
+                                        <div style="width: 100%; position: absolute; ">
+                                            <textarea name="appointment" id="appointment" class="form-control"
+                                                      style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
+                                            >${appointmentValue}</textarea>
+                                        </div>
+                                        <div class="counter">
+                                            <span id="counter"></span>
                                         </div>
                                     </div>
 
                                     <div class="action" style="padding-bottom: 0px;padding-top: 30px;">
                                         <button type="submit" class="btn btn-primary signup">
-                                            <fmt:message key="makepayment.makePayment"/>
+                                            <fmt:message key="home.makepayment.makePayment"/>
                                         </button>
                                     </div>
                                 </form>
