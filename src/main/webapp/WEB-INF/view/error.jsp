@@ -7,6 +7,8 @@
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
+<c:set var="code" value="${requestScope['javax.servlet.error.status_code']}" scope="page"/>
+
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
@@ -17,52 +19,38 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
-<body class="login-bg">
-<div class="header">
-    <div class="container" style="margin-left: 0px;margin-right: 0px;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="logo" style="display: flex">
-                    <a href="/"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
-                    <h1>Payment Management System</h1>
-                </div>
-            </div>
+<body>
+<div class="main">
+    <jsp:include page="template/header.jsp"/>
+
+    <div class="page-content">
+        <fmt:message key="error.404" var="error_404"/>
+        <fmt:message key="error.500" var="error_500"/>
+        <fmt:message key="error.goBackHome" var="goBackHome"/>
+
+        <c:if test="${code == '404'}">
+            <c:set var="errorMessage" value="${error_404}" scope="page"/>
+        </c:if>
+        <c:if test="${code == '500'}">
+            <c:set var="errorMessage" value="${error_500}" scope="page"/>
+        </c:if>
+
+        <div style="text-align: center; margin-top: 180px;">
+            <span id="error_detail_message">
+                 <c:if test="${not empty code}">
+                     <h1 class="code">●&nbsp;&nbsp;<c:out value="${code}"/>&nbsp;&nbsp;●</h1>
+                 </c:if>
+
+                 <c:if test="${not empty errorMessage}">
+                     <h1 style="margin-bottom: 60px;"><c:out value="${errorMessage}"/></h1>
+                 </c:if>
+            </span>
+            <a class="back-homepage" href="/">
+                ${goBackHome}
+            </a>
         </div>
     </div>
-    <form class="language-form">
-        <select id="language" name="language" onchange="submit()">
-            <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-            <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-            <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
-        </select>
-    </form>
+    <jsp:include page="template/footer.jsp"/>
 </div>
-<fmt:message key="error.404" var="error_404"/>
-<fmt:message key="error.500" var="error_500"/>
-<fmt:message key="error.goBackHome" var="goBackHome"/>
-
-<c:set var="code" value="${requestScope['javax.servlet.error.status_code']}" scope="page"/>
-<c:if test="${code == '404'}">
-    <c:set var="errorMessage" value="${error_404}" scope="page"/>
-</c:if>
-<c:if test="${code == '500'}">
-    <c:set var="errorMessage" value="${error_500}" scope="page"/>
-</c:if>
-
-<div style="text-align: center; margin-top: 180px;">
-    <span id="error_detail_message">
-         <c:if test="${not empty code}">
-             <h1 class="code">●&nbsp;&nbsp;<c:out value="${code}"/>&nbsp;&nbsp;●</h1>
-         </c:if>
-
-         <c:if test="${not empty errorMessage}">
-             <h1 style="margin-bottom: 60px;"><c:out value="${errorMessage}"/></h1>
-         </c:if>
-    </span>
-    <a class="back-homepage" href="/">
-        ${goBackHome}
-    </a>
-</div>
-<jsp:include page="template/footer.jsp"/>
 </body>
 </html>
