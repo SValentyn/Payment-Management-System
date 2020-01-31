@@ -15,7 +15,6 @@
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/styles.css" rel="stylesheet">
 </head>
-
 <body>
 <jsp:include page="template/header.jsp"/>
 
@@ -54,7 +53,7 @@
                                         ${status}
                                     </th>
                                     <th>
-                                        <fmt:message key="userCards.action"/>
+                                        <fmt:message key="admin.userCards.action"/>
                                     </th>
                                     <th></th>
                                     <th></th>
@@ -97,7 +96,7 @@
                                             <td>
                                                 <form method="GET">
                                                     <input type="hidden" name="command" value="addCard">
-                                                    <fmt:message key="userCards.addCard" var="addNewCard"/>
+                                                    <fmt:message key="admin.userCards.addCard" var="addNewCard"/>
                                                     <input type="hidden" name="accountId" value="${account.accountId}"/>
                                                     <input type="submit" value="${addNewCard}"/>
                                                 </form>
@@ -114,7 +113,7 @@
                         <div class="col-md-12">
                             <div class="content-box-header">
                                 <div class="panel-title">
-                                    <fmt:message key="home.allcards"/>
+                                    <fmt:message key="home.card.allcards"/>
                                 </div>
                             </div>
                             <div class="content-box-large box-with-header">
@@ -124,7 +123,7 @@
                                     <th><fmt:message key="home.card.cvv"/></th>
                                     <th><fmt:message key="home.card.date"/></th>
                                     <th>${status}</th>
-                                    <th><fmt:message key="userCards.action"/></th>
+                                    <th><fmt:message key="admin.userCards.action"/></th>
                                     <th></th>
 
                                     <c:forEach items="${cards}" var="card">
@@ -145,7 +144,7 @@
                                             </td>
                                             <td>
                                                 <form action="accounts" method="POST">
-                                                    <fmt:message key="userCards.delete" var="deleteCard"/>
+                                                    <fmt:message key="admin.userCards.delete" var="deleteCard"/>
                                                     <input type="hidden" name="command" value="deleteCard">
                                                     <input type="hidden" name="cardId" value="${card.cardId}">
                                                     <input type="submit" value="${deleteCard}">
@@ -172,16 +171,16 @@
                     <input type="hidden" name="command" value="add-funds">
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">
-                        <fmt:message key="home.modal.close"/></span>
+                        <fmt:message key="admin.modal.close"/></span>
                     </button>
                     <h4 class="modal-title">
-                        <fmt:message key="home.modal.addfunds"/>
+                        <fmt:message key="admin.modal.addfunds"/>
                     </h4>
                 </div>
 
                 <div class="modal-body">
                     <p>
-                        <fmt:message key="home.modal.enterSum"/>
+                        <fmt:message key="admin.modal.enterSum"/>
                     </p>
                     <input type="hidden" name="accountId" value=""/>
                     <input type="text" name="summa">
@@ -189,10 +188,10 @@
 
                 <div class="modal-footer">
                     <button type="submit" id="send" class="btn btn-primary">
-                        <fmt:message key="home.modal.send"/>
+                        <fmt:message key="admin.modal.send"/>
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <fmt:message key="home.modal.close"/>
+                        <fmt:message key="admin.modal.close"/>
                     </button>
                 </div>
             </form>

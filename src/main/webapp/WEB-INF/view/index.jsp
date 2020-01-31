@@ -52,8 +52,8 @@
                         <h6>
                             <fmt:message key="login.signin"/>
                         </h6>
-                        <fmt:message key="login.placeholder.phone" var="phone"/>
-                        <fmt:message key="login.placeholder.password" var="password"/>
+                        <fmt:message key="login.phone" var="phone"/>
+                        <fmt:message key="login.password" var="password"/>
                         <fmt:message key="login.submit" var="submit"/>
 
                         <form action="/" method="POST">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="already">
-                    <p><fmt:message key="login.dontHaveAcc"/></p>
+                    <p><fmt:message key="login.dontHaveAccount"/></p>
                     <a href="?command=registration"><fmt:message key="login.signup"/></a>
                 </div>
             </div>

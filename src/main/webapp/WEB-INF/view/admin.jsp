@@ -124,7 +124,7 @@
                     <input type="hidden" name="command" value="addAccount">
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">
-                        <fmt:message key="home.modal.close"/></span>
+                        <fmt:message key="admin.modal.close"/></span>
                     </button>
                     <h4 class="modal-title">
                         <fmt:message key="admin.modal.addaccount"/>
@@ -145,10 +145,10 @@
                 </div>
                 <div class="modal-footer">
                     <button id="send" class="btn btn-primary">
-                        <fmt:message key="home.modal.send"/>
+                        <fmt:message key="admin.modal.send"/>
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <fmt:message key="home.modal.close"/>
+                        <fmt:message key="admin.modal.close"/>
                     </button>
                 </div>
             </form>

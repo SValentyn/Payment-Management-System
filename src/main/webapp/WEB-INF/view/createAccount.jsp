@@ -9,7 +9,7 @@
 <fmt:setBundle basename="message"/>
 <html>
 <head>
-    <title><fmt:message key="createAccount.title"/></title>
+    <title><fmt:message key="home.createAccount.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -40,8 +40,8 @@
                     <div class="login-wrapper" style="top: 0px; margin-top: 50px;margin-bottom: 30px;">
                         <div class="box" style="padding-bottom: 0px;">
                             <div class="content-wrap">
-                                <fmt:message key="createAccount.createNewAccount" var="createNewAccount"/>
-                                <fmt:message key="createAccount.numberNewAccount" var="numberNewAccount"/>
+                                <fmt:message key="home.createAccount.createNewAccount" var="createNewAccount"/>
+                                <fmt:message key="home.createAccount.numberNewAccount" var="numberNewAccount"/>
 
                                 <h4 style="text-align: center;font-size: 26px; margin-bottom: 30px;">
                                     ${createNewAccount}
@@ -53,23 +53,23 @@
                                            value="${numberValue}">
                                     <label for="number" class="create-error-label">
                                         <c:if test="${numberError}">
-                                            <fmt:message key="createAccount.numberError"/>
+                                            <fmt:message key="home.createAccount.numberError"/>
                                         </c:if>
                                     </label>
                                     <label for="number" class="create-error-label">
                                         <c:if test="${numberExistError}">
-                                            <fmt:message key="createAccount.numberExistError"/>
+                                            <fmt:message key="home.createAccount.numberExistError"/>
                                         </c:if>
                                     </label>
                                     <label for="number" class="create-error-label">
                                         <c:if test="${paymentError}">
-                                            <fmt:message key="createAccount.paymentError"/>
+                                            <fmt:message key="home.createAccount.paymentError"/>
                                         </c:if>&nbsp;
                                     </label>
 
                                     <div class="action">
                                         <button type="submit" class="btn btn-primary signup">
-                                            <fmt:message key="createAccount.createNewAccountButton"/>
+                                            <fmt:message key="home.createAccount.createNewAccountButton"/>
                                         </button>
                                     </div>
                                 </form>

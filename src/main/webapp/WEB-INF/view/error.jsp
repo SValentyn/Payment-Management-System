@@ -40,6 +40,7 @@
 </div>
 <fmt:message key="error.404" var="error_404"/>
 <fmt:message key="error.500" var="error_500"/>
+<fmt:message key="error.goBackHome" var="goBackHome"/>
 
 <c:set var="code" value="${requestScope['javax.servlet.error.status_code']}" scope="page"/>
 <c:if test="${code == '404'}">
@@ -59,7 +60,9 @@
              <h1 style="margin-bottom: 60px;"><c:out value="${errorMessage}"/></h1>
          </c:if>
     </span>
-    <a class="back-homepage" href="/">GO TO HOMEPAGE</a>
+    <a class="back-homepage" href="/">
+        ${goBackHome}
+    </a>
 </div>
 <jsp:include page="template/footer.jsp"/>
 </body>

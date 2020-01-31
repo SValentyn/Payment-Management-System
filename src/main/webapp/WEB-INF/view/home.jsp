@@ -49,7 +49,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <fmt:message key="home.allaccounts" var="allaccounts"/>
+                                <fmt:message key="home.account.allaccounts" var="allaccounts"/>
                                 <fmt:message key="home.account.number" var="number"/>
                                 <fmt:message key="home.account.balance" var="balance"/>
                                 <fmt:message key="home.account.status" var="status"/>
@@ -111,7 +111,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <fmt:message key="home.allaccounts" var="allaccounts"/>
+                                <fmt:message key="home.account.allaccounts" var="allaccounts"/>
                                 <fmt:message key="home.account.number" var="number"/>
                                 <fmt:message key="home.account.balance" var="balance"/>
                                 <fmt:message key="home.account.status" var="status"/>
@@ -171,7 +171,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <fmt:message key="home.allcards" var="allcards"/>
+                                <fmt:message key="home.card.allcards" var="allcards"/>
                                 <fmt:message key="home.card.number" var="cardNumber"/>
                                 <fmt:message key="home.card.cvv" var="cvv"/>
                                 <fmt:message key="home.card.date" var="date"/>
