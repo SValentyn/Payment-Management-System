@@ -37,10 +37,20 @@
     </form>
 </div>
 
-<!-- Alert -->
+<!-- Alert Success -->
 <c:if test="${created == true}">
     <div id="alert" class="alert alert-success fade in" role="alert">
         <p><strong>Success!</strong> Account created. Try <a href="/" class="alert-link">logging</a> into your account.</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</c:if>
+
+<!-- Alert userAlreadyRegisteredError -->
+<c:if test="${userAlreadyRegisteredError == true}">
+    <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 466px; margin-top: 20px;">
+        <p><strong>Failed!</strong> A user with such a phone is already registered.</p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -61,8 +71,9 @@
                         <fmt:message key="registration.confirmation" var="confirmation"/>
 
                         <h6>
-                            <fmt:message key="registration.signup"/>
+                            <fmt:message key="registration.registration"/>
                         </h6>
+
                         <form action="" method="POST">
                             <input id="name" name="name" class="form-control" type="text" placeholder="${name}*"
                                    value="${nameValue}">
@@ -108,11 +119,7 @@
                             <label for="passwordConfirmation" class="reg-error-label">
                                 <c:if test="${passwordConfirmationError}">
                                     <fmt:message key="registration.passwordConfirmationError"/>
-                                </c:if>
-                                <c:if test="${errorMessage}">
-                                    <fmt:message key="registration.errorMessage"/>
-                                </c:if>
-                                &nbsp;
+                                </c:if>&nbsp;
                             </label>
 
                             <div class="action">

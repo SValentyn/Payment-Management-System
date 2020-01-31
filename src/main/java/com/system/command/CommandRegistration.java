@@ -16,19 +16,20 @@ public class CommandRegistration implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
         request.setAttribute("created", false);
-
-        // Data
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String passwordConfirmation = request.getParameter("passwordConfirmation");
+        request.setAttribute("userAlreadyRegisteredError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             return page;
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+
+            // Data
+            String name = request.getParameter("name");
+            String surname = request.getParameter("surname");
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String passwordConfirmation = request.getParameter("passwordConfirmation");
 
             // Check
             if (checkName(request, name) ||
@@ -43,8 +44,8 @@ public class CommandRegistration implements ICommand {
             // Create
             int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
+                request.setAttribute("userAlreadyRegisteredError", true);
                 setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
-                registrationError(request);
             } else {
                 request.setAttribute("created", true);
             }
@@ -91,10 +92,6 @@ public class CommandRegistration implements ICommand {
             return true;
         }
         return false;
-    }
-
-    private void registrationError(HttpServletRequest request) {
-        request.setAttribute("errorMessage", true);
     }
 
     private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation) {
