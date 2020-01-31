@@ -3,7 +3,12 @@
     height: 66px;
     display: flex;
     padding: 0 20px 0 20px;
+    margin-bottom: 50px;
     background-color: #2c3742;
+}
+
+.header-without-margin {
+    margin-bottom: 0px;
 }
 
 .header .container {
@@ -18,7 +23,15 @@
 }
 
 .header .container .logo {
+    height: 66px;
     display: flex;
+}
+
+.header .container .logo .col-md-2 {
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 0px;
 }
 
 .header .logo img {
@@ -33,7 +46,6 @@
     width: 100%;
     margin: 0;
     padding-left: 28px;
-    padding-top: 20px;
     text-align: left;
     font-size: 30px;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -43,7 +55,7 @@
 .language-form {
     display: inline-flex;
     text-align: right;
-    margin-top: 20px;
+    margin-top: 21px;
     padding-top: 0px;
 }
 
@@ -135,6 +147,13 @@
     border-bottom: 1px dashed #f3f3f3;
 }
 
+.header .dropdown-menu .img-exit {
+    height: 20px;
+    width: 20px;
+    margin-top: 0px;
+    opacity: 0.6;
+}
+
 .header .dropdown-menu li a {
     color: #888;
     padding-left: 0px !important;
@@ -161,6 +180,7 @@
     border-top-color: #fff !important;
     border-bottom-color: #fff !important;
 }
+
 
 /**************/
 
@@ -613,6 +633,18 @@ td a:hover {
     background-color: #2c3742;
     box-shadow: inset 0px 0px 3px #111;
     color: #ffffff;
+}
+
+.footer .container .link {
+    width: 93%;
+    align-self: center;
+    padding-top: 10px;
+    padding-left: 6px;
+}
+
+.footer .container .time {
+    inline-size: min-content;
+    text-align: right;
 }
 
 .custom-date {

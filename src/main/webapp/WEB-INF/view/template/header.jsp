@@ -6,50 +6,50 @@
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
-<div class="header" style="padding-right: 60px;">
-    <div class="container" style="margin-left: 0px;margin-right: 0px;">
+
+<div class="header">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="logo" style="display: flex">
+                <div class="logo">
                     <a href="/"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
                     <h1>Payment Management System</h1>
+                    <div class="col-md-2">
+                        <div class="navbar navbar-inverse" role="banner">
+                            <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            ${currentUser.surname} ${currentUser.name}
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInUp" style="width: 140px;">
+                                            <li>
+                                                <a href="?command=logout" style="display: inline-flex;">
+                                                    <p style="margin-bottom: 0px; margin-right: 60px;">
+                                                        <fmt:message key="header.logout"/>
+                                                    </p>
+                                                    <img src="resources/images/exit-icon.png"
+                                                         alt="<fmt:message key="header.logout"/>"
+                                                         title="<fmt:message key="header.logout"/>"
+                                                         class="img-exit">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <form class="language-form">
+                        <select id="language" name="language" onchange="submit()">
+                            <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
+                            <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
+                            <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
+                        </select>
+                    </form>
                 </div>
             </div>
-        </div>
-    </div>
-    <div style="margin-left: 0px;">
-        <form class="language-form">
-            <select id="language" name="language" onchange="submit()">
-                <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-                <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-                <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
-            </select>
-        </form>
-    </div>
-    <div class="col-md-2" style="margin-left: 20px;">
-        <div class="navbar navbar-inverse" role="banner" style="width: 300px;">
-            <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            ${currentUser.surname} ${currentUser.name}
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu animated fadeInUp" style="width: 140px;">
-                            <li>
-                                <a href="?command=logout" style="display: inline-flex;">
-                                    <p style="margin-bottom: 0px; margin-right: 60px;"><fmt:message
-                                            key="header.logout"/></p>
-                                    <img src="resources/images/exit-icon.png"
-                                         alt="<fmt:message key="header.logout"/>"
-                                         title="<fmt:message key="header.logout"/>"
-                                         style="height: 20px; width: 20px; opacity: 0.6; ">
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
 </div>
