@@ -425,6 +425,14 @@ body {
     right: 0;
 }
 
+.label-for-form {
+    margin-right: 15px;
+    margin-bottom: 0px;
+    font-weight: normal;
+    font-size: 18px;
+    color: #555555;
+}
+
 .enter-error-label {
     text-align: left;
     font-size: 14px;
