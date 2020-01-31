@@ -41,5 +41,12 @@
                 </a>
             </c:if>
         </li>
+        <li>
+            <c:if test="${currentUser.role.id == 2}">
+                <a href="?command=showAllUsers">
+                    <fmt:message key="sidebar.showAllUsers"/>
+                </a>
+            </c:if>
+        </li>
     </ul>
 </div>

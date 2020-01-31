@@ -43,9 +43,8 @@ public class ControllerHelper {
         adminCommands.put("addAccount", new CommandAddAccount());
         adminCommands.put("addCard", new CommandAddCard());
         adminCommands.put("deleteCard", new CommandDeleteCard());
-        adminCommands.put("add-funds", new CommandAddFunds());
-        adminCommands.put("showcards", new CommandShowUserCards());
-        adminCommands.put("showuserinfo", new CommandShowUserInfo());
+        adminCommands.put("showCards", new CommandShowUserCards());
+        adminCommands.put("showUserInfo", new CommandShowUserInfo());
         adminCommands.put("showAllUsers", new CommandShowAllUsers());
         adminCommands.put("unblock", new CommandUnblockAccount());
         adminCommands.put("unblockCard", new CommandUnblockCreditCard());

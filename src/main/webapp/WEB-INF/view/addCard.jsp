@@ -50,7 +50,7 @@
 
         <!-- Alert numberExistError -->
         <c:if test="${numberExistError == true}">
-            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 460px; margin-top: 20px;">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 450px; margin-top: 20px;">
                 <p><strong>Failed!</strong> A card with the same number already exists.</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
