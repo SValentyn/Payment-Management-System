@@ -44,8 +44,8 @@ public class PaymentService {
     /**
      * Checks all conditions, forms payment and adds is to database
      */
-    public synchronized int formPayment(Integer accountId, String number, BigDecimal amount, String appointment) {
-        int status = 0;
+    public synchronized int formingPayment(Integer accountId, String number, BigDecimal amount, String appointment) {
+        int status;
         Payment payment = new Payment();
         payment.setAccountId(accountId);
         payment.setCardNumber(number);
@@ -55,32 +55,49 @@ public class PaymentService {
         payment.setDate(formatter.format(new Date()));
 
         Account accountFrom = accountDao.findAccountById(accountId);
-        CreditCard receiverCard = checkAvailableCard(number);
+        if (checkAvailableAccount(accountFrom)) {
+            LOGGER.error("Payment arrangement error!");
+            payment.setCondition(false);
+            return -1;
+        }
 
-        if (receiverCard != null && checkAvailableSum(accountFrom, amount)) {
-            Account accountTo = accountDao.findAccountById(receiverCard.getAccountId());
+        CreditCard cardTo = creditCardDao.findCreditCardByCardNumber(number);
+        Account accountTo = accountDao.findAccountById(cardTo.getAccountId());
+        if (checkAvailableAccount(accountTo) || !checkAvailableCard(cardTo)) {
+            LOGGER.error("Payment arrangement error!");
+            payment.setCondition(false);
+            return -2;
+        }
+
+        if (checkAvailableSum(accountFrom, amount)) {
             transaction(accountFrom, accountTo, amount);
             payment.setCondition(true);
             status = paymentDao.create(payment);
         } else {
-            payment.setCondition(false);
             LOGGER.error("Payment arrangement error!");
-            return status;
+            payment.setCondition(false);
+            return -3;
         }
 
         return status;
     }
 
     /**
-     * Checks if card of receiver is available and returns it
+     * Check account blocking
+     *
+     * @return true, if account is blocked
      */
-    private synchronized CreditCard checkAvailableCard(String number) {
-        CreditCard creditCard = creditCardDao.findCreditCardByCardNumber(number);
-        if (creditCard != null) {
-            if (!creditCard.getIsActive()) // blocked
-                creditCard = null;
-        }
-        return creditCard;
+    private synchronized boolean checkAvailableAccount(Account account) {
+        return account.getIsBlocked();
+    }
+
+    /**
+     * Checks the activity of the card
+     *
+     * @return true, if card is active
+     */
+    private synchronized boolean checkAvailableCard(CreditCard card) {
+        return card.getIsActive();
     }
 
     /**
