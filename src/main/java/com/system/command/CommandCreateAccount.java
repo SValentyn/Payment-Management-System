@@ -23,6 +23,7 @@ public class CommandCreateAccount implements ICommand {
         List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
         request.setAttribute("accounts", allAccounts);
         request.setAttribute("created", false);
+        request.setAttribute("createAccountError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -49,7 +50,7 @@ public class CommandCreateAccount implements ICommand {
             // Create
             int status = AccountService.getInstance().createAccount(userId, number);
             if (status == 0) {
-                request.setAttribute("paymentError", true);
+                request.setAttribute("createAccountError", true);
                 request.setAttribute("numberValue", number);
             } else {
                 request.setAttribute("created", true);

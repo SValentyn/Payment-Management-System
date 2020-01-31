@@ -35,6 +35,16 @@
             </div>
         </c:if>
 
+        <!-- Alert createAccountError -->
+        <c:if test="${createAccountError == true}">
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 357px; margin-top: 20px;">
+                <p><strong>Failed </strong> to create new account. Try later.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
         <div class="page-content container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
