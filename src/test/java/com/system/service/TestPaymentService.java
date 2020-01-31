@@ -44,13 +44,13 @@ public class TestPaymentService {
         account_2.setBalance(new BigDecimal(50_000));
         account_2.setIsBlocked(false);
 
-        when(paymentService.formPayment(payment.getAccountId(), payment.getCardNumber(), new BigDecimal(1_000), payment.getAppointment()))
+        when(paymentService.formingPayment(payment.getAccountId(), payment.getCardNumber(), new BigDecimal(1_000), payment.getAppointment()))
                 .thenReturn(payment.getPaymentId());
     }
 
     @Test
     public void testCreatePayment() {
-        Integer paymentId = paymentService.formPayment(1, "5450655032805450", new BigDecimal(1_000), "Thank you for dinner!");
+        Integer paymentId = paymentService.formingPayment(1, "5450655032805450", new BigDecimal(1_000), "Thank you for dinner!");
         assertNotNull(paymentId);
         assertEquals(new Integer(1), paymentId);
     }
