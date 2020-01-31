@@ -17,6 +17,10 @@
     height: 66px;
 }
 
+.header .container .logo {
+    display: flex;
+}
+
 .header .logo img {
     padding-top: 0px;
     margin-top: 15px;
@@ -326,6 +330,11 @@ body {
     padding: 0px;
     font-size: 14px;
     overflow-x: hidden;
+}
+
+.main {
+    position: relative;
+    min-height: 100%;
 }
 
 .page-content > .row {
