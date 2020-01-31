@@ -18,10 +18,20 @@
 <body>
 <jsp:include page="template/header.jsp"/>
 
-<!-- Alert -->
+<!-- Alert noAccounts -->
 <c:if test="${noAccounts == true}">
     <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 440px; margin-top: 20px;">
         <p><strong>Failed!</strong> You do not have an account. <a href="/?command=createAccount" class="alert-link">Create</a> it now.</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</c:if>
+
+<!-- Alert blockAccountError -->
+<c:if test="${blockAccountError == true}">
+    <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 303px; margin-top: 20px;">
+        <p><strong>Failed!</strong> Failed to block account.</p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
