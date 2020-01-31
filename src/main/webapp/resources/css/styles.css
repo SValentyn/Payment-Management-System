@@ -3,7 +3,7 @@
     height: 66px;
     display: flex;
     padding: 0 20px 0 20px;
-    margin-bottom: 50px;
+    margin-bottom: 22px;
     background-color: #2c3742;
 }
 
@@ -368,9 +368,9 @@ body {
     height: 60px;
     display: flex;
     position: fixed;
-    right: 0px;
+    right: 0;
     padding: 0 0 0 20px;
-    margin: 20px 20px 0 0;
+    margin: 0 20px 0 0;
     font-size: 16px;
 }
 
@@ -487,6 +487,15 @@ body {
     font-size: 20px;
     font-weight: 600;
     text-align: center;
+    color: #000000;
+}
+
+.login-wrapper .box h4 {
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
     color: #000000;
 }
 
