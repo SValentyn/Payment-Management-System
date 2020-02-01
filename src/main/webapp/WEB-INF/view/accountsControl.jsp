@@ -21,6 +21,16 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert blockAccountError -->
+    <c:if test="${blockAccountError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 303px;">
+            <p><strong>Failed!</strong> Failed to block account.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
@@ -29,7 +39,7 @@
 
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-12">
                                 <fmt:message key="home.account.allaccounts" var="allaccounts"/>
@@ -117,7 +127,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5" style="padding-left: 5px;padding-right: 20px;">
                         <div class="row">
                             <div class="col-md-12">
                                 <fmt:message key="home.card.allcards" var="allcards"/>
@@ -131,7 +141,7 @@
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header">
+                                <div class="content-box-large box-with-header" style="padding-left: 12px;padding-right: 12px;">
                                     <table>
                                         <th>${cardNumber}</th>
                                         <th>${cvv}</th>
@@ -143,7 +153,7 @@
                                         <c:forEach items="${cards}" var="card">
                                             <tr>
                                                 <td>${card.number}</td>
-                                                <td>${card.cvv}</td>
+                                                <td>${card.CVV}</td>
                                                 <td>${card.validity}</td>
                                                 <c:choose>
                                                     <c:when test="${card.isActive}">
@@ -185,7 +195,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5" style="padding-left: 5px;padding-right: 20px;">
                         <div class="row">
                             <div class="col-md-12 panel-warning">
                                 <fmt:message key="home.payment.allpayments" var="allpayments"/>
@@ -201,7 +211,7 @@
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header">
+                                <div class="content-box-large box-with-header" style="padding-left: 12px;padding-right: 12px;">
                                     <table>
                                         <th>${receiverCard}</th>
                                         <th>${payment_sum}</th>
