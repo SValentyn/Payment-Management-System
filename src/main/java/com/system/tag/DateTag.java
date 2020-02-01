@@ -19,7 +19,7 @@ public class DateTag extends TagSupport {
     public int doStartTag() throws JspException {
         JspWriter writer = pageContext.getOut();
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
 
         try {
             writer.write(dateFormat.format(date));
