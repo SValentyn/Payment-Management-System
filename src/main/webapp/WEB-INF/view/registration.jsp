@@ -42,9 +42,9 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
-            <p><strong>Success!</strong> Account created. Try <a href="/" class="alert-link">logging</a> into your
-                account.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 466px;">
+            <p><strong>Success!</strong> Account created. Try <a href="/" class="alert-link">logging</a>
+                into your account.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -53,7 +53,7 @@
 
     <!-- Alert userAlreadyRegisteredError -->
     <c:if test="${userAlreadyRegisteredError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 466px; margin-top: 20px;">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 466px;">
             <p><strong>Failed!</strong> A user with such a phone is already registered.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

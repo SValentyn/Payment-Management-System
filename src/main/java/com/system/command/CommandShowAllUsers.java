@@ -11,8 +11,10 @@ public class CommandShowAllUsers implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+
         request.setAttribute("showUsers", true);
         request.setAttribute("users", UserService.getInstance().findAll());
+
         return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
     }
 }

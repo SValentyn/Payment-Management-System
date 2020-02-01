@@ -5,7 +5,6 @@ import com.system.service.AccountService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 
 public class CommandAddAccount implements ICommand {
@@ -24,7 +23,7 @@ public class CommandAddAccount implements ICommand {
             request.getSession().setAttribute("userId", userId);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_CARDS);
+        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_USER_ACCOUNTS);
     }
 
 }

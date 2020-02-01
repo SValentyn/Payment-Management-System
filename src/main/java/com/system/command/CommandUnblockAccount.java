@@ -20,7 +20,7 @@ public class CommandUnblockAccount implements ICommand {
         String userId = (String) request.getSession().getAttribute("userId");
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_CARDS);
+        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_USER_ACCOUNTS);
     }
 
 }
