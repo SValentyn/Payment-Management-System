@@ -23,7 +23,7 @@
 
     <!-- Alert noAccounts -->
     <c:if test="${noAccounts == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 440px; margin-top: 20px;">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 440px;">
             <p><strong>Failed!</strong> You do not have an account.
                 <a href="?command=createAccount" class="alert-link">Create</a>it now.
             </p>
@@ -35,7 +35,7 @@
 
     <!-- Alert blockAccountError -->
     <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 303px; margin-top: 20px;">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 303px;">
             <p><strong>Failed!</strong> Failed to block account.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -48,7 +48,8 @@
             <div class="col-md-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
-            <div class="col-md-10" style="padding-left: 30px;">
+
+            <div class="col-md-10">
                 <c:choose>
                     <c:when test="${showAccounts && !showAccountInfo}">
                         <div class="col-md-6">
@@ -284,11 +285,9 @@
                     <span class="showOrCreate-label">
                         <label>
                             <b>
-                                <a id="linkOnShowAccounts" href="?command=showAccounts">
-                                    <fmt:message key="sidebar.showAccounts"/></a>
+                                <a href="?command=showAccounts"><fmt:message key="sidebar.showAccounts"/></a>
                                 OR
-                                <a href="?command=createAccount">
-                                    <fmt:message key="sidebar.createAccount"/></a>
+                                <a href="?command=createAccount"><fmt:message key="sidebar.createAccount"/></a>
                             </b>
                         </label>
                     </span>

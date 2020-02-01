@@ -11,6 +11,7 @@
 <html lang="${language}">
 <head>
     <title><fmt:message key="admin.addUser.title"/></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
@@ -35,53 +36,94 @@
             </div>
         </c:if>
 
-        <!-- Alert addUserError -->
-        <c:if test="${addUserError == true}">
-            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 430px; margin-top: 20px;">
-                <p>Failed to add the user</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </c:if>
-
         <!-- Alert numberExistError -->
         <c:if test="${phoneExistError == true}">
-            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 450px; margin-top: 20px;">
-                <p><strong>Failed!</strong> A card with the same number already exists.</p>
+            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 460px; margin-top: 20px;">
+                <p><strong>Failed!</strong> A user with that phone number already exists.</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </c:if>
 
-        <div class="page-content container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="login-wrapper"
-                         style="top: 0px; display: inline-block; margin-top: 50px;">
-                        <div class="box" style="padding-bottom: 0px;">
-                            <div class="content-wrap">
-                                <fmt:message key="admin.addUser.addNewUser" var="addNewUser"/>
-                                <fmt:message key="admin.addUser." var="number"/>
-                                <fmt:message key="admin.addUser." var="cvv"/>
-                                <fmt:message key="admin.addUser." var="validity"/>
+        <div class="login-bg">
+            <div class="page-content container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="login-wrapper"
+                             style="top: 0px; width: 392px; display: inline-block; margin-top: 50px;">
+                            <div class="box" style="padding-bottom: 0px; padding-top: 18px;">
+                                <div class="content-wrap">
+                                    <fmt:message key="admin.addUser.addNewUser" var="addNewUser"/>
+                                    <fmt:message key="registration.name" var="name"/>
+                                    <fmt:message key="registration.surname" var="surname"/>
+                                    <fmt:message key="registration.phone" var="phone"/>
+                                    <fmt:message key="registration.email" var="email"/>
+                                    <fmt:message key="registration.password" var="password"/>
+                                    <fmt:message key="registration.confirmation" var="confirmation"/>
+                                    <fmt:message key="admin.addUser.button" var="button"/>
 
-                                <h4 style="font-size: 26px; margin-bottom: 30px; text-align: center;">
-                                    ${addNewUser}
-                                </h4>
+                                    <h4 style="font-size: 26px; margin-bottom: 30px; text-align: center;">
+                                        ${addNewUser}
+                                    </h4>
 
-                                <form action="?command=addUser" class="form-horizontal" role="form" method="POST">
-                                    <input type="hidden" name="command" value="addUser">
+                                    <form action="?command=addUser" method="POST">
+                                        <input type="hidden" name="command" value="addUser">
 
+                                        <input id="name" name="name" class="form-control" style="height: 36px;"
+                                               type="text" placeholder="${name}*" value="${nameValue}">
+                                        <label for="name" class="reg-error-label">
+                                            <c:if test="${nameError}">
+                                                <fmt:message key="registration.nameError"/>
+                                            </c:if>&nbsp;
+                                        </label>
 
+                                        <input id="surname" name="surname" class="form-control" style="height: 36px;"
+                                               type="text" placeholder="${surname}*" value="${surnameValue}">
+                                        <label for="surname" class="reg-error-label">
+                                            <c:if test="${surnameError}">
+                                                <fmt:message key="registration.surnameError"/>
+                                            </c:if>&nbsp;
+                                        </label>
 
-                                    <div class="action">
-                                        <button type="submit" class="btn btn-primary signup">
-                                            <fmt:message key="addCard.button.add"/>
-                                        </button>
-                                    </div>
-                                </form>
+                                        <input id="phone" name="phone" class="form-control" style="height: 36px;"
+                                               type="text" placeholder="${phone}*" value="${phoneValue}">
+                                        <label for="phone" class="reg-error-label">
+                                            <c:if test="${phoneError}">
+                                                <fmt:message key="registration.phoneError"/>
+                                            </c:if>&nbsp;
+                                        </label>
+
+                                        <input id="email" name="email" class="form-control" style="height: 36px;"
+                                               type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                               placeholder="${email}" value="${emailValue}">
+                                        <label for="email" class="reg-error-label">&nbsp;</label>
+
+                                        <input id="password" name="password" class="form-control" style="height: 36px;"
+                                               type="password" placeholder="${password}*" value=${passwordValue}>
+                                        <label for="password" class="reg-error-label">
+                                            <c:if test="${passwordError}">
+                                                <fmt:message key="registration.passwordError"/>
+                                            </c:if>&nbsp;
+                                        </label>
+
+                                        <input id="passwordConfirmation" name="passwordConfirmation"
+                                               class="form-control"
+                                               style="height: 36px;" type="password"
+                                               placeholder="${confirmation}*" value=${passwordConfirmationValue}>
+                                        <label for="passwordConfirmation" class="reg-error-label">
+                                            <c:if test="${passwordConfirmationError}">
+                                                <fmt:message key="registration.passwordConfirmationError"/>
+                                            </c:if>&nbsp;
+                                        </label>
+
+                                        <div class="action">
+                                            <button type="submit" class="btn btn-primary signup" style="height: 42px;">
+                                                ${button}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

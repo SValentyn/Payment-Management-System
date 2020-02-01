@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
-<div style="position: relative; min-height: 100%;">
-    <div class="header">
+<div class="main">
+    <div class="header header-without-margin">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="logo" style="display: flex">
+                    <div class="logo">
                         <a href="/"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
                         <h1>Payment Management System</h1>
                         <form class="language-form">
@@ -50,9 +50,11 @@
                                 <p></p>
                                 <p></p>
                                 <p></p>
+
                                 <h6>
                                     <fmt:message key="login.signin"/>
                                 </h6>
+
                                 <fmt:message key="login.phone" var="phone"/>
                                 <fmt:message key="login.password" var="password"/>
                                 <fmt:message key="login.submit" var="submit"/>

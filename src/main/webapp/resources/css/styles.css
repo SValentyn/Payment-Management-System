@@ -363,6 +363,10 @@ body {
     margin-top: 0px;
 }
 
+.page-content .row .col-md-10 {
+    padding-left: 30px;
+}
+
 #alert {
     width: 490px;
     height: 60px;
@@ -418,19 +422,12 @@ body {
 }
 
 /** Login & Signup **/
-.login-wrapper {
-    position: absolute;
-    top: 140px;
-    left: 0;
-    right: 0;
-}
-
 .label-for-form {
     margin-right: 15px;
     margin-bottom: 0px;
     font-weight: normal;
-    font-size: 18px;
-    color: #555555;
+    font-size: 15px;
+    color: #989797;
 }
 
 .enter-error-label {
@@ -465,6 +462,13 @@ body {
 
 .showOrCreate-label:hover {
     text-decoration: none;
+}
+
+.login-wrapper {
+    position: absolute;
+    top: 140px;
+    left: 0;
+    right: 0;
 }
 
 .login-wrapper .box {

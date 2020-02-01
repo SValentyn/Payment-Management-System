@@ -75,7 +75,7 @@
                                         ${addNewCard}
                                     </h4>
 
-                                    <form action="?command=addCard" class="form-horizontal" role="form" method="POST">
+                                    <form action="?command=addCard" role="form" method="POST">
                                         <input type="hidden" name="command" value="addCard">
 
                                         <select name="accountId" class="form-control"
@@ -114,7 +114,7 @@
                                         </label>&nbsp;
 
                                         <div style="width: 100%; text-align: center;">
-                                            <label for="validity" class="label-for-form">
+                                            <label for="validity" class="label-for-form" style="font-size: 18px;">
                                                 ${validity}
                                             </label>
                                             <input name="validity" class="form-control"

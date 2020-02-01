@@ -11,6 +11,7 @@
 <html lang="${language}">
 <head>
     <title><fmt:message key="registration.title"/></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
@@ -18,7 +19,8 @@
 </head>
 <body>
 <div class="main">
-    <div class="header">
+    <!-- Header -->
+    <div class="header header-without-margin">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -63,7 +65,7 @@
         <div class="page-content container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <div class="login-wrapper" style="top: 60px;">
+                    <div class="login-wrapper" style="top: 50px;">
                         <div class="box" style="padding-bottom: 0px;">
                             <div class="content-wrap">
                                 <fmt:message key="registration.registration" var="registration"/>

@@ -6,6 +6,7 @@
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
+
 <div class="sidebar content-box" style="display: block;">
     <ul class="nav">
         <li class="current">
