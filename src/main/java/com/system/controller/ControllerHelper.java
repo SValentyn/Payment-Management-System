@@ -42,12 +42,17 @@ public class ControllerHelper {
         adminCommands.put("addAccount", new CommandAddAccount());
         adminCommands.put("addCard", new CommandAddCard());
         adminCommands.put("addUser", new CommandAddUser());
+        adminCommands.put("deleteAccount", new CommandDeleteAccount());
         adminCommands.put("deleteCard", new CommandDeleteCard());
-        adminCommands.put("showCards", new CommandShowUserCards());
-        adminCommands.put("showUserInfo", new CommandShowUserInfo());
+        adminCommands.put("deleteUser", new CommandDeleteUser());
         adminCommands.put("showAllUsers", new CommandShowAllUsers());
+        adminCommands.put("showUserAccounts", new CommandShowUserAccounts());
+        adminCommands.put("showCardsAndPayments", new CommandShowUserCardsAndPayments());
+        adminCommands.put("blockAccount", new CommandBlockAccount());
+        adminCommands.put("blockCard", new CommandBlockCard());
         adminCommands.put("unblockAccount", new CommandUnblockAccount());
-        adminCommands.put("unblockCard", new CommandUnblockCreditCard());
+        adminCommands.put("unblockCard", new CommandUnblockCard());
+        adminCommands.put("changeData", new CommandChangeData());
 
         // Client commands
         userCommands.put("logout", new CommandLogout());
@@ -58,7 +63,7 @@ public class ControllerHelper {
         userCommands.put("makePayment", new CommandCreatePayment());
         userCommands.put("repeatPayment", new CommandRepeatPayment());
         userCommands.put("blockAccount", new CommandBlockAccount());
-        userCommands.put("blockCard", new CommandBlockCreditCard());
+        userCommands.put("blockCard", new CommandBlockCard());
     }
 
     public static ControllerHelper getInstance() {

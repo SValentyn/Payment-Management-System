@@ -16,13 +16,16 @@ public class ResourceManager {
     public static final String CREATE_ACCOUNT = "CREATE_ACCOUNT";
     public static final String ADD_CARD = "ADD_CARD";
     public static final String ADD_USER = "ADD_USER";
-    public static final String SHOW_CARDS = "SHOW_CARDS";
+    public static final String SHOW_USER_ACCOUNTS = "SHOW_USER_ACCOUNTS";
     public static final String MAKE_PAYMENT = "MAKE_PAYMENT";
-    private static ResourceManager instance;
+    public static final String CHANGE_DATA = "CHANGE_DATA";
+
     private ResourceBundle resourceBundle;
 
     private ResourceManager() {
     }
+
+    private static ResourceManager instance;
 
     public static synchronized ResourceManager getInstance() {
         if (instance == null) {
