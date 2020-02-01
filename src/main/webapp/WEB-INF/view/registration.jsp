@@ -86,8 +86,13 @@
                                     <label for="name" class="reg-error-label">
                                         <c:if test="${nameError}">
                                             <fmt:message key="registration.nameError"/>
-                                        </c:if>&nbsp;
+                                        </c:if>
                                     </label>
+                                    <label for="name" class="reg-error-label">
+                                        <c:if test="${nameLengthError}">
+                                            <fmt:message key="registration.nameLengthError"/>
+                                        </c:if>
+                                    </label>&nbsp;
 
                                     <input id="surname" name="surname" class="form-control" type="text"
                                            placeholder="${surname}*"
@@ -95,8 +100,13 @@
                                     <label for="surname" class="reg-error-label">
                                         <c:if test="${surnameError}">
                                             <fmt:message key="registration.surnameError"/>
-                                        </c:if>&nbsp;
+                                        </c:if>
                                     </label>
+                                    <label for="surname" class="reg-error-label">
+                                        <c:if test="${surnameLengthError}">
+                                            <fmt:message key="registration.surnameLengthError"/>
+                                        </c:if>
+                                    </label>&nbsp;
 
                                     <input id="phone" name="phone" class="form-control" type="text"
                                            placeholder="${phone}*"
@@ -104,8 +114,8 @@
                                     <label for="phone" class="reg-error-label">
                                         <c:if test="${phoneError}">
                                             <fmt:message key="registration.phoneError"/>
-                                        </c:if>&nbsp;
-                                    </label>
+                                        </c:if>
+                                    </label>&nbsp;
 
                                     <input id="email" name="email" class="form-control" type="email"
                                            placeholder="${email}"
@@ -118,8 +128,8 @@
                                     <label for="password" class="reg-error-label">
                                         <c:if test="${passwordError}">
                                             <fmt:message key="registration.passwordError"/>
-                                        </c:if>&nbsp;
-                                    </label>
+                                        </c:if>
+                                    </label>&nbsp;
 
                                     <input id="passwordConfirmation" name="passwordConfirmation"
                                            class="form-control" type="password"
@@ -127,8 +137,8 @@
                                     <label for="passwordConfirmation" class="reg-error-label">
                                         <c:if test="${passwordConfirmationError}">
                                             <fmt:message key="registration.passwordConfirmationError"/>
-                                        </c:if>&nbsp;
-                                    </label>
+                                        </c:if>
+                                    </label>&nbsp;
 
                                     <div class="action">
                                         <button type="submit" class="btn btn-primary signup">

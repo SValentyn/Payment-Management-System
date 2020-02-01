@@ -59,12 +59,22 @@ public class CommandRegistration implements ICommand {
             request.setAttribute("nameError", true);
             return true;
         }
+
+        if (Validator.checkLengthName(name)) {
+            request.setAttribute("nameLengthError", true);
+            return true;
+        }
         return false;
     }
 
     private boolean checkSurname(HttpServletRequest request, String surname) {
         if (surname == null || surname.isEmpty()) {
             request.setAttribute("surnameError", true);
+            return true;
+        }
+
+        if (Validator.checkLengthSurname(surname)) {
+            request.setAttribute("surnameLengthError", true);
             return true;
         }
         return false;

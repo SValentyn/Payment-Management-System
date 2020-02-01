@@ -8,6 +8,14 @@ import java.util.regex.Pattern;
  */
 public class Validator {
 
+    public static boolean checkLengthName(String name) {
+        return name.length() > 18;
+    }
+
+    public static boolean checkLengthSurname(String surname) {
+        return surname.length() > 24;
+    }
+
     public static boolean checkPhoneNumber(String number) {
         Pattern p = Pattern.compile("\\d{10}");
         Matcher m = p.matcher(number);
