@@ -455,12 +455,12 @@ body {
     color: #ba0000;
 }
 
-.showOrCreate-label {
+.init-label {
     font-size: 28px;
     text-decoration: none;
 }
 
-.showOrCreate-label:hover {
+.init-label:hover {
     text-decoration: none;
 }
 

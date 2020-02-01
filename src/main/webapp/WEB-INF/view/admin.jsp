@@ -30,54 +30,68 @@
             <div class="col-md-10">
                 <c:choose>
                     <c:when test="${showUsers}">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
                                     <fmt:message key="admin.allUsers" var="allUsers"/>
+                                    <fmt:message key="admin.changeData" var="changeData"/>
+                                    <fmt:message key="admin.addAccount" var="addAccount"/>
+                                    <fmt:message key="admin.showUserAccounts" var="showAccounts"/>
+                                    <fmt:message key="admin.deleteUser" var="deleteUser"/>
 
-                                    <div class="content-box-large">
-                                        <div class="content-box-header">
-                                            <div class="panel-title">
-                                                    ${allUsers}
-                                            </div>
+                                    <div class="content-box-header">
+                                        <div class="panel-title">
+                                                ${allUsers}
                                         </div>
+                                    </div>
 
-                                        <div class="content-box-large box-with-header">
-                                            <table>
-                                                <th><fmt:message key="admin.name"/></th>
-                                                <th><fmt:message key="admin.surname"/></th>
-                                                <th><fmt:message key="admin.email"/></th>
-                                                <th><fmt:message key="admin.phone"/></th>
-                                                <th></th>
-                                                <th></th>
+                                    <div class="content-box-large box-with-header">
+                                        <table>
+                                            <th><fmt:message key="admin.name"/></th>
+                                            <th><fmt:message key="admin.surname"/></th>
+                                            <th><fmt:message key="admin.email"/></th>
+                                            <th><fmt:message key="admin.phone"/></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
 
-                                                <c:forEach items="${users}" var="user">
-                                                    <tr>
-                                                        <td>${user.name}</td>
-                                                        <td>${user.surname}</td>
-                                                        <td>${user.email}</td>
-                                                        <td>${user.phone}</td>
-                                                        <td>
-                                                            <a href="?command=addAccount&userId=${user.userId}">
-                                                                <fmt:message key="admin.addAccount"/>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="?command=showUserInfo&userId=${user.userId}">
-                                                                <fmt:message key="admin.showUserAccounts"/>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </table>
-                                        </div>
+                                            <c:forEach items="${users}" var="user">
+                                                <tr>
+                                                    <td>${user.name}</td>
+                                                    <td>${user.surname}</td>
+                                                    <td>${user.email}</td>
+                                                    <td>${user.phone}</td>
+                                                    <td>
+                                                        <a href="?command=changeData&userId=${user.userId}">
+                                                                ${changeData}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="?command=addAccount&userId=${user.userId}">
+                                                                ${addAccount}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="?command=showUserAccounts&userId=${user.userId}">
+                                                                ${showAccounts}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="?command=deleteUser&userId=${user.userId}">
+                                                                ${deleteUser}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </c:when>
                     <c:otherwise>
-                    <span class="showOrCreate-label">
+                    <span class="init-label">
                         <label>
                             <b>
                                 <a href="?command=showAllUsers">
