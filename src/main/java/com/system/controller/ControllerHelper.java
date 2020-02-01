@@ -43,13 +43,13 @@ public class ControllerHelper {
         adminCommands.put("addCard", new CommandAddCard());
         adminCommands.put("addUser", new CommandAddUser());
         adminCommands.put("deleteAccount", new CommandDeleteAccount());
-        adminCommands.put("deleteCard", new CommandDeleteCard());
+        adminCommands.put("deleteCard", new CommandAdminDeleteCard());
         adminCommands.put("deleteUser", new CommandDeleteUser());
         adminCommands.put("showAllUsers", new CommandShowAllUsers());
         adminCommands.put("showUserAccounts", new CommandShowUserAccounts());
         adminCommands.put("showCardsAndPayments", new CommandAccountsControl());
         adminCommands.put("blockAccount", new CommandAdminBlockAccount());
-        adminCommands.put("blockCard", new CommandBlockCard());
+        adminCommands.put("blockCard", new CommandUserBlockCard());
         adminCommands.put("unblockAccount", new CommandUnblockAccount());
         adminCommands.put("unblockCard", new CommandUnblockCard());
         adminCommands.put("changeData", new CommandChangeData());
@@ -57,13 +57,17 @@ public class ControllerHelper {
         // Client commands
         userCommands.put("logout", new CommandLogout());
         userCommands.put("showAccounts", new CommandShowAccounts());
-        userCommands.put("createAccount", new CommandCreateAccount());
         userCommands.put("showInfo", new CommandShowAccountInfo());
-        userCommands.put("addCard", new CommandAddCard());
+        userCommands.put("blockAccount", new CommandUserBlockAccount());
+        userCommands.put("blockCard", new CommandUserBlockCard());
+        userCommands.put("unblockAccount", new CommandUserUnblockAccount());
+        userCommands.put("unblockCard", new CommandUserUnblockCard());
+        userCommands.put("deleteCard", new CommandUserDeleteCard());
+        userCommands.put("createAccount", new CommandCreateAccount());
         userCommands.put("makePayment", new CommandCreatePayment());
         userCommands.put("repeatPayment", new CommandRepeatPayment());
-        userCommands.put("blockAccount", new CommandUserBlockAccount());
-        userCommands.put("blockCard", new CommandBlockCard());
+        userCommands.put("addCard", new CommandAddCard());
+        userCommands.put("changeData", new CommandChangeData());
     }
 
     public static ControllerHelper getInstance() {

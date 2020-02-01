@@ -50,10 +50,10 @@
                                 <fmt:message key="home.account.status.active" var="statusActive"/>
                                 <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
                                 <fmt:message key="home.account.button.block" var="block"/>
-                                <fmt:message key="admin.account.unblock" var="unblock"/>
+                                <fmt:message key="home.account.button.unblock" var="unblock"/>
                                 <fmt:message key="home.account.button.showInfo" var="showInfo"/>
                                 <fmt:message key="admin.card.addCard" var="addCard"/>
-                                <fmt:message key="admin.account.delete" var="delete"/>
+                                <fmt:message key="home.card.delete" var="delete"/>
 
                                 <div class="content-box-large">
                                     <div class="panel-heading">

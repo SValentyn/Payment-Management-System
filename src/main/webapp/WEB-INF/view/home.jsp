@@ -43,6 +43,36 @@
         </div>
     </c:if>
 
+    <!-- Alert unblockAccountAlert -->
+    <c:if test="${unblockAccountAlert == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 536px; z-index: 1;">
+            <p>To unblock your account, please <a href="" class="alert-link">contact</a> PMS technical support.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unblockCardAlert -->
+    <c:if test="${unblockCardAlert == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px; z-index: 1;">
+            <p>To unblock your card, please <a href="" class="alert-link">contact</a> PMS technical support.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert deleteCardError -->
+    <c:if test="${deleteCardError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px; z-index: 1;">
+            <p>Delete </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
@@ -63,6 +93,7 @@
                                     <fmt:message key="home.account.status.active" var="statusActive"/>
                                     <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
                                     <fmt:message key="home.account.button.block" var="block"/>
+                                    <fmt:message key="home.account.button.unblock" var="unblock"/>
                                     <fmt:message key="home.account.button.showInfo" var="showInfo"/>
 
                                     <div class="content-box-large">
@@ -96,11 +127,18 @@
                                                                 </td>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        <td>
-                                                            <c:if test="${!account.isBlocked}">
-                                                                <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
-                                                            </c:if>
-                                                        </td>
+                                                        <c:choose>
+                                                            <c:when test="${account.isBlocked}">
+                                                                <td>
+                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">${unblock}</a>
+                                                                </td>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <td>
+                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
+                                                                </td>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                         <td>
                                                             <a href="?command=showInfo&accountId=${account.accountId}">${showInfo}</a>
                                                         </td>
@@ -125,6 +163,7 @@
                                     <fmt:message key="home.account.status.active" var="statusActive"/>
                                     <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
                                     <fmt:message key="home.account.button.block" var="block"/>
+                                    <fmt:message key="home.account.button.unblock" var="unblock"/>
                                     <fmt:message key="home.account.button.showInfo" var="showInfo"/>
 
                                     <div class="content-box-large">
@@ -158,11 +197,18 @@
                                                                 </td>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        <td>
-                                                            <c:if test="${!account.isBlocked}">
-                                                                <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
-                                                            </c:if>
-                                                        </td>
+                                                        <c:choose>
+                                                            <c:when test="${account.isBlocked}">
+                                                                <td>
+                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">${unblock}</a>
+                                                                </td>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <td>
+                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
+                                                                </td>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                         <td>
                                                             <a href="?command=showInfo&accountId=${account.accountId}">${showInfo}</a>
                                                         </td>
@@ -181,6 +227,7 @@
                                     <fmt:message key="home.card.number" var="cardNumber"/>
                                     <fmt:message key="home.card.cvv" var="cvv"/>
                                     <fmt:message key="home.card.date" var="date"/>
+                                    <fmt:message key="home.card.delete" var="delete"/>
 
                                     <div class="content-box-header">
                                         <div class="panel-title">
@@ -195,6 +242,7 @@
                                             <th>${date}</th>
                                             <th>${status}</th>
                                             <th>${action}</th>
+                                            <th></th>
 
                                             <c:forEach items="${cards}" var="card">
                                                 <tr>
@@ -213,10 +261,20 @@
                                                             </td>
                                                         </c:otherwise>
                                                     </c:choose>
+                                                    <c:choose>
+                                                        <c:when test="${card.isActive}">
+                                                            <td>
+                                                                <a href="?command=blockCard&cardNumber=${card.number}">${block}</a>
+                                                            </td>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <td>
+                                                                <a href="?command=unblockCard&cardNumber=${card.number}">${unblock}</a>
+                                                            </td>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                     <td>
-                                                        <c:if test="${card.isActive}">
-                                                            <a href="?command=blockCard&cardNumber=${card.number}">${block}</a>
-                                                        </c:if>
+                                                        <a href="?command=deleteCard&cardId=${card.cardId}">${delete}</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -282,7 +340,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                    <span class="showOrCreate-label">
+                    <span class="init-label">
                         <label>
                             <b>
                                 <a href="?command=showAccounts"><fmt:message key="sidebar.showAccounts"/></a>
