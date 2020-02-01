@@ -42,7 +42,7 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 466px;">
+        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 493px; margin-top: 22px;">
             <p><strong>Success!</strong> Account created. Try <a href="/" class="alert-link">logging</a>
                 into your account.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -53,7 +53,7 @@
 
     <!-- Alert userAlreadyRegisteredError -->
     <c:if test="${userAlreadyRegisteredError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 466px;">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 466px; margin-top: 22px;">
             <p><strong>Failed!</strong> A user with such a phone is already registered.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -65,7 +65,7 @@
         <div class="page-content container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <div class="login-wrapper" style="top: 50px;">
+                    <div class="login-wrapper" style="top: 22px;">
                         <div class="box" style="padding-bottom: 0px;">
                             <div class="content-wrap">
                                 <fmt:message key="registration.registration" var="registration"/>

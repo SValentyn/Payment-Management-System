@@ -372,6 +372,7 @@ body {
     height: 60px;
     display: flex;
     position: fixed;
+    z-index: 1;
     right: 0;
     padding: 0 0 0 20px;
     margin: 0 20px 0 0;
