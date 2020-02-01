@@ -75,6 +75,16 @@ public class CreditCardService {
     }
 
     /**
+     * Checks if card number not null and deletes it
+     */
+    public void deleteCardByNumber(String number) {
+        if (number != null) {
+            CreditCard card = findCardByCardNumber(number);
+            creditCardDao.delete(card.getCardId());
+        }
+    }
+
+    /**
      * Blocks credit card by number
      */
     public void blockCreditCard(String number) {

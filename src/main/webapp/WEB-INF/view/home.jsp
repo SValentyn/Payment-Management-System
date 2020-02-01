@@ -13,7 +13,7 @@
     <title><fmt:message key="home.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
@@ -25,7 +25,7 @@
     <c:if test="${noAccounts == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 440px;">
             <p><strong>Failed!</strong> You do not have an account.
-                <a href="?command=createAccount" class="alert-link">Create</a>it now.
+                <a href="?command=createAccount" class="alert-link">Create</a> it now.
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -35,8 +35,8 @@
 
     <!-- Alert blockAccountError -->
     <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 303px;">
-            <p><strong>Failed!</strong> Failed to block account.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 248px;">
+            <p><strong>Failed</strong> to block account.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -45,7 +45,7 @@
 
     <!-- Alert unblockAccountAlert -->
     <c:if test="${unblockAccountAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 536px; z-index: 1;">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 536px;">
             <p>To unblock your account, please <a href="" class="alert-link">contact</a> PMS technical support.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -55,18 +55,8 @@
 
     <!-- Alert unblockCardAlert -->
     <c:if test="${unblockCardAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px; z-index: 1;">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px;">
             <p>To unblock your card, please <a href="" class="alert-link">contact</a> PMS technical support.</p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert deleteCardError -->
-    <c:if test="${deleteCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px; z-index: 1;">
-            <p>Delete </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -274,7 +264,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td>
-                                                        <a href="?command=deleteCard&cardId=${card.cardId}">${delete}</a>
+                                                        <a href="?command=deleteCard&cardNumber=${card.number}">${delete}</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
