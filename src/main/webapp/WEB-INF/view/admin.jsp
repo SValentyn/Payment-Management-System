@@ -27,17 +27,22 @@
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-10" style="padding-left: 0px;">
                 <c:choose>
                     <c:when test="${showUsers}">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <fmt:message key="admin.allUsers" var="allUsers"/>
-                                    <fmt:message key="admin.changeData" var="changeData"/>
-                                    <fmt:message key="admin.addAccount" var="addAccount"/>
-                                    <fmt:message key="admin.showUserAccounts" var="showAccounts"/>
-                                    <fmt:message key="admin.deleteUser" var="deleteUser"/>
+                                    <fmt:message key="admin.users.allUsers" var="allUsers"/>
+                                    <fmt:message key="admin.users.name" var="name"/>
+                                    <fmt:message key="admin.users.surname" var="surname"/>
+                                    <fmt:message key="admin.users.email" var="email"/>
+                                    <fmt:message key="admin.users.phone" var="phone"/>
+                                    <fmt:message key="admin.users.changeData" var="changeData"/>
+                                    <fmt:message key="admin.users.addAccount" var="addAccount"/>
+                                    <fmt:message key="admin.users.showUserAccounts" var="showAccounts"/>
+                                    <fmt:message key="admin.users.deleteUser" var="deleteUser"/>
+                                    <fmt:message key="home.card.delete" var="delete"/>
 
                                     <div class="content-box-header">
                                         <div class="panel-title">
@@ -47,14 +52,14 @@
 
                                     <div class="content-box-large box-with-header">
                                         <table>
-                                            <th><fmt:message key="admin.name"/></th>
-                                            <th><fmt:message key="admin.surname"/></th>
-                                            <th><fmt:message key="admin.email"/></th>
-                                            <th><fmt:message key="admin.phone"/></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>${name}</th>
+                                            <th>${surname}</th>
+                                            <th>${email}</th>
+                                            <th>${phone}</th>
+                                            <th>${changeData}</th>
+                                            <th>${addAccount}</th>
+                                            <th>${showAccounts}</th>
+                                            <th>${deleteUser}</th>
 
                                             <c:forEach items="${users}" var="user">
                                                 <tr>
@@ -79,7 +84,7 @@
                                                     </td>
                                                     <td>
                                                         <a href="?command=deleteUser&userId=${user.userId}">
-                                                                ${deleteUser}
+                                                                ${delete}
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -94,7 +99,7 @@
                     <span class="init-label">
                         <label>
                             <b>
-                                <a href="?command=showAllUsers">
+                                <a href="?command=showUsers">
                                     <fmt:message key="admin.showAllUsers"/>
                                 </a>
                             </b>

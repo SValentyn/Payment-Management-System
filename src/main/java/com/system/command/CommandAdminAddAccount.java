@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandAddAccount implements ICommand {
+public class CommandAdminAddAccount implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -23,7 +23,7 @@ public class CommandAddAccount implements ICommand {
             request.getSession().setAttribute("userId", userId);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_USER_ACCOUNTS);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
     }
 
 }

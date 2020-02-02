@@ -13,7 +13,7 @@
     <title><fmt:message key="home.addCard.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="stylesheet" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css"/>

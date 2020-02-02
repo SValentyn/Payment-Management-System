@@ -21,7 +21,7 @@ public class CommandAdminDeleteCard implements ICommand {
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_USER_ACCOUNTS);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
     }
 
 }

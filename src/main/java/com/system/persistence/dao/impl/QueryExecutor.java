@@ -5,19 +5,29 @@ import com.system.persistence.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+/**
+ * It implements the basic methods for working with the database:
+ * - obtaining a connection to the connection pool
+ * - performing CRUD operations
+ * - closing a pool connection
+ *
+ * @author Syniuk Valentyn
+ */
 public class QueryExecutor {
 
     private static final Logger LOGGER = LogManager.getLogger(QueryExecutor.class);
 
+    private static QueryExecutor instance = null;
     private PreparedStatement preparedStatement;
     private Connection connection = getConnection();
 
     private QueryExecutor() throws SQLException {
     }
-
-    private static QueryExecutor instance = null;
 
     public static synchronized QueryExecutor getInstance() throws SQLException {
         if (instance == null) {
@@ -31,18 +41,6 @@ public class QueryExecutor {
      */
     private Connection getConnection() throws SQLException {
         return ConnectionPool.getInstance().getConnection();
-
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String URL = "jdbc:mysql://localhost:3306/PMS_DB?useSSL=false&amp;useUnicode=true&amp;autoReconnect=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC";
-//        String username = "root";
-//        String password = "pppp";
-//
-//        return DriverManager.getConnection(URL, username, password);
     }
 
     /**

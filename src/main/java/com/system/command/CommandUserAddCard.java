@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CommandAddCard implements ICommand {
+public class CommandUserAddCard implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -48,7 +48,7 @@ public class CommandAddCard implements ICommand {
 
             List<CreditCard> allCards = CreditCardService.getInstance().findAllCards();
             for (CreditCard card : allCards) {
-                if(card.getNumber().equals(number)) {
+                if (card.getNumber().equals(number)) {
                     request.setAttribute("numberExistError", true);
                     setRequestAttributes(request, number, CVV, validity);
                     return page;

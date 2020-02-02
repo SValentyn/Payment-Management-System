@@ -1,6 +1,5 @@
 package com.system.command;
 
-import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.CreditCardService;
@@ -29,6 +28,6 @@ public class CommandAdminBlockAccount implements ICommand {
             request.setAttribute("blockAccountError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_USER_ACCOUNTS);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
     }
 }

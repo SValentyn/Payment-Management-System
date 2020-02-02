@@ -39,35 +39,35 @@ public class ControllerHelper {
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
-        adminCommands.put("addAccount", new CommandAddAccount());
-        adminCommands.put("addCard", new CommandAddCard());
-        adminCommands.put("addUser", new CommandAddUser());
-        adminCommands.put("deleteAccount", new CommandDeleteAccount());
+        adminCommands.put("showUsers", new CommandAdminShowUsers());
+        adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
+        adminCommands.put("showAccountInfo", new CommandAccountsControl());
+        adminCommands.put("changeData", new CommandAdminChangeData());
+        adminCommands.put("addAccount", new CommandAdminAddAccount());
+        adminCommands.put("addCard", new CommandAdminAddCard());
+        adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());
         adminCommands.put("deleteCard", new CommandAdminDeleteCard());
-        adminCommands.put("deleteUser", new CommandDeleteUser());
-        adminCommands.put("showAllUsers", new CommandShowAllUsers());
-        adminCommands.put("showUserAccounts", new CommandShowUserAccounts());
-        adminCommands.put("showCardsAndPayments", new CommandAccountsControl());
         adminCommands.put("blockAccount", new CommandAdminBlockAccount());
-        adminCommands.put("blockCard", new CommandUserBlockCard());
-        adminCommands.put("unblockAccount", new CommandUnblockAccount());
-        adminCommands.put("unblockCard", new CommandUnblockCard());
-        adminCommands.put("changeData", new CommandChangeData());
+        adminCommands.put("blockCard", new CommandAdminBlockCard());
+        adminCommands.put("unblockAccount", new CommandAdminUnblockAccount());
+        adminCommands.put("unblockCard", new CommandAdminUnblockCard());
+        adminCommands.put("addUser", new CommandAdminAddUser());
+        adminCommands.put("deleteUser", new CommandAdminDeleteUser());
 
         // Client commands
         userCommands.put("logout", new CommandLogout());
-        userCommands.put("showAccounts", new CommandShowAccounts());
-        userCommands.put("showInfo", new CommandShowAccountInfo());
+        userCommands.put("showAccounts", new CommandUserShowAccounts());
+        userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
         userCommands.put("blockCard", new CommandUserBlockCard());
         userCommands.put("unblockAccount", new CommandUserUnblockAccount());
         userCommands.put("unblockCard", new CommandUserUnblockCard());
         userCommands.put("deleteCard", new CommandUserDeleteCard());
-        userCommands.put("createAccount", new CommandCreateAccount());
-        userCommands.put("makePayment", new CommandCreatePayment());
-        userCommands.put("repeatPayment", new CommandRepeatPayment());
-        userCommands.put("addCard", new CommandAddCard());
-        userCommands.put("changeData", new CommandChangeData());
+        userCommands.put("createAccount", new CommandUserCreateAccount());
+        userCommands.put("makePayment", new CommandUserCreatePayment());
+        userCommands.put("repeatPayment", new CommandUserRepeatPayment());
+        userCommands.put("addCard", new CommandUserAddCard());
+        userCommands.put("changeData", new CommandUserChangeData());
     }
 
     public static ControllerHelper getInstance() {

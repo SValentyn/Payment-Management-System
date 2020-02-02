@@ -12,16 +12,20 @@ import java.util.List;
 
 /**
  * Realizes methods from PaymentDao interface
+ *
+ * @author Syniuk Valentyn
  */
 public class PaymentDaoImpl implements PaymentDao {
 
     private static final Logger LOGGER = LogManager.getLogger(PaymentDaoImpl.class);
+
     /**
      * SQL queries
      */
     private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, card_number, sum, appointment, date, `condition`) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
     private static final String FIND_PAYMENTS = "SELECT * FROM payments WHERE account_id = ?";
+
     private static PaymentDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
 

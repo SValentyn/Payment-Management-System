@@ -99,7 +99,7 @@
                                                 <th>${balance}</th>
                                                 <th>${status}</th>
                                                 <th>${action}</th>
-                                                <th></th>
+                                                <th>${showInfo}</th>
 
                                                 <c:forEach items="${accounts}" var="account">
                                                     <tr>
@@ -130,7 +130,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <td>
-                                                            <a href="?command=showInfo&accountId=${account.accountId}">${showInfo}</a>
+                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">${showInfo}</a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -169,7 +169,7 @@
                                                 <th>${balance}</th>
                                                 <th>${status}</th>
                                                 <th>${action}</th>
-                                                <th></th>
+                                                <th>${showInfo}</th>
 
                                                 <c:forEach items="${accounts}" var="account">
                                                     <tr>
@@ -200,7 +200,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <td>
-                                                            <a href="?command=showInfo&accountId=${account.accountId}">${showInfo}</a>
+                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">${showInfo}</a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -232,7 +232,7 @@
                                             <th>${date}</th>
                                             <th>${status}</th>
                                             <th>${action}</th>
-                                            <th></th>
+                                            <th>${delete}</th>
 
                                             <c:forEach items="${cards}" var="card">
                                                 <tr>

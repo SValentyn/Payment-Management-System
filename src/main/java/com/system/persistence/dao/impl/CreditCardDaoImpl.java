@@ -12,12 +12,12 @@ import java.util.List;
 
 /**
  * Realizes methods from CreditCardDao interface
+ *
+ * @author Syniuk Valentyn
  */
 public class CreditCardDaoImpl implements CreditCardDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CreditCardDaoImpl.class);
-
-    private QueryExecutor executor = QueryExecutor.getInstance();
 
     /**
      * SQL queries
@@ -29,10 +29,11 @@ public class CreditCardDaoImpl implements CreditCardDao {
     private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM credit_cards WHERE account_id = ?";
     private static final String FIND_ALL_CARDS = "SELECT * FROM credit_cards";
 
+    private static CreditCardDaoImpl instance = null;
+    private QueryExecutor executor = QueryExecutor.getInstance();
+
     private CreditCardDaoImpl() throws SQLException {
     }
-
-    private static CreditCardDaoImpl instance = null;
 
     public static synchronized CreditCardDaoImpl getInstance() throws SQLException {
         if (instance == null) {

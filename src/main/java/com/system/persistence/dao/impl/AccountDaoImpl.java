@@ -12,10 +12,13 @@ import java.util.List;
 
 /**
  * Realizes methods from AccountDao interface
+ *
+ * @author Syniuk Valentyn
  */
 public class AccountDaoImpl implements AccountDao {
 
     private static final Logger LOGGER = LogManager.getLogger(AccountDaoImpl.class);
+
     /**
      * SQL queries
      */
@@ -23,6 +26,7 @@ public class AccountDaoImpl implements AccountDao {
     private static final String UPDATE_ACCOUNT = "UPDATE accounts SET balance = ?, is_blocked = ? WHERE account_id = ?";
     private static final String FIND_ACCOUNT_BY_ID = "SELECT * FROM accounts WHERE account_id = ?";
     private static final String FIND_ALL_USER_ACCOUNTS = "SELECT * FROM accounts WHERE user_id = ?";
+
     private static AccountDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
 

@@ -103,12 +103,9 @@ public class Account implements Serializable {
             return false;
 
         if (isBlocked == null) {
-            if (other.isBlocked != null)
-                return false;
-        } else if (!isBlocked.equals(other.isBlocked))
-            return false;
+            return other.isBlocked == null;
+        } else return isBlocked.equals(other.isBlocked);
 
-        return true;
     }
 
     @Override

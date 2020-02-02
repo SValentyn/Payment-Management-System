@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
-public class CommandRepeatPayment implements ICommand {
+public class CommandUserRepeatPayment implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {

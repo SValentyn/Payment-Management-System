@@ -2,6 +2,7 @@ package com.system.command;
 
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.service.AccountService;
 import com.system.service.UserService;
 import com.system.utils.Validator;
 
@@ -9,14 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandAddUser implements ICommand {
+public class CommandUserChangeData implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADD_USER);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.CHANGE_DATA);
+
+        String userId = request.getParameter("userId");
+        if (userId != null) {
+            request.getSession().setAttribute("userId", userId);
+            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
+        }
+
         request.setAttribute("created", false);
-        request.setAttribute("phoneExistError", false);
+        request.setAttribute("userAlreadyRegisteredError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -42,9 +50,9 @@ public class CommandAddUser implements ICommand {
             }
 
             // Create
-            int status = UserService.getInstance().addNewUser(name, surname, phone);
+            int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
-                request.setAttribute("phoneExistError", true);
+                request.setAttribute("userAlreadyRegisteredError", true);
                 setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
             } else {
                 request.setAttribute("created", true);
@@ -59,12 +67,22 @@ public class CommandAddUser implements ICommand {
             request.setAttribute("nameError", true);
             return true;
         }
+
+        if (Validator.checkLengthName(name)) {
+            request.setAttribute("nameLengthError", true);
+            return true;
+        }
         return false;
     }
 
     private boolean checkSurname(HttpServletRequest request, String surname) {
         if (surname == null || surname.isEmpty()) {
             request.setAttribute("surnameError", true);
+            return true;
+        }
+
+        if (Validator.checkLengthSurname(surname)) {
+            request.setAttribute("surnameLengthError", true);
             return true;
         }
         return false;

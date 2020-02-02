@@ -7,11 +7,9 @@ import java.io.Serializable;
  */
 public class Role implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     public static final String ROLE_ADMIN = "admin";
     public static final String ROLE_CLIENT = "client";
-
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String rolename;
 
@@ -62,11 +60,8 @@ public class Role implements Serializable {
             return false;
 
         if (rolename == null) {
-            if (other.rolename != null)
-                return false;
-        } else if (!rolename.equals(other.rolename))
-            return false;
+            return other.rolename == null;
+        } else return rolename.equals(other.rolename);
 
-        return true;
     }
 }

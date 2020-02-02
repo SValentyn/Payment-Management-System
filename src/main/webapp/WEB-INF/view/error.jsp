@@ -35,7 +35,7 @@
             <c:set var="errorMessage" value="${error_500}" scope="page"/>
         </c:if>
 
-        <div style="text-align: center; margin-top: 180px;">
+        <div style="text-align: center; margin-top: 150px;">
             <span id="error_detail_message">
                  <c:if test="${not empty code}">
                      <h1 class="code">●&nbsp;&nbsp;<c:out value="${code}"/>&nbsp;&nbsp;●</h1>

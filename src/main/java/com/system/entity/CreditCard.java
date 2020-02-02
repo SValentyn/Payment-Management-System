@@ -119,12 +119,9 @@ public class CreditCard implements Serializable {
             return false;
 
         if (isActive == null) {
-            if (other.isActive != null)
-                return false;
-        } else if (!isActive.equals(other.isActive))
-            return false;
+            return other.isActive == null;
+        } else return isActive.equals(other.isActive);
 
-        return true;
     }
 
     @Override

@@ -25,14 +25,13 @@ public class PaymentService {
 
     private static final Logger LOGGER = LogManager.getLogger(PaymentService.class);
 
+    private static PaymentService instance = null;
     private AccountDao accountDao = DaoFactory.createAccountDao();
     private CreditCardDao creditCardDao = DaoFactory.createCreditCardDao();
     private PaymentDao paymentDao = DaoFactory.createPaymentDao();
 
     private PaymentService() throws SQLException {
     }
-
-    private static PaymentService instance = null;
 
     public static synchronized PaymentService getInstance() throws SQLException {
         if (instance == null) {

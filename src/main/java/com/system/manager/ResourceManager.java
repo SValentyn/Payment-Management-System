@@ -7,25 +7,24 @@ import java.util.ResourceBundle;
  */
 public class ResourceManager {
 
-    private final static String BUNDLE_NAME = "configuration";
     public static final String INDEX = "INDEX";
     public static final String REGISTRATION = "REGISTRATION";
     public static final String HOME = "HOME";
     public static final String ADMIN = "ADMIN";
     public static final String ERROR = "ERROR";
+    public static final String ACCOUNTS_CONTROL = "ACCOUNTS_CONTROL";
     public static final String CREATE_ACCOUNT = "CREATE_ACCOUNT";
+    public static final String CHANGE_DATA = "CHANGE_DATA";
+    public static final String MAKE_PAYMENT = "MAKE_PAYMENT";
     public static final String ADD_CARD = "ADD_CARD";
     public static final String ADD_USER = "ADD_USER";
-    public static final String SHOW_USER_ACCOUNTS = "SHOW_USER_ACCOUNTS";
-    public static final String MAKE_PAYMENT = "MAKE_PAYMENT";
-    public static final String CHANGE_DATA = "CHANGE_DATA";
+    private final static String BUNDLE_NAME = "configuration";
 
+    private static ResourceManager instance;
     private ResourceBundle resourceBundle;
 
     private ResourceManager() {
     }
-
-    private static ResourceManager instance;
 
     public static synchronized ResourceManager getInstance() {
         if (instance == null) {

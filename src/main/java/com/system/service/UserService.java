@@ -23,6 +23,7 @@ public class UserService {
     private static final String UNKNOWN = "unknown";
     private static final String ADMIN = "admin";
     private static final String CLIENT = "client";
+
     private static UserService instance = null;
     private UserDao userDao = DaoFactory.createUserDao();
     private PasswordEncryptor encryptor = new PasswordEncryptor();

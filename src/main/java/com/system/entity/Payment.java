@@ -135,12 +135,9 @@ public class Payment implements Serializable {
             return false;
 
         if (condition == null) {
-            if (other.condition != null)
-                return false;
-        } else if (!condition.equals(other.condition))
-            return false;
+            return other.condition == null;
+        } else return condition.equals(other.condition);
 
-        return true;
     }
 
     @Override

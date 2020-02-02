@@ -46,8 +46,8 @@
                     <div class="login-wrapper">
                         <div class="box">
                             <div class="content-wrap">
-                                <h6></h6>
-                                <p></p>
+                                <h6>11111</h6>
+                                <p>00000</p>
                                 <p></p>
                                 <p></p>
 
@@ -61,12 +61,12 @@
 
                                 <form action="/" method="POST">
                                     <input type="hidden" name="command" value="login"/>
-                                    <input class="form-control" name="login" type="text" placeholder="${phone}"
-                                           style="margin-bottom: 18px;"
-                                           value="${phoneValue}">
+
+                                    <input class="form-control" name="login" type="text" style="margin-bottom: 18px;"
+                                           placeholder="${phone}" value="${phoneValue}">
                                     <input class="form-control" name="password" type="password"
-                                           placeholder="${password}"
-                                           value="${passwordValue}"/>
+                                           placeholder="${password}" value="${passwordValue}"/>
+
                                     <label class="enter-error-label">
                                         <c:if test="${phoneError}">
                                             <fmt:message key="login.phoneError"/>
@@ -82,6 +82,7 @@
                                             <fmt:message key="login.loginError"/>
                                         </c:if>
                                     </label>
+
                                     <div class="action" style="padding-bottom: 0px;">
                                         <input class="btn btn-primary signup" type="submit" value="${submit}"/>
                                     </div>

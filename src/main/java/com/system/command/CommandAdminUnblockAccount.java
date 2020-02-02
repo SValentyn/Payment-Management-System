@@ -7,21 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandShowUserAccounts implements ICommand {
+public class CommandAdminUnblockAccount implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String userId = request.getParameter("userId");
+        String userId = (String) request.getSession().getAttribute("userId");
 
-        if (userId != null) {
-            request.getSession().setAttribute("userId", userId);
+        String accountId = request.getParameter("accountId");
+        if (accountId != null) {
+            AccountService.getInstance().unblockAccount(Integer.parseInt(accountId));
+            request.setAttribute("showAccounts", true);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
-        } else {
-            // error
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.SHOW_USER_ACCOUNTS);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
     }
 
 }

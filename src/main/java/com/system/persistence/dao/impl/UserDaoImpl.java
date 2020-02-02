@@ -13,10 +13,13 @@ import java.util.List;
 
 /**
  * Realizes methods from UserDao interface
+ *
+ * @author Syniuk Valentyn
  */
 public class UserDaoImpl implements UserDao {
 
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
+
     /**
      * SQL queries
      */
@@ -26,6 +29,7 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_BY_LOGIN_PASSWORD = "SELECT users.user_id, users.username, users.surname, users.email, users.password, users.phone, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ? AND users.password = ?";
     private static final String FIND_BY_PHONE = "SELECT users.user_id, users.username, users.surname, users.email, users.password, users.phone, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ?";
     private static final String FIND_ALL = "SELECT users.user_id, users.username, users.surname, users.email, users.password, users.phone, users.role_Id, roles.title FROM users JOIN roles ON users.role_id = roles.id AND users.role_id = 1";
+
     private static UserDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
 
