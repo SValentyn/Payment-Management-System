@@ -37,7 +37,7 @@
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-10" style="padding-left: 0px;">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="row">
@@ -52,7 +52,7 @@
                                 <fmt:message key="home.account.button.block" var="block"/>
                                 <fmt:message key="home.account.button.unblock" var="unblock"/>
                                 <fmt:message key="home.account.button.showInfo" var="showInfo"/>
-                                <fmt:message key="admin.card.addCard" var="addCard"/>
+                                <fmt:message key="sidebar.addCard" var="addCard"/>
                                 <fmt:message key="home.card.delete" var="delete"/>
 
                                 <div class="content-box-large">
@@ -68,9 +68,9 @@
                                             <th>${balance}</th>
                                             <th>${status}</th>
                                             <th>${action}</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>${showInfo}</th>
+                                            <th>${addCard}</th>
+                                            <th>${delete}</th>
 
                                             <c:forEach items="${accounts}" var="account">
                                                 <tr>
@@ -105,7 +105,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td>
-                                                        <a href="?command=showCardsAndPayments&accountId=${account.accountId}">
+                                                        <a href="?command=showAccountInfo&accountId=${account.accountId}">
                                                                 ${showInfo}
                                                         </a>
                                                     </td>
@@ -141,14 +141,15 @@
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header" style="padding-left: 12px;padding-right: 12px;">
+                                <div class="content-box-large box-with-header"
+                                     style="padding-left: 12px;padding-right: 12px;">
                                     <table>
                                         <th>${cardNumber}</th>
                                         <th>${cvv}</th>
                                         <th>${date}</th>
                                         <th>${status}</th>
                                         <th>${action}</th>
-                                        <th></th>
+                                        <th>${delete}</th>
 
                                         <c:forEach items="${cards}" var="card">
                                             <tr>
@@ -211,7 +212,8 @@
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header" style="padding-left: 12px;padding-right: 12px;">
+                                <div class="content-box-large box-with-header"
+                                     style="padding-left: 12px;padding-right: 12px;">
                                     <table>
                                         <th>${receiverCard}</th>
                                         <th>${payment_sum}</th>
