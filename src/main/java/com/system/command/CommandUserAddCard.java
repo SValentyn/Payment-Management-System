@@ -34,7 +34,7 @@ public class CommandUserAddCard implements ICommand {
             // Data
             String accountId = request.getParameter("accountId");
             String number = request.getParameter("number");
-            String CVV = request.getParameter("cvv");
+            String CVV = request.getParameter("CVV");
             String validity = request.getParameter("validity");
 
             // Check
@@ -97,6 +97,12 @@ public class CommandUserAddCard implements ICommand {
             request.setAttribute("validityError", true);
             return true;
         }
+
+        if (Validator.checkValidity(validity)) {
+            request.setAttribute("validityExpiredError", true);
+            return true;
+        }
+
         return false;
     }
 
