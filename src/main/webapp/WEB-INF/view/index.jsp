@@ -47,14 +47,32 @@
                     <div class="login-wrapper" style="top: 30px;">
                         <div class="box">
                             <div class="content-wrap">
-                                <h4>Payment Management System</h4>
-                                <h4>Status: Beta</h4>
-                                <p>User: 00000</p>
-                                <p>Admin: 11111</p>
-
-                                <h4>
-                                    <fmt:message key="login.signin"/>
+                                <h4 style="margin-bottom: 22px;">
+                                    <fmt:message key="login.signin"/><br>Payment Management System
                                 </h4>
+                                <h4>
+                                    Status: <abbr style="color: red">Beta</abbr>
+                                </h4>
+
+                                <div class="form-group" style="display: flex; width: 100%;">
+                                    <div class="action" style="width: 100%;">
+                                        <button type="submit" class="btn btn-success" style="width: 90%; height: 45px;">
+                                            <a class="link-in-button" style="color: #ffffff;"
+                                               href="/?command=login&login=0000000000&password=000000">
+                                                Beta-User
+                                            </a>
+                                        </button>
+                                    </div>
+
+                                    <div class="action" style="width: 100%;">
+                                        <button type="submit" class="btn btn-danger" style="width: 90%; height: 45px;">
+                                            <a class="link-in-button" style="color: #ffffff;"
+                                               href="/?command=login&login=1111111111&password=111111">
+                                                Beta-Admin
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
 
                                 <fmt:message key="login.phone" var="phone"/>
                                 <fmt:message key="login.password" var="password"/>
