@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.Account;
 import com.system.entity.CreditCard;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
@@ -23,13 +24,15 @@ public class CommandUserCreatePayment implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
-        User user = (User) request.getSession().getAttribute("currentUser");
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
         request.setAttribute("created", false);
         request.setAttribute("numberNotExistError", false);
         request.setAttribute("accountFromBlockedError", false);
         request.setAttribute("receiverAccountOrCardBlockedError", false);
         request.setAttribute("insufficientFundsError", false);
+
+        User user = (User) request.getSession().getAttribute("currentUser");
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        request.setAttribute("accounts", accounts);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -42,14 +45,23 @@ public class CommandUserCreatePayment implements ICommand {
             String amount = request.getParameter("amount");
             String appointment = request.getParameter("appointment");
 
-            // Check
-            if (checkAccountId(request, accountId) ||
-                    checkCardNumber(request, number) ||
-                    checkAmount(request, amount)) {
-                setRequestAttributes(request, number, amount, appointment);
+            // Checking AccountId
+            if (!checkAccountId(request, accountId)) {
+                accounts.remove(AccountService.getInstance().findAccountByAccountId(accountId));
+                request.setAttribute("accounts", accounts);
+                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(accountId));
+            } else {
+                setRequestAttributes(request, accountId, number, amount, appointment);
                 return page;
             }
 
+            // Checking CardNumber and Amount
+            if (checkCardNumber(request, number) || checkAmount(request, amount)) {
+                setRequestAttributes(request, accountId, number, amount, appointment);
+                return page;
+            }
+
+            // Checking the existence of a card number
             List<CreditCard> allCards = CreditCardService.getInstance().findAllCards();
             List<String> allCardNumbers = new ArrayList<>();
 
@@ -58,7 +70,7 @@ public class CommandUserCreatePayment implements ICommand {
             }
 
             if (!allCardNumbers.contains(number)) {
-                setRequestAttributes(request, number, amount, appointment);
+                setRequestAttributes(request, accountId, number, amount, appointment);
                 request.setAttribute("numberNotExistError", true);
                 return page;
             }
@@ -67,13 +79,13 @@ public class CommandUserCreatePayment implements ICommand {
             int status = PaymentService.getInstance().formingPayment(Integer.valueOf(accountId), number, new BigDecimal(amount), appointment);
             if (status == -1) {
                 request.setAttribute("accountFromBlockedError", true);
-                setRequestAttributes(request, number, amount, appointment);
+                setRequestAttributes(request, accountId, number, amount, appointment);
             } else if (status == -2) {
                 request.setAttribute("receiverAccountOrCardBlockedError", true);
-                setRequestAttributes(request, number, amount, appointment);
+                setRequestAttributes(request, accountId, number, amount, appointment);
             } else if (status == -3) {
                 request.setAttribute("insufficientFundsError", true);
-                setRequestAttributes(request, number, amount, appointment);
+                setRequestAttributes(request, accountId, number, amount, appointment);
             } else {
                 request.setAttribute("created", true);
             }
@@ -83,7 +95,7 @@ public class CommandUserCreatePayment implements ICommand {
     }
 
     private boolean checkAccountId(HttpServletRequest request, String accountId) {
-        if (accountId == null || accountId.isEmpty() || !Validator.isNumeric(accountId)) {
+        if (accountId == null || accountId.isEmpty() || accountId.equals("0") || !Validator.isNumeric(accountId)) {
             request.setAttribute("accountIdError", true);
             return true;
         }
@@ -106,7 +118,8 @@ public class CommandUserCreatePayment implements ICommand {
         return false;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String number, String amount, String appointment) {
+    private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String amount, String appointment) {
+        request.setAttribute("accountId", accountId);
         request.setAttribute("numberValue", number);
         request.setAttribute("amountValue", amount);
         request.setAttribute("appointmentValue", appointment);

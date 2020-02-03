@@ -80,7 +80,7 @@
             <div class="page-content container">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper" style="top: 40px;">
+                        <div class="login-wrapper" style="top: 0px;">
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="home.makepayment.createNewPayment" var="createNewPayment"/>
@@ -96,15 +96,30 @@
                                         ${createNewPayment}
                                     </h4>
 
-                                    <form action="" role="form" method="POST">
+                                    <form action="/" role="form" method="POST">
                                         <input type="hidden" name="command" value="makePayment">
 
                                         <!-- AccountId -->
                                         <select name="accountId" class="form-control"
                                                 style="text-align: center; height: 42px; margin-bottom: 2px; font-size: 18px;">
-                                            <option value="0">
-                                                ${from}
-                                            </option>
+                                            <c:choose>
+                                                <c:when test="${accountId == null}">
+                                                    <option value="${0}">
+                                                            ${from}
+                                                    </option>
+                                                </c:when>
+                                                <c:when test="${accountId == 0}">
+                                                    <option value="${0}">
+                                                            ${from}
+                                                    </option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${accountId}">
+                                                            ${numberByAccountIdValue}
+                                                    </option>
+                                                </c:otherwise>
+                                            </c:choose>
+
                                             <c:forEach items="${accounts}" var="account">
                                                 <option value="${account.accountId}">${account.number}</option>
                                             </c:forEach>
@@ -161,8 +176,8 @@
                                         </div>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding-bottom: 0px;padding-top: 30px;">
-                                            <button type="submit" class="btn btn-primary signup">
+                                        <div class="action" style="padding: 30px 0 5px 0">
+                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
                                                 <fmt:message key="home.makepayment.makePayment"/>
                                             </button>
                                         </div>
