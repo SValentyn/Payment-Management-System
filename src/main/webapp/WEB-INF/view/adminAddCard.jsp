@@ -64,7 +64,7 @@
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="home.addCard.addNewCard" var="addNewCard"/>
-                                    <fmt:message key="home.addCard.selectAccount" var="selectAccount"/>
+                                    <fmt:message key="admin.addCard.selectedAccount" var="selectedAccount"/>
                                     <fmt:message key="home.addCard.number" var="number"/>
                                     <fmt:message key="home.addCard.cvv" var="cvv"/>
                                     <fmt:message key="home.addCard.validity" var="validity"/>
@@ -88,7 +88,7 @@
                                         <!-- Number ByAccountId -->
                                         <div class="form-group" style="margin-bottom: 24px;">
                                             <label class="label-for-form" style="width: 100%">
-                                                Selected account number:
+                                                ${selectedAccount}
                                                 <input id="numberByAccountIdValue" name="numberByAccountIdValue"
                                                        class="form-control" type="text" disabled="disabled"
                                                        value="${numberByAccountIdValue}"/>
@@ -200,7 +200,7 @@
                                         </label>&nbsp;
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding-bottom: 10px;">
+                                        <div class="action" style="padding: 10px 0 10px 0;">
                                             <button type="submit" class="btn btn-primary signup">
                                                 <fmt:message key="home.addCard.button.add"/>
                                             </button>
@@ -208,7 +208,8 @@
 
                                         <!-- Back -->
                                         <div class="action">
-                                            <button type="button" class="btn btn-default signup">
+                                            <button type="button" class="btn btn-default signup"
+                                                    style=" padding: 0;">
                                                 <a href="?command=showAccountInfo&accountId=${accountId}">
                                                     ${backButton}
                                                 </a>

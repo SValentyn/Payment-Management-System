@@ -660,6 +660,10 @@ form .action {
     padding: 0;
 }
 
+form .action .btn-default {
+    padding: 0;
+}
+
 form .btn-default {
     width: 85%;
     height: 40px;

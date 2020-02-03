@@ -16,4 +16,8 @@ $(document).ready(function () {
     $('#passwordConfirmation').on("paste", function (e) {
         e.preventDefault();
     });
+
+    $('#CVV').on("paste", function (e) {
+        e.preventDefault();
+    });
 });

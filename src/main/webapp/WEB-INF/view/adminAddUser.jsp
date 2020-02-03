@@ -60,18 +60,18 @@
                                     <fmt:message key="registration.email" var="email"/>
                                     <fmt:message key="registration.password" var="password"/>
                                     <fmt:message key="registration.confirmation" var="confirmation"/>
+                                    <fmt:message key="admin.addUser.button" var="button"/>
+                                    <fmt:message key="admin.addUser.backButton" var="backButton"/>
                                     <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                     <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                     <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                                     <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
                                     <fmt:message key="registration.tooltipPasswordConfirmation"
                                                  var="tooltipPasswordConfirmation"/>
-                                    <fmt:message key="admin.addUser.button" var="button"/>
-                                    <fmt:message key="admin.addUser.backButton" var="backButton"/>
 
-                                    <h6>
+                                    <h4>
                                         ${addNewUser}
-                                    </h6>
+                                    </h4>
 
                                     <form action="/" method="POST">
                                         <input type="hidden" name="command" value="addUser">

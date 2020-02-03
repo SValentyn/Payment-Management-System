@@ -137,7 +137,7 @@
                                         </label>&nbsp;
 
                                         <!-- Month and Year -->
-                                        <div class="form-group" id="expiration-date" style="margin-bottom: 6px;">
+                                        <div class="form-group" id="expiration-date" style="text-align: center; margin-bottom: 6px;">
                                             <label class="label-for-form" style="margin-right: 10px;">
                                                 ${validity}
                                             </label>

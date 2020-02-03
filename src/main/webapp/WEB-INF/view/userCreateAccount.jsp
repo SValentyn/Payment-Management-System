@@ -89,7 +89,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
                                             <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                                <fmt:message key="home.createAccount.createNewAccountButton"/>
+                                                <fmt:message key="home.createAccount.createAccountButton"/>
                                             </button>
                                         </div>
                                     </form>
