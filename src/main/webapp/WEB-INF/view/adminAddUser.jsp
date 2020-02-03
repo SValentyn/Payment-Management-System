@@ -23,7 +23,7 @@
 
     <!-- Alert -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 436px;">
+        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 438px;">
             <p><strong>Success!</strong> The user has been added to the system.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -47,11 +47,10 @@
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-
             <div class="page-content container">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper" style="top: 18px;">
+                        <div class="login-wrapper" style="top: 0px;">
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="admin.addUser.addNewUser" var="addNewUser"/>
@@ -65,14 +64,16 @@
                                     <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                     <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                                     <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
-                                    <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
+                                    <fmt:message key="registration.tooltipPasswordConfirmation"
+                                                 var="tooltipPasswordConfirmation"/>
                                     <fmt:message key="admin.addUser.button" var="button"/>
+                                    <fmt:message key="admin.addUser.backButton" var="backButton"/>
 
                                     <h6>
                                         ${addNewUser}
                                     </h6>
 
-                                    <form action="" method="POST">
+                                    <form action="/" method="POST">
                                         <input type="hidden" name="command" value="addUser">
 
                                         <!-- Name -->
@@ -144,11 +145,36 @@
                                         </label>&nbsp;
 
                                         <!-- Submit -->
-                                        <div class="action">
-                                            <button type="submit" class="btn btn-primary signup" style="height: 42px;">
+                                        <div class="action" style="padding-bottom: 20px;">
+                                            <button type="submit" class="btn btn-primary signup"
+                                                    style="height: 42px; padding: 0;" onfocus="this.blur()">
                                                 ${button}
                                             </button>
                                         </div>
+
+                                        <!-- Back -->
+                                        <c:choose>
+                                            <c:when test="${created == true}">
+                                                <div class="action">
+                                                    <button type="button" class="btn btn-default signup"
+                                                            onfocus="this.blur()">
+                                                        <a href="?command=addAccount&userId=${userId}">
+                                                                ${backButton}
+                                                        </a>
+                                                    </button>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="action">
+                                                    <button type="button" class="btn btn-default signup"
+                                                            onfocus="this.blur()" disabled="disabled">
+                                                        <a href="?command=addAccount&userId=${userId}">
+                                                                ${backButton}
+                                                        </a>
+                                                    </button>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </form>
                                 </div>
                             </div>
