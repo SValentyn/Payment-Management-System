@@ -110,4 +110,18 @@ public class AccountService {
         return accountDao.findAllAccountsByUserId(userId);
     }
 
+    /**
+     * Finds account by accountId
+     */
+    public Account findAccountByAccountId(String accountId) {
+        return accountDao.findAccountById(Integer.valueOf(accountId));
+    }
+
+    /**
+     * Finds account number by accountId
+     */
+    public String findAccountNumberByAccountId(String accountId) {
+        return findAccountByAccountId(accountId).getNumber();
+    }
+
 }

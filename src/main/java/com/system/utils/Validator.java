@@ -1,10 +1,13 @@
 package com.system.utils;
 
-import javax.faces.view.EditableValueHolderAttachedObjectHandler;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +16,8 @@ import java.util.regex.Pattern;
  * Validates input strings for validity for form validation
  */
 public class Validator {
+
+    private static final Logger LOGGER = LogManager.getLogger(Validator.class);
 
     public static boolean checkLengthName(String name) {
         return name.length() > 18;
@@ -52,12 +57,13 @@ public class Validator {
         return m.matches();
     }
 
-    public static boolean checkValidity(String validity) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    public static boolean checkValidity(String month, String year) {
+        DateFormat parser = new SimpleDateFormat("MM/yyyy");
         Date date = null, now = null;
+
         try {
-            date = formatter.parse(validity);
-            now = formatter.getCalendar().getTime();
+            date = parser.parse(month + "/" + year);
+            now = new GregorianCalendar().getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }

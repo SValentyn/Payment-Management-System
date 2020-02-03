@@ -38,16 +38,17 @@ public class CreditCardService {
     /**
      * Adds new card to the user account
      */
-    public int addNewCard(String accountId, String number, String CVV, String validity) {
+    public int addNewCard(String accountId, String number, String CVV, String month, String year) {
         int status = 0;
-        if (accountId != null && number != null && CVV != null && validity != null) {
+        if (accountId != null && number != null && CVV != null && month != null && year != null) {
             if (creditCardDao.findCreditCardByCardNumber(number) != null) {
-                LOGGER.info("Trying to add an existing map!");
+                LOGGER.info("Trying to add an existing card!");
             } else {
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
                 Date date = null;
+
                 try {
-                    date = formatter.parse(validity);
+                    date = formatter.parse(month + "/" + year);
                 } catch (ParseException e) {
                     LOGGER.error("ParseException: " + e.getMessage());
                 }

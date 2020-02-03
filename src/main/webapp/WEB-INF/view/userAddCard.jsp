@@ -64,9 +64,12 @@
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="home.addCard.addNewCard" var="addNewCard"/>
+                                    <fmt:message key="home.addCard.selectAccount" var="selectAccount"/>
                                     <fmt:message key="home.addCard.number" var="number"/>
                                     <fmt:message key="home.addCard.cvv" var="cvv"/>
                                     <fmt:message key="home.addCard.validity" var="validity"/>
+                                    <fmt:message key="home.addCard.month" var="month"/>
+                                    <fmt:message key="home.addCard.year" var="year"/>
                                     <fmt:message key="home.addCard.tooltipCardNumber" var="tooltipCardNumber"/>
                                     <fmt:message key="home.addCard.tooltipCVV" var="tooltipCVV"/>
 
@@ -80,9 +83,24 @@
                                         <!-- AccountId -->
                                         <select name="accountId" class="form-control"
                                                 style="height: 42px; margin-bottom: 2px; font-size: 18px;">
-                                            <option value="0">
-                                                <fmt:message key="home.addCard.selectAccount"/>
-                                            </option>
+
+                                            <c:choose>
+                                                <c:when test="${accountId == null}">
+                                                    <option value="${0}">
+                                                            ${selectAccount}
+                                                    </option>
+                                                </c:when>
+                                                <c:when test="${accountId == 0}">
+                                                    <option value="${0}">
+                                                            ${selectAccount}
+                                                    </option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${accountId}">
+                                                            ${numberByAccountIdValue}
+                                                    </option>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <c:forEach items="${accounts}" var="account">
                                                 <option value="${account.accountId}">${account.number}</option>
                                             </c:forEach>
@@ -124,10 +142,25 @@
                                             <label class="label-for-form" style="margin-right: 10px;">
                                                 ${validity}
                                             </label>
+
                                             <select name="month">
-                                                <option value="0">
-                                                    <fmt:message key="home.addCard.month"/>
-                                                </option>
+                                                <c:choose>
+                                                    <c:when test="${monthValue == null}">
+                                                        <option value="${0}">
+                                                                ${month}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:when test="${monthValue == 0}">
+                                                        <option value="${0}">
+                                                                ${month}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${monthValue}">
+                                                                ${monthValue}
+                                                        </option>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
                                                 <option value="03">03</option>
@@ -142,9 +175,23 @@
                                                 <option value="12">12</option>
                                             </select>
                                             <select name="year">
-                                                <option value="0">
-                                                    <fmt:message key="home.addCard.year"/>
-                                                </option>
+                                                <c:choose>
+                                                    <c:when test="${yearValue == null}">
+                                                        <option value="${0}">
+                                                                ${year}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:when test="${yearValue == 0}">
+                                                        <option value="${0}">
+                                                                ${year}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${yearValue}">
+                                                                ${yearValue}
+                                                        </option>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <option value="2017">2017</option>
                                                 <option value="2018">2018</option>
                                                 <option value="2019">2019</option>
@@ -156,7 +203,6 @@
                                                 <option value="2025">2025</option>
                                             </select>
                                         </div>
-                                        <%--    ${validityValue}--%>
 
                                         <label for="expiration-date" class="create-error-label">
                                             <c:if test="${validityError}">

@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.Account;
 import com.system.entity.CreditCard;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
@@ -21,7 +22,8 @@ public class CommandUserAddCard implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADD_CARD);
 
         User user = (User) request.getSession().getAttribute("currentUser");
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        request.setAttribute("accounts", accounts);
         request.setAttribute("created", false);
         request.setAttribute("cardCreateError", false);
         request.setAttribute("numberExistError", false);
@@ -35,14 +37,23 @@ public class CommandUserAddCard implements ICommand {
             String accountId = request.getParameter("accountId");
             String number = request.getParameter("number");
             String CVV = request.getParameter("CVV");
-            String validity = request.getParameter("validity");
+            String month = request.getParameter("month");
+            String year = request.getParameter("year");
+
+            if (!checkAccountId(request, accountId)) {
+                accounts.remove(AccountService.getInstance().findAccountByAccountId(accountId));
+                request.setAttribute("accounts", accounts);
+                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(accountId));
+            } else {
+                setRequestAttributes(request, accountId, number, CVV, month, year);
+                return page;
+            }
 
             // Check
-            if (checkAccountId(request, accountId) ||
-                    checkCardNumber(request, number) ||
+            if (checkCardNumber(request, number) ||
                     checkCVV(request, CVV) ||
-                    checkValidity(request, validity)) {
-                setRequestAttributes(request, number, CVV, validity);
+                    checkValidity(request, month, year)) {
+                setRequestAttributes(request, accountId, number, CVV, month, year);
                 return page;
             }
 
@@ -50,16 +61,16 @@ public class CommandUserAddCard implements ICommand {
             for (CreditCard card : allCards) {
                 if (card.getNumber().equals(number)) {
                     request.setAttribute("numberExistError", true);
-                    setRequestAttributes(request, number, CVV, validity);
+                    setRequestAttributes(request, accountId, number, CVV, month, year);
                     return page;
                 }
             }
 
             // Create
-            int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, validity);
+            int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
                 request.setAttribute("cardCreateError", true);
-                setRequestAttributes(request, number, CVV, validity);
+                setRequestAttributes(request, accountId, number, CVV, month, year);
             } else {
                 request.setAttribute("created", true);
             }
@@ -69,7 +80,7 @@ public class CommandUserAddCard implements ICommand {
     }
 
     private boolean checkAccountId(HttpServletRequest request, String accountId) {
-        if (accountId == null || accountId.isEmpty() || !Validator.isNumeric(accountId)) {
+        if (accountId == null || accountId.isEmpty() || accountId.equals("0") || !Validator.isNumeric(accountId)) {
             request.setAttribute("accountIdError", true);
             return true;
         }
@@ -92,13 +103,14 @@ public class CommandUserAddCard implements ICommand {
         return false;
     }
 
-    private boolean checkValidity(HttpServletRequest request, String validity) {
-        if (validity == null || validity.isEmpty()) {
+    private boolean checkValidity(HttpServletRequest request, String month, String year) {
+        if (month == null || month.isEmpty() || month.equals("0")
+                || year == null || year.isEmpty() || year.equals("0")) {
             request.setAttribute("validityError", true);
             return true;
         }
 
-        if (Validator.checkValidity(validity)) {
+        if (Validator.checkValidity(month, year)) {
             request.setAttribute("validityExpiredError", true);
             return true;
         }
@@ -106,10 +118,12 @@ public class CommandUserAddCard implements ICommand {
         return false;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String number, String CVV, String validity) {
+    private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String CVV, String month, String year) {
+        request.setAttribute("accountId", accountId);
         request.setAttribute("numberValue", number);
         request.setAttribute("cvvValue", CVV);
-        request.setAttribute("validityValue", validity);
+        request.setAttribute("monthValue", month);
+        request.setAttribute("yearValue", year);
     }
 
 }
