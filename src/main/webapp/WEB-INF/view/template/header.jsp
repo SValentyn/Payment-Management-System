@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="logo">
-                    <a href="/"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
+                    <a href="/" onfocus="this.blur()"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
                     <h1>Payment Management System</h1>
                     <div class="col-md-2">
                         <div class="navbar navbar-inverse" role="banner">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <form class="language-form">
-                        <select id="language" name="language" onchange="submit()">
+                        <select id="language" name="language" onchange="submit()" onfocus="this.blur()">
                             <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
                             <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
                             <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>

@@ -25,10 +25,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="logo">
-                        <a href="/"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
+                        <a href="/" onfocus="this.blur()">
+                            <img src="resources/images/logo-white.png" alt="Logotype"/></a>
                         <h1>Payment Management System</h1>
                         <form class="language-form">
-                            <select id="language" name="language" onchange="submit()">
+                            <select id="language" name="language" onchange="submit()" onfocus="this.blur()">
                                 <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
                                 <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
                                 <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
@@ -54,7 +55,7 @@
                                     Status: <abbr style="color: red">Beta</abbr>
                                 </h4>
 
-                                <div class="form-group group-btn-beta">
+                                <div class="form-group group-btn" style="margin-bottom: 30px;">
                                     <form action="/" role="form" method="POST" style="width: 100%;">
                                         <input type="hidden" name="command" value="login">
                                         <input type="hidden" name="login" value="0000000000">
@@ -109,7 +110,7 @@
                                     </label>
 
                                     <!-- Submit -->
-                                    <div class="action" style="padding-bottom: 0px;">
+                                    <div class="action" style="padding: 10px 0 0 0;">
                                         <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
                                             ${submit}
                                         </button>
@@ -119,7 +120,9 @@
                         </div>
                         <div class="already">
                             <p><fmt:message key="login.dontHaveAccount"/></p>
-                            <a href="?command=registration"><fmt:message key="login.signup"/></a>
+                            <a href="?command=registration" onfocus="this.blur()">
+                                <fmt:message key="login.signup"/>
+                            </a>
                         </div>
                     </div>
                 </div>

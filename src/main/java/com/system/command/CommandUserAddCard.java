@@ -40,6 +40,7 @@ public class CommandUserAddCard implements ICommand {
             String month = request.getParameter("month");
             String year = request.getParameter("year");
 
+            // Check
             if (!checkAccountId(request, accountId)) {
                 accounts.remove(AccountService.getInstance().findAccountByAccountId(accountId));
                 request.setAttribute("accounts", accounts);
@@ -49,7 +50,6 @@ public class CommandUserAddCard implements ICommand {
                 return page;
             }
 
-            // Check
             if (checkCardNumber(request, number) ||
                     checkCVV(request, CVV) ||
                     checkValidity(request, month, year)) {
@@ -69,7 +69,7 @@ public class CommandUserAddCard implements ICommand {
             // Create
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
-                request.setAttribute("cardAddError", true);
+                request.setAttribute("cardCreateError", true);
                 setRequestAttributes(request, accountId, number, CVV, month, year);
             } else {
                 request.setAttribute("created", true);

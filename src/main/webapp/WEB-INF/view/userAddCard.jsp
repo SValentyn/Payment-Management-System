@@ -41,8 +41,8 @@
         </div>
     </c:if>
 
-    <!-- Alert cardCreateError -->
-    <c:if test="${cardCreateError == true}">
+    <!-- Alert cardAddError -->
+    <c:if test="${cardAddError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 354px;">
             <p><strong>Failed</strong> to add the card to your account.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -60,7 +60,7 @@
             <div class="page-content container">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper" style="top: 85px;">
+                        <div class="login-wrapper" style="top: 50px;">
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="home.addCard.addNewCard" var="addNewCard"/>
@@ -83,7 +83,6 @@
                                         <!-- AccountId -->
                                         <select name="accountId" class="form-control"
                                                 style="height: 42px; margin-bottom: 2px; font-size: 18px;">
-
                                             <c:choose>
                                                 <c:when test="${accountId == null}">
                                                     <option value="${0}">
@@ -203,7 +202,6 @@
                                                 <option value="2025">2025</option>
                                             </select>
                                         </div>
-
                                         <label for="expiration-date" class="create-error-label">
                                             <c:if test="${validityError}">
                                                 <fmt:message key="home.addCard.validityError"/>
@@ -216,8 +214,8 @@
                                         </label>&nbsp;
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding-bottom: 10px;">
-                                            <button type="submit" class="btn btn-primary signup">
+                                        <div class="action" style="padding: 10px 0 5px 0">
+                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
                                                 <fmt:message key="home.addCard.button.add"/>
                                             </button>
                                         </div>

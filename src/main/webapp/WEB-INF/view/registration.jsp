@@ -25,10 +25,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="logo">
-                        <a href="/"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
+                        <a href="/" onfocus="this.blur()"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
                         <h1>Payment Management System</h1>
                         <form class="language-form">
-                            <select id="language" name="language" onchange="submit()">
+                            <select id="language" name="language" onchange="submit()" onfocus="this.blur()">
                                 <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
                                 <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
                                 <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
@@ -51,8 +51,8 @@
         </div>
     </c:if>
 
-    <!-- Alert userAlreadyRegisteredError -->
-    <c:if test="${userAlreadyRegisteredError == true}">
+    <!-- Alert phoneExistError -->
+    <c:if test="${phoneExistError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 466px; margin-top: 22px;">
             <p><strong>Failed!</strong> A user with such a phone is already registered.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -157,8 +157,8 @@
                                     </label>&nbsp;
 
                                     <!-- Submit -->
-                                    <div class="action">
-                                        <button type="submit" class="btn btn-primary signup">
+                                    <div class="action" style="padding: 10px 0 30px 0">
+                                        <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
                                             <fmt:message key="registration.button"/>
                                         </button>
                                     </div>

@@ -87,8 +87,8 @@
                                         </label>&nbsp;
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding-top: 20px;padding-bottom: 10px;">
-                                            <button type="submit" class="btn btn-primary signup">
+                                        <div class="action" style="padding: 20px 0 10px 0">
+                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
                                                 <fmt:message key="home.createAccount.createNewAccountButton"/>
                                             </button>
                                         </div>

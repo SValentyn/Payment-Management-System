@@ -18,6 +18,7 @@ public class CommandAdminAddUser implements ICommand {
 
         request.setAttribute("created", false);
         request.setAttribute("phoneExistError", false);
+        request.setAttribute("userId", null);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -43,12 +44,13 @@ public class CommandAdminAddUser implements ICommand {
             }
 
             // Create
-            int status = UserService.getInstance().addNewUser(name, surname, phone);
+            int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
                 request.setAttribute("phoneExistError", true);
                 setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
             } else {
                 request.setAttribute("created", true);
+                request.setAttribute("userId", status);
             }
         }
 

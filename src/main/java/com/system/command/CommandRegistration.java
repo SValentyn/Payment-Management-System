@@ -16,7 +16,7 @@ public class CommandRegistration implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
         request.setAttribute("created", false);
-        request.setAttribute("userAlreadyRegisteredError", false);
+        request.setAttribute("phoneExistError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -44,7 +44,7 @@ public class CommandRegistration implements ICommand {
             // Create
             int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
-                request.setAttribute("userAlreadyRegisteredError", true);
+                request.setAttribute("phoneExistError", true);
                 setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
             } else {
                 request.setAttribute("created", true);

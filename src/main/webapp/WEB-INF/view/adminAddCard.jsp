@@ -41,8 +41,8 @@
         </div>
     </c:if>
 
-    <!-- Alert cardCreateError -->
-    <c:if test="${cardCreateError == true}">
+    <!-- Alert cardAddError -->
+    <c:if test="${cardAddError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 323px;">
             <p><strong>Failed</strong> to add the card to account.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -207,9 +207,9 @@
                                         </div>
 
                                         <!-- Back -->
-                                        <div class="action" style="padding: 0;">
-                                            <button type="button" class="btn btn-default signup" style="padding: 0;">
-                                                <a class="link-in-button" href="/?command=showAccountInfo&accountId=${accountId}">
+                                        <div class="action">
+                                            <button type="button" class="btn btn-default signup">
+                                                <a href="?command=showAccountInfo&accountId=${accountId}">
                                                     ${backButton}
                                                 </a>
                                             </button>

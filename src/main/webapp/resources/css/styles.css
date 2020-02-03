@@ -433,6 +433,7 @@ body {
 
 .enter-error-label {
     text-align: left;
+    padding-left: 4px;
     font-size: 14px;
     font-weight: lighter;
     color: #ba0000;
@@ -440,8 +441,7 @@ body {
 
 .reg-error-label {
     text-align: left;
-    padding-left: 6px;
-    padding-bottom: 2px;
+    padding-left: 4px;
     font-size: 12px;
     font-weight: lighter;
     color: #ba0000;
@@ -449,8 +449,7 @@ body {
 
 .create-error-label {
     text-align: left;
-    padding-bottom: 2px;
-    padding-left: 6px;
+    padding-left: 4px;
     font-size: 12px;
     font-weight: lighter;
     color: #ba0000;
@@ -536,8 +535,7 @@ body {
 .login-wrapper .box .action {
     top: 0px;
     position: relative;
-    padding-top: 10px;
-    padding-bottom: 25px;
+    padding: 0;
     text-align: center;
 }
 
@@ -591,11 +589,11 @@ body {
     width: 40%;
 }
 
-.login-wrapper .box .group-btn-beta {
+.login-wrapper .box .group-btn {
     width: 100%;
     display: flex;
     text-align: center;
-    margin-bottom: 30px;
+    padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -658,9 +656,16 @@ td a:hover {
     text-decoration: none;
 }
 
+form .action {
+    padding: 0;
+}
+
 form .btn-default {
     width: 85%;
     height: 40px;
+    padding: 0;
+    text-transform: uppercase;
+    text-align: center;
     background-color: #ffffff;
     color: #333333;
 }
@@ -669,12 +674,23 @@ form .btn-default:hover {
     box-shadow: 0 0 5px rgba(55, 55, 55, 0.1) inset;
     background-color: #ffffff;
     color: #333333;
+    text-decoration: none;
 }
 
-.action button .label-in-button {
-    text-transform: uppercase;
-    text-align: center;
-    color: #000000;
+form .btn-default:active {
+    box-shadow: none;
+}
+
+form .btn-default a {
+    color: #333333;
+}
+
+form .btn-default a:hover {
+    text-decoration: none;
+}
+
+form .btn-default a:active {
+    text-decoration: none;
 }
 
 /****************/

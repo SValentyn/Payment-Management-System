@@ -3,7 +3,7 @@
 <div class="footer">
     <div class="container">
         <div class="link">
-            <a href="https://github.com/SValentyn/Payment-Management-System">
+            <a href="https://github.com/SValentyn/Payment-Management-System" onfocus="this.blur()">
                 <img id="github-ico" class="tooltip-top"
                      src="resources/images/GitHub-Mark-32px-white.ico"
                      title="View project code on GitHub" alt="View project code on GitHub">
