@@ -19,7 +19,7 @@ public class CommandUserAddCard implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADD_CARD);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_ADD_CARD);
 
         User user = (User) request.getSession().getAttribute("currentUser");
         List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());

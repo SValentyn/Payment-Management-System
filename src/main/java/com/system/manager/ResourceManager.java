@@ -16,7 +16,8 @@ public class ResourceManager {
     public static final String CREATE_ACCOUNT = "CREATE_ACCOUNT";
     public static final String CHANGE_DATA = "CHANGE_DATA";
     public static final String MAKE_PAYMENT = "MAKE_PAYMENT";
-    public static final String ADD_CARD = "ADD_CARD";
+    public static final String USER_ADD_CARD = "USER_ADD_CARD";
+    public static final String ADMIN_ADD_CARD = "ADMIN_ADD_CARD";
     public static final String ADD_USER = "ADD_USER";
     private final static String BUNDLE_NAME = "configuration";
 
