@@ -18,41 +18,41 @@
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
-<jsp:include page="template/header.jsp"/>
+<div class="main">
+    <jsp:include page="template/header.jsp"/>
 
-<div class="page-content">
-    <div class="row">
-        <div class="col-md-2" style="margin-top: 50px;">
-            <jsp:include page="template/sidebar.jsp"/>
+    <!-- Alert -->
+    <c:if test="${created == true}">
+        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 436px;">
+            <p><strong>Success!</strong> The user has been added to the system.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+    </c:if>
 
-        <!-- Alert -->
-        <c:if test="${created == true}">
-            <div id="alert" class="alert alert-success fade in" role="alert" style="width: 255px; margin-top: 20px;">
-                <p><strong>Success!</strong> Card created.</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <!-- Alert phoneExistError -->
+    <c:if test="${phoneExistError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 460px;">
+            <p><strong>Failed!</strong> A user with that phone number already exists.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-2">
+                <jsp:include page="template/sidebar.jsp"/>
             </div>
-        </c:if>
 
-        <!-- Alert numberExistError -->
-        <c:if test="${phoneExistError == true}">
-            <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 460px; margin-top: 20px;">
-                <p><strong>Failed!</strong> A user with that phone number already exists.</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </c:if>
 
-        <div class="login-bg">
             <div class="page-content container">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper"
-                             style="top: 0px; width: 392px; display: inline-block; margin-top: 50px;">
-                            <div class="box" style="padding-bottom: 0px; padding-top: 18px;">
+                        <div class="login-wrapper" style="top: 18px;">
+                            <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="admin.addUser.addNewUser" var="addNewUser"/>
                                     <fmt:message key="registration.name" var="name"/>
@@ -61,62 +61,89 @@
                                     <fmt:message key="registration.email" var="email"/>
                                     <fmt:message key="registration.password" var="password"/>
                                     <fmt:message key="registration.confirmation" var="confirmation"/>
+                                    <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                                    <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                                    <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
+                                    <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
+                                    <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
                                     <fmt:message key="admin.addUser.button" var="button"/>
 
-                                    <h4 style="font-size: 26px; margin-bottom: 30px; text-align: center;">
+                                    <h6>
                                         ${addNewUser}
-                                    </h4>
+                                    </h6>
 
-                                    <form action="?command=addUser" method="POST">
+                                    <form action="" method="POST">
                                         <input type="hidden" name="command" value="addUser">
 
+                                        <!-- Name -->
                                         <input id="name" name="name" class="form-control" style="height: 36px;"
-                                               type="text" placeholder="${name}*" value="${nameValue}">
+                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                               pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
+                                               placeholder="${name}*"
+                                               value="${nameValue}"
+                                        >
                                         <label for="name" class="reg-error-label">
                                             <c:if test="${nameError}">
                                                 <fmt:message key="registration.nameError"/>
-                                            </c:if>&nbsp;
-                                        </label>
+                                            </c:if>
+                                        </label>&nbsp;
 
+                                        <!-- Surname -->
                                         <input id="surname" name="surname" class="form-control" style="height: 36px;"
-                                               type="text" placeholder="${surname}*" value="${surnameValue}">
+                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                               pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
+                                               placeholder="${surname}*"
+                                               value="${surnameValue}">
                                         <label for="surname" class="reg-error-label">
                                             <c:if test="${surnameError}">
                                                 <fmt:message key="registration.surnameError"/>
-                                            </c:if>&nbsp;
-                                        </label>
+                                            </c:if>
+                                        </label>&nbsp;
 
+                                        <!-- Phone -->
                                         <input id="phone" name="phone" class="form-control" style="height: 36px;"
-                                               type="text" placeholder="${phone}*" value="${phoneValue}">
+                                               type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
+                                               maxlength="10" onkeypress="onlyNumbers();"
+                                               placeholder="${phone}*"
+                                               value="${phoneValue}">
                                         <label for="phone" class="reg-error-label">
                                             <c:if test="${phoneError}">
                                                 <fmt:message key="registration.phoneError"/>
-                                            </c:if>&nbsp;
-                                        </label>
+                                            </c:if>
+                                        </label>&nbsp;
 
+                                        <!-- Email -->
                                         <input id="email" name="email" class="form-control" style="height: 36px;"
-                                               type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                               placeholder="${email}" value="${emailValue}">
-                                        <label for="email" class="reg-error-label">&nbsp;</label>
+                                               type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
+                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="45"
+                                               placeholder="${email}"
+                                               value="${emailValue}">
+                                        <label for="email" class="reg-error-label"></label>&nbsp;
 
+                                        <!-- Password -->
                                         <input id="password" name="password" class="form-control" style="height: 36px;"
-                                               type="password" placeholder="${password}*" value=${passwordValue}>
+                                               type="password" data-toggle="tooltip" data-title="${tooltipPassword}"
+                                               placeholder="${password}*"
+                                               value=${passwordValue}>
                                         <label for="password" class="reg-error-label">
                                             <c:if test="${passwordError}">
                                                 <fmt:message key="registration.passwordError"/>
-                                            </c:if>&nbsp;
-                                        </label>
+                                            </c:if>
+                                        </label>&nbsp;
 
+                                        <!-- Password Confirmation -->
                                         <input id="passwordConfirmation" name="passwordConfirmation"
-                                               class="form-control"
-                                               style="height: 36px;" type="password"
-                                               placeholder="${confirmation}*" value=${passwordConfirmationValue}>
+                                               class="form-control" style="height: 36px;" type="password"
+                                               data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
+                                               placeholder="${confirmation}*"
+                                               value=${passwordConfirmationValue}>
                                         <label for="passwordConfirmation" class="reg-error-label">
                                             <c:if test="${passwordConfirmationError}">
                                                 <fmt:message key="registration.passwordConfirmationError"/>
-                                            </c:if>&nbsp;
-                                        </label>
+                                            </c:if>
+                                        </label>&nbsp;
 
+                                        <!-- Submit -->
                                         <div class="action">
                                             <button type="submit" class="btn btn-primary signup" style="height: 42px;">
                                                 ${button}
@@ -131,7 +158,7 @@
             </div>
         </div>
     </div>
+    <jsp:include page="template/footer.jsp"/>
 </div>
-<jsp:include page="template/footer.jsp"/>
 </body>
 </html>
