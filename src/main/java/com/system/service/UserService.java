@@ -54,35 +54,12 @@ public class UserService {
     }
 
     /**
-     * Checks if user isn't in database and adds new user to the system
-     */
-    public int addNewUser(String name, String surname, String phone) {
-        int status = 0;
-        User user = userDao.findByPhone(phone);
-        if (user != null) {
-            LOGGER.info("Attempt to create an existing user!");
-        } else {
-            user = new User();
-            user.setName(name);
-            user.setSurname(surname);
-            user.setPhone(phone);
-            Role role = new Role();
-            role.setId(1);
-            role.setRolename(Role.ROLE_CLIENT);
-            user.setRole(role);
-            status = userDao.create(user);
-        }
-
-        return status;
-    }
-
-    /**
      * Registers user in system by phone. Check if user has already registered
      * in payment system as client and allows him to register in payment system
      */
     public int registerUser(String name, String surname, String phone, String email, String password) {
         int status = 0;
-        User user = findUserInSystem(phone);
+        User user = findUserByPhoneNumber(phone);
         if (user == null) {
             Role role = new Role();
             role.setRolename(Role.ROLE_CLIENT);
@@ -100,10 +77,10 @@ public class UserService {
     }
 
     /**
-     * Finds user by phone and checks if user is registered already
+     * Finds user by phone number and checks if user is registered already
      */
-    private User findUserInSystem(String phone) {
-        return userDao.findByPhone(phone);
+    private User findUserByPhoneNumber(String phone) {
+        return userDao.findByPhoneNumber(phone);
     }
 
     /**

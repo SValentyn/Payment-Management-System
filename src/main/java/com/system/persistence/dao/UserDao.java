@@ -32,9 +32,9 @@ public interface UserDao {
     User findByLoginAndPassword(String login, String password);
 
     /**
-     * Finds user by phone
+     * Finds user by phone number
      */
-    User findByPhone(String phone);
+    User findByPhoneNumber(String phone);
 
 
     /**

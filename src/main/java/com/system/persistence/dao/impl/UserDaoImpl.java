@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByPhone(String phone) {
+    public User findByPhoneNumber(String phone) {
         User user = null;
         try {
             ResultSet rs = executor.getResultSet(FIND_BY_PHONE, phone);
