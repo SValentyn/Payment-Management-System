@@ -43,7 +43,7 @@ public class TestUserDao {
         when(userDao.findById(1)).thenReturn(user_1);
         when(userDao.findById(2)).thenReturn(user_2);
         when(userDao.findByLoginAndPassword("8003654210", "elonmusk")).thenReturn(user_1);
-        when(userDao.findByPhone("8008998686")).thenReturn(user_2);
+        when(userDao.findByPhoneNumber("8008998686")).thenReturn(user_2);
         when(userDao.findAll()).thenReturn(Arrays.asList(user_1, user_2));
     }
 
@@ -74,7 +74,7 @@ public class TestUserDao {
 
     @Test
     public void testFindByPhone() {
-        User user = userDao.findByPhone("8008998686");
+        User user = userDao.findByPhoneNumber("8008998686");
         assertEquals("Edison", user.getSurname());
     }
 
