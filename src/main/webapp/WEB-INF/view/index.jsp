@@ -16,10 +16,10 @@
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <div class="main">
+    <!-- Header -->
     <div class="header header-without-margin">
         <div class="container">
             <div class="row">
@@ -44,17 +44,17 @@
         <div class="page-content container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <div class="login-wrapper">
+                    <div class="login-wrapper" style="top: 30px;">
                         <div class="box">
                             <div class="content-wrap">
-                                <h6>11111</h6>
-                                <p>00000</p>
-                                <p></p>
-                                <p></p>
+                                <h4>Payment Management System</h4>
+                                <h4>Status: Beta</h4>
+                                <p>User: 00000</p>
+                                <p>Admin: 11111</p>
 
-                                <h6>
+                                <h4>
                                     <fmt:message key="login.signin"/>
-                                </h6>
+                                </h4>
 
                                 <fmt:message key="login.phone" var="phone"/>
                                 <fmt:message key="login.password" var="password"/>
@@ -63,11 +63,15 @@
                                 <form action="/" method="POST">
                                     <input type="hidden" name="command" value="login"/>
 
+                                    <!-- Login -->
                                     <input class="form-control" name="login" type="text" style="margin-bottom: 18px;"
                                            placeholder="${phone}" value="${phoneValue}">
+
+                                    <!-- Password -->
                                     <input class="form-control" name="password" type="password"
                                            placeholder="${password}" value="${passwordValue}"/>
 
+                                    <!-- Error Labels -->
                                     <label class="enter-error-label">
                                         <c:if test="${phoneError}">
                                             <fmt:message key="login.phoneError"/>
@@ -84,8 +88,11 @@
                                         </c:if>
                                     </label>
 
+                                    <!-- Submit -->
                                     <div class="action" style="padding-bottom: 0px;">
-                                        <input class="btn btn-primary signup" type="submit" value="${submit}"/>
+                                        <button type="submit" class="btn btn-primary signup">
+                                            ${submit}
+                                        </button>
                                     </div>
                                 </form>
                             </div>

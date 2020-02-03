@@ -85,39 +85,45 @@
                                 <div class="content-wrap">
                                     <fmt:message key="home.makepayment.createNewPayment" var="createNewPayment"/>
                                     <fmt:message key="home.makepayment.fromAccount" var="from"/>
-                                    <fmt:message key="home.makepayment.toCreditCard" var="to"/>
+                                    <fmt:message key="home.makepayment.toCreditCard" var="toCreditCard"/>
                                     <fmt:message key="home.makepayment.number" var="number"/>
                                     <fmt:message key="home.makepayment.amount" var="amount"/>
                                     <fmt:message key="home.makepayment.appointment" var="appointment"/>
+                                    <fmt:message key="home.makepayment.tooltipCardNumber" var="tooltipCardNumber"/>
+                                    <fmt:message key="home.makepayment.tooltipAmountFunds" var="tooltipAmountFunds"/>
 
                                     <h4>
                                         ${createNewPayment}
                                     </h4>
 
-                                    <form action="?command=makePayment" role="form" method="POST">
+                                    <form action="" role="form" method="POST">
                                         <input type="hidden" name="command" value="makePayment">
 
+                                        <!-- AccountId -->
                                         <select name="accountId" class="form-control"
                                                 style="text-align: center; height: 42px; margin-bottom: 2px; font-size: 18px;">
-                                            <option>
+                                            <option value="0">
                                                 ${from}
                                             </option>
                                             <c:forEach items="${accounts}" var="account">
                                                 <option value="${account.accountId}">${account.number}</option>
                                             </c:forEach>
                                         </select>
-                                        <label class="create-error-label"> <!-- for="accountId" -->
+                                        <label class="create-error-label">
                                             <c:if test="${accountIdError}">
                                                 <fmt:message key="home.makepayment.accountIdError"/>
                                             </c:if>
-                                        </label>
+                                        </label>&nbsp;
 
+                                        <!-- Number Card -->
                                         <div style="width: 100%;">
                                             <label for="number" class="label-for-form">
-                                                ${to}
+                                                ${toCreditCard}
                                             </label>
-                                            <input type="text" name="number" class="form-control"
-                                                   id="number" placeholder="${number}*"
+                                            <input id="number" name="number" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipCardNumber}"
+                                                   maxlength="16" onkeypress="onlyNumbers();"
+                                                   placeholder="${number}*"
                                                    value="${numberValue}"
                                             />
                                         </div>
@@ -127,8 +133,11 @@
                                             </c:if>
                                         </label>&nbsp;
 
-                                        <input type="text" name="amount" class="form-control"
-                                               id="amount" placeholder="${amount}*"
+                                        <!-- Amount Funds -->
+                                        <input id="amount" name="amount" class="form-control"
+                                               type="text" data-toggle="tooltip" data-title="${tooltipAmountFunds}"
+                                               onkeypress="onlyNumbers();"
+                                               placeholder="${amount}*"
                                                value="${amountValue}"
                                         />
                                         <label for="amount" class="create-error-label">
@@ -137,20 +146,21 @@
                                             </c:if>
                                         </label>&nbsp;
 
+                                        <!-- Appointment -->
                                         <div style="width: 100%; height:105px; position: relative;">
                                             <label for="appointment" class="label-for-form">
                                                 ${appointment}
                                             </label>
                                             <div style="width: 100%; position: absolute; ">
                                             <textarea name="appointment" id="appointment" class="form-control"
-                                                      style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
-                                            >${appointmentValue}</textarea>
+                                                      style="height: 75px; resize: none; outline: none; overflow-x: hidden;">${appointmentValue}</textarea>
                                             </div>
                                             <div class="counter">
                                                 <span id="counter"></span>
                                             </div>
                                         </div>
 
+                                        <!-- Submit -->
                                         <div class="action" style="padding-bottom: 0px;padding-top: 30px;">
                                             <button type="submit" class="btn btn-primary signup">
                                                 <fmt:message key="home.makepayment.makePayment"/>

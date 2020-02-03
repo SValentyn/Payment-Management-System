@@ -65,15 +65,19 @@
                                 <div class="content-wrap">
                                     <fmt:message key="home.createAccount.createNewAccount" var="createNewAccount"/>
                                     <fmt:message key="home.createAccount.numberNewAccount" var="numberNewAccount"/>
+                                    <fmt:message key="home.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
 
                                     <h4>
                                         ${createNewAccount}
                                     </h4>
 
-                                    <form action="?command=createAccount" method="POST">
-                                        <input type="hidden" name="command" value="?command=createAccount"/>
+                                    <form action="" method="POST">
+                                        <input type="hidden" name="command" value="createAccount"/>
 
-                                        <input id="number" name="number" class="form-control" type="text"
+                                        <!-- Number Account -->
+                                        <input id="number" name="number" class="form-control"
+                                               type="text" data-toggle="tooltip" data-title="${tooltipNumberAccount}"
+                                               maxlength="20" onkeypress="onlyNumbers();"
                                                placeholder="${numberNewAccount}*"
                                                value="${numberValue}">
                                         <label for="number" class="create-error-label">
@@ -82,6 +86,7 @@
                                             </c:if>
                                         </label>&nbsp;
 
+                                        <!-- Submit -->
                                         <div class="action" style="padding-top: 20px;padding-bottom: 10px;">
                                             <button type="submit" class="btn btn-primary signup">
                                                 <fmt:message key="home.createAccount.createNewAccountButton"/>

@@ -75,40 +75,48 @@
                                 <fmt:message key="registration.email" var="email"/>
                                 <fmt:message key="registration.password" var="password"/>
                                 <fmt:message key="registration.confirmation" var="confirmation"/>
+                                <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                                <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
+                                <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
+                                <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
 
-                                <h6>
+                                <h4>
                                     ${registration}
-                                </h6>
+                                </h4>
 
                                 <form action="" method="POST">
-                                    <input id="name" name="name" class="form-control" type="text" placeholder="${name}*"
-                                           value="${nameValue}">
+                                    <input type="hidden" name="command" value="registration">
+
+                                    <!-- Name -->
+                                    <input id="name" name="name" class="form-control" style="height: 36px;"
+                                           type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                           pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
+                                           placeholder="${name}*"
+                                           value="${nameValue}"
+                                    >
                                     <label for="name" class="reg-error-label">
                                         <c:if test="${nameError}">
                                             <fmt:message key="registration.nameError"/>
                                         </c:if>
-                                    </label>
-                                    <label for="name" class="reg-error-label">
-                                        <c:if test="${nameLengthError}">
-                                            <fmt:message key="registration.nameLengthError"/>
-                                        </c:if>
                                     </label>&nbsp;
 
-                                    <input id="surname" name="surname" class="form-control" type="text"
+                                    <!-- Surname -->
+                                    <input id="surname" name="surname" class="form-control" style="height: 36px;"
+                                           type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                           pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
                                            placeholder="${surname}*"
                                            value="${surnameValue}">
                                     <label for="surname" class="reg-error-label">
                                         <c:if test="${surnameError}">
                                             <fmt:message key="registration.surnameError"/>
                                         </c:if>
-                                    </label>
-                                    <label for="surname" class="reg-error-label">
-                                        <c:if test="${surnameLengthError}">
-                                            <fmt:message key="registration.surnameLengthError"/>
-                                        </c:if>
                                     </label>&nbsp;
 
-                                    <input id="phone" name="phone" class="form-control" type="text"
+                                    <!-- Phone -->
+                                    <input id="phone" name="phone" class="form-control" style="height: 36px;"
+                                           type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
+                                           maxlength="10" onkeypress="onlyNumbers();"
                                            placeholder="${phone}*"
                                            value="${phoneValue}">
                                     <label for="phone" class="reg-error-label">
@@ -117,29 +125,38 @@
                                         </c:if>
                                     </label>&nbsp;
 
-                                    <input id="email" name="email" class="form-control" type="email"
+                                    <!-- Email -->
+                                    <input id="email" name="email" class="form-control" style="height: 36px;"
+                                           type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
+                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="45"
                                            placeholder="${email}"
-                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                            value="${emailValue}">
-                                    <label for="email" class="reg-error-label">&nbsp;</label>
+                                    <label for="email" class="reg-error-label"></label>&nbsp;
 
-                                    <input id="password" name="password" class="form-control" type="password"
-                                           placeholder="${password}*" value=${passwordValue}>
+                                    <!-- Password -->
+                                    <input id="password" name="password" class="form-control" style="height: 36px;"
+                                           type="password" data-toggle="tooltip" data-title="${tooltipPassword}"
+                                           placeholder="${password}*"
+                                           value=${passwordValue}>
                                     <label for="password" class="reg-error-label">
                                         <c:if test="${passwordError}">
                                             <fmt:message key="registration.passwordError"/>
                                         </c:if>
                                     </label>&nbsp;
 
+                                    <!-- Password Confirmation -->
                                     <input id="passwordConfirmation" name="passwordConfirmation"
-                                           class="form-control" type="password"
-                                           placeholder="${confirmation}*" value=${passwordConfirmationValue}>
+                                           class="form-control" style="height: 36px;" type="password"
+                                           data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
+                                           placeholder="${confirmation}*"
+                                           value=${passwordConfirmationValue}>
                                     <label for="passwordConfirmation" class="reg-error-label">
                                         <c:if test="${passwordConfirmationError}">
                                             <fmt:message key="registration.passwordConfirmationError"/>
                                         </c:if>
                                     </label>&nbsp;
 
+                                    <!-- Submit -->
                                     <div class="action">
                                         <button type="submit" class="btn btn-primary signup">
                                             <fmt:message key="registration.button"/>

@@ -591,6 +591,15 @@ body {
     width: 40%;
 }
 
+.login-wrapper .form-group select {
+    height: 35px;
+    width: 34%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #555;
+}
+
 .panel-heading > .panel-title, .content-box-header .panel-title {
     float: left;
     padding: 10px 15px;
@@ -657,6 +666,11 @@ td a:hover {
     color: #ffffff;
 }
 
+.footer .container {
+    width: 100%;
+    display: flex
+}
+
 .footer .container .link {
     width: 93%;
     align-self: center;
@@ -710,4 +724,18 @@ td a:hover {
 
 .back-homepage:active {
     text-decoration: none;
+}
+
+.tooltip {
+    /*min-width: 80px;*/
+    /*color: #fff;*/
+    /*border-radius: 0.25rem;*/
+}
+
+.tooltip.right {
+    min-width: 146px;
+    max-width: 200px;
+    margin-left: 4px;
+    border-radius: 0.25rem;
+    color: #fff;
 }
