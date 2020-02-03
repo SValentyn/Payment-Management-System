@@ -29,7 +29,7 @@ public class CommandUserRepeatPayment implements ICommand {
         request.setAttribute("amountValue", amount);
         request.setAttribute("appointmentValue", appointment);
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.MAKE_PAYMENT);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
     }
 
 }

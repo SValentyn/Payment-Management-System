@@ -54,24 +54,26 @@
                                     Status: <abbr style="color: red">Beta</abbr>
                                 </h4>
 
-                                <div class="form-group" style="display: flex; width: 100%;">
-                                    <div class="action" style="width: 100%;">
-                                        <button type="submit" class="btn btn-success" style="width: 90%; height: 45px;">
-                                            <a class="link-in-button" style="color: #ffffff;"
-                                               href="/?command=login&login=0000000000&password=000000">
-                                                Beta-User
-                                            </a>
-                                        </button>
-                                    </div>
+                                <div class="form-group group-btn-beta">
+                                    <form action="/" role="form" method="POST" style="width: 100%;">
+                                        <input type="hidden" name="command" value="login">
+                                        <input type="hidden" name="login" value="0000000000">
+                                        <input type="hidden" name="password" value="000000">
 
-                                    <div class="action" style="width: 100%;">
-                                        <button type="submit" class="btn btn-danger" style="width: 90%; height: 45px;">
-                                            <a class="link-in-button" style="color: #ffffff;"
-                                               href="/?command=login&login=1111111111&password=111111">
-                                                Beta-Admin
-                                            </a>
+                                        <button type="submit" class="btn btn-default" onfocus="this.blur()">
+                                            Beta-User
                                         </button>
-                                    </div>
+                                    </form>
+
+                                    <form action="/" role="form" method="POST" style="width: 100%;">
+                                        <input type="hidden" name="command" value="login">
+                                        <input type="hidden" name="login" value="1111111111">
+                                        <input type="hidden" name="password" value="111111">
+
+                                        <button type="submit" class="btn btn-default" onfocus="this.blur()">
+                                            Beta-Admin
+                                        </button>
+                                    </form>
                                 </div>
 
                                 <fmt:message key="login.phone" var="phone"/>
@@ -108,7 +110,7 @@
 
                                     <!-- Submit -->
                                     <div class="action" style="padding-bottom: 0px;">
-                                        <button type="submit" class="btn btn-primary signup">
+                                        <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
                                             ${submit}
                                         </button>
                                     </div>

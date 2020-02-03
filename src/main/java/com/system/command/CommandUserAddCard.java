@@ -69,7 +69,7 @@ public class CommandUserAddCard implements ICommand {
             // Create
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
-                request.setAttribute("cardCreateError", true);
+                request.setAttribute("cardAddError", true);
                 setRequestAttributes(request, accountId, number, CVV, month, year);
             } else {
                 request.setAttribute("created", true);

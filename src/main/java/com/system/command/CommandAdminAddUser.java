@@ -14,7 +14,8 @@ public class CommandAdminAddUser implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADD_USER);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
+
         request.setAttribute("created", false);
         request.setAttribute("phoneExistError", false);
 

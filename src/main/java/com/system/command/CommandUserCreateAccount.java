@@ -17,7 +17,7 @@ public class CommandUserCreateAccount implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.CREATE_ACCOUNT);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
 
         User user = (User) request.getSession().getAttribute("currentUser");
         List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());

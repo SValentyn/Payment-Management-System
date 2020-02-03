@@ -591,6 +591,14 @@ body {
     width: 40%;
 }
 
+.login-wrapper .box .group-btn-beta {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .login-wrapper .form-group select {
     height: 35px;
     width: 30%;
@@ -650,18 +658,23 @@ td a:hover {
     text-decoration: none;
 }
 
-.action button .link-in-button {
+form .btn-default {
+    width: 85%;
+    height: 40px;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+form .btn-default:hover {
+    box-shadow: 0 0 5px rgba(55, 55, 55, 0.1) inset;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.action button .label-in-button {
     text-transform: uppercase;
     text-align: center;
     color: #000000;
-}
-
-.action button .link-in-button:hover {
-    text-decoration: none;
-}
-
-.action button .link-in-button:active {
-    text-decoration: none;
 }
 
 /****************/
