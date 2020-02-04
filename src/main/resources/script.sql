@@ -92,6 +92,7 @@ CREATE TABLE letters
     typeQuestion VARCHAR(255) NOT NULL,
     description  VARCHAR(255) NOT NULL,
     date         VARCHAR(255) NOT NULL,
+    is_processed BOOLEAN      NOT NULL,
     PRIMARY KEY (letter_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
