@@ -83,3 +83,17 @@ CREATE TABLE payments
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 -- -- --
+
+-- -- --
+CREATE TABLE letters
+(
+    letter_id    INT(11) AUTO_INCREMENT,
+    user_id      INT(11)      NOT NULL,
+    typeQuestion VARCHAR(255) NOT NULL,
+    description  VARCHAR(255) NOT NULL,
+    date         VARCHAR(255) NOT NULL,
+    PRIMARY KEY (letter_id),
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+-- -- --
