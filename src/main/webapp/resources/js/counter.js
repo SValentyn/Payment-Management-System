@@ -1,18 +1,18 @@
 $(window).ready(function () {
-    var maxCount = 26;
+    let maxCount = 26;
 
     $("#appointment").focus(function () {
         $("#counter").html(maxCount);
     });
 
     $("#appointment").keyup(function () {
-        var revText = this.value.length;
+        let revText = this.value.length;
 
         if (this.value.length > maxCount) {
             this.value = this.value.substr(0, maxCount);
         }
 
-        var cnt = (maxCount - revText);
+        let cnt = (maxCount - revText);
         if (cnt <= 0) {
             $("#counter").html('0');
         } else {
@@ -22,20 +22,20 @@ $(window).ready(function () {
 });
 
 $(window).ready(function () {
-    var maxLength = 50;
+    let maxLength = 200;
 
     $("#description").focus(function () {
         $("#counter").html(maxLength);
     });
 
     $("#description").keyup(function () {
-        var revText = this.value.length;
+        let revText = this.value.length;
 
         if (this.value.length > maxLength) {
             this.value = this.value.substr(0, maxLength);
         }
 
-        var cnt = (maxLength - revText);
+        let cnt = (maxLength - revText);
         if (cnt <= 0) {
             $("#counter").html('0');
         } else {

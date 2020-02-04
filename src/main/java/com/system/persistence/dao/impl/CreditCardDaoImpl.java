@@ -23,7 +23,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
      * SQL queries
      */
     private static final String CREATE_CARD = "INSERT INTO credit_cards(account_id, number, cvv, validity, is_active) VALUES(?, ?, ?, ?, ?)";
-    private static final String UPDATE = "UPDATE credit_cards SET is_active = ? WHERE card_id = ?";
+    private static final String UPDATE_CARD = "UPDATE credit_cards SET is_active = ? WHERE card_id = ?";
     private static final String DELETE_CARD = "DELETE FROM credit_cards WHERE card_id = ?";
     private static final String FIND_CARD_BY_NUMBER = "SELECT * FROM credit_cards WHERE number = ?";
     private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM credit_cards WHERE account_id = ?";
@@ -50,7 +50,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
 
     @Override
     public int update(CreditCard entity) {
-        return executor.executeStatement(UPDATE, entity.getIsActive(), entity.getCardId());
+        return executor.executeStatement(UPDATE_CARD, entity.getIsActive(), entity.getCardId());
     }
 
     @Override

@@ -39,9 +39,8 @@ public class CommandUserSupport implements ICommand {
                 return page;
             }
 
-            if (LetterService.getInstance().findLettersByUserId(user.getUserId()).size() > 5) {
+            if (LetterService.getInstance().findLettersByUserId(user.getUserId()).size() == 4) {
                 request.setAttribute("manyMessagesError", true);
-                setRequestAttributes(request, typeQuestion, description);
                 return page;
             }
 

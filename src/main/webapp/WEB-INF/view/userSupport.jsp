@@ -130,10 +130,10 @@
                                                 ${description}
                                             </label>
                                             <div style="width: 100%; position: absolute; ">
-                                            <textarea id="description" name="description" class="form-control"
-                                                      style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
-                                                      data-toggle="tooltip" data-title="${tooltipDescription}"
-                                            >${descriptionValue}</textarea>
+                                                <textarea id="description" name="description" class="form-control"
+                                                          style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
+                                                          data-toggle="tooltip" data-title="${tooltipDescription}"
+                                                >${descriptionValue}</textarea>
                                             </div>
                                             <div class="counter">
                                                 <span id="counter"></span>
