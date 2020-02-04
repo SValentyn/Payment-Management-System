@@ -46,7 +46,9 @@
     <!-- Alert unblockAccountAlert -->
     <c:if test="${unblockAccountAlert == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 536px;">
-            <p>To unblock your account, please <a href="" class="alert-link">contact</a> PMS technical support.</p>
+            <p>To unblock your account, please <a href="?command=support" class="alert-link">contact</a>
+                PMS technical support.
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -56,7 +58,9 @@
     <!-- Alert unblockCardAlert -->
     <c:if test="${unblockCardAlert == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px;">
-            <p>To unblock your card, please <a href="" class="alert-link">contact</a> PMS technical support.</p>
+            <p>To unblock your card, please <a href="?command=support" class="alert-link">contact</a>
+                PMS technical support.
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

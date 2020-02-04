@@ -43,6 +43,13 @@
             </c:if>
         </li>
         <li>
+            <c:if test="${currentUser.role.id == 1}">
+                <a href="?command=support">
+                    <fmt:message key="sidebar.support"/>
+                </a>
+            </c:if>
+        </li>
+        <li>
             <c:if test="${currentUser.role.id == 2}">
                 <a href="?command=showUsers">
                     <fmt:message key="sidebar.showAllUsers"/>
@@ -53,6 +60,13 @@
             <c:if test="${currentUser.role.id == 2}">
                 <a href="?command=addUser">
                     <fmt:message key="sidebar.addUser"/>
+                </a>
+            </c:if>
+        </li>
+        <li>
+            <c:if test="${currentUser.role.id == 2}">
+                <a href="?command=support">
+                    <fmt:message key="sidebar.support"/>
                 </a>
             </c:if>
         </li>

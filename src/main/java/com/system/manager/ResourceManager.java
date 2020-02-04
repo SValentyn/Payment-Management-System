@@ -14,11 +14,13 @@ public class ResourceManager {
     public static final String USER_CREATE_ACCOUNT = "USER_CREATE_ACCOUNT";
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
     public static final String USER_ADD_CARD = "USER_ADD_CARD";
+    public static final String USER_SUPPORT = "USER_SUPPORT";
     public static final String ADMIN = "ADMIN";
     public static final String ACCOUNTS_CONTROL = "ACCOUNTS_CONTROL";
     public static final String ADMIN_CREATE_ACCOUNT = "ADMIN_CREATE_ACCOUNT";
     public static final String ADMIN_ADD_CARD = "ADMIN_ADD_CARD";
     public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
+    public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
     public static final String CHANGE_DATA = "CHANGE_DATA";
     private final static String BUNDLE_NAME = "configuration";
 

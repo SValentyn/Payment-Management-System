@@ -53,6 +53,7 @@ public class ControllerHelper {
         adminCommands.put("unblockCard", new CommandAdminUnblockCard());
         adminCommands.put("addUser", new CommandAdminAddUser());
         adminCommands.put("deleteUser", new CommandAdminDeleteUser());
+        adminCommands.put("support", new CommandAdminSupport());
 
         // Client commands
         userCommands.put("logout", new CommandLogout());
@@ -68,6 +69,7 @@ public class ControllerHelper {
         userCommands.put("repeatPayment", new CommandUserRepeatPayment());
         userCommands.put("addCard", new CommandUserAddCard());
         userCommands.put("changeData", new CommandUserChangeData());
+        userCommands.put("support", new CommandUserSupport());
     }
 
     public static ControllerHelper getInstance() {
