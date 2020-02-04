@@ -1,13 +1,7 @@
 package com.system.persistence.factory;
 
-import com.system.persistence.dao.AccountDao;
-import com.system.persistence.dao.CreditCardDao;
-import com.system.persistence.dao.PaymentDao;
-import com.system.persistence.dao.UserDao;
-import com.system.persistence.dao.impl.AccountDaoImpl;
-import com.system.persistence.dao.impl.CreditCardDaoImpl;
-import com.system.persistence.dao.impl.PaymentDaoImpl;
-import com.system.persistence.dao.impl.UserDaoImpl;
+import com.system.persistence.dao.*;
+import com.system.persistence.dao.impl.*;
 
 import java.sql.SQLException;
 
@@ -17,6 +11,13 @@ import java.sql.SQLException;
  * @author Syniuk Valentyn
  */
 public class DaoFactory {
+
+    /**
+     * @return UserDao
+     */
+    public static UserDao createUserDao() throws SQLException {
+        return UserDaoImpl.getInstance();
+    }
 
     /**
      * @return AccountDao
@@ -40,10 +41,10 @@ public class DaoFactory {
     }
 
     /**
-     * @return UserDao
+     * @return LetterDao
      */
-    public static UserDao createUserDao() throws SQLException {
-        return UserDaoImpl.getInstance();
+    public static LetterDao createLetterDao() throws SQLException {
+        return LetterDaoImpl.getInstance();
     }
 
 }
