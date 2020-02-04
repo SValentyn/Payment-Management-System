@@ -21,6 +21,16 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert noUsers -->
+    <c:if test="${noUsers == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 397px;">
+            <p><strong>Failed!</strong> There are no users in the system yet.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
@@ -28,11 +38,11 @@
             </div>
 
             <div class="col-md-10" style="padding-left: 0px;">
-                <c:choose>
-                    <c:when test="${showUsers}">
+                <div class="col-md-12">
+                    <div class="row">
                         <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
+                            <c:choose>
+                                <c:when test="${showUsers}">
                                     <fmt:message key="admin.users.allUsers" var="allUsers"/>
                                     <fmt:message key="admin.users.name" var="name"/>
                                     <fmt:message key="admin.users.surname" var="surname"/>
@@ -91,22 +101,22 @@
                                             </c:forEach>
                                         </table>
                                     </div>
-                                </div>
-                            </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="init-label">
+                                        <label>
+                                            <b>
+                                                <a href="?command=showUsers"><fmt:message key="admin.showAllUsers"/></a>
+                                                OR
+                                                <a href="?command=addUser"><fmt:message key="admin.addUser.button"/></a>
+                                            </b>
+                                        </label>
+                                    </span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
-                    </c:when>
-                    <c:otherwise>
-                    <span class="init-label">
-                        <label>
-                            <b>
-                                <a href="?command=showUsers">
-                                    <fmt:message key="admin.showAllUsers"/>
-                                </a>
-                            </b>
-                        </label>
-                    </span>
-                    </c:otherwise>
-                </c:choose>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
