@@ -9,6 +9,7 @@ public class Letter {
     private String typeQuestion;
     private String description;
     private String date;
+    private boolean isProcessed;
 
     public Letter() {
     }
@@ -51,6 +52,14 @@ public class Letter {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public boolean isProcessed() {
+        return isProcessed;
+    }
+
+    public void setProcessed(boolean processed) {
+        isProcessed = processed;
     }
 
     @Override
@@ -113,7 +122,8 @@ public class Letter {
                 ", userId=" + userId +
                 ", typeQuestion=" + typeQuestion +
                 ", description=" + description +
-                ", date=" + date + "]";
+                ", date=" + date +
+                ", isProcessed= " + isProcessed + "]";
     }
 
 }
