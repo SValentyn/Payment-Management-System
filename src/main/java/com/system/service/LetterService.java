@@ -44,20 +44,39 @@ public class LetterService {
             letter.setUserId(userId);
             letter.setTypeQuestion(typeQuestion);
             letter.setDescription(description);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
             letter.setDate(formatter.format(new Date()));
+            letter.setProcessed(false);
             status = letterDao.create(letter);
         }
         return status;
     }
 
     /**
-     * Checks if user id not null and deletes it
+     * Checks if letter id not null and updates it
      */
-    public void deleteLetterByUserId(Integer userId) {
-        if (userId != null) {
-            letterDao.delete(userId);
+    public void updateLetterByLetterId(Integer letterId) {
+        if (letterId != null) {
+            Letter letter = new Letter();
+            letter.setProcessed(true);
+            letterDao.update(letter);
         }
+    }
+
+    /**
+     * Checks if letter id not null and deletes it
+     */
+    public void deleteLetterByLetterId(Integer letterId) {
+        if (letterId != null) {
+            letterDao.delete(letterId);
+        }
+    }
+
+    /**
+     * Finds all letter by letter id
+     */
+    public Letter findLetterByLetterId(Integer letterId) {
+        return letterDao.findLetterByLetterId(letterId);
     }
 
     /**

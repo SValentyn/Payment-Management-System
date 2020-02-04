@@ -22,8 +22,10 @@ public class LetterDaoImpl implements LetterDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_LETTER = "INSERT INTO letters(user_id, typeQuestion, description, date) VALUES(?, ?, ?, ?)";
-    private static final String DELETE_LETTER = "DELETE FROM letters WHERE user_id = ?";
+    private static final String CREATE_LETTER = "INSERT INTO letters(user_id, typeQuestion, description, date, is_processed) VALUES(?, ?, ?, ?, ?)";
+    private static final String UPDATE_LETTER = "UPDATE letters SET is_processed = ? WHERE letter_id = ?";
+    private static final String DELETE_LETTER = "DELETE FROM letters WHERE letter_id = ?";
+    private static final String FIND_LETTER_BY_LETTER_ID = "SELECT * FROM letters WHERE letter_id = ?";
     private static final String FIND_LETTERS_BY_USER_ID = "SELECT * FROM letters WHERE user_id = ?";
     private static final String FIND_ALL_LETTERS = "SELECT * FROM letters";
 
@@ -42,13 +44,32 @@ public class LetterDaoImpl implements LetterDao {
 
     @Override
     public int create(Letter entity) {
-        Object[] args = {entity.getUserId(), entity.getTypeQuestion(), entity.getDescription(), entity.getDate()};
+        Object[] args = {entity.getUserId(), entity.getTypeQuestion(), entity.getDescription(), entity.getDate(), entity.isProcessed()};
         return executor.executeStatement(CREATE_LETTER, args);
     }
 
     @Override
-    public int delete(Integer userId) {
-        return executor.executeStatement(DELETE_LETTER, userId);
+    public int update(Letter entity) {
+        return executor.executeStatement(UPDATE_LETTER, entity.isProcessed(), entity.getLetterId());
+    }
+
+    @Override
+    public int delete(Integer letterId) {
+        return executor.executeStatement(DELETE_LETTER, letterId);
+    }
+
+    @Override
+    public Letter findLetterByLetterId(Integer letterId) {
+        Letter letter = new Letter();
+        try {
+            ResultSet rs = executor.getResultSet(FIND_LETTER_BY_LETTER_ID, letterId);
+            while (rs.next()) {
+                letter = createEntity(rs);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return letter;
     }
 
     @Override
@@ -85,10 +106,12 @@ public class LetterDaoImpl implements LetterDao {
     private Letter createEntity(ResultSet rs) {
         Letter letter = new Letter();
         try {
+            letter.setLetterId(rs.getInt("letter_id"));
             letter.setUserId(rs.getInt("user_id"));
             letter.setTypeQuestion(rs.getString("typeQuestion"));
             letter.setDescription(rs.getString("description"));
             letter.setDate(rs.getString("date"));
+            letter.setProcessed(rs.getBoolean("is_processed"));
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }

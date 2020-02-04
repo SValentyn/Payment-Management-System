@@ -17,9 +17,19 @@ public interface LetterDao {
     int create(Letter entity);
 
     /**
-     * Removes letter by user id
+     * Updates letter status
+     */
+    int update(Letter entity);
+
+    /**
+     * Removes letter by letter id
      */
     int delete(Integer id);
+
+    /**
+     * Retrieves letter by letter id
+     */
+    Letter findLetterByLetterId(Integer letterId);
 
     /**
      * Retrieves letters by user id
