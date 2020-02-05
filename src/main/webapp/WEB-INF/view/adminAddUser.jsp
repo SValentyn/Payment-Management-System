@@ -69,11 +69,11 @@
                                     <fmt:message key="registration.tooltipPasswordConfirmation"
                                                  var="tooltipPasswordConfirmation"/>
 
-                                    <h4>
+                                    <h4 style="margin: 5px 0 22px 0">
                                         ${addNewUser}
                                     </h4>
 
-                                    <form action="/" method="POST">
+                                    <form action="" role="form" method="POST">
                                         <input type="hidden" name="command" value="addUser">
 
                                         <!-- Name -->
@@ -145,7 +145,7 @@
                                         </label>&nbsp;
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding-bottom: 20px;">
+                                        <div class="action" style="padding: 8px 0 20px 0;">
                                             <button type="submit" class="btn btn-primary signup"
                                                     style="height: 42px; padding: 0;" onfocus="this.blur()">
                                                 ${button}

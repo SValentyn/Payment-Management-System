@@ -466,7 +466,7 @@ body {
 
 .login-wrapper {
     position: absolute;
-    top: 140px;
+    top: 50px;
     left: 0;
     right: 0;
 }
@@ -545,7 +545,6 @@ body {
     text-transform: uppercase;
     text-align: center;
     font-size: 15px;
-    padding: 7px 25px;
     border-radius: 5px;
 }
 
@@ -604,6 +603,13 @@ body {
     border: 1px solid #ccc;
     font-size: 16px;
     color: #555;
+}
+
+.login-wrapper .box form textarea {
+    height: 75px;
+    resize: none;
+    outline: none;
+    overflow-x: hidden;
 }
 
 .panel-heading > .panel-title, .content-box-header .panel-title {

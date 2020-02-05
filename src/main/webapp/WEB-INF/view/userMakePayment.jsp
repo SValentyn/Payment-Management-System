@@ -167,8 +167,8 @@
                                                 ${appointment}
                                             </label>
                                             <div style="width: 100%; position: absolute; ">
-                                            <textarea name="appointment" id="appointment" class="form-control"
-                                                      style="height: 75px; resize: none; outline: none; overflow-x: hidden;">${appointmentValue}</textarea>
+                                                <textarea id="appointment" name="appointment"
+                                                          class="form-control">${appointmentValue}</textarea>
                                             </div>
                                             <div class="counter">
                                                 <span id="counter"></span>
