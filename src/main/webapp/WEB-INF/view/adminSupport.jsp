@@ -54,20 +54,18 @@
                                             <th>${showInfo}</th>
 
                                             <c:forEach items="${letters}" var="letter">
-                                                <c:if test="${letter.processed == false}">
-                                                    <tr>
-                                                        <td style="color: darkred;">
-                                                                ${notProcessed}
-                                                        </td>
-                                                        <td>${letter.date}</td>
-                                                        <td>${letter.typeQuestion}</td>
-                                                        <td>
-                                                            <a href="?command=showLetterInfo&letterId=${letter.letterId}">
-                                                                    ${showInfo}
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </c:if>
+                                                <tr>
+                                                    <td style="color: darkred;">
+                                                            ${notProcessed}
+                                                    </td>
+                                                    <td>${letter.date}</td>
+                                                    <td>${letter.typeQuestion}</td>
+                                                    <td>
+                                                        <a href="?command=showLetterInfo&letterId=${letter.letterId}">
+                                                                ${showInfo}
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             </c:forEach>
                                         </table>
                                     </div>
@@ -88,10 +86,7 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-<jsp:include page="template/footer.jsp"/>
+    <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
 </html>

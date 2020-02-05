@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandAdminSupport implements ICommand {
@@ -19,13 +20,21 @@ public class CommandAdminSupport implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
 
         List<Letter> allLetters = LetterService.getInstance().findAllLetters();
-        if (allLetters.isEmpty()) {
+        List<Letter> notProcessedLetters = new ArrayList<>();
+
+        for (Letter letter : allLetters) {
+            if (!letter.getIsProcessed()) {
+                notProcessedLetters.add(letter);
+            }
+        }
+
+        if (notProcessedLetters.isEmpty()) {
             request.setAttribute("showLetters", false);
             return page;
         }
 
         request.setAttribute("showLetters", true);
-        request.setAttribute("letters", allLetters);
+        request.setAttribute("letters", notProcessedLetters);
 
         return page;
     }
