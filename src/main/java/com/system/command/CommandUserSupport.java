@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.Letter;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandUserSupport implements ICommand {
 
@@ -39,7 +42,16 @@ public class CommandUserSupport implements ICommand {
                 return page;
             }
 
-            if (LetterService.getInstance().findLettersByUserId(user.getUserId()).size() == 4) {
+            List<Letter> lettersByUserId = LetterService.getInstance().findLettersByUserId(user.getUserId());
+            List<Letter> notProcessedLetters = new ArrayList<>();
+
+            for (Letter letter : lettersByUserId) {
+                if (!letter.getIsProcessed()) {
+                    notProcessedLetters.add(letter);
+                }
+            }
+
+            if (notProcessedLetters.size() == 4) {
                 request.setAttribute("manyMessagesError", true);
                 return page;
             }
