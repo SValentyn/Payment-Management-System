@@ -1,6 +1,8 @@
 package com.system.entity;
 
-public class Letter {
+import java.io.Serializable;
+
+public class Letter implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -9,7 +11,7 @@ public class Letter {
     private String typeQuestion;
     private String description;
     private String date;
-    private boolean isProcessed;
+    private Boolean isProcessed;
 
     public Letter() {
     }
@@ -54,11 +56,11 @@ public class Letter {
         this.date = date;
     }
 
-    public boolean isProcessed() {
+    public Boolean getIsProcessed() {
         return isProcessed;
     }
 
-    public void setProcessed(boolean processed) {
+    public void setIsProcessed(Boolean processed) {
         isProcessed = processed;
     }
 
@@ -71,6 +73,7 @@ public class Letter {
         result = prime * result + ((typeQuestion == null) ? 0 : typeQuestion.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((isProcessed == null) ? 0 : isProcessed.hashCode());
         return result;
     }
 
@@ -109,10 +112,16 @@ public class Letter {
         } else if (!description.equals(other.description))
             return false;
 
-        if (date != null) {
-            return date.equals(other.date);
+        if (date == null) {
+            if (other.date != null)
+                return false;
+        } else if (!date.equals(other.date))
+            return false;
+
+        if (isProcessed != null) {
+            return isProcessed.equals(other.isProcessed);
         } else {
-            return other.date == null;
+            return other.isProcessed == null;
         }
     }
 

@@ -46,7 +46,7 @@ public class LetterService {
             letter.setDescription(description);
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
             letter.setDate(formatter.format(new Date()));
-            letter.setProcessed(false);
+            letter.setIsProcessed(false);
             status = letterDao.create(letter);
         }
         return status;
@@ -57,8 +57,8 @@ public class LetterService {
      */
     public void updateLetterByLetterId(Integer letterId) {
         if (letterId != null) {
-            Letter letter = new Letter();
-            letter.setProcessed(true);
+            Letter letter = findLetterByLetterId(letterId);
+            letter.setIsProcessed(true);
             letterDao.update(letter);
         }
     }

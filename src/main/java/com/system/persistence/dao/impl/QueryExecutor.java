@@ -46,7 +46,7 @@ public class QueryExecutor {
     /**
      * Executes insert, update and delete queries
      *
-     * @return id
+     * @return id or boolean result
      */
     public int executeStatement(String query, Object... args) {
         try {

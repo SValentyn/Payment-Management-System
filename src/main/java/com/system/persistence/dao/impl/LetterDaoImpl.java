@@ -44,13 +44,13 @@ public class LetterDaoImpl implements LetterDao {
 
     @Override
     public int create(Letter entity) {
-        Object[] args = {entity.getUserId(), entity.getTypeQuestion(), entity.getDescription(), entity.getDate(), entity.isProcessed()};
+        Object[] args = {entity.getUserId(), entity.getTypeQuestion(), entity.getDescription(), entity.getDate(), entity.getIsProcessed()};
         return executor.executeStatement(CREATE_LETTER, args);
     }
 
     @Override
     public int update(Letter entity) {
-        return executor.executeStatement(UPDATE_LETTER, entity.isProcessed(), entity.getLetterId());
+        return executor.executeStatement(UPDATE_LETTER, entity.getIsProcessed(), entity.getLetterId());
     }
 
     @Override
@@ -111,7 +111,7 @@ public class LetterDaoImpl implements LetterDao {
             letter.setTypeQuestion(rs.getString("typeQuestion"));
             letter.setDescription(rs.getString("description"));
             letter.setDate(rs.getString("date"));
-            letter.setProcessed(rs.getBoolean("is_processed"));
+            letter.setIsProcessed(rs.getBoolean("is_processed"));
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }

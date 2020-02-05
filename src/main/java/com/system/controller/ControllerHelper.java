@@ -23,6 +23,7 @@ public class ControllerHelper {
      */
     private static final String COMMAND = "command";
     private static ControllerHelper instance = null;
+
     /**
      * Action commands for user types
      */
@@ -39,10 +40,10 @@ public class ControllerHelper {
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
+        adminCommands.put("changePersonalData", new CommandAdminChangePersonalData());
         adminCommands.put("showUsers", new CommandAdminShowUsers());
         adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAccountsControl());
-        adminCommands.put("changeData", new CommandAdminChangeData());
         adminCommands.put("addAccount", new CommandAdminCreateAccount());
         adminCommands.put("addCard", new CommandAdminAddCard());
         adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());
@@ -54,9 +55,11 @@ public class ControllerHelper {
         adminCommands.put("addUser", new CommandAdminAddUser());
         adminCommands.put("deleteUser", new CommandAdminDeleteUser());
         adminCommands.put("support", new CommandAdminSupport());
+        adminCommands.put("showLetterInfo", new CommandAdminShowLetterInfo());
 
         // Client commands
         userCommands.put("logout", new CommandLogout());
+        userCommands.put("changePersonalData", new CommandUserChangePersonalData());
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
@@ -68,7 +71,6 @@ public class ControllerHelper {
         userCommands.put("makePayment", new CommandUserCreatePayment());
         userCommands.put("repeatPayment", new CommandUserRepeatPayment());
         userCommands.put("addCard", new CommandUserAddCard());
-        userCommands.put("changeData", new CommandUserChangeData());
         userCommands.put("support", new CommandUserSupport());
     }
 
