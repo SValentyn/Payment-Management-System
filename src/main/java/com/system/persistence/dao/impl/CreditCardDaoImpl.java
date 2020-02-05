@@ -25,6 +25,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
     private static final String CREATE_CARD = "INSERT INTO credit_cards(account_id, number, cvv, validity, is_active) VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_CARD = "UPDATE credit_cards SET is_active = ? WHERE card_id = ?";
     private static final String DELETE_CARD = "DELETE FROM credit_cards WHERE card_id = ?";
+    private static final String FIND_CARD_BY_USER_ID = "SELECT * FROM credit_cards WHERE card_id = ?";
     private static final String FIND_CARD_BY_NUMBER = "SELECT * FROM credit_cards WHERE number = ?";
     private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM credit_cards WHERE account_id = ?";
     private static final String FIND_ALL_CARDS = "SELECT * FROM credit_cards";
@@ -56,6 +57,21 @@ public class CreditCardDaoImpl implements CreditCardDao {
     @Override
     public int delete(Integer cardId) {
         return executor.executeStatement(DELETE_CARD, cardId);
+    }
+
+
+    @Override
+    public CreditCard findCardByCardId(Integer cardId) {
+        CreditCard creditCard = null;
+        try {
+            ResultSet rs = executor.getResultSet(FIND_CARD_BY_USER_ID, cardId);
+            if (rs.next()) {
+                creditCard = createEntity(rs);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return creditCard;
     }
 
     @Override

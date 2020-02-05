@@ -27,6 +27,11 @@ public interface CreditCardDao {
     int delete(Integer id);
 
     /**
+     * Retrieves a credit card entity by its id
+     */
+    CreditCard findCardByCardId(Integer cardId);
+
+    /**
      * Retrieves a credit card entity by its number
      */
     CreditCard findCreditCardByCardNumber(String number);
@@ -34,7 +39,7 @@ public interface CreditCardDao {
     /**
      * Retrieves credit cards by accountId
      */
-    List<CreditCard> findCardsByAccountId(Integer id);
+    List<CreditCard> findCardsByAccountId(Integer accountId);
 
     /**
      * Retrieves all credit cards

@@ -107,10 +107,10 @@ public class CreditCardService {
     }
 
     /**
-     * Finds all credit cards by account id
+     * Finds credit card by card id
      */
-    public List<CreditCard> findCardsByAccountId(Integer accountId) {
-        return creditCardDao.findCardsByAccountId(accountId);
+    public CreditCard findCardByCardId(Integer cardId) {
+        return creditCardDao.findCardByCardId(cardId);
     }
 
     /**
@@ -118,6 +118,13 @@ public class CreditCardService {
      */
     public CreditCard findCardByCardNumber(String number) {
         return creditCardDao.findCreditCardByCardNumber(number);
+    }
+
+    /**
+     * Finds all credit cards by account id
+     */
+    public List<CreditCard> findCardsByAccountId(Integer accountId) {
+        return creditCardDao.findCardsByAccountId(accountId);
     }
 
     /**
