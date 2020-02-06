@@ -22,7 +22,7 @@ public class UserService {
 
     private static final String UNKNOWN = "unknown";
     private static final String ADMIN = "admin";
-    private static final String CLIENT = "client";
+    private static final String USER = "client";
 
     private static UserService instance = null;
     private UserDao userDao = DaoFactory.createUserDao();
@@ -48,7 +48,7 @@ public class UserService {
         } else if (user.getRole().getRolename().equalsIgnoreCase(Role.ROLE_ADMIN)) {
             role = ADMIN;
         } else if (user.getRole().getRolename().equalsIgnoreCase(Role.ROLE_CLIENT)) {
-            role = CLIENT;
+            role = USER;
         }
         return role;
     }
@@ -74,6 +74,17 @@ public class UserService {
      */
     public User loginUser(String login, String password) {
         return userDao.findUserByLoginAndPassword(login, encryptor.encode(password));
+    }
+
+    /**
+     * Checks if user id not null and updates it
+     */
+    public int updateUser(User user) {
+        int status = 0;
+        if (user.getUserId() != null) {
+            status = userDao.update(user);
+        }
+        return status;
     }
 
     /**

@@ -26,11 +26,11 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -89,8 +89,8 @@ public class User implements Serializable {
         result = prime * result + userId;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         return result;
     }
@@ -117,16 +117,16 @@ public class User implements Serializable {
         } else if (!surname.equals(other.surname))
             return false;
 
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-
         if (phone == null) {
             if (other.phone != null)
                 return false;
         } else if (!phone.equals(other.phone))
+            return false;
+
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
             return false;
 
         if (password == null) {
@@ -143,9 +143,10 @@ public class User implements Serializable {
         return "User [userId=" + userId +
                 ", name=" + name +
                 ", surname=" + surname +
-                ", email=" + email +
                 ", phone=" + phone +
-                ", password=" + password + "]";
+                ", email=" + email +
+                ", password=" + password +
+                ", role=" + role + "]";
     }
 
 }

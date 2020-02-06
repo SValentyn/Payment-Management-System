@@ -7,9 +7,11 @@ import java.io.Serializable;
  */
 public class Role implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     public static final String ROLE_ADMIN = "admin";
     public static final String ROLE_CLIENT = "client";
-    private static final long serialVersionUID = 1L;
+
     private Integer id;
     private String rolename;
 

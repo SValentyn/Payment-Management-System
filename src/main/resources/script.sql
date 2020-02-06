@@ -1,5 +1,7 @@
 USE pms_db;
 
+DROP TABLE IF EXISTS letters;
+
 DROP TABLE IF EXISTS payments;
 
 DROP TABLE IF EXISTS credit_cards;
@@ -14,11 +16,11 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
     user_id  INT(11) AUTO_INCREMENT,
-    username VARCHAR(255),
-    surname  VARCHAR(255),
+    name     VARCHAR(255) NOT NULL,
+    surname  VARCHAR(255) NOT NULL,
+    phone    VARCHAR(255) NOT NULL,
     email    VARCHAR(255),
     password VARCHAR(255) NOT NULL,
-    phone    VARCHAR(255) NOT NULL,
     role_id  INT(11)      NOT NULL,
     PRIMARY KEY (user_id)
 ) ENGINE = InnoDB

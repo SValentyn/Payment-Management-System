@@ -18,7 +18,7 @@ public class ControllerHelper {
      */
     private static final String UNKNOWN = "unknown";
     private static final String ADMIN = "admin";
-    private static final String CLIENT = "client";
+    private static final String USER = "client";
 
     /**
      * Request parameter name for command
@@ -41,7 +41,7 @@ public class ControllerHelper {
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
-        adminCommands.put("changePersonalData", new CommandAdminChangePersonalData());
+        adminCommands.put("profile", new CommandAdminChangePersonalData());
         adminCommands.put("showUsers", new CommandAdminShowUsers());
         adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAccountsControl());
@@ -58,9 +58,9 @@ public class ControllerHelper {
         adminCommands.put("support", new CommandAdminSupport());
         adminCommands.put("showLetterInfo", new CommandAdminShowLetterInfo());
 
-        // Client commands
+        // User commands
         userCommands.put("logout", new CommandLogout());
-        userCommands.put("changePersonalData", new CommandUserChangePersonalData());
+        userCommands.put("profile", new CommandUserChangePersonalData());
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
@@ -96,7 +96,7 @@ public class ControllerHelper {
             case ADMIN:
                 command = adminCommands.get(request.getParameter(COMMAND));
                 break;
-            case CLIENT:
+            case USER:
                 command = userCommands.get(request.getParameter(COMMAND));
                 break;
         }
