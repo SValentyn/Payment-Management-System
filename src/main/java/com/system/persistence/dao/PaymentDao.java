@@ -17,7 +17,7 @@ public interface PaymentDao {
     int create(Payment entity);
 
     /**
-     * Finds payment by payment id
+     * Retrieves payment by payment id
      */
     Payment findPaymentByPaymentId(Integer paymentId);
 

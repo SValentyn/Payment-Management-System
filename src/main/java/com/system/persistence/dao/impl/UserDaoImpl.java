@@ -56,10 +56,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findById(Integer id) {
+    public User findUserByUserId(Integer userId) {
         User user = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_BY_ID, id);
+            ResultSet rs = executor.getResultSet(FIND_BY_ID, userId);
             if (rs.next()) {
                 user = createEntity(rs);
             }
@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByLoginAndPassword(String login, String password) {
+    public User findUserByLoginAndPassword(String login, String password) {
         User user = null;
         if (login != null && password != null) {
             try {
@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByPhoneNumber(String phone) {
+    public User findUserByPhoneNumber(String phone) {
         User user = null;
         try {
             ResultSet rs = executor.getResultSet(FIND_BY_PHONE, phone);
@@ -99,7 +99,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAllUsers() {
         User user;
         List<User> users = new ArrayList<>();
         try {
@@ -115,7 +115,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * Creates User entity
+     * Creates entity from result set
      */
     private User createEntity(ResultSet rs) {
         User user = new User();
@@ -135,4 +135,5 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
+
 }

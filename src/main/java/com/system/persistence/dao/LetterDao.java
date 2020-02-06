@@ -34,7 +34,7 @@ public interface LetterDao {
     /**
      * Retrieves letters by user id
      */
-    List<Letter> findLettersByUserId(Integer id);
+    List<Letter> findLettersByUserId(Integer userId);
 
     /**
      * Retrieves all letters

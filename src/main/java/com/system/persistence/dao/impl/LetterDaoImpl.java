@@ -50,12 +50,13 @@ public class LetterDaoImpl implements LetterDao {
 
     @Override
     public int update(Letter entity) {
-        return executor.executeStatement(UPDATE_LETTER, entity.getIsProcessed(), entity.getLetterId());
+        Object[] args = {entity.getIsProcessed(), entity.getLetterId()};
+        return executor.executeStatement(UPDATE_LETTER, args);
     }
 
     @Override
-    public int delete(Integer letterId) {
-        return executor.executeStatement(DELETE_LETTER, letterId);
+    public int delete(Integer id) {
+        return executor.executeStatement(DELETE_LETTER, id);
     }
 
     @Override

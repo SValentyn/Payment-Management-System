@@ -22,24 +22,23 @@ public interface UserDao {
     int update(User entity);
 
     /**
-     * Finds user entity by userId
+     * Retrieves user entity by user id
      */
-    User findById(Integer id);
+    User findUserByUserId(Integer userId);
 
     /**
      * Retrieves user by login and password
      */
-    User findByLoginAndPassword(String login, String password);
+    User findUserByLoginAndPassword(String login, String password);
 
     /**
-     * Finds user by phone number
+     * Retrieves user by phone number
      */
-    User findByPhoneNumber(String phone);
-
+    User findUserByPhoneNumber(String phone);
 
     /**
-     * Finds all users
+     * Retrieves all users
      */
-    List<User> findAll();
+    List<User> findAllUsers();
 
 }

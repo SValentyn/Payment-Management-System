@@ -66,21 +66,21 @@ public class QueryExecutor {
     }
 
     /**
-     * Executes select query and returns result set
-     */
-    public ResultSet getResultSet(String query, Object... args) throws SQLException {
-        preparedStatement = connection.prepareStatement(query);
-        setValues(preparedStatement, args);
-        return preparedStatement.executeQuery();
-    }
-
-    /**
      * Inserts an array of objects into prepared statement
      */
     private void setValues(PreparedStatement preparedStatement, Object... values) throws SQLException {
         for (int i = 1; i <= values.length; i++) {
             preparedStatement.setObject(i, values[i - 1]);
         }
+    }
+
+    /**
+     * Executes select query and returns result set
+     */
+    public ResultSet getResultSet(String query, Object... args) throws SQLException {
+        preparedStatement = connection.prepareStatement(query);
+        setValues(preparedStatement, args);
+        return preparedStatement.executeQuery();
     }
 
     /**
@@ -93,4 +93,5 @@ public class QueryExecutor {
             LOGGER.error("Error while closing connection..");
         }
     }
+
 }

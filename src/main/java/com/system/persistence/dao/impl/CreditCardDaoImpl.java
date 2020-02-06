@@ -51,12 +51,13 @@ public class CreditCardDaoImpl implements CreditCardDao {
 
     @Override
     public int update(CreditCard entity) {
-        return executor.executeStatement(UPDATE_CARD, entity.getIsActive(), entity.getCardId());
+        Object[] args = {entity.getIsActive(), entity.getCardId()};
+        return executor.executeStatement(UPDATE_CARD, args);
     }
 
     @Override
-    public int delete(Integer cardId) {
-        return executor.executeStatement(DELETE_CARD, cardId);
+    public int delete(Integer id) {
+        return executor.executeStatement(DELETE_CARD, id);
     }
 
 
@@ -75,7 +76,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
     }
 
     @Override
-    public CreditCard findCreditCardByCardNumber(String number) {
+    public CreditCard findCardByCardNumber(String number) {
         CreditCard creditCard = null;
         try {
             ResultSet rs = executor.getResultSet(FIND_CARD_BY_NUMBER, number);
