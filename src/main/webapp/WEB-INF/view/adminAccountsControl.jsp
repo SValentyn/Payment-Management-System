@@ -31,6 +31,57 @@
         </div>
     </c:if>
 
+    <!-- Alert unblockAccountError -->
+    <c:if test="${unblockAccountError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 309px;">
+            <p><strong>Failed!</strong> Failed to unblock account.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert blockCardError -->
+    <c:if test="${blockCardError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 286px;">
+            <p><strong>Failed!</strong> Failed to block card.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unblockCardError -->
+    <c:if test="${unblockCardError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 299px;">
+            <p><strong>Failed!</strong> Failed to unblock card.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert deleteAccountError -->
+    <c:if test="${deleteAccountError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 308px;">
+            <p><strong>Failed!</strong> Failed to delete account.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert deleteCardError -->
+    <c:if test="${deleteCardError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 299px;">
+            <p><strong>Failed!</strong> Failed to delete card.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
