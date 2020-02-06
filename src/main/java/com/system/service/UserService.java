@@ -77,6 +77,15 @@ public class UserService {
     }
 
     /**
+     * Checks if user id not null and deletes it
+     */
+    public void deleteUserById(Integer userId) {
+        if (userId != null) {
+            userDao.delete(userId);
+        }
+    }
+
+    /**
      * Finds user by phone number and checks if user is registered already
      */
     private User findUserByPhoneNumber(String phone) {
@@ -93,7 +102,7 @@ public class UserService {
     /**
      * Finds all users
      */
-    public List<User> findAll() {
+    public List<User> findAllUsers() {
         return userDao.findAllUsers();
     }
 

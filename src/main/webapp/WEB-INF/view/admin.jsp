@@ -31,6 +31,16 @@
         </div>
     </c:if>
 
+    <!-- Alert deleteUserError -->
+    <c:if test="${deleteUserError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 356px;">
+            <p><strong>Failed!</strong> Unable to delete user. Try later.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">

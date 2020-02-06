@@ -16,7 +16,7 @@ public class CommandAdminShowUsers implements ICommand {
 
         request.setAttribute("noUsers", false);
 
-        List<User> allUsers = UserService.getInstance().findAll();
+        List<User> allUsers = UserService.getInstance().findAllUsers();
         if (allUsers.isEmpty()) {
             request.setAttribute("noUsers", true);
         } else {

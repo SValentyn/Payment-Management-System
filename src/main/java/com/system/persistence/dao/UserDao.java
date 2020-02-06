@@ -22,6 +22,11 @@ public interface UserDao {
     int update(User entity);
 
     /**
+     * Removes user by user id
+     */
+    int delete(Integer id);
+
+    /**
      * Retrieves user entity by user id
      */
     User findUserByUserId(Integer userId);

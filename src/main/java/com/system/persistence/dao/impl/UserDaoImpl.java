@@ -25,6 +25,7 @@ public class UserDaoImpl implements UserDao {
      */
     private static final String CREATE_USER = "INSERT INTO users (username, surname, email, password, phone, role_id) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_USER = "UPDATE users SET email = ?, password = ? WHERE user_id = ?";
+    private static final String DELETE_USER = "DELETE FROM users WHERE user_id = ?";
     private static final String FIND_BY_ID = "SELECT users.user_id, users.username, users.surname, users.email, users.password, users.phone, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.user_id = ?";
     private static final String FIND_BY_LOGIN_PASSWORD = "SELECT users.user_id, users.username, users.surname, users.email, users.password, users.phone, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ? AND users.password = ?";
     private static final String FIND_BY_PHONE = "SELECT users.user_id, users.username, users.surname, users.email, users.password, users.phone, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ?";
@@ -53,6 +54,11 @@ public class UserDaoImpl implements UserDao {
     public int update(User entity) {
         Object[] args = {entity.getEmail(), entity.getPassword(), entity.getUserId()};
         return executor.executeStatement(UPDATE_USER, args);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return executor.executeStatement(DELETE_USER, id);
     }
 
     @Override

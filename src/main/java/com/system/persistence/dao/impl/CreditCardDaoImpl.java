@@ -60,7 +60,6 @@ public class CreditCardDaoImpl implements CreditCardDao {
         return executor.executeStatement(DELETE_CARD, id);
     }
 
-
     @Override
     public CreditCard findCardByCardId(Integer cardId) {
         CreditCard creditCard = null;
