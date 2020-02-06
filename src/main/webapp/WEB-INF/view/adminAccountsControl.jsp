@@ -93,18 +93,18 @@
                     <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-12">
-                                <fmt:message key="home.account.allaccounts" var="allaccounts"/>
-                                <fmt:message key="home.account.number" var="number"/>
-                                <fmt:message key="home.account.balance" var="balance"/>
-                                <fmt:message key="home.account.status" var="status"/>
-                                <fmt:message key="home.account.action" var="action"/>
-                                <fmt:message key="home.account.status.active" var="statusActive"/>
-                                <fmt:message key="home.account.status.blocked" var="statusBlocked"/>
-                                <fmt:message key="home.account.button.block" var="block"/>
-                                <fmt:message key="home.account.button.unblock" var="unblock"/>
-                                <fmt:message key="home.account.button.showInfo" var="showInfo"/>
+                                <fmt:message key="user.account.allaccounts" var="allaccounts"/>
+                                <fmt:message key="user.account.number" var="number"/>
+                                <fmt:message key="user.account.balance" var="balance"/>
+                                <fmt:message key="user.account.status" var="status"/>
+                                <fmt:message key="user.account.action" var="action"/>
+                                <fmt:message key="user.account.status.active" var="statusActive"/>
+                                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                                <fmt:message key="user.account.button.block" var="block"/>
+                                <fmt:message key="user.account.button.unblock" var="unblock"/>
+                                <fmt:message key="user.account.button.showInfo" var="showInfo"/>
                                 <fmt:message key="sidebar.addCard" var="addCard"/>
-                                <fmt:message key="home.card.delete" var="delete"/>
+                                <fmt:message key="user.card.delete" var="delete"/>
 
                                 <div class="content-box-large">
                                     <div class="panel-heading">
@@ -181,10 +181,10 @@
                     <div class="col-md-5" style="padding-left: 5px;padding-right: 20px;">
                         <div class="row">
                             <div class="col-md-12">
-                                <fmt:message key="home.card.allcards" var="allcards"/>
-                                <fmt:message key="home.card.number" var="cardNumber"/>
-                                <fmt:message key="home.card.cvv" var="cvv"/>
-                                <fmt:message key="home.card.date" var="date"/>
+                                <fmt:message key="user.card.allcards" var="allcards"/>
+                                <fmt:message key="user.card.number" var="cardNumber"/>
+                                <fmt:message key="user.card.cvv" var="cvv"/>
+                                <fmt:message key="user.card.date" var="date"/>
 
                                 <div class="content-box-header">
                                     <div class="panel-title">
@@ -250,12 +250,12 @@
                     <div class="col-md-5" style="padding-left: 5px;padding-right: 20px;">
                         <div class="row">
                             <div class="col-md-12 panel-warning">
-                                <fmt:message key="home.payment.allpayments" var="allpayments"/>
-                                <fmt:message key="home.payments.receiverCard" var="receiverCard"/>
-                                <fmt:message key="home.payments.sum" var="payment_sum"/>
-                                <fmt:message key="home.payments.date" var="payment_date"/>
-                                <fmt:message key="home.payments.success" var="payment_success"/>
-                                <fmt:message key="home.payments.error" var="payment_error"/>
+                                <fmt:message key="user.payment.allpayments" var="allpayments"/>
+                                <fmt:message key="user.payments.receiverCard" var="receiverCard"/>
+                                <fmt:message key="user.payments.sum" var="payment_sum"/>
+                                <fmt:message key="user.payments.date" var="payment_date"/>
+                                <fmt:message key="user.payments.success" var="payment_success"/>
+                                <fmt:message key="user.payments.error" var="payment_error"/>
 
                                 <div class="content-box-header panel-heading">
                                     <div class="panel-title ">

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="home.support.title"/></title>
+    <title><fmt:message key="user.support.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -63,21 +63,21 @@
                         <div class="login-wrapper" style="top: 70px;">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="home.support.formHeader" var="formHeader"/>
-                                    <fmt:message key="home.support.selectType" var="selectType"/>
-                                    <fmt:message key="home.support.description" var="description"/>
-                                    <fmt:message key="home.support.button.send" var="send"/>
-                                    <fmt:message key="home.support.option.1" var="option_1"/>
-                                    <fmt:message key="home.support.option.2" var="option_2"/>
-                                    <fmt:message key="home.support.option.3" var="option_3"/>
-                                    <fmt:message key="home.support.option.4" var="option_4"/>
-                                    <fmt:message key="home.support.option.5" var="option_5"/>
-                                    <fmt:message key="home.support.option.6" var="option_6"/>
-                                    <fmt:message key="home.support.option.7" var="option_7"/>
-                                    <fmt:message key="home.support.option.8" var="option_8"/>
-                                    <fmt:message key="home.support.option.9" var="option_9"/>
-                                    <fmt:message key="home.support.option.10" var="option_10"/>
-                                    <fmt:message key="home.support.tooltipDescription" var="tooltipDescription"/>
+                                    <fmt:message key="user.support.formHeader" var="formHeader"/>
+                                    <fmt:message key="user.support.selectType" var="selectType"/>
+                                    <fmt:message key="user.support.description" var="description"/>
+                                    <fmt:message key="user.support.button.send" var="send"/>
+                                    <fmt:message key="user.support.option.1" var="option_1"/>
+                                    <fmt:message key="user.support.option.2" var="option_2"/>
+                                    <fmt:message key="user.support.option.3" var="option_3"/>
+                                    <fmt:message key="user.support.option.4" var="option_4"/>
+                                    <fmt:message key="user.support.option.5" var="option_5"/>
+                                    <fmt:message key="user.support.option.6" var="option_6"/>
+                                    <fmt:message key="user.support.option.7" var="option_7"/>
+                                    <fmt:message key="user.support.option.8" var="option_8"/>
+                                    <fmt:message key="user.support.option.9" var="option_9"/>
+                                    <fmt:message key="user.support.option.10" var="option_10"/>
+                                    <fmt:message key="user.support.tooltipDescription" var="tooltipDescription"/>
 
                                     <h4>
                                         ${formHeader}
@@ -120,7 +120,7 @@
                                         </select>
                                         <label class="create-error-label">
                                             <c:if test="${typeQuestionError}">
-                                                <fmt:message key="home.support.typeQuestionError"/>
+                                                <fmt:message key="user.support.typeQuestionError"/>
                                             </c:if>
                                         </label>&nbsp;
 

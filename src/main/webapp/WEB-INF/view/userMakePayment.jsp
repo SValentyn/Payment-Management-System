@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="home.makepayment.title"/></title>
+    <title><fmt:message key="user.makepayment.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -83,14 +83,14 @@
                         <div class="login-wrapper" style="top: 0px;">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="home.makepayment.createNewPayment" var="createNewPayment"/>
-                                    <fmt:message key="home.makepayment.fromAccount" var="from"/>
-                                    <fmt:message key="home.makepayment.toCreditCard" var="toCreditCard"/>
-                                    <fmt:message key="home.makepayment.number" var="number"/>
-                                    <fmt:message key="home.makepayment.amount" var="amount"/>
-                                    <fmt:message key="home.makepayment.appointment" var="appointment"/>
-                                    <fmt:message key="home.makepayment.tooltipCardNumber" var="tooltipCardNumber"/>
-                                    <fmt:message key="home.makepayment.tooltipAmountFunds" var="tooltipAmountFunds"/>
+                                    <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>
+                                    <fmt:message key="user.makepayment.fromAccount" var="from"/>
+                                    <fmt:message key="user.makepayment.toCreditCard" var="toCreditCard"/>
+                                    <fmt:message key="user.makepayment.number" var="number"/>
+                                    <fmt:message key="user.makepayment.amount" var="amount"/>
+                                    <fmt:message key="user.makepayment.appointment" var="appointment"/>
+                                    <fmt:message key="user.makepayment.tooltipCardNumber" var="tooltipCardNumber"/>
+                                    <fmt:message key="user.makepayment.tooltipAmountFunds" var="tooltipAmountFunds"/>
 
                                     <h4>
                                         ${createNewPayment}
@@ -126,7 +126,7 @@
                                         </select>
                                         <label class="create-error-label">
                                             <c:if test="${accountIdError}">
-                                                <fmt:message key="home.makepayment.accountIdError"/>
+                                                <fmt:message key="user.makepayment.accountIdError"/>
                                             </c:if>
                                         </label>&nbsp;
 
@@ -144,7 +144,7 @@
                                         </div>
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
-                                                <fmt:message key="home.makepayment.numberError"/>
+                                                <fmt:message key="user.makepayment.numberError"/>
                                             </c:if>
                                         </label>&nbsp;
 
@@ -157,7 +157,7 @@
                                         />
                                         <label for="amount" class="create-error-label">
                                             <c:if test="${amountError}">
-                                                <fmt:message key="home.makepayment.amountError"/>
+                                                <fmt:message key="user.makepayment.amountError"/>
                                             </c:if>
                                         </label>&nbsp;
 
@@ -178,7 +178,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 30px 0 5px 0">
                                             <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                                <fmt:message key="home.makepayment.makePayment"/>
+                                                <fmt:message key="user.makepayment.makePayment"/>
                                             </button>
                                         </div>
                                     </form>

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="home.addCard.title"/></title>
+    <title><fmt:message key="user.addCard.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -63,15 +63,15 @@
                         <div class="login-wrapper" style="top: 50px;">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="home.addCard.addNewCard" var="addNewCard"/>
-                                    <fmt:message key="home.addCard.selectAccount" var="selectAccount"/>
-                                    <fmt:message key="home.addCard.number" var="number"/>
-                                    <fmt:message key="home.addCard.cvv" var="cvv"/>
-                                    <fmt:message key="home.addCard.validity" var="validity"/>
-                                    <fmt:message key="home.addCard.month" var="month"/>
-                                    <fmt:message key="home.addCard.year" var="year"/>
-                                    <fmt:message key="home.addCard.tooltipCardNumber" var="tooltipCardNumber"/>
-                                    <fmt:message key="home.addCard.tooltipCVV" var="tooltipCVV"/>
+                                    <fmt:message key="user.addCard.addNewCard" var="addNewCard"/>
+                                    <fmt:message key="user.addCard.selectAccount" var="selectAccount"/>
+                                    <fmt:message key="user.addCard.number" var="number"/>
+                                    <fmt:message key="user.addCard.cvv" var="cvv"/>
+                                    <fmt:message key="user.addCard.validity" var="validity"/>
+                                    <fmt:message key="user.addCard.month" var="month"/>
+                                    <fmt:message key="user.addCard.year" var="year"/>
+                                    <fmt:message key="user.addCard.tooltipCardNumber" var="tooltipCardNumber"/>
+                                    <fmt:message key="user.addCard.tooltipCVV" var="tooltipCVV"/>
 
                                     <h4>
                                         ${addNewCard}
@@ -106,7 +106,7 @@
                                         </select>
                                         <label class="create-error-label">
                                             <c:if test="${accountIdError}">
-                                                <fmt:message key="home.addCard.accountIdError"/>
+                                                <fmt:message key="user.addCard.accountIdError"/>
                                             </c:if>
                                         </label>&nbsp;
 
@@ -119,7 +119,7 @@
                                         />
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
-                                                <fmt:message key="home.addCard.numberError"/>
+                                                <fmt:message key="user.addCard.numberError"/>
                                             </c:if>
                                         </label>&nbsp;
 
@@ -132,7 +132,7 @@
                                         />
                                         <label for="CVV" class="create-error-label">
                                             <c:if test="${cvvError}">
-                                                <fmt:message key="home.addCard.cvvError"/>
+                                                <fmt:message key="user.addCard.cvvError"/>
                                             </c:if>
                                         </label>&nbsp;
 
@@ -204,19 +204,19 @@
                                         </div>
                                         <label for="expiration-date" class="create-error-label">
                                             <c:if test="${validityError}">
-                                                <fmt:message key="home.addCard.validityError"/>
+                                                <fmt:message key="user.addCard.validityError"/>
                                             </c:if>
                                         </label>
                                         <label for="expiration-date" class="create-error-label">
                                             <c:if test="${validityExpiredError}">
-                                                <fmt:message key="home.addCard.validityExpiredError"/>
+                                                <fmt:message key="user.addCard.validityExpiredError"/>
                                             </c:if>
                                         </label>&nbsp;
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 10px 0 5px 0">
                                             <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                                <fmt:message key="home.addCard.button.add"/>
+                                                <fmt:message key="user.addCard.button.add"/>
                                             </button>
                                         </div>
                                     </form>

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="home.createAccount.title"/></title>
+    <title><fmt:message key="user.createAccount.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -63,13 +63,13 @@
                         <div class="login-wrapper" style="top: 85px;">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="home.createAccount.createNewAccount" var="createNewAccount"/>
+                                    <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
                                     <fmt:message key="admin.createAccount.user_bio" var="user_bio"/>
-                                    <fmt:message key="home.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="home.createAccount.createAccountButton" var="createAccountButton"/>
+                                    <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
+                                    <fmt:message key="user.createAccount.createAccountButton" var="createAccountButton"/>
                                     <fmt:message key="admin.createAccount.showAccountsButton" var="showAccountsButton"/>
                                     <fmt:message key="admin.createAccount.addCardButton" var="addCardButton"/>
-                                    <fmt:message key="home.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
+                                    <fmt:message key="user.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
                                     <fmt:message key="admin.createAccount.tooltipUserBio" var="tooltipUserBio"/>
 
                                     <h4>
@@ -106,7 +106,7 @@
                                                value="${number}">
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
-                                                <fmt:message key="home.createAccount.numberError"/>
+                                                <fmt:message key="user.createAccount.numberError"/>
                                             </c:if>
                                         </label>&nbsp;
 

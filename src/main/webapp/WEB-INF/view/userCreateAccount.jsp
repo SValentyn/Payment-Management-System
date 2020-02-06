@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="home.createAccount.title"/></title>
+    <title><fmt:message key="user.createAccount.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -63,9 +63,9 @@
                         <div class="login-wrapper">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="home.createAccount.createNewAccount" var="createNewAccount"/>
-                                    <fmt:message key="home.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="home.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
+                                    <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
+                                    <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
+                                    <fmt:message key="user.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
 
                                     <h4>
                                         ${createNewAccount}
@@ -82,14 +82,14 @@
                                                value="${number}">
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
-                                                <fmt:message key="home.createAccount.numberError"/>
+                                                <fmt:message key="user.createAccount.numberError"/>
                                             </c:if>
                                         </label>&nbsp;
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
                                             <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                                <fmt:message key="home.createAccount.createAccountButton"/>
+                                                <fmt:message key="user.createAccount.createAccountButton"/>
                                             </button>
                                         </div>
                                     </form>
