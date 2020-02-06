@@ -42,6 +42,7 @@ public class CommandUserSupport implements ICommand {
                 return page;
             }
 
+            // Data
             List<Letter> lettersByUserId = LetterService.getInstance().findLettersByUserId(user.getUserId());
             List<Letter> notProcessedLetters = new ArrayList<>();
 
@@ -51,6 +52,7 @@ public class CommandUserSupport implements ICommand {
                 }
             }
 
+            // Check
             if (notProcessedLetters.size() == 4) {
                 request.setAttribute("manyMessagesError", true);
                 return page;

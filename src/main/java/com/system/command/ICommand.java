@@ -16,4 +16,5 @@ public interface ICommand {
      * The result will be given as a page to forward to
      */
     String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
+
 }

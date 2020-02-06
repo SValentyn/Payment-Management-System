@@ -23,4 +23,5 @@ public class CommandUserUnblockAccount implements ICommand {
 
         return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
     }
+
 }

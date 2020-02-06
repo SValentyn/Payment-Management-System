@@ -21,6 +21,7 @@ public class CommandUserCreateAccount implements ICommand {
 
         User user = (User) request.getSession().getAttribute("currentUser");
         List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+
         request.setAttribute("accounts", allAccounts);
         request.setAttribute("created", false);
         request.setAttribute("numberExistError", false);
@@ -42,8 +43,8 @@ public class CommandUserCreateAccount implements ICommand {
 
             for (Account account : allAccounts) {
                 if (account.getNumber().equals(number)) {
+                    request.setAttribute("number", number);
                     request.setAttribute("numberExistError", true);
-                    request.setAttribute("numberValue", number);
                     return page;
                 }
             }
@@ -51,8 +52,8 @@ public class CommandUserCreateAccount implements ICommand {
             // Create
             int status = AccountService.getInstance().createAccount(userId, number);
             if (status == 0) {
+                request.setAttribute("number", number);
                 request.setAttribute("createAccountError", true);
-                request.setAttribute("numberValue", number);
             } else {
                 request.setAttribute("created", true);
             }
@@ -64,7 +65,7 @@ public class CommandUserCreateAccount implements ICommand {
     private boolean checkNumber(HttpServletRequest request, String number) {
         if (number == null || number.isEmpty() || !Validator.checkAccountNumber(number)) {
             request.setAttribute("numberError", true);
-            request.setAttribute("numberValue", number);
+            request.setAttribute("number", number);
             return true;
         }
         return false;

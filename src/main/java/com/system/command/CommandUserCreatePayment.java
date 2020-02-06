@@ -45,23 +45,24 @@ public class CommandUserCreatePayment implements ICommand {
             String amount = request.getParameter("amount");
             String appointment = request.getParameter("appointment");
 
-            // Checking AccountId
+            // Check
             if (!checkAccountId(request, accountId)) {
-                accounts.remove(AccountService.getInstance().findAccountByAccountId(accountId));
-                request.setAttribute("accounts", accounts);
-                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(accountId));
+                accounts.remove(AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId)));
+
+                request.setAttribute("accounts", accounts); // exclude the selected account number from the list of all accounts
+                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
             } else {
                 setRequestAttributes(request, accountId, number, amount, appointment);
                 return page;
             }
 
-            // Checking CardNumber and Amount
+            // Check
             if (checkCardNumber(request, number) || checkAmount(request, amount)) {
                 setRequestAttributes(request, accountId, number, amount, appointment);
                 return page;
             }
 
-            // Checking the existence of a card number
+            // Check
             List<CreditCard> allCards = CreditCardService.getInstance().findAllCards();
             List<String> allCardNumbers = new ArrayList<>();
 

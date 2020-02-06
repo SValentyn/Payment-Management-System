@@ -24,6 +24,6 @@ public class CommandUserUnblockCard implements ICommand {
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 
         return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
-
     }
+
 }

@@ -103,7 +103,7 @@
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <span class="init-label">
+                                    <span class="title-label">
                                         <label>
                                             <b>
                                                 <a href="?command=showUsers"><fmt:message key="admin.showAllUsers"/></a>

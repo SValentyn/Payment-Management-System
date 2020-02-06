@@ -1,8 +1,5 @@
 package com.system.utils;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,10 +14,8 @@ import java.util.regex.Pattern;
  */
 public class Validator {
 
-    private static final Logger LOGGER = LogManager.getLogger(Validator.class);
-
     public static boolean checkLengthName(String name) {
-        return name.length() > 18;
+        return name.length() > 24;
     }
 
     public static boolean checkLengthSurname(String surname) {

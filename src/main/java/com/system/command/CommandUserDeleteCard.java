@@ -15,6 +15,8 @@ public class CommandUserDeleteCard implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.setAttribute("deleteCardError", false);
+
         User user = (User) request.getSession().getAttribute("currentUser");
         String cardNumber = request.getParameter("cardNumber");
         int accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
@@ -27,6 +29,8 @@ public class CommandUserDeleteCard implements ICommand {
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
             request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
+        } else {
+            request.setAttribute("deleteCardError", true);
         }
 
         return ResourceManager.getInstance().getProperty(ResourceManager.HOME);

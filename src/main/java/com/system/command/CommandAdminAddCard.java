@@ -31,7 +31,7 @@ public class CommandAdminAddCard implements ICommand {
         String year = request.getParameter("year");
 
         request.setAttribute("accountId", accountId);
-        request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(accountId));
+        request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {

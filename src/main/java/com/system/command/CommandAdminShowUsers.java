@@ -26,4 +26,5 @@ public class CommandAdminShowUsers implements ICommand {
 
         return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
     }
+
 }

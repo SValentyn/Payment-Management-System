@@ -61,6 +61,7 @@
                                     <fmt:message key="admin.letter.description" var="letter_description"/>
                                     <fmt:message key="admin.letter.processedButton" var="processedButton"/>
                                     <fmt:message key="admin.letter.backButton" var="backButton"/>
+                                    <fmt:message key="admin.support.tooltipUserBio" var="tooltipUserBio"/>
 
                                     <h4 style="margin-bottom: 25px">
                                         ${letterFromUser}
@@ -79,8 +80,11 @@
                                                 ${user_bio}
                                             </label>
                                             <div>
-                                                <input id="bio" name="bio" class="form-control"
-                                                       type="text" disabled="disabled" value="${bio}"/>
+                                                <span tabindex="0" data-toggle="tooltip-right-hover"
+                                                      title="${tooltipUserBio}">
+                                                    <input id="bio" name="bio" class="form-control" type="text"
+                                                           disabled="disabled" value="${bio}"/>
+                                                </span>
                                             </div>
                                         </div>
 

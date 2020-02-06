@@ -96,7 +96,7 @@
                                         ${createNewPayment}
                                     </h4>
 
-                                    <form action="/" role="form" method="POST">
+                                    <form action="" role="form" method="POST">
                                         <input type="hidden" name="command" value="makePayment">
 
                                         <!-- AccountId -->

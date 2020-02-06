@@ -14,9 +14,10 @@ public class CommandAdminBlockAccount implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.setAttribute("blockAccountError", false);
+
         String userId = (String) request.getSession().getAttribute("userId");
         String accountId = request.getParameter("accountId");
-        request.setAttribute("blockAccountError", false);
 
         if (accountId != null) {
             AccountService.getInstance().blockAccount(Integer.parseInt(accountId));
@@ -30,4 +31,5 @@ public class CommandAdminBlockAccount implements ICommand {
 
         return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
     }
+
 }

@@ -14,6 +14,8 @@ public class CommandAdminBlockCard implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.setAttribute("blockCardError", false);
+
         String userId = (String) request.getSession().getAttribute("userId");
         String cardNumber = request.getParameter("cardNumber");
         int accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
@@ -24,6 +26,8 @@ public class CommandAdminBlockCard implements ICommand {
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
             request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
+        } else {
+            request.setAttribute("blockCardError", true);
         }
 
         return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);

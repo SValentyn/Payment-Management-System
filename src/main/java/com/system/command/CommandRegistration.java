@@ -15,6 +15,7 @@ public class CommandRegistration implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
+
         request.setAttribute("created", false);
         request.setAttribute("phoneExistError", false);
 

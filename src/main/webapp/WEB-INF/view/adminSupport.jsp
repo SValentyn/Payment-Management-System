@@ -74,7 +74,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <span class="init-label">
+                        <span class="title-label">
                             <label>
                                 <b>
                                     <fmt:message key="admin.support.noLetters"/>

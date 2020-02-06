@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 public class ControllerHelper {
 
+    private static ControllerHelper instance = null;
+
     /**
      * Users roles
      */
@@ -22,7 +24,6 @@ public class ControllerHelper {
      * Request parameter name for command
      */
     private static final String COMMAND = "command";
-    private static ControllerHelper instance = null;
 
     /**
      * Action commands for user types
@@ -118,4 +119,5 @@ public class ControllerHelper {
             return UserService.getInstance().getRole((User) session.getAttribute("currentUser"));
         }
     }
+
 }

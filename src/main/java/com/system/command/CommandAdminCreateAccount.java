@@ -37,7 +37,6 @@ public class CommandAdminCreateAccount implements ICommand {
             request.setAttribute("bio", bio);
         } else {
             request.setAttribute("number", number);
-            request.setAttribute("numberValue", number);
             request.setAttribute("createAccountError", true);
             return page;
         }
@@ -49,14 +48,15 @@ public class CommandAdminCreateAccount implements ICommand {
 
             // Check
             if (checkNumber(request, number)) {
+
                 return page;
             }
 
             List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
             for (Account account : allAccounts) {
                 if (account.getNumber().equals(number)) {
+                    request.setAttribute("number", number);
                     request.setAttribute("numberExistError", true);
-                    request.setAttribute("numberValue", number);
                     return page;
                 }
             }
@@ -65,21 +65,21 @@ public class CommandAdminCreateAccount implements ICommand {
 
             int status = AccountService.getInstance().createAccount(Integer.parseInt(userId), number);
             if (status == 0) {
+                request.setAttribute("number", number);
                 request.setAttribute("createAccountError", true);
-                request.setAttribute("numberValue", number);
             } else {
-                request.setAttribute("created", true);
                 request.setAttribute("accountId", status);
+                request.setAttribute("created", true);
             }
-
         }
+
         return page;
     }
 
     private boolean checkNumber(HttpServletRequest request, String number) {
         if (number == null || number.isEmpty() || !Validator.checkAccountNumber(number)) {
+            request.setAttribute("number", number);
             request.setAttribute("numberError", true);
-            request.setAttribute("numberValue", number);
             return true;
         }
         return false;

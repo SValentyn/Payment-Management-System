@@ -21,12 +21,13 @@ public class CommandUserAddCard implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_ADD_CARD);
 
-        User user = (User) request.getSession().getAttribute("currentUser");
-        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
-        request.setAttribute("accounts", accounts);
         request.setAttribute("created", false);
         request.setAttribute("cardCreateError", false);
         request.setAttribute("numberExistError", false);
+
+        User user = (User) request.getSession().getAttribute("currentUser");
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        request.setAttribute("accounts", accounts);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -42,14 +43,16 @@ public class CommandUserAddCard implements ICommand {
 
             // Check
             if (!checkAccountId(request, accountId)) {
-                accounts.remove(AccountService.getInstance().findAccountByAccountId(accountId));
-                request.setAttribute("accounts", accounts);
-                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(accountId));
+                accounts.remove(AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId)));
+
+                request.setAttribute("accounts", accounts); // exclude the selected account number from the list of all accounts
+                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
             } else {
                 setRequestAttributes(request, accountId, number, CVV, month, year);
                 return page;
             }
 
+            // Check
             if (checkCardNumber(request, number) ||
                     checkCVV(request, CVV) ||
                     checkValidity(request, month, year)) {
@@ -57,6 +60,7 @@ public class CommandUserAddCard implements ICommand {
                 return page;
             }
 
+            // Check
             List<CreditCard> allCards = CreditCardService.getInstance().findAllCards();
             for (CreditCard card : allCards) {
                 if (card.getNumber().equals(number)) {
@@ -69,8 +73,8 @@ public class CommandUserAddCard implements ICommand {
             // Create
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
-                request.setAttribute("cardCreateError", true);
                 setRequestAttributes(request, accountId, number, CVV, month, year);
+                request.setAttribute("cardCreateError", true);
             } else {
                 request.setAttribute("created", true);
             }

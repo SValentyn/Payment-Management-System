@@ -14,6 +14,8 @@ public class CommandAdminUnblockAccount implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.setAttribute("unblockAccountError", false);
+
         String userId = (String) request.getSession().getAttribute("userId");
         String accountId = request.getParameter("accountId");
 
@@ -23,6 +25,8 @@ public class CommandAdminUnblockAccount implements ICommand {
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
             request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId)));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)));
+        } else {
+            request.setAttribute("unblockAccountError", true);
         }
 
         return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);

@@ -15,9 +15,13 @@ public class CommandUserBlockAccount implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.setAttribute("blockCardError", false);
+        request.setAttribute("blockAccountError", false);
+        request.setAttribute("unblockCardAlert", false);
+        request.setAttribute("unblockAccountAlert", false);
+
         User user = (User) request.getSession().getAttribute("currentUser");
         String accountId = request.getParameter("accountId");
-        request.setAttribute("blockAccountError", false);
 
         if (accountId != null) {
             AccountService.getInstance().blockAccount(Integer.parseInt(accountId));

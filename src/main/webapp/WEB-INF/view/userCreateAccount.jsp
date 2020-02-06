@@ -71,7 +71,7 @@
                                         ${createNewAccount}
                                     </h4>
 
-                                    <form action="" method="POST">
+                                    <form action="" role="form" method="POST">
                                         <input type="hidden" name="command" value="createAccount"/>
 
                                         <!-- Number Account -->
@@ -79,7 +79,7 @@
                                                type="text" data-toggle="tooltip" data-title="${tooltipNumberAccount}"
                                                maxlength="20" onkeypress="onlyNumbers();"
                                                placeholder="${numberNewAccount}*"
-                                               value="${numberValue}">
+                                               value="${number}">
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
                                                 <fmt:message key="home.createAccount.numberError"/>
