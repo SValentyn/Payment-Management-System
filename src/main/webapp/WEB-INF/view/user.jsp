@@ -55,6 +55,16 @@
         </div>
     </c:if>
 
+    <!-- Alert blockCardError -->
+    <c:if test="${blockCardError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 222px;">
+            <p><strong>Failed</strong> to block card.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert unblockCardAlert -->
     <c:if test="${unblockCardAlert == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px;">
@@ -67,13 +77,23 @@
         </div>
     </c:if>
 
+    <!-- Alert deleteCardError -->
+    <c:if test="${deleteCardError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 229px;">
+            <p><strong>Failed</strong> to delete card.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-10" style="padding-left: 0;">
                 <c:choose>
                     <c:when test="${showAccounts && !showAccountInfo}">
                         <div class="col-md-6">
@@ -334,7 +354,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <span class="init-label">
+                        <span class="title-label">
                             <label>
                                 <b>
                                     <a href="?command=showAccounts"><fmt:message key="sidebar.showAccounts"/></a>
