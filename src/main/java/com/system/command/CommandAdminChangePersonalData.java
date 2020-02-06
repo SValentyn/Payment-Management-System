@@ -1,9 +1,10 @@
 package com.system.command;
 
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
-import com.system.service.AccountService;
 import com.system.service.UserService;
+import com.system.utils.PasswordEncryptor;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,19 +12,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class CommandAdminChangePersonalData implements ICommand {
+
+    PasswordEncryptor encryptor = new PasswordEncryptor();
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.CHANGE_DATA);
-
-        String userId = request.getParameter("userId");
-        if (userId != null) {
-            request.getSession().setAttribute("userId", userId);
-            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
-        }
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_CHANGE_DATA);
 
         request.setAttribute("created", false);
-        request.setAttribute("userAlreadyRegisteredError", false);
+        request.setAttribute("phoneExistError", false);
+
+        User user = (User) request.getSession().getAttribute("currentUser");
+
+        // Set Attributes
+        request.setAttribute("nameValue", user.getName());
+        request.setAttribute("surnameValue", user.getSurname());
+        request.setAttribute("phoneValue", user.getPhone());
+        request.setAttribute("emailValue", user.getEmail());
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -31,30 +37,36 @@ public class CommandAdminChangePersonalData implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Data
+            Integer userId = user.getUserId();
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String passwordConfirmation = request.getParameter("passwordConfirmation");
 
             // Check
             if (checkName(request, name) ||
                     checkSurname(request, surname) ||
                     checkPhone(request, phone) ||
-                    checkPassword(request, password) ||
-                    checkPasswordConfirmation(request, password, passwordConfirmation)) {
-                setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
+                    checkPassword(request, userId, password)) {
+                setRequestAttributes(request, name, surname, phone, email, password);
                 return page;
             }
 
-            // Create
-            int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
+            // Set new user properties
+            user.setName(name);
+            user.setSurname(surname);
+            user.setPhone(phone);
+            user.setEmail(email);
+            user.setPassword(encryptor.encode(password));
+
+            // Update
+            int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
-                request.setAttribute("userAlreadyRegisteredError", true);
-                setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
+                request.setAttribute("phoneExistError", true);
+                setRequestAttributes(request, name, surname, phone, email, password);
             } else {
-                request.setAttribute("created", true);
+                request.setAttribute("updated", true);
             }
         }
 
@@ -95,28 +107,21 @@ public class CommandAdminChangePersonalData implements ICommand {
         return false;
     }
 
-    private boolean checkPassword(HttpServletRequest request, String password) {
-        if (password == null || password.isEmpty() || !Validator.checkPassword(password)) {
+    private boolean checkPassword(HttpServletRequest request, Integer userId, String password) throws SQLException {
+        String correctPassword = UserService.getInstance().findUserById(userId).getPassword();
+        if (!correctPassword.equals(encryptor.encode(password))) {
             request.setAttribute("passwordError", true);
             return true;
         }
         return false;
     }
 
-    private boolean checkPasswordConfirmation(HttpServletRequest request, String password, String passwordConfirmation) {
-        if (!password.equals(passwordConfirmation)) {
-            request.setAttribute("passwordConfirmationError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation) {
+    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password) {
         request.setAttribute("nameValue", name);
         request.setAttribute("surnameValue", surname);
         request.setAttribute("phoneValue", phone);
         request.setAttribute("emailValue", email);
         request.setAttribute("passwordValue", password);
-        request.setAttribute("passwordConfirmationValue", passwordConfirmation);
     }
+
 }
