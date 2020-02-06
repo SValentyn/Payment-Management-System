@@ -43,8 +43,8 @@
 
     <!-- Alert createAccountError -->
     <c:if test="${createAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 357px;">
-            <p><strong>Failed </strong> to create new account. Try later.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 355px;">
+            <p><strong>Failed</strong> to create new account. Try later.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -67,7 +67,8 @@
                                     <fmt:message key="admin.createAccount.user_bio" var="user_bio"/>
                                     <fmt:message key="home.createAccount.numberNewAccount" var="numberNewAccount"/>
                                     <fmt:message key="home.createAccount.createAccountButton" var="createAccountButton"/>
-                                    <fmt:message key="admin.createAccount.backButton" var="backButton"/>
+                                    <fmt:message key="admin.createAccount.showAccountsButton" var="showAccountsButton"/>
+                                    <fmt:message key="admin.createAccount.addCardButton" var="addCardButton"/>
                                     <fmt:message key="home.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
                                     <fmt:message key="admin.createAccount.tooltipUserBio" var="tooltipUserBio"/>
 
@@ -75,7 +76,7 @@
                                         ${createNewAccount}
                                     </h4>
 
-                                    <form action="/" role="form" method="POST">
+                                    <form action="" role="form" method="POST">
                                         <input type="hidden" name="command" value="addAccount"/>
 
                                         <!-- User Id -->
@@ -102,7 +103,7 @@
                                                type="text" data-toggle="tooltip" data-title="${tooltipNumberAccount}"
                                                maxlength="20" onkeypress="onlyNumbers();"
                                                placeholder="${numberNewAccount}*"
-                                               value="${numberValue}">
+                                               value="${number}">
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
                                                 <fmt:message key="home.createAccount.numberError"/>
@@ -116,7 +117,17 @@
                                             </button>
                                         </div>
 
-                                        <!-- Back -->
+                                        <!-- Show Accounts Button -->
+                                        <div class="action" style="padding: 0 0 10px 0;">
+                                            <button type="button" class="btn btn-default signup"
+                                                    style=" padding: 0;">
+                                                <a href="?command=showAccountInfo">
+                                                    ${showAccountsButton}
+                                                </a>
+                                            </button>
+                                        </div>
+
+                                        <!-- AddCard Button -->
                                         <c:choose>
                                             <c:when test="${created == true}">
                                                 <div class="action">
@@ -124,7 +135,7 @@
                                                             style=" padding: 0;"
                                                             onfocus="this.blur()">
                                                         <a href="?command=addCard&accountId=${accountId}">
-                                                                ${backButton}
+                                                                ${addCardButton}
                                                         </a>
                                                     </button>
                                                 </div>
@@ -135,7 +146,7 @@
                                                             style=" padding: 0;"
                                                             onfocus="this.blur()" disabled="disabled">
                                                         <a href="?command=addCard&accountId=${accountId}">
-                                                                ${backButton}
+                                                                ${addCardButton}
                                                         </a>
                                                     </button>
                                                 </div>
