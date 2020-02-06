@@ -104,6 +104,15 @@ public class AccountService {
     }
 
     /**
+     * Checks if account id not null and deletes it
+     */
+    public void deleteAccountByAccountId(Integer accountId) {
+        if (accountId != null) {
+            accountDao.delete(accountId);
+        }
+    }
+
+    /**
      * Finds all accounts by userId
      */
     public List<Account> findAllAccountsByUserId(Integer userId) {
@@ -113,14 +122,14 @@ public class AccountService {
     /**
      * Finds account by accountId
      */
-    public Account findAccountByAccountId(String accountId) {
-        return accountDao.findAccountById(Integer.valueOf(accountId));
+    public Account findAccountByAccountId(Integer accountId) {
+        return accountDao.findAccountById(accountId);
     }
 
     /**
      * Finds account number by accountId
      */
-    public String findAccountNumberByAccountId(String accountId) {
+    public String findAccountNumberByAccountId(Integer accountId) {
         return findAccountByAccountId(accountId).getNumber();
     }
 

@@ -24,6 +24,7 @@ public class AccountDaoImpl implements AccountDao {
      */
     private static final String CREATE_ACCOUNT = "INSERT INTO accounts(user_id, number, balance, is_blocked) VALUES(?, ?, ?, ?)";
     private static final String UPDATE_ACCOUNT = "UPDATE accounts SET balance = ?, is_blocked = ? WHERE account_id = ?";
+    private static final String DELETE_ACCOUNT = "DELETE FROM accounts WHERE account_id = ?";
     private static final String FIND_ACCOUNT_BY_ID = "SELECT * FROM accounts WHERE account_id = ?";
     private static final String FIND_ALL_USER_ACCOUNTS = "SELECT * FROM accounts WHERE user_id = ?";
 
@@ -52,10 +53,15 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account findAccountById(Integer id) {
+    public int delete(Integer id) {
+        return executor.executeStatement(DELETE_ACCOUNT, id);
+    }
+
+    @Override
+    public Account findAccountById(Integer accountId) {
         Account account = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_ACCOUNT_BY_ID, id);
+            ResultSet rs = executor.getResultSet(FIND_ACCOUNT_BY_ID, accountId);
             if (rs.next()) {
                 account = createEntity(rs);
             }

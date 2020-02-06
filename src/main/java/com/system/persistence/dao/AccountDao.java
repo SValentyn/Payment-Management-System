@@ -22,12 +22,18 @@ public interface AccountDao {
     int update(Account entity);
 
     /**
-     * Finds account by account id
+     * Removes account by account id
      */
-    Account findAccountById(Integer id);
+    int delete(Integer id);
+
+    /**
+     * Retrieves account by account id
+     */
+    Account findAccountById(Integer accountId);
 
     /**
      * Returns all accounts by user id
      */
     List<Account> findAllAccountsByUserId(Integer userId);
+
 }
