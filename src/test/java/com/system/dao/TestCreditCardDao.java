@@ -30,7 +30,7 @@ public class TestCreditCardDao {
         when(creditCardDao.create(creditCard)).thenReturn(creditCard.getCardId());
         when(creditCardDao.delete(creditCard.getCardId())).thenReturn(creditCard.getCardId());
         when(creditCardDao.findCardsByAccountId(creditCard.getAccountId())).thenReturn(Arrays.asList(creditCard));
-        when(creditCardDao.findCreditCardByCardNumber(creditCard.getNumber())).thenReturn(creditCard);
+        when(creditCardDao.findCardByCardNumber(creditCard.getNumber())).thenReturn(creditCard);
     }
 
     @Test
@@ -61,8 +61,8 @@ public class TestCreditCardDao {
     @Test
     public void testFindCreditCardByCardNumber() {
         Integer expectedId = creditCard.getAccountId();
-        CreditCard creditCard_1 = creditCardDao.findCreditCardByCardNumber(creditCard.getNumber());
-        CreditCard creditCard_2 = creditCardDao.findCreditCardByCardNumber("5450655032800000"); // null
+        CreditCard creditCard_1 = creditCardDao.findCardByCardNumber(creditCard.getNumber());
+        CreditCard creditCard_2 = creditCardDao.findCardByCardNumber("5450655032800000"); // null
         assertEquals(expectedId, (Integer) creditCard_1.getAccountId());
         assertNull(creditCard_2);
     }

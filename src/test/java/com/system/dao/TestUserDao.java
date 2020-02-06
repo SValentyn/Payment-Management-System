@@ -40,11 +40,11 @@ public class TestUserDao {
         user_2.setPassword("thomasedison");
 
         when(userDao.create(user_1)).thenReturn(user_1.getUserId());
-        when(userDao.findById(1)).thenReturn(user_1);
-        when(userDao.findById(2)).thenReturn(user_2);
-        when(userDao.findByLoginAndPassword("8003654210", "elonmusk")).thenReturn(user_1);
-        when(userDao.findByPhoneNumber("8008998686")).thenReturn(user_2);
-        when(userDao.findAll()).thenReturn(Arrays.asList(user_1, user_2));
+        when(userDao.findUserByUserId(1)).thenReturn(user_1);
+        when(userDao.findUserByUserId(2)).thenReturn(user_2);
+        when(userDao.findUserByLoginAndPassword("8003654210", "elonmusk")).thenReturn(user_1);
+        when(userDao.findUserByPhoneNumber("8008998686")).thenReturn(user_2);
+        when(userDao.findAllUsers()).thenReturn(Arrays.asList(user_1, user_2));
     }
 
     @Test
@@ -58,15 +58,15 @@ public class TestUserDao {
     @Test
     public void testFindById() {
         String phone = user_2.getPhone();
-        User user = userDao.findById(2);
+        User user = userDao.findUserByUserId(2);
         assertNotNull(user);
         assertEquals(phone, user.getPhone());
     }
 
     @Test
     public void testFindByLoginAndPassword() {
-        User user = userDao.findByLoginAndPassword("8003654210", "elonmusk");
-        User wrongUser = userDao.findByLoginAndPassword("8003654210", "elonmusc");
+        User user = userDao.findUserByLoginAndPassword("8003654210", "elonmusk");
+        User wrongUser = userDao.findUserByLoginAndPassword("8003654210", "elonmusc");
         assertNull(wrongUser);
         String surname = user_1.getSurname();
         assertEquals(surname, user.getSurname());
@@ -74,13 +74,13 @@ public class TestUserDao {
 
     @Test
     public void testFindByPhone() {
-        User user = userDao.findByPhoneNumber("8008998686");
+        User user = userDao.findUserByPhoneNumber("8008998686");
         assertEquals("Edison", user.getSurname());
     }
 
     @Test
     public void testFindAllUsers() {
-        List<User> allUsers = userDao.findAll();
+        List<User> allUsers = userDao.findAllUsers();
         assertEquals(2, allUsers.size());
         assertEquals("8008998686", allUsers.get(1).getPhone());
         assertEquals("elonmusk@gmail.com", allUsers.get(0).getEmail());
