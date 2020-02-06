@@ -80,7 +80,7 @@
             <div class="page-content container">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper" style="top: 0px;">
+                        <div class="login-wrapper">
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>

@@ -33,7 +33,7 @@ public class CommandUserDeleteCard implements ICommand {
             request.setAttribute("deleteCardError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
     }
 
 }

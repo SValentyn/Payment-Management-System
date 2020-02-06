@@ -24,7 +24,7 @@ public class CommandIndex implements ICommand {
                 if (role.equals("admin")) {
                     page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
                 } else if (role.equals("client")) {
-                    page = ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+                    page = ResourceManager.getInstance().getProperty(ResourceManager.USER);
                 }
             }
         }

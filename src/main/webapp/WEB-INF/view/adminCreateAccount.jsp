@@ -60,7 +60,7 @@
             <div class="page-content container">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper" style="top: 85px;">
+                        <div class="login-wrapper">
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>

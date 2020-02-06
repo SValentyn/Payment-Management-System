@@ -21,7 +21,7 @@ public class CommandUserUnblockAccount implements ICommand {
         request.setAttribute("showAccounts", true);
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
     }
 
 }

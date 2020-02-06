@@ -25,7 +25,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="logo">
-                        <a href="/" onfocus="this.blur()"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
+                        <a href="/" onfocus="this.blur()">
+                            <img src="resources/images/logo-white.png" alt="Logotype"/>
+                        </a>
                         <h1>Payment Management System</h1>
                         <form class="language-form">
                             <select id="language" name="language" onchange="submit()" onfocus="this.blur()">
@@ -79,13 +81,14 @@
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                 <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                                 <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
-                                <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
+                                <fmt:message key="registration.tooltipPasswordConfirmation"
+                                             var="tooltipPasswordConfirmation"/>
 
                                 <h4>
                                     ${registration}
                                 </h4>
 
-                                <form action="" method="POST">
+                                <form action="" role="form" method="POST">
                                     <input type="hidden" name="command" value="registration">
 
                                     <!-- Name -->

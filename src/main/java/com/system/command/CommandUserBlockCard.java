@@ -36,7 +36,7 @@ public class CommandUserBlockCard implements ICommand {
             request.setAttribute("blockCardError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
     }
 
 }

@@ -81,29 +81,28 @@
                                 <fmt:message key="login.password" var="password"/>
                                 <fmt:message key="login.submit" var="submit"/>
 
-                                <form action="/" method="POST">
+                                <form action="/" role="form" method="POST">
                                     <input type="hidden" name="command" value="login"/>
 
                                     <!-- Login -->
-                                    <input class="form-control" name="login" type="text" style="margin-bottom: 18px;"
-                                           placeholder="${phone}" value="${phoneValue}">
+                                    <input class="form-control" name="login" type="text"
+                                           style="margin-bottom: 18px;" maxlength="10"
+                                           placeholder="${phone}"
+                                           value="${phoneValue}"/>
 
                                     <!-- Password -->
                                     <input class="form-control" name="password" type="password"
-                                           placeholder="${password}" value="${passwordValue}"/>
+                                           placeholder="${password}"
+                                           value="${passwordValue}"/>
 
-                                    <!-- Error Labels -->
+                                    <!-- Error Label -->
                                     <label class="enter-error-label">
                                         <c:if test="${phoneError}">
                                             <fmt:message key="login.phoneError"/>
                                         </c:if>
-                                    </label>
-                                    <label class="enter-error-label">
                                         <c:if test="${passwordError}">
                                             <fmt:message key="login.passwordError"/>
                                         </c:if>
-                                    </label>
-                                    <label class="enter-error-label">
                                         <c:if test="${loginError}">
                                             <fmt:message key="login.loginError"/>
                                         </c:if>
@@ -111,8 +110,10 @@
 
                                     <!-- Submit -->
                                     <div class="action" style="padding: 10px 0 0 0;">
-                                        <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
+                                        <button type="submit" class="btn btn-primary signup"
+                                                style="font-size: 18px;" onfocus="this.blur()">
                                             ${submit}
+                                            <i class="glyphicon glyphicon-log-in" style="padding-left: 10px;"></i>
                                         </button>
                                     </div>
                                 </form>

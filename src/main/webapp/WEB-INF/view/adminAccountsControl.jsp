@@ -81,7 +81,6 @@
         </div>
     </c:if>
 
-
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">

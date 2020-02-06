@@ -29,7 +29,7 @@ public class CommandUserShowAccountInfo implements ICommand {
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
     }
 
 }

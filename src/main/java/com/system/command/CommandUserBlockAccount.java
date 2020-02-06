@@ -35,7 +35,7 @@ public class CommandUserBlockAccount implements ICommand {
             request.setAttribute("blockAccountError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
     }
 
 }

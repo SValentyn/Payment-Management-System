@@ -31,7 +31,7 @@ public class CommandUserShowAccounts implements ICommand {
             request.setAttribute("accounts", allAccounts);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
     }
 
 }

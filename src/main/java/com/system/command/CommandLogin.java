@@ -40,7 +40,7 @@ public class CommandLogin implements ICommand {
             if (role.equals(Role.ROLE_ADMIN)) {
                 page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
             } else if (role.equals(Role.ROLE_CLIENT)) {
-                page = ResourceManager.getInstance().getProperty(ResourceManager.HOME);
+                page = ResourceManager.getInstance().getProperty(ResourceManager.USER);
             }
         }
 
