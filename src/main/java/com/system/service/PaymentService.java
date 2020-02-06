@@ -60,7 +60,7 @@ public class PaymentService {
             return -1;
         }
 
-        CreditCard cardTo = creditCardDao.findCreditCardByCardNumber(number);
+        CreditCard cardTo = creditCardDao.findCardByCardNumber(number);
         Account accountTo = accountDao.findAccountById(cardTo.getAccountId());
         if (checkAvailableAccount(accountTo) || !checkAvailableCard(cardTo)) {
             LOGGER.error("Payment arrangement error!");

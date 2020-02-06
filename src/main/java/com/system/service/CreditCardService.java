@@ -41,7 +41,7 @@ public class CreditCardService {
     public int addNewCard(String accountId, String number, String CVV, String month, String year) {
         int status = 0;
         if (accountId != null && number != null && CVV != null && month != null && year != null) {
-            if (creditCardDao.findCreditCardByCardNumber(number) != null) {
+            if (creditCardDao.findCardByCardNumber(number) != null) {
                 LOGGER.info("Trying to add an existing card!");
             } else {
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
@@ -89,7 +89,7 @@ public class CreditCardService {
      */
     public void blockCreditCard(String number) {
         if (number != null) {
-            CreditCard creditCard = creditCardDao.findCreditCardByCardNumber(number);
+            CreditCard creditCard = creditCardDao.findCardByCardNumber(number);
             creditCard.setIsActive(false);
             creditCardDao.update(creditCard);
         }
@@ -100,7 +100,7 @@ public class CreditCardService {
      */
     public void unblockCreditCard(String number) {
         if (number != null) {
-            CreditCard creditCard = creditCardDao.findCreditCardByCardNumber(number);
+            CreditCard creditCard = creditCardDao.findCardByCardNumber(number);
             creditCard.setIsActive(true);
             creditCardDao.update(creditCard);
         }
@@ -117,7 +117,7 @@ public class CreditCardService {
      * Finds all credit card by card number
      */
     public CreditCard findCardByCardNumber(String number) {
-        return creditCardDao.findCreditCardByCardNumber(number);
+        return creditCardDao.findCardByCardNumber(number);
     }
 
     /**

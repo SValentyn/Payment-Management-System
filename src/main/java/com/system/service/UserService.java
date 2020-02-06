@@ -73,28 +73,28 @@ public class UserService {
      * Finds user by login and encrypted password
      */
     public User loginUser(String login, String password) {
-        return userDao.findByLoginAndPassword(login, encryptor.encode(password));
+        return userDao.findUserByLoginAndPassword(login, encryptor.encode(password));
     }
 
     /**
      * Finds user by phone number and checks if user is registered already
      */
     private User findUserByPhoneNumber(String phone) {
-        return userDao.findByPhoneNumber(phone);
+        return userDao.findUserByPhoneNumber(phone);
     }
 
     /**
      * Finds user entity by userId
      */
     public User findUserById(Integer userId) {
-        return userDao.findById(userId);
+        return userDao.findUserByUserId(userId);
     }
 
     /**
      * Finds all users
      */
     public List<User> findAll() {
-        return userDao.findAll();
+        return userDao.findAllUsers();
     }
 
 }
