@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
@@ -8,6 +9,7 @@ import com.system.utils.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CommandRegistration implements ICommand {
 
@@ -18,6 +20,7 @@ public class CommandRegistration implements ICommand {
 
         request.setAttribute("created", false);
         request.setAttribute("phoneExistError", false);
+        request.setAttribute("registrationError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -42,10 +45,20 @@ public class CommandRegistration implements ICommand {
                 return page;
             }
 
+            // Check
+            List<User> users = UserService.getInstance().findAllUsers();
+            for (User user : users) {
+                if (user.getPhone().equals(phone)) {
+                    setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
+                    request.setAttribute("phoneExistError", true);
+                    return page;
+                }
+            }
+
             // Create
             int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
-                request.setAttribute("phoneExistError", true);
+                request.setAttribute("registrationError", true);
                 setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
             } else {
                 request.setAttribute("created", true);

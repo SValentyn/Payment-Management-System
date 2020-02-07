@@ -63,6 +63,16 @@
         </div>
     </c:if>
 
+    <!-- Alert registrationError -->
+    <c:if test="${registrationError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 494px; margin-top: 22px;">
+            <p><strong>Failed!</strong> Sorry, but we were unable to register you. Try later.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="login-bg">
         <div class="page-content container">
             <div class="row">
@@ -170,7 +180,9 @@
                         </div>
                         <div class="already">
                             <p><fmt:message key="registration.haveAccountAlready"/></p>
-                            <a href="/"><fmt:message key="registration.login"/></a>
+                            <a href="/" onfocus="this.blur()">
+                                <fmt:message key="registration.login"/>
+                            </a>
                         </div>
                     </div>
                 </div>
