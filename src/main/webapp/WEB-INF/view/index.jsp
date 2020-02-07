@@ -113,13 +113,18 @@
                                         <button type="submit" class="btn btn-primary signup"
                                                 style="font-size: 18px;" onfocus="this.blur()">
                                             ${submit}
-                                            <i class="glyphicon glyphicon-log-in" style="padding-left: 10px;"></i>
+                                            <i class="glyphicon glyphicon-log-in" style="padding-left: 11px;"></i>
                                         </button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="already">
+                            <p><fmt:message key="login.forgotPassword"/></p>
+                            <a href="?command=restore" onfocus="this.blur()">
+                                <fmt:message key="login.recovery"/>
+                            </a>
+                            <br>
                             <p><fmt:message key="login.dontHaveAccount"/></p>
                             <a href="?command=registration" onfocus="this.blur()">
                                 <fmt:message key="login.signup"/>

@@ -12,6 +12,7 @@ public class ResourceManager {
     // ALL
     public static final String INDEX = "INDEX";
     public static final String REGISTRATION = "REGISTRATION";
+    public static final String RECOVERY = "RECOVERY";
     public static final String ERROR = "ERROR";
     // USER
     public static final String USER = "USER";
