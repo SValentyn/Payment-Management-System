@@ -44,6 +44,7 @@ public class ControllerHelper {
         adminCommands.put("profile", new CommandAdminChangePersonalData());
         adminCommands.put("changePassword", new CommandAdminChangePassword());
         adminCommands.put("showUsers", new CommandAdminShowUsers());
+        adminCommands.put("changeUserData", new CommandAdminChangeUserData());
         adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAccountsControl());
         adminCommands.put("addAccount", new CommandAdminCreateAccount());

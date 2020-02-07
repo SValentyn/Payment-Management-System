@@ -88,7 +88,7 @@
                                                     <td>${user.email}</td>
                                                     <td>${user.phone}</td>
                                                     <td>
-                                                        <a href="?command=changeData&userId=${user.userId}">
+                                                        <a href="?command=changeUserData&userId=${user.userId}">
                                                                 ${changeData}
                                                         </a>
                                                     </td>
