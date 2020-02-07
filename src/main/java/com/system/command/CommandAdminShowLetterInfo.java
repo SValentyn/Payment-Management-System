@@ -48,7 +48,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
             // Set attributes
             request.setAttribute("description", letter.getDescription());
-            request.setAttribute("bio", user.getSurname() + " " + user.getName());
+            request.setAttribute("bio", user.getName() + " " + user.getSurname());
             request.setAttribute("phone", user.getPhone());
             request.setAttribute("email", user.getEmail());
 

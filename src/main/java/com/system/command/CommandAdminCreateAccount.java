@@ -31,10 +31,9 @@ public class CommandAdminCreateAccount implements ICommand {
         // Check
         if (userId != null) {
             request.getSession().setAttribute("userId", userId);
-            User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
-            String bio = user.getSurname() + " " + user.getName();
             request.setAttribute("userId", userId);
-            request.setAttribute("bio", bio);
+            User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
+            request.setAttribute("bio", user.getName() + " " + user.getSurname());
         } else {
             request.setAttribute("number", number);
             request.setAttribute("createAccountError", true);
@@ -48,10 +47,11 @@ public class CommandAdminCreateAccount implements ICommand {
 
             // Check
             if (checkNumber(request, number)) {
-
+                request.setAttribute("number", number);
                 return page;
             }
 
+            // Check
             List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
             for (Account account : allAccounts) {
                 if (account.getNumber().equals(number)) {
@@ -78,7 +78,6 @@ public class CommandAdminCreateAccount implements ICommand {
 
     private boolean checkNumber(HttpServletRequest request, String number) {
         if (number == null || number.isEmpty() || !Validator.checkAccountNumber(number)) {
-            request.setAttribute("number", number);
             request.setAttribute("numberError", true);
             return true;
         }

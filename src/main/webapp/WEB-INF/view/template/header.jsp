@@ -20,7 +20,7 @@
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            ${currentUser.surname} ${currentUser.name}
+                                            ${currentUser.name} ${currentUser.surname}
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu animated fadeInUp" style="width: 140px;">
