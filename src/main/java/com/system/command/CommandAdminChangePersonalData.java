@@ -10,6 +10,7 @@ import com.system.utils.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CommandAdminChangePersonalData implements ICommand {
 
@@ -20,8 +21,9 @@ public class CommandAdminChangePersonalData implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_CHANGE_DATA);
 
-        request.setAttribute("created", false);
+        request.setAttribute("updated", false);
         request.setAttribute("phoneExistError", false);
+        request.setAttribute("changeDataError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
 
@@ -49,8 +51,20 @@ public class CommandAdminChangePersonalData implements ICommand {
                     checkSurname(request, surname) ||
                     checkPhone(request, phone) ||
                     checkPassword(request, userId, password)) {
-                setRequestAttributes(request, name, surname, phone, email, password);
+                setRequestAttributes(request, name, surname, phone, email);
                 return page;
+            }
+
+            // Check
+            if (!user.getPhone().equals(phone)) {
+                List<User> users = UserService.getInstance().findAllUsers();
+                for (User aUser : users) {
+                    if (aUser.getPhone().equals(phone)) {
+                        setRequestAttributes(request, name, surname, phone, email);
+                        request.setAttribute("phoneExistError", true);
+                        return page;
+                    }
+                }
             }
 
             // Set new user properties
@@ -62,9 +76,9 @@ public class CommandAdminChangePersonalData implements ICommand {
 
             // Update
             int status = UserService.getInstance().updateUser(user);
+            setRequestAttributes(request, name, surname, phone, email);
             if (status == 0) {
-                request.setAttribute("phoneExistError", true);
-                setRequestAttributes(request, name, surname, phone, email, password);
+                request.setAttribute("changeDataError", true);
             } else {
                 request.setAttribute("updated", true);
             }
@@ -116,12 +130,11 @@ public class CommandAdminChangePersonalData implements ICommand {
         return false;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password) {
+    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email) {
         request.setAttribute("nameValue", name);
         request.setAttribute("surnameValue", surname);
         request.setAttribute("phoneValue", phone);
         request.setAttribute("emailValue", email);
-        request.setAttribute("passwordValue", password);
     }
 
 }

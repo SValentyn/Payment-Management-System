@@ -41,6 +41,16 @@
         </div>
     </c:if>
 
+    <!-- Alert changeDataError -->
+    <c:if test="${changeDataError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 303px;">
+            <p><strong>Failed</strong> to change data. Try later.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
@@ -58,7 +68,7 @@
                                     <fmt:message key="registration.surname" var="surname"/>
                                     <fmt:message key="registration.phone" var="phone"/>
                                     <fmt:message key="registration.email" var="email"/>
-                                    <fmt:message key="user.changeData.currentPassword" var="currentPassword"/>
+                                    <fmt:message key="registration.password" var="password"/>
                                     <fmt:message key="user.changeData.changeDataButton" var="changeDataButton"/>
                                     <fmt:message key="user.changeData.changePasswordButton" var="changePasswordButton"/>
                                     <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
@@ -122,7 +132,7 @@
                                         <input id="password" name="password"
                                                class="form-control" style="height: 36px;" type="password"
                                                data-toggle="tooltip" data-title="${tooltipPassword}"
-                                               placeholder="${currentPassword}*"
+                                               placeholder="${password}*"
                                                value=${passwordValue}>
                                         <label for="password" class="reg-error-label">
                                             <c:if test="${passwordError}">
