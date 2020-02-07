@@ -16,6 +16,7 @@ public class ResourceManager {
     // USER
     public static final String USER = "USER";
     public static final String USER_CHANGE_DATA = "USER_CHANGE_DATA";
+    public static final String USER_CHANGE_PASSWORD = "USER_CHANGE_PASSWORD";
     public static final String USER_CREATE_ACCOUNT = "USER_CREATE_ACCOUNT";
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
     public static final String USER_ADD_CARD = "USER_ADD_CARD";
@@ -23,6 +24,7 @@ public class ResourceManager {
     // ADMIN
     public static final String ADMIN = "ADMIN";
     public static final String ADMIN_CHANGE_DATA = "ADMIN_CHANGE_DATA";
+    public static final String ADMIN_CHANGE_PASSWORD = "ADMIN_CHANGE_PASSWORD";
     public static final String ACCOUNTS_CONTROL = "ADMIN_ACCOUNTS_CONTROL";
     public static final String ADMIN_CREATE_ACCOUNT = "ADMIN_CREATE_ACCOUNT";
     public static final String ADMIN_ADD_CARD = "ADMIN_ADD_CARD";

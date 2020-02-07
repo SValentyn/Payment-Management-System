@@ -42,6 +42,7 @@ public class ControllerHelper {
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
         adminCommands.put("profile", new CommandAdminChangePersonalData());
+        adminCommands.put("changePassword", new CommandAdminChangePassword());
         adminCommands.put("showUsers", new CommandAdminShowUsers());
         adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAccountsControl());
@@ -61,6 +62,7 @@ public class ControllerHelper {
         // User commands
         userCommands.put("logout", new CommandLogout());
         userCommands.put("profile", new CommandUserChangePersonalData());
+        userCommands.put("changePassword", new CommandUserChangePassword());
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
