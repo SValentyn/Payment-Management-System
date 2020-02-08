@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
@@ -78,15 +79,23 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="login-wrapper" style="top: 22px;">
-                        <div class="box" style="padding-bottom: 0px;">
+                        <div class="box" style="padding-bottom: 0;">
                             <div class="content-wrap">
-                                <fmt:message key="registration.registration" var="registration"/>
+                                <fmt:message key="registration.formHeader" var="registration"/>
                                 <fmt:message key="registration.name" var="name"/>
                                 <fmt:message key="registration.surname" var="surname"/>
-                                <fmt:message key="registration.phone" var="phone"/>
                                 <fmt:message key="registration.email" var="email"/>
                                 <fmt:message key="registration.password" var="password"/>
                                 <fmt:message key="registration.confirmation" var="confirmation"/>
+                                <fmt:message key="registration.nameError" var="nameError"/>
+                                <fmt:message key="registration.surnameError" var="surnameError"/>
+                                <fmt:message key="registration.phoneError" var="phoneError"/>
+                                <fmt:message key="registration.emailError" var="emailError"/>
+                                <fmt:message key="registration.passwordError" var="passwordError"/>
+                                <fmt:message key="registration.passwordConfirmationError"
+                                             var="passwordConfirmationError"/>
+                                <fmt:message key="registration.correct" var="correct"/>
+                                <fmt:message key="registration.signupButton" var="signupButton"/>
                                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                 <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
@@ -104,47 +113,43 @@
                                     <!-- Name -->
                                     <input id="name" name="name" class="form-control" style="height: 36px;"
                                            type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                           pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
-                                           placeholder="${name}*"
-                                           value="${nameValue}"
-                                    >
+                                           maxlength="24" placeholder="${name}*"
+                                           value="${nameValue}"/>
                                     <label for="name" class="reg-error-label">
-                                        <c:if test="${nameError}">
-                                            <fmt:message key="registration.nameError"/>
-                                        </c:if>
-                                    </label>&nbsp;
+                                        <span id="valid-msg-name" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-name" class="hide">${nameError}</span>
+                                    </label>
 
                                     <!-- Surname -->
                                     <input id="surname" name="surname" class="form-control" style="height: 36px;"
                                            type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                           pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
-                                           placeholder="${surname}*"
+                                           maxlength="24" placeholder="${surname}*"
                                            value="${surnameValue}">
                                     <label for="surname" class="reg-error-label">
-                                        <c:if test="${surnameError}">
-                                            <fmt:message key="registration.surnameError"/>
-                                        </c:if>
-                                    </label>&nbsp;
+                                        <span id="valid-msg-surname" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-surname" class="hide">${surnameError}</span>
+                                    </label>
 
                                     <!-- Phone -->
-                                    <input id="phone" name="phone" class="form-control" style="height: 36px;"
-                                           type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
-                                           maxlength="10" onkeypress="onlyNumbers();"
-                                           placeholder="${phone}*"
-                                           value="${phoneValue}">
+                                    <input id="phone" name="phone" type="tel" class="form-control"
+                                           style="height: 36px; padding-left: 94px;"
+                                           data-toggle="tooltip" data-title="${tooltipPhone}"
+                                           onkeypress="onlyNumbers()"
+                                           value="${phoneValue}"/>
                                     <label for="phone" class="reg-error-label">
-                                        <c:if test="${phoneError}">
-                                            <fmt:message key="registration.phoneError"/>
-                                        </c:if>
-                                    </label>&nbsp;
+                                        <span id="valid-msg-phone" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                    </label>
 
                                     <!-- Email -->
                                     <input id="email" name="email" class="form-control" style="height: 36px;"
                                            type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
-                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="45"
-                                           placeholder="${email}"
+                                           maxlength="45" placeholder="${email}"
                                            value="${emailValue}">
-                                    <label for="email" class="reg-error-label"></label>&nbsp;
+                                    <label for="email" class="reg-error-label">
+                                        <span id="valid-msg-email" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-email" class="hide">${emailError}</span>
+                                    </label>
 
                                     <!-- Password -->
                                     <input id="password" name="password" class="form-control" style="height: 36px;"
@@ -152,10 +157,9 @@
                                            placeholder="${password}*"
                                            value=${passwordValue}>
                                     <label for="password" class="reg-error-label">
-                                        <c:if test="${passwordError}">
-                                            <fmt:message key="registration.passwordError"/>
-                                        </c:if>
-                                    </label>&nbsp;
+                                        <span id="valid-msg-password" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-password" class="hide">${passwordError}</span>
+                                    </label>
 
                                     <!-- Password Confirmation -->
                                     <input id="passwordConfirmation" name="passwordConfirmation"
@@ -164,20 +168,23 @@
                                            placeholder="${confirmation}*"
                                            value=${passwordConfirmationValue}>
                                     <label for="passwordConfirmation" class="reg-error-label">
-                                        <c:if test="${passwordConfirmationError}">
-                                            <fmt:message key="registration.passwordConfirmationError"/>
-                                        </c:if>
-                                    </label>&nbsp;
+                                        <span id="valid-msg-passwordConfirmation" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-passwordConfirmation" class="hide">
+                                            ${passwordConfirmationError}
+                                        </span>
+                                    </label>
 
                                     <!-- Submit -->
-                                    <div class="action" style="padding: 10px 0 30px 0">
-                                        <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                            <fmt:message key="registration.button"/>
+                                    <div class="action" style="padding: 25px 0 30px 0">
+                                        <button id="submit" type="submit"
+                                                class="btn btn-primary signup" onfocus="this.blur()">
+                                            ${signupButton}
                                         </button>
                                     </div>
                                 </form>
                             </div>
                         </div>
+
                         <div class="already">
                             <p><fmt:message key="registration.haveAccountAlready"/></p>
                             <a href="/" onfocus="this.blur()">
@@ -191,5 +198,318 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script>
+
+    // Elements on page to check
+    let name = document.querySelector("#name");
+    let surname = document.querySelector("#surname");
+    let phone = document.querySelector("#phone");
+    let email = document.querySelector("#email");
+    let password = document.querySelector("#password");
+    let passwordConfirmation = document.querySelector("#passwordConfirmation");
+    let submitBtn = document.querySelector("#submit");
+
+
+    /* Checks name */
+    let validMsgName = document.querySelector("#valid-msg-name"),
+        errorMsgName = document.querySelector("#error-msg-name");
+
+    let resetName = function () {
+        validMsgName.classList.add("hide");
+        errorMsgName.classList.add("hide");
+        name.classList.remove("valid-input");
+        name.classList.remove("error-input");
+    };
+
+    let validName = function () {
+        validMsgName.classList.remove("hide");
+        errorMsgName.classList.add("hide");
+        name.classList.add("valid-input");
+        name.classList.remove("error-input");
+    };
+
+    let notValidName = function () {
+        validMsgName.classList.add("hide");
+        errorMsgName.classList.remove("hide");
+        name.classList.remove("valid-input");
+        name.classList.add("error-input");
+    };
+
+    // on blur
+    name.addEventListener('blur', function () {
+        resetName();
+
+        if (name.value.trim() === "") {
+            notValidName();
+        } else {
+            if (name.value.trim().search(/[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}/) === -1) {
+                notValidName();
+            } else {
+                validName();
+            }
+        }
+    });
+
+    // on keyup/change -> reset
+    name.addEventListener('keyup', resetName);
+    name.addEventListener('change', resetName);
+
+
+    /* Checks surname */
+    let validMsgSurname = document.querySelector("#valid-msg-surname"),
+        errorMsgSurname = document.querySelector("#error-msg-surname");
+
+    let resetSurname = function () {
+        validMsgSurname.classList.add("hide");
+        errorMsgSurname.classList.add("hide");
+        surname.classList.remove("valid-input");
+        surname.classList.remove("error-input");
+    };
+
+    let validSurname = function () {
+        validMsgSurname.classList.remove("hide");
+        errorMsgSurname.classList.add("hide");
+        surname.classList.add("valid-input");
+        surname.classList.remove("error-input");
+    };
+
+    let notValidSurname = function () {
+        validMsgSurname.classList.add("hide");
+        errorMsgSurname.classList.remove("hide");
+        surname.classList.remove("valid-input");
+        surname.classList.add("error-input");
+    };
+
+    // on blur
+    surname.addEventListener('blur', function () {
+        resetSurname();
+
+        if (surname.value.trim() === "") {
+            notValidSurname();
+        } else {
+            if (surname.value.trim().search(/[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}/) === -1) {
+                notValidSurname();
+            } else {
+                validSurname();
+            }
+        }
+    });
+
+    // on keyup/change -> reset
+    surname.addEventListener('keyup', resetSurname);
+    surname.addEventListener('change', resetSurname);
+
+
+    /* Configuring the phone number input field.
+    * "token" must be obtained on the api website */
+    let iti = window.intlTelInput(phone, {
+        separateDialCode: true,
+        hiddenInput: "full_phone",
+        initialCountry: "auto",
+        geoIpLookup: function (callback) {
+            $.get('http://ipinfo.io/?token=b3f3eb675dab44', function () {
+            }, "jsonp").always(function (resp) {
+                let countryCode = (resp && resp.country) ? resp.country : "";
+                callback(countryCode);
+            });
+        },
+    });
+
+
+    /* Checks phone number */
+    let validMsgPhone = document.querySelector("#valid-msg-phone"),
+        errorMsgPhone = document.querySelector("#error-msg-phone");
+
+    let resetPhone = function () {
+        validMsgPhone.classList.add("hide");
+        errorMsgPhone.classList.add("hide");
+        phone.classList.remove("valid-input");
+        phone.classList.remove("error-input");
+    };
+
+    let validPhone = function () {
+        validMsgPhone.classList.remove("hide");
+        errorMsgPhone.classList.add("hide");
+        phone.classList.add("valid-input");
+        phone.classList.remove("error-input");
+    };
+
+    let notValidPhone = function () {
+        validMsgPhone.classList.add("hide");
+        errorMsgPhone.classList.remove("hide");
+        phone.classList.remove("valid-input");
+        phone.classList.add("error-input");
+    };
+
+    // on blur
+    phone.addEventListener('blur', function () {
+        resetPhone();
+
+        if (phone.value.trim() === "") {
+            notValidPhone();
+        } else if (phone.value.trim()) {
+            if (iti.isValidNumber()) {
+                validPhone();
+            } else {
+                notValidPhone();
+            }
+        }
+    });
+
+    // on keyup/change -> reset
+    phone.addEventListener('keyup', resetPhone);
+    phone.addEventListener('change', resetPhone);
+
+
+    /* Checks email */
+    let validMsgEmail = document.querySelector("#valid-msg-email"),
+        errorMsgEmail = document.querySelector("#error-msg-email");
+
+    let resetEmail = function () {
+        validMsgEmail.classList.add("hide");
+        errorMsgEmail.classList.add("hide");
+        email.classList.remove("valid-input");
+        email.classList.remove("error-input");
+    };
+
+    let validEmail = function () {
+        validMsgEmail.classList.remove("hide");
+        errorMsgEmail.classList.add("hide");
+        email.classList.add("valid-input");
+        email.classList.remove("error-input");
+    };
+
+    let notValidEmail = function () {
+        validMsgEmail.classList.add("hide");
+        errorMsgEmail.classList.remove("hide");
+        email.classList.remove("valid-input");
+        email.classList.add("error-input");
+    };
+
+    // on blur
+    email.addEventListener('blur', function () {
+        resetEmail();
+
+        if (email.value.trim() !== "") {
+            if (email.value.trim().search(/[a-zA-Z0-9._-]+@[a-z0-9.-]+.[a-z]{2,}$/) === -1) {
+                notValidEmail();
+            } else {
+                validEmail();
+            }
+        }
+    });
+
+    // on keyup/change -> reset
+    email.addEventListener('keyup', resetEmail);
+    email.addEventListener('change', resetEmail);
+
+
+    /* Checks password */
+    let validMsgPassword = document.querySelector("#valid-msg-password"),
+        errorMsgPassword = document.querySelector("#error-msg-password");
+
+    let resetPassword = function () {
+        validMsgPassword.classList.add("hide");
+        errorMsgPassword.classList.add("hide");
+        password.classList.remove("valid-input");
+        password.classList.remove("error-input");
+    };
+
+    let validPassword = function () {
+        validMsgPassword.classList.remove("hide");
+        errorMsgPassword.classList.add("hide");
+        password.classList.add("valid-input");
+        password.classList.remove("error-input");
+    };
+
+    let notValidPassword = function () {
+        validMsgPassword.classList.add("hide");
+        errorMsgPassword.classList.remove("hide");
+        password.classList.remove("valid-input");
+        password.classList.add("error-input");
+    };
+
+    // on blur
+    password.addEventListener('blur', function () {
+        resetPassword();
+
+        if (password.value.trim() === "") {
+            notValidPassword();
+        } else {
+            if (password.value.trim().length < 6) {
+                notValidPassword();
+            } else {
+                validPassword();
+            }
+        }
+    });
+
+    // on keyup/change -> reset
+    password.addEventListener('keyup', resetPassword);
+    password.addEventListener('change', resetPassword);
+
+
+    /* Checks password confirmation */
+    let validMsgPasswordConfirmation = document.querySelector("#valid-msg-passwordConfirmation"),
+        errorMsgPasswordConfirmation = document.querySelector("#error-msg-passwordConfirmation");
+
+    let resetPasswordConfirmation = function () {
+        validMsgPasswordConfirmation.classList.add("hide");
+        errorMsgPasswordConfirmation.classList.add("hide");
+        passwordConfirmation.classList.remove("valid-input");
+        passwordConfirmation.classList.remove("error-input");
+    };
+
+    let validPasswordConfirmation = function () {
+        validMsgPasswordConfirmation.classList.remove("hide");
+        errorMsgPasswordConfirmation.classList.add("hide");
+        passwordConfirmation.classList.add("valid-input");
+        passwordConfirmation.classList.remove("error-input");
+    };
+
+    let notValidPasswordConfirmation = function () {
+        validMsgPasswordConfirmation.classList.add("hide");
+        errorMsgPasswordConfirmation.classList.remove("hide");
+        passwordConfirmation.classList.remove("valid-input");
+        passwordConfirmation.classList.add("error-input");
+    };
+
+    // on blur
+    passwordConfirmation.addEventListener('blur', function () {
+        resetPasswordConfirmation();
+
+        if (passwordConfirmation.value.trim() === "") {
+            notValidPasswordConfirmation();
+        } else {
+            if (passwordConfirmation.value.trim() === password.value.trim()) {
+                validPasswordConfirmation();
+            } else {
+                notValidPasswordConfirmation();
+            }
+        }
+    });
+
+    // on keyup/change -> reset
+    passwordConfirmation.addEventListener('keyup', resetPasswordConfirmation);
+    passwordConfirmation.addEventListener('change', resetPasswordConfirmation);
+
+
+    /* Checks for at least one error on the page */
+    submitBtn.addEventListener('click', function (event) {
+        if (name.value.trim() === "" ||
+            surname.value.trim() === "" ||
+            phone.value.trim() === "" ||
+            password.value.trim() === "" ||
+            passwordConfirmation.value.trim() === "" ||
+            name.classList.contains("error-input") ||
+            surname.classList.contains("error-input") ||
+            phone.classList.contains("error-input") ||
+            email.classList.contains("error-input") ||
+            password.classList.contains("error-input") ||
+            passwordConfirmation.classList.contains("error-input")
+        ) event.preventDefault();
+    });
+
+</script>
 </body>
 </html>

@@ -93,13 +93,13 @@ body {
 }
 
 .login-wrapper .box input[type="text"],
-.login-wrapper .box input[type="email"],
-.login-wrapper .box input[type="password"] {
+.login-wrapper .box input[type="tel"],
+.login-wrapper .box input[type="password"],
+.login-wrapper .box input[type="email"] {
     height: 40px;
-    padding-left: 12px;
-    margin-bottom: 2px;
-    border-color: #b2bfc7;
+    margin-top: 5px;
     font-size: 15px;
+    border-color: #b2bfc7;
 }
 
 .login-wrapper .box input[type="text"]:focus,
@@ -284,6 +284,32 @@ form .btn-default a:active {
     text-decoration: none;
 }
 
+.error-input {
+    border-color: #ba0000 !important;;
+}
+
+.valid-input {
+    border-color: #006400 !important;
+}
+
+#error-msg-name,
+#error-msg-surname,
+#error-msg-phone,
+#error-msg-email,
+#error-msg-password,
+#error-msg-passwordConfirmation {
+    color: #ba0000;
+}
+
+#valid-msg-name,
+#valid-msg-surname,
+#valid-msg-phone,
+#valid-msg-email,
+#valid-msg-password,
+#valid-msg-passwordConfirmation {
+    color: #006400;
+}
+
 .title-label {
     font-size: 28px;
     text-decoration: none;
@@ -310,8 +336,9 @@ form .btn-default a:active {
 }
 
 .reg-error-label {
-    text-align: left;
+    margin: 0;
     padding-left: 4px;
+    text-align: left;
     font-size: 12px;
     font-weight: lighter;
     color: #ba0000;
@@ -791,6 +818,21 @@ form .btn-default a:active {
 
 .back-homepage:active {
     text-decoration: none;
+}
+
+.iti {
+    width: 100% !important;
+    margin-top: 5px;
+}
+
+.iti__flag {
+    background-image: url("/resources/images/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {
+        background-image: url("/resources/images/flags@2x.png");
+    }
 }
 
 /*************/
