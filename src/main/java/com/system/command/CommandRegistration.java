@@ -30,20 +30,10 @@ public class CommandRegistration implements ICommand {
             // Data
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
-            String phone = request.getParameter("phone");
+            String phone = request.getParameter("full_phone");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
-
-            // Check
-            if (checkName(request, name) ||
-                    checkSurname(request, surname) ||
-                    checkPhone(request, phone) ||
-                    checkPassword(request, password) ||
-                    checkPasswordConfirmation(request, password, passwordConfirmation)) {
-                setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
-                return page;
-            }
 
             // Check
             List<User> users = UserService.getInstance().findAllUsers();
@@ -58,64 +48,14 @@ public class CommandRegistration implements ICommand {
             // Create
             int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
-                request.setAttribute("registrationError", true);
                 setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
+                request.setAttribute("registrationError", true);
             } else {
                 request.setAttribute("created", true);
             }
         }
 
         return page;
-    }
-
-    private boolean checkName(HttpServletRequest request, String name) {
-        if (name == null || name.isEmpty()) {
-            request.setAttribute("nameError", true);
-            return true;
-        }
-
-        if (Validator.checkLengthName(name)) {
-            request.setAttribute("nameLengthError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkSurname(HttpServletRequest request, String surname) {
-        if (surname == null || surname.isEmpty()) {
-            request.setAttribute("surnameError", true);
-            return true;
-        }
-
-        if (Validator.checkLengthSurname(surname)) {
-            request.setAttribute("surnameLengthError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkPhone(HttpServletRequest request, String phone) {
-        if (phone == null || phone.isEmpty() || !Validator.checkPhoneNumber(phone)) {
-            request.setAttribute("phoneError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkPassword(HttpServletRequest request, String password) {
-        if (password == null || password.isEmpty() || !Validator.checkPassword(password)) {
-            request.setAttribute("passwordError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkPasswordConfirmation(HttpServletRequest request, String password, String passwordConfirmation) {
-        if (!password.equals(passwordConfirmation)) {
-            request.setAttribute("passwordConfirmationError", true);
-            return true;
-        }
-        return false;
     }
 
     private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation) {
