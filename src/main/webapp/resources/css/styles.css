@@ -292,24 +292,6 @@ form .btn-default a:active {
     border-color: #006400 !important;
 }
 
-#error-msg-name,
-#error-msg-surname,
-#error-msg-phone,
-#error-msg-email,
-#error-msg-password,
-#error-msg-passwordConfirmation {
-    color: #ba0000;
-}
-
-#valid-msg-name,
-#valid-msg-surname,
-#valid-msg-phone,
-#valid-msg-email,
-#valid-msg-password,
-#valid-msg-passwordConfirmation {
-    color: #006400;
-}
-
 .title-label {
     font-size: 28px;
     text-decoration: none;
@@ -327,15 +309,7 @@ form .btn-default a:active {
     color: #989797;
 }
 
-.enter-error-label {
-    text-align: left;
-    padding-left: 4px;
-    font-size: 13px;
-    font-weight: lighter;
-    color: #ba0000;
-}
-
-.reg-error-label {
+.valid-error-label {
     margin: 0;
     padding-left: 4px;
     text-align: left;
@@ -344,12 +318,42 @@ form .btn-default a:active {
     color: #ba0000;
 }
 
-.create-error-label {
-    text-align: left;
-    padding-left: 4px;
-    font-size: 12px;
-    font-weight: lighter;
-    color: #ba0000;
+#error-msg-login,
+#error-msg-name,
+#error-msg-surname,
+#error-msg-phone,
+#error-msg-email,
+#error-msg-password,
+#error-msg-passwordConfirmation {
+    color: #ba0000 !important;
+}
+
+#valid-msg-login,
+#valid-msg-name,
+#valid-msg-surname,
+#valid-msg-phone,
+#valid-msg-email,
+#valid-msg-password,
+#valid-msg-passwordConfirmation {
+    color: #006400 !important;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-control {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    background-image: url("/resources/images/view.png");
+}
+
+.password-control.view {
+    background-image: url("/resources/images/no-view.png");
 }
 
 .tooltip {
@@ -366,13 +370,13 @@ form .btn-default a:active {
 }
 
 #alert {
-    width: 490px;
+    width: auto;
     height: 60px;
     display: flex;
     position: fixed;
     z-index: 1;
     right: 0;
-    padding: 0 0 0 20px;
+    padding: 0 10px 0 20px;
     margin: 0 20px 0 0;
     font-size: 16px;
 }

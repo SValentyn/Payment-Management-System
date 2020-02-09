@@ -20,7 +20,8 @@
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="resources/js/intlTelInput.js"></script>
 <script src="resources/js/utils.js"></script>
-<script src="resources/js/alert.js"></script>
+<script src="resources/js/visibility.js"></script>
 <script src="resources/js/input.js"></script>
+<script src="resources/js/alert.js"></script>
 <script src="resources/js/tooltip.js"></script>
 <script src="resources/js/counter.js"></script>

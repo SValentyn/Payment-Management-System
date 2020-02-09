@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
@@ -41,6 +42,16 @@
         </div>
     </div>
 
+    <!-- Alert loginError -->
+    <c:if test="${loginError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="login.alertFailed"/></strong> <fmt:message key="login.alertLoginError"/></p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="login-bg">
         <div class="page-content container">
             <div class="row">
@@ -55,10 +66,10 @@
                                     Status: <abbr style="color: red">Beta</abbr>
                                 </h4>
 
-                                <div class="form-group group-btn" style="margin-bottom: 30px;">
+                                <div class="form-group group-btn" style="margin-bottom: 35px;">
                                     <form action="/" role="form" method="POST" style="width: 100%;">
                                         <input type="hidden" name="command" value="login">
-                                        <input type="hidden" name="login" value="0000000000">
+                                        <input type="hidden" name="full_phone" value="0000000000">
                                         <input type="hidden" name="password" value="000000">
 
                                         <button type="submit" class="btn btn-default" onfocus="this.blur()">
@@ -68,7 +79,7 @@
 
                                     <form action="/" role="form" method="POST" style="width: 100%;">
                                         <input type="hidden" name="command" value="login">
-                                        <input type="hidden" name="login" value="1111111111">
+                                        <input type="hidden" name="full_phone" value="1111111111">
                                         <input type="hidden" name="password" value="111111">
 
                                         <button type="submit" class="btn btn-default" onfocus="this.blur()">
@@ -80,37 +91,38 @@
                                 <fmt:message key="login.phone" var="phone"/>
                                 <fmt:message key="login.password" var="password"/>
                                 <fmt:message key="login.submit" var="submit"/>
+                                <fmt:message key="login.correct" var="correct"/>
+                                <fmt:message key="login.phoneError" var="phoneError"/>
+                                <fmt:message key="login.passwordError" var="passwordError"/>
 
                                 <form action="/" role="form" method="POST">
                                     <input type="hidden" name="command" value="login"/>
 
                                     <!-- Login -->
-                                    <input class="form-control" name="login" type="text"
-                                           style="margin-bottom: 18px;" maxlength="10"
-                                           placeholder="${phone}"
-                                           value="${phoneValue}"/>
+                                    <input id="login" name="login" type="tel" class="form-control"
+                                           style="padding-left: 94px; margin-bottom: 18px;"
+                                           onkeypress="onlyNumbers()"
+                                           value="${loginValue}"/>
+                                    <label for="login" class="valid-error-label">
+                                        <span id="valid-msg-login" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-login" class="hide">${phoneError}</span>
+                                    </label>
 
                                     <!-- Password -->
-                                    <input class="form-control" name="password" type="password"
-                                           placeholder="${password}"
-                                           value="${passwordValue}"/>
-
-                                    <!-- Error Label -->
-                                    <label class="enter-error-label">
-                                        <c:if test="${phoneError}">
-                                            <fmt:message key="login.phoneError"/>
-                                        </c:if>
-                                        <c:if test="${passwordError}">
-                                            <fmt:message key="login.passwordError"/>
-                                        </c:if>
-                                        <c:if test="${loginError}">
-                                            <fmt:message key="login.loginError"/>
-                                        </c:if>
+                                    <div class="password-input">
+                                        <input type="password" id="password" name="password" class="form-control"
+                                               style="margin-top: 10px;" placeholder="${password}*"
+                                               value=${passwordValue}>
+                                        <a href="#" class="password-control"
+                                           onclick="return show_hide_password(this);"></a>
+                                    </div>
+                                    <label for="password" class="valid-error-label">
+                                        <span id="error-msg-password" class="hide">${passwordError}</span>
                                     </label>
 
                                     <!-- Submit -->
-                                    <div class="action" style="padding: 10px 0 0 0;">
-                                        <button type="submit" class="btn btn-primary signup"
+                                    <div class="action" style="padding: 20px 0 0 0;">
+                                        <button id="submit" type="submit" class="btn btn-primary signup"
                                                 style="font-size: 18px;" onfocus="this.blur()">
                                             ${submit}
                                             <i class="glyphicon glyphicon-log-in" style="padding-left: 11px;"></i>
@@ -137,6 +149,7 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_index.js"></script>
 </body>
 </html>
 

@@ -115,7 +115,7 @@
                                            type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
                                            maxlength="24" placeholder="${name}*"
                                            value="${nameValue}"/>
-                                    <label for="name" class="reg-error-label">
+                                    <label for="name" class="valid-error-label">
                                         <span id="valid-msg-name" class="hide">${correct} ✓</span>
                                         <span id="error-msg-name" class="hide">${nameError}</span>
                                     </label>
@@ -125,7 +125,7 @@
                                            type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
                                            maxlength="24" placeholder="${surname}*"
                                            value="${surnameValue}">
-                                    <label for="surname" class="reg-error-label">
+                                    <label for="surname" class="valid-error-label">
                                         <span id="valid-msg-surname" class="hide">${correct} ✓</span>
                                         <span id="error-msg-surname" class="hide">${surnameError}</span>
                                     </label>
@@ -136,7 +136,7 @@
                                            data-toggle="tooltip" data-title="${tooltipPhone}"
                                            onkeypress="onlyNumbers()"
                                            value="${phoneValue}"/>
-                                    <label for="phone" class="reg-error-label">
+                                    <label for="phone" class="valid-error-label">
                                         <span id="valid-msg-phone" class="hide">${correct} ✓</span>
                                         <span id="error-msg-phone" class="hide">${phoneError}</span>
                                     </label>
@@ -146,28 +146,37 @@
                                            type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
                                            maxlength="45" placeholder="${email}"
                                            value="${emailValue}">
-                                    <label for="email" class="reg-error-label">
+                                    <label for="email" class="valid-error-label">
                                         <span id="valid-msg-email" class="hide">${correct} ✓</span>
                                         <span id="error-msg-email" class="hide">${emailError}</span>
                                     </label>
 
                                     <!-- Password -->
-                                    <input id="password" name="password" class="form-control" style="height: 36px;"
-                                           type="password" data-toggle="tooltip" data-title="${tooltipPassword}"
-                                           placeholder="${password}*"
-                                           value=${passwordValue}>
-                                    <label for="password" class="reg-error-label">
+                                    <div class="password-input">
+                                        <input id="password" name="password" type="password" class="form-control"
+                                               style="height: 36px; top: 7px;"
+                                               data-toggle="tooltip" data-title="${tooltipPassword}"
+                                               placeholder="${password}*"
+                                               value=${passwordValue}>
+                                        <a href="#" class="password-control" style="top: 7px;"
+                                           onclick="return show_hide_password(this);"></a>
+                                    </div>
+                                    <label for="password" class="valid-error-label">
                                         <span id="valid-msg-password" class="hide">${correct} ✓</span>
                                         <span id="error-msg-password" class="hide">${passwordError}</span>
                                     </label>
 
                                     <!-- Password Confirmation -->
-                                    <input id="passwordConfirmation" name="passwordConfirmation"
-                                           class="form-control" style="height: 36px;" type="password"
-                                           data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
-                                           placeholder="${confirmation}*"
-                                           value=${passwordConfirmationValue}>
-                                    <label for="passwordConfirmation" class="reg-error-label">
+                                    <div class="password-input">
+                                        <input id="passwordConfirmation" name="passwordConfirmation" type="password"
+                                               class="form-control" style="height: 36px;"
+                                               data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
+                                               placeholder="${confirmation}*"
+                                               value=${passwordConfirmationValue}>
+                                        <a href="#" class="password-control" style="top: 7px;"
+                                           onclick="return show_hide_passwordConfirmation(this);"></a>
+                                    </div>
+                                    <label for="passwordConfirmation" class="valid-error-label">
                                         <span id="valid-msg-passwordConfirmation" class="hide">${correct} ✓</span>
                                         <span id="error-msg-passwordConfirmation" class="hide">
                                             ${passwordConfirmationError}
