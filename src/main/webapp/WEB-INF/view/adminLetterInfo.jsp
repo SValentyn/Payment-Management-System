@@ -80,7 +80,7 @@
 
                                         <!-- bio -->
                                         <div style="margin-bottom: 10px;">
-                                            <label for="bio" class="label-for-form">
+                                            <label for="bio" class="for-form-label">
                                                 ${user_bio}
                                             </label>
                                             <div>
@@ -94,7 +94,7 @@
 
                                         <!-- Phone -->
                                         <div style="margin-bottom: 10px;">
-                                            <label for="phone" class="label-for-form">
+                                            <label for="phone" class="for-form-label">
                                                 ${user_phone}
                                             </label>
                                             <div>
@@ -105,7 +105,7 @@
 
                                         <!-- Email -->
                                         <div style="margin-bottom: 10px;">
-                                            <label for="email" class="label-for-form">
+                                            <label for="email" class="for-form-label">
                                                 ${user_email}
                                             </label>
                                             <div>
@@ -116,7 +116,7 @@
 
                                         <!-- Description -->
                                         <div style="margin-bottom: 10px;">
-                                            <label for="description" class="label-for-form">
+                                            <label for="description" class="for-form-label">
                                                 ${letter_description}
                                             </label>
                                             <div>

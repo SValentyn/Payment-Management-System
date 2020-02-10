@@ -122,7 +122,7 @@
                                            type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
                                            maxlength="24" placeholder="${name}*"
                                            value="${nameValue}"/>
-                                    <label for="name" class="valid-error-label">
+                                    <label for="name" class="default-label">
                                         <span id="valid-msg-name" class="hide">${correct} ✓</span>
                                         <span id="error-msg-name" class="hide">${nameError}</span>
                                     </label>
@@ -131,8 +131,8 @@
                                     <input id="surname" name="surname" class="form-control" style="height: 36px;"
                                            type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
                                            maxlength="24" placeholder="${surname}*"
-                                           value="${surnameValue}">
-                                    <label for="surname" class="valid-error-label">
+                                           value="${surnameValue}"/>
+                                    <label for="surname" class="default-label">
                                         <span id="valid-msg-surname" class="hide">${correct} ✓</span>
                                         <span id="error-msg-surname" class="hide">${surnameError}</span>
                                     </label>
@@ -143,7 +143,7 @@
                                            data-toggle="tooltip" data-title="${tooltipPhone}"
                                            onkeypress="onlyNumbers()"
                                            value="${phoneValue}"/>
-                                    <label for="phone" class="valid-error-label">
+                                    <label for="phone" class="default-label">
                                         <span id="valid-msg-phone" class="hide">${correct} ✓</span>
                                         <span id="error-msg-phone" class="hide">${phoneError}</span>
                                     </label>
@@ -152,8 +152,8 @@
                                     <input id="email" name="email" class="form-control" style="height: 36px;"
                                            type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
                                            maxlength="45" placeholder="${email}"
-                                           value="${emailValue}">
-                                    <label for="email" class="valid-error-label">
+                                           value="${emailValue}"/>
+                                    <label for="email" class="default-label">
                                         <span id="valid-msg-email" class="hide">${correct} ✓</span>
                                         <span id="error-msg-email" class="hide">${emailError}</span>
                                     </label>
@@ -164,11 +164,11 @@
                                                style="height: 36px;"
                                                data-toggle="tooltip" data-title="${tooltipPassword}"
                                                placeholder="${password}*"
-                                               value=${passwordValue}>
+                                               value="${passwordValue}"/>
                                         <a href="#" class="password-control" style="top: 7px;"
                                            onclick="return show_hide_password(this);"></a>
                                     </div>
-                                    <label for="password" class="valid-error-label">
+                                    <label for="password" class="default-label">
                                         <span id="valid-msg-password" class="hide">${correct} ✓</span>
                                         <span id="error-msg-password" class="hide">${passwordError}</span>
                                     </label>
@@ -179,11 +179,11 @@
                                                class="form-control" style="height: 36px;"
                                                data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
                                                placeholder="${confirmation}*"
-                                               value=${passwordConfirmationValue}>
+                                               value="${passwordConfirmationValue}"/>
                                         <a href="#" class="password-control" style="top: 7px;"
                                            onclick="return show_hide_passwordConfirmation(this);"></a>
                                     </div>
-                                    <label for="passwordConfirmation" class="valid-error-label">
+                                    <label for="passwordConfirmation" class="default-label">
                                         <span id="valid-msg-passwordConfirmation" class="hide">${correct} ✓</span>
                                         <span id="error-msg-passwordConfirmation" class="hide">
                                             ${passwordConfirmationError}

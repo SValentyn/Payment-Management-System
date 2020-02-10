@@ -96,7 +96,7 @@
                                                placeholder="${name}*"
                                                value="${nameValue}"
                                         >
-                                        <label for="name" class="valid-error-label">
+                                        <label for="name" class="default-label">
                                             <c:if test="${nameError}">
                                                 <fmt:message key="registration.nameError"/>
                                             </c:if>
@@ -108,7 +108,7 @@
                                                pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
                                                placeholder="${surname}*"
                                                value="${surnameValue}">
-                                        <label for="surname" class="valid-error-label">
+                                        <label for="surname" class="default-label">
                                             <c:if test="${surnameError}">
                                                 <fmt:message key="registration.surnameError"/>
                                             </c:if>
@@ -119,7 +119,7 @@
                                                type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
                                                maxlength="10" onkeypress="onlyNumbers();"
                                                value="${phoneValue}">
-                                        <label for="phone" class="valid-error-label">
+                                        <label for="phone" class="default-label">
                                             <c:if test="${phoneError}">
                                                 <fmt:message key="registration.phoneError"/>
                                             </c:if>
@@ -131,7 +131,7 @@
                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="45"
                                                placeholder="${email}"
                                                value="${emailValue}">
-                                        <label for="email" class="valid-error-label"></label>&nbsp;
+                                        <label for="email" class="default-label"></label>&nbsp;
 
                                         <!-- Password -->
                                         <input id="password" name="password"
@@ -139,7 +139,7 @@
                                                data-toggle="tooltip" data-title="${tooltipPassword}"
                                                placeholder="${password}*"
                                                value=${passwordValue}>
-                                        <label for="password" class="valid-error-label">
+                                        <label for="password" class="default-label">
                                             <c:if test="${passwordError}">
                                                 <fmt:message key="user.updateData.passwordError"/>
                                             </c:if>

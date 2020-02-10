@@ -142,7 +142,7 @@
 
                                         <!-- Number Card -->
                                         <div style="width: 100%;">
-                                            <label for="number" class="label-for-form">
+                                            <label for="number" class="for-form-label">
                                                 ${toCreditCard}
                                             </label>
                                             <input id="number" name="number" class="form-control"
@@ -173,7 +173,7 @@
 
                                         <!-- Appointment -->
                                         <div style="width: 100%; height:105px; position: relative;">
-                                            <label for="appointment" class="label-for-form">
+                                            <label for="appointment" class="for-form-label">
                                                 ${appointment}
                                             </label>
                                             <div style="width: 100%; position: absolute; ">

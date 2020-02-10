@@ -94,7 +94,7 @@
 
                                         <!-- User bio -->
                                         <div class="form-group" style="margin-bottom: 24px;">
-                                            <label class="label-for-form" style="width: 100%;">
+                                            <label class="for-form-label" style="width: 100%;">
                                                 ${user_bio}
 
                                                 <span tabindex="0" data-toggle="tooltip-right-hover"

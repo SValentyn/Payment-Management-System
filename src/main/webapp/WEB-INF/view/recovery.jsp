@@ -91,7 +91,7 @@
                                            type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
                                            maxlength="10" onkeypress="onlyNumbers();"
                                            value="${phoneValue}">
-                                    <label for="phone" class="valid-error-label">
+                                    <label for="phone" class="default-label">
                                         <c:if test="${phoneError}">
                                             <fmt:message key="registration.phoneError"/>
                                         </c:if>

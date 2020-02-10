@@ -361,17 +361,7 @@
                             </div>
                         </div>
                     </c:when>
-                    <c:otherwise>
-                        <span class="title-label">
-                            <label>
-                                <b>
-                                    <a href="?command=showAccounts"><fmt:message key="sidebar.showAccounts"/></a>
-                                    OR
-                                    <a href="?command=createAccount"><fmt:message key="sidebar.createAccount"/></a>
-                                </b>
-                            </label>
-                        </span>
-                    </c:otherwise>
+                    <c:otherwise/>
                 </c:choose>
             </div>
         </div>

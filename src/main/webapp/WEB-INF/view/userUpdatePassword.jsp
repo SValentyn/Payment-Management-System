@@ -80,7 +80,7 @@
                                                data-toggle="tooltip" data-title="${tooltipNewPassword}"
                                                placeholder="${newPassword}*"
                                                value=${newPasswordValue}>
-                                        <label for="newPassword" class="valid-error-label">
+                                        <label for="newPassword" class="default-label">
                                             <c:if test="${newPasswordError}">
                                                 <fmt:message key="registration.passwordError"/>
                                             </c:if>
@@ -92,7 +92,7 @@
                                                data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
                                                placeholder="${confirmation}*"
                                                value=${passwordConfirmationValue}>
-                                        <label for="passwordConfirmation" class="valid-error-label">
+                                        <label for="passwordConfirmation" class="default-label">
                                             <c:if test="${passwordConfirmationError}">
                                                 <fmt:message key="registration.passwordConfirmationError"/>
                                             </c:if>
@@ -104,7 +104,7 @@
                                                data-toggle="tooltip" data-title="${tooltipOldPassword}"
                                                placeholder="${oldPassword}*"
                                                value=${oldPasswordValue}>
-                                        <label for="oldPassword" class="valid-error-label">
+                                        <label for="oldPassword" class="default-label">
                                             <c:if test="${oldPasswordError}">
                                                 <fmt:message key="user.changePassword.oldPasswordError"/>
                                             </c:if>

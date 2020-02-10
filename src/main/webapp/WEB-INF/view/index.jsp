@@ -71,7 +71,7 @@
                                 <div class="form-group group-btn" style="margin-bottom: 35px;">
                                     <form action="/" role="form" method="POST" style="width: 100%;">
                                         <input type="hidden" name="command" value="login">
-                                        <input type="hidden" name="full_phone" value="+351919131006">
+                                        <input type="hidden" name="full_phone" value="+34645364524">
                                         <input type="hidden" name="password" value="000000">
 
                                         <button type="submit" class="btn btn-default" onfocus="this.blur()">
@@ -104,7 +104,7 @@
                                            style="padding-left: 94px; margin-bottom: 18px;"
                                            onkeypress="onlyNumbers()"
                                            value="${loginValue}"/>
-                                    <label for="login" class="valid-error-label">
+                                    <label for="login" class="default-label">
                                         <span id="valid-msg-login" class="hide">${correct} ✓</span>
                                         <span id="error-msg-login" class="hide">${phoneError}</span>
                                     </label>
@@ -117,7 +117,7 @@
                                         <a href="#" class="password-control"
                                            onclick="return show_hide_password(this);"></a>
                                     </div>
-                                    <label for="password" class="valid-error-label">
+                                    <label for="password" class="default-label">
                                         <span id="error-msg-password" class="hide">${passwordError}</span>
                                     </label>
 

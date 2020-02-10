@@ -103,6 +103,7 @@ body {
 }
 
 .login-wrapper .box input[type="text"]:focus,
+.login-wrapper .box input[type="tel"]:focus,
 .login-wrapper .box input[type="password"]:focus {
     border: 1px solid #28a0e5;
     outline: none;
@@ -301,7 +302,7 @@ form .btn-default a:active {
     text-decoration: none;
 }
 
-.label-for-form {
+.for-form-label {
     margin-right: 15px;
     margin-bottom: 0px;
     font-weight: normal;
@@ -309,7 +310,7 @@ form .btn-default a:active {
     color: #989797;
 }
 
-.valid-error-label {
+.default-label {
     margin: 0;
     padding-left: 4px;
     text-align: left;
@@ -324,7 +325,11 @@ form .btn-default a:active {
 #error-msg-phone,
 #error-msg-email,
 #error-msg-password,
-#error-msg-passwordConfirmation {
+#error-msg-passwordConfirmation,
+#error-msg-accountId,
+#error-msg-cardNumber,
+#error-msg-cvv,
+#error-msg-validity {
     color: #ba0000 !important;
 }
 
@@ -334,7 +339,11 @@ form .btn-default a:active {
 #valid-msg-phone,
 #valid-msg-email,
 #valid-msg-password,
-#valid-msg-passwordConfirmation {
+#valid-msg-passwordConfirmation,
+#valid-msg-accountId,
+#valid-msg-cardNumber,
+#valid-msg-cvv,
+#valid-msg-validity {
     color: #006400 !important;
 }
 

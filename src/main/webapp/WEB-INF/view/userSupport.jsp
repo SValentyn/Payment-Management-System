@@ -132,7 +132,7 @@
 
                                         <!-- Description -->
                                         <div style="width: 100%; height:105px; position: relative;">
-                                            <label for="description" class="label-for-form">
+                                            <label for="description" class="for-form-label">
                                                 ${description}
                                             </label>
                                             <div style="width: 100%; position: absolute; ">

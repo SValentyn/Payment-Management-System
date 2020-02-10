@@ -69,7 +69,7 @@
                         <div class="login-wrapper">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="user.attachCard.addNewCard" var="addNewCard"/>
+                                    <fmt:message key="user.attachCard.attachNewCard" var="attachNewCard"/>
                                     <fmt:message key="admin.attachCard.selectedAccount" var="selectedAccount"/>
                                     <fmt:message key="user.attachCard.number" var="number"/>
                                     <fmt:message key="user.attachCard.cvv" var="cvv"/>
@@ -81,7 +81,7 @@
                                     <fmt:message key="admin.attachCard.backButton" var="backButton"/>
 
                                     <h4>
-                                        ${addNewCard}
+                                        ${attachNewCard}
                                     </h4>
 
                                     <form action="" role="form" method="POST">
@@ -93,7 +93,7 @@
 
                                         <!-- Number ByAccountId -->
                                         <div class="form-group" style="margin-bottom: 24px;">
-                                            <label class="label-for-form" style="width: 100%">
+                                            <label class="for-form-label" style="width: 100%">
                                                 ${selectedAccount}
                                                 <input id="numberByAccountIdValue" name="numberByAccountIdValue"
                                                        class="form-control" type="text" disabled="disabled"
@@ -130,7 +130,7 @@
                                         <!-- Month and Year -->
                                         <div id="expiration-date" class="form-group"
                                              style="margin-bottom: 6px; text-align: center;">
-                                            <label class="label-for-form" style="margin-right: 10px;">
+                                            <label class="for-form-label" style="margin-right: 10px;">
                                                 ${validity}
                                             </label>
 
@@ -209,7 +209,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 10px 0 10px 0;">
                                             <button type="submit" class="btn btn-primary signup">
-                                                <fmt:message key="user.attachCard.button.add"/>
+                                                <fmt:message key="user.attachCard.attachButton"/>
                                             </button>
                                         </div>
 

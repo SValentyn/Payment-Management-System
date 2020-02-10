@@ -42,23 +42,15 @@ public class CommandUserAttachCard implements ICommand {
             String year = request.getParameter("year");
 
             // Check
-            if (!checkAccountId(request, accountId)) {
-                accounts.remove(AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId)));
-
-                request.setAttribute("accounts", accounts); // exclude the selected account number from the list of all accounts
-                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
-            } else {
+            if (checkValidity(request, month, year)) {
+                request.setAttribute("accounts", accounts);
                 setRequestAttributes(request, accountId, number, CVV, month, year);
                 return page;
             }
 
-            // Check
-            if (checkCardNumber(request, number) ||
-                    checkCVV(request, CVV) ||
-                    checkValidity(request, month, year)) {
-                setRequestAttributes(request, accountId, number, CVV, month, year);
-                return page;
-            }
+            accounts.remove(AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId)));
+            request.setAttribute("accounts", accounts); // exclude the selected account number from the list of all accounts
+            request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
 
             // Check
             List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId));
@@ -83,37 +75,7 @@ public class CommandUserAttachCard implements ICommand {
         return page;
     }
 
-    private boolean checkAccountId(HttpServletRequest request, String accountId) {
-        if (accountId == null || accountId.isEmpty() || accountId.equals("0") || !Validator.isNumeric(accountId)) {
-            request.setAttribute("accountIdError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkCardNumber(HttpServletRequest request, String number) {
-        if (number.isEmpty() || !Validator.checkCardNumber(number)) {
-            request.setAttribute("numberError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkCVV(HttpServletRequest request, String CVV) {
-        if (CVV.isEmpty() || !Validator.checkCVV(CVV)) {
-            request.setAttribute("cvvError", true);
-            return true;
-        }
-        return false;
-    }
-
     private boolean checkValidity(HttpServletRequest request, String month, String year) {
-        if (month == null || month.isEmpty() || month.equals("0")
-                || year == null || year.isEmpty() || year.equals("0")) {
-            request.setAttribute("validityError", true);
-            return true;
-        }
-
         if (Validator.checkValidity(month, year)) {
             request.setAttribute("validityExpiredError", true);
             return true;
@@ -122,8 +84,9 @@ public class CommandUserAttachCard implements ICommand {
         return false;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String CVV, String month, String year) {
+    private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String CVV, String month, String year) throws SQLException {
         request.setAttribute("accountId", accountId);
+        request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
         request.setAttribute("numberValue", number);
         request.setAttribute("cvvValue", CVV);
         request.setAttribute("monthValue", month);
