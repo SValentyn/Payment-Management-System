@@ -23,8 +23,10 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 302px;">
-            <p><strong>Success!</strong> Payment completed.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="user.page.success"/>!</strong>
+                <fmt:message key="user.page.alertPaymentCompleted"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -33,8 +35,10 @@
 
     <!-- Alert accountFromBlockedError -->
     <c:if test="${accountFromBlockedError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 357px;">
-            <p><strong>Failed!</strong> The selected account is locked.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertAccountFromBlockedError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -43,8 +47,10 @@
 
     <!-- Alert numberNotExistError -->
     <c:if test="${numberNotExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 432px;">
-            <p><strong>Failed!</strong> Such a recipient card is not in the system.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertAccountNumberNotExistError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -53,8 +59,10 @@
 
     <!-- Alert receiverAccountOrCardBlockedError -->
     <c:if test="${receiverAccountOrCardBlockedError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 408px;">
-            <p><strong>Failed!</strong> Recipient's account or card is blocked.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertReceiverAccountOrCardBlockedError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -63,8 +71,10 @@
 
     <!-- Alert insufficientFundsError -->
     <c:if test="${insufficientFundsError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 378px;">
-            <p><strong>Failed!</strong> Not enough funds in your account.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertInsufficientFundsError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

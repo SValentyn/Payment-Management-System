@@ -4,7 +4,6 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
-import com.system.utils.PasswordEncryptor;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,20 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CommandUserChangePersonalData implements ICommand {
-
-    PasswordEncryptor encryptor = new PasswordEncryptor();
+public class CommandAdminUpdateUserData implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_CHANGE_DATA);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_USER_DATA);
 
         request.setAttribute("updated", false);
         request.setAttribute("phoneExistError", false);
-        request.setAttribute("changeDataError", false);
+        request.setAttribute("updateUserDataError", false);
 
-        User user = (User) request.getSession().getAttribute("currentUser");
+        String userId = request.getParameter("userId");
+        request.setAttribute("userId", userId);
+
+        if (userId == null) {
+            request.setAttribute("updateUserDataError", true);
+            return page;
+        }
+
+        User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
 
         // Set Attributes
         request.setAttribute("nameValue", user.getName());
@@ -39,18 +44,15 @@ public class CommandUserChangePersonalData implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Data
-            Integer userId = user.getUserId();
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-            String password = request.getParameter("password");
 
             // Check
             if (checkName(request, name) ||
                     checkSurname(request, surname) ||
-                    checkPhone(request, phone) ||
-                    checkPassword(request, userId, password)) {
+                    checkPhone(request, phone)) {
                 setRequestAttributes(request, name, surname, phone, email);
                 return page;
             }
@@ -72,13 +74,12 @@ public class CommandUserChangePersonalData implements ICommand {
             user.setSurname(surname);
             user.setPhone(phone);
             user.setEmail(email);
-            user.setPassword(encryptor.encode(password));
 
             // Update
             int status = UserService.getInstance().updateUser(user);
             setRequestAttributes(request, name, surname, phone, email);
             if (status == 0) {
-                request.setAttribute("changeDataError", true);
+                request.setAttribute("updateUserDataError", true);
             } else {
                 request.setAttribute("updated", true);
             }
@@ -116,15 +117,6 @@ public class CommandUserChangePersonalData implements ICommand {
     private boolean checkPhone(HttpServletRequest request, String phone) {
         if (phone == null || phone.isEmpty() || !Validator.checkPhoneNumber(phone)) {
             request.setAttribute("phoneError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkPassword(HttpServletRequest request, Integer userId, String password) throws SQLException {
-        String correctPassword = UserService.getInstance().findUserById(userId).getPassword();
-        if (!correctPassword.equals(encryptor.encode(password))) {
-            request.setAttribute("passwordError", true);
             return true;
         }
         return false;

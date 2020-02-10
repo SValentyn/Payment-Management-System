@@ -22,29 +22,36 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 272px;">
-            <p><strong>Success!</strong> Account created.</p>
+    <c:if test="${attached == true}">
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertAccountAttached"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
+    <!-- Will be deleted -->
     <!-- Alert numberExistError -->
     <c:if test="${numberExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 438px;">
-            <p><strong>Failed!</strong> An account with this number already exists.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                An account with this number already exists.
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
-    <!-- Alert createAccountError -->
-    <c:if test="${createAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 355px;">
-            <p><strong>Failed</strong> to create new account. Try later.</p>
+    <!-- Alert attachAccountError -->
+    <c:if test="${attachAccountError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertAttachAccountError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -64,20 +71,22 @@
                             <div class="box">
                                 <div class="content-wrap">
                                     <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
-                                    <fmt:message key="admin.createAccount.user_bio" var="user_bio"/>
+                                    <fmt:message key="admin.attachAccount.user_bio" var="user_bio"/>
                                     <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="user.createAccount.createAccountButton" var="createAccountButton"/>
-                                    <fmt:message key="admin.createAccount.showAccountsButton" var="showAccountsButton"/>
-                                    <fmt:message key="admin.createAccount.addCardButton" var="addCardButton"/>
-                                    <fmt:message key="user.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
-                                    <fmt:message key="admin.createAccount.tooltipUserBio" var="tooltipUserBio"/>
+                                    <fmt:message key="user.createAccount.createAccountButton"
+                                                 var="createAccountButton"/>
+                                    <fmt:message key="admin.attachAccount.showAccountsButton" var="showAccountsButton"/>
+                                    <fmt:message key="admin.attachAccount.attachCardButton" var="attachCardButton"/>
+                                    <fmt:message key="user.createAccount.tooltipNumberAccount"
+                                                 var="tooltipNumberAccount"/>
+                                    <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
 
                                     <h4>
                                         ${createNewAccount}
                                     </h4>
 
                                     <form action="" role="form" method="POST">
-                                        <input type="hidden" name="command" value="addAccount"/>
+                                        <input type="hidden" name="command" value="attachAccount"/>
 
                                         <!-- User Id -->
                                         <input id="userId" name="userId" class="form-control"
@@ -113,7 +122,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
                                             <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                                ${createAccountButton}
+                                                ${attachAccountButton}
                                             </button>
                                         </div>
 
@@ -134,8 +143,8 @@
                                                     <button type="button" class="btn btn-default signup"
                                                             style=" padding: 0;"
                                                             onfocus="this.blur()">
-                                                        <a href="?command=addCard&accountId=${accountId}">
-                                                                ${addCardButton}
+                                                        <a href="?command=attachCard&accountId=${accountId}">
+                                                                ${attachCardButton}
                                                         </a>
                                                     </button>
                                                 </div>
@@ -145,8 +154,8 @@
                                                     <button type="button" class="btn btn-default signup"
                                                             style=" padding: 0;"
                                                             onfocus="this.blur()" disabled="disabled">
-                                                        <a href="?command=addCard&accountId=${accountId}">
-                                                                ${addCardButton}
+                                                        <a href="?command=attachCard&accountId=${accountId}">
+                                                                ${attachCardButton}
                                                         </a>
                                                     </button>
                                                 </div>

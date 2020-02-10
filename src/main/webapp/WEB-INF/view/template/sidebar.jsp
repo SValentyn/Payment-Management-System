@@ -37,8 +37,8 @@
         </li>
         <li>
             <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=addCard">
-                    <fmt:message key="sidebar.addCard"/>
+                <a href="?command=attachCard">
+                    <fmt:message key="sidebar.attachCard"/>
                 </a>
             </c:if>
         </li>

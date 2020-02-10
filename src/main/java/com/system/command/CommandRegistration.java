@@ -4,7 +4,6 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
-import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,7 @@ public class CommandRegistration implements ICommand {
             // Data
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
-            String phone = request.getParameter("full_phone");
+            String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String passwordConfirmation = request.getParameter("passwordConfirmation");

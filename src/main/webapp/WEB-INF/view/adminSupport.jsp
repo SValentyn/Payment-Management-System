@@ -27,7 +27,7 @@
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10" style="padding-left: 0px;">
+            <div class="col-md-10" style="padding-left: 0;">
                 <c:choose>
                     <c:when test="${showLetters}">
                         <div class="col-md-12">

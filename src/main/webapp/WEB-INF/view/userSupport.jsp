@@ -23,18 +23,22 @@
 
     <!-- Alert Success -->
     <c:if test="${sended == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 592px;">
-            <p><strong>Success!</strong> The letter was accepted for consideration. We will contact you.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="user.page.success"/>!</strong>
+                <fmt:message key="user.page.alertLetterSended"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
-    <!-- Alert manyMessagesError -->
-    <c:if test="${manyMessagesError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 485px;">
-            <p><strong>Failed!</strong> You have sent too many messages (more than 4).</p>
+    <!-- Alert manyLettersError -->
+    <c:if test="${manyLettersError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertManyLettersError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -43,8 +47,10 @@
 
     <!-- Alert sendLetterError -->
     <c:if test="${sendLetterError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 472px;">
-            <p><strong>Failed!</strong> Unable to send a message to Support. Try later.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertSendLetterError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

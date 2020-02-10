@@ -11,16 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandUserChangePassword implements ICommand {
+public class CommandUserUpdatePassword implements ICommand {
+
     PasswordEncryptor encryptor = new PasswordEncryptor();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_CHANGE_PASSWORD);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_PASSWORD);
 
         request.setAttribute("updated", false);
-        request.setAttribute("changePasswordError", false);
+        request.setAttribute("passwordUpdateError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
 
@@ -50,7 +51,7 @@ public class CommandUserChangePassword implements ICommand {
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 setRequestAttributes(request, newPassword, passwordConfirmation, oldPassword);
-                request.setAttribute("changePasswordError", true);
+                request.setAttribute("passwordUpdateError", true);
             } else {
                 request.setAttribute("updated", true);
             }

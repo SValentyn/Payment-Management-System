@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CommandUserAddCard implements ICommand {
+public class CommandUserAttachCard implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_ADD_CARD);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_ATTACH_CARD);
 
-        request.setAttribute("created", false);
-        request.setAttribute("cardCreateError", false);
-        request.setAttribute("numberExistError", false);
+        request.setAttribute("attached", false);
+        request.setAttribute("cardNumberError", false);
+        request.setAttribute("cardAttachError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
         List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
@@ -61,10 +61,10 @@ public class CommandUserAddCard implements ICommand {
             }
 
             // Check
-            List<CreditCard> allCards = CreditCardService.getInstance().findAllCards();
-            for (CreditCard card : allCards) {
+            List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId));
+            for (CreditCard card : cardsByAccountId) {
                 if (card.getNumber().equals(number)) {
-                    request.setAttribute("numberExistError", true);
+                    request.setAttribute("cardNumberError", true);
                     setRequestAttributes(request, accountId, number, CVV, month, year);
                     return page;
                 }
@@ -74,9 +74,9 @@ public class CommandUserAddCard implements ICommand {
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
                 setRequestAttributes(request, accountId, number, CVV, month, year);
-                request.setAttribute("cardCreateError", true);
+                request.setAttribute("cardAttachError", true);
             } else {
-                request.setAttribute("created", true);
+                request.setAttribute("attached", true);
             }
         }
 

@@ -1,3 +1,3 @@
 setTimeout(function () {
     $("#alert").alert('close')
-}, 4000);
+}, 5000);

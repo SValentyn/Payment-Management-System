@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
@@ -44,20 +45,22 @@
 
     <!-- Alert Success -->
     <c:if test="${sended == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 559px; margin-top: 22px;">
-            <p><strong>Success!</strong> A temporary login password has been sent to your phone.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="recovery.success"/>!</strong>
+                <fmt:message key="recovery.alertPasswordSent"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
-    <%--     + advice--%>
-
     <!-- Alert phoneNotExistError -->
     <c:if test="${phoneNotExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 553px; margin-top: 22px;">
-            <p><strong>Failed!</strong> A user with this phone number was not found in the system.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="recovery.failed"/>!</strong>
+                <fmt:message key="recovery.alertPhoneNotExistError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -69,10 +72,9 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="login-wrapper" style="top: 22px;">
-                        <div class="box" style="padding-bottom: 0px;">
+                        <div class="box" style="padding-bottom: 0;">
                             <div class="content-wrap">
                                 <fmt:message key="recovery.formHeader" var="formHeader"/>
-                                <fmt:message key="registration.phone" var="phone"/>
                                 <fmt:message key="recovery.recoveryButton" var="button"/>
                                 <fmt:message key="recovery.backButton" var="backButton"/>
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
@@ -88,9 +90,8 @@
                                     <input id="phone" name="phone" class="form-control" style="height: 36px;"
                                            type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
                                            maxlength="10" onkeypress="onlyNumbers();"
-                                           placeholder="${phone}*"
                                            value="${phoneValue}">
-                                    <label for="phone" class="reg-error-label">
+                                    <label for="phone" class="valid-error-label">
                                         <c:if test="${phoneError}">
                                             <fmt:message key="registration.phoneError"/>
                                         </c:if>

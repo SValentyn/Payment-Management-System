@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.title"/></title>
+    <title><fmt:message key="user.page.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -23,9 +23,11 @@
 
     <!-- Alert noAccounts -->
     <c:if test="${noAccounts == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 440px;">
-            <p><strong>Failed!</strong> You do not have an account.
-                <a href="?command=createAccount" class="alert-link">Create</a> it now.
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.youNotHaveAccount"/>
+                <a href="?command=createAccount" class="alert-link"><fmt:message key="user.page.create"/></a>
+                <fmt:message key="user.page.itNow"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -35,8 +37,10 @@
 
     <!-- Alert blockAccountError -->
     <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 248px;">
-            <p><strong>Failed</strong> to block account.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="user.page.alertBlockAccountError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -45,9 +49,9 @@
 
     <!-- Alert unblockAccountAlert -->
     <c:if test="${unblockAccountAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 536px;">
-            <p>To unblock your account, please <a href="?command=support" class="alert-link">contact</a>
-                PMS technical support.
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><fmt:message key="user.page.alertUnblockAccountError"/>
+                <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -57,8 +61,10 @@
 
     <!-- Alert blockCardError -->
     <c:if test="${blockCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 222px;">
-            <p><strong>Failed</strong> to block card.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="user.page.alertBlockCardError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -67,9 +73,9 @@
 
     <!-- Alert unblockCardAlert -->
     <c:if test="${unblockCardAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 513px;">
-            <p>To unblock your card, please <a href="?command=support" class="alert-link">contact</a>
-                PMS technical support.
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><fmt:message key="user.page.alertUnblockCardError"/>
+                <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -79,8 +85,10 @@
 
     <!-- Alert deleteCardError -->
     <c:if test="${deleteCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 229px;">
-            <p><strong>Failed</strong> to delete card.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="user.page.alertDeleteCardError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="admin.title"/></title>
+    <title><fmt:message key="admin.page.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -23,8 +23,10 @@
 
     <!-- Alert blockAccountError -->
     <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 303px;">
-            <p><strong>Failed!</strong> Failed to block account.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertBlockAccountError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -33,8 +35,10 @@
 
     <!-- Alert unblockAccountError -->
     <c:if test="${unblockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 309px;">
-            <p><strong>Failed!</strong> Failed to unblock account.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnblockAccountError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -43,8 +47,10 @@
 
     <!-- Alert blockCardError -->
     <c:if test="${blockCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 286px;">
-            <p><strong>Failed!</strong> Failed to block card.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertBlockCard"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -53,8 +59,10 @@
 
     <!-- Alert unblockCardError -->
     <c:if test="${unblockCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 299px;">
-            <p><strong>Failed!</strong> Failed to unblock card.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnblockCard"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -63,8 +71,10 @@
 
     <!-- Alert deleteAccountError -->
     <c:if test="${deleteAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 308px;">
-            <p><strong>Failed!</strong> Failed to delete account.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertDeleteAccount"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -73,8 +83,10 @@
 
     <!-- Alert deleteCardError -->
     <c:if test="${deleteCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 299px;">
-            <p><strong>Failed!</strong> Failed to delete card.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertDeleteCard"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -87,7 +99,7 @@
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10" style="padding-left: 0px;">
+            <div class="col-md-10" style="padding-left: 0;">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="row">
@@ -102,7 +114,7 @@
                                 <fmt:message key="user.account.button.block" var="block"/>
                                 <fmt:message key="user.account.button.unblock" var="unblock"/>
                                 <fmt:message key="user.account.button.showInfo" var="showInfo"/>
-                                <fmt:message key="sidebar.addCard" var="addCard"/>
+                                <fmt:message key="sidebar.attachCard" var="attachCard"/>
                                 <fmt:message key="user.card.delete" var="delete"/>
 
                                 <div class="content-box-large">
@@ -119,7 +131,7 @@
                                             <th>${status}</th>
                                             <th>${action}</th>
                                             <th>${showInfo}</th>
-                                            <th>${addCard}</th>
+                                            <th>${attachCard}</th>
                                             <th>${delete}</th>
 
                                             <c:forEach items="${accounts}" var="account">
@@ -160,8 +172,8 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="?command=addCard&accountId=${account.accountId}">
-                                                                ${addCard}
+                                                        <a href="?command=attachCard&accountId=${account.accountId}">
+                                                                ${attachCard}
                                                         </a>
                                                     </td>
                                                     <td>

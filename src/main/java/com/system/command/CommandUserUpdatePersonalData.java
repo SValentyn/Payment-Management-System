@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CommandAdminChangePersonalData implements ICommand {
+public class CommandUserUpdatePersonalData implements ICommand {
 
     PasswordEncryptor encryptor = new PasswordEncryptor();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_CHANGE_DATA);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_DATA);
 
         request.setAttribute("updated", false);
         request.setAttribute("phoneExistError", false);
-        request.setAttribute("changeDataError", false);
+        request.setAttribute("updateDataError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
 
@@ -78,7 +78,7 @@ public class CommandAdminChangePersonalData implements ICommand {
             int status = UserService.getInstance().updateUser(user);
             setRequestAttributes(request, name, surname, phone, email);
             if (status == 0) {
-                request.setAttribute("changeDataError", true);
+                request.setAttribute("updateDataError", true);
             } else {
                 request.setAttribute("updated", true);
             }

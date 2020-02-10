@@ -23,8 +23,8 @@
                                             ${currentUser.name} ${currentUser.surname}
                                             <b class="caret"></b>
                                         </a>
-                                        <ul class="dropdown-menu animated fadeInUp" style="width: 140px;">
-                                            <li style="height: 40px; ">
+                                        <ul class="dropdown-menu animated fadeInUp" style="width: 185px;">
+                                            <li style="height: 40px;">
                                                 <div>
                                                     <a href="?command=logout">
                                                         <div style="float: left;">

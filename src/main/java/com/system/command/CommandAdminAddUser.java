@@ -16,7 +16,7 @@ public class CommandAdminAddUser implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
 
-        request.setAttribute("created", false);
+        request.setAttribute("added", false);
         request.setAttribute("phoneExistError", false);
         request.setAttribute("userId", null);
 
@@ -49,7 +49,7 @@ public class CommandAdminAddUser implements ICommand {
                 request.setAttribute("phoneExistError", true);
                 setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
             } else {
-                request.setAttribute("created", true);
+                request.setAttribute("added", true);
                 request.setAttribute("userId", status);
             }
         }

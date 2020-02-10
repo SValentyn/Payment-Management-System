@@ -15,16 +15,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert -->
-    <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 438px;">
-            <p><strong>Success!</strong> The user has been added to the system.</p>
+    <!-- Alert Success -->
+    <c:if test="${added == true}">
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertUserAdded"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -33,8 +36,10 @@
 
     <!-- Alert phoneExistError -->
     <c:if test="${phoneExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 460px;">
-            <p><strong>Failed!</strong> A user with that phone number already exists.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertPhoneExistError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -56,7 +61,6 @@
                                     <fmt:message key="admin.addUser.addNewUser" var="addNewUser"/>
                                     <fmt:message key="registration.name" var="name"/>
                                     <fmt:message key="registration.surname" var="surname"/>
-                                    <fmt:message key="registration.phone" var="phone"/>
                                     <fmt:message key="registration.email" var="email"/>
                                     <fmt:message key="registration.password" var="password"/>
                                     <fmt:message key="registration.confirmation" var="confirmation"/>
@@ -83,7 +87,7 @@
                                                placeholder="${name}*"
                                                value="${nameValue}"
                                         >
-                                        <label for="name" class="reg-error-label">
+                                        <label for="name" class="valid-error-label">
                                             <c:if test="${nameError}">
                                                 <fmt:message key="registration.nameError"/>
                                             </c:if>
@@ -95,7 +99,7 @@
                                                pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
                                                placeholder="${surname}*"
                                                value="${surnameValue}">
-                                        <label for="surname" class="reg-error-label">
+                                        <label for="surname" class="valid-error-label">
                                             <c:if test="${surnameError}">
                                                 <fmt:message key="registration.surnameError"/>
                                             </c:if>
@@ -105,9 +109,8 @@
                                         <input id="phone" name="phone" class="form-control" style="height: 36px;"
                                                type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
                                                maxlength="10" onkeypress="onlyNumbers();"
-                                               placeholder="${phone}*"
                                                value="${phoneValue}">
-                                        <label for="phone" class="reg-error-label">
+                                        <label for="phone" class="valid-error-label">
                                             <c:if test="${phoneError}">
                                                 <fmt:message key="registration.phoneError"/>
                                             </c:if>
@@ -119,14 +122,14 @@
                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="45"
                                                placeholder="${email}"
                                                value="${emailValue}">
-                                        <label for="email" class="reg-error-label"></label>&nbsp;
+                                        <label for="email" class="valid-error-label"></label>&nbsp;
 
                                         <!-- Password -->
                                         <input id="password" name="password" class="form-control" style="height: 36px;"
                                                type="password" data-toggle="tooltip" data-title="${tooltipPassword}"
                                                placeholder="${password}*"
                                                value=${passwordValue}>
-                                        <label for="password" class="reg-error-label">
+                                        <label for="password" class="valid-error-label">
                                             <c:if test="${passwordError}">
                                                 <fmt:message key="registration.passwordError"/>
                                             </c:if>
@@ -138,7 +141,7 @@
                                                data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
                                                placeholder="${confirmation}*"
                                                value=${passwordConfirmationValue}>
-                                        <label for="passwordConfirmation" class="reg-error-label">
+                                        <label for="passwordConfirmation" class="valid-error-label">
                                             <c:if test="${passwordConfirmationError}">
                                                 <fmt:message key="registration.passwordConfirmationError"/>
                                             </c:if>
@@ -158,7 +161,7 @@
                                                 <div class="action">
                                                     <button type="button" class="btn btn-default signup"
                                                             onfocus="this.blur()">
-                                                        <a href="?command=addAccount&userId=${userId}">
+                                                        <a href="?command=attachAccount&userId=${userId}">
                                                                 ${backButton}
                                                         </a>
                                                     </button>
@@ -168,7 +171,7 @@
                                                 <div class="action">
                                                     <button type="button" class="btn btn-default signup"
                                                             onfocus="this.blur()" disabled="disabled">
-                                                        <a href="?command=addAccount&userId=${userId}">
+                                                        <a href="?command=attachAccount&userId=${userId}">
                                                                 ${backButton}
                                                         </a>
                                                     </button>

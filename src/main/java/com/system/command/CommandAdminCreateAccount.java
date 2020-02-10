@@ -18,11 +18,11 @@ public class CommandAdminCreateAccount implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_CREATE_ACCOUNT);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ATTACH_ACCOUNT);
 
-        request.setAttribute("created", false);
+        request.setAttribute("attached", false);
         request.setAttribute("numberExistError", false);
-        request.setAttribute("createAccountError", false);
+        request.setAttribute("attachAccountError", false);
 
         // Data
         String userId = request.getParameter("userId");
@@ -36,7 +36,7 @@ public class CommandAdminCreateAccount implements ICommand {
             request.setAttribute("bio", user.getName() + " " + user.getSurname());
         } else {
             request.setAttribute("number", number);
-            request.setAttribute("createAccountError", true);
+            request.setAttribute("attachAccountError", true);
             return page;
         }
 
@@ -66,10 +66,10 @@ public class CommandAdminCreateAccount implements ICommand {
             int status = AccountService.getInstance().createAccount(Integer.parseInt(userId), number);
             if (status == 0) {
                 request.setAttribute("number", number);
-                request.setAttribute("createAccountError", true);
+                request.setAttribute("attachAccountError", true);
             } else {
                 request.setAttribute("accountId", status);
-                request.setAttribute("created", true);
+                request.setAttribute("attached", true);
             }
         }
 

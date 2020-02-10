@@ -13,7 +13,7 @@
     <title><fmt:message key="user.changePassword.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
@@ -23,18 +23,22 @@
 
     <!-- Alert Success -->
     <c:if test="${updated == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 393px;">
-            <p><strong>Success!</strong> Your password has been updated.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertPasswordUpdated"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
-    <!-- Alert changePasswordError -->
-    <c:if test="${changePasswordError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 340px;">
-            <p><strong>Failed</strong> to change password. Try later.</p>
+    <!-- Alert passwordUpdateError -->
+    <c:if test="${passwordUpdateError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertPasswordUpdateError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -57,18 +61,18 @@
                                     <fmt:message key="user.changePassword.newPassword" var="newPassword"/>
                                     <fmt:message key="registration.confirmation" var="confirmation"/>
                                     <fmt:message key="user.changePassword.oldPassword" var="oldPassword"/>
-                                    <fmt:message key="user.changeData.changePasswordButton" var="changePasswordButton"/>
+                                    <fmt:message key="user.updateData.changePasswordButton" var="updatePasswordButton"/>
                                     <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
                                     <fmt:message key="registration.tooltipPasswordConfirmation"
                                                  var="tooltipPasswordConfirmation"/>
-                                    <fmt:message key="user.changeData.tooltipPassword" var="tooltipOldPassword"/>
+                                    <fmt:message key="user.updateData.tooltipPassword" var="tooltipOldPassword"/>
 
                                     <h4>
                                         ${formHeader}
                                     </h4>
 
                                     <form action="" role="form" method="POST">
-                                        <input type="hidden" name="command" value="changePassword">
+                                        <input type="hidden" name="command" value="updatePassword">
 
                                         <!-- New Password -->
                                         <input id="newPassword" name="newPassword"
@@ -76,7 +80,7 @@
                                                data-toggle="tooltip" data-title="${tooltipNewPassword}"
                                                placeholder="${newPassword}*"
                                                value=${newPasswordValue}>
-                                        <label for="newPassword" class="reg-error-label">
+                                        <label for="newPassword" class="valid-error-label">
                                             <c:if test="${newPasswordError}">
                                                 <fmt:message key="registration.passwordError"/>
                                             </c:if>
@@ -88,7 +92,7 @@
                                                data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
                                                placeholder="${confirmation}*"
                                                value=${passwordConfirmationValue}>
-                                        <label for="passwordConfirmation" class="reg-error-label">
+                                        <label for="passwordConfirmation" class="valid-error-label">
                                             <c:if test="${passwordConfirmationError}">
                                                 <fmt:message key="registration.passwordConfirmationError"/>
                                             </c:if>
@@ -100,7 +104,7 @@
                                                data-toggle="tooltip" data-title="${tooltipOldPassword}"
                                                placeholder="${oldPassword}*"
                                                value=${oldPasswordValue}>
-                                        <label for="oldPassword" class="reg-error-label">
+                                        <label for="oldPassword" class="valid-error-label">
                                             <c:if test="${oldPasswordError}">
                                                 <fmt:message key="user.changePassword.oldPasswordError"/>
                                             </c:if>
@@ -109,7 +113,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 15px 0 5px 0">
                                             <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                                ${changePasswordButton}
+                                                ${updatePasswordButton}
                                             </button>
                                         </div>
                                     </form>

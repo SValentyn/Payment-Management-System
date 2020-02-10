@@ -42,14 +42,14 @@ public class ControllerHelper {
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
-        adminCommands.put("profile", new CommandAdminChangePersonalData());
-        adminCommands.put("changePassword", new CommandAdminChangePassword());
+        adminCommands.put("profile", new CommandAdminUpdatePersonalData());
+        adminCommands.put("updatePassword", new CommandAdminChangePassword());
         adminCommands.put("showUsers", new CommandAdminShowUsers());
-        adminCommands.put("changeUserData", new CommandAdminChangeUserData());
+        adminCommands.put("updateUserData", new CommandAdminUpdateUserData());
         adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAccountsControl());
-        adminCommands.put("addAccount", new CommandAdminCreateAccount());
-        adminCommands.put("addCard", new CommandAdminAddCard());
+        adminCommands.put("attachAccount", new CommandAdminCreateAccount());
+        adminCommands.put("attachCard", new CommandAdminAttachCard());
         adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());
         adminCommands.put("deleteCard", new CommandAdminDeleteCard());
         adminCommands.put("blockAccount", new CommandAdminBlockAccount());
@@ -63,8 +63,8 @@ public class ControllerHelper {
 
         // User commands
         userCommands.put("logout", new CommandLogout());
-        userCommands.put("profile", new CommandUserChangePersonalData());
-        userCommands.put("changePassword", new CommandUserChangePassword());
+        userCommands.put("profile", new CommandUserUpdatePersonalData());
+        userCommands.put("updatePassword", new CommandUserUpdatePassword());
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
@@ -75,7 +75,7 @@ public class ControllerHelper {
         userCommands.put("createAccount", new CommandUserCreateAccount());
         userCommands.put("makePayment", new CommandUserCreatePayment());
         userCommands.put("repeatPayment", new CommandUserRepeatPayment());
-        userCommands.put("addCard", new CommandUserAddCard());
+        userCommands.put("attachCard", new CommandUserAttachCard());
         userCommands.put("support", new CommandUserSupport());
     }
 

@@ -22,7 +22,7 @@ public class CommandUserSupport implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
 
         request.setAttribute("sended", false);
-        request.setAttribute("manyMessagesError", false);
+        request.setAttribute("manyLettersError", false);
         request.setAttribute("sendLetterError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
@@ -54,7 +54,7 @@ public class CommandUserSupport implements ICommand {
 
             // Check
             if (notProcessedLetters.size() == 4) {
-                request.setAttribute("manyMessagesError", true);
+                request.setAttribute("manyLettersError", true);
                 return page;
             }
 

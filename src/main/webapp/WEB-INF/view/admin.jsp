@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="admin.title"/></title>
+    <title><fmt:message key="admin.page.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -23,8 +23,10 @@
 
     <!-- Alert noUsers -->
     <c:if test="${noUsers == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 397px;">
-            <p><strong>Failed!</strong> There are no users in the system yet.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertNoUsersError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -33,8 +35,10 @@
 
     <!-- Alert deleteUserError -->
     <c:if test="${deleteUserError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 356px;">
-            <p><strong>Failed!</strong> Unable to delete user. Try later.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertDeleteUserError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -47,7 +51,7 @@
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10" style="padding-left: 0px;">
+            <div class="col-md-10" style="padding-left: 0;">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
@@ -58,7 +62,7 @@
                                     <fmt:message key="admin.users.surname" var="surname"/>
                                     <fmt:message key="admin.users.email" var="email"/>
                                     <fmt:message key="admin.users.phone" var="phone"/>
-                                    <fmt:message key="admin.users.changeData" var="changeData"/>
+                                    <fmt:message key="admin.users.updateData" var="updateData"/>
                                     <fmt:message key="admin.users.addAccount" var="addAccount"/>
                                     <fmt:message key="admin.users.showUserAccounts" var="showAccounts"/>
                                     <fmt:message key="admin.users.deleteUser" var="deleteUser"/>
@@ -76,7 +80,7 @@
                                             <th>${surname}</th>
                                             <th>${email}</th>
                                             <th>${phone}</th>
-                                            <th>${changeData}</th>
+                                            <th>${updateData}</th>
                                             <th>${addAccount}</th>
                                             <th>${showAccounts}</th>
                                             <th>${deleteUser}</th>
@@ -88,12 +92,12 @@
                                                     <td>${user.email}</td>
                                                     <td>${user.phone}</td>
                                                     <td>
-                                                        <a href="?command=changeUserData&userId=${user.userId}">
-                                                                ${changeData}
+                                                        <a href="?command=updateUserData&userId=${user.userId}">
+                                                                ${updateData}
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="?command=addAccount&userId=${user.userId}">
+                                                        <a href="?command=attachAccount&userId=${user.userId}">
                                                                 ${addAccount}
                                                         </a>
                                                     </td>
@@ -116,9 +120,13 @@
                                     <span class="title-label">
                                         <label>
                                             <b>
-                                                <a href="?command=showUsers"><fmt:message key="admin.showAllUsers"/></a>
+                                                <a href="?command=showUsers">
+                                                    <fmt:message key="admin.page.showAllUsers"/>
+                                                </a>
                                                 OR
-                                                <a href="?command=addUser"><fmt:message key="admin.addUser.button"/></a>
+                                                <a href="?command=addUser">
+                                                    <fmt:message key="admin.addUser.button"/>
+                                                </a>
                                             </b>
                                         </label>
                                     </span>

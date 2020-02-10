@@ -23,8 +23,10 @@
 
     <!-- Alert Success -->
     <c:if test="${processed == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 275px;">
-            <p><strong>Success!</strong> Letter processed.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertLetterProcessed"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -33,8 +35,10 @@
 
     <!-- Alert letterError -->
     <c:if test="${letterError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 388px;">
-            <p><strong>Failed!</strong> Unable to retrieve letter information.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertLetterError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

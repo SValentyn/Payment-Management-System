@@ -16,20 +16,20 @@ public class ResourceManager {
     public static final String ERROR = "ERROR";
     // USER
     public static final String USER = "USER";
-    public static final String USER_CHANGE_DATA = "USER_CHANGE_DATA";
-    public static final String USER_CHANGE_PASSWORD = "USER_CHANGE_PASSWORD";
+    public static final String USER_UPDATE_DATA = "USER_UPDATE_DATA";
+    public static final String USER_UPDATE_PASSWORD = "USER_UPDATE_PASSWORD";
     public static final String USER_CREATE_ACCOUNT = "USER_CREATE_ACCOUNT";
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
-    public static final String USER_ADD_CARD = "USER_ADD_CARD";
+    public static final String USER_ATTACH_CARD = "USER_ATTACH_CARD";
     public static final String USER_SUPPORT = "USER_SUPPORT";
     // ADMIN
     public static final String ADMIN = "ADMIN";
-    public static final String ADMIN_CHANGE_DATA = "ADMIN_CHANGE_DATA";
-    public static final String ADMIN_CHANGE_PASSWORD = "ADMIN_CHANGE_PASSWORD";
+    public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_DATA";
+    public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
     public static final String ACCOUNTS_CONTROL = "ADMIN_ACCOUNTS_CONTROL";
-    public static final String ADMIN_CHANGE_USER_DATA = "ADMIN_CHANGE_USER_DATA";
-    public static final String ADMIN_CREATE_ACCOUNT = "ADMIN_CREATE_ACCOUNT";
-    public static final String ADMIN_ADD_CARD = "ADMIN_ADD_CARD";
+    public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
+    public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
+    public static final String ADMIN_ATTACH_CARD = "ADMIN_ATTACH_CARD";
     public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
     public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
     public static final String LETTER_INFO = "ADMIN_LETTER_INFO";

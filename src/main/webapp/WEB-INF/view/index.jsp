@@ -45,7 +45,9 @@
     <!-- Alert loginError -->
     <c:if test="${loginError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
-            <p><strong><fmt:message key="login.alertFailed"/></strong> <fmt:message key="login.alertLoginError"/></p>
+            <p><strong><fmt:message key="login.failed"/></strong>
+                <fmt:message key="login.alertLoginError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -69,7 +71,7 @@
                                 <div class="form-group group-btn" style="margin-bottom: 35px;">
                                     <form action="/" role="form" method="POST" style="width: 100%;">
                                         <input type="hidden" name="command" value="login">
-                                        <input type="hidden" name="full_phone" value="0000000000">
+                                        <input type="hidden" name="full_phone" value="+351919131006">
                                         <input type="hidden" name="password" value="000000">
 
                                         <button type="submit" class="btn btn-default" onfocus="this.blur()">
@@ -79,7 +81,7 @@
 
                                     <form action="/" role="form" method="POST" style="width: 100%;">
                                         <input type="hidden" name="command" value="login">
-                                        <input type="hidden" name="full_phone" value="1111111111">
+                                        <input type="hidden" name="full_phone" value="+393524594551">
                                         <input type="hidden" name="password" value="111111">
 
                                         <button type="submit" class="btn btn-default" onfocus="this.blur()">
@@ -88,7 +90,6 @@
                                     </form>
                                 </div>
 
-                                <fmt:message key="login.phone" var="phone"/>
                                 <fmt:message key="login.password" var="password"/>
                                 <fmt:message key="login.submit" var="submit"/>
                                 <fmt:message key="login.correct" var="correct"/>
@@ -111,7 +112,7 @@
                                     <!-- Password -->
                                     <div class="password-input">
                                         <input type="password" id="password" name="password" class="form-control"
-                                               style="margin-top: 10px;" placeholder="${password}*"
+                                               style="margin-top: 10px;" placeholder="${password}"
                                                value=${passwordValue}>
                                         <a href="#" class="password-control"
                                            onclick="return show_hide_password(this);"></a>

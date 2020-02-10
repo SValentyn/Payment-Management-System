@@ -23,18 +23,23 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 272px;">
-            <p><strong>Success!</strong> Account created.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="user.page.success"/>!</strong>
+                <fmt:message key="user.page.alertAccountCreated"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
+    <!-- Will be deleted -->
     <!-- Alert numberExistError -->
     <c:if test="${numberExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 438px;">
-            <p><strong>Failed!</strong> An account with this number already exists.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                An account with this number already exists.
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -43,8 +48,10 @@
 
     <!-- Alert createAccountError -->
     <c:if test="${createAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 357px;">
-            <p><strong>Failed </strong> to create new account. Try later.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="user.page.alertCreateAccountError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -65,7 +72,8 @@
                                 <div class="content-wrap">
                                     <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
                                     <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="user.createAccount.tooltipNumberAccount" var="tooltipNumberAccount"/>
+                                    <fmt:message key="user.createAccount.tooltipNumberAccount"
+                                                 var="tooltipNumberAccount"/>
 
                                     <h4>
                                         ${createNewAccount}

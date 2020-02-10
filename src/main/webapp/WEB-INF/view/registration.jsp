@@ -45,9 +45,12 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 493px; margin-top: 22px;">
-            <p><strong>Success!</strong> Account created. Try <a href="/" class="alert-link">logging</a>
-                into your account.</p>
+        <div id="alert" class="alert alert-success fade in" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="registration.success"/>!</strong>
+                <fmt:message key="registration.accountCreated"/>
+                <a href="/" class="alert-link"><fmt:message key="registration.logging"/></a>
+                <fmt:message key="registration.intoYourAccount"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -56,8 +59,10 @@
 
     <!-- Alert phoneExistError -->
     <c:if test="${phoneExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 466px; margin-top: 22px;">
-            <p><strong>Failed!</strong> A user with such a phone is already registered.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="registration.alertPhoneExistError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -66,8 +71,10 @@
 
     <!-- Alert registrationError -->
     <c:if test="${registrationError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 494px; margin-top: 22px;">
-            <p><strong>Failed!</strong> Sorry, but we were unable to register you. Try later.</p>
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="registration.alertRegistrationError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -154,7 +161,7 @@
                                     <!-- Password -->
                                     <div class="password-input">
                                         <input id="password" name="password" type="password" class="form-control"
-                                               style="height: 36px; top: 7px;"
+                                               style="height: 36px;"
                                                data-toggle="tooltip" data-title="${tooltipPassword}"
                                                placeholder="${password}*"
                                                value=${passwordValue}>

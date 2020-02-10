@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.addCard.title"/></title>
+    <title><fmt:message key="user.attachCard.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -22,29 +22,35 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="width: 255px;">
-            <p><strong>Success!</strong> Card created.</p>
+    <c:if test="${attached == true}">
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertCardAttached"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
-    <!-- Alert numberExistError -->
-    <c:if test="${numberExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 450px;">
-            <p><strong>Failed!</strong> A card with the same number already exists.</p>
+    <!-- Alert cardNumberError -->
+    <c:if test="${cardNumberError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertCardNumberAttachError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </c:if>
 
-    <!-- Alert cardAddError -->
-    <c:if test="${cardAddError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="width: 323px;">
-            <p><strong>Failed</strong> to add the card to account.</p>
+    <!-- Alert cardAttachError -->
+    <c:if test="${cardAttachError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertCardAttachError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -63,23 +69,23 @@
                         <div class="login-wrapper">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="user.addCard.addNewCard" var="addNewCard"/>
-                                    <fmt:message key="admin.addCard.selectedAccount" var="selectedAccount"/>
-                                    <fmt:message key="user.addCard.number" var="number"/>
-                                    <fmt:message key="user.addCard.cvv" var="cvv"/>
-                                    <fmt:message key="user.addCard.validity" var="validity"/>
-                                    <fmt:message key="user.addCard.month" var="month"/>
-                                    <fmt:message key="user.addCard.year" var="year"/>
-                                    <fmt:message key="user.addCard.tooltipCardNumber" var="tooltipCardNumber"/>
-                                    <fmt:message key="user.addCard.tooltipCVV" var="tooltipCVV"/>
-                                    <fmt:message key="admin.addCard.backButton" var="backButton"/>
+                                    <fmt:message key="user.attachCard.addNewCard" var="addNewCard"/>
+                                    <fmt:message key="admin.attachCard.selectedAccount" var="selectedAccount"/>
+                                    <fmt:message key="user.attachCard.number" var="number"/>
+                                    <fmt:message key="user.attachCard.cvv" var="cvv"/>
+                                    <fmt:message key="user.attachCard.validity" var="validity"/>
+                                    <fmt:message key="user.attachCard.month" var="month"/>
+                                    <fmt:message key="user.attachCard.year" var="year"/>
+                                    <fmt:message key="user.attachCard.tooltipCardNumber" var="tooltipCardNumber"/>
+                                    <fmt:message key="user.attachCard.tooltipCVV" var="tooltipCVV"/>
+                                    <fmt:message key="admin.attachCard.backButton" var="backButton"/>
 
                                     <h4>
                                         ${addNewCard}
                                     </h4>
 
                                     <form action="" role="form" method="POST">
-                                        <input type="hidden" name="command" value="addCard">
+                                        <input type="hidden" name="command" value="attachCard">
 
                                         <!-- Account Id -->
                                         <input id="accountId" name="accountId" class="form-control"
@@ -104,7 +110,7 @@
                                         />
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
-                                                <fmt:message key="user.addCard.numberError"/>
+                                                <fmt:message key="user.attachCard.numberError"/>
                                             </c:if>
                                         </label>&nbsp;
 
@@ -117,12 +123,13 @@
                                         />
                                         <label for="CVV" class="create-error-label">
                                             <c:if test="${cvvError}">
-                                                <fmt:message key="user.addCard.cvvError"/>
+                                                <fmt:message key="user.attachCard.cvvError"/>
                                             </c:if>
                                         </label>&nbsp;
 
                                         <!-- Month and Year -->
-                                        <div id="expiration-date" class="form-group" style="margin-bottom: 6px; text-align: center;">
+                                        <div id="expiration-date" class="form-group"
+                                             style="margin-bottom: 6px; text-align: center;">
                                             <label class="label-for-form" style="margin-right: 10px;">
                                                 ${validity}
                                             </label>
@@ -190,19 +197,19 @@
 
                                         <label for="expiration-date" class="create-error-label">
                                             <c:if test="${validityError}">
-                                                <fmt:message key="user.addCard.validityError"/>
+                                                <fmt:message key="user.attachCard.validityError"/>
                                             </c:if>
                                         </label>
                                         <label for="expiration-date" class="create-error-label">
                                             <c:if test="${validityExpiredError}">
-                                                <fmt:message key="user.addCard.validityExpiredError"/>
+                                                <fmt:message key="user.attachCard.validityExpiredError"/>
                                             </c:if>
                                         </label>&nbsp;
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 10px 0 10px 0;">
                                             <button type="submit" class="btn btn-primary signup">
-                                                <fmt:message key="user.addCard.button.add"/>
+                                                <fmt:message key="user.attachCard.button.add"/>
                                             </button>
                                         </div>
 
