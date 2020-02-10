@@ -331,7 +331,8 @@ form .btn-default a:active {
 #error-msg-accountId,
 #error-msg-cardNumber,
 #error-msg-cvv,
-#error-msg-validity {
+#error-msg-validity,
+#error-msg-typeQuestion {
     color: #ba0000 !important;
 }
 
@@ -347,7 +348,8 @@ form .btn-default a:active {
 #valid-msg-accountId,
 #valid-msg-cardNumber,
 #valid-msg-cvv,
-#valid-msg-validity {
+#valid-msg-validity,
+#valid-msg-typeQuestion {
     color: #006400 !important;
 }
 

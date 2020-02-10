@@ -5,7 +5,7 @@ let amount = document.querySelector("#amount");
 let submitBtn = document.querySelector("#submit");
 
 
-/* Checks accountId */
+/* Checks Account Id */
 let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
@@ -87,7 +87,7 @@ number.addEventListener('keyup', resetNumber);
 number.addEventListener('change', resetNumber);
 
 
-/* Checks CVV */
+/* Checks Amount */
 let validMsgAmount = document.querySelector("#valid-msg-amount"),
     errorMsgAmount = document.querySelector("#error-msg-amount");
 

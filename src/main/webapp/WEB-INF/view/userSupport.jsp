@@ -83,7 +83,9 @@
                                     <fmt:message key="user.support.option.8" var="option_8"/>
                                     <fmt:message key="user.support.option.9" var="option_9"/>
                                     <fmt:message key="user.support.option.10" var="option_10"/>
+                                    <fmt:message key="user.support.typeQuestionError" var="typeQuestionError"/>
                                     <fmt:message key="user.support.tooltipDescription" var="tooltipDescription"/>
+                                    <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
                                         ${formHeader}
@@ -93,8 +95,8 @@
                                         <input type="hidden" name="command" value="support">
 
                                         <!-- Type Question -->
-                                        <select name="typeQuestion" class="form-control"
-                                                style="height: 42px; margin-bottom: 2px; font-size: 15px;">
+                                        <select id="typeQuestion" name="typeQuestion" class="form-control"
+                                                style="height: 40px; font-size: 15px;">
                                             <c:choose>
                                                 <c:when test="${typeQuestion == null}">
                                                     <option value="${0}">
@@ -124,14 +126,13 @@
                                             <option value="${option_9}">${option_9}</option>
                                             <option value="${option_10}">${option_10}</option>
                                         </select>
-                                        <label class="create-error-label">
-                                            <c:if test="${typeQuestionError}">
-                                                <fmt:message key="user.support.typeQuestionError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                        <label for="typeQuestion" class="default-label">
+                                            <span id="valid-msg-typeQuestion" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-typeQuestion" class="hide">${typeQuestionError}</span>
+                                        </label>
 
                                         <!-- Description -->
-                                        <div style="width: 100%; height:105px; position: relative;">
+                                        <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">
                                             <label for="description" class="for-form-label">
                                                 ${description}
                                             </label>
@@ -148,7 +149,8 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 22px 0 5px 0">
-                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                                    onfocus="this.blur()">
                                                 ${send}
                                             </button>
                                         </div>
@@ -163,5 +165,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_userSupport.js"></script>
 </body>
 </html>
