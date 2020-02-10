@@ -133,4 +133,11 @@ public class AccountService {
         return findAccountByAccountId(accountId).getNumber();
     }
 
+    /**
+     * Finds all accounts in the DB
+     */
+    public List<Account> findAllAccounts() {
+        return accountDao.findAllAccounts();
+    }
+
 }

@@ -9,7 +9,7 @@ public class Payment implements Serializable {
 
     private Integer paymentId;
     private Integer accountId;
-    private String cardNumber;
+    private String recipientAccountNumber;
     private BigDecimal sum;
     private String appointment;
     private String date;
@@ -34,12 +34,12 @@ public class Payment implements Serializable {
         this.accountId = accountId;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public String getRecipientAccountNumber() {
+        return recipientAccountNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setRecipientAccountNumber(String recipientAccountNumber) {
+        this.recipientAccountNumber = recipientAccountNumber;
     }
 
     public BigDecimal getSum() {
@@ -80,7 +80,7 @@ public class Payment implements Serializable {
         int result = 1;
         result = prime * result + ((paymentId == null) ? 0 : paymentId.hashCode());
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-        result = prime * result + ((cardNumber == null) ? 0 : cardNumber.hashCode());
+        result = prime * result + ((recipientAccountNumber == null) ? 0 : recipientAccountNumber.hashCode());
         result = prime * result + ((sum == null) ? 0 : sum.hashCode());
         result = prime * result + ((appointment == null) ? 0 : appointment.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
@@ -110,10 +110,10 @@ public class Payment implements Serializable {
         } else if (!accountId.equals(other.accountId))
             return false;
 
-        if (cardNumber == null) {
-            if (other.cardNumber != null)
+        if (recipientAccountNumber == null) {
+            if (other.recipientAccountNumber != null)
                 return false;
-        } else if (!cardNumber.equals(other.cardNumber))
+        } else if (!recipientAccountNumber.equals(other.recipientAccountNumber))
             return false;
 
         if (sum == null) {
@@ -144,7 +144,7 @@ public class Payment implements Serializable {
     public String toString() {
         return "Payment [paymentId=" + paymentId +
                 ", accountId=" + accountId +
-                ", cardNumber=" + cardNumber +
+                ", recipientAccountNumber=" + recipientAccountNumber +
                 ", sum=" + sum +
                 ", appointment=" + appointment +
                 ", date=" + date +

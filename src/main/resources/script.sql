@@ -26,21 +26,23 @@ CREATE TABLE users
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-# admin (l:1111111111, p:111111)
+# admin (p:111111)
 INSERT INTO users (name, surname, phone, email, password, role_id)
-VALUES ('Cristoforo', 'Colombo', '1111111111', 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112', 2);
+VALUES ('Cristoforo', 'Colombo', '+393524594551', 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112',
+        2);
 
-# user (l:0000000000, p:000000)
+# user (p:000000)
 INSERT INTO users (name, surname, phone, email, password, role_id)
-VALUES ('Fernando', 'de Magallanes', '0000000000', 'Fernando-de-Magallanes@outlook.com', '670b14728ad9902aecba32e22fa4f6bd', 1);
+VALUES ('Fernando', 'de Magallanes', '+34645364524', 'Fernando-de-Magallanes@outlook.com',
+        '670b14728ad9902aecba32e22fa4f6bd', 1);
 
-# user (l:0000000001, p:000001)
+# user (p:000001)
 INSERT INTO users (name, surname, phone, email, password, role_id)
-VALUES ('James', 'Cook', '0000000001', 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1);
+VALUES ('James', 'Cook', '+447465106475', 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1);
 
-# user (l:0000000002, p:000002)
+# user (p:000002)
 INSERT INTO users (name, surname, phone, email, password, role_id)
-VALUES ('Vasco', 'da Gama', '0000000002', 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', 1);
+VALUES ('Vasco', 'da Gama', '+351919131006', 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', 1);
 -- -- --
 
 -- -- --
@@ -104,44 +106,44 @@ CREATE TABLE credit_cards
   DEFAULT CHARSET = utf8;
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (1, '0000000000000000', '200', '03/21',true);
+VALUES (1, '0000000000000000', '200', '03/21', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (1, '0000007777000000', '717', '11/21',true);
+VALUES (1, '0000007777000000', '717', '11/21', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (2, '0000008888000000', '809', '09/20',false);
+VALUES (2, '0000008888000000', '809', '09/20', false);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (2, '0000009999000000', '191', '01/22',true);
+VALUES (2, '0000009999000000', '191', '01/22', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (3, '0000009999000000', '500', '05/21',true);
+VALUES (3, '0000009999000000', '500', '05/21', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (4, '4444000000000000', '404', '10/20',true);
+VALUES (4, '4444000000000000', '404', '10/20', true);
 -- -- --
 
 -- -- --
 CREATE TABLE payments
 (
-    payment_id  INT(11) AUTO_INCREMENT,
-    account_id  INT(11)      NOT NULL,
-    card_number VARCHAR(255) NOT NULL,
-    sum         BIGINT       NOT NULL,
-    appointment VARCHAR(255),
-    date        VARCHAR(255) NOT NULL,
-    `condition` BOOLEAN      NOT NULL,
+    payment_id               INT(11) AUTO_INCREMENT,
+    account_id               INT(11)      NOT NULL,
+    recipient_account_number VARCHAR(255) NOT NULL,
+    sum                      BIGINT       NOT NULL,
+    appointment              VARCHAR(255),
+    date                     VARCHAR(255) NOT NULL,
+    `condition`              BOOLEAN      NOT NULL,
     PRIMARY KEY (payment_id),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO payments (account_id, card_number, sum, appointment, date, `condition`)
-VALUES (1, '0000009999000000', 2000, 'for accommodation','01/02/2020', true);
+INSERT INTO payments (account_id, recipient_account_number, sum, appointment, date, `condition`)
+VALUES (2, '11111000000000000001', 2000, 'for accommodation', '01/02/2020', true);
 
-INSERT INTO payments (account_id, card_number, sum, appointment, date, `condition`)
-VALUES (3, '4444000000000000', 400, 'charity','01/10/2020', true);
+INSERT INTO payments (account_id, recipient_account_number, sum, appointment, date, `condition`)
+VALUES (4, '00000000000000000002', 400, 'charity', '01/10/2020', true);
 -- -- --
 
 -- -- --

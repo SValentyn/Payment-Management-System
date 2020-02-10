@@ -32,8 +32,18 @@ public interface AccountDao {
     Account findAccountById(Integer accountId);
 
     /**
+     * Retrieves account by number account
+     */
+    Account findAccountByNumber(String number);
+
+    /**
      * Returns all accounts by user id
      */
     List<Account> findAllAccountsByUserId(Integer userId);
+
+    /**
+     * Returns all accounts
+     */
+    List<Account> findAllAccounts();
 
 }

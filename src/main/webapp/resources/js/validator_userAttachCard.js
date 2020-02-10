@@ -1,4 +1,4 @@
-// Elements on registration.jsp page to check
+// Elements on userAttachCard.jsp page to check
 let accountId = document.querySelector("#accountId");
 let number = document.querySelector("#number");
 let CVV = document.querySelector("#CVV");

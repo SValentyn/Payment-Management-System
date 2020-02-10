@@ -309,13 +309,14 @@
                             <div class="row">
                                 <div class="col-md-12 panel-warning">
                                     <fmt:message key="user.payment.allpayments" var="allpayments"/>
-                                    <fmt:message key="user.payments.receiverCard" var="receiverCard"/>
+                                    <fmt:message key="user.payments.recipient'sAccount" var="receiverCard"/>
                                     <fmt:message key="user.payments.sum" var="payment_sum"/>
                                     <fmt:message key="user.payments.date" var="payment_date"/>
                                     <fmt:message key="user.payments.appointment" var="payment_appointment"/>
                                     <fmt:message key="user.payments.success" var="payment_success"/>
                                     <fmt:message key="user.payments.error" var="payment_error"/>
-                                    <fmt:message key="user.payments.repeat" var="payment_repeat"/>
+                                    <fmt:message key="user.payments.repeat" var="repeat"/>
+                                    <fmt:message key="user.payments.repeatPayment" var="payment_repeat"/>
 
                                     <div class="content-box-header panel-heading">
                                         <div class="panel-title ">
@@ -330,11 +331,11 @@
                                             <th>${payment_date}</th>
                                             <th>${payment_appointment}</th>
                                             <th>${status}</th>
-                                            <th></th>
+                                            <th>${payment_repeat}</th>
 
                                             <c:forEach items="${payments}" var="payment">
                                                 <tr>
-                                                    <td>${payment.cardNumber}</td>
+                                                    <td>${payment.recipientAccountNumber}</td>
                                                     <td>${payment.sum}</td>
                                                     <td>${payment.date}</td>
                                                     <td>${payment.appointment}</td>
@@ -351,7 +352,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td>
-                                                        <a href="?command=repeatPayment&paymentId=${payment.paymentId}">${payment_repeat}</a>
+                                                        <a href="?command=repeatPayment&paymentId=${payment.paymentId}">${repeat}</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

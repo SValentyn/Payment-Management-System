@@ -73,7 +73,7 @@ public class ControllerHelper {
         userCommands.put("unblockCard", new CommandUserUnblockCard());
         userCommands.put("deleteCard", new CommandUserDeleteCard());
         userCommands.put("createAccount", new CommandUserCreateAccount());
-        userCommands.put("makePayment", new CommandUserCreatePayment());
+        userCommands.put("makePayment", new CommandUserMakePayment());
         userCommands.put("repeatPayment", new CommandUserRepeatPayment());
         userCommands.put("attachCard", new CommandUserAttachCard());
         userCommands.put("support", new CommandUserSupport());

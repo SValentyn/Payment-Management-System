@@ -12,7 +12,7 @@ import java.util.List;
 public interface PaymentDao {
 
     /**
-     * Inserts new entity into database
+     * Inserts new entity into DB
      */
     int create(Payment entity);
 

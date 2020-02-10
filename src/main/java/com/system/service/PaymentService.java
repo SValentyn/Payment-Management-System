@@ -4,7 +4,6 @@ import com.system.entity.Account;
 import com.system.entity.CreditCard;
 import com.system.entity.Payment;
 import com.system.persistence.dao.AccountDao;
-import com.system.persistence.dao.CreditCardDao;
 import com.system.persistence.dao.PaymentDao;
 import com.system.persistence.factory.DaoFactory;
 import org.apache.log4j.LogManager;
@@ -27,7 +26,6 @@ public class PaymentService {
 
     private static PaymentService instance = null;
     private AccountDao accountDao = DaoFactory.createAccountDao();
-    private CreditCardDao creditCardDao = DaoFactory.createCreditCardDao();
     private PaymentDao paymentDao = DaoFactory.createPaymentDao();
 
     private PaymentService() throws SQLException {
@@ -47,7 +45,7 @@ public class PaymentService {
         int status;
         Payment payment = new Payment();
         payment.setAccountId(accountId);
-        payment.setCardNumber(number);
+        payment.setRecipientAccountNumber(number);
         payment.setSum(amount);
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -60,9 +58,8 @@ public class PaymentService {
             return -1;
         }
 
-        CreditCard cardTo = creditCardDao.findCardByCardNumber(number);
-        Account accountTo = accountDao.findAccountById(cardTo.getAccountId());
-        if (checkAvailableAccount(accountTo) || !checkAvailableCard(cardTo)) {
+        Account accountTo = accountDao.findAccountByNumber(number);
+        if (checkAvailableAccount(accountTo)) {
             LOGGER.error("Payment arrangement error!");
             payment.setCondition(false);
             return -2;
@@ -127,4 +124,5 @@ public class PaymentService {
     public List<Payment> findAllPaymentsByAccountId(Integer accountId) {
         return paymentDao.findAllPaymentsByAccountId(accountId);
     }
+
 }

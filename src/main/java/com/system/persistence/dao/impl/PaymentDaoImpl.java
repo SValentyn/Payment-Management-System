@@ -22,9 +22,9 @@ public class PaymentDaoImpl implements PaymentDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, card_number, sum, appointment, date, `condition`) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, recipient_account_number, sum, appointment, date, `condition`) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
-    private static final String FIND_PAYMENTS = "SELECT * FROM payments WHERE account_id = ?";
+    private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ?";
 
     private static PaymentDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
@@ -41,7 +41,7 @@ public class PaymentDaoImpl implements PaymentDao {
 
     @Override
     public int create(Payment entity) {
-        Object[] args = {entity.getAccountId(), entity.getCardNumber(), entity.getSum(), entity.getAppointment(), entity.getDate(), entity.getCondition()};
+        Object[] args = {entity.getAccountId(), entity.getRecipientAccountNumber(), entity.getSum(), entity.getAppointment(), entity.getDate(), entity.getCondition()};
         return executor.executeStatement(CREATE_PAYMENT, args);
     }
 
@@ -63,7 +63,7 @@ public class PaymentDaoImpl implements PaymentDao {
     public List<Payment> findAllPaymentsByAccountId(Integer accountId) {
         List<Payment> payments = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_PAYMENTS, accountId);
+            ResultSet rs = executor.getResultSet(FIND_ALL_PAYMENTS_BY_ACCOUNT_ID, accountId);
             while (rs.next()) {
                 payments.add(createEntity(rs));
             }
@@ -81,7 +81,7 @@ public class PaymentDaoImpl implements PaymentDao {
         try {
             payment.setPaymentId(rs.getInt("payment_id"));
             payment.setAccountId(rs.getInt("account_id"));
-            payment.setCardNumber(rs.getString("card_number"));
+            payment.setRecipientAccountNumber(rs.getString("recipient_account_number"));
             payment.setSum(rs.getBigDecimal("sum"));
             payment.setAppointment(rs.getString("appointment"));
             payment.setDate(rs.getString("date"));

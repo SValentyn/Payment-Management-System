@@ -262,7 +262,7 @@
                         <div class="row">
                             <div class="col-md-12 panel-warning">
                                 <fmt:message key="user.payment.allpayments" var="allpayments"/>
-                                <fmt:message key="user.payments.receiverCard" var="receiverCard"/>
+                                <fmt:message key="user.payments.recipient'sAccount" var="receiverCard"/>
                                 <fmt:message key="user.payments.sum" var="payment_sum"/>
                                 <fmt:message key="user.payments.date" var="payment_date"/>
                                 <fmt:message key="user.payments.success" var="payment_success"/>

@@ -3,7 +3,6 @@ package com.system.command;
 import com.system.entity.Account;
 import com.system.entity.Payment;
 import com.system.entity.User;
-import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.persistence.factory.DaoFactory;
 import com.system.service.AccountService;
@@ -26,7 +25,7 @@ public class CommandUserRepeatPayment implements ICommand {
         // Data
         String paymentId = request.getParameter("paymentId");
         Payment payment = DaoFactory.createPaymentDao().findPaymentByPaymentId(Integer.parseInt(paymentId));
-        String number = payment.getCardNumber();
+        String number = payment.getRecipientAccountNumber();
         BigDecimal amount = payment.getSum();
         String appointment = payment.getAppointment();
 

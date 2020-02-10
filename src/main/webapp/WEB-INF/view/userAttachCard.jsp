@@ -122,8 +122,7 @@
                                         </label>
 
                                         <!-- Number -->
-                                        <input id="number" name="number" class="form-control"
-                                               style="margin: 6px 0 0 0;" type="text"
+                                        <input id="number" name="number" class="form-control" type="text"
                                                data-toggle="tooltip" data-title="${tooltipCardNumber}"
                                                maxlength="16" onkeypress="onlyNumbers();"
                                                placeholder="${number}*"
@@ -134,8 +133,7 @@
                                         </label>
 
                                         <!-- CVV -->
-                                        <input id="CVV" name="CVV" class="form-control"
-                                               style="margin: 6px 0 0 0;" type="text"
+                                        <input id="CVV" name="CVV" class="form-control" type="text"
                                                data-toggle="tooltip" data-title="${tooltipCVV}"
                                                maxlength="3" onkeypress="onlyNumbers()"
                                                placeholder="${cvv}*"
@@ -147,7 +145,7 @@
 
                                         <!-- Month and Year -->
                                         <div class="form-group" id="expiration-date"
-                                             style="text-align: center; padding: 6px 0 0 0; margin: 0;">
+                                             style="text-align: center; margin: 0;">
                                             <label class="for-form-label" style="margin-right: 10px;">
                                                 ${validity}
                                             </label>

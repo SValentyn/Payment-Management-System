@@ -26,7 +26,9 @@ public class AccountDaoImpl implements AccountDao {
     private static final String UPDATE_ACCOUNT = "UPDATE accounts SET balance = ?, is_blocked = ? WHERE account_id = ?";
     private static final String DELETE_ACCOUNT = "DELETE FROM accounts WHERE account_id = ?";
     private static final String FIND_ACCOUNT_BY_ID = "SELECT * FROM accounts WHERE account_id = ?";
+    private static final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM accounts WHERE number = ?";
     private static final String FIND_ALL_USER_ACCOUNTS = "SELECT * FROM accounts WHERE user_id = ?";
+    private static final String FIND_ALL_ACCOUNTS = "SELECT * FROM accounts";
 
     private static AccountDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
@@ -72,10 +74,38 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
+    public Account findAccountByNumber(String number) {
+        Account account = null;
+        try {
+            ResultSet rs = executor.getResultSet(FIND_ACCOUNT_BY_NUMBER, number);
+            if (rs.next()) {
+                account = createEntity(rs);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return account;
+    }
+
+    @Override
     public List<Account> findAllAccountsByUserId(Integer userId) {
         List<Account> accounts = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_ALL_USER_ACCOUNTS, userId);
+            while (rs.next()) {
+                accounts.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return accounts;
+    }
+
+    @Override
+    public List<Account> findAllAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        try {
+            ResultSet rs = executor.getResultSet(FIND_ALL_ACCOUNTS);
             while (rs.next()) {
                 accounts.add(createEntity(rs));
             }

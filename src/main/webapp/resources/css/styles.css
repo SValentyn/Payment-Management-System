@@ -97,7 +97,7 @@ body {
 .login-wrapper .box input[type="password"],
 .login-wrapper .box input[type="email"] {
     height: 40px;
-    margin-top: 5px;
+    margin: 6px 0 0 0;
     font-size: 15px;
     border-color: #b2bfc7;
 }
@@ -326,6 +326,8 @@ form .btn-default a:active {
 #error-msg-email,
 #error-msg-password,
 #error-msg-passwordConfirmation,
+#error-msg-accountNumber,
+#error-msg-amount,
 #error-msg-accountId,
 #error-msg-cardNumber,
 #error-msg-cvv,
@@ -340,6 +342,8 @@ form .btn-default a:active {
 #valid-msg-email,
 #valid-msg-password,
 #valid-msg-passwordConfirmation,
+#valid-msg-accountNumber,
+#valid-msg-amount,
 #valid-msg-accountId,
 #valid-msg-cardNumber,
 #valid-msg-cvv,
