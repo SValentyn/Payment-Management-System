@@ -26,7 +26,7 @@ public class TestPaymentDao {
         payment = new Payment();
         payment.setPaymentId(1);
         payment.setAccountId(1);
-        payment.setCardNumber("5450655032805450");
+        payment.setRecipientAccountNumber("5450655032805450");
         payment.setSum(new BigDecimal(1_000));
         payment.setAppointment("Thank you for dinner!");
 
@@ -46,7 +46,7 @@ public class TestPaymentDao {
         Payment payment_1 = paymentDao.findPaymentByPaymentId(1);
         Payment payment_2 = paymentDao.findPaymentByPaymentId(3);
         assertNull(payment_2);
-        assertEquals("5450655032805450", payment_1.getCardNumber());
+        assertEquals("5450655032805450", payment_1.getRecipientAccountNumber());
     }
 
     @Test

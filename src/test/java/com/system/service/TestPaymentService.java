@@ -26,7 +26,7 @@ public class TestPaymentService {
         payment = new Payment();
         payment.setPaymentId(1);
         payment.setAccountId(1);
-        payment.setCardNumber("5450655032805450");
+        payment.setRecipientAccountNumber("5450655032805450");
         payment.setSum(new BigDecimal(1_000));
         payment.setAppointment("Thank you for dinner!");
 
@@ -44,7 +44,7 @@ public class TestPaymentService {
         account_2.setBalance(new BigDecimal(50_000));
         account_2.setIsBlocked(false);
 
-        when(paymentService.formingPayment(payment.getAccountId(), payment.getCardNumber(), new BigDecimal(1_000), payment.getAppointment()))
+        when(paymentService.formingPayment(payment.getAccountId(), payment.getRecipientAccountNumber(), new BigDecimal(1_000), payment.getAppointment()))
                 .thenReturn(payment.getPaymentId());
     }
 
