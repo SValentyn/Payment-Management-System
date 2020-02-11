@@ -5,7 +5,6 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
-import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,13 +18,13 @@ public class CommandUserCreateAccount implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
 
+        request.setAttribute("created", false);
+        request.setAttribute("numberError", false);
+        request.setAttribute("createAccountError", false);
+
         User user = (User) request.getSession().getAttribute("currentUser");
         List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
-
         request.setAttribute("accounts", allAccounts);
-        request.setAttribute("created", false);
-        request.setAttribute("numberExistError", false);
-        request.setAttribute("createAccountError", false);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -37,14 +36,9 @@ public class CommandUserCreateAccount implements ICommand {
             String number = request.getParameter("number");
 
             // Check
-            if (checkNumber(request, number)) {
-                return page;
-            }
-
             for (Account account : allAccounts) {
                 if (account.getNumber().equals(number)) {
-                    request.setAttribute("number", number);
-                    request.setAttribute("numberExistError", true);
+                    request.setAttribute("numberError", true);
                     return page;
                 }
             }
@@ -52,7 +46,6 @@ public class CommandUserCreateAccount implements ICommand {
             // Create
             int status = AccountService.getInstance().createAccount(userId, number);
             if (status == 0) {
-                request.setAttribute("number", number);
                 request.setAttribute("createAccountError", true);
             } else {
                 request.setAttribute("created", true);
@@ -62,15 +55,4 @@ public class CommandUserCreateAccount implements ICommand {
         return page;
     }
 
-    private boolean checkNumber(HttpServletRequest request, String number) {
-        if (number == null || number.isEmpty() || !Validator.checkAccountNumber(number)) {
-            request.setAttribute("numberError", true);
-            request.setAttribute("number", number);
-            return true;
-        }
-        return false;
-    }
-
 }
-
-

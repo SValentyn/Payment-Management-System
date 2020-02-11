@@ -33,19 +33,6 @@
         </div>
     </c:if>
 
-    <!-- Will be deleted -->
-    <!-- Alert numberExistError -->
-    <c:if test="${numberExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                An account with this number already exists.
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <!-- Alert createAccountError -->
     <c:if test="${createAccountError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">
@@ -72,8 +59,11 @@
                                 <div class="content-wrap">
                                     <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
                                     <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="user.createAccount.tooltipNumberAccount"
-                                                 var="tooltipNumberAccount"/>
+                                    <fmt:message key="user.createAccount.createAccountButton"
+                                                 var="createAccountButton"/>
+                                    <fmt:message key="user.createAccount.numberError" var="numberError"/>
+                                    <fmt:message key="user.createAccount.numberExistError" var="numberExistError"/>
+                                    <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
                                         ${createNewAccount}
@@ -83,21 +73,30 @@
                                         <input type="hidden" name="command" value="createAccount"/>
 
                                         <!-- Number Account -->
-                                        <input id="number" name="number" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipNumberAccount}"
-                                               maxlength="20" onkeypress="onlyNumbers();"
-                                               placeholder="${numberNewAccount}*"
-                                               value="${number}">
-                                        <label for="number" class="create-error-label">
-                                            <c:if test="${numberError}">
-                                                <fmt:message key="user.createAccount.numberError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                        <label class="for-form-label">
+                                            ${numberNewAccount}
+                                        </label>
+                                        <div class="form-group" style="display: flex; margin-bottom: 0;">
+                                            <input id="number" name="number" class="form-control"
+                                                   type="text" readonly="readonly"
+                                                   style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"/>
+                                            <i id="repeat" class="glyphicon glyphicon-repeat"></i>
+                                        </div>
+                                        <label for="number" class="default-label">
+                                            <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-accountNumber" class="hide">${numberError}</span>
+                                            <span>
+                                                <c:if test="${numberError}">
+                                                    ${numberExistError}
+                                                </c:if>
+                                            </span>
+                                        </label>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 20px 0 10px 0">
-                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
-                                                <fmt:message key="user.createAccount.createAccountButton"/>
+                                        <div class="action" style="padding: 30px 0 10px 0">
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                                    onfocus="this.blur()">
+                                                ${createAccountButton}
                                             </button>
                                         </div>
                                     </form>
@@ -111,5 +110,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_userCreateAccount.js"></script>
 </body>
 </html>

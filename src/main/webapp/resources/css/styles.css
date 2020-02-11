@@ -809,6 +809,38 @@ form .btn-default a:active {
 
 /****************/
 
+/* Other */
+
+.iti {
+    width: 100% !important;
+    margin-top: 5px;
+}
+
+.iti__flag {
+    background-image: url("/resources/images/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {
+        background-image: url("/resources/images/flags@2x.png");
+    }
+}
+
+.glyphicon-repeat {
+    align-self: center;
+    margin-left: 10px;
+    font-size: 23px;
+    color: #989797;
+}
+
+.glyphicon-repeat:hover {
+    cursor: pointer;
+}
+
+.glyphicon-repeat:active {
+    cursor: pointer;
+}
+
 /* For Error page */
 #error_detail_message {
 }
@@ -837,21 +869,6 @@ form .btn-default a:active {
 
 .back-homepage:active {
     text-decoration: none;
-}
-
-.iti {
-    width: 100% !important;
-    margin-top: 5px;
-}
-
-.iti__flag {
-    background-image: url("/resources/images/flags.png");
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .iti__flag {
-        background-image: url("/resources/images/flags@2x.png");
-    }
 }
 
 /*************/

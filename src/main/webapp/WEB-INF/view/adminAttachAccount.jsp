@@ -115,7 +115,7 @@
                                                value="${number}">
                                         <label for="number" class="create-error-label">
                                             <c:if test="${numberError}">
-                                                <fmt:message key="user.createAccount.numberError"/>
+                                                <fmt:message key="user.createAccount.numberExistError"/>
                                             </c:if>
                                         </label>&nbsp;
 

@@ -116,21 +116,7 @@
                                         </table>
                                     </div>
                                 </c:when>
-                                <c:otherwise>
-                                    <span class="title-label">
-                                        <label>
-                                            <b>
-                                                <a href="?command=showUsers">
-                                                    <fmt:message key="admin.page.showAllUsers"/>
-                                                </a>
-                                                OR
-                                                <a href="?command=addUser">
-                                                    <fmt:message key="admin.addUser.button"/>
-                                                </a>
-                                            </b>
-                                        </label>
-                                    </span>
-                                </c:otherwise>
+                                <c:otherwise/>
                             </c:choose>
                         </div>
                     </div>
