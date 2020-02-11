@@ -19,7 +19,6 @@ public class CommandUserCreateAccount implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
 
         request.setAttribute("created", false);
-        request.setAttribute("numberError", false);
         request.setAttribute("createAccountError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
@@ -38,7 +37,8 @@ public class CommandUserCreateAccount implements ICommand {
             // Check
             for (Account account : allAccounts) {
                 if (account.getNumber().equals(number)) {
-                    request.setAttribute("numberError", true);
+                    request.setAttribute("numberValue", number);
+                    request.setAttribute("numberExistError", true);
                     return page;
                 }
             }

@@ -1,10 +1,9 @@
-// Elements on registration.jsp page to check
+// Elements on userUpdateData.jsp page to check
 let name = document.querySelector("#name");
 let surname = document.querySelector("#surname");
 let phone = document.querySelector("#phone");
 let email = document.querySelector("#email");
 let password = document.querySelector("#password");
-let passwordConfirmation = document.querySelector("#passwordConfirmation");
 let submitBtn = document.querySelector("#submit");
 
 
@@ -207,6 +206,7 @@ let validMsgPassword = document.querySelector("#valid-msg-password"),
     errorMsgPassword = document.querySelector("#error-msg-password");
 
 let resetPassword = function () {
+    document.querySelector("#passwordNotMatchError").classList.add("hide");
     validMsgPassword.classList.add("hide");
     errorMsgPassword.classList.add("hide");
     password.classList.remove("valid-input");
@@ -233,16 +233,8 @@ password.addEventListener('blur', function () {
 
     if (password.value.trim() === "" || password.value.trim().length < 6) {
         notValidPassword();
-        if (passwordConfirmation.classList.contains("valid-input") ||
-            passwordConfirmation.classList.contains("error-input")) {
-            matching();
-        }
     } else {
         validPassword();
-        if (passwordConfirmation.classList.contains("valid-input") ||
-            passwordConfirmation.classList.contains("error-input")) {
-            matching();
-        }
     }
 });
 
@@ -251,67 +243,9 @@ password.addEventListener('keyup', resetPassword);
 password.addEventListener('change', resetPassword);
 
 
-/* Checks password confirmation */
-let validMsgPasswordConfirmation = document.querySelector("#valid-msg-passwordConfirmation"),
-    errorMsgPasswordConfirmation = document.querySelector("#error-msg-passwordConfirmation");
-
-let resetPasswordConfirmation = function () {
-    validMsgPasswordConfirmation.classList.add("hide");
-    errorMsgPasswordConfirmation.classList.add("hide");
-    passwordConfirmation.classList.remove("valid-input");
-    passwordConfirmation.classList.remove("error-input");
-};
-
-let validPasswordConfirmation = function () {
-    validMsgPasswordConfirmation.classList.remove("hide");
-    errorMsgPasswordConfirmation.classList.add("hide");
-    passwordConfirmation.classList.add("valid-input");
-    passwordConfirmation.classList.remove("error-input");
-};
-
-let notValidPasswordConfirmation = function () {
-    validMsgPasswordConfirmation.classList.add("hide");
-    errorMsgPasswordConfirmation.classList.remove("hide");
-    passwordConfirmation.classList.remove("valid-input");
-    passwordConfirmation.classList.add("error-input");
-};
-
-// on blur
-passwordConfirmation.addEventListener('blur', function () {
-    resetPasswordConfirmation();
-
-    if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6) {
-        notValidPasswordConfirmation();
-    } else {
-        if (passwordConfirmation.value.trim() === password.value.trim()) {
-            validPasswordConfirmation();
-        } else {
-            notValidPasswordConfirmation();
-        }
-    }
-});
-
-// on keyup/change -> reset
-passwordConfirmation.addEventListener('keyup', resetPasswordConfirmation);
-passwordConfirmation.addEventListener('change', resetPasswordConfirmation);
-
-
-/* Check passwords for match */
-var matching = function () {
-    if (passwordConfirmation.value.trim() === "") {
-        notValidPasswordConfirmation();
-    } else {
-        if (passwordConfirmation.value.trim() === password.value.trim()) {
-            validPasswordConfirmation();
-        } else {
-            notValidPasswordConfirmation();
-        }
-    }
-};
-
-
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
+
     if (name.value.trim() === "" || name.classList.contains("error-input")) {
         event.preventDefault();
         notValidName();
@@ -342,9 +276,4 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6 || passwordConfirmation.classList.contains("error-input")) {
-        event.preventDefault();
-        notValidPasswordConfirmation();
-        return false;
-    }
 });

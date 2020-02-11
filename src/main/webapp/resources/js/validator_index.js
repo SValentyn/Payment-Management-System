@@ -102,14 +102,16 @@ password.addEventListener('change', resetPassword);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
     if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
+
         event.preventDefault();
         notValidPhone();
         return false;
     }
 
-    if (password.value.trim() === "" || password.classList.contains("error-input")) {
+    if (password.value.trim() === "" || password.value.trim().length < 6 || password.classList.contains("error-input")) {
         event.preventDefault();
         notValidPassword();
         return false;
     }
+
 });

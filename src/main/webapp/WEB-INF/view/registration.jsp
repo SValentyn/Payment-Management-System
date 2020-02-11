@@ -101,7 +101,6 @@
                                 <fmt:message key="registration.passwordError" var="passwordError"/>
                                 <fmt:message key="registration.passwordConfirmationError"
                                              var="passwordConfirmationError"/>
-                                <fmt:message key="registration.correct" var="correct"/>
                                 <fmt:message key="registration.signupButton" var="signupButton"/>
                                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
@@ -109,6 +108,7 @@
                                 <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
                                 <fmt:message key="registration.tooltipPasswordConfirmation"
                                              var="tooltipPasswordConfirmation"/>
+                                <fmt:message key="registration.correct" var="correct"/>
 
                                 <h4>
                                     ${registration}

@@ -201,13 +201,13 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (number.value.trim() === "" || number.classList.contains("error-input")) {
+    if (number.value.trim() === "" || number.value.trim().length < 16 || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
         return false;
     }
 
-    if (CVV.value.trim() === "" || CVV.classList.contains("error-input")) {
+    if (CVV.value.trim() === "" || CVV.value.trim().length < 3 || CVV.classList.contains("error-input")) {
         event.preventDefault();
         notValidCVV();
         return false;

@@ -137,7 +137,7 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (number.value.trim() === "" || number.classList.contains("error-input")) {
+    if (number.value.trim() === "" || number.value.trim().length < 20 || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
         return false;

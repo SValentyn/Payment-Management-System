@@ -62,7 +62,6 @@
                                     <fmt:message key="user.createAccount.createAccountButton"
                                                  var="createAccountButton"/>
                                     <fmt:message key="user.createAccount.numberError" var="numberError"/>
-                                    <fmt:message key="user.createAccount.numberExistError" var="numberExistError"/>
                                     <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
@@ -79,17 +78,22 @@
                                         <div class="form-group" style="display: flex; margin-bottom: 0;">
                                             <input id="number" name="number" class="form-control"
                                                    type="text" readonly="readonly"
-                                                   style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"/>
+                                                   style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
+                                                   value="${numberValue}"/>
                                             <i id="repeat" class="glyphicon glyphicon-repeat"></i>
                                         </div>
                                         <label for="number" class="default-label">
                                             <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
                                             <span id="error-msg-accountNumber" class="hide">${numberError}</span>
-                                            <span>
-                                                <c:if test="${numberError}">
-                                                    ${numberExistError}
-                                                </c:if>
-                                            </span>
+                                            <c:if test="${numberExistError}">
+                                                <span>
+                                                    <fmt:message key="user.createAccount.numberExistError"/>
+                                                </span>
+                                                <script>
+                                                    document.querySelector("#valid-msg-accountNumber").classList.add("hide");
+                                                    document.querySelector("#error-msg-accountNumber").classList.add("hide");
+                                                </script>
+                                            </c:if>
                                         </label>
 
                                         <!-- Submit -->
