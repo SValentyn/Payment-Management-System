@@ -92,9 +92,9 @@
 
                                 <fmt:message key="login.password" var="password"/>
                                 <fmt:message key="login.submit" var="submit"/>
-                                <fmt:message key="login.correct" var="correct"/>
                                 <fmt:message key="login.phoneError" var="phoneError"/>
                                 <fmt:message key="login.passwordError" var="passwordError"/>
+                                <fmt:message key="login.correct" var="correct"/>
 
                                 <form action="/" role="form" method="POST">
                                     <input type="hidden" name="command" value="login"/>
@@ -134,7 +134,7 @@
                         </div>
                         <div class="already">
                             <p><fmt:message key="login.forgotPassword"/></p>
-                            <a href="?command=restore" onfocus="this.blur()">
+                            <a href="?command=recovery" onfocus="this.blur()">
                                 <fmt:message key="login.recovery"/>
                             </a>
                             <br>

@@ -27,13 +27,7 @@ public class CommandRecoveryPassword implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Data
-            String phone = request.getParameter("phone");
-
-            // Check
-            if (checkPhone(request, phone)) {
-                request.setAttribute("phoneValue", phone);
-                return page;
-            }
+            String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
 
             // Check
             int status = 0;
@@ -55,14 +49,6 @@ public class CommandRecoveryPassword implements ICommand {
         }
 
         return page;
-    }
-
-    private boolean checkPhone(HttpServletRequest request, String phone) {
-        if (phone == null || phone.isEmpty() || !Validator.checkPhoneNumber(phone)) {
-            request.setAttribute("phoneError", true);
-            return true;
-        }
-        return false;
     }
 
 }

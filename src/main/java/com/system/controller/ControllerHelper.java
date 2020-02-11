@@ -38,7 +38,7 @@ public class ControllerHelper {
         commands.put("/", new CommandIndex());
         commands.put("login", new CommandLogin());
         commands.put("registration", new CommandRegistration());
-        commands.put("restore", new CommandRecoveryPassword());
+        commands.put("recovery", new CommandRecoveryPassword());
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());

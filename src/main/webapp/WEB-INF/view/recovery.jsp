@@ -71,41 +71,44 @@
         <div class="page-content container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <div class="login-wrapper" style="top: 22px;">
-                        <div class="box" style="padding-bottom: 0;">
+                    <div class="login-wrapper" style="top: 30px;">
+                        <div class="box">
                             <div class="content-wrap">
                                 <fmt:message key="recovery.formHeader" var="formHeader"/>
                                 <fmt:message key="recovery.recoveryButton" var="button"/>
                                 <fmt:message key="recovery.backButton" var="backButton"/>
+                                <fmt:message key="login.phoneError" var="phoneError"/>
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                                <fmt:message key="login.correct" var="correct"/>
 
                                 <h4>
                                     ${formHeader}
                                 </h4>
 
                                 <form action="" role="form" method="POST">
-                                    <input type="hidden" name="command" value="restore">
+                                    <input type="hidden" name="command" value="recovery">
 
                                     <!-- Phone -->
-                                    <input id="phone" name="phone" class="form-control" style="height: 36px;"
-                                           type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
-                                           maxlength="10" onkeypress="onlyNumbers();"
+                                    <input id="phone" name="phone" class="form-control"
+                                           style="padding-left: 94px; margin-bottom: 18px;"
+                                           type="text" onkeypress="onlyNumbers();"
+                                           data-toggle="tooltip" data-title="${tooltipPhone}"
                                            value="${phoneValue}">
                                     <label for="phone" class="default-label">
-                                        <c:if test="${phoneError}">
-                                            <fmt:message key="registration.phoneError"/>
-                                        </c:if>
-                                    </label>&nbsp;
+                                        <span id="valid-msg-phone" class="hide">${correct} ✓</span>
+                                        <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                    </label>
 
                                     <!-- Submit -->
-                                    <div class="action" style="padding: 10px 0 10px 0">
-                                        <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
+                                    <div class="action" style="padding: 25px 0 10px 0">
+                                        <button id="submit" type="submit" class="btn btn-primary signup"
+                                                onfocus="this.blur()">
                                             ${button}
                                         </button>
                                     </div>
 
                                     <!-- Back Button -->
-                                    <div class="action" style="padding: 0 0 35px 0">
+                                    <div class="action" style="padding: 0 0 10px 0">
                                         <button type="button" class="btn btn-default signup" onfocus="this.blur()">
                                             <a href="/">
                                                 ${backButton}
@@ -122,5 +125,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_recovery.js"></script>
 </body>
 </html>
