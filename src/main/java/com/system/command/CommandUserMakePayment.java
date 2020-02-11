@@ -6,7 +6,6 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.PaymentService;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandUserMakePayment implements ICommand {
-
-    private static final org.apache.log4j.Logger LOGGER = Logger.getLogger(CommandUserMakePayment.class);
-
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -48,7 +44,7 @@ public class CommandUserMakePayment implements ICommand {
             String appointment = request.getParameter("appointment");
 
             accounts.remove(AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId)));
-            request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
+            request.setAttribute("accounts", accounts);
 
             // Check
             Account accountByAccountId = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId));
@@ -90,8 +86,9 @@ public class CommandUserMakePayment implements ICommand {
         return page;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String amount, String appointment) {
+    private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String amount, String appointment) throws SQLException {
         request.setAttribute("accountId", accountId);
+        request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
         request.setAttribute("numberValue", number);
         request.setAttribute("amountValue", amount);
         request.setAttribute("appointmentValue", appointment);

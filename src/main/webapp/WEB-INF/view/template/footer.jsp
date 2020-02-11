@@ -2,7 +2,7 @@
 
 <div class="footer">
     <div class="container">
-        <div class="link">
+        <div class="social">
             <a href="https://github.com/SValentyn/Payment-Management-System" onfocus="this.blur()">
                 <img id="github-ico" class="tooltip-top"
                      src="resources/images/GitHub-Mark-32px-white.ico"

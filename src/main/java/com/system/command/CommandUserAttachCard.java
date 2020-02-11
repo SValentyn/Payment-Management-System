@@ -43,14 +43,9 @@ public class CommandUserAttachCard implements ICommand {
 
             // Check
             if (checkValidity(request, month, year)) {
-                request.setAttribute("accounts", accounts);
                 setRequestAttributes(request, accountId, number, CVV, month, year);
                 return page;
             }
-
-            accounts.remove(AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId)));
-            request.setAttribute("accounts", accounts); // exclude the selected account number from the list of all accounts
-            request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
 
             // Check
             List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId));
@@ -68,6 +63,7 @@ public class CommandUserAttachCard implements ICommand {
                 setRequestAttributes(request, accountId, number, CVV, month, year);
                 request.setAttribute("cardAttachError", true);
             } else {
+                request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
                 request.setAttribute("attached", true);
             }
         }

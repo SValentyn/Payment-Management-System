@@ -24,6 +24,7 @@ body {
 }
 
 .page-content .row .col-md-10 {
+    margin-bottom: 66px;
     padding-left: 30px;
 }
 
@@ -50,6 +51,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    margin-bottom: 86px;
 }
 
 .login-wrapper .box {
@@ -426,8 +428,12 @@ form .btn-default a:active {
 
 /* Header */
 .header {
+    top: 0;
+    position: sticky;
+    width: 100%;
     height: 66px;
     display: flex;
+    z-index: 1;
     padding: 0 20px 0 20px;
     margin-bottom: 22px;
     background-color: #2c3742;
@@ -766,8 +772,8 @@ form .btn-default a:active {
 /* Footer */
 .footer {
     width: 100%;
-    height: 66px;
-    position: absolute;
+    height: 58px;
+    position: fixed;
     left: 0;
     bottom: 0;
     font-size: 14px;
@@ -779,14 +785,13 @@ form .btn-default a:active {
 
 .footer .container {
     width: 100%;
-    display: flex
+    display: flex;
 }
 
-.footer .container .link {
+.footer .container .social {
     width: 93%;
     align-self: center;
-    padding-top: 10px;
-    padding-left: 6px;
+    padding-left: 7px;
 }
 
 .footer .container .time {
@@ -796,15 +801,15 @@ form .btn-default a:active {
 
 .custom-date {
     height: 56px;
-    padding-top: 10px;
+    padding-top: 8px;
     margin-top: 0px;
     margin-bottom: 0px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 #github-ico {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
 }
 
 /****************/
