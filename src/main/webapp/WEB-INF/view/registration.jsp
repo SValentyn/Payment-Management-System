@@ -138,15 +138,17 @@
                                     </label>
 
                                     <!-- Phone -->
-                                    <input id="phone" name="phone" type="tel" class="form-control"
-                                           style="height: 36px; padding-left: 94px;"
-                                           data-toggle="tooltip" data-title="${tooltipPhone}"
-                                           onkeypress="onlyNumbers()"
-                                           value="${phoneValue}"/>
-                                    <label for="phone" class="default-label">
-                                        <span id="valid-msg-phone" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-phone" class="hide">${phoneError}</span>
-                                    </label>
+                                    <div style="margin-top: 1px;">
+                                        <input id="phone" name="phone" type="tel" class="form-control"
+                                               style="height: 36px; padding-left: 94px;"
+                                               data-toggle="tooltip" data-title="${tooltipPhone}"
+                                               onkeypress="onlyNumbers()"
+                                               value="${phoneValue}"/>
+                                        <label for="phone" class="default-label">
+                                            <span id="valid-msg-phone" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                        </label>
+                                    </div>
 
                                     <!-- Email -->
                                     <input id="email" name="email" class="form-control" style="height: 36px;"

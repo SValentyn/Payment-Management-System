@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Provides service methods for UserDao. Layout between DAO and Command
@@ -54,8 +55,8 @@ public class UserService {
     }
 
     /**
-     * Registers user in system by phone. Check if user has already registered
-     * in payment system as client and allows him to register in payment system
+     * Checks if the user is registered in the system.
+     * Registers the user in the system by the entered phone number and password.
      */
     public int registerUser(String name, String surname, String phone, String email, String password) {
         int status = 0;
@@ -67,6 +68,45 @@ public class UserService {
             status = userDao.create(user);
         }
         return status;
+    }
+
+    /**
+     * Checks if the user is registered in the system.
+     * Generates a random alphanumeric password.
+     * Registers the user in the system by the entered phone number and the generated password.
+     * [in the future] Sends the generated password to the phone.
+     */
+    public int registerUser(String name, String surname, String phone, String email) {
+        int status;
+
+        User user = findUserByPhoneNumber(phone);
+        if (user == null) {
+            String password = generatePassword(8);
+            Role role = new Role();
+            role.setRolename(Role.ROLE_CLIENT);
+            user = new User(name, surname, phone, email, encryptor.encode(password), role);
+            status = userDao.create(user);
+
+            // ------------------------------------------------------------- //
+            // There must be an API to send the password to the user's phone //
+            // ------------------------------------------------------------- //
+        } else {
+            status = 0; // if user is registered in the payment system
+        }
+        return status;
+    }
+
+    private String generatePassword(int lengthPassword) {
+        String alphanumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        Random random = new Random();
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < lengthPassword; i++) {
+            result.append(alphanumeric.charAt(random.nextInt(alphanumeric.length())));
+        }
+
+        return result.toString();
     }
 
     /**
