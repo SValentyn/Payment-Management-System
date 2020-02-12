@@ -24,7 +24,7 @@ public class CommandAdminDeleteAccount implements ICommand {
             request.setAttribute("deleteAccountError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ACCOUNTS_CONTROL);
     }
 
 }

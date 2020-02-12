@@ -26,7 +26,7 @@ public class CommandAccountsControl implements ICommand {
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ACCOUNTS_CONTROL);
     }
 
 }

@@ -48,7 +48,7 @@ public class ControllerHelper {
         adminCommands.put("updateUserData", new CommandAdminUpdateUserData());
         adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAccountsControl());
-        adminCommands.put("attachAccount", new CommandAdminCreateAccount());
+        adminCommands.put("attachAccount", new CommandAdminAttachAccount());
         adminCommands.put("attachCard", new CommandAdminAttachCard());
         adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());
         adminCommands.put("deleteCard", new CommandAdminDeleteCard());

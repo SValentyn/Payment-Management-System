@@ -33,19 +33,6 @@
         </div>
     </c:if>
 
-    <!-- Will be deleted -->
-    <!-- Alert numberExistError -->
-    <c:if test="${numberExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
-                An account with this number already exists.
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <!-- Alert attachAccountError -->
     <c:if test="${attachAccountError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">
@@ -70,19 +57,21 @@
                         <div class="login-wrapper">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
+                                    <fmt:message key="admin.attachAccount.formHeader" var="formHeader"/>
                                     <fmt:message key="admin.attachAccount.user_bio" var="user_bio"/>
                                     <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="user.createAccount.createAccountButton"
-                                                 var="createAccountButton"/>
-                                    <fmt:message key="admin.attachAccount.showAccountsButton" var="showAccountsButton"/>
-                                    <fmt:message key="admin.attachAccount.attachCardButton" var="attachCardButton"/>
-                                    <fmt:message key="user.createAccount.tooltipNumberAccount"
-                                                 var="tooltipNumberAccount"/>
+                                    <fmt:message key="admin.attachAccount.attachAccountButton"
+                                                 var="attachAccountButton"/>
+                                    <fmt:message key="admin.attachAccount.backToAccountsButton"
+                                                 var="backToAccountsButton"/>
+                                    <fmt:message key="admin.attachAccount.attachCardButton"
+                                                 var="attachCardButton"/>
+                                    <fmt:message key="user.createAccount.numberError" var="numberError"/>
                                     <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
+                                    <fmt:message key="registration.correct" var="correct"/>
 
-                                    <h4>
-                                        ${createNewAccount}
+                                    <h4 style="margin-bottom: 30px;">
+                                        ${formHeader}
                                     </h4>
 
                                     <form action="" role="form" method="POST">
@@ -100,45 +89,59 @@
                                                 <span tabindex="0" data-toggle="tooltip-right-hover"
                                                       title="${tooltipUserBio}">
                                                     <input id="bio" name="bio" class="form-control"
-                                                           type="text" style="margin-top: 3px;"
-                                                           disabled="disabled"
+                                                           type="text" style="margin-top: 0;"
+                                                           disabled="disabled" onfocus="this.blur()"
                                                            value="${bio}"/>
                                                 </span>
                                             </label>
                                         </div>
 
-                                        <!-- Number Account -->
-                                        <input id="number" name="number" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipNumberAccount}"
-                                               maxlength="20" onkeypress="onlyNumbers();"
-                                               placeholder="${numberNewAccount}*"
-                                               value="${number}">
-                                        <label for="number" class="create-error-label">
-                                            <c:if test="${numberError}">
-                                                <fmt:message key="user.createAccount.numberExistError"/>
+                                        <!-- Account Number -->
+                                        <label class="for-form-label">
+                                            ${numberNewAccount}
+                                        </label>
+                                        <div class="form-group" style="display: flex; margin-bottom: 0;">
+                                            <input id="number" name="number" class="form-control"
+                                                   type="text" readonly="readonly"
+                                                   style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
+                                                   value="${numberValue}"/>
+                                            <i id="repeat" class="glyphicon glyphicon-repeat" onfocus="this.blur()"></i>
+                                        </div>
+                                        <label for="number" class="default-label">
+                                            <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-accountNumber" class="hide">${numberError}</span>
+                                            <c:if test="${numberExistError}">
+                                                <span>
+                                                    <fmt:message key="user.createAccount.numberExistError"/>
+                                                </span>
+                                                <script>
+                                                    document.querySelector("#valid-msg-accountNumber").classList.add("hide");
+                                                    document.querySelector("#error-msg-accountNumber").classList.add("hide");
+                                                </script>
                                             </c:if>
-                                        </label>&nbsp;
+                                        </label>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 20px 0 10px 0">
-                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
+                                        <div class="action" style="padding: 25px 0 10px 0">
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                                    onfocus="this.blur()">
                                                 ${attachAccountButton}
                                             </button>
                                         </div>
 
                                         <!-- Show Accounts Button -->
                                         <div class="action" style="padding: 0 0 10px 0;">
-                                            <button type="button" class="btn btn-default signup"
-                                                    style=" padding: 0;">
+                                            <button type="button" class="btn btn-default signup" style="padding: 0;"
+                                                    onfocus="this.blur()">
                                                 <a href="?command=showAccountInfo">
-                                                    ${showAccountsButton}
+                                                    ${backToAccountsButton}
                                                 </a>
                                             </button>
                                         </div>
 
                                         <!-- AddCard Button -->
                                         <c:choose>
-                                            <c:when test="${created == true}">
+                                            <c:when test="${attached == true}">
                                                 <div class="action">
                                                     <button type="button" class="btn btn-default signup"
                                                             style=" padding: 0;"
@@ -152,7 +155,7 @@
                                             <c:otherwise>
                                                 <div class="action">
                                                     <button type="button" class="btn btn-default signup"
-                                                            style=" padding: 0;"
+                                                            style="padding: 0;"
                                                             onfocus="this.blur()" disabled="disabled">
                                                         <a href="?command=attachCard&accountId=${accountId}">
                                                                 ${attachCardButton}
@@ -172,5 +175,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_adminAttachAccount.js"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class ResourceManager {
     public static final String ADMIN = "ADMIN";
     public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_DATA";
     public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
-    public static final String ACCOUNTS_CONTROL = "ADMIN_ACCOUNTS_CONTROL";
+    public static final String ADMIN_ACCOUNTS_CONTROL = "ADMIN_ACCOUNTS_CONTROL";
     public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
     public static final String ADMIN_ATTACH_CARD = "ADMIN_ATTACH_CARD";

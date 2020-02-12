@@ -29,7 +29,7 @@ public class CommandAdminBlockAccount implements ICommand {
             request.setAttribute("blockAccountError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ACCOUNTS_CONTROL);
     }
 
 }

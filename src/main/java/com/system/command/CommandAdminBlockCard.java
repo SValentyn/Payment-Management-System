@@ -30,7 +30,7 @@ public class CommandAdminBlockCard implements ICommand {
             request.setAttribute("blockCardError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.ACCOUNTS_CONTROL);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ACCOUNTS_CONTROL);
     }
 
 }

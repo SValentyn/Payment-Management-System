@@ -258,7 +258,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5" style="padding-left: 5px;padding-right: 20px;">
+                    <div class="col-md-5" style="padding-left: 5px; padding-right: 20px;">
                         <div class="row">
                             <div class="col-md-12 panel-warning">
                                 <fmt:message key="user.payment.allpayments" var="allpayments"/>
@@ -274,8 +274,7 @@
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header"
-                                     style="padding-left: 12px;padding-right: 12px;">
+                                <div class="content-box-large box-with-header" style="padding: 0 12px 0 12px;">
                                     <table>
                                         <th>${receiverCard}</th>
                                         <th>${payment_sum}</th>
@@ -284,7 +283,7 @@
 
                                         <c:forEach items="${payments}" var="payment">
                                             <tr>
-                                                <td>${payment.cardNumber}</td>
+                                                <td>${payment.recipientAccountNumber}</td>
                                                 <td>${payment.sum}</td>
                                                 <td>${payment.date}</td>
                                                 <c:choose>
