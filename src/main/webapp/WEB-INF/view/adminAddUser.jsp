@@ -126,7 +126,7 @@
                                         </div>
 
                                         <!-- Email -->
-                                        <input id="email" name="email" class="form-control"
+                                        <input id="email" name="email" class="form-control" style="margin-top: 7px;"
                                                type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
                                                maxlength="45" placeholder="${email}"
                                                value="${emailValue}"/>

@@ -79,54 +79,59 @@
                                                type="hidden" value="${letterId}"/>
 
                                         <!-- bio -->
-                                        <div style="margin-bottom: 10px;">
+                                        <div style="margin-bottom: 15px;">
                                             <label for="bio" class="for-form-label">
                                                 ${user_bio}
                                             </label>
                                             <div>
                                                 <span tabindex="0" data-toggle="tooltip-right-hover"
                                                       title="${tooltipUserBio}">
-                                                    <input id="bio" name="bio" class="form-control" type="text"
-                                                           disabled="disabled" value="${bio}"/>
+                                                    <input id="bio" name="bio" class="form-control"
+                                                           type="text" style="margin-top: 0;"
+                                                           disabled="disabled" onfocus="this.blur()"
+                                                           value="${bio}"/>
                                                 </span>
                                             </div>
                                         </div>
 
                                         <!-- Phone -->
-                                        <div style="margin-bottom: 10px;">
+                                        <div style="margin-bottom: 15px;">
                                             <label for="phone" class="for-form-label">
                                                 ${user_phone}
                                             </label>
                                             <div>
                                                 <input id="phone" name="phone" class="form-control"
-                                                       type="text" disabled="disabled" value="${phone}"/>
+                                                       type="text" style="margin-top: 0;"
+                                                       disabled="disabled" onfocus="this.blur()"
+                                                       value="${phone}"/>
                                             </div>
                                         </div>
 
                                         <!-- Email -->
-                                        <div style="margin-bottom: 10px;">
+                                        <div style="margin-bottom: 15px;">
                                             <label for="email" class="for-form-label">
                                                 ${user_email}
                                             </label>
                                             <div>
                                                 <input id="email" name="email" class="form-control"
-                                                       type="text" disabled="disabled" value="${email}"/>
+                                                       type="text" style="margin-top: 0;" onfocus="this.blur()"
+                                                       value="${email}"/>
                                             </div>
                                         </div>
 
                                         <!-- Description -->
-                                        <div style="margin-bottom: 10px;">
+                                        <div style="margin-bottom: 15px;">
                                             <label for="description" class="for-form-label">
                                                 ${letter_description}
                                             </label>
                                             <div>
-                                                <textarea id="description" name="description"
-                                                          class="form-control">${description}</textarea>
+                                                <textarea id="description" name="description" class="form-control"
+                                                          onfocus="this.blur()">${description}</textarea>
                                             </div>
                                         </div>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 20px 0 15px 0">
+                                        <div class="action" style="padding: 20px 0 10px 0">
                                             <button type="submit" class="btn btn-primary signup"
                                                     style="width: 248px" onfocus="this.blur()">
                                                 ${processedButton}
@@ -137,7 +142,7 @@
                                         <div class="action">
                                             <button type="button" class="btn btn-default signup"
                                                     style="width: 248px" onfocus="this.blur()">
-                                                <a href="?command=support">
+                                                <a href="?command=support" onfocus="this.blur()">
                                                     ${backButton}
                                                 </a>
                                             </button>
