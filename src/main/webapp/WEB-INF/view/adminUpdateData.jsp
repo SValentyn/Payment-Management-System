@@ -80,7 +80,7 @@
                                     <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                     <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                     <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                                    <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
+                                    <fmt:message key="user.changePassword.tooltipOldPassword" var="tooltipPassword"/>
 
                                     <h4>
                                         ${formHeader}

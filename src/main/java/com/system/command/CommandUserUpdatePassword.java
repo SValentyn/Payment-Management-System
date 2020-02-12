@@ -5,7 +5,6 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
 import com.system.utils.PasswordEncryptor;
-import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,9 +36,7 @@ public class CommandUserUpdatePassword implements ICommand {
             String oldPassword = request.getParameter("oldPassword");
 
             // Check
-            if (checkNewPassword(request, newPassword) ||
-                    checkPasswordConfirmation(request, newPassword, passwordConfirmation) ||
-                    checkOldPassword(request, userId, oldPassword)) {
+            if (checkOldPassword(request, userId, oldPassword)) {
                 setRequestAttributes(request, newPassword, passwordConfirmation, oldPassword);
                 return page;
             }
@@ -60,26 +57,10 @@ public class CommandUserUpdatePassword implements ICommand {
         return page;
     }
 
-    private boolean checkNewPassword(HttpServletRequest request, String password) {
-        if (password == null || password.isEmpty() || !Validator.checkPassword(password)) {
-            request.setAttribute("newPasswordError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkPasswordConfirmation(HttpServletRequest request, String password, String passwordConfirmation) {
-        if (!password.equals(passwordConfirmation)) {
-            request.setAttribute("passwordConfirmationError", true);
-            return true;
-        }
-        return false;
-    }
-
     private boolean checkOldPassword(HttpServletRequest request, Integer userId, String oldPassword) throws SQLException {
         String correctPassword = UserService.getInstance().findUserById(userId).getPassword();
         if (!correctPassword.equals(encryptor.encode(oldPassword))) {
-            request.setAttribute("oldPasswordError", true);
+            request.setAttribute("passwordNotMatchError", true);
             return true;
         }
         return false;

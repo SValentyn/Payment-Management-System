@@ -74,7 +74,7 @@
                                     <fmt:message key="registration.name" var="name"/>
                                     <fmt:message key="registration.surname" var="surname"/>
                                     <fmt:message key="registration.email" var="email"/>
-                                    <fmt:message key="registration.password" var="password"/>
+                                    <fmt:message key="user.updateData.password" var="password"/>
                                     <fmt:message key="user.updateData.updateDataButton" var="updateDataButton"/>
                                     <fmt:message key="user.updateData.changePasswordButton" var="changePasswordButton"/>
                                     <fmt:message key="registration.nameError" var="nameError"/>
@@ -85,7 +85,7 @@
                                     <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                     <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                     <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                                    <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
+                                    <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
                                     <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
@@ -117,8 +117,8 @@
 
                                         <!-- Phone -->
                                         <input id="phone" name="phone" type="tel" class="form-control"
-                                               style="padding-left: 94px;"
-                                               data-toggle="tooltip" data-title="${tooltipPhone}"
+                                               style="padding-left: 94px;" data-toggle="tooltip"
+                                               data-title="${tooltipPhone}"
                                                onkeypress="onlyNumbers()"
                                                value="${phoneValue}"/>
                                         <label for="phone" class="default-label">
@@ -129,7 +129,8 @@
                                         <!-- Email -->
                                         <input id="email" name="email" class="form-control"
                                                type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
-                                               maxlength="45" placeholder="${email}"
+                                               maxlength="45"
+                                               placeholder="${email}"
                                                value="${emailValue}"/>
                                         <label for="email" class="default-label">
                                             <span id="valid-msg-email" class="hide">${correct} ✓</span>
@@ -142,7 +143,7 @@
                                                    data-toggle="tooltip" data-title="${tooltipPassword}"
                                                    placeholder="${password}*"
                                                    value="${passwordValue}"/>
-                                            <a href="#" class="password-control" style="top: 8px;"
+                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
                                                onclick="return show_hide_password(this);"></a>
                                         </div>
                                         <label for="password" class="default-label">

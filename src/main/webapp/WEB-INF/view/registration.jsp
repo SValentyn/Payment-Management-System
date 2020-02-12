@@ -165,7 +165,7 @@
                                                data-toggle="tooltip" data-title="${tooltipPassword}"
                                                placeholder="${password}*"
                                                value="${passwordValue}"/>
-                                        <a href="#" class="password-control" style="top: 7px;"
+                                        <a href="#" class="password-control" style="top: 7px;" onfocus="this.blur()"
                                            onclick="return show_hide_password(this);"></a>
                                     </div>
                                     <label for="password" class="default-label">
@@ -180,7 +180,7 @@
                                                data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
                                                placeholder="${confirmation}*"
                                                value="${passwordConfirmationValue}"/>
-                                        <a href="#" class="password-control" style="top: 7px;"
+                                        <a href="#" class="password-control" style="top: 7px;" onfocus="this.blur()"
                                            onclick="return show_hide_passwordConfirmation(this);"></a>
                                     </div>
                                     <label for="passwordConfirmation" class="default-label">

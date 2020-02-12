@@ -114,7 +114,7 @@
                                         <input type="password" id="password" name="password" class="form-control"
                                                style="margin-top: 10px;" placeholder="${password}"
                                                value=${passwordValue}>
-                                        <a href="#" class="password-control"
+                                        <a href="#" class="password-control" onfocus="this.blur()"
                                            onclick="return show_hide_password(this);"></a>
                                     </div>
                                     <label for="password" class="default-label">

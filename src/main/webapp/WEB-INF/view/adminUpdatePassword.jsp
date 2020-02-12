@@ -65,7 +65,7 @@
                                     <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
                                     <fmt:message key="registration.tooltipPasswordConfirmation"
                                                  var="tooltipPasswordConfirmation"/>
-                                    <fmt:message key="user.updateData.tooltipPassword" var="tooltipOldPassword"/>
+                                    <fmt:message key="user.changePassword.tooltipOldPassword" var="tooltipOldPassword"/>
 
                                     <h4>
                                         ${formHeader}

@@ -62,10 +62,15 @@
                                     <fmt:message key="registration.confirmation" var="confirmation"/>
                                     <fmt:message key="user.changePassword.oldPassword" var="oldPassword"/>
                                     <fmt:message key="user.updateData.changePasswordButton" var="changePasswordButton"/>
+                                    <fmt:message key="registration.passwordError" var="passwordError"/>
+                                    <fmt:message key="registration.passwordConfirmationError"
+                                                 var="passwordConfirmationError"/>
+                                    <fmt:message key="user.changePassword.oldPasswordError" var="oldPasswordError"/>
                                     <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
                                     <fmt:message key="registration.tooltipPasswordConfirmation"
                                                  var="tooltipPasswordConfirmation"/>
-                                    <fmt:message key="user.updateData.tooltipPassword" var="tooltipOldPassword"/>
+                                    <fmt:message key="user.changePassword.tooltipOldPassword" var="tooltipOldPassword"/>
+                                    <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
                                         ${formHeader}
@@ -75,44 +80,67 @@
                                         <input type="hidden" name="command" value="updatePassword">
 
                                         <!-- New Password -->
-                                        <input id="newPassword" name="newPassword"
-                                               class="form-control" style="margin: 0;" type="password"
-                                               data-toggle="tooltip" data-title="${tooltipNewPassword}"
-                                               placeholder="${newPassword}*"
-                                               value=${newPasswordValue}>
+                                        <div class="password-input">
+                                            <input id="newPassword" name="newPassword" type="password"
+                                                   class="form-control" style="height: 40px; margin: 0;"
+                                                   data-toggle="tooltip" data-title="${tooltipNewPassword}"
+                                                   placeholder="${newPassword}*"
+                                                   value="${newPasswordValue}"/>
+                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
+                                               onclick="return show_hide_newPassword(this);"></a>
+                                        </div>
                                         <label for="newPassword" class="default-label">
-                                            <c:if test="${newPasswordError}">
-                                                <fmt:message key="registration.passwordError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                            <span id="valid-msg-newPassword" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-newPassword" class="hide">${passwordError}</span>
+                                        </label>
 
                                         <!-- Password Confirmation -->
-                                        <input id="passwordConfirmation" name="passwordConfirmation"
-                                               class="form-control" style="margin: 5px 0 0 0;" type="password"
-                                               data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
-                                               placeholder="${confirmation}*"
-                                               value=${passwordConfirmationValue}>
+                                        <div class="password-input">
+                                            <input id="passwordConfirmation" name="passwordConfirmation" type="password"
+                                                   class="form-control" style="height: 40px; margin: 8px 0 0 0;"
+                                                   data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
+                                                   placeholder="${confirmation}*"
+                                                   value="${passwordConfirmationValue}"/>
+                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
+                                               onclick="return show_hide_passwordConfirmation(this);"></a>
+                                        </div>
                                         <label for="passwordConfirmation" class="default-label">
-                                            <c:if test="${passwordConfirmationError}">
-                                                <fmt:message key="registration.passwordConfirmationError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                            <span id="valid-msg-passwordConfirmation" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-passwordConfirmation" class="hide">
+                                                ${passwordConfirmationError}
+                                            </span>
+                                        </label>
 
                                         <!-- Old Password -->
-                                        <input id="oldPassword" name="oldPassword"
-                                               class="form-control" style="margin: 5px 0 0 0;" type="password"
-                                               data-toggle="tooltip" data-title="${tooltipOldPassword}"
-                                               placeholder="${oldPassword}*"
-                                               value=${oldPasswordValue}>
+                                        <div class="password-input">
+                                            <input id="oldPassword" name="oldPassword" type="password"
+                                                   class="form-control" style="height: 40px; margin: 8px 0 0 0;"
+                                                   data-toggle="tooltip" data-title="${tooltipOldPassword}"
+                                                   placeholder="${oldPassword}*"
+                                                   value="${oldPasswordValue}"/>
+                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
+                                               onclick="return show_hide_oldPassword(this);"></a>
+                                        </div>
                                         <label for="oldPassword" class="default-label">
-                                            <c:if test="${oldPasswordError}">
-                                                <fmt:message key="user.changePassword.oldPasswordError"/>
-                                            </c:if>
+                                            <span id="valid-msg-oldPassword" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-oldPassword" class="hide">${passwordError}</span>
+                                            <span id="passwordNotMatchError">
+                                                <c:if test="${passwordNotMatchError}">
+                                                    ${oldPasswordError}
+
+                                                    <script>
+                                                        document.querySelector("#passwordNotMatchError").classList.remove("hide");
+                                                        document.querySelector("#valid-msg-oldPassword").classList.add("hide");
+                                                        document.querySelector("#error-msg-oldPassword").classList.add("hide");
+                                                    </script>
+                                                </c:if>
+                                            </span>
                                         </label>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 15px 0 5px 0">
-                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
+                                        <div class="action" style="padding: 25px 0 5px 0">
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                                    onfocus="this.blur()">
                                                 ${changePasswordButton}
                                             </button>
                                         </div>
@@ -127,5 +155,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_userUpdatePassword.js"></script>
 </body>
 </html>
