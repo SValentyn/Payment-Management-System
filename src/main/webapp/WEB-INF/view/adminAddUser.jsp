@@ -145,7 +145,7 @@
 
                                         <!-- Back -->
                                         <c:choose>
-                                            <c:when test="${created == true}">
+                                            <c:when test="${added == true}">
                                                 <div class="action" style="padding: 0 0 10px 0;">
                                                     <button type="button" class="btn btn-default signup"
                                                             onfocus="this.blur()">

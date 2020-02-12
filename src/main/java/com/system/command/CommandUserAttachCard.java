@@ -57,7 +57,7 @@ public class CommandUserAttachCard implements ICommand {
                 }
             }
 
-            // Create
+            // Attach
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
                 setRequestAttributes(request, accountId, number, CVV, month, year);

@@ -39,13 +39,12 @@ public class CommandAdminAttachCard implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Check
-            if (checkCardNumber(request, number) ||
-                    checkCVV(request, CVV) ||
-                    checkValidity(request, month, year)) {
+            if (checkValidity(request, month, year)) {
                 setRequestAttributes(request, number, CVV, month, year);
                 return page;
             }
 
+            // Check
             List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId));
             for (CreditCard card : cardsByAccountId) {
                 if (card.getNumber().equals(number)) {
@@ -55,11 +54,11 @@ public class CommandAdminAttachCard implements ICommand {
                 }
             }
 
-            // Create
+            // Attach
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
-                request.setAttribute("cardAttachError", true);
                 setRequestAttributes(request, number, CVV, month, year);
+                request.setAttribute("cardAttachError", true);
             } else {
                 request.setAttribute("attached", true);
             }
@@ -68,29 +67,7 @@ public class CommandAdminAttachCard implements ICommand {
         return page;
     }
 
-    private boolean checkCardNumber(HttpServletRequest request, String number) {
-        if (number.isEmpty() || !Validator.checkCardNumber(number)) {
-            request.setAttribute("numberError", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkCVV(HttpServletRequest request, String CVV) {
-        if (CVV.isEmpty() || !Validator.checkCVV(CVV)) {
-            request.setAttribute("cvvError", true);
-            return true;
-        }
-        return false;
-    }
-
     private boolean checkValidity(HttpServletRequest request, String month, String year) {
-        if (month == null || month.isEmpty() || month.equals("0")
-                || year == null || year.isEmpty() || year.equals("0")) {
-            request.setAttribute("validityError", true);
-            return true;
-        }
-
         if (Validator.checkValidity(month, year)) {
             request.setAttribute("validityExpiredError", true);
             return true;

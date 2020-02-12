@@ -76,9 +76,15 @@
                                     <fmt:message key="user.attachCard.validity" var="validity"/>
                                     <fmt:message key="user.attachCard.month" var="month"/>
                                     <fmt:message key="user.attachCard.year" var="year"/>
+                                    <fmt:message key="user.attachCard.attachButton" var="attachButton"/>
+                                    <fmt:message key="admin.attachCard.backButton" var="backButton"/>
+                                    <fmt:message key="user.attachCard.accountIdError" var="accountIdError"/>
+                                    <fmt:message key="user.attachCard.numberError" var="numberError"/>
+                                    <fmt:message key="user.attachCard.cvvError" var="cvvError"/>
+                                    <fmt:message key="user.attachCard.validityError" var="validityError"/>
                                     <fmt:message key="user.attachCard.tooltipCardNumber" var="tooltipCardNumber"/>
                                     <fmt:message key="user.attachCard.tooltipCVV" var="tooltipCVV"/>
-                                    <fmt:message key="admin.attachCard.backButton" var="backButton"/>
+                                    <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
                                         ${attachNewCard}
@@ -97,44 +103,41 @@
                                                 ${selectedAccount}
                                                 <input id="numberByAccountIdValue" name="numberByAccountIdValue"
                                                        class="form-control" type="text" disabled="disabled"
+                                                       style="margin-top: 0;"
                                                        value="${numberByAccountIdValue}"/>
                                             </label>
                                         </div>
 
-                                        <!-- Number  -->
-                                        <input id="number" name="number" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipCardNumber}"
+                                        <!-- Number -->
+                                        <input id="number" name="number" class="form-control" type="text"
+                                               data-toggle="tooltip" data-title="${tooltipCardNumber}"
                                                maxlength="16" onkeypress="onlyNumbers();"
                                                placeholder="${number}*"
-                                               value="${numberValue}"
-                                        />
-                                        <label for="number" class="create-error-label">
-                                            <c:if test="${numberError}">
-                                                <fmt:message key="user.attachCard.numberError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                               value="${numberValue}"/>
+                                        <label for="number" class="default-label">
+                                            <span id="valid-msg-cardNumber" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-cardNumber" class="hide">${numberError}</span>
+                                        </label>
 
                                         <!-- CVV -->
-                                        <input id="CVV" name="CVV" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipCVV}"
+                                        <input id="CVV" name="CVV" class="form-control" type="text"
+                                               data-toggle="tooltip" data-title="${tooltipCVV}"
                                                maxlength="3" onkeypress="onlyNumbers()"
                                                placeholder="${cvv}*"
-                                               value="${cvvValue}"
-                                        />
-                                        <label for="CVV" class="create-error-label">
-                                            <c:if test="${cvvError}">
-                                                <fmt:message key="user.attachCard.cvvError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                               value="${cvvValue}"/>
+                                        <label for="CVV" class="default-label">
+                                            <span id="valid-msg-cvv" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-cvv" class="hide">${cvvError}</span>
+                                        </label>
 
                                         <!-- Month and Year -->
-                                        <div id="expiration-date" class="form-group"
-                                             style="margin-bottom: 6px; text-align: center;">
+                                        <div class="form-group" id="expiration-date"
+                                             style="text-align: center; margin: 10px 0 0 0;">
                                             <label class="for-form-label" style="margin-right: 10px;">
                                                 ${validity}
                                             </label>
 
-                                            <select name="month">
+                                            <select id="month" name="month">
                                                 <c:choose>
                                                     <c:when test="${monthValue == null}">
                                                         <option value="${0}">
@@ -165,7 +168,7 @@
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                             </select>
-                                            <select name="year">
+                                            <select id="year" name="year">
                                                 <c:choose>
                                                     <c:when test="${yearValue == null}">
                                                         <option value="${0}">
@@ -194,29 +197,30 @@
                                                 <option value="2025">2025</option>
                                             </select>
                                         </div>
-
-                                        <label for="expiration-date" class="create-error-label">
-                                            <c:if test="${validityError}">
-                                                <fmt:message key="user.attachCard.validityError"/>
-                                            </c:if>
+                                        <label for="expiration-date" class="default-label">
+                                            <span id="valid-msg-validity" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-validity" class="hide">${validityError}</span>
                                         </label>
-                                        <label for="expiration-date" class="create-error-label">
-                                            <c:if test="${validityExpiredError}">
-                                                <fmt:message key="user.attachCard.validityExpiredError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                        <label for="expiration-date" class="default-label" style="padding-left: 0;">
+                                            <span>
+                                                <c:if test="${validityExpiredError}">
+                                                    <fmt:message key="user.attachCard.validityExpiredError"/>
+                                                </c:if>
+                                            </span>
+                                        </label>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 10px 0 10px 0;">
-                                            <button type="submit" class="btn btn-primary signup">
-                                                <fmt:message key="user.attachCard.attachButton"/>
+                                        <div class="action" style="padding: 20px 0 10px 0;">
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                                    onfocus="this.blur()">
+                                                ${attachButton}
                                             </button>
                                         </div>
 
                                         <!-- Back -->
                                         <div class="action">
                                             <button type="button" class="btn btn-default signup"
-                                                    style=" padding: 0;">
+                                                    style="padding: 0;" onfocus="this.blur()">
                                                 <a href="?command=showAccountInfo&accountId=${accountId}">
                                                     ${backButton}
                                                 </a>
@@ -233,5 +237,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_adminAttachCard.js"></script>
 </body>
 </html>
