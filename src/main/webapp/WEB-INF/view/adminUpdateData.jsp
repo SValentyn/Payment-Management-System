@@ -46,8 +46,8 @@
         </div>
     </c:if>
 
-    <!-- Alert dataUpdateError -->
-    <c:if test="${dataUpdateError == true}">
+    <!-- Alert updateDataError -->
+    <c:if test="${updateDataError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertDataUpdateError"/>
@@ -74,13 +74,19 @@
                                     <fmt:message key="registration.name" var="name"/>
                                     <fmt:message key="registration.surname" var="surname"/>
                                     <fmt:message key="registration.email" var="email"/>
-                                    <fmt:message key="registration.password" var="password"/>
+                                    <fmt:message key="user.updateData.password" var="password"/>
                                     <fmt:message key="user.updateData.updateDataButton" var="updateDataButton"/>
                                     <fmt:message key="user.updateData.changePasswordButton" var="changePasswordButton"/>
+                                    <fmt:message key="registration.nameError" var="nameError"/>
+                                    <fmt:message key="registration.surnameError" var="surnameError"/>
+                                    <fmt:message key="registration.phoneError" var="phoneError"/>
+                                    <fmt:message key="registration.emailError" var="emailError"/>
+                                    <fmt:message key="registration.passwordError" var="passwordError"/>
                                     <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                     <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                     <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                                    <fmt:message key="user.changePassword.tooltipOldPassword" var="tooltipPassword"/>
+                                    <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
+                                    <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
                                         ${formHeader}
@@ -90,72 +96,92 @@
                                         <input type="hidden" name="command" value="profile">
 
                                         <!-- Name -->
-                                        <input id="name" name="name" class="form-control" style="height: 36px;"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                               pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
-                                               placeholder="${name}*"
-                                               value="${nameValue}"
-                                        >
-                                        <label for="name" class="default-label">
-                                            <c:if test="${nameError}">
-                                                <fmt:message key="registration.nameError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                        <div>
+                                            <input id="name" name="name" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                                   maxlength="24" placeholder="${name}*"
+                                                   value="${nameValue}"/>
+                                            <label for="name" class="default-label">
+                                                <span id="valid-msg-name" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-name" class="hide">${nameError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Surname -->
-                                        <input id="surname" name="surname" class="form-control" style="height: 36px;"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                               pattern="[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}" minlength="1" maxlength="24"
-                                               placeholder="${surname}*"
-                                               value="${surnameValue}">
-                                        <label for="surname" class="default-label">
-                                            <c:if test="${surnameError}">
-                                                <fmt:message key="registration.surnameError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                        <div style="margin-bottom: 8px;">
+                                            <input id="surname" name="surname" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                                   maxlength="24" placeholder="${surname}*"
+                                                   value="${surnameValue}"/>
+                                            <label for="surname" class="default-label">
+                                                <span id="valid-msg-surname" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-surname" class="hide">${surnameError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Phone -->
-                                        <input id="phone" name="phone" class="form-control" style="height: 36px;"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipPhone}"
-                                               maxlength="10" onkeypress="onlyNumbers();"
-                                               value="${phoneValue}">
-                                        <label for="phone" class="default-label">
-                                            <c:if test="${phoneError}">
-                                                <fmt:message key="registration.phoneError"/>
-                                            </c:if>
-                                        </label>&nbsp;
+                                        <div>
+                                            <input id="phone" name="phone" type="tel" class="form-control"
+                                                   style="padding-left: 94px;" data-toggle="tooltip"
+                                                   data-title="${tooltipPhone}"
+                                                   onkeypress="onlyNumbers()"
+                                                   value="${phoneValue}"/>
+                                            <label for="phone" class="default-label">
+                                                <span id="valid-msg-phone" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Email -->
-                                        <input id="email" name="email" class="form-control" style="height: 36px;"
-                                               type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="45"
-                                               placeholder="${email}"
-                                               value="${emailValue}">
-                                        <label for="email" class="default-label"></label>&nbsp;
+                                        <div>
+                                            <input id="email" name="email" class="form-control"
+                                                   type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
+                                                   maxlength="45"
+                                                   placeholder="${email}"
+                                                   value="${emailValue}"/>
+                                            <label for="email" class="default-label">
+                                                <span id="valid-msg-email" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-email" class="hide">${emailError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Password -->
-                                        <input id="password" name="password"
-                                               class="form-control" style="height: 36px;" type="password"
-                                               data-toggle="tooltip" data-title="${tooltipPassword}"
-                                               placeholder="${password}*"
-                                               value=${passwordValue}>
+                                        <div class="password-input">
+                                            <input id="password" name="password" type="password" class="form-control"
+                                                   data-toggle="tooltip" data-title="${tooltipPassword}"
+                                                   placeholder="${password}*"
+                                                   value="${passwordValue}"/>
+                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
+                                               onclick="return show_hide_password(this);"></a>
+                                        </div>
                                         <label for="password" class="default-label">
-                                            <c:if test="${passwordError}">
-                                                <fmt:message key="user.updateData.passwordError"/>
-                                            </c:if>
+                                            <span id="valid-msg-password" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-password" class="hide">${passwordError}</span>
+                                            <span id="passwordNotMatchError">
+                                                <c:if test="${passwordNotMatchError}">
+                                                    <fmt:message key="user.updateData.passwordError"/>
+
+                                                    <script>
+                                                        document.querySelector("#passwordNotMatchError").classList.remove("hide");
+                                                        document.querySelector("#valid-msg-password").classList.add("hide");
+                                                        document.querySelector("#error-msg-password").classList.add("hide");
+                                                    </script>
+                                                </c:if>
+                                            </span>
                                         </label>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 10px 0 10px 0">
-                                            <button type="submit" class="btn btn-primary signup" onfocus="this.blur()">
+                                        <div class="action" style="padding: 20px 0 10px 0">
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                                    onfocus="this.blur()">
                                                 ${updateDataButton}
                                             </button>
                                         </div>
 
                                         <!-- Change Password Button -->
                                         <div class="action">
-                                            <button type="button" class="btn btn-default signup"
-                                                    style=" padding: 0;" onfocus="this.blur()">
+                                            <button type="button" class="btn btn-default signup" style="padding: 0;"
+                                                    onfocus="this.blur()">
                                                 <a href="?command=updatePassword">
                                                     ${changePasswordButton}
                                                 </a>
@@ -172,5 +198,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_adminUpdateData.js"></script>
 </body>
 </html>
