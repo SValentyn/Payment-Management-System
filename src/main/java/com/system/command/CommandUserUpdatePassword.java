@@ -20,6 +20,7 @@ public class CommandUserUpdatePassword implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_PASSWORD);
 
         request.setAttribute("updated", false);
+        request.setAttribute("passwordNotMatchError", false);
         request.setAttribute("passwordUpdateError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
@@ -38,6 +39,7 @@ public class CommandUserUpdatePassword implements ICommand {
             // Check
             if (checkOldPassword(request, userId, oldPassword)) {
                 setRequestAttributes(request, newPassword, passwordConfirmation, oldPassword);
+                request.setAttribute("passwordNotMatchError", true);
                 return page;
             }
 
