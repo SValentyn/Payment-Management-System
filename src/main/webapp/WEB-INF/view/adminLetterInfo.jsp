@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
@@ -89,7 +90,7 @@
                                                     <input id="bio" name="bio" class="form-control"
                                                            type="text" style="margin-top: 0;"
                                                            disabled="disabled" onfocus="this.blur()"
-                                                           value="${bio}"/>
+                                                           value="${bioValue}"/>
                                                 </span>
                                             </div>
                                         </div>
@@ -100,10 +101,10 @@
                                                 ${user_phone}
                                             </label>
                                             <div>
-                                                <input id="phone" name="phone" class="form-control"
-                                                       type="text" style="margin-top: 0;"
-                                                       disabled="disabled" onfocus="this.blur()"
-                                                       value="${phone}"/>
+                                                <input id="phone" name="phone" class="form-control" type="text"
+                                                       style="padding-left: 94px;" disabled="disabled"
+                                                       onfocus="this.blur()"
+                                                       value="${phoneValue}"/>
                                             </div>
                                         </div>
 
@@ -113,9 +114,9 @@
                                                 ${user_email}
                                             </label>
                                             <div>
-                                                <input id="email" name="email" class="form-control"
-                                                       type="text" style="margin-top: 0;" onfocus="this.blur()"
-                                                       value="${email}"/>
+                                                <input id="email" name="email" class="form-control" type="text"
+                                                       style="margin-top: 0;" disabled="disabled" onfocus="this.blur()"
+                                                       value="${emailValue}"/>
                                             </div>
                                         </div>
 
@@ -126,13 +127,14 @@
                                             </label>
                                             <div>
                                                 <textarea id="description" name="description" class="form-control"
-                                                          onfocus="this.blur()">${description}</textarea>
+                                                          disabled="disabled" onfocus="this.blur()"
+                                                >${descriptionValue}</textarea>
                                             </div>
                                         </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
-                                            <button type="submit" class="btn btn-primary signup"
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
                                                     style="width: 248px" onfocus="this.blur()">
                                                 ${processedButton}
                                             </button>
@@ -158,5 +160,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script src="resources/js/validator_adminLetterInfo.js"></script>
 </body>
 </html>

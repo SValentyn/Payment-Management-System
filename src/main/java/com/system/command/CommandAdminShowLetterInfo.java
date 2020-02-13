@@ -47,10 +47,10 @@ public class CommandAdminShowLetterInfo implements ICommand {
             }
 
             // Set attributes
-            request.setAttribute("description", letter.getDescription());
-            request.setAttribute("bio", user.getName() + " " + user.getSurname());
-            request.setAttribute("phone", user.getPhone());
-            request.setAttribute("email", user.getEmail());
+            request.setAttribute("bioValue", user.getName() + " " + user.getSurname());
+            request.setAttribute("phoneValue", user.getPhone());
+            request.setAttribute("emailValue", user.getEmail());
+            request.setAttribute("descriptionValue", letter.getDescription());
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             LetterService.getInstance().updateLetterByLetterId(Integer.parseInt(letterId));
