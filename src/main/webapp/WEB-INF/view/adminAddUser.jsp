@@ -74,7 +74,7 @@
                                     <fmt:message key="registration.name" var="name"/>
                                     <fmt:message key="registration.surname" var="surname"/>
                                     <fmt:message key="registration.email" var="email"/>
-                                    <fmt:message key="admin.addUser.button" var="button"/>
+                                    <fmt:message key="admin.addUser.addUserButton" var="addUserButton"/>
                                     <fmt:message key="admin.addUser.backButton" var="backButton"/>
                                     <fmt:message key="admin.addUser.nameError" var="nameError"/>
                                     <fmt:message key="admin.addUser.surnameError" var="surnameError"/>
@@ -93,53 +93,61 @@
                                         <input type="hidden" name="command" value="addUser">
 
                                         <!-- Name -->
-                                        <input id="name" name="name" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                               maxlength="24" placeholder="${name}*"
-                                               value="${nameValue}"/>
-                                        <label for="name" class="default-label">
-                                            <span id="valid-msg-name" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-name" class="hide">${nameError}</span>
-                                        </label>
-
-                                        <!-- Surname -->
-                                        <input id="surname" name="surname" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                               maxlength="24" placeholder="${surname}*"
-                                               value="${surnameValue}"/>
-                                        <label for="surname" class="default-label">
-                                            <span id="valid-msg-surname" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-surname" class="hide">${surnameError}</span>
-                                        </label>
-
-                                        <!-- Phone -->
-                                        <div style="margin-top: 1px;">
-                                            <input id="phone" name="phone" type="tel" class="form-control"
-                                                   style="padding-left: 94px;"
-                                                   data-toggle="tooltip" data-title="${tooltipPhone}"
-                                                   onkeypress="onlyNumbers()"
-                                                   value="${phoneValue}"/>
-                                            <label for="phone" class="default-label">
-                                                <span id="valid-msg-phone" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                        <div>
+                                            <input id="name" name="name" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                                   maxlength="24" placeholder="${name}*"
+                                                   value="${nameValue}"/>
+                                            <label for="name" class="default-label">
+                                                <span id="valid-msg-name" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-name" class="hide">${nameError}</span>
                                             </label>
                                         </div>
 
+                                        <!-- Surname -->
+                                        <div style="margin-bottom: 8px;">
+                                            <input id="surname" name="surname" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                                   maxlength="24" placeholder="${surname}*"
+                                                   value="${surnameValue}"/>
+                                            <label for="surname" class="default-label">
+                                                <span id="valid-msg-surname" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-surname" class="hide">${surnameError}</span>
+                                            </label>
+                                        </div>
+
+                                        <!-- Phone -->
+                                        <div>
+                                            <div style="margin-top: 1px;">
+                                                <input id="phone" name="phone" type="tel" class="form-control"
+                                                       style="padding-left: 94px;"
+                                                       data-toggle="tooltip" data-title="${tooltipPhone}"
+                                                       onkeypress="onlyNumbers()"
+                                                       value="${phoneValue}"/>
+                                                <label for="phone" class="default-label">
+                                                    <span id="valid-msg-phone" class="hide">${correct} ✓</span>
+                                                    <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
                                         <!-- Email -->
-                                        <input id="email" name="email" class="form-control" style="margin-top: 7px;"
-                                               type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
-                                               maxlength="45" placeholder="${email}"
-                                               value="${emailValue}"/>
-                                        <label for="email" class="default-label">
-                                            <span id="valid-msg-email" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-email" class="hide">${emailError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="email" name="email" class="form-control" style="margin-top: 7px;"
+                                                   type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
+                                                   maxlength="45" placeholder="${email}"
+                                                   value="${emailValue}"/>
+                                            <label for="email" class="default-label">
+                                                <span id="valid-msg-email" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-email" class="hide">${emailError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0;">
                                             <button id="submit" type="submit" class="btn btn-primary signup"
                                                     style="padding: 0;" onfocus="this.blur()">
-                                                ${button}
+                                                ${addUserButton}
                                             </button>
                                         </div>
 
@@ -149,7 +157,8 @@
                                                 <div class="action" style="padding: 0 0 10px 0;">
                                                     <button type="button" class="btn btn-default signup"
                                                             onfocus="this.blur()">
-                                                        <a href="?command=attachAccount&userId=${userId}">
+                                                        <a href="?command=attachAccount&userId=${userId}"
+                                                           onfocus="this.blur()">
                                                                 ${backButton}
                                                         </a>
                                                     </button>
@@ -159,7 +168,8 @@
                                                 <div class="action" style="padding: 0 0 10px 0;">
                                                     <button type="button" class="btn btn-default signup"
                                                             disabled="disabled" onfocus="this.blur()">
-                                                        <a href="?command=attachAccount&userId=${userId}">
+                                                        <a href="?command=attachAccount&userId=${userId}"
+                                                           onfocus="this.blur()">
                                                                 ${backButton}
                                                         </a>
                                                     </button>

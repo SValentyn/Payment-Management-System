@@ -22,8 +22,8 @@ public class CommandUserCreateAccount implements ICommand {
         request.setAttribute("createAccountError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
-        List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
-        request.setAttribute("accounts", allAccounts);
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        request.setAttribute("accounts", accounts);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -35,7 +35,7 @@ public class CommandUserCreateAccount implements ICommand {
             String number = request.getParameter("number");
 
             // Check
-            for (Account account : allAccounts) {
+            for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
                     request.setAttribute("numberValue", number);
                     request.setAttribute("numberExistError", true);

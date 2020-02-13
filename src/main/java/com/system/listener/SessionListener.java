@@ -24,4 +24,5 @@ public class SessionListener implements HttpSessionListener {
         HttpSession session = sessionEvent.getSession();
         LOGGER.info("Session with id = " + session.getId() + " ended.");
     }
+
 }

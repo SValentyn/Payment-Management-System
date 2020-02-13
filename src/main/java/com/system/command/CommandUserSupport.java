@@ -36,16 +36,9 @@ public class CommandUserSupport implements ICommand {
             String typeQuestion = request.getParameter("typeQuestion");
             String description = request.getParameter("description");
 
-            // Check
-            if (checkTypeQuestion(request, typeQuestion)) {
-                setRequestAttributes(request, typeQuestion, description);
-                return page;
-            }
-
             // Data
             List<Letter> lettersByUserId = LetterService.getInstance().findLettersByUserId(user.getUserId());
             List<Letter> notProcessedLetters = new ArrayList<>();
-
             for (Letter letter : lettersByUserId) {
                 if (!letter.getIsProcessed()) {
                     notProcessedLetters.add(letter);
@@ -61,8 +54,8 @@ public class CommandUserSupport implements ICommand {
             // Create
             int status = LetterService.getInstance().addNewLetter(user.getUserId(), typeQuestion, description);
             if (status == 0) {
-                request.setAttribute("sendLetterError", true);
                 setRequestAttributes(request, typeQuestion, description);
+                request.setAttribute("sendLetterError", true);
             } else {
                 request.setAttribute("sended", true);
             }
@@ -71,13 +64,6 @@ public class CommandUserSupport implements ICommand {
         return page;
     }
 
-    private boolean checkTypeQuestion(HttpServletRequest request, String typeQuestion) {
-        if (typeQuestion == null || typeQuestion.isEmpty() || typeQuestion.equals("0")) {
-            request.setAttribute("typeQuestionError", true);
-            return true;
-        }
-        return false;
-    }
 
     private void setRequestAttributes(HttpServletRequest request, String typeQuestion, String description) {
         request.setAttribute("typeQuestion", typeQuestion);

@@ -55,6 +55,13 @@ public class UserService {
     }
 
     /**
+     * Finds user by login and encrypted password
+     */
+    public User loginUser(String login, String password) {
+        return userDao.findUserByLoginAndPassword(login, encryptor.encode(password));
+    }
+
+    /**
      * Checks if the user is registered in the system.
      * Registers the user in the system by the entered phone number and password.
      */
@@ -107,13 +114,6 @@ public class UserService {
         }
 
         return result.toString();
-    }
-
-    /**
-     * Finds user by login and encrypted password
-     */
-    public User loginUser(String login, String password) {
-        return userDao.findUserByLoginAndPassword(login, encryptor.encode(password));
     }
 
     /**

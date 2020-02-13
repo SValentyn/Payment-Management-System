@@ -42,7 +42,7 @@ public class CommandAdminAddUser implements ICommand {
                 }
             }
 
-            // Create
+            // Register User
             int status = UserService.getInstance().registerUser(name, surname, phone, email);
             if (status == 0) {
                 setRequestAttributes(request, name, surname, phone, email);

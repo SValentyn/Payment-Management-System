@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CommandAdminUpdatePersonalData implements ICommand {
 
-    PasswordEncryptor encryptor = new PasswordEncryptor();
+    private PasswordEncryptor encryptor = new PasswordEncryptor();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -27,10 +27,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         User user = (User) request.getSession().getAttribute("currentUser");
 
         // Set Attributes
-        request.setAttribute("nameValue", user.getName());
-        request.setAttribute("surnameValue", user.getSurname());
-        request.setAttribute("phoneValue", user.getPhone());
-        request.setAttribute("emailValue", user.getEmail());
+        setRequestAttributes(request, user);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -71,8 +68,8 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             user.setPassword(encryptor.encode(password));
 
             // Update
-            int status = UserService.getInstance().updateUser(user);
             setRequestAttributes(request, name, surname, phone, email, password);
+            int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 request.setAttribute("updateDataError", true);
             } else {
@@ -90,6 +87,13 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             return true;
         }
         return false;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, User user) {
+        request.setAttribute("nameValue", user.getName());
+        request.setAttribute("surnameValue", user.getSurname());
+        request.setAttribute("phoneValue", user.getPhone());
+        request.setAttribute("emailValue", user.getEmail());
     }
 
     private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password) {

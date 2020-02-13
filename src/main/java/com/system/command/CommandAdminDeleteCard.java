@@ -16,8 +16,8 @@ public class CommandAdminDeleteCard implements ICommand {
 
         request.setAttribute("deleteCardError", false);
 
-        String cardId = request.getParameter("cardId");
         String userId = (String) request.getSession().getAttribute("userId");
+        String cardId = request.getParameter("cardId");
         Integer accountId = CreditCardService.getInstance().findCardByCardId(Integer.valueOf(cardId)).getAccountId();
 
         if (userId != null) {

@@ -4,6 +4,18 @@ let repeat = document.querySelector("#repeat");
 let submitBtn = document.querySelector("#submit");
 
 
+/* It starts immediately after the page loads */
+window.addEventListener("load", function () {
+    repeat.click();
+
+    if (number.value.trim() === "") {
+        notValidNumber();
+    } else {
+        validNumber();
+    }
+});
+
+
 /* Generate random numeric string */
 function randomAccountNumber() {
     let array = '0123456789';
@@ -21,21 +33,13 @@ repeat.addEventListener('click', function (event) {
     number.value = randomAccountNumber();
 });
 
-window.addEventListener("load", function () {
-    repeat.click();
 
-    if (number.value.trim() === "") {
-        notValidNumber();
-    } else {
-        validNumber();
-    }
-});
-
-/* Checks accountNumber */
+/* Checks Account Number */
 let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgNumber = document.querySelector("#error-msg-accountNumber");
 
 let resetNumber = function () {
+    document.querySelector("#numberExistError").classList.add("hide");
     validMsgNumber.classList.add("hide");
     errorMsgNumber.classList.add("hide");
     number.classList.remove("valid-input");

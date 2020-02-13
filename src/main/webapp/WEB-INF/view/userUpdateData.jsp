@@ -96,60 +96,69 @@
                                         <input type="hidden" name="command" value="profile">
 
                                         <!-- Name -->
-                                        <input id="name" name="name" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                               maxlength="24" placeholder="${name}*"
-                                               value="${nameValue}"/>
-                                        <label for="name" class="default-label">
-                                            <span id="valid-msg-name" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-name" class="hide">${nameError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="name" name="name" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                                   maxlength="24" placeholder="${name}*"
+                                                   value="${nameValue}"/>
+                                            <label for="name" class="default-label">
+                                                <span id="valid-msg-name" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-name" class="hide">${nameError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Surname -->
-                                        <input id="surname" name="surname" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                               maxlength="24" placeholder="${surname}*"
-                                               value="${surnameValue}"/>
-                                        <label for="surname" class="default-label">
-                                            <span id="valid-msg-surname" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-surname" class="hide">${surnameError}</span>
-                                        </label>
+                                        <div style="margin-bottom: 8px;">
+                                            <input id="surname" name="surname" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                                   maxlength="24" placeholder="${surname}*"
+                                                   value="${surnameValue}"/>
+                                            <label for="surname" class="default-label">
+                                                <span id="valid-msg-surname" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-surname" class="hide">${surnameError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Phone -->
-                                        <input id="phone" name="phone" type="tel" class="form-control"
-                                               style="padding-left: 94px;" data-toggle="tooltip"
-                                               data-title="${tooltipPhone}"
-                                               onkeypress="onlyNumbers()"
-                                               value="${phoneValue}"/>
-                                        <label for="phone" class="default-label">
-                                            <span id="valid-msg-phone" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-phone" class="hide">${phoneError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="phone" name="phone" type="tel" class="form-control"
+                                                   style="padding-left: 94px;" data-toggle="tooltip"
+                                                   data-title="${tooltipPhone}" onkeypress="onlyNumbers()"
+                                                   value="${phoneValue}"/>
+                                            <label for="phone" class="default-label">
+                                                <span id="valid-msg-phone" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Email -->
-                                        <input id="email" name="email" class="form-control"
-                                               type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
-                                               maxlength="45"
-                                               placeholder="${email}"
-                                               value="${emailValue}"/>
-                                        <label for="email" class="default-label">
-                                            <span id="valid-msg-email" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-email" class="hide">${emailError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="email" name="email" class="form-control"
+                                                   type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
+                                                   maxlength="45" placeholder="${email}"
+                                                   value="${emailValue}"/>
+                                            <label for="email" class="default-label">
+                                                <span id="valid-msg-email" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-email" class="hide">${emailError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Password -->
-                                        <div class="password-input">
-                                            <input id="password" name="password" type="password" class="form-control"
-                                                   data-toggle="tooltip" data-title="${tooltipPassword}"
-                                                   placeholder="${password}*"
-                                                   value="${passwordValue}"/>
-                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
-                                               onclick="return show_hide_password(this);"></a>
-                                        </div>
-                                        <label for="password" class="default-label">
-                                            <span id="valid-msg-password" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-password" class="hide">${passwordError}</span>
-                                            <span id="passwordNotMatchError">
+                                        <div>
+                                            <div class="password-input">
+                                                <input id="password" name="password" type="password"
+                                                       class="form-control"
+                                                       data-toggle="tooltip" data-title="${tooltipPassword}"
+                                                       placeholder="${password}*"
+                                                       value="${passwordValue}"/>
+                                                <a href="#" class="password-control" style="top: 9px;"
+                                                   onfocus="this.blur()"
+                                                   onclick="return show_hide_password(this);"></a>
+                                            </div>
+                                            <label for="password" class="default-label">
+                                                <span id="valid-msg-password" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-password" class="hide">${passwordError}</span>
+                                                <span id="passwordNotMatchError">
                                                 <c:if test="${passwordNotMatchError}">
                                                     <fmt:message key="user.updateData.passwordError"/>
 
@@ -160,7 +169,8 @@
                                                     </script>
                                                 </c:if>
                                             </span>
-                                        </label>
+                                            </label>
+                                        </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">

@@ -109,26 +109,30 @@
                                         </div>
 
                                         <!-- Number -->
-                                        <input id="number" name="number" class="form-control" type="text"
-                                               data-toggle="tooltip" data-title="${tooltipCardNumber}"
-                                               maxlength="16" onkeypress="onlyNumbers();"
-                                               placeholder="${number}*"
-                                               value="${numberValue}"/>
-                                        <label for="number" class="default-label">
-                                            <span id="valid-msg-cardNumber" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-cardNumber" class="hide">${numberError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="number" name="number" class="form-control" type="text"
+                                                   data-toggle="tooltip" data-title="${tooltipCardNumber}"
+                                                   maxlength="16" onkeypress="onlyNumbers();"
+                                                   placeholder="${number}*"
+                                                   value="${numberValue}"/>
+                                            <label for="number" class="default-label">
+                                                <span id="valid-msg-cardNumber" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-cardNumber" class="hide">${numberError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- CVV -->
-                                        <input id="CVV" name="CVV" class="form-control" type="text"
-                                               data-toggle="tooltip" data-title="${tooltipCVV}"
-                                               maxlength="3" onkeypress="onlyNumbers()"
-                                               placeholder="${cvv}*"
-                                               value="${cvvValue}"/>
-                                        <label for="CVV" class="default-label">
-                                            <span id="valid-msg-cvv" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-cvv" class="hide">${cvvError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="CVV" name="CVV" class="form-control" type="text"
+                                                   data-toggle="tooltip" data-title="${tooltipCVV}"
+                                                   maxlength="3" onkeypress="onlyNumbers()"
+                                                   placeholder="${cvv}*"
+                                                   value="${cvvValue}"/>
+                                            <label for="CVV" class="default-label">
+                                                <span id="valid-msg-cvv" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-cvv" class="hide">${cvvError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Month and Year -->
                                         <div class="form-group" id="expiration-date"
@@ -200,11 +204,15 @@
                                         <label for="expiration-date" class="default-label">
                                             <span id="valid-msg-validity" class="hide">${correct} ✓</span>
                                             <span id="error-msg-validity" class="hide">${validityError}</span>
-                                        </label>
-                                        <label for="expiration-date" class="default-label" style="padding-left: 0;">
-                                            <span>
+                                            <span id="validityExpiredError">
                                                 <c:if test="${validityExpiredError}">
                                                     <fmt:message key="user.attachCard.validityExpiredError"/>
+
+                                                    <script>
+                                                        document.querySelector("#validityExpiredError").classList.remove("hide");
+                                                        document.querySelector("#valid-msg-validity").classList.add("hide");
+                                                        document.querySelector("#error-msg-validity").classList.add("hide");
+                                                    </script>
                                                 </c:if>
                                             </span>
                                         </label>

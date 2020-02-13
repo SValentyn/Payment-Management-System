@@ -33,7 +33,7 @@
                                                             </p>
                                                         </div>
                                                         <div style="float: right;">
-                                                            <img src="resources/images/exit-icon.png"
+                                                            <img src="resources/images/logout.png"
                                                                  alt="<fmt:message key="header.logout"/>"
                                                                  title="<fmt:message key="header.logout"/>"
                                                                  class="img-logout">

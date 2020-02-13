@@ -312,6 +312,7 @@ var matching = function () {
 
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
+
     if (name.value.trim() === "" || name.classList.contains("error-input")) {
         event.preventDefault();
         notValidName();
@@ -347,4 +348,5 @@ submitBtn.addEventListener('click', function (event) {
         notValidPasswordConfirmation();
         return false;
     }
+
 });

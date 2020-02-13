@@ -95,41 +95,44 @@
                                         <input type="hidden" name="command" value="support">
 
                                         <!-- Type Question -->
-                                        <select id="typeQuestion" name="typeQuestion" class="form-control"
-                                                style="height: 40px; font-size: 15px;">
-                                            <c:choose>
-                                                <c:when test="${typeQuestion == null}">
-                                                    <option value="${0}">
-                                                            ${selectType}
-                                                    </option>
-                                                </c:when>
-                                                <c:when test="${typeQuestion == 0}">
-                                                    <option value="${0}">
-                                                            ${selectType}
-                                                    </option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="${typeQuestion}">
-                                                            ${typeQuestion}
-                                                    </option>
-                                                </c:otherwise>
-                                            </c:choose>
+                                        <div>
+                                            <select id="typeQuestion" name="typeQuestion" class="form-control"
+                                                    style="height: 40px; font-size: 15px;">
+                                                <c:choose>
+                                                    <c:when test="${typeQuestion == null}">
+                                                        <option value="${0}">
+                                                                ${selectType}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:when test="${typeQuestion == 0}">
+                                                        <option value="${0}">
+                                                                ${selectType}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${typeQuestion}">
+                                                                ${typeQuestion}
+                                                        </option>
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                                            <option value="${option_1}">${option_1}</option>
-                                            <option value="${option_2}">${option_2}</option>
-                                            <option value="${option_3}">${option_3}</option>
-                                            <option value="${option_4}">${option_4}</option>
-                                            <option value="${option_5}">${option_5}</option>
-                                            <option value="${option_6}">${option_6}</option>
-                                            <option value="${option_7}">${option_7}</option>
-                                            <option value="${option_8}">${option_8}</option>
-                                            <option value="${option_9}">${option_9}</option>
-                                            <option value="${option_10}">${option_10}</option>
-                                        </select>
-                                        <label for="typeQuestion" class="default-label">
-                                            <span id="valid-msg-typeQuestion" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-typeQuestion" class="hide">${typeQuestionError}</span>
-                                        </label>
+                                                <option value="${option_1}">${option_1}</option>
+                                                <option value="${option_2}">${option_2}</option>
+                                                <option value="${option_3}">${option_3}</option>
+                                                <option value="${option_4}">${option_4}</option>
+                                                <option value="${option_5}">${option_5}</option>
+                                                <option value="${option_6}">${option_6}</option>
+                                                <option value="${option_7}">${option_7}</option>
+                                                <option value="${option_8}">${option_8}</option>
+                                                <option value="${option_9}">${option_9}</option>
+                                                <option value="${option_10}">${option_10}</option>
+                                            </select>
+                                            <label for="typeQuestion" class="default-label">
+                                                <span id="valid-msg-typeQuestion" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-typeQuestion"
+                                                      class="hide">${typeQuestionError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Description -->
                                         <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">

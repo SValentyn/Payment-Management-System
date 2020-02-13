@@ -93,55 +93,61 @@
                                         <input type="hidden" name="command" value="attachCard">
 
                                         <!-- AccountId -->
-                                        <select id="accountId" name="accountId" class="form-control"
-                                                style="height: 40px; font-size: 18px;">
-                                            <c:choose>
-                                                <c:when test="${accountId == null}">
-                                                    <option value="${0}">
-                                                            ${selectAccount}
-                                                    </option>
-                                                </c:when>
-                                                <c:when test="${accountId == 0}">
-                                                    <option value="${0}">
-                                                            ${selectAccount}
-                                                    </option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="${accountId}">
-                                                            ${numberByAccountIdValue}
-                                                    </option>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <c:forEach items="${accounts}" var="account">
-                                                <option value="${account.accountId}">${account.number}</option>
-                                            </c:forEach>
-                                        </select>
-                                        <label for="accountId" class="default-label">
-                                            <span id="valid-msg-accountId" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-accountId" class="hide">${accountIdError}</span>
-                                        </label>
+                                        <div>
+                                            <select id="accountId" name="accountId" class="form-control"
+                                                    style="height: 40px; font-size: 18px;">
+                                                <c:choose>
+                                                    <c:when test="${accountId == null}">
+                                                        <option value="${0}">
+                                                                ${selectAccount}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:when test="${accountId == 0}">
+                                                        <option value="${0}">
+                                                                ${selectAccount}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${accountId}">
+                                                                ${numberByAccountIdValue}
+                                                        </option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:forEach items="${accounts}" var="account">
+                                                    <option value="${account.accountId}">${account.number}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <label for="accountId" class="default-label">
+                                                <span id="valid-msg-accountId" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-accountId" class="hide">${accountIdError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Number -->
-                                        <input id="number" name="number" class="form-control" type="text"
-                                               data-toggle="tooltip" data-title="${tooltipCardNumber}"
-                                               maxlength="16" onkeypress="onlyNumbers();"
-                                               placeholder="${number}*"
-                                               value="${numberValue}"/>
-                                        <label for="number" class="default-label">
-                                            <span id="valid-msg-cardNumber" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-cardNumber" class="hide">${numberError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="number" name="number" class="form-control" type="text"
+                                                   data-toggle="tooltip" data-title="${tooltipCardNumber}"
+                                                   maxlength="16" onkeypress="onlyNumbers();"
+                                                   placeholder="${number}*"
+                                                   value="${numberValue}"/>
+                                            <label for="number" class="default-label">
+                                                <span id="valid-msg-cardNumber" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-cardNumber" class="hide">${numberError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- CVV -->
-                                        <input id="CVV" name="CVV" class="form-control" type="text"
-                                               data-toggle="tooltip" data-title="${tooltipCVV}"
-                                               maxlength="3" onkeypress="onlyNumbers()"
-                                               placeholder="${cvv}*"
-                                               value="${cvvValue}"/>
-                                        <label for="CVV" class="default-label">
-                                            <span id="valid-msg-cvv" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-cvv" class="hide">${cvvError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="CVV" name="CVV" class="form-control" type="text"
+                                                   data-toggle="tooltip" data-title="${tooltipCVV}"
+                                                   maxlength="3" onkeypress="onlyNumbers()"
+                                                   placeholder="${cvv}*"
+                                                   value="${cvvValue}"/>
+                                            <label for="CVV" class="default-label">
+                                                <span id="valid-msg-cvv" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-cvv" class="hide">${cvvError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Month and Year -->
                                         <div class="form-group" id="expiration-date"
@@ -213,17 +219,21 @@
                                         <label for="expiration-date" class="default-label">
                                             <span id="valid-msg-validity" class="hide">${correct} ✓</span>
                                             <span id="error-msg-validity" class="hide">${validityError}</span>
-                                        </label>
-                                        <label for="expiration-date" class="default-label" style="padding-left: 0;">
-                                            <span>
+                                            <span id="validityExpiredError">
                                                 <c:if test="${validityExpiredError}">
                                                     <fmt:message key="user.attachCard.validityExpiredError"/>
+
+                                                    <script>
+                                                        document.querySelector("#validityExpiredError").classList.remove("hide");
+                                                        document.querySelector("#valid-msg-validity").classList.add("hide");
+                                                        document.querySelector("#error-msg-validity").classList.add("hide");
+                                                    </script>
                                                 </c:if>
                                             </span>
                                         </label>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 16px 0 5px 0">
+                                        <div class="action" style="padding: 20px 0 5px 0">
                                             <button id="submit" type="submit" class="btn btn-primary signup"
                                                     onfocus="this.blur()">
                                                 ${attachButton}

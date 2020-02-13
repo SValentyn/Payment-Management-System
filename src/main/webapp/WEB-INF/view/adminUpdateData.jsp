@@ -146,29 +146,33 @@
                                         </div>
 
                                         <!-- Password -->
-                                        <div class="password-input">
-                                            <input id="password" name="password" type="password" class="form-control"
-                                                   data-toggle="tooltip" data-title="${tooltipPassword}"
-                                                   placeholder="${password}*"
-                                                   value="${passwordValue}"/>
-                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
-                                               onclick="return show_hide_password(this);"></a>
-                                        </div>
-                                        <label for="password" class="default-label">
-                                            <span id="valid-msg-password" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-password" class="hide">${passwordError}</span>
-                                            <span id="passwordNotMatchError">
-                                                <c:if test="${passwordNotMatchError}">
-                                                    <fmt:message key="user.updateData.passwordError"/>
+                                        <div>
+                                            <div class="password-input">
+                                                <input id="password" name="password" class="form-control"
+                                                       type="password"
+                                                       data-toggle="tooltip" data-title="${tooltipPassword}"
+                                                       placeholder="${password}*"
+                                                       value="${passwordValue}"/>
+                                                <a href="#" class="password-control" style="top: 9px;"
+                                                   onfocus="this.blur()"
+                                                   onclick="return show_hide_password(this);"></a>
+                                            </div>
+                                            <label for="password" class="default-label">
+                                                <span id="valid-msg-password" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-password" class="hide">${passwordError}</span>
+                                                <span id="passwordNotMatchError">
+                                                    <c:if test="${passwordNotMatchError}">
+                                                        <fmt:message key="user.updateData.passwordError"/>
 
-                                                    <script>
-                                                        document.querySelector("#passwordNotMatchError").classList.remove("hide");
-                                                        document.querySelector("#valid-msg-password").classList.add("hide");
-                                                        document.querySelector("#error-msg-password").classList.add("hide");
-                                                    </script>
-                                                </c:if>
-                                            </span>
-                                        </label>
+                                                        <script>
+                                                            document.querySelector("#passwordNotMatchError").classList.remove("hide");
+                                                            document.querySelector("#valid-msg-password").classList.add("hide");
+                                                            document.querySelector("#error-msg-password").classList.add("hide");
+                                                        </script>
+                                                    </c:if>
+                                                </span>
+                                            </label>
+                                        </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
@@ -182,7 +186,7 @@
                                         <div class="action">
                                             <button type="button" class="btn btn-default signup" style="padding: 0;"
                                                     onfocus="this.blur()">
-                                                <a href="?command=updatePassword">
+                                                <a href="?command=updatePassword" onfocus="this.blur()">
                                                     ${changePasswordButton}
                                                 </a>
                                             </button>

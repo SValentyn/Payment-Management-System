@@ -20,6 +20,7 @@
 </head>
 <body>
 <div class="main">
+
     <!-- Header -->
     <div class="header header-without-margin">
         <div class="container">
@@ -89,15 +90,17 @@
                                     <input type="hidden" name="command" value="recovery">
 
                                     <!-- Phone -->
-                                    <input id="phone" name="phone" class="form-control"
-                                           style="padding-left: 94px; margin-bottom: 18px;"
-                                           type="text" onkeypress="onlyNumbers();"
-                                           data-toggle="tooltip" data-title="${tooltipPhone}"
-                                           value="${phoneValue}">
-                                    <label for="phone" class="default-label">
-                                        <span id="valid-msg-phone" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-phone" class="hide">${phoneError}</span>
-                                    </label>
+                                    <div>
+                                        <input id="phone" name="phone" class="form-control"
+                                               style="padding-left: 94px; margin-bottom: 18px;"
+                                               type="text" onkeypress="onlyNumbers();"
+                                               data-toggle="tooltip" data-title="${tooltipPhone}"
+                                               value="${phoneValue}">
+                                        <label for="phone" class="default-label">
+                                            <span id="valid-msg-phone" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-phone" class="hide">${phoneError}</span>
+                                        </label>
+                                    </div>
 
                                     <!-- Submit -->
                                     <div class="action" style="padding: 25px 0 10px 0">

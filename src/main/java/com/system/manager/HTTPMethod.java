@@ -17,4 +17,5 @@ public enum HTTPMethod {
     public String getMethod() {
         return method;
     }
+
 }

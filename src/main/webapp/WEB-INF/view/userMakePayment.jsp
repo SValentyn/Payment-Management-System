@@ -123,64 +123,71 @@
                                         ${createNewPayment}
                                     </h4>
 
-                                    <form action="" role="form" method="POST">
+                                    <form action="/" role="form" method="POST">
                                         <input type="hidden" name="command" value="makePayment">
 
                                         <!-- AccountId -->
-                                        <select id="accountId" name="accountId" class="form-control"
-                                                style="text-align: center; height: 40px; font-size: 18px;">
-                                            <c:choose>
-                                                <c:when test="${accountId == null}">
-                                                    <option value="${0}">
-                                                            ${from}
-                                                    </option>
-                                                </c:when>
-                                                <c:when test="${accountId == 0}">
-                                                    <option value="${0}">
-                                                            ${from}
-                                                    </option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="${accountId}">
-                                                            ${numberByAccountIdValue}
-                                                    </option>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <c:forEach items="${accounts}" var="account">
-                                                <option value="${account.accountId}">${account.number}</option>
-                                            </c:forEach>
-                                        </select>
-                                        <label for="accountId" class="default-label">
-                                            <span id="valid-msg-accountId" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-accountId" class="hide">${accountIdError}</span>
-                                        </label>
+                                        <div>
+                                            <select id="accountId" name="accountId" class="form-control"
+                                                    style="text-align: center; height: 40px; font-size: 18px;">
+                                                <c:choose>
+                                                    <c:when test="${accountId == null}">
+                                                        <option value="${0}">
+                                                                ${from}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:when test="${accountId == 0}">
+                                                        <option value="${0}">
+                                                                ${from}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${accountId}">
+                                                                ${numberByAccountIdValue}
+                                                        </option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:forEach items="${accounts}" var="account">
+                                                    <option value="${account.accountId}">${account.number}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <label for="accountId" class="default-label">
+                                                <span id="valid-msg-accountId" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-accountId" class="hide">${accountIdError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Account Number -->
-                                        <div style="width: 100%; margin-top: 10px;">
-                                            <label for="number" class="for-form-label">
-                                                ${toCreditCard}
+                                        <div>
+                                            <div style="width: 100%; margin-top: 8px;">
+                                                <label for="number" class="for-form-label">
+                                                    ${toCreditCard}
+                                                </label>
+                                                <input id="number" name="number" class="form-control"
+                                                       style="margin-top: 0;"
+                                                       type="text" data-toggle="tooltip"
+                                                       data-title="${tooltipCardNumber}"
+                                                       maxlength="20" onkeypress="onlyNumbers();"
+                                                       placeholder="${number}*"
+                                                       value="${numberValue}"/>
+                                            </div>
+                                            <label for="number" class="default-label">
+                                                <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-accountNumber" class="hide">${numberError}</span>
                                             </label>
-                                            <input id="number" name="number" class="form-control" style="margin-top: 0;"
-                                                   type="text" data-toggle="tooltip" data-title="${tooltipCardNumber}"
-                                                   maxlength="20" onkeypress="onlyNumbers();"
-                                                   placeholder="${number}*"
-                                                   value="${numberValue}"/>
                                         </div>
-                                        <label for="number" class="default-label">
-                                            <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-accountNumber" class="hide">${numberError}</span>
-                                        </label>
 
                                         <!-- Amount Funds -->
-                                        <input id="amount" name="amount" class="form-control"
-                                               type="text" data-toggle="tooltip" data-title="${tooltipAmountFunds}"
-                                               onkeypress="onlyNumbers();"
-                                               placeholder="${amount}*"
-                                               value="${amountValue}"/>
-                                        <label for="amount" class="default-label">
-                                            <span id="valid-msg-amount" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-amount" class="hide">${amountError}</span>
-                                        </label>
+                                        <div>
+                                            <input id="amount" name="amount" class="form-control"
+                                                   type="text" data-toggle="tooltip" data-title="${tooltipAmountFunds}"
+                                                   onkeypress="onlyNumbers();" placeholder="${amount}*"
+                                                   value="${amountValue}"/>
+                                            <label for="amount" class="default-label">
+                                                <span id="valid-msg-amount" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-amount" class="hide">${amountError}</span>
+                                            </label>
+                                        </div>
 
                                         <!-- Appointment -->
                                         <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">

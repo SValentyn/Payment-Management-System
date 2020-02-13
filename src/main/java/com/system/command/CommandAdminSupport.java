@@ -19,10 +19,10 @@ public class CommandAdminSupport implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
 
-        List<Letter> allLetters = LetterService.getInstance().findAllLetters();
+        List<Letter> letters = LetterService.getInstance().findAllLetters();
         List<Letter> notProcessedLetters = new ArrayList<>();
 
-        for (Letter letter : allLetters) {
+        for (Letter letter : letters) {
             if (!letter.getIsProcessed()) {
                 notProcessedLetters.add(letter);
             }
@@ -33,8 +33,8 @@ public class CommandAdminSupport implements ICommand {
             return page;
         }
 
-        request.setAttribute("showLetters", true);
         request.setAttribute("letters", notProcessedLetters);
+        request.setAttribute("showLetters", true);
 
         return page;
     }

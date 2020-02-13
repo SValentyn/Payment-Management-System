@@ -19,13 +19,13 @@ import java.sql.SQLException;
 @WebServlet("/")
 public class Controller extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(Controller.class);
-
     private static final long serialVersionUID = 1L;
+
+    private static final Logger LOGGER = Logger.getLogger(Controller.class);
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("=================== GET processing");
+        LOGGER.info("===> GET processing");
         try {
             processing(request, response);
         } catch (SQLException e) {
@@ -35,7 +35,27 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("=================== POST processing");
+        LOGGER.info("===> POST processing");
+        try {
+            processing(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info("===> PUT processing");
+        try {
+            processing(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void doDelete(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info("===> DELETE processing");
         try {
             processing(request, response);
         } catch (SQLException e) {
@@ -45,8 +65,8 @@ public class Controller extends HttpServlet {
 
     private void processing(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException, SQLException {
         ICommand command = ControllerHelper.getInstance().getCommand(request);
-        String path = command.execute(request, response);
-        request.getRequestDispatcher(path).forward(request, response);
+        String pathRedirect = command.execute(request, response);
+        request.getRequestDispatcher(pathRedirect).forward(request, response);
     }
 
 }

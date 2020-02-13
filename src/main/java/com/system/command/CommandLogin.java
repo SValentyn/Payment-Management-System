@@ -22,10 +22,7 @@ public class CommandLogin implements ICommand {
 
         // Authentication
         User user = UserService.getInstance().loginUser(login, password);
-        if (user == null) {
-            setRequestAttributes(request, login, password);
-            request.setAttribute("loginError", true);
-        } else {
+        if (user != null) {
             request.getSession().setAttribute("currentUser", user);
 
             String role = UserService.getInstance().getRole(user);
@@ -34,6 +31,9 @@ public class CommandLogin implements ICommand {
             } else if (role.equals(Role.ROLE_CLIENT)) {
                 page = ResourceManager.getInstance().getProperty(ResourceManager.USER);
             }
+        } else {
+            setRequestAttributes(request, login, password);
+            request.setAttribute("loginError", true);
         }
 
         return page;

@@ -11,8 +11,6 @@ import java.util.HashMap;
 
 public class ControllerHelper {
 
-    private static ControllerHelper instance = null;
-
     /**
      * Users roles
      */
@@ -24,6 +22,7 @@ public class ControllerHelper {
      * Request parameter name for command
      */
     private static final String COMMAND = "command";
+    private static ControllerHelper instance = null;
 
     /**
      * Action commands for user types
@@ -39,6 +38,23 @@ public class ControllerHelper {
         commands.put("login", new CommandLogin());
         commands.put("registration", new CommandRegistration());
         commands.put("recovery", new CommandRecoveryPassword());
+
+        // User commands
+        userCommands.put("logout", new CommandLogout());
+        userCommands.put("profile", new CommandUserUpdatePersonalData());
+        userCommands.put("updatePassword", new CommandUserUpdatePassword());
+        userCommands.put("showAccounts", new CommandUserShowAccounts());
+        userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
+        userCommands.put("createAccount", new CommandUserCreateAccount());
+        userCommands.put("attachCard", new CommandUserAttachCard());
+        userCommands.put("deleteCard", new CommandUserDeleteCard());
+        userCommands.put("blockAccount", new CommandUserBlockAccount());
+        userCommands.put("blockCard", new CommandUserBlockCard());
+        userCommands.put("unblockAccount", new CommandUserUnblockAccount());
+        userCommands.put("unblockCard", new CommandUserUnblockCard());
+        userCommands.put("makePayment", new CommandUserMakePayment());
+        userCommands.put("repeatPayment", new CommandUserRepeatPayment());
+        userCommands.put("support", new CommandUserSupport());
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
@@ -60,23 +76,6 @@ public class ControllerHelper {
         adminCommands.put("deleteUser", new CommandAdminDeleteUser());
         adminCommands.put("support", new CommandAdminSupport());
         adminCommands.put("showLetterInfo", new CommandAdminShowLetterInfo());
-
-        // User commands
-        userCommands.put("logout", new CommandLogout());
-        userCommands.put("profile", new CommandUserUpdatePersonalData());
-        userCommands.put("updatePassword", new CommandUserUpdatePassword());
-        userCommands.put("showAccounts", new CommandUserShowAccounts());
-        userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
-        userCommands.put("blockAccount", new CommandUserBlockAccount());
-        userCommands.put("blockCard", new CommandUserBlockCard());
-        userCommands.put("unblockAccount", new CommandUserUnblockAccount());
-        userCommands.put("unblockCard", new CommandUserUnblockCard());
-        userCommands.put("deleteCard", new CommandUserDeleteCard());
-        userCommands.put("createAccount", new CommandUserCreateAccount());
-        userCommands.put("makePayment", new CommandUserMakePayment());
-        userCommands.put("repeatPayment", new CommandUserRepeatPayment());
-        userCommands.put("attachCard", new CommandUserAttachCard());
-        userCommands.put("support", new CommandUserSupport());
     }
 
     public static ControllerHelper getInstance() {

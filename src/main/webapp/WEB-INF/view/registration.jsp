@@ -20,6 +20,7 @@
 </head>
 <body>
 <div class="main">
+
     <!-- Header -->
     <div class="header header-without-margin">
         <div class="container">
@@ -118,27 +119,31 @@
                                     <input type="hidden" name="command" value="registration">
 
                                     <!-- Name -->
-                                    <input id="name" name="name" class="form-control" style="height: 36px;"
-                                           type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                           maxlength="24" placeholder="${name}*"
-                                           value="${nameValue}"/>
-                                    <label for="name" class="default-label">
-                                        <span id="valid-msg-name" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-name" class="hide">${nameError}</span>
-                                    </label>
+                                    <div>
+                                        <input id="name" name="name" class="form-control" style="height: 36px;"
+                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                               maxlength="24" placeholder="${name}*"
+                                               value="${nameValue}"/>
+                                        <label for="name" class="default-label">
+                                            <span id="valid-msg-name" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-name" class="hide">${nameError}</span>
+                                        </label>
+                                    </div>
 
                                     <!-- Surname -->
-                                    <input id="surname" name="surname" class="form-control" style="height: 36px;"
-                                           type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
-                                           maxlength="24" placeholder="${surname}*"
-                                           value="${surnameValue}"/>
-                                    <label for="surname" class="default-label">
-                                        <span id="valid-msg-surname" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-surname" class="hide">${surnameError}</span>
-                                    </label>
+                                    <div>
+                                        <input id="surname" name="surname" class="form-control" style="height: 36px;"
+                                               type="text" data-toggle="tooltip" data-title="${tooltipOnlyLetters}"
+                                               maxlength="24" placeholder="${surname}*"
+                                               value="${surnameValue}"/>
+                                        <label for="surname" class="default-label">
+                                            <span id="valid-msg-surname" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-surname" class="hide">${surnameError}</span>
+                                        </label>
+                                    </div>
 
                                     <!-- Phone -->
-                                    <div style="margin-top: 1px;">
+                                    <div style="margin-top: 8px;">
                                         <input id="phone" name="phone" type="tel" class="form-control"
                                                style="height: 36px; padding-left: 94px;"
                                                data-toggle="tooltip" data-title="${tooltipPhone}"
@@ -151,46 +156,52 @@
                                     </div>
 
                                     <!-- Email -->
-                                    <input id="email" name="email" class="form-control" style="height: 36px;"
-                                           type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
-                                           maxlength="45" placeholder="${email}"
-                                           value="${emailValue}"/>
-                                    <label for="email" class="default-label">
-                                        <span id="valid-msg-email" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-email" class="hide">${emailError}</span>
-                                    </label>
+                                    <div>
+                                        <input id="email" name="email" class="form-control" style="height: 36px;"
+                                               type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
+                                               maxlength="45" placeholder="${email}"
+                                               value="${emailValue}"/>
+                                        <label for="email" class="default-label">
+                                            <span id="valid-msg-email" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-email" class="hide">${emailError}</span>
+                                        </label>
+                                    </div>
 
                                     <!-- Password -->
-                                    <div class="password-input">
-                                        <input id="password" name="password" type="password" class="form-control"
-                                               style="height: 36px;"
-                                               data-toggle="tooltip" data-title="${tooltipPassword}"
-                                               placeholder="${password}*"
-                                               value="${passwordValue}"/>
-                                        <a href="#" class="password-control" style="top: 7px;" onfocus="this.blur()"
-                                           onclick="return show_hide_password(this);"></a>
+                                    <div>
+                                        <div class="password-input">
+                                            <input id="password" name="password" type="password" class="form-control"
+                                                   style="height: 36px;"
+                                                   data-toggle="tooltip" data-title="${tooltipPassword}"
+                                                   placeholder="${password}*"
+                                                   value="${passwordValue}"/>
+                                            <a href="#" class="password-control" style="top: 7px;" onfocus="this.blur()"
+                                               onclick="return show_hide_password(this);"></a>
+                                        </div>
+                                        <label for="password" class="default-label">
+                                            <span id="valid-msg-password" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-password" class="hide">${passwordError}</span>
+                                        </label>
                                     </div>
-                                    <label for="password" class="default-label">
-                                        <span id="valid-msg-password" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-password" class="hide">${passwordError}</span>
-                                    </label>
 
                                     <!-- Password Confirmation -->
-                                    <div class="password-input">
-                                        <input id="passwordConfirmation" name="passwordConfirmation" type="password"
-                                               class="form-control" style="height: 36px;"
-                                               data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
-                                               placeholder="${confirmation}*"
-                                               value="${passwordConfirmationValue}"/>
-                                        <a href="#" class="password-control" style="top: 7px;" onfocus="this.blur()"
-                                           onclick="return show_hide_passwordConfirmation(this);"></a>
+                                    <div>
+                                        <div class="password-input">
+                                            <input id="passwordConfirmation" name="passwordConfirmation" type="password"
+                                                   class="form-control" style="height: 36px;"
+                                                   data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
+                                                   placeholder="${confirmation}*"
+                                                   value="${passwordConfirmationValue}"/>
+                                            <a href="#" class="password-control" style="top: 7px;" onfocus="this.blur()"
+                                               onclick="return show_hide_passwordConfirmation(this);"></a>
+                                        </div>
+                                        <label for="passwordConfirmation" class="default-label">
+                                            <span id="valid-msg-passwordConfirmation" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-passwordConfirmation" class="hide">
+                                                ${passwordConfirmationError}
+                                            </span>
+                                        </label>
                                     </div>
-                                    <label for="passwordConfirmation" class="default-label">
-                                        <span id="valid-msg-passwordConfirmation" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-passwordConfirmation" class="hide">
-                                            ${passwordConfirmationError}
-                                        </span>
-                                    </label>
 
                                     <!-- Submit -->
                                     <div class="action" style="padding: 17px 0 30px 0">
@@ -202,7 +213,6 @@
                                 </form>
                             </div>
                         </div>
-
                         <div class="already">
                             <p><fmt:message key="registration.haveAccountAlready"/></p>
                             <a href="/" onfocus="this.blur()">

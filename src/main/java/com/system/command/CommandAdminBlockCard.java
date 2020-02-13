@@ -18,7 +18,7 @@ public class CommandAdminBlockCard implements ICommand {
 
         String userId = (String) request.getSession().getAttribute("userId");
         String cardNumber = request.getParameter("cardNumber");
-        int accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
+        Integer accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
 
         if (cardNumber != null) {
             CreditCardService.getInstance().blockCreditCard(cardNumber);

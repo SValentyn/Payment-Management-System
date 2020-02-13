@@ -18,7 +18,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.LETTER_INFO);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_LETTER_INFO);
 
         request.setAttribute("processed", false);
         request.setAttribute("letterError", false);
@@ -35,8 +35,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
             // Data
             Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.parseInt(letterId));
-            Integer userId = letter.getUserId();
-            User user = UserService.getInstance().findUserById(userId);
+            User user = UserService.getInstance().findUserById(letter.getUserId());
 
             // Check
             if (user != null) {
@@ -47,17 +46,23 @@ public class CommandAdminShowLetterInfo implements ICommand {
             }
 
             // Set attributes
-            request.setAttribute("bioValue", user.getName() + " " + user.getSurname());
-            request.setAttribute("phoneValue", user.getPhone());
-            request.setAttribute("emailValue", user.getEmail());
-            request.setAttribute("descriptionValue", letter.getDescription());
+            setRequestAttributes(request, user, letter);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+
+            // Letter processed
             LetterService.getInstance().updateLetterByLetterId(Integer.parseInt(letterId));
             request.setAttribute("processed", true);
         }
 
         return page;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, User user, Letter letter) {
+        request.setAttribute("bioValue", user.getName() + " " + user.getSurname());
+        request.setAttribute("phoneValue", user.getPhone());
+        request.setAttribute("emailValue", user.getEmail());
+        request.setAttribute("descriptionValue", letter.getDescription());
     }
 
 }

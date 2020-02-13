@@ -19,9 +19,9 @@ public class CommandUserDeleteCard implements ICommand {
 
         User user = (User) request.getSession().getAttribute("currentUser");
         String cardNumber = request.getParameter("cardNumber");
-        int accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
 
         if (cardNumber != null) {
+            Integer accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
             CreditCardService.getInstance().deleteCardByNumber(cardNumber);
 
             request.setAttribute("showAccounts", true);

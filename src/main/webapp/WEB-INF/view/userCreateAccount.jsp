@@ -72,29 +72,33 @@
                                         <input type="hidden" name="command" value="createAccount"/>
 
                                         <!-- Number Account -->
-                                        <label class="for-form-label">
-                                            ${numberNewAccount}
-                                        </label>
-                                        <div class="form-group" style="display: flex; margin-bottom: 0;">
-                                            <input id="number" name="number" class="form-control"
-                                                   type="text" readonly="readonly"
-                                                   style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
-                                                   value="${numberValue}"/>
-                                            <i id="repeat" class="glyphicon glyphicon-repeat"></i>
-                                        </div>
-                                        <label for="number" class="default-label">
-                                            <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-accountNumber" class="hide">${numberError}</span>
-                                            <c:if test="${numberExistError}">
-                                                <span>
+                                        <div>
+                                            <label class="for-form-label">
+                                                ${numberNewAccount}
+                                            </label>
+                                            <div class="form-group" style="display: flex; margin-bottom: 0;">
+                                                <input id="number" name="number" class="form-control"
+                                                       type="text" readonly="readonly"
+                                                       style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
+                                                       value="${numberValue}"/>
+                                                <i id="repeat" class="glyphicon glyphicon-repeat"></i>
+                                            </div>
+                                            <label for="number" class="default-label">
+                                                <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-accountNumber" class="hide">${numberError}</span>
+                                                <span id="numberExistError">
+                                                <c:if test="${numberExistError}">
                                                     <fmt:message key="user.createAccount.numberExistError"/>
-                                                </span>
-                                                <script>
-                                                    document.querySelector("#valid-msg-accountNumber").classList.add("hide");
-                                                    document.querySelector("#error-msg-accountNumber").classList.add("hide");
-                                                </script>
-                                            </c:if>
-                                        </label>
+
+                                                    <script>
+                                                        document.querySelector("#numberExistError").classList.remove("hide");
+                                                        document.querySelector("#valid-msg-accountNumber").classList.add("hide");
+                                                        document.querySelector("#error-msg-accountNumber").classList.add("hide");
+                                                    </script>
+                                                </c:if>
+                                            </span>
+                                            </label>
+                                        </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 30px 0 10px 0">

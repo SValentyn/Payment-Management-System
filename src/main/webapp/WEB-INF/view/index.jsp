@@ -20,6 +20,7 @@
 </head>
 <body>
 <div class="main">
+
     <!-- Header -->
     <div class="header header-without-margin">
         <div class="container">
@@ -62,7 +63,8 @@
                         <div class="box">
                             <div class="content-wrap">
                                 <h4 style="margin-bottom: 22px;">
-                                    <fmt:message key="login.signin"/><br>Payment Management System
+                                    <fmt:message key="login.signin"/><br>
+                                    Payment Management System
                                 </h4>
                                 <h4>
                                     Status: <abbr style="color: red">Beta</abbr>
@@ -100,26 +102,30 @@
                                     <input type="hidden" name="command" value="login"/>
 
                                     <!-- Login -->
-                                    <input id="login" name="login" type="tel" class="form-control"
-                                           style="padding-left: 94px; margin-bottom: 18px;"
-                                           onkeypress="onlyNumbers()"
-                                           value="${loginValue}"/>
-                                    <label for="login" class="default-label">
-                                        <span id="valid-msg-login" class="hide">${correct} ✓</span>
-                                        <span id="error-msg-login" class="hide">${phoneError}</span>
-                                    </label>
+                                    <div>
+                                        <input id="login" name="login" type="tel" class="form-control"
+                                               style="padding-left: 94px; margin-bottom: 18px;"
+                                               onkeypress="onlyNumbers()"
+                                               value="${loginValue}"/>
+                                        <label for="login" class="default-label">
+                                            <span id="valid-msg-login" class="hide">${correct} ✓</span>
+                                            <span id="error-msg-login" class="hide">${phoneError}</span>
+                                        </label>
+                                    </div>
 
                                     <!-- Password -->
-                                    <div class="password-input">
-                                        <input type="password" id="password" name="password" class="form-control"
-                                               style="margin-top: 10px;" placeholder="${password}"
-                                               value=${passwordValue}>
-                                        <a href="#" class="password-control" onfocus="this.blur()"
-                                           onclick="return show_hide_password(this);"></a>
+                                    <div>
+                                        <div class="password-input">
+                                            <input type="password" id="password" name="password" class="form-control"
+                                                   style="margin-top: 10px;" placeholder="${password}"
+                                                   value=${passwordValue}>
+                                            <a href="#" class="password-control" onfocus="this.blur()"
+                                               onclick="return show_hide_password(this);"></a>
+                                        </div>
+                                        <label for="password" class="default-label">
+                                            <span id="error-msg-password" class="hide">${passwordError}</span>
+                                        </label>
                                     </div>
-                                    <label for="password" class="default-label">
-                                        <span id="error-msg-password" class="hide">${passwordError}</span>
-                                    </label>
 
                                     <!-- Submit -->
                                     <div class="action" style="padding: 20px 0 0 0;">

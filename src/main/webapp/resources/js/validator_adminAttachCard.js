@@ -93,6 +93,7 @@ let validMsgValidity = document.querySelector("#valid-msg-validity"),
     errorMsgValidity = document.querySelector("#error-msg-validity");
 
 let resetValidity = function () {
+    document.querySelector("#validityExpiredError").classList.add("hide");
     validMsgValidity.classList.add("hide");
     errorMsgValidity.classList.add("hide");
     month.classList.remove("valid-input");

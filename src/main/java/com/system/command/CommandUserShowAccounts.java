@@ -21,14 +21,14 @@ public class CommandUserShowAccounts implements ICommand {
         request.setAttribute("unblockCardAlert", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
-        List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
 
-        if (allAccounts.isEmpty()) {
-            request.setAttribute("noAccounts", true);
-        } else {
+        if (!accounts.isEmpty()) {
+            request.setAttribute("accounts", accounts);
             request.setAttribute("showAccounts", true);
             request.setAttribute("showAccountInfo", false);
-            request.setAttribute("accounts", allAccounts);
+        } else {
+            request.setAttribute("noAccounts", true);
         }
 
         return ResourceManager.getInstance().getProperty(ResourceManager.USER);

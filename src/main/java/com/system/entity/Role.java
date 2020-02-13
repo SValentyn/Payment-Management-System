@@ -66,4 +66,5 @@ public class Role implements Serializable {
         } else return rolename.equals(other.rolename);
 
     }
+
 }

@@ -7,8 +7,6 @@ import java.util.ResourceBundle;
  */
 public class ResourceManager {
 
-    // Configuration file name
-    private final static String BUNDLE_NAME = "configuration";
     // ALL
     public static final String INDEX = "INDEX";
     public static final String REGISTRATION = "REGISTRATION";
@@ -32,8 +30,9 @@ public class ResourceManager {
     public static final String ADMIN_ATTACH_CARD = "ADMIN_ATTACH_CARD";
     public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
     public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
-    public static final String LETTER_INFO = "ADMIN_LETTER_INFO";
+    public static final String ADMIN_LETTER_INFO = "ADMIN_LETTER_INFO";
 
+    private final static String BUNDLE_NAME = "configuration"; // Configuration file name
     private static ResourceManager instance;
     private ResourceBundle resourceBundle;
 

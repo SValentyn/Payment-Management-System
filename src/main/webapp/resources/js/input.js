@@ -1,17 +1,5 @@
-function onlyNumbers() {
-    if (event.keyCode !== 13) {
-        if (event.keyCode < 48 || event.keyCode > 57) {
-            event.returnValue = false;
-        }
-    }
-}
 
-// second variant for checking entered characters (onkeyup)
-// function onlyNumbers() {
-//     $(this).val($(this).val().replace(/\d/g, ''));
-// }
-
-
+// Disabling paste
 $(document).ready(function () {
     $('#passwordConfirmation').on("paste", function (e) {
         e.preventDefault();
@@ -21,3 +9,12 @@ $(document).ready(function () {
         e.preventDefault();
     });
 });
+
+// Entering only numbers
+function onlyNumbers() {
+    if (event.keyCode !== 13) {
+        if (event.keyCode < 48 || event.keyCode > 57) {
+            event.returnValue = false;
+        }
+    }
+}

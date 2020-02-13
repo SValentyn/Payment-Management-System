@@ -20,9 +20,8 @@ public class CommandUserRepeatPayment implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
-        User user = (User) request.getSession().getAttribute("currentUser");
-
         // Data
+        User user = (User) request.getSession().getAttribute("currentUser");
         String paymentId = request.getParameter("paymentId");
         Payment payment = DaoFactory.createPaymentDao().findPaymentByPaymentId(Integer.parseInt(paymentId));
         String number = payment.getRecipientAccountNumber();

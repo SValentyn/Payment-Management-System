@@ -54,7 +54,7 @@ public class CommandAdminAttachCard implements ICommand {
                 }
             }
 
-            // Attach
+            // Attach Card
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
                 setRequestAttributes(request, number, CVV, month, year);
@@ -72,7 +72,6 @@ public class CommandAdminAttachCard implements ICommand {
             request.setAttribute("validityExpiredError", true);
             return true;
         }
-
         return false;
     }
 

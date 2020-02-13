@@ -189,7 +189,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5" style="padding-left: 5px;padding-right: 20px;">
+                    <div class="col-md-5" style="padding-left: 5px; padding-right: 20px;">
                         <div class="row">
                             <div class="col-md-12">
                                 <fmt:message key="user.card.allcards" var="allcards"/>
@@ -203,8 +203,7 @@
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header"
-                                     style="padding-left: 12px;padding-right: 12px;">
+                                <div class="content-box-large box-with-header">
                                     <table>
                                         <th>${cardNumber}</th>
                                         <th>${cvv}</th>
@@ -274,7 +273,7 @@
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header" style="padding: 0 12px 0 12px;">
+                                <div class="content-box-large box-with-header">
                                     <table>
                                         <th>${receiverCard}</th>
                                         <th>${payment_sum}</th>

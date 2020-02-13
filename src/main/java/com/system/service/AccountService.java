@@ -52,7 +52,8 @@ public class AccountService {
     }
 
     /**
-     * Finds account by id and blocks it. Blocks all credit cards that belong to this account
+     * Finds account by id and blocks it
+     * Blocks all credit cards that belong to this account
      */
     public int blockAccount(Integer accountId) {
         int status = 0;
@@ -71,6 +72,7 @@ public class AccountService {
 
     /**
      * Finds account by id and unblock it
+     * Unlocks all credit cards that belong to this account
      */
     public int unblockAccount(Integer accountId) {
         int status = 0;
@@ -97,8 +99,9 @@ public class AccountService {
             if (!account.getIsBlocked()) { // account isn't blocked
                 account.setBalance(account.getBalance().add(funds));
                 status = accountDao.update(account);
-            } else
+            } else {
                 LOGGER.info("Attempt to add funds to a blocked account!");
+            }
         }
         return status;
     }
@@ -113,13 +116,6 @@ public class AccountService {
     }
 
     /**
-     * Finds all accounts by userId
-     */
-    public List<Account> findAllAccountsByUserId(Integer userId) {
-        return accountDao.findAllAccountsByUserId(userId);
-    }
-
-    /**
      * Finds account by accountId
      */
     public Account findAccountByAccountId(Integer accountId) {
@@ -131,6 +127,13 @@ public class AccountService {
      */
     public String findAccountNumberByAccountId(Integer accountId) {
         return findAccountByAccountId(accountId).getNumber();
+    }
+
+    /**
+     * Finds all accounts by userId
+     */
+    public List<Account> findAllAccountsByUserId(Integer userId) {
+        return accountDao.findAllAccountsByUserId(userId);
     }
 
     /**

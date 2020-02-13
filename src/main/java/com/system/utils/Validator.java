@@ -12,18 +12,19 @@ import java.util.regex.Pattern;
 /**
  * Validates input strings for validity for form validation
  */
+@Deprecated
 public class Validator {
 
     public static boolean checkLengthName(String name) {
-        return name.length() > 24;
+        return name != null && name.length() > 24;
     }
 
     public static boolean checkLengthSurname(String surname) {
-        return surname.length() > 24;
+        return surname != null && surname.length() > 24;
     }
 
     public static boolean checkPhoneNumber(String number) {
-        Pattern p = Pattern.compile("\\d{10}");
+        Pattern p = Pattern.compile("\\d{8,12}");
         Matcher m = p.matcher(number);
         return m.matches();
     }

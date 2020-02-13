@@ -101,8 +101,8 @@ password.addEventListener('change', resetPassword);
 
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
-    if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
 
+    if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
         event.preventDefault();
         notValidPhone();
         return false;

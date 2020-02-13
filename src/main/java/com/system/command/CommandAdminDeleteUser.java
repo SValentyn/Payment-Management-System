@@ -19,7 +19,7 @@ public class CommandAdminDeleteUser implements ICommand {
 
         String userId = request.getParameter("userId");
 
-        if (userId != null ) {
+        if (userId != null) {
             UserService.getInstance().deleteUserById(Integer.valueOf(userId));
             request.setAttribute("users", UserService.getInstance().findAllUsers());
         } else {

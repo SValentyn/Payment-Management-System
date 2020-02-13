@@ -1,6 +1,5 @@
 package com.system.command;
 
-import com.system.entity.Account;
 import com.system.entity.CreditCard;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
@@ -25,9 +24,9 @@ public class CommandUserAttachCard implements ICommand {
         request.setAttribute("cardNumberError", false);
         request.setAttribute("cardAttachError", false);
 
+        // Set Attribute
         User user = (User) request.getSession().getAttribute("currentUser");
-        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
-        request.setAttribute("accounts", accounts);
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -57,7 +56,7 @@ public class CommandUserAttachCard implements ICommand {
                 }
             }
 
-            // Attach
+            // Attach card
             int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
                 setRequestAttributes(request, accountId, number, CVV, month, year);

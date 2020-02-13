@@ -43,6 +43,7 @@ public class PaymentService {
      */
     public synchronized int formingPayment(Integer accountId, String number, BigDecimal amount, String appointment) {
         int status;
+
         Payment payment = new Payment();
         payment.setAccountId(accountId);
         payment.setRecipientAccountNumber(number);

@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class LetterDaoImpl implements LetterDao {
 
-    private static final Logger LOGGER = LogManager.getLogger(CreditCardDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(LetterDaoImpl.class);
 
     /**
      * SQL queries

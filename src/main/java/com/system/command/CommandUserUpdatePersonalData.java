@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CommandUserUpdatePersonalData implements ICommand {
 
-    PasswordEncryptor encryptor = new PasswordEncryptor();
+    private PasswordEncryptor encryptor = new PasswordEncryptor();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -27,10 +27,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
         User user = (User) request.getSession().getAttribute("currentUser");
 
         // Set Attributes
-        request.setAttribute("nameValue", user.getName());
-        request.setAttribute("surnameValue", user.getSurname());
-        request.setAttribute("phoneValue", user.getPhone());
-        request.setAttribute("emailValue", user.getEmail());
+        setRequestAttributes(request, user);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -41,14 +38,13 @@ public class CommandUserUpdatePersonalData implements ICommand {
             Integer userId = user.getUserId();
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
-            String phone = request.getParameter("full_phone");
+            String phone = request.getParameter("full_phone");  // set in the validator file (hiddenInput: "full_phone")
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
             // Check
             if (checkPassword(request, userId, password)) {
-                request.setAttribute("passwordValue", password);
-                setRequestAttributes(request, name, surname, phone, email);
+                setRequestAttributes(request, name, surname, phone, email, password);
                 return page;
             }
 
@@ -57,8 +53,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
                 List<User> users = UserService.getInstance().findAllUsers();
                 for (User aUser : users) {
                     if (aUser.getPhone().equals(phone)) {
-                        setRequestAttributes(request, name, surname, phone, email);
-                        request.setAttribute("passwordValue", password);
+                        setRequestAttributes(request, name, surname, phone, email, password);
                         request.setAttribute("phoneExistError", true);
                         return page;
                     }
@@ -73,10 +68,9 @@ public class CommandUserUpdatePersonalData implements ICommand {
             user.setPassword(encryptor.encode(password));
 
             // Update
+            setRequestAttributes(request, name, surname, phone, email, password);
             int status = UserService.getInstance().updateUser(user);
-            setRequestAttributes(request, name, surname, phone, email);
             if (status == 0) {
-                request.setAttribute("passwordValue", password);
                 request.setAttribute("updateDataError", true);
             } else {
                 request.setAttribute("updated", true);
@@ -95,11 +89,19 @@ public class CommandUserUpdatePersonalData implements ICommand {
         return false;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email) {
+    private void setRequestAttributes(HttpServletRequest request, User user) {
+        request.setAttribute("nameValue", user.getName());
+        request.setAttribute("surnameValue", user.getSurname());
+        request.setAttribute("phoneValue", user.getPhone());
+        request.setAttribute("emailValue", user.getEmail());
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password) {
         request.setAttribute("nameValue", name);
         request.setAttribute("surnameValue", surname);
         request.setAttribute("phoneValue", phone);
         request.setAttribute("emailValue", email);
+        request.setAttribute("passwordValue", password);
     }
 
 }

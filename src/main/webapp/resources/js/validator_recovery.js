@@ -1,5 +1,5 @@
 // Elements on recovery.jsp page to check
-let password = document.querySelector("#password");
+let phone = document.querySelector("#phone");
 let submitBtn = document.querySelector("#submit");
 
 

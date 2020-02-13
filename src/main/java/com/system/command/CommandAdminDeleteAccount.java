@@ -14,8 +14,8 @@ public class CommandAdminDeleteAccount implements ICommand {
 
         request.setAttribute("deleteAccountError", false);
 
-        String accountId = request.getParameter("accountId");
         String userId = (String) request.getSession().getAttribute("userId");
+        String accountId = request.getParameter("accountId");
 
         if (userId != null & accountId != null) {
             AccountService.getInstance().deleteAccountByAccountId(Integer.valueOf(accountId));

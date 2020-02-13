@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class CommandUserUpdatePassword implements ICommand {
 
-    PasswordEncryptor encryptor = new PasswordEncryptor();
+    private PasswordEncryptor encryptor = new PasswordEncryptor();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -43,7 +43,7 @@ public class CommandUserUpdatePassword implements ICommand {
                 return page;
             }
 
-            // Set new user properties
+            // Set new user property
             user.setPassword(encryptor.encode(newPassword));
 
             // Update

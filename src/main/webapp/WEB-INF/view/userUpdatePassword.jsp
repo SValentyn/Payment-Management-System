@@ -80,51 +80,61 @@
                                         <input type="hidden" name="command" value="updatePassword">
 
                                         <!-- New Password -->
-                                        <div class="password-input">
-                                            <input id="newPassword" name="newPassword" type="password"
-                                                   class="form-control" style="height: 40px; margin: 0;"
-                                                   data-toggle="tooltip" data-title="${tooltipNewPassword}"
-                                                   placeholder="${newPassword}*"
-                                                   value="${newPasswordValue}"/>
-                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
-                                               onclick="return show_hide_newPassword(this);"></a>
+                                        <div>
+                                            <div class="password-input">
+                                                <input id="newPassword" name="newPassword" type="password"
+                                                       class="form-control" style="height: 40px; margin: 0;"
+                                                       data-toggle="tooltip" data-title="${tooltipNewPassword}"
+                                                       placeholder="${newPassword}*"
+                                                       value="${newPasswordValue}"/>
+                                                <a href="#" class="password-control" style="top: 9px;"
+                                                   onfocus="this.blur()"
+                                                   onclick="return show_hide_newPassword(this);"></a>
+                                            </div>
+                                            <label for="newPassword" class="default-label">
+                                                <span id="valid-msg-newPassword" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-newPassword" class="hide">${passwordError}</span>
+                                            </label>
                                         </div>
-                                        <label for="newPassword" class="default-label">
-                                            <span id="valid-msg-newPassword" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-newPassword" class="hide">${passwordError}</span>
-                                        </label>
 
                                         <!-- Password Confirmation -->
-                                        <div class="password-input">
-                                            <input id="passwordConfirmation" name="passwordConfirmation" type="password"
-                                                   class="form-control" style="height: 40px; margin: 8px 0 0 0;"
-                                                   data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
-                                                   placeholder="${confirmation}*"
-                                                   value="${passwordConfirmationValue}"/>
-                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
-                                               onclick="return show_hide_passwordConfirmation(this);"></a>
+                                        <div>
+                                            <div class="password-input">
+                                                <input id="passwordConfirmation" name="passwordConfirmation"
+                                                       type="password"
+                                                       class="form-control" style="height: 40px; margin: 8px 0 0 0;"
+                                                       data-toggle="tooltip" data-title="${tooltipPasswordConfirmation}"
+                                                       placeholder="${confirmation}*"
+                                                       value="${passwordConfirmationValue}"/>
+                                                <a href="#" class="password-control" style="top: 9px;"
+                                                   onfocus="this.blur()"
+                                                   onclick="return show_hide_passwordConfirmation(this);"></a>
+                                            </div>
+                                            <label for="passwordConfirmation" class="default-label">
+                                                <span id="valid-msg-passwordConfirmation"
+                                                      class="hide">${correct} ✓</span>
+                                                <span id="error-msg-passwordConfirmation" class="hide">
+                                                    ${passwordConfirmationError}
+                                                </span>
+                                            </label>
                                         </div>
-                                        <label for="passwordConfirmation" class="default-label">
-                                            <span id="valid-msg-passwordConfirmation" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-passwordConfirmation" class="hide">
-                                                ${passwordConfirmationError}
-                                            </span>
-                                        </label>
 
                                         <!-- Old Password -->
-                                        <div class="password-input">
-                                            <input id="oldPassword" name="oldPassword" type="password"
-                                                   class="form-control" style="height: 40px; margin: 8px 0 0 0;"
-                                                   data-toggle="tooltip" data-title="${tooltipOldPassword}"
-                                                   placeholder="${oldPassword}*"
-                                                   value="${oldPasswordValue}"/>
-                                            <a href="#" class="password-control" style="top: 8px;" onfocus="this.blur()"
-                                               onclick="return show_hide_oldPassword(this);"></a>
-                                        </div>
-                                        <label for="oldPassword" class="default-label">
-                                            <span id="valid-msg-oldPassword" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-oldPassword" class="hide">${passwordError}</span>
-                                            <span id="passwordNotMatchError">
+                                        <div>
+                                            <div class="password-input">
+                                                <input id="oldPassword" name="oldPassword" type="password"
+                                                       class="form-control" style="height: 40px; margin: 8px 0 0 0;"
+                                                       data-toggle="tooltip" data-title="${tooltipOldPassword}"
+                                                       placeholder="${oldPassword}*"
+                                                       value="${oldPasswordValue}"/>
+                                                <a href="#" class="password-control" style="top: 9px;"
+                                                   onfocus="this.blur()"
+                                                   onclick="return show_hide_oldPassword(this);"></a>
+                                            </div>
+                                            <label for="oldPassword" class="default-label">
+                                                <span id="valid-msg-oldPassword" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-oldPassword" class="hide">${passwordError}</span>
+                                                <span id="passwordNotMatchError">
                                                 <c:if test="${passwordNotMatchError}">
                                                     ${oldPasswordError}
 
@@ -135,7 +145,8 @@
                                                     </script>
                                                 </c:if>
                                             </span>
-                                        </label>
+                                            </label>
+                                        </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 25px 0 5px 0">

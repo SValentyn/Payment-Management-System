@@ -19,6 +19,7 @@ public class CommandUserShowAccountInfo implements ICommand {
         request.setAttribute("unblockCardAlert", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
+
         request.setAttribute("showAccounts", true);
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 

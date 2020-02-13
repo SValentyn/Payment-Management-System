@@ -29,10 +29,13 @@ public class CommandAdminAttachAccount implements ICommand {
 
         // Check
         if (userId != null) {
+            User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
+            String name = user.getName();
+            String surname = user.getSurname();
+
             request.getSession().setAttribute("userId", userId);
             request.setAttribute("userId", userId);
-            User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
-            request.setAttribute("bio", user.getName() + " " + user.getSurname());
+            request.setAttribute("bio", name + " " + surname);
         } else {
             request.setAttribute("number", number);
             request.setAttribute("attachAccountError", true);
@@ -45,8 +48,8 @@ public class CommandAdminAttachAccount implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Check
-            List<Account> allAccounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
-            for (Account account : allAccounts) {
+            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
+            for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
                     request.setAttribute("number", number);
                     request.setAttribute("numberExistError", true);
@@ -54,7 +57,7 @@ public class CommandAdminAttachAccount implements ICommand {
                 }
             }
 
-            request.setAttribute("accounts", allAccounts);
+            request.setAttribute("accounts", accounts);
 
             int status = AccountService.getInstance().createAccount(Integer.parseInt(userId), number);
             if (status == 0) {

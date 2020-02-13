@@ -29,11 +29,10 @@ public class CommandUserMakePayment implements ICommand {
         request.setAttribute("insufficientFundsError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
-        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            request.setAttribute("accounts", accounts);
             return page;
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
@@ -42,9 +41,6 @@ public class CommandUserMakePayment implements ICommand {
             String number = request.getParameter("number");
             String amount = request.getParameter("amount");
             String appointment = request.getParameter("appointment");
-
-            accounts.remove(AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId)));
-            request.setAttribute("accounts", accounts);
 
             // Check
             Account accountByAccountId = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId));
@@ -67,7 +63,7 @@ public class CommandUserMakePayment implements ICommand {
                 return page;
             }
 
-            // Create
+            // Forming Payment
             int status = PaymentService.getInstance().formingPayment(Integer.valueOf(accountId), number, new BigDecimal(amount), appointment);
             if (status == -1) {
                 request.setAttribute("accountFromBlockedError", true);

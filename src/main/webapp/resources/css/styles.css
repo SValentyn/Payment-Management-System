@@ -5,11 +5,11 @@ html, body {
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #f7f7f7;
-    margin: 0px;
-    padding: 0px;
-    font-size: 14px;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
+    font-size: 14px;
+    background-color: #f7f7f7;
 }
 
 .main {
@@ -18,9 +18,7 @@ body {
 }
 
 .page-content > .row {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    margin-top: 0px;
+    margin: 0 !important;
 }
 
 .page-content .row .col-md-10 {
@@ -30,6 +28,7 @@ body {
 
 /** Login & Signup **/
 .login-bg {
+    height: 100%;
     background: rgba(255, 255, 255, 0);
     background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3),
     rgba(255, 255, 255, 0));
@@ -43,7 +42,6 @@ body {
     rgba(255, 255, 255, 0));
     background-color: #eff0f3;
     background-repeat: no-repeat;
-    height: 100%;
 }
 
 .login-wrapper {
@@ -55,9 +53,9 @@ body {
 }
 
 .login-wrapper .box {
+    float: none;
     margin: 0 auto;
     padding: 30px 0 30px 0;
-    float: none;
     -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
     -moz-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
     -ms-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
@@ -76,21 +74,21 @@ body {
     margin: 0 auto;
 }
 
-.login-wrapper .box h6 {
-    text-transform: uppercase;
-    margin-bottom: 35px;
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-    color: #000000;
-}
-
 .login-wrapper .box h4 {
     text-transform: uppercase;
     margin-bottom: 35px;
     text-align: center;
     font-size: 20px;
     font-weight: 400;
+    color: #000000;
+}
+
+.login-wrapper .box h6 {
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
     color: #000000;
 }
 
@@ -117,14 +115,14 @@ body {
 }
 
 .login-wrapper .box .action {
-    top: 0px;
     position: relative;
+    top: 0;
     padding: 0;
     text-align: center;
 }
 
 .login-wrapper .box .signup {
-    width: 220px;
+    width: 70%;
     height: 46px;
     text-transform: uppercase;
     text-align: center;
@@ -145,8 +143,8 @@ body {
 }
 
 .login-wrapper .already a {
-    color: #222;
     margin-left: 7px;
+    color: #222;
     border-bottom: 1px solid;
 }
 
@@ -157,19 +155,19 @@ body {
 }
 
 .login-wrapper .box .division {
+    width: 100%;
+    position: relative;
     display: inline-block;
     margin: 17px 0 23px;
-    position: relative;
     text-align: center;
-    width: 100%;
 }
 
 .login-wrapper .box .division hr {
-    border-color: #E2E2E4;
-    border-width: 1px;
-    margin: 0;
-    position: absolute;
     width: 40%;
+    position: absolute;
+    margin: 0;
+    border-width: 1px;
+    border-color: #E2E2E4;
 }
 
 .login-wrapper .box .group-btn {
@@ -181,12 +179,12 @@ body {
 }
 
 .login-wrapper .form-group select {
-    height: 35px;
     width: 30%;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    height: 35px;
     font-size: 16px;
     color: #555;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .login-wrapper .box form textarea {
@@ -198,8 +196,7 @@ body {
 
 .panel-heading > .panel-title, .content-box-header .panel-title {
     float: left;
-    padding: 10px 15px;
-    padding-top: 0px;
+    padding-left: 15px;
 }
 
 .panel-heading > .panel-title > *, .content-box-header .panel-title > * {
@@ -258,17 +255,17 @@ form .btn-default {
     width: 85%;
     height: 40px;
     padding: 0;
-    text-transform: uppercase;
     text-align: center;
-    background-color: #ffffff;
+    text-transform: uppercase;
     color: #333333;
+    background-color: #ffffff;
 }
 
 form .btn-default:hover {
     box-shadow: 0 0 5px rgba(55, 55, 55, 0.1) inset;
-    background-color: #ffffff;
-    color: #333333;
     text-decoration: none;
+    color: #333333;
+    background-color: #ffffff;
 }
 
 form .btn-default:active {
@@ -307,8 +304,8 @@ form .btn-default a:active {
 .for-form-label {
     margin-right: 15px;
     margin-bottom: 0px;
-    font-weight: normal;
     font-size: 15px;
+    font-weight: normal;
     color: #989797;
 }
 
@@ -366,8 +363,8 @@ form .btn-default a:active {
 .password-control {
     width: 20px;
     height: 20px;
-    display: inline-block;
     position: absolute;
+    display: inline-block;
     top: 9px;
     right: 9px;
     background-image: url("/resources/images/view.png");
@@ -393,8 +390,8 @@ form .btn-default a:active {
 #alert {
     width: auto;
     height: 60px;
-    display: flex;
     position: fixed;
+    display: flex;
     z-index: 1;
     right: 0;
     padding: 0 10px 0 20px;
@@ -411,20 +408,20 @@ form .btn-default a:active {
 #alert .close {
     height: 26px;
     width: 26px;
-    font-size: 36px;
-    text-align: right;
     margin-top: 10px;
+    text-align: right;
+    font-size: 36px;
 }
 
 .counter {
-    position: inherit;
     width: 20px;
     height: 20px;
-    padding-right: 0px;
+    position: inherit;
     margin-left: 284px;
     margin-top: 4px;
-    font-size: 14px;
+    padding-right: 0px;
     text-align: right;
+    font-size: 14px;
     color: #929292;
 }
 
@@ -432,25 +429,25 @@ form .btn-default a:active {
 
 /* Header */
 .header {
-    top: 0;
-    position: sticky;
     width: 100%;
     height: 66px;
+    position: sticky;
     display: flex;
+    top: 0;
     z-index: 1;
-    padding: 0 20px 0 20px;
     margin-bottom: 22px;
+    padding: 0 20px 0 20px;
     background-color: #2c3742;
 }
 
 .header-without-margin {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .header .container {
     width: 100%;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 0;
+    margin-right: 0;
     padding-right: 25px;
 }
 
@@ -465,21 +462,21 @@ form .btn-default a:active {
 
 .header .container .logo .col-md-2 {
     width: 100%;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-left: 0px;
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .header .logo img {
-    padding-top: 0px;
-    margin-top: 15px;
     width: 36px;
     height: 36px;
+    margin-top: 15px;
+    padding-top: 0;
 }
 
 .header .logo h1 {
-    align-self: center;
     width: 100%;
+    align-self: center;
     margin: 0;
     padding-left: 28px;
     text-align: left;
@@ -490,9 +487,9 @@ form .btn-default a:active {
 
 .language-form {
     display: inline-flex;
-    text-align: right;
     margin-top: 21px;
-    padding-top: 0px;
+    padding-top: 0;
+    text-align: right;
 }
 
 #language {
@@ -500,16 +497,15 @@ form .btn-default a:active {
     height: 26px;
     text-align: left;
     font-size: 22px;
-    border: 0px;
-    background-color: #2c3742;
     color: white;
     text-shadow: 1px 0px 1px white;
+    border: 0;
+    background-color: #2c3742;
 }
 
 .header .form {
     width: 100%;
     max-width: 300px;
-    margin-top: 10px;
     margin: 10px auto;
 }
 
@@ -518,15 +514,15 @@ form .btn-default a:active {
 }
 
 .header .navbar .label {
-    font-size: 12px;
-    padding: 4px 8px;
     margin: 0px 2px;
+    padding: 4px 8px;
+    font-size: 12px;
     border-radius: 15px !important;
 }
 
 .header .navbar {
+    border: 0 !important;
     background: none !important;
-    border: 0px !important;
 }
 
 .header .navbar i {
@@ -534,12 +530,12 @@ form .btn-default a:active {
 }
 
 .header .navbar .nav > li > a {
-    color: #fff !important;
-    font-size: 20px !important;
-    border-bottom: 0px !important;
+    margin-top: 0 !important;
     padding-top: 25px;
-    margin-top: 0px !important;
+    font-size: 20px !important;
     font-weight: bold;
+    color: #fff !important;
+    border-bottom: 0 !important;
 }
 
 .header .navbar-nav > .open > a,
@@ -549,7 +545,7 @@ form .btn-default a:active {
 }
 
 .header .navbar-collapse {
-    border: 0px !important;
+    border: 0 !important;
 }
 
 .header .navbar-header {
@@ -558,18 +554,18 @@ form .btn-default a:active {
 }
 
 .header .navbar-header button {
-    color: #fff !important;
     padding: 5px 10px;
+    color: #fff !important;
 }
 
 .header .navbar-toggle {
-    background-color: #1dc1da !important;
     border: 1px solid #0fa6bc !important;
+    background-color: #1dc1da !important;
 }
 
 .header .navbar-toggle:hover, .header .navbar-toggle:focus {
-    background-color: #0fa6bc !important;
     border: 1px solid #0fa6bc !important;
+    background-color: #0fa6bc !important;
 }
 
 .header .dropdown-menu {
@@ -578,31 +574,31 @@ form .btn-default a:active {
 }
 
 .header .dropdown-menu li {
-    font-size: 16px;
     padding: 6px 15px;
+    font-size: 16px;
     border-bottom: 1px dashed #f3f3f3;
 }
 
 .header .dropdown-menu .img-logout {
     height: 20px;
     width: 20px;
-    margin-top: 0px;
+    margin-top: 0;
     opacity: 0.6;
 }
 
 .header .dropdown-menu li a {
+    padding-left: 0 !important;
     color: #888;
-    padding-left: 0px !important;
 }
 
 .header .dropdown-menu li:last-child {
-    border: 0px;
+    border: 0;
 }
 
 .header .dropdown-menu li a:hover {
-    background: none !important;
     color: #666 !important;
-    border: 0px !important;
+    border: 0 !important;
+    background: none !important;
 }
 
 .header .navbar-nav .caret {
@@ -622,13 +618,13 @@ form .btn-default a:active {
 /* Sidebar navigation */
 .content-box, .content-box-large {
     margin-bottom: 30px;
-    background: #fff;
-    border-radius: 10px;
     padding: 10px;
+    border-radius: 10px;
     border-left: 1px solid #eee;
     border-top: 1px solid #eee;
     border-right: 2px solid #eee;
     border-bottom: 2px solid #eee;
+    background: #fff;
 }
 
 .content-box-large {
@@ -637,20 +633,20 @@ form .btn-default a:active {
 
 .box-with-header {
     border-top: none;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .content-box-header {
     min-height: 40px;
+    padding: 10px;
     font-size: 16px;
-    background: #f5f5f5;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    padding: 10px;
     border-left: 1px solid #eee;
     border-top: 1px solid #eee;
     border-right: 2px solid #eee;
+    background: #f5f5f5;
 }
 
 .content-box-header:after {
@@ -659,14 +655,14 @@ form .btn-default a:active {
 
 .sidebar ul.nav, .sidebar ul.nav ul {
     list-style: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .sidebar ul.nav ul {
-    margin: 0px;
-    padding: 0px;
     display: none;
+    margin: 0;
+    padding: 0;
 }
 
 .sidebar .nav li.open ul {
@@ -679,7 +675,7 @@ form .btn-default a:active {
 }
 
 .sidebar .nav > li:last-child {
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 
 .sidebar .nav > li li {
@@ -691,15 +687,15 @@ form .btn-default a:active {
 }
 
 .sidebar .nav > li > a {
-    border-top: 0px;
     display: block;
     padding: 15px 15px;
-    background: none;
-    font-weight: bold;
-    font-size: 14px;
     line-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
     text-decoration: none;
     color: rgba(103, 100, 100, 0.8);
+    border-top: 0;
+    background: none;
 }
 
 .sidebar .nav > li > a > i {
@@ -707,33 +703,33 @@ form .btn-default a:active {
 }
 
 .sidebar .nav > li > ul > li > a {
-    font-size: 13px;
-    line-height: 20px;
-    padding: 8px 10px 8px 40px;
-    color: #999;
-    background: #fff;
     display: block;
-    text-decoration: none;
-    border-top: 0px;
+    padding: 8px 10px 8px 40px;
+    line-height: 20px;
+    font-size: 13px;
     font-weight: bold;
+    text-decoration: none;
+    color: #999;
+    border-top: 0;
+    background: #fff;
 }
 
 .sidebar .nav > li > ul > li.active > a {
     background: #fff;
-    border-top: 0px;
+    border-top: 0;
     color: #555;
 }
 
 .sidebar .nav > li > ul > li > a:hover {
     background: #fff;
     color: #555;
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 
 .sidebar .nav li a:hover, .sidebar .nav li.current > a {
     background: #fff;
     color: #555;
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 
 .sidebar .nav li.open > a {
@@ -743,17 +739,17 @@ form .btn-default a:active {
 }
 
 .sidebar .nav a .caret {
-    float: right;
+    content: "";
     width: 0;
     height: 0;
+    float: right;
     display: inline-block;
     vertical-align: top;
+    margin-top: 8px;
+    margin-left: 2px;
     border-top: 4px solid #aaa;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
-    content: "";
-    margin-top: 8px;
-    margin-left: 2px;
 }
 
 .sidebar .nav a:hover .caret {
@@ -780,11 +776,11 @@ form .btn-default a:active {
     position: fixed;
     left: 0;
     bottom: 0;
-    font-size: 14px;
     line-height: 25px;
+    font-size: 14px;
+    color: #ffffff;
     background-color: #2c3742;
     box-shadow: inset 0px 0px 3px #111;
-    color: #ffffff;
 }
 
 .footer .container {
@@ -805,9 +801,9 @@ form .btn-default a:active {
 
 .custom-date {
     height: 56px;
+    margin-top: 0;
+    margin-bottom: 0;
     padding-top: 8px;
-    margin-top: 0px;
-    margin-bottom: 0px;
     font-size: 18px;
 }
 
@@ -822,7 +818,6 @@ form .btn-default a:active {
 
 .iti {
     width: 100% !important;
-    margin-top: 5px;
 }
 
 .iti__flag {

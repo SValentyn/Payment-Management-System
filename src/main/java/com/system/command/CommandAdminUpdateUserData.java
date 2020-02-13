@@ -4,7 +4,6 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
-import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +22,10 @@ public class CommandAdminUpdateUserData implements ICommand {
         request.setAttribute("updateUserDataError", false);
 
         String userId = request.getParameter("userId");
-        request.setAttribute("userId", userId);
 
-        if (userId == null) {
+        if (userId != null) {
+            request.setAttribute("userId", userId);
+        } else {
             request.setAttribute("updateUserDataError", true);
             return page;
         }
@@ -33,10 +33,7 @@ public class CommandAdminUpdateUserData implements ICommand {
         User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
 
         // Set Attributes
-        request.setAttribute("nameValue", user.getName());
-        request.setAttribute("surnameValue", user.getSurname());
-        request.setAttribute("phoneValue", user.getPhone());
-        request.setAttribute("emailValue", user.getEmail());
+        setRequestAttributes(request, user);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -68,8 +65,8 @@ public class CommandAdminUpdateUserData implements ICommand {
             user.setEmail(email);
 
             // Update
-            int status = UserService.getInstance().updateUser(user);
             setRequestAttributes(request, name, surname, phone, email);
+            int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 request.setAttribute("updateUserDataError", true);
             } else {
@@ -78,6 +75,13 @@ public class CommandAdminUpdateUserData implements ICommand {
         }
 
         return page;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, User user) {
+        request.setAttribute("nameValue", user.getName());
+        request.setAttribute("surnameValue", user.getSurname());
+        request.setAttribute("phoneValue", user.getPhone());
+        request.setAttribute("emailValue", user.getEmail());
     }
 
     private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email) {

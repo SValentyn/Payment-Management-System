@@ -82,7 +82,7 @@
                                                type="hidden" value="${userId}"/>
 
                                         <!-- User bio -->
-                                        <div class="form-group" style="margin-bottom: 24px;">
+                                        <div class="form-group" style="height:46px; margin-bottom: 34px;">
                                             <label class="for-form-label" style="width: 100%;">
                                                 ${user_bio}
 
@@ -97,29 +97,32 @@
                                         </div>
 
                                         <!-- Account Number -->
-                                        <label class="for-form-label">
-                                            ${numberNewAccount}
-                                        </label>
-                                        <div class="form-group" style="display: flex; margin-bottom: 0;">
-                                            <input id="number" name="number" class="form-control"
-                                                   type="text" readonly="readonly"
-                                                   style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
-                                                   value="${numberValue}"/>
-                                            <i id="repeat" class="glyphicon glyphicon-repeat" onfocus="this.blur()"></i>
-                                        </div>
-                                        <label for="number" class="default-label">
-                                            <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-accountNumber" class="hide">${numberError}</span>
-                                            <c:if test="${numberExistError}">
+                                        <div>
+                                            <label class="for-form-label">
+                                                ${numberNewAccount}
+                                            </label>
+                                            <div class="form-group" style="display: flex; margin-bottom: 0;">
+                                                <input id="number" name="number" class="form-control"
+                                                       type="text" readonly="readonly"
+                                                       style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
+                                                       value="${numberValue}"/>
+                                                <i id="repeat" class="glyphicon glyphicon-repeat"
+                                                   onfocus="this.blur()"></i>
+                                            </div>
+                                            <label for="number" class="default-label">
+                                                <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-accountNumber" class="hide">${numberError}</span>
+                                                <c:if test="${numberExistError}">
                                                 <span>
                                                     <fmt:message key="user.createAccount.numberExistError"/>
                                                 </span>
-                                                <script>
-                                                    document.querySelector("#valid-msg-accountNumber").classList.add("hide");
-                                                    document.querySelector("#error-msg-accountNumber").classList.add("hide");
-                                                </script>
-                                            </c:if>
-                                        </label>
+                                                    <script>
+                                                        document.querySelector("#valid-msg-accountNumber").classList.add("hide");
+                                                        document.querySelector("#error-msg-accountNumber").classList.add("hide");
+                                                    </script>
+                                                </c:if>
+                                            </label>
+                                        </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 25px 0 10px 0">
@@ -144,7 +147,7 @@
                                             <c:when test="${attached == true}">
                                                 <div class="action">
                                                     <button type="button" class="btn btn-default signup"
-                                                            style=" padding: 0;"
+                                                            style="padding: 0;"
                                                             onfocus="this.blur()">
                                                         <a href="?command=attachCard&accountId=${accountId}">
                                                                 ${attachCardButton}

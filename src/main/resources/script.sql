@@ -106,22 +106,22 @@ CREATE TABLE credit_cards
   DEFAULT CHARSET = utf8;
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (1, '0000000000000000', '200', '03/21', true);
+VALUES (1, '0000000000000000', '200', '03/2021', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (1, '0000007777000000', '717', '11/21', true);
+VALUES (1, '0000007777000000', '717', '11/2021', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (2, '0000008888000000', '809', '09/20', false);
+VALUES (2, '0000008888000000', '809', '09/2020', false);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (2, '0000009999000000', '191', '01/22', true);
+VALUES (2, '0000009999000000', '191', '01/2022', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (3, '0000009999000000', '500', '05/21', true);
+VALUES (3, '0000009999000000', '500', '05/2021', true);
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
-VALUES (4, '4444000000000000', '404', '10/20', true);
+VALUES (4, '4444000000000000', '404', '10/2020', true);
 -- -- --
 
 -- -- --
