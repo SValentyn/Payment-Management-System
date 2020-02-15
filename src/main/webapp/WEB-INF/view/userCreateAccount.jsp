@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
@@ -59,9 +60,11 @@
                                 <div class="content-wrap">
                                     <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
                                     <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
+                                    <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
                                     <fmt:message key="user.createAccount.createAccountButton"
                                                  var="createAccountButton"/>
                                     <fmt:message key="user.createAccount.numberError" var="numberError"/>
+                                    <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
                                     <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
@@ -87,21 +90,38 @@
                                                 <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
                                                 <span id="error-msg-accountNumber" class="hide">${numberError}</span>
                                                 <span id="numberExistError">
-                                                <c:if test="${numberExistError}">
-                                                    <fmt:message key="user.createAccount.numberExistError"/>
+                                                    <c:if test="${numberExistError}">
+                                                        <fmt:message key="user.createAccount.numberExistError"/>
 
-                                                    <script>
-                                                        document.querySelector("#numberExistError").classList.remove("hide");
-                                                        document.querySelector("#valid-msg-accountNumber").classList.add("hide");
-                                                        document.querySelector("#error-msg-accountNumber").classList.add("hide");
-                                                    </script>
-                                                </c:if>
-                                            </span>
+                                                        <script>
+                                                            document.querySelector("#numberExistError").classList.remove("hide");
+                                                            document.querySelector("#valid-msg-accountNumber").classList.add("hide");
+                                                            document.querySelector("#error-msg-accountNumber").classList.add("hide");
+                                                        </script>
+                                                    </c:if>
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <!-- Currency -->
+                                        <input id="currency" name="currency" type="hidden"/>
+
+                                        <!-- Select Currency -->
+                                        <div style="margin-top: 16px;">
+                                            <label class="for-form-label">
+                                                ${accountCurrency}
+                                            </label>
+                                            <div class="bfh-selectbox bfh-currencies"
+                                                 data-currency="USD" data-flags="true">
+                                            </div>
+                                            <label for="currency" class="default-label">
+                                                <span id="valid-msg-currency" class="hide">${correct} ✓</span>
+                                                <span id="error-msg-currency" class="hide">${currencyError}</span>
                                             </label>
                                         </div>
 
                                         <!-- Submit -->
-                                        <div class="action" style="padding: 30px 0 10px 0">
+                                        <div class="action" style="padding: 40px 0 10px 0">
                                             <button id="submit" type="submit" class="btn btn-primary signup"
                                                     onfocus="this.blur()">
                                                 ${createAccountButton}
@@ -118,6 +138,14 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+<script>
+    $(document).ready(function () {
+        let bfh_selectbox_class = $('.bfh-selectbox');
+
+        let currency = $(bfh_selectbox_class).val();
+        $('#currency').val(currency);
+    });
+</script>
 <script src="resources/js/validator_userCreateAccount.js"></script>
 </body>
 </html>

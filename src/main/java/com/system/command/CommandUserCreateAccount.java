@@ -33,21 +33,26 @@ public class CommandUserCreateAccount implements ICommand {
             // Data
             Integer userId = user.getUserId();
             String number = request.getParameter("number");
+            String currency = request.getParameter("currency");
 
             // Check
             for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
                     request.setAttribute("numberValue", number);
+                    request.setAttribute("currencyValue", currency);
                     request.setAttribute("numberExistError", true);
                     return page;
                 }
             }
 
             // Create
-            int status = AccountService.getInstance().createAccount(userId, number);
+            int status = AccountService.getInstance().createAccount(userId, number, currency);
             if (status == 0) {
+                request.setAttribute("numberValue", number);
+                request.setAttribute("currencyValue", currency);
                 request.setAttribute("createAccountError", true);
             } else {
+                request.setAttribute("numberValue", null);
                 request.setAttribute("created", true);
             }
         }

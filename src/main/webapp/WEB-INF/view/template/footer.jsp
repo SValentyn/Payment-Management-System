@@ -18,6 +18,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="resources/bootstrap/js/bootstrap-formhelpers.min.js"></script>
 <script src="resources/js/intlTelInput.js"></script>
 <script src="resources/js/utils.js"></script>
 <script src="resources/js/visibility.js"></script>

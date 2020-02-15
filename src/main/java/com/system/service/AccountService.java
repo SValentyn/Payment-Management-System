@@ -38,13 +38,14 @@ public class AccountService {
     /**
      * Creates new account
      */
-    public int createAccount(Integer userId, String number) {
+    public int createAccount(Integer userId, String number, String currency) {
         int status = 0;
         if (userId != null && number != null) {
             Account account = new Account();
             account.setUserId(userId);
             account.setNumber(number);
             account.setBalance(new BigDecimal(0));
+            account.setCurrency(currency);
             account.setIsBlocked(false);
             status = accountDao.create(account);
         }

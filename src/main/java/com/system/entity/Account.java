@@ -11,6 +11,7 @@ public class Account implements Serializable {
     private Integer userId;
     private String number;
     private BigDecimal balance;
+    private String currency;
     private Boolean isBlocked;
 
     public Account() {
@@ -48,6 +49,14 @@ public class Account implements Serializable {
         this.balance = balance;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public Boolean getIsBlocked() {
         return isBlocked;
     }
@@ -64,6 +73,7 @@ public class Account implements Serializable {
         result = prime * result + ((userId == null) ? 0 : userId.hashCode());
         result = prime * result + ((number == null) ? 0 : number.hashCode());
         result = prime * result + ((balance == null) ? 0 : balance.hashCode());
+        result = prime * result + ((currency == null) ? 0 : currency.hashCode());
         result = prime * result + ((isBlocked == null) ? 0 : isBlocked.hashCode());
         return result;
     }
@@ -102,6 +112,12 @@ public class Account implements Serializable {
         } else if (!balance.equals(other.balance))
             return false;
 
+        if (currency == null) {
+            if (other.currency != null)
+                return false;
+        } else if (!currency.equals(other.currency))
+            return false;
+
         if (isBlocked == null) {
             return other.isBlocked == null;
         } else return isBlocked.equals(other.isBlocked);
@@ -114,6 +130,8 @@ public class Account implements Serializable {
                 ", userId=" + userId +
                 ", number=" + number +
                 ", balance=" + balance +
+                ", currency=" + currency +
                 ", isBlocked=" + isBlocked + "]";
     }
+
 }

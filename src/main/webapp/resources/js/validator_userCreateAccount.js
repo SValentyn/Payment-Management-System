@@ -1,17 +1,26 @@
 // Elements on userCreateAccount.jsp page to check
 let number = document.querySelector("#number");
 let repeat = document.querySelector("#repeat");
+let currency = document.querySelector("#currency");
+let bfh_selectbox_class = $('.bfh-selectbox');
 let submitBtn = document.querySelector("#submit");
 
 
 /* It starts immediately after the page loads */
 window.addEventListener("load", function () {
+    document.querySelector("#numberExistError").classList.add("hide");
     repeat.click();
 
-    if (number.value.trim() === "") {
+    if (number.value.trim() === "" || number.value.trim() === null) {
         notValidNumber();
     } else {
         validNumber();
+    }
+
+    if (currency.value.trim() === "" || currency.value.trim() === null) {
+        notValidCurrency();
+    } else {
+        validCurrency();
     }
 });
 
@@ -64,7 +73,7 @@ let notValidNumber = function () {
 number.addEventListener('blur', function () {
     resetNumber();
 
-    if (number.value.trim() === "") {
+    if (number.value.trim() === null || number.value.trim() === "" || number.value.trim() < 20) {
         notValidNumber();
     } else {
         validNumber();
@@ -76,12 +85,62 @@ number.addEventListener('keyup', resetNumber);
 number.addEventListener('change', resetNumber);
 
 
+/* Checks Currency */
+let validMsgCurrency = document.querySelector("#valid-msg-currency"),
+    errorMsgCurrency = document.querySelector("#error-msg-currency");
+
+let resetCurrency = function () {
+    validMsgCurrency.classList.add("hide");
+    errorMsgCurrency.classList.add("hide");
+    currency.classList.remove("valid-input");
+    currency.classList.remove("error-input");
+};
+
+let validCurrency = function () {
+    validMsgCurrency.classList.remove("hide");
+    errorMsgCurrency.classList.add("hide");
+    currency.classList.add("valid-input");
+    currency.classList.remove("error-input");
+};
+
+let notValidCurrency = function () {
+    validMsgCurrency.classList.add("hide");
+    errorMsgCurrency.classList.remove("hide");
+    currency.classList.remove("valid-input");
+    currency.classList.add("error-input");
+};
+
+bfh_selectbox_class.on('change.bfhselectbox', function () {
+    let selected_currency = $(bfh_selectbox_class).val();
+    $('#currency').val(selected_currency);
+
+    resetCurrency();
+
+    if (currency.value.trim() === "" || currency.value.trim() === null) {
+        notValidCurrency();
+    } else {
+        validCurrency();
+    }
+});
+
+
+// on keyup/change -> reset
+currency.addEventListener('keyup', resetCurrency);
+currency.addEventListener('change', resetCurrency);
+
+
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (number.value.trim() === "" || number.classList.contains("error-input")) {
+    if (number.value.trim() === "" || number.value.trim() === null || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
+        return false;
+    }
+
+    if (currency.value.trim() === "" || currency.value.trim() === null || currency.classList.contains("error-input")) {
+        event.preventDefault();
+        notValidCurrency();
         return false;
     }
 

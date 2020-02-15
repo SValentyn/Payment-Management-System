@@ -3206,9 +3206,9 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     height: 0;
     margin-left: 2px;
     vertical-align: middle;
-    border-top: 4px solid;
-    border-right: 4px solid transparent;
-    border-left: 4px solid transparent
+    border-top: 6px solid;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent
 }
 
 .dropdown {

@@ -66,29 +66,30 @@ CREATE TABLE accounts
     user_id    INT(11)      NOT NULL,
     number     VARCHAR(255) NOT NULL,
     balance    BIGINT       NOT NULL,
+    currency   VARCHAR(3)   NOT NULL,
     is_blocked BOOLEAN      NOT NULL,
     PRIMARY KEY (account_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO accounts (user_id, number, balance, is_blocked)
-VALUES (2, '00000000000000000000', 9500, false);
+INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
+VALUES (2, '00000000000000000000', 9500, 'MXN', false);
 
-INSERT INTO accounts (user_id, number, balance, is_blocked)
-VALUES (2, '11111000000000000000', 7805, false);
+INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
+VALUES (2, '11111000000000000000', 7805, 'UAH', false);
 
-INSERT INTO accounts (user_id, number, balance, is_blocked)
-VALUES (2, '11111222220000000000', 3030, false);
+INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
+VALUES (2, '11111222220000000000', 3030, 'PLN', false);
 
-INSERT INTO accounts (user_id, number, balance, is_blocked)
-VALUES (3, '00000000000000000001', 10020, true);
+INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
+VALUES (3, '00000000000000000001', 10020, 'YER', true);
 
-INSERT INTO accounts (user_id, number, balance, is_blocked)
-VALUES (3, '11111000000000000001', 990, false);
+INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
+VALUES (3, '11111000000000000001', 990, 'AUD', false);
 
-INSERT INTO accounts (user_id, number, balance, is_blocked)
-VALUES (4, '00000000000000000002', 1115, false);
+INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
+VALUES (4, '00000000000000000002', 1115, 'MKD', false);
 -- -- --
 
 -- -- --
