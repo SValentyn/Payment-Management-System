@@ -20,12 +20,12 @@ public class CommandAdminAttachAccount implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ATTACH_ACCOUNT);
 
         request.setAttribute("attached", false);
-        request.setAttribute("numberExistError", false);
         request.setAttribute("attachAccountError", false);
 
         // Data
         String userId = request.getParameter("userId");
         String number = request.getParameter("number");
+        String currency = request.getParameter("currency");
 
         // Check
         if (userId != null) {
@@ -37,7 +37,8 @@ public class CommandAdminAttachAccount implements ICommand {
             request.setAttribute("userId", userId);
             request.setAttribute("bio", name + " " + surname);
         } else {
-            request.setAttribute("number", number);
+            request.setAttribute("numberValue", number);
+            request.setAttribute("currencyValue", currency);
             request.setAttribute("attachAccountError", true);
             return page;
         }
@@ -51,7 +52,8 @@ public class CommandAdminAttachAccount implements ICommand {
             List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
             for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
-                    request.setAttribute("number", number);
+                    request.setAttribute("numberValue", number);
+                    request.setAttribute("currencyValue", currency);
                     request.setAttribute("numberExistError", true);
                     return page;
                 }
@@ -59,9 +61,10 @@ public class CommandAdminAttachAccount implements ICommand {
 
             request.setAttribute("accounts", accounts);
 
-            int status = AccountService.getInstance().createAccount(Integer.parseInt(userId), number);
+            int status = AccountService.getInstance().createAccount(Integer.parseInt(userId), number, currency);
             if (status == 0) {
-                request.setAttribute("number", number);
+                request.setAttribute("numberValue", number);
+                request.setAttribute("currencyValue", currency);
                 request.setAttribute("attachAccountError", true);
             } else {
                 request.setAttribute("accountId", status);

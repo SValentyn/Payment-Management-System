@@ -123,7 +123,6 @@ bfh_selectbox_class.on('change.bfhselectbox', function () {
     }
 });
 
-
 // on keyup/change -> reset
 currency.addEventListener('keyup', resetCurrency);
 currency.addEventListener('change', resetCurrency);
