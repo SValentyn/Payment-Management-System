@@ -2,6 +2,7 @@
 let accountId = document.querySelector("#accountId");
 let number = document.querySelector("#number");
 let amount = document.querySelector("#amount");
+let bfh_selectbox_class = $('.bfh-selectbox');
 let submitBtn = document.querySelector("#submit");
 
 
@@ -30,11 +31,13 @@ let notValidAccountId = function () {
     accountId.classList.add("error-input");
 };
 
-// on blur
-accountId.addEventListener('blur', function () {
+// on change
+bfh_selectbox_class.on('hide.bfhselectbox', function () {
+    accountId.value = $(bfh_selectbox_class).val();
+
     resetAccountId();
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "0") {
+    if (accountId.value.trim() === null || accountId.value.trim() === "") {
         notValidAccountId();
     } else {
         validAccountId();
@@ -131,7 +134,7 @@ amount.addEventListener('change', resetAmount);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "0" || accountId.classList.contains("error-input")) {
+    if (accountId.value.trim() === null || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;

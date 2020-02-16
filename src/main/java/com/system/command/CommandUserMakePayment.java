@@ -66,14 +66,14 @@ public class CommandUserMakePayment implements ICommand {
             // Forming Payment
             int status = PaymentService.getInstance().formingPayment(Integer.valueOf(accountId), number, new BigDecimal(amount), appointment);
             if (status == -1) {
+                setRequestAttributes(request, accountId, number, amount, appointment);
                 request.setAttribute("accountFromBlockedError", true);
-                setRequestAttributes(request, accountId, number, amount, appointment);
             } else if (status == -2) {
+                setRequestAttributes(request, accountId, number, amount, appointment);
                 request.setAttribute("receiverAccountBlockedError", true);
-                setRequestAttributes(request, accountId, number, amount, appointment);
             } else if (status == -3) {
-                request.setAttribute("insufficientFundsError", true);
                 setRequestAttributes(request, accountId, number, amount, appointment);
+                request.setAttribute("insufficientFundsError", true);
             } else {
                 request.setAttribute("created", true);
             }
@@ -83,7 +83,7 @@ public class CommandUserMakePayment implements ICommand {
     }
 
     private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String amount, String appointment) throws SQLException {
-        request.setAttribute("accountId", accountId);
+        request.setAttribute("accountIdValue", accountId);
         request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
         request.setAttribute("numberValue", number);
         request.setAttribute("amountValue", amount);
