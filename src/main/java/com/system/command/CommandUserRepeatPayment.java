@@ -34,7 +34,7 @@ public class CommandUserRepeatPayment implements ICommand {
 
         // Set attributes
         request.setAttribute("accounts", accounts);
-        request.setAttribute("accountId", accountId);
+        request.setAttribute("accountIdValue", accountId);
         request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(accountId));
         request.setAttribute("numberValue", number);
         request.setAttribute("amountValue", amount);
