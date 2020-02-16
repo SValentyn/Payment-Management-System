@@ -16,7 +16,31 @@
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <style>
+        .ui-spinner {
+            width: 100%;
+            height: 40px;
+            padding: 6px 12px;
+            font-size: 15px;
+            color: #555;
+            border-color: #ccc !important;
+            border-radius: 4px !important;
+            background-color: #fff;
+        }
+
+        .ui-spinner-input {
+            width: 100%;
+            padding: 4px 0 6px 0;
+            margin: 0;
+            line-height: normal;
+        }
+
+        .ui-spinner-input:focus {
+            outline:none;
+        }
+    </style>
 </head>
 <body>
 <div class="main">
@@ -156,7 +180,7 @@
 
                                         <!-- Account Number -->
                                         <div>
-                                            <div style="width: 100%; margin-top: 8px;">
+                                            <div style="width: 100%; margin-top: 6px;">
                                                 <label for="number" class="for-form-label">
                                                     ${toCreditCard}
                                                 </label>
@@ -175,10 +199,13 @@
                                         </div>
 
                                         <!-- Amount Funds -->
-                                        <div>
-                                            <input id="amount" name="amount" class="form-control"
-                                                   type="text" data-toggle="tooltip" data-title="${tooltipAmountFunds}"
-                                                   onkeypress="onlyNumbers();" placeholder="${amount}*"
+                                        <div style="margin-top: 4px;">
+                                            <label for="amount" class="for-form-label">
+                                                ${amount}
+                                            </label>
+                                            <input id="amount" name="amount"
+                                                   data-toggle="tooltip" data-title="${tooltipAmountFunds}"
+                                                   onkeypress="onlyNumbers();"
                                                    value="${amountValue}"/>
                                             <label for="amount" class="default-label">
                                                 <span id="valid-msg-amount" class="hide">${correct} ✓</span>
@@ -219,5 +246,17 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 <script src="resources/js/validator_userMakePayment.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $('#amount').spinner({
+            start: 0,
+            min: 0,
+            step: 1,
+            numberFormat: "C"
+        });
+    });
+</script>
 </body>
 </html>

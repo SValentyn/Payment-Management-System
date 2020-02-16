@@ -1,8 +1,8 @@
 // Elements on userMakePayment.jsp page to check
 let accountId = document.querySelector("#accountId");
+let bfh_selectbox = $('.bfh-selectbox');
 let number = document.querySelector("#number");
 let amount = document.querySelector("#amount");
-let bfh_selectbox_class = $('.bfh-selectbox');
 let submitBtn = document.querySelector("#submit");
 
 
@@ -31,9 +31,9 @@ let notValidAccountId = function () {
     accountId.classList.add("error-input");
 };
 
-// on change
-bfh_selectbox_class.on('hide.bfhselectbox', function () {
-    accountId.value = $(bfh_selectbox_class).val();
+// on hide
+bfh_selectbox.on('hide.bfhselectbox', function () {
+    accountId.value = $(bfh_selectbox).val();
 
     resetAccountId();
 
@@ -119,7 +119,7 @@ let notValidAmount = function () {
 amount.addEventListener('blur', function () {
     resetAmount();
 
-    if (amount.value.trim() === "") {
+    if (accountId.value.trim() === null || amount.value.trim() === "") {
         notValidAmount();
     } else {
         validAmount();
@@ -134,7 +134,7 @@ amount.addEventListener('change', resetAmount);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (accountId.value.trim() === null || accountId.classList.contains("error-input")) {
+    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;
