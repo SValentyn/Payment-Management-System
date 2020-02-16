@@ -3,6 +3,8 @@ let number = document.querySelector("#number");
 let CVV = document.querySelector("#CVV");
 let month = document.querySelector("#month");
 let year = document.querySelector("#year");
+let selectbox_month = $('.bfh-selectbox-month');
+let selectbox_year = $('.bfh-selectbox-year');
 let submitBtn = document.querySelector("#submit");
 
 
@@ -120,24 +122,28 @@ let notValidValidity = function () {
     year.classList.add("error-input");
 };
 
-// on blur
-month.addEventListener('blur', function () {
+// on hide
+selectbox_month.on('hide.bfhselectbox', function () {
+    month.value = $(selectbox_month).val();
+
     resetValidity();
 
-    if (month.value.trim() === null || month.value.trim() === "0" ||
-        year.value.trim() === null || year.value.trim() === "0") {
+    if (month.value.trim() === null || month.value.trim() === "" ||
+        year.value.trim() === null || year.value.trim() === "") {
         notValidValidity();
     } else {
         validValidity();
     }
 });
 
-// on blur
-year.addEventListener('blur', function () {
+// on hide
+selectbox_year.on('hide.bfhselectbox', function () {
+    year.value = $(selectbox_year).val();
+
     resetValidity();
 
-    if (month.value.trim() === null || month.value.trim() === "0" ||
-        year.value.trim() === null || year.value.trim() === "0") {
+    if (month.value.trim() === null || month.value.trim() === "" ||
+        year.value.trim() === null || year.value.trim() === "") {
         notValidValidity();
     } else {
         validValidity();
@@ -166,8 +172,8 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (month.value.trim() === null || month.value.trim() === "0" || month.classList.contains("error-input") ||
-        year.value.trim() === null || year.value.trim() === "0" || year.classList.contains("error-input")) {
+    if (month.value.trim() === null || month.value.trim() === "" || month.classList.contains("error-input") ||
+        year.value.trim() === null || year.value.trim() === "" || year.classList.contains("error-input")) {
         event.preventDefault();
         notValidValidity();
         return false;
