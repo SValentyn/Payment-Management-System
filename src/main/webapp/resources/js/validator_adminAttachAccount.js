@@ -110,19 +110,18 @@ let notValidCurrency = function () {
     currency.classList.add("error-input");
 };
 
-bfh_selectbox_class.on('change.bfhselectbox', function () {
-    let selected_currency = $(bfh_selectbox_class).val();
-    $('#currency').val(selected_currency);
+// on hide
+bfh_selectbox_class.on('hide.bfhselectbox', function () {
+    currency.value = $(bfh_selectbox_class).val();
 
     resetCurrency();
 
-    if (currency.value.trim() === "" || currency.value.trim() === null) {
+    if (currency.value.trim() === null || currency.value.trim() === "") {
         notValidCurrency();
     } else {
         validCurrency();
     }
 });
-
 
 // on keyup/change -> reset
 currency.addEventListener('keyup', resetCurrency);

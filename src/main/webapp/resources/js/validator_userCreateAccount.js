@@ -11,13 +11,13 @@ window.addEventListener("load", function () {
     document.querySelector("#numberExistError").classList.add("hide");
     repeat.click();
 
-    if (number.value.trim() === "" || number.value.trim() === null) {
+    if (number.value.trim() === null || number.value.trim() === "") {
         notValidNumber();
     } else {
         validNumber();
     }
 
-    if (currency.value.trim() === "" || currency.value.trim() === null) {
+    if (currency.value.trim() === null || currency.value.trim() === "") {
         notValidCurrency();
     } else {
         validCurrency();
@@ -73,7 +73,7 @@ let notValidNumber = function () {
 number.addEventListener('blur', function () {
     resetNumber();
 
-    if (number.value.trim() === null || number.value.trim() === "" || number.value.trim() < 20) {
+    if (number.value.trim() === null || number.value.trim() === "") {
         notValidNumber();
     } else {
         validNumber();
@@ -110,13 +110,13 @@ let notValidCurrency = function () {
     currency.classList.add("error-input");
 };
 
-bfh_selectbox_class.on('change.bfhselectbox', function () {
-    let selected_currency = $(bfh_selectbox_class).val();
-    $('#currency').val(selected_currency);
+// on hide
+bfh_selectbox_class.on('hide.bfhselectbox', function () {
+    currency.value = $(bfh_selectbox_class).val();
 
     resetCurrency();
 
-    if (currency.value.trim() === "" || currency.value.trim() === null) {
+    if (currency.value.trim() === null || currency.value.trim() === "") {
         notValidCurrency();
     } else {
         validCurrency();
@@ -131,13 +131,13 @@ currency.addEventListener('change', resetCurrency);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (number.value.trim() === "" || number.value.trim() === null || number.classList.contains("error-input")) {
+    if (number.value.trim() === null || number.value.trim() === "" || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
         return false;
     }
 
-    if (currency.value.trim() === "" || currency.value.trim() === null || currency.classList.contains("error-input")) {
+    if (currency.value.trim() === null || currency.value.trim() === "" || currency.classList.contains("error-input")) {
         event.preventDefault();
         notValidCurrency();
         return false;
