@@ -284,6 +284,21 @@ form .btn-default a:active {
     text-decoration: none;
 }
 
+.bfh-selectbox-month,
+.bfh-selectbox-year {
+    min-width: 32%;
+}
+
+.bfh-selectbox-year {
+    margin-left: 10px;
+}
+
+.bfh-selectbox-month.open > .bfh-selectbox-options,
+.bfh-selectbox-year.open > .bfh-selectbox-options {
+    min-width: 100%;
+    width: auto;
+}
+
 .error-input {
     border-color: #ba0000 !important;;
 }
@@ -302,6 +317,7 @@ form .btn-default a:active {
 }
 
 .for-form-label {
+    width: 100%;
     margin-right: 15px;
     margin-bottom: 0px;
     font-size: 15px;

@@ -1,10 +1,12 @@
 // Elements on userAttachCard.jsp page to check
 let accountId = document.querySelector("#accountId");
-let bfh_selectbox_class = $('.bfh-selectbox');
+let selectbox_account_id = $('.selectbox-account-id');
 let number = document.querySelector("#number");
 let CVV = document.querySelector("#CVV");
 let month = document.querySelector("#month");
 let year = document.querySelector("#year");
+let selectbox_month = $('.bfh-selectbox-month');
+let selectbox_year = $('.bfh-selectbox-year');
 let submitBtn = document.querySelector("#submit");
 
 
@@ -34,8 +36,8 @@ let notValidAccountId = function () {
 };
 
 // on hide
-bfh_selectbox_class.on('hide.bfhselectbox', function () {
-    accountId.value = $(bfh_selectbox_class).val();
+selectbox_account_id.on('hide.bfhselectbox', function () {
+    accountId.value = $(selectbox_account_id).val();
 
     resetAccountId();
 
@@ -165,24 +167,28 @@ let notValidValidity = function () {
     year.classList.add("error-input");
 };
 
-// on blur
-month.addEventListener('blur', function () {
+// on hide
+selectbox_month.on('hide.bfhselectbox', function () {
+    month.value = $(selectbox_month).val();
+
     resetValidity();
 
-    if (month.value.trim() === null || month.value.trim() === "0" ||
-        year.value.trim() === null || year.value.trim() === "0") {
+    if (month.value.trim() === null || month.value.trim() === "" ||
+        year.value.trim() === null || year.value.trim() === "") {
         notValidValidity();
     } else {
         validValidity();
     }
 });
 
-// on blur
-year.addEventListener('blur', function () {
+// on hide
+selectbox_year.on('hide.bfhselectbox', function () {
+    year.value = $(selectbox_year).val();
+
     resetValidity();
 
-    if (month.value.trim() === null || month.value.trim() === "0" ||
-        year.value.trim() === null || year.value.trim() === "0") {
+    if (month.value.trim() === null || month.value.trim() === "" ||
+        year.value.trim() === null || year.value.trim() === "") {
         notValidValidity();
     } else {
         validValidity();
@@ -199,7 +205,7 @@ year.addEventListener('change', resetValidity);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (accountId.value.trim() === null || accountId.classList.contains("error-input")) {
+    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;
@@ -217,8 +223,8 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (month.value.trim() === null || month.value.trim() === "0" || month.classList.contains("error-input") ||
-        year.value.trim() === null || year.value.trim() === "0" || year.classList.contains("error-input")) {
+    if (month.value.trim() === null || month.value.trim() === "" || month.classList.contains("error-input") ||
+        year.value.trim() === null || year.value.trim() === "" || year.classList.contains("error-input")) {
         event.preventDefault();
         notValidValidity();
         return false;
