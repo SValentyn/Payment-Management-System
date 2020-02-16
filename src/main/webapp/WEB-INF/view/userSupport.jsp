@@ -15,7 +15,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <style>
+        .bfh-selectbox.open > .bfh-selectbox-options {
+            width: auto;
+        }
+    </style>
 </head>
 <body>
 <div class="main">
@@ -91,42 +97,38 @@
                                         ${formHeader}
                                     </h4>
 
-                                    <form action="" role="form" method="POST">
+                                    <form action="/" role="form" method="POST">
                                         <input type="hidden" name="command" value="support">
 
                                         <!-- Type Question -->
+                                        <input id="typeQuestion" name="typeQuestion" type="hidden"
+                                               value="${typeQuestionValue}"/>
+
+                                        <!-- Select Type Question -->
                                         <div>
-                                            <select id="typeQuestion" name="typeQuestion" class="form-control"
-                                                    style="height: 40px; font-size: 15px;">
+                                            <label class="for-form-label">
+                                                ${selectType}
+                                            </label>
+                                            <div class="bfh-selectbox">
                                                 <c:choose>
-                                                    <c:when test="${typeQuestion == null}">
-                                                        <option value="${0}">
-                                                                ${selectType}
-                                                        </option>
-                                                    </c:when>
-                                                    <c:when test="${typeQuestion == 0}">
-                                                        <option value="${0}">
-                                                                ${selectType}
-                                                        </option>
+                                                    <c:when test="${typeQuestionValue == null}">
+                                                        <div data-value=""></div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <option value="${typeQuestion}">
-                                                                ${typeQuestion}
-                                                        </option>
+                                                        <div data-value="${typeQuestionValue}">${typeQuestionValue}</div>
                                                     </c:otherwise>
                                                 </c:choose>
-
-                                                <option value="${option_1}">${option_1}</option>
-                                                <option value="${option_2}">${option_2}</option>
-                                                <option value="${option_3}">${option_3}</option>
-                                                <option value="${option_4}">${option_4}</option>
-                                                <option value="${option_5}">${option_5}</option>
-                                                <option value="${option_6}">${option_6}</option>
-                                                <option value="${option_7}">${option_7}</option>
-                                                <option value="${option_8}">${option_8}</option>
-                                                <option value="${option_9}">${option_9}</option>
-                                                <option value="${option_10}">${option_10}</option>
-                                            </select>
+                                                <div data-value="${option_1}">${option_1}</div>
+                                                <div data-value="${option_2}">${option_2}</div>
+                                                <div data-value="${option_3}">${option_3}</div>
+                                                <div data-value="${option_4}">${option_4}</div>
+                                                <div data-value="${option_5}">${option_5}</div>
+                                                <div data-value="${option_6}">${option_6}</div>
+                                                <div data-value="${option_7}">${option_7}</div>
+                                                <div data-value="${option_8}">${option_8}</div>
+                                                <div data-value="${option_9}">${option_9}</div>
+                                                <div data-value="${option_10}">${option_10}</div>
+                                            </div>
                                             <label for="typeQuestion" class="default-label">
                                                 <span id="valid-msg-typeQuestion" class="hide">${correct} ✓</span>
                                                 <span id="error-msg-typeQuestion"

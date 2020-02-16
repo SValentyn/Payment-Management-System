@@ -47,6 +47,7 @@ public class CommandUserSupport implements ICommand {
 
             // Check
             if (notProcessedLetters.size() == 4) {
+                setRequestAttributes(request, typeQuestion, description);
                 request.setAttribute("manyLettersError", true);
                 return page;
             }
@@ -64,9 +65,8 @@ public class CommandUserSupport implements ICommand {
         return page;
     }
 
-
     private void setRequestAttributes(HttpServletRequest request, String typeQuestion, String description) {
-        request.setAttribute("typeQuestion", typeQuestion);
+        request.setAttribute("typeQuestionValue", typeQuestion);
         request.setAttribute("descriptionValue", description);
     }
 

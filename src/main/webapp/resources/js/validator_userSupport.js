@@ -1,5 +1,6 @@
 // Elements on userSupport.jsp page to check
 let typeQuestion = document.querySelector("#typeQuestion");
+let bfh_selectbox_class = $('.bfh-selectbox');
 let submitBtn = document.querySelector("#submit");
 
 
@@ -28,11 +29,13 @@ let notValidTypeQuestion = function () {
     typeQuestion.classList.add("error-input");
 };
 
-// on blur
-typeQuestion.addEventListener('blur', function () {
+// on hide
+bfh_selectbox_class.on('hide.bfhselectbox', function () {
+    typeQuestion.value = $(bfh_selectbox_class).val();
+
     resetTypeQuestion();
 
-    if (typeQuestion.value.trim() === null || typeQuestion.value.trim() === "0") {
+    if (typeQuestion.value.trim() === null || typeQuestion.value.trim() === "") {
         notValidTypeQuestion();
     } else {
         validTypeQuestion();
@@ -47,7 +50,7 @@ typeQuestion.addEventListener('change', resetTypeQuestion);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (typeQuestion.value.trim() === null || typeQuestion.value.trim() === "0" || typeQuestion.classList.contains("error-input")) {
+    if (typeQuestion.value.trim() === null || typeQuestion.value.trim() === "" || typeQuestion.classList.contains("error-input")) {
         event.preventDefault();
         notValidTypeQuestion();
         return false;
