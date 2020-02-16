@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
@@ -89,34 +90,30 @@
                                         ${attachNewCard}
                                     </h4>
 
-                                    <form action="" role="form" method="POST">
+                                    <form action="/" role="form" method="POST">
                                         <input type="hidden" name="command" value="attachCard">
 
                                         <!-- AccountId -->
+                                        <input id="accountId" name="accountId" type="hidden" value="${accountIdValue}"/>
+
+                                        <!-- Select AccountId -->
                                         <div>
-                                            <select id="accountId" name="accountId" class="form-control"
-                                                    style="height: 40px; font-size: 18px;">
+                                            <label for="number" class="for-form-label">
+                                                ${selectAccount}
+                                            </label>
+                                            <div class="bfh-selectbox">
                                                 <c:choose>
-                                                    <c:when test="${accountId == null}">
-                                                        <option value="${0}">
-                                                                ${selectAccount}
-                                                        </option>
-                                                    </c:when>
-                                                    <c:when test="${accountId == 0}">
-                                                        <option value="${0}">
-                                                                ${selectAccount}
-                                                        </option>
+                                                    <c:when test="${accountIdValue == null}">
+                                                        <div data-value=""></div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <option value="${accountId}">
-                                                                ${numberByAccountIdValue}
-                                                        </option>
+                                                        <div data-value="${accountIdValue}">${numberByAccountIdValue}</div>
                                                     </c:otherwise>
                                                 </c:choose>
                                                 <c:forEach items="${accounts}" var="account">
-                                                    <option value="${account.accountId}">${account.number}</option>
+                                                    <div data-value="${account.accountId}">${account.number}</div>
                                                 </c:forEach>
-                                            </select>
+                                            </div>
                                             <label for="accountId" class="default-label">
                                                 <span id="valid-msg-accountId" class="hide">${correct} ✓</span>
                                                 <span id="error-msg-accountId" class="hide">${accountIdError}</span>

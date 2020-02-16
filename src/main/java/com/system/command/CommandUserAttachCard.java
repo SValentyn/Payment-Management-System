@@ -50,8 +50,8 @@ public class CommandUserAttachCard implements ICommand {
             List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId));
             for (CreditCard card : cardsByAccountId) {
                 if (card.getNumber().equals(number)) {
-                    request.setAttribute("cardNumberError", true);
                     setRequestAttributes(request, accountId, number, CVV, month, year);
+                    request.setAttribute("cardNumberError", true);
                     return page;
                 }
             }
@@ -75,12 +75,11 @@ public class CommandUserAttachCard implements ICommand {
             request.setAttribute("validityExpiredError", true);
             return true;
         }
-
         return false;
     }
 
     private void setRequestAttributes(HttpServletRequest request, String accountId, String number, String CVV, String month, String year) throws SQLException {
-        request.setAttribute("accountId", accountId);
+        request.setAttribute("accountIdValue", accountId);
         request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
         request.setAttribute("numberValue", number);
         request.setAttribute("cvvValue", CVV);

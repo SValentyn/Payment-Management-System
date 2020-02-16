@@ -1,5 +1,6 @@
 // Elements on userAttachCard.jsp page to check
 let accountId = document.querySelector("#accountId");
+let bfh_selectbox_class = $('.bfh-selectbox');
 let number = document.querySelector("#number");
 let CVV = document.querySelector("#CVV");
 let month = document.querySelector("#month");
@@ -7,7 +8,7 @@ let year = document.querySelector("#year");
 let submitBtn = document.querySelector("#submit");
 
 
-/* Checks Account id */
+/* Checks Account Id */
 let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
@@ -32,11 +33,13 @@ let notValidAccountId = function () {
     accountId.classList.add("error-input");
 };
 
-// on blur
-accountId.addEventListener('blur', function () {
+// on hide
+bfh_selectbox_class.on('hide.bfhselectbox', function () {
+    accountId.value = $(bfh_selectbox_class).val();
+
     resetAccountId();
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "0") {
+    if (accountId.value.trim() === null || accountId.value.trim() === "") {
         notValidAccountId();
     } else {
         validAccountId();
@@ -196,7 +199,7 @@ year.addEventListener('change', resetValidity);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "0" || accountId.classList.contains("error-input")) {
+    if (accountId.value.trim() === null || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;
