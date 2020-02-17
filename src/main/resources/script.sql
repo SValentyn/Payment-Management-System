@@ -65,7 +65,7 @@ CREATE TABLE accounts
     account_id INT(11) AUTO_INCREMENT,
     user_id    INT(11)      NOT NULL,
     number     VARCHAR(255) NOT NULL,
-    balance    BIGINT       NOT NULL,
+    balance    DOUBLE       NOT NULL,
     currency   VARCHAR(3)   NOT NULL,
     is_blocked BOOLEAN      NOT NULL,
     PRIMARY KEY (account_id),
@@ -74,22 +74,22 @@ CREATE TABLE accounts
   DEFAULT CHARSET = utf8;
 
 INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
-VALUES (2, '00000000000000000000', 9500, 'MXN', false);
+VALUES (2, '00000000000000000000', 9500.00, 'MXN', false);
 
 INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
-VALUES (2, '11111000000000000000', 7805, 'UAH', false);
+VALUES (2, '11111000000000000000', 7805.00, 'UAH', false);
 
 INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
-VALUES (2, '11111222220000000000', 3030, 'PLN', false);
+VALUES (2, '11111222220000000000', 3030.00, 'PLN', false);
 
 INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
-VALUES (3, '00000000000000000001', 10020, 'YER', true);
+VALUES (3, '00000000000000000001', 10020.00, 'YER', true);
 
 INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
-VALUES (3, '11111000000000000001', 990, 'AUD', false);
+VALUES (3, '11111000000000000001', 990.00, 'AUD', false);
 
 INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
-VALUES (4, '00000000000000000002', 1115, 'MKD', false);
+VALUES (4, '00000000000000000002', 1115.00, 'MKD', false);
 -- -- --
 
 -- -- --
@@ -131,7 +131,7 @@ CREATE TABLE payments
     payment_id               INT(11) AUTO_INCREMENT,
     account_id               INT(11)      NOT NULL,
     recipient_account_number VARCHAR(255) NOT NULL,
-    sum                      BIGINT       NOT NULL,
+    sum                      DOUBLE       NOT NULL,
     appointment              VARCHAR(255),
     date                     VARCHAR(255) NOT NULL,
     `condition`              BOOLEAN      NOT NULL,
@@ -141,10 +141,10 @@ CREATE TABLE payments
   DEFAULT CHARSET = utf8;
 
 INSERT INTO payments (account_id, recipient_account_number, sum, appointment, date, `condition`)
-VALUES (2, '11111000000000000001', 2000, 'for accommodation', '01/02/2020', true);
+VALUES (2, '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020', true);
 
 INSERT INTO payments (account_id, recipient_account_number, sum, appointment, date, `condition`)
-VALUES (4, '00000000000000000002', 400, 'charity', '01/10/2020', true);
+VALUES (4, '00000000000000000002', 400.00, 'charity', '01/10/2020', true);
 -- -- --
 
 -- -- --

@@ -82,7 +82,7 @@ public class PaymentDaoImpl implements PaymentDao {
             payment.setPaymentId(rs.getInt("payment_id"));
             payment.setAccountId(rs.getInt("account_id"));
             payment.setRecipientAccountNumber(rs.getString("recipient_account_number"));
-            payment.setSum(rs.getBigDecimal("sum"));
+            payment.setSum(rs.getDouble("sum"));
             payment.setAppointment(rs.getString("appointment"));
             payment.setDate(rs.getString("date"));
             payment.setCondition(rs.getBoolean("condition"));

@@ -8,7 +8,6 @@ import com.system.persistence.factory.DaoFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class AccountService {
             Account account = new Account();
             account.setUserId(userId);
             account.setNumber(number);
-            account.setBalance(new BigDecimal(0));
+            account.setBalance(0d);
             account.setCurrency(currency);
             account.setIsBlocked(false);
             status = accountDao.create(account);
@@ -93,12 +92,12 @@ public class AccountService {
     /**
      * Checks if account isn't blocked and adds funds
      */
-    public int addFunds(Integer accountId, BigDecimal funds) {
+    public int addFunds(Integer accountId, Double funds) {
         int status = 0;
         if (accountId != null) {
             Account account = accountDao.findAccountById(accountId);
             if (!account.getIsBlocked()) { // account isn't blocked
-                account.setBalance(account.getBalance().add(funds));
+                account.setBalance(account.getBalance() + funds);
                 status = accountDao.update(account);
             } else {
                 LOGGER.info("Attempt to add funds to a blocked account!");

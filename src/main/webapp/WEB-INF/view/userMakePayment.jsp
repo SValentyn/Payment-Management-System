@@ -38,7 +38,7 @@
         }
 
         .ui-spinner-input:focus {
-            outline:none;
+            outline: none;
         }
     </style>
 </head>
@@ -205,7 +205,7 @@
                                             </label>
                                             <input id="amount" name="amount"
                                                    data-toggle="tooltip" data-title="${tooltipAmountFunds}"
-                                                   onkeypress="onlyNumbers();"
+                                                   placeholder="0.00" oninput="this.value=inputAmount(this.value)"
                                                    value="${amountValue}"/>
                                             <label for="amount" class="default-label">
                                                 <span id="valid-msg-amount" class="hide">${correct} ✓</span>
@@ -220,7 +220,8 @@
                                             </label>
                                             <div style="width: 100%; position: absolute; ">
                                                 <textarea id="appointment" name="appointment"
-                                                          class="form-control">${appointmentValue}</textarea>
+                                                          class="form-control"
+                                                >${appointmentValue}</textarea>
                                             </div>
                                             <div class="counter">
                                                 <span id="counter"></span>
@@ -251,10 +252,11 @@
 <script>
     $(function () {
         $('#amount').spinner({
-            start: 0,
-            min: 0,
-            step: 1,
-            numberFormat: "C"
+            culture: "en-US",
+            start: 0.00,
+            min: 0.00,
+            step: 1.00,
+            numberFormat: "n"
         });
     });
 </script>

@@ -10,7 +10,7 @@ public class Account implements Serializable {
     private Integer accountId;
     private Integer userId;
     private String number;
-    private BigDecimal balance;
+    private Double balance;
     private String currency;
     private Boolean isBlocked;
 
@@ -41,11 +41,11 @@ public class Account implements Serializable {
         this.number = number;
     }
 
-    public BigDecimal getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 

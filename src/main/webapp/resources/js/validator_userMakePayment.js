@@ -119,17 +119,24 @@ let notValidAmount = function () {
 amount.addEventListener('blur', function () {
     resetAmount();
 
-    if (accountId.value.trim() === null || amount.value.trim() === "") {
+    if (amount.value.trim() === null || amount.value.trim() === "") {
         notValidAmount();
     } else {
         validAmount();
+        if (amount.value.match(/\./g).length > 1) {
+            notValidAmount();
+        }
     }
 });
+
+function inputAmount(value) {
+    let regExps = [/^\D+/, /[^.,\d]+/g, /[.,]+/, /(\d+\.\d{2}).*$/];
+    return value.replace(regExps[0], '').replace(regExps[1], '').replace(regExps[2], '.').replace(regExps[3], '$1');
+}
 
 // on keyup/change -> reset
 amount.addEventListener('keyup', resetAmount);
 amount.addEventListener('change', resetAmount);
-
 
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
@@ -146,7 +153,7 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (amount.value.trim() === "" || amount.classList.contains("error-input")) {
+    if (amount.value.trim() === null || amount.value.trim() === "" || amount.classList.contains("error-input")) {
         event.preventDefault();
         notValidAmount();
         return false;

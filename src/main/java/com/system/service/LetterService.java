@@ -2,7 +2,6 @@ package com.system.service;
 
 import com.system.entity.Letter;
 import com.system.persistence.dao.LetterDao;
-import com.system.persistence.dao.impl.CreditCardDaoImpl;
 import com.system.persistence.factory.DaoFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
