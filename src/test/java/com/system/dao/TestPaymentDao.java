@@ -27,7 +27,7 @@ public class TestPaymentDao {
         payment.setPaymentId(1);
         payment.setAccountId(1);
         payment.setRecipientAccountNumber("5450655032805450");
-        payment.setSum(new BigDecimal(1_000));
+        payment.setSum(1_000d);
         payment.setAppointment("Thank you for dinner!");
 
         when(paymentDao.create(payment)).thenReturn(payment.getPaymentId());

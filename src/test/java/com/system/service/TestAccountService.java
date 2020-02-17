@@ -15,7 +15,7 @@ public class TestAccountService {
 
     private static AccountService accountService = null;
     private static Account account = null;
-    private static BigDecimal funds = null;
+    private static Double funds = null;
 
     @BeforeClass
     public static void setUp() {
@@ -24,9 +24,9 @@ public class TestAccountService {
         account.setAccountId(1);
         account.setUserId(1);
         account.setNumber("11110000111100001111");
-        account.setBalance(new BigDecimal(1_000));
+        account.setBalance(1_000d);
         account.setIsBlocked(false);
-        funds = new BigDecimal(500);
+        funds = 500d;
 
         when(accountService.addFunds(account.getAccountId(), funds)).thenReturn(account.getAccountId());
         when(accountService.blockAccount(account.getAccountId())).thenReturn(account.getAccountId());

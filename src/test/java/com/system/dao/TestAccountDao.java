@@ -26,7 +26,7 @@ public class TestAccountDao {
         account.setAccountId(1);
         account.setUserId(1);
         account.setNumber("11110000111100001111");
-        account.setBalance(new BigDecimal(1_000_000));
+        account.setBalance(1_000_000d);
 
         when(accountDao.create(account)).thenReturn(account.getAccountId());
         when(accountDao.update(account)).thenReturn(account.getAccountId());
