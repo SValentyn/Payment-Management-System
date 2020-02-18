@@ -92,22 +92,22 @@ let validMsgCurrency = document.querySelector("#valid-msg-currency"),
 let resetCurrency = function () {
     validMsgCurrency.classList.add("hide");
     errorMsgCurrency.classList.add("hide");
-    currency.classList.remove("valid-input");
-    currency.classList.remove("error-input");
+    document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let validCurrency = function () {
     validMsgCurrency.classList.remove("hide");
     errorMsgCurrency.classList.add("hide");
-    currency.classList.add("valid-input");
-    currency.classList.remove("error-input");
+    document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.add("valid-input");
+    document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let notValidCurrency = function () {
     validMsgCurrency.classList.add("hide");
     errorMsgCurrency.classList.remove("hide");
-    currency.classList.remove("valid-input");
-    currency.classList.add("error-input");
+    document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.add("error-input");
 };
 
 // on hide
