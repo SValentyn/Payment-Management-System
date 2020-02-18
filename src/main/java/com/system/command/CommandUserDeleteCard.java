@@ -27,7 +27,7 @@ public class CommandUserDeleteCard implements ICommand {
             request.setAttribute("showAccounts", true);
             request.setAttribute("showAccountInfo", true);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
-            request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(accountId));
+            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {
             request.setAttribute("deleteCardError", true);

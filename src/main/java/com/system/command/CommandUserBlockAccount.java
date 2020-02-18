@@ -29,7 +29,7 @@ public class CommandUserBlockAccount implements ICommand {
             request.setAttribute("showAccounts", true);
             request.setAttribute("showAccountInfo", true);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
-            request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(Integer.parseInt(accountId)));
+            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
         } else {
             request.setAttribute("blockAccountError", true);

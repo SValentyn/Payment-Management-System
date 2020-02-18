@@ -45,7 +45,7 @@ public class CommandAdminAttachCard implements ICommand {
             }
 
             // Check
-            List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId));
+            List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId));
             for (CreditCard card : cardsByAccountId) {
                 if (card.getNumber().equals(number)) {
                     request.setAttribute("cardNumberError", true);

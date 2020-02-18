@@ -118,7 +118,7 @@ public class CreditCardService {
     /**
      * Finds all credit cards by account id
      */
-    public List<CreditCard> findCardsByAccountId(Integer accountId) {
+    public List<CreditCard> findAllCardsByAccountId(Integer accountId) {
         return creditCardDao.findCardsByAccountId(accountId);
     }
 

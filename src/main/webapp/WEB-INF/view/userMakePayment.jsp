@@ -25,7 +25,6 @@
             padding: 6px 12px;
             font-size: 15px;
             color: #555;
-            border-color: #ccc !important;
             border-radius: 4px !important;
             background-color: #fff;
         }
@@ -159,18 +158,20 @@
                                             <label for="number" class="for-form-label">
                                                 ${from}
                                             </label>
-                                            <div class="bfh-selectbox">
-                                                <c:choose>
-                                                    <c:when test="${accountIdValue == null}">
-                                                        <div data-value=""></div>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <div data-value="${accountIdValue}">${numberByAccountIdValue}</div>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <c:forEach items="${accounts}" var="account">
-                                                    <div data-value="${account.accountId}">${account.number}</div>
-                                                </c:forEach>
+                                            <div>
+                                                <div class="bfh-selectbox">
+                                                    <c:choose>
+                                                        <c:when test="${accountIdValue == null}">
+                                                            <div data-value=""></div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div data-value="${accountIdValue}">${numberByAccountIdValue}</div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <c:forEach items="${accounts}" var="account">
+                                                        <div data-value="${account.accountId}">${account.number}</div>
+                                                    </c:forEach>
+                                                </div>
                                             </div>
                                             <label for="accountId" class="default-label">
                                                 <span id="valid-msg-accountId" class="hide">${correct} ✓</span>
@@ -179,8 +180,8 @@
                                         </div>
 
                                         <!-- Account Number -->
-                                        <div>
-                                            <div style="width: 100%; margin-top: 6px;">
+                                        <div style="width: 100%; margin-top: 6px;">
+                                            <div>
                                                 <label for="number" class="for-form-label">
                                                     ${toCreditCard}
                                                 </label>
@@ -200,13 +201,15 @@
 
                                         <!-- Amount Funds -->
                                         <div style="margin-top: 4px;">
-                                            <label for="amount" class="for-form-label">
-                                                ${amount}
-                                            </label>
-                                            <input id="amount" name="amount"
-                                                   data-toggle="tooltip" data-title="${tooltipAmountFunds}"
-                                                   placeholder="0.00" oninput="this.value=inputAmount(this.value)"
-                                                   value="${amountValue}"/>
+                                            <div>
+                                                <label for="amount" class="for-form-label">
+                                                    ${amount}
+                                                </label>
+                                                <input id="amount" name="amount" placeholder="0.00"
+                                                       data-toggle="tooltip" data-title="${tooltipAmountFunds}"
+                                                       oninput="this.value=inputAmount(this.value)"
+                                                       value="${amountValue}"/>
+                                            </div>
                                             <label for="amount" class="default-label">
                                                 <span id="valid-msg-amount" class="hide">${correct} ✓</span>
                                                 <span id="error-msg-amount" class="hide">${amountError}</span>
@@ -218,13 +221,13 @@
                                             <label for="appointment" class="for-form-label">
                                                 ${appointment}
                                             </label>
-                                            <div style="width: 100%; position: absolute; ">
+                                            <div style="width: 100%; position: absolute; display: flex;">
                                                 <textarea id="appointment" name="appointment"
                                                           class="form-control"
                                                 >${appointmentValue}</textarea>
-                                            </div>
-                                            <div class="counter">
-                                                <span id="counter"></span>
+                                                <div class="counter">
+                                                    <span id="counter"></span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -246,6 +249,7 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+</body>
 <script src="resources/js/validator_userMakePayment.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -260,5 +264,4 @@
         });
     });
 </script>
-</body>
 </html>

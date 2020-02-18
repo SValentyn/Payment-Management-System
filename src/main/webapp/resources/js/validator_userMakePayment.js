@@ -13,22 +13,22 @@ let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
 let resetAccountId = function () {
     validMsgAccountId.classList.add("hide");
     errorMsgAccountId.classList.add("hide");
-    accountId.classList.remove("valid-input");
-    accountId.classList.remove("error-input");
+    document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let validAccountId = function () {
     validMsgAccountId.classList.remove("hide");
     errorMsgAccountId.classList.add("hide");
-    accountId.classList.add("valid-input");
-    accountId.classList.remove("error-input");
+    document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("valid-input");
+    document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let notValidAccountId = function () {
     validMsgAccountId.classList.add("hide");
     errorMsgAccountId.classList.remove("hide");
-    accountId.classList.remove("valid-input");
-    accountId.classList.add("error-input");
+    document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("error-input");
 };
 
 // on hide
@@ -97,22 +97,22 @@ let validMsgAmount = document.querySelector("#valid-msg-amount"),
 let resetAmount = function () {
     validMsgAmount.classList.add("hide");
     errorMsgAmount.classList.add("hide");
-    amount.classList.remove("valid-input");
-    amount.classList.remove("error-input");
+    document.querySelector(".ui-spinner").classList.remove("valid-input");
+    document.querySelector(".ui-spinner").classList.remove("error-input");
 };
 
 let validAmount = function () {
     validMsgAmount.classList.remove("hide");
     errorMsgAmount.classList.add("hide");
-    amount.classList.add("valid-input");
-    amount.classList.remove("error-input");
+    document.querySelector(".ui-spinner").classList.add("valid-input");
+    document.querySelector(".ui-spinner").classList.remove("error-input");
 };
 
 let notValidAmount = function () {
     validMsgAmount.classList.add("hide");
     errorMsgAmount.classList.remove("hide");
-    amount.classList.remove("valid-input");
-    amount.classList.add("error-input");
+    document.querySelector(".ui-spinner").classList.remove("valid-input");
+    document.querySelector(".ui-spinner").classList.add("error-input");
 };
 
 // on blur
@@ -137,6 +137,7 @@ function inputAmount(value) {
 // on keyup/change -> reset
 amount.addEventListener('keyup', resetAmount);
 amount.addEventListener('change', resetAmount);
+
 
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {

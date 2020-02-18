@@ -141,14 +141,14 @@
                                             <label for="description" class="for-form-label">
                                                 ${description}
                                             </label>
-                                            <div style="width: 100%; position: absolute; ">
+                                            <div style="width: 100%; position: absolute; display: flex;">
                                                 <textarea id="description" name="description" class="form-control"
                                                           style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
                                                           data-toggle="tooltip" data-title="${tooltipDescription}"
                                                 >${descriptionValue}</textarea>
-                                            </div>
-                                            <div class="counter">
-                                                <span id="counter"></span>
+                                                <div class="counter" style="margin-right: 10px;">
+                                                    <span id="counter"></span>
+                                                </div>
                                             </div>
                                         </div>
 

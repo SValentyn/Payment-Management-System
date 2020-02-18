@@ -23,7 +23,7 @@ public class CommandAdminUnblockAccount implements ICommand {
             AccountService.getInstance().unblockAccount(Integer.parseInt(accountId));
 
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
-            request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId)));
+            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)));
         } else {
             request.setAttribute("unblockAccountError", true);

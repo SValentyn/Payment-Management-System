@@ -24,7 +24,7 @@ public class CommandAdminBlockCard implements ICommand {
             CreditCardService.getInstance().blockCreditCard(cardNumber);
 
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
-            request.setAttribute("cards", CreditCardService.getInstance().findCardsByAccountId(accountId));
+            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {
             request.setAttribute("blockCardError", true);
