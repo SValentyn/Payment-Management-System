@@ -24,7 +24,22 @@
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu animated fadeInUp" style="width: 185px;">
-                                            <li style="height: 40px;">
+                                            <li style="height: 40px; padding-top: 10px;">
+                                                <div>
+                                                    <a href="?command=profile">
+                                                        <div style="float: left;">
+                                                            <p style="margin: 0;">
+                                                                <fmt:message key="header.profile"/>
+                                                            </p>
+                                                        </div>
+                                                        <div style="float: right;">
+                                                            <img src="resources/images/profile.png"
+                                                                 alt="" class="header-icon">
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li style="height: 40px; padding-top: 10px;">
                                                 <div>
                                                     <a href="?command=logout">
                                                         <div style="float: left;">
@@ -36,22 +51,8 @@
                                                             <img src="resources/images/logout.png"
                                                                  alt="<fmt:message key="header.logout"/>"
                                                                  title="<fmt:message key="header.logout"/>"
-                                                                 class="img-logout">
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            <li style="height: 40px; padding-top: 10px;">
-                                                <div>
-                                                    <a href="?command=profile">
-                                                        <div style="float: left;">
-                                                            <p style="margin: 0;">
-                                                                <fmt:message key="header.profile"/>
-                                                            </p>
-                                                        </div>
-                                                        <div style="float: right;">
-                                                            <i class="glyphicon glyphicon-user"
-                                                               style="font-size: larger;"></i>
+                                                                 class="header-icon"
+                                                                 style="top: 1px;">
                                                         </div>
                                                     </a>
                                                 </div>
