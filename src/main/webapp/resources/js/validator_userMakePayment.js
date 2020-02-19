@@ -37,7 +37,7 @@ bfh_selectbox.on('hide.bfhselectbox', function () {
 
     resetAccountId();
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "") {
+    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.value.trim().length < 20) {
         notValidAccountId();
     } else {
         validAccountId();

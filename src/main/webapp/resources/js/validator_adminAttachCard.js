@@ -98,28 +98,28 @@ let resetValidity = function () {
     document.querySelector("#validityExpiredError").classList.add("hide");
     validMsgValidity.classList.add("hide");
     errorMsgValidity.classList.add("hide");
-    month.classList.remove("valid-input");
-    month.classList.remove("error-input");
-    year.classList.remove("valid-input");
-    year.classList.remove("error-input");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("error-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let validValidity = function () {
     validMsgValidity.classList.remove("hide");
     errorMsgValidity.classList.add("hide");
-    month.classList.add("valid-input");
-    month.classList.remove("error-input");
-    year.classList.add("valid-input");
-    year.classList.remove("error-input");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.add("valid-input");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("error-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("valid-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let notValidValidity = function () {
     validMsgValidity.classList.add("hide");
     errorMsgValidity.classList.remove("hide");
-    month.classList.remove("valid-input");
-    month.classList.add("error-input");
-    year.classList.remove("valid-input");
-    year.classList.add("error-input");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.add("error-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("error-input");
 };
 
 // on hide
