@@ -5,6 +5,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
+import com.system.service.LetterService;
 import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ public class CommandAdminAttachAccount implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ATTACH_ACCOUNT);
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("attached", false);
         request.setAttribute("attachAccountError", false);
 

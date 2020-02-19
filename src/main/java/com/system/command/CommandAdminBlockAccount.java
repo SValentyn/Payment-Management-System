@@ -3,6 +3,7 @@ package com.system.command;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.CreditCardService;
+import com.system.service.LetterService;
 import com.system.service.PaymentService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ public class CommandAdminBlockAccount implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("blockAccountError", false);
 
         String userId = (String) request.getSession().getAttribute("userId");

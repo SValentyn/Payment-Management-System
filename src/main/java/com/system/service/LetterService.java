@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,6 +84,20 @@ public class LetterService {
      */
     public List<Letter> findLettersByUserId(Integer userId) {
         return letterDao.findLettersByUserId(userId);
+    }
+
+    /**
+     * Finds all unprocessed letters
+     */
+    public List<Letter> findUnprocessedLetters() {
+        List<Letter> letters = letterDao.findAllLetters();
+        List<Letter> unprocessedLetters = new ArrayList<>();
+        for (Letter letter : letters) {
+            if (!letter.getIsProcessed()) {
+                unprocessedLetters.add(letter);
+            }
+        }
+        return unprocessedLetters;
     }
 
     /**

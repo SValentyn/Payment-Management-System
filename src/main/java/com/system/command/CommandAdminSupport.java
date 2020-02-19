@@ -18,6 +18,7 @@ public class CommandAdminSupport implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
 
         List<Letter> letters = LetterService.getInstance().findAllLetters();
         List<Letter> notProcessedLetters = new ArrayList<>();

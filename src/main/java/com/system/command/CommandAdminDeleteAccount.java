@@ -2,6 +2,7 @@ package com.system.command;
 
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
+import com.system.service.LetterService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ public class CommandAdminDeleteAccount implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("deleteAccountError", false);
 
         String userId = (String) request.getSession().getAttribute("userId");

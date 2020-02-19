@@ -84,7 +84,7 @@
                 <a href="?command=support">
                     <img src="resources/images/admin-support.png"
                          alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.support"/>
+                    <fmt:message key="sidebar.support"/> (${numberOfLetters})
                 </a>
             </c:if>
         </li>

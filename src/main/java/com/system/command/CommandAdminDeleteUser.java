@@ -1,6 +1,7 @@
 package com.system.command;
 
 import com.system.manager.ResourceManager;
+import com.system.service.LetterService;
 import com.system.service.UserService;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ public class CommandAdminDeleteUser implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("deleteUserError", false);
         request.setAttribute("showUsers", true);
 

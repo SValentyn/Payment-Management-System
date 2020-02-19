@@ -3,6 +3,7 @@ package com.system.command;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.service.LetterService;
 import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ public class CommandAdminUpdateUserData implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_USER_DATA);
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("updated", false);
         request.setAttribute("phoneExistError", false);
         request.setAttribute("updateUserDataError", false);

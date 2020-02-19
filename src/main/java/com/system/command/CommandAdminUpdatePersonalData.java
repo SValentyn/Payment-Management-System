@@ -3,6 +3,7 @@ package com.system.command;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.service.LetterService;
 import com.system.service.UserService;
 import com.system.utils.PasswordEncryptor;
 
@@ -20,6 +21,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_DATA);
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("updated", false);
         request.setAttribute("phoneExistError", false);
         request.setAttribute("updateDataError", false);

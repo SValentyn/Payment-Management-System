@@ -52,6 +52,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
             // Letter processed
             LetterService.getInstance().updateLetterByLetterId(Integer.parseInt(letterId));
+            request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
             request.setAttribute("processed", true);
         }
 

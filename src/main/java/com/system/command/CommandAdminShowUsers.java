@@ -2,6 +2,7 @@ package com.system.command;
 
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
+import com.system.service.LetterService;
 import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ public class CommandAdminShowUsers implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("noUsers", false);
 
         List<User> allUsers = UserService.getInstance().findAllUsers();
