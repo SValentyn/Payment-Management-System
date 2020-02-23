@@ -1,0 +1,1 @@
+web: java -jar target/Payment-Management-System-1.0-SNAPSHOT.war
