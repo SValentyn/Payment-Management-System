@@ -26,7 +26,7 @@ public class ConnectionPool {
      */
     public static synchronized Connection getConnection() throws URISyntaxException, SQLException {
 //        if (datasource == null) {
-            URI dbUri = new URI(System.getenv("DATABASE_URL"));
+            URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 
             String username = dbUri.getUserInfo().split(":")[0];
             String password = dbUri.getUserInfo().split(":")[1];
