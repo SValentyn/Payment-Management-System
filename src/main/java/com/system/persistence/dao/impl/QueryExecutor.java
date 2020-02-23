@@ -38,16 +38,27 @@ public class QueryExecutor {
     }
 
     /**
-     * Getting connection from connection pool
+     * [For use on the site]
+     *
+     * Getting a connection directly from the DB
      */
     private Connection getConnection() throws SQLException {
         try {
             return ConnectionPool.getConnection();
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
+
+    /**
+     * Uncomment the code below for local use (localhost) and comment out the code above (for the site)
+     *
+     * Getting connection from connection pool
+     */
+//    private Connection getConnection() throws SQLException {
+//        return ConnectionPool.getDatasource().getConnection();
+//    }
 
     /**
      * Executes insert, update and delete queries
@@ -58,12 +69,12 @@ public class QueryExecutor {
         try {
             preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             setValues(preparedStatement, args);
-            int res = preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 return resultSet.getInt(1);
             } else {
-                return res;
+                return result;
             }
         } catch (SQLException e) {
             LOGGER.error("Execute statement error: " + e.getMessage());
