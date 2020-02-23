@@ -5,6 +5,7 @@ import com.system.persistence.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +41,12 @@ public class QueryExecutor {
      * Getting connection from connection pool
      */
     private Connection getConnection() throws SQLException {
-        return ConnectionPool.getInstance().getConnection();
+        try {
+            return ConnectionPool.getConnection();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
