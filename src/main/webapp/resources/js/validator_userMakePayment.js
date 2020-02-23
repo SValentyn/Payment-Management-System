@@ -37,7 +37,7 @@ bfh_selectbox.on('hide.bfhselectbox', function () {
 
     resetAccountId();
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.value.trim().length < 20) {
+    if (accountId.value.trim() === null || accountId.value.trim() === "") {
         notValidAccountId();
     } else {
         validAccountId();
@@ -123,7 +123,7 @@ amount.addEventListener('blur', function () {
         notValidAmount();
     } else {
         validAmount();
-        if (amount.value.match(/\./g).length > 1) {
+        if (amount.value.match(/\[.,]/g).length > 1) {
             notValidAmount();
         }
     }

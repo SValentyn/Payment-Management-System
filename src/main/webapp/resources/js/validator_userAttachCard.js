@@ -207,7 +207,7 @@ year.addEventListener('change', resetValidity);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.value.trim().length < 20 || accountId.classList.contains("error-input")) {
+    if (accountId.value.trim() === null || accountId.value.trim() === ""  || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;
