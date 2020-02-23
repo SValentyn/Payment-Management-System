@@ -64,7 +64,7 @@ public class CommandUserMakePayment implements ICommand {
             }
 
             // Forming Payment
-            int status = PaymentService.getInstance().formingPayment(Integer.valueOf(accountId), number, Double.valueOf(amount), appointment);
+            int status = PaymentService.getInstance().formingPayment(Integer.valueOf(accountId), number, new BigDecimal(amount), appointment);
             if (status == -1) {
                 setRequestAttributes(request, accountId, number, amount, appointment);
                 request.setAttribute("accountFromBlockedError", true);

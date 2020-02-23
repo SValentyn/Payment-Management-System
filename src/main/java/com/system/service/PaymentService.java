@@ -9,6 +9,7 @@ import com.system.persistence.factory.DaoFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class PaymentService {
     /**
      * Checks all conditions, forms payment and adds is to database
      */
-    public synchronized int formingPayment(Integer accountId, String number, Double amount, String appointment) {
+    public synchronized int formingPayment(Integer accountId, String number, BigDecimal amount, String appointment) {
         int status;
 
         Payment payment = new Payment();
@@ -99,18 +100,18 @@ public class PaymentService {
     /**
      * Checks and form final sum with percent for payment
      */
-    private synchronized boolean checkAvailableSum(Account account, Double paymentSum) {
-        Double balance = account.getBalance();
+    private synchronized boolean checkAvailableSum(Account account, BigDecimal paymentSum) {
+        BigDecimal balance = account.getBalance();
         return balance.compareTo(paymentSum) >= 0;
     }
 
     /**
      * Checks if accounts are locked and performs a transaction between them
      */
-    private synchronized void transaction(Account accountFrom, Account accountTo, Double amount) {
+    private synchronized void transaction(Account accountFrom, Account accountTo, BigDecimal amount) {
         if (!accountFrom.getIsBlocked() && !accountTo.getIsBlocked()) {
-            accountFrom.setBalance(accountFrom.getBalance() - amount);
-            accountTo.setBalance(accountTo.getBalance() + amount);
+            accountFrom.setBalance(accountFrom.getBalance().add(amount));
+            accountTo.setBalance(accountTo.getBalance().subtract(amount));
             accountDao.update(accountFrom);
             accountDao.update(accountTo);
         } else {

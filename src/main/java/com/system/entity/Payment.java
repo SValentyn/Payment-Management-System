@@ -10,7 +10,7 @@ public class Payment implements Serializable {
     private Integer paymentId;
     private Integer accountId;
     private String recipientAccountNumber;
-    private Double sum;
+    private BigDecimal sum;
     private String appointment;
     private String date;
     private Boolean condition;
@@ -42,11 +42,11 @@ public class Payment implements Serializable {
         this.recipientAccountNumber = recipientAccountNumber;
     }
 
-    public Double getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public void setSum(Double sum) {
+    public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
 

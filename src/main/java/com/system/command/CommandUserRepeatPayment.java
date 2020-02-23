@@ -25,7 +25,7 @@ public class CommandUserRepeatPayment implements ICommand {
         String paymentId = request.getParameter("paymentId");
         Payment payment = DaoFactory.createPaymentDao().findPaymentByPaymentId(Integer.parseInt(paymentId));
         String number = payment.getRecipientAccountNumber();
-        Double amount = payment.getSum();
+        BigDecimal amount = payment.getSum();
         String appointment = payment.getAppointment();
 
         Integer accountId = payment.getAccountId();

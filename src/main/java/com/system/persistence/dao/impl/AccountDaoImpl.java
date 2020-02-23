@@ -124,7 +124,7 @@ public class AccountDaoImpl implements AccountDao {
             account.setUserId(rs.getInt("user_id"));
             account.setAccountId(rs.getInt("account_id"));
             account.setNumber(rs.getString("number"));
-            account.setBalance(rs.getDouble("balance"));
+            account.setBalance(rs.getBigDecimal("balance"));
             account.setCurrency(rs.getString("currency"));
             account.setIsBlocked(rs.getBoolean("is_blocked"));
         } catch (SQLException e) {
