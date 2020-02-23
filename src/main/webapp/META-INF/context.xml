@@ -6,12 +6,12 @@
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_3a10884fd9b50b9?autoReconnect=true"
+              url="jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_3a10884fd9b50b9?useUnicode=true&amp;autoReconnect=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
               username="b565b573e93bda"
               password="132a1b97"
               validationQuery="select 1"
-              maxWait="10000"
-              maxActive="100"
+              maxWaitMillis="15000"
+              maxTotal="100"
               maxIdle="100">
     </Resource>
 
