@@ -110,8 +110,8 @@ public class PaymentService {
      */
     private synchronized void transaction(Account accountFrom, Account accountTo, BigDecimal amount) {
         if (!accountFrom.getIsBlocked() && !accountTo.getIsBlocked()) {
-            accountFrom.setBalance(accountFrom.getBalance().add(amount));
-            accountTo.setBalance(accountTo.getBalance().subtract(amount));
+            accountFrom.setBalance(accountFrom.getBalance().subtract(amount));
+            accountTo.setBalance(accountTo.getBalance().add(amount));
             accountDao.update(accountFrom);
             accountDao.update(accountTo);
         } else {
