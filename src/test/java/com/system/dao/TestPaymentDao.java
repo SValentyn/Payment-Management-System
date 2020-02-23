@@ -27,7 +27,7 @@ public class TestPaymentDao {
         payment.setPaymentId(1);
         payment.setAccountId(1);
         payment.setRecipientAccountNumber("5450655032805450");
-        payment.setSum(1_000d);
+        payment.setSum(new BigDecimal("1000.00"));
         payment.setAppointment("Thank you for dinner!");
 
         when(paymentDao.create(payment)).thenReturn(payment.getPaymentId());
@@ -53,6 +53,6 @@ public class TestPaymentDao {
     public void testFindAllPaymentsByAccountId() {
         List<Payment> payments = paymentDao.findAllPaymentsByAccountId(1);
         assertEquals(1, payments.size());
-        assertEquals(new BigDecimal(1_000), payments.get(0).getSum());
+        assertEquals(new BigDecimal("1000.00"), payments.get(0).getSum());
     }
 }

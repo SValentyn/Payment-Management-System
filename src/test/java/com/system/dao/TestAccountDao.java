@@ -26,7 +26,7 @@ public class TestAccountDao {
         account.setAccountId(1);
         account.setUserId(1);
         account.setNumber("11110000111100001111");
-        account.setBalance(1_000_000d);
+        account.setBalance(new BigDecimal("1000000.00"));
 
         when(accountDao.create(account)).thenReturn(account.getAccountId());
         when(accountDao.update(account)).thenReturn(account.getAccountId());
@@ -53,7 +53,7 @@ public class TestAccountDao {
         Account account1 = accountDao.findAccountById(account.getAccountId());
         Account account2 = accountDao.findAccountById(3);
         assertNull(account2);
-        assertEquals(new BigDecimal(1_000_000), account1.getBalance());
+        assertEquals(new BigDecimal("1000000.00"), account1.getBalance());
     }
 
     @Test
