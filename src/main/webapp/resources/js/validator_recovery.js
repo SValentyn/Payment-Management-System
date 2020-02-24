@@ -10,7 +10,7 @@ let iti = window.intlTelInput(phone, {
     hiddenInput: "full_phone",
     initialCountry: "auto",
     geoIpLookup: function (callback) {
-        $.get('http://ipinfo.io/', function () {
+        $.get('https://ipinfo.io', function () {
         }, "jsonp").always(function (resp) {
             let countryCode = (resp && resp.country) ? resp.country : "";
             callback(countryCode);
