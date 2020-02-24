@@ -1,5 +1,6 @@
 package com.system.persistence;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -19,6 +20,8 @@ import java.sql.SQLException;
  */
 public class ConnectionPool {
 
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
+
     private static DataSource datasource;
 
     private ConnectionPool() {
@@ -26,12 +29,23 @@ public class ConnectionPool {
 
     /**
      * [For use on the site]
-     *
+     * <p>
      * Getting parameters from file (in context.xml resource is created)
      *
      * @return ready connection to the DB
      */
     public static synchronized Connection getConnection() throws URISyntaxException, SQLException {
+        try {
+            try {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+            } catch (ClassNotFoundException e) {
+                LOGGER.error("ClassNotFoundException: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
@@ -43,7 +57,7 @@ public class ConnectionPool {
 
     /**
      * [For local use (localhost)]
-     *
+     * <p>
      * Getting parameters from file (in context.xml resource is created)
      *
      * @return DataSource, from which connection to DB can be gotten
@@ -52,8 +66,8 @@ public class ConnectionPool {
         if (datasource == null) {
             try {
                 Context initialContext = new InitialContext();
-//                Context environmentContext = (Context) initialContext.lookup("java:comp/env");
-                datasource = (DataSource) initialContext.lookup("jdbc/pool");
+                Context environmentContext = (Context) initialContext.lookup("java:comp/env");
+                datasource = (DataSource) environmentContext.lookup("jdbc/pool");
             } catch (NamingException ex) {
                 Logger.getLogger(ConnectionPool.class.getName()).error("NamingException: " + ex.getMessage());
             }

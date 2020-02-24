@@ -39,26 +39,26 @@ public class QueryExecutor {
 
     /**
      * [For use on the site]
-     *
+     * <p>
      * Getting a connection directly from the DB
      */
-//    private Connection getConnection() throws SQLException {
-//        try {
-//            return ConnectionPool.getConnection();
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    private Connection getConnection() throws SQLException {
+        try {
+            return ConnectionPool.getConnection();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * Uncomment the code below for local use (localhost) and comment out the code above (for the site)
      *
      * Getting connection from connection pool
      */
-    private Connection getConnection() throws SQLException {
-        return ConnectionPool.getDatasource().getConnection();
-    }
+//    private Connection getConnection() throws SQLException {
+//        return ConnectionPool.getDatasource().getConnection();
+//    }
 
     /**
      * Executes insert, update and delete queries
