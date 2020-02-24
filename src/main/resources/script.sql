@@ -1,5 +1,7 @@
 USE pms_db;
 
+ALTER DATABASE pms_db CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 DROP TABLE IF EXISTS letters;
 
 DROP TABLE IF EXISTS payments;
