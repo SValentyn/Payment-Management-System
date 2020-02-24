@@ -6,7 +6,7 @@
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_a77bbc8929247c7?useUnicode=true&amp;autoReconnect=true&amp;serverTimezone=UTC"
+              url="jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_a77bbc8929247c7?autoReconnect=true"
               username="b13cd007edb0bd"
               password="a480f834"
               validationQuery="select 1"

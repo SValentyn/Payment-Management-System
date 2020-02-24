@@ -52,8 +52,8 @@ public class ConnectionPool {
         if (datasource == null) {
             try {
                 Context initialContext = new InitialContext();
-                Context environmentContext = (Context) initialContext.lookup("java:comp/env");
-                datasource = (DataSource) environmentContext.lookup("jdbc/pool");
+//                Context environmentContext = (Context) initialContext.lookup("java:comp/env");
+                datasource = (DataSource) initialContext.lookup("jdbc/pool");
             } catch (NamingException ex) {
                 Logger.getLogger(ConnectionPool.class.getName()).error("NamingException: " + ex.getMessage());
             }
