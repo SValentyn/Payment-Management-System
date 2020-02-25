@@ -3,6 +3,7 @@ package com.system.command;
 import com.system.entity.Letter;
 import com.system.manager.ResourceManager;
 import com.system.service.LetterService;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,8 @@ public class CommandAdminSupport implements ICommand {
 
         for (Letter letter : letters) {
             if (!letter.getIsProcessed()) {
+                letter.setTypeQuestion(StringEscapeUtils.unescapeJava(letter.getTypeQuestion()));
+                letter.setDescription(StringEscapeUtils.unescapeJava(letter.getDescription()));
                 notProcessedLetters.add(letter);
             }
         }

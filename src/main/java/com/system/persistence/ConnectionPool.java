@@ -46,7 +46,9 @@ public class ConnectionPool {
             e.printStackTrace();
         }
 
+        // mysql://b13cd007edb0bd:a480f834@eu-cdbr-west-02.cleardb.net/heroku_a77bbc8929247c7?useUnicode=yes&amp;characterEncoding=utf-8&amp;autoReconnect=true
         URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
+        LOGGER.info(dbUri);
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
