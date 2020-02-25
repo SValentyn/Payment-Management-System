@@ -1,6 +1,22 @@
-USE pms_db;
+SET session auto_increment_increment = 1;
+SET session character_set_client = utf8;
+SET session character_set_connection = utf8;
+SET session character_set_results = utf8;
+SET session character_set_server = utf8;
 
-ALTER DATABASE pms_db CHARACTER SET utf8 COLLATE utf8_general_ci;
+SHOW VARIABLES LIKE 'auto_inc%';
+SHOW VARIABLES LIKE '%character%';
+SHOW VARIABLES LIKE '%collation%';
+
+DROP DATABASE IF EXISTS heroku_a77bbc8929247c7;
+
+CREATE DATABASE heroku_a77bbc8929247c7
+    CHARACTER SET utf8
+    COLLATE utf8_general_ci;
+
+USE heroku_a77bbc8929247c7;
+
+SET NAMES utf8;
 
 DROP TABLE IF EXISTS letters;
 
@@ -26,7 +42,8 @@ CREATE TABLE users
     role_id  INT(11)      NOT NULL,
     PRIMARY KEY (user_id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  CHARACTER SET utf8
+  DEFAULT COLLATE 'utf8_general_ci';
 
 # admin (p:111111)
 INSERT INTO users (name, surname, phone, email, password, role_id)
@@ -54,7 +71,8 @@ CREATE TABLE roles
     title VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  CHARACTER SET utf8
+  DEFAULT COLLATE 'utf8_general_ci';
 
 INSERT INTO roles (title)
 VALUES ('client'),
@@ -73,7 +91,8 @@ CREATE TABLE accounts
     PRIMARY KEY (account_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  CHARACTER SET utf8
+  DEFAULT COLLATE 'utf8_general_ci';
 
 INSERT INTO accounts (user_id, number, balance, currency, is_blocked)
 VALUES (2, '00000000000000000000', 9500.00, 'MXN', false);
@@ -106,7 +125,8 @@ CREATE TABLE credit_cards
     PRIMARY KEY (card_id),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  CHARACTER SET utf8
+  DEFAULT COLLATE 'utf8_general_ci';
 
 INSERT INTO credit_cards (account_id, number, cvv, validity, is_active)
 VALUES (1, '0000000000000000', '200', '03/2021', true);
@@ -130,7 +150,7 @@ VALUES (4, '4444000000000000', '404', '10/2020', true);
 -- -- --
 CREATE TABLE payments
 (
-    payment_id               INT(11) AUTO_INCREMENT,
+    payment_id               INT(11)      NOT NULL AUTO_INCREMENT,
     account_id               INT(11)      NOT NULL,
     recipient_account_number VARCHAR(255) NOT NULL,
     sum                      DOUBLE       NOT NULL,
@@ -140,7 +160,8 @@ CREATE TABLE payments
     PRIMARY KEY (payment_id),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  CHARACTER SET utf8
+  DEFAULT COLLATE 'utf8_general_ci';
 
 INSERT INTO payments (account_id, recipient_account_number, sum, appointment, date, `condition`)
 VALUES (2, '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020', true);
@@ -152,7 +173,7 @@ VALUES (4, '00000000000000000002', 400.00, 'charity', '01/10/2020', true);
 -- -- --
 CREATE TABLE letters
 (
-    letter_id    INT(11) AUTO_INCREMENT,
+    letter_id    INT(11)      NOT NULL AUTO_INCREMENT,
     user_id      INT(11)      NOT NULL,
     typeQuestion VARCHAR(255) NOT NULL,
     description  VARCHAR(255) NOT NULL,
@@ -161,5 +182,6 @@ CREATE TABLE letters
     PRIMARY KEY (letter_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  CHARACTER SET utf8
+  DEFAULT COLLATE 'utf8_general_ci';
 -- -- --

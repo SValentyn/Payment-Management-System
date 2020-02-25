@@ -3,6 +3,7 @@ package com.system.service;
 import com.system.entity.Letter;
 import com.system.persistence.dao.LetterDao;
 import com.system.persistence.factory.DaoFactory;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -42,8 +43,8 @@ public class LetterService {
         if (userId != null && typeQuestion != null && description != null) {
             Letter letter = new Letter();
             letter.setUserId(userId);
-            letter.setTypeQuestion(typeQuestion);
-            letter.setDescription(description);
+            letter.setTypeQuestion(StringEscapeUtils.escapeJava(typeQuestion));
+            letter.setDescription(StringEscapeUtils.escapeJava(description));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
             letter.setDate(formatter.format(new Date()));
             letter.setIsProcessed(false);
