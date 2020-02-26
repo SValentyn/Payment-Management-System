@@ -17,15 +17,15 @@ public class CommandIndex implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
 
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            User user = (User) session.getAttribute("currentUser");
-            if (user != null) {
-                String role = UserService.getInstance().getRole(user);
-                if (role.equals("admin")) {
-                    page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
-                } else if (role.equals("client")) {
-                    page = ResourceManager.getInstance().getProperty(ResourceManager.USER);
-                }
+        session.setMaxInactiveInterval(-1);
+
+        User user = (User) session.getAttribute("currentUser");
+        if (user != null) {
+            String role = UserService.getInstance().getRole(user);
+            if (role.equals("admin")) {
+                page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
+            } else if (role.equals("client")) {
+                page = ResourceManager.getInstance().getProperty(ResourceManager.USER);
             }
         }
 
