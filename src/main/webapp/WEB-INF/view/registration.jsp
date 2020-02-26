@@ -70,6 +70,18 @@
         </div>
     </c:if>
 
+    <!-- Alert emailExistError -->
+    <c:if test="${emailExistError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="registration.alertEmailExistError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert registrationError -->
     <c:if test="${registrationError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">

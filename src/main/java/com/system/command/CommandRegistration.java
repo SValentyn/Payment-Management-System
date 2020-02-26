@@ -4,6 +4,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.UserService;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ public class CommandRegistration implements ICommand {
 
         request.setAttribute("created", false);
         request.setAttribute("phoneExistError", false);
+        request.setAttribute("emailExistError", false);
         request.setAttribute("registrationError", false);
 
         String method = request.getMethod();
@@ -30,7 +32,7 @@ public class CommandRegistration implements ICommand {
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
-            String email = request.getParameter("email");
+            String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
             String password = request.getParameter("password");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
 
@@ -40,6 +42,15 @@ public class CommandRegistration implements ICommand {
                 if (user.getPhone().equals(phone)) {
                     setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
                     request.setAttribute("phoneExistError", true);
+                    return page;
+                }
+            }
+
+            // Check
+            for (User user : users) {
+                if (user.getEmail().equals(email)) {
+                    setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
+                    request.setAttribute("emailExistError", true);
                     return page;
                 }
             }
@@ -61,7 +72,7 @@ public class CommandRegistration implements ICommand {
         request.setAttribute("nameValue", name);
         request.setAttribute("surnameValue", surname);
         request.setAttribute("phoneValue", phone);
-        request.setAttribute("emailValue", email);
+        request.setAttribute("emailValue", StringEscapeUtils.unescapeJava(email));
         request.setAttribute("passwordValue", password);
         request.setAttribute("passwordConfirmationValue", passwordConfirmation);
     }

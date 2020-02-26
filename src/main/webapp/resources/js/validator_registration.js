@@ -188,8 +188,9 @@ let notValidEmail = function () {
 email.addEventListener('blur', function () {
     resetEmail();
 
+    let regExp = /[a-zA-Z0-9._-]+@[a-z0-9.-]+.[a-z]{2,}$/;
     if (email.value.trim() !== "") {
-        if (email.value.trim().search(/[a-zA-Z0-9._-]+@[a-z0-9.-]+.[a-z]{2,}$/) === -1) {
+        if (email.value.trim().search(regExp) === -1) {
             notValidEmail();
         } else {
             validEmail();
