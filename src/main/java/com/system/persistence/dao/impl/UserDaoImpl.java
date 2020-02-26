@@ -3,6 +3,7 @@ package com.system.persistence.dao.impl;
 import com.system.entity.Role;
 import com.system.entity.User;
 import com.system.persistence.dao.UserDao;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -46,12 +47,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int create(User entity) {
+        entity.setName(StringEscapeUtils.escapeJava(entity.getName()));
+        entity.setSurname(StringEscapeUtils.escapeJava(entity.getSurname()));
         Object[] args = {entity.getName(), entity.getSurname(), entity.getPhone(), entity.getEmail(), entity.getPassword(), entity.getRole().getId()};
         return executor.executeStatement(CREATE_USER, args);
     }
 
     @Override
     public int update(User entity) {
+        entity.setName(StringEscapeUtils.escapeJava(entity.getName()));
+        entity.setSurname(StringEscapeUtils.escapeJava(entity.getSurname()));
         Object[] args = {entity.getName(), entity.getSurname(), entity.getPhone(), entity.getEmail(), entity.getPassword(), entity.getUserId()};
         return executor.executeStatement(UPDATE_USER, args);
     }
@@ -127,8 +132,8 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
         try {
             user.setUserId(rs.getInt("user_id"));
-            user.setName(rs.getString("name"));
-            user.setSurname(rs.getString("surname"));
+            user.setName(StringEscapeUtils.unescapeJava(rs.getString("name")));
+            user.setSurname(StringEscapeUtils.unescapeJava(rs.getString("surname")));
             user.setPhone(rs.getString("phone"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));

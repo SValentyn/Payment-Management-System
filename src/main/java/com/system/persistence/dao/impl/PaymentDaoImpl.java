@@ -2,6 +2,7 @@ package com.system.persistence.dao.impl;
 
 import com.system.entity.Payment;
 import com.system.persistence.dao.PaymentDao;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -41,6 +42,7 @@ public class PaymentDaoImpl implements PaymentDao {
 
     @Override
     public int create(Payment entity) {
+        entity.setAppointment(StringEscapeUtils.escapeJava(entity.getAppointment()));
         Object[] args = {entity.getAccountId(), entity.getRecipientAccountNumber(), entity.getSum(), entity.getAppointment(), entity.getDate(), entity.getCondition()};
         return executor.executeStatement(CREATE_PAYMENT, args);
     }
@@ -83,7 +85,7 @@ public class PaymentDaoImpl implements PaymentDao {
             payment.setAccountId(rs.getInt("account_id"));
             payment.setRecipientAccountNumber(rs.getString("recipient_account_number"));
             payment.setSum(rs.getBigDecimal("sum"));
-            payment.setAppointment(rs.getString("appointment"));
+            payment.setAppointment(StringEscapeUtils.unescapeJava(rs.getString("appointment")));
             payment.setDate(rs.getString("date"));
             payment.setCondition(rs.getBoolean("condition"));
         } catch (SQLException e) {
