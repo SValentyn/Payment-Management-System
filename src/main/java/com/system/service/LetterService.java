@@ -7,6 +7,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,8 +45,15 @@ public class LetterService {
         if (userId != null && typeQuestion != null && description != null) {
             Letter letter = new Letter();
             letter.setUserId(userId);
-            letter.setTypeQuestion(StringEscapeUtils.unescapeJava(StringEscapeUtils.escapeJava(typeQuestion)));
-            letter.setDescription(StringEscapeUtils.unescapeJava(StringEscapeUtils.escapeJava(description)));
+            byte[] bytes = typeQuestion.getBytes(StandardCharsets.UTF_8);
+            String text = new String(bytes, StandardCharsets.UTF_8);
+            letter.setTypeQuestion(text);
+            bytes = description.getBytes(StandardCharsets.UTF_8);
+            text = new String(bytes, StandardCharsets.UTF_8);
+            letter.setDescription(text);
+
+//            letter.setTypeQuestion(StringEscapeUtils.escapeJava(typeQuestion));
+//            letter.setDescription(StringEscapeUtils.escapeJava(description));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
             letter.setDate(formatter.format(new Date()));
             letter.setIsProcessed(false);
