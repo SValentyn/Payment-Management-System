@@ -2,6 +2,7 @@ package com.system.persistence.dao.impl;
 
 import com.system.entity.Letter;
 import com.system.persistence.dao.LetterDao;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -44,6 +45,8 @@ public class LetterDaoImpl implements LetterDao {
 
     @Override
     public int create(Letter entity) {
+        entity.setTypeQuestion(StringEscapeUtils.escapeJava(entity.getTypeQuestion()));
+        entity.setDescription(StringEscapeUtils.escapeJava(entity.getDescription()));
         Object[] args = {entity.getUserId(), entity.getTypeQuestion(), entity.getDescription(), entity.getDate(), entity.getIsProcessed()};
         return executor.executeStatement(CREATE_LETTER, args);
     }
@@ -109,8 +112,8 @@ public class LetterDaoImpl implements LetterDao {
         try {
             letter.setLetterId(rs.getInt("letter_id"));
             letter.setUserId(rs.getInt("user_id"));
-            letter.setTypeQuestion(rs.getString("typeQuestion"));
-            letter.setDescription(rs.getString("description"));
+            letter.setTypeQuestion(StringEscapeUtils.unescapeJava(rs.getString("typeQuestion")));
+            letter.setDescription(StringEscapeUtils.unescapeJava(rs.getString("description")));
             letter.setDate(rs.getString("date"));
             letter.setIsProcessed(rs.getBoolean("is_processed"));
         } catch (SQLException e) {

@@ -34,8 +34,8 @@ public class CommandUserSupport implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Data
-            String typeQuestion = new String(request.getParameter("typeQuestion").getBytes(), StandardCharsets.UTF_8);
-            String description = new String(request.getParameter("description").getBytes(), StandardCharsets.UTF_8);
+            String typeQuestion = request.getParameter("typeQuestion");
+            String description = request.getParameter("description");
 
             // Data
             List<Letter> lettersByUserId = LetterService.getInstance().findLettersByUserId(user.getUserId());

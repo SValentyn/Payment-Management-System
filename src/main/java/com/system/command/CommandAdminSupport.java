@@ -26,8 +26,6 @@ public class CommandAdminSupport implements ICommand {
 
         for (Letter letter : letters) {
             if (!letter.getIsProcessed()) {
-//                letter.setTypeQuestion(StringEscapeUtils.unescapeJava(letter.getTypeQuestion()));
-//                letter.setDescription(StringEscapeUtils.unescapeJava(letter.getDescription()));
                 notProcessedLetters.add(letter);
             }
         }
