@@ -35,11 +35,11 @@ public class Letter implements Serializable {
     }
 
     public String getTypeQuestion() {
-        return StringEscapeUtils.unescapeJava(typeQuestion);
+        return typeQuestion;
     }
 
     public void setTypeQuestion(String typeQuestion) {
-        this.typeQuestion = StringEscapeUtils.escapeJava(typeQuestion);
+        this.typeQuestion = typeQuestion;
     }
 
     public String getDescription() {
