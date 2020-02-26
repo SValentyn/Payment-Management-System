@@ -1,5 +1,7 @@
 package com.system.entity;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.io.Serializable;
 
 public class Letter implements Serializable {
@@ -33,11 +35,11 @@ public class Letter implements Serializable {
     }
 
     public String getTypeQuestion() {
-        return typeQuestion;
+        return StringEscapeUtils.unescapeJava(typeQuestion);
     }
 
     public void setTypeQuestion(String typeQuestion) {
-        this.typeQuestion = typeQuestion;
+        this.typeQuestion = StringEscapeUtils.escapeJava(typeQuestion);
     }
 
     public String getDescription() {
