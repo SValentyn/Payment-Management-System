@@ -1,5 +1,3 @@
-<%@ taglib prefix="dt" uri="/WEB-INF/dateCustomTag.tld" %>
-
 <div class="footer">
     <div class="container">
         <div class="social">
@@ -10,7 +8,7 @@
             </a>
         </div>
         <div class="time">
-            <h3 class="custom-date tooltip-top" title="Current time"><dt:date/></h3>
+            <h3 id="currentDateTime" class="custom-date tooltip-top" title="Current time"></h3>
         </div>
     </div>
 </div>
@@ -26,3 +24,4 @@
 <script src="resources/js/alert.js"></script>
 <script src="resources/js/tooltip.js"></script>
 <script src="resources/js/counter.js"></script>
+<script src="resources/js/dynamicDateTime.js"></script>
