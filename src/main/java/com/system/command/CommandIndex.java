@@ -16,7 +16,7 @@ public class CommandIndex implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
 
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         session.setMaxInactiveInterval(-1);
 
         User user = (User) session.getAttribute("currentUser");
