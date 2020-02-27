@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.PaymentService;
+import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,9 @@ public class CommandUserMakePayment implements ICommand {
         request.setAttribute("insufficientFundsError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
+
+        // Set Attributes
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 
         String method = request.getMethod();

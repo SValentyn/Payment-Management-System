@@ -16,6 +16,7 @@ public class CommandAccountsControl implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+
         String userId = (String) request.getSession().getAttribute("userId");
         String accountId = request.getParameter("accountId");
 

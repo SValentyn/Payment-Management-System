@@ -5,6 +5,7 @@ import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.CreditCardService;
 import com.system.service.PaymentService;
+import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,8 @@ public class CommandUserShowAccountInfo implements ICommand {
 
         User user = (User) request.getSession().getAttribute("currentUser");
 
+        // Set Attributes
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
         request.setAttribute("showAccounts", true);
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 

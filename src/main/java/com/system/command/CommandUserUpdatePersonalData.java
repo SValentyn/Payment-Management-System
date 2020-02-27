@@ -27,6 +27,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
         User user = (User) request.getSession().getAttribute("currentUser");
 
         // Set Attributes
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
         setRequestAttributes(request, user);
 
         String method = request.getMethod();
@@ -73,6 +74,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
             if (status == 0) {
                 request.setAttribute("updateDataError", true);
             } else {
+                request.getSession().setAttribute("currentUser", user);
                 request.setAttribute("updated", true);
             }
         }

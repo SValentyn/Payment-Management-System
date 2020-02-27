@@ -5,6 +5,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.LetterService;
+import com.system.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class CommandUserSupport implements ICommand {
         request.setAttribute("sendLetterError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {

@@ -5,6 +5,7 @@ import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.CreditCardService;
 import com.system.service.PaymentService;
+import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,8 @@ public class CommandUserBlockCard implements ICommand {
         request.setAttribute("unblockAccountAlert", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+
         String cardNumber = request.getParameter("cardNumber");
         Integer accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
 

@@ -6,6 +6,7 @@ import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.persistence.factory.DaoFactory;
 import com.system.service.AccountService;
+import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,8 @@ public class CommandUserRepeatPayment implements ICommand {
 
         // Data
         User user = (User) request.getSession().getAttribute("currentUser");
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+
         String paymentId = request.getParameter("paymentId");
         Payment payment = DaoFactory.createPaymentDao().findPaymentByPaymentId(Integer.parseInt(paymentId));
         String number = payment.getRecipientAccountNumber();

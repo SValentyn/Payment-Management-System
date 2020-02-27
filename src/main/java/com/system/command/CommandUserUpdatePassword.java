@@ -24,6 +24,7 @@ public class CommandUserUpdatePassword implements ICommand {
         request.setAttribute("passwordUpdateError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {

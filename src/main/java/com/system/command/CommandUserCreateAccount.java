@@ -5,6 +5,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
+import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,8 @@ public class CommandUserCreateAccount implements ICommand {
         request.setAttribute("createAccountError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+
         List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
         request.setAttribute("accounts", accounts);
 

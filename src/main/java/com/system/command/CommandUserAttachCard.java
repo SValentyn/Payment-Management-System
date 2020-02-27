@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.CreditCardService;
+import com.system.service.UserService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +25,10 @@ public class CommandUserAttachCard implements ICommand {
         request.setAttribute("cardNumberError", false);
         request.setAttribute("cardAttachError", false);
 
-        // Set Attribute
         User user = (User) request.getSession().getAttribute("currentUser");
+
+        // Set Attributes
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 
         String method = request.getMethod();

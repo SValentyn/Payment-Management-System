@@ -3,6 +3,7 @@ package com.system.command;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
+import com.system.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,9 @@ public class CommandUserUnblockCard implements ICommand {
         request.setAttribute("unblockAccountAlert", false);
         request.setAttribute("unblockCardAlert", true);
 
+        // Set Attributes
         User user = (User) request.getSession().getAttribute("currentUser");
-
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
         request.setAttribute("showAccounts", true);
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
 

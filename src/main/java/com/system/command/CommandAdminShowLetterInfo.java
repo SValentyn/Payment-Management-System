@@ -20,6 +20,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_LETTER_INFO);
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("processed", false);
         request.setAttribute("letterError", false);
 
@@ -52,7 +53,6 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
             // Letter processed
             LetterService.getInstance().updateLetterByLetterId(Integer.parseInt(letterId));
-            request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
             request.setAttribute("processed", true);
         }
 

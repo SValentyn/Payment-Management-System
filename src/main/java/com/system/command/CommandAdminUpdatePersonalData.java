@@ -27,6 +27,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         request.setAttribute("updateDataError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
+        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
 
         // Set Attributes
         setRequestAttributes(request, user);
