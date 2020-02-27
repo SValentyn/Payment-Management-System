@@ -27,7 +27,8 @@ public class CommandUserUpdatePersonalData implements ICommand {
         User user = (User) request.getSession().getAttribute("currentUser");
 
         // Set Attributes
-        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+        user = UserService.getInstance().findUserById(user.getUserId());
+        request.getSession().setAttribute("currentUser", user);
         setRequestAttributes(request, user);
 
         String method = request.getMethod();
