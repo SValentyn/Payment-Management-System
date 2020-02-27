@@ -47,13 +47,12 @@ CREATE TABLE users
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-# admin (pass: 111111)
 INSERT INTO users (user_id, name, surname, phone, email, password, role_id)
-VALUES (1, 'Cristoforo', 'Colombo', '+393524594551', 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112',
-        2),
+VALUES
+# admin (pass: 111111)
+       (1, 'Cristoforo', 'Colombo', '+393524594551', 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112',2),
 # user (pass: 000000)
-       (2, 'Fernando', 'de Magallanes', '+34645364524', 'Fernando-de-Magallanes@outlook.com',
-        '670b14728ad9902aecba32e22fa4f6bd', 1),
+       (2, 'Fernando', 'de Magallanes', '+34645364524', 'Fernando-de-Magallanes@outlook.com','670b14728ad9902aecba32e22fa4f6bd', 1),
 # user (pass: 000001)
        (3, 'James', 'Cook', '+447465106475', 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1),
 # user (pass: 000002)

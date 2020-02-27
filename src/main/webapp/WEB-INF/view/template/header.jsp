@@ -25,7 +25,7 @@
                                         </a>
                                         <ul class="dropdown-menu animated fadeInUp" style="width: 185px;">
                                             <li style="height: 40px; padding-top: 10px;">
-                                                <div>
+                                                <div style="display: grid;">
                                                     <a href="?command=profile">
                                                         <div style="float: left;">
                                                             <p style="margin: 0;">
@@ -40,7 +40,7 @@
                                                 </div>
                                             </li>
                                             <li style="height: 40px; padding-top: 10px;">
-                                                <div>
+                                                <div style="display: grid;">
                                                     <a href="?command=logout">
                                                         <div style="float: left;">
                                                             <p style="margin: 0;">
