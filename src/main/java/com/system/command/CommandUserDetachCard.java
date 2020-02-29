@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandUserDeleteCard implements ICommand {
+public class CommandUserDetachCard implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        request.setAttribute("deleteCardError", false);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER);
+
+        request.setAttribute("detachCardError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
         request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
@@ -33,10 +35,10 @@ public class CommandUserDeleteCard implements ICommand {
             request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {
-            request.setAttribute("deleteCardError", true);
+            request.setAttribute("detachCardError", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
+        return page;
     }
 
 }

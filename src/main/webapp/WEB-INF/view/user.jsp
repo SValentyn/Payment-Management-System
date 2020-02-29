@@ -18,6 +18,49 @@
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
+
+<!-- Modal window -->
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">
+                    <fmt:message key="user.card.modalHeader"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="user.card.modalBody"/>
+                <br>
+                <div style="display: flex; margin-top: 20px;">
+                    <label for="cardNumberText" class="modal-label">
+                        <fmt:message key="user.card.modalCardLabel"/>
+                    </label>
+                    <input id="cardNumberText" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button id="closeButton" type="button" class="btn btn-default"
+                            data-dismiss="modal" onfocus="this.blur()">
+                        <fmt:message key="user.page.closeButton"/>
+                    </button>
+                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
+                    <form action="/" role="form" method="POST">
+                        <input type="hidden" name="command" value="detachCard">
+                        <input type="hidden" name="cardNumber" id="cardNumber"/>
+
+                        <button id="confirmButton" type="submit" class="btn btn-primary" onfocus="this.blur()">
+                            <fmt:message key="user.page.confirmButton"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
@@ -83,11 +126,11 @@
         </div>
     </c:if>
 
-    <!-- Alert deleteCardError -->
-    <c:if test="${deleteCardError == true}">
+    <!-- Alert detachCardError -->
+    <c:if test="${detachCardError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertDeleteCardError"/>
+                <fmt:message key="user.page.alertDetachCardError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -249,7 +292,8 @@
                                     <fmt:message key="user.card.number" var="cardNumber"/>
                                     <fmt:message key="user.card.cvv" var="cvv"/>
                                     <fmt:message key="user.card.date" var="date"/>
-                                    <fmt:message key="user.card.delete" var="delete"/>
+                                    <fmt:message key="user.card.detachCard" var="detachCard"/>
+                                    <fmt:message key="user.card.detach" var="detach"/>
 
                                     <div class="content-box-header">
                                         <div class="panel-title">
@@ -264,7 +308,7 @@
                                             <th>${date}</th>
                                             <th>${status}</th>
                                             <th>${action}</th>
-                                            <th>${delete}</th>
+                                            <th>${detachCard}</th>
 
                                             <c:forEach items="${cards}" var="card">
                                                 <tr>
@@ -296,7 +340,10 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <td>
-                                                        <a href="?command=deleteCard&cardNumber=${card.number}">${delete}</a>
+                                                        <a href="#smallModal?cardNumber=${card.number}"
+                                                           onclick="showModal()">
+                                                                ${detach}
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -370,4 +417,23 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script>
+    let smallModal = $('#smallModal');
+
+    function showModal() {
+        smallModal.modal('show');
+    }
+
+    smallModal.on('shown.bs.modal', function () {
+        let cardNumber = window.location.href.split('cardNumber=')[1];
+        $('#cardNumber').val(cardNumber);
+        $('#cardNumberText').val(cardNumber);
+    });
+
+    document.addEventListener('keyup', function (e) {
+        if (e.keyCode === 27) {
+            smallModal.modal('hide');
+        }
+    });
+</script>
 </html>

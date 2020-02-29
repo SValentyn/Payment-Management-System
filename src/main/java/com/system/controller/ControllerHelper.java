@@ -47,7 +47,7 @@ public class ControllerHelper {
         userCommands.put("showAccountInfo", new CommandUserShowAccountInfo());
         userCommands.put("createAccount", new CommandUserCreateAccount());
         userCommands.put("attachCard", new CommandUserAttachCard());
-        userCommands.put("deleteCard", new CommandUserDeleteCard());
+        userCommands.put("detachCard", new CommandUserDetachCard());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
         userCommands.put("blockCard", new CommandUserBlockCard());
         userCommands.put("unblockAccount", new CommandUserUnblockAccount());
@@ -65,9 +65,9 @@ public class ControllerHelper {
         adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAccountsControl());
         adminCommands.put("attachAccount", new CommandAdminAttachAccount());
-        adminCommands.put("attachCard", new CommandAdminAttachCard());
         adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());
-        adminCommands.put("deleteCard", new CommandAdminDeleteCard());
+        adminCommands.put("attachCard", new CommandAdminAttachCard());
+        adminCommands.put("detachCard", new CommandAdminDetachCard());
         adminCommands.put("blockAccount", new CommandAdminBlockAccount());
         adminCommands.put("blockCard", new CommandAdminBlockCard());
         adminCommands.put("unblockAccount", new CommandAdminUnblockAccount());

@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandAdminDeleteCard implements ICommand {
+public class CommandAdminDetachCard implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("deleteCardError", false);
+        request.setAttribute("detachCardError", false);
 
         String userId = (String) request.getSession().getAttribute("userId");
         String cardId = request.getParameter("cardId");
@@ -29,7 +29,7 @@ public class CommandAdminDeleteCard implements ICommand {
             request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {
-            request.setAttribute("deleteCardError", true);
+            request.setAttribute("detachCardError", true);
         }
 
         return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ACCOUNTS_CONTROL);

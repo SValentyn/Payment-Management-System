@@ -805,6 +805,21 @@ form .btn-default a:active {
 
 /* Modal */
 
+.modal-label {
+    margin-right: 15px;
+    margin-bottom: 0;
+    align-self: center;
+    font-size: 18px;
+    font-weight: normal;
+    color: #989797;
+}
+
+.modal-form-control {
+    height: 40px;
+    text-align: left;
+    font-size: 16px;
+}
+
 .modal-footer .btn-group {
     width: 100%;
     display: flex;
