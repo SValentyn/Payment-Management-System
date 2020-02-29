@@ -124,6 +124,13 @@ public class AccountService {
     }
 
     /**
+     * Finds account by account number
+     */
+    public Account findAccountByAccountNumber(String number) {
+        return accountDao.findAccountByNumber(number);
+    }
+
+    /**
      * Finds account number by accountId
      */
     public String findAccountNumberByAccountId(Integer accountId) {

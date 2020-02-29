@@ -26,7 +26,7 @@ public class CommandAdminDetachCard implements ICommand {
         if (userId != null) {
             CreditCardService.getInstance().deleteCardById(cardId);
 
-            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(accountId));
+            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
             request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {

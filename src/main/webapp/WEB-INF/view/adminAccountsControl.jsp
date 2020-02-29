@@ -19,8 +19,50 @@
 </head>
 <body>
 
-<!-- Modal window -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<!-- Modal window (deleteAccountModal) -->
+<div id="deleteAccountModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">
+                    <fmt:message key="admin.account.modalHeader"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="admin.account.modalBody"/>
+                <br>
+                <div style="display: flex; margin-top: 20px;">
+                    <label for="accountNumberText" class="modal-label">
+                        <fmt:message key="admin.account.modalAccountLabel"/>
+                    </label>
+                    <input id="accountNumberText" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
+                            data-dismiss="modal" onfocus="this.blur()">
+                        <fmt:message key="user.page.closeButton"/>
+                    </button>
+                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
+                    <form action="/" role="form" method="POST">
+                        <input type="hidden" name="command" value="deleteAccount">
+                        <input type="hidden" name="accountNumber" id="accountNumber"/>
+
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                            <fmt:message key="user.page.confirmButton"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal window (detachCardModal) -->
+<div id="detachCardModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -42,7 +84,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button id="closeButton" type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
                             data-dismiss="modal" onfocus="this.blur()">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
@@ -51,7 +93,7 @@
                         <input type="hidden" name="command" value="detachCard">
                         <input type="hidden" name="cardNumber" id="cardNumber"/>
 
-                        <button id="confirmButton" type="submit" class="btn btn-primary" onfocus="this.blur()">
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -222,7 +264,8 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="?command=deleteAccount&accountId=${account.accountId}">
+                                                        <a href="#deleteAccountModal?accountNumber=${account.number}"
+                                                           onclick="showDeleteAccountModal()">
                                                                 ${delete}
                                                         </a>
                                                     </td>
@@ -291,8 +334,8 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                                 <td>
-                                                    <a href="#smallModal?cardNumber=${card.number}"
-                                                       onclick="showModal()">
+                                                    <a href="#detachCardModal?cardNumber=${card.number}"
+                                                       onclick="showDetachCardModal()">
                                                             ${detach}
                                                     </a>
                                                 </td>
@@ -358,13 +401,36 @@
 </div>
 </body>
 <script>
-    let smallModal = $('#smallModal');
+    // call modal window "deleteAccountModal"
+    let deleteAccountModal = $('#deleteAccountModal');
 
-    function showModal() {
-        smallModal.modal('show');
+    function showDeleteAccountModal() {
+        deleteAccountModal.modal('show');
     }
 
-    smallModal.on('shown.bs.modal', function () {
+    deleteAccountModal.on('shown.bs.modal', function () {
+        let accountNumber;
+
+        if (window.location.href.split('accountNumber=').length === 1) {
+            accountNumber = window.location.href.split('accountNumber=')[1];
+        } else {
+            let length = window.location.href.split('accountNumber=').length;
+            accountNumber = window.location.href.split('accountNumber=')[length - 1];
+        }
+
+        $('#accountNumber').val(accountNumber);
+        $('#accountNumberText').val(accountNumber);
+    });
+
+
+    // call modal window "detachCardModal"
+    let detachCardModal = $('#detachCardModal');
+
+    function showDetachCardModal() {
+        detachCardModal.modal('show');
+    }
+
+    detachCardModal.on('shown.bs.modal', function () {
         let cardNumber;
 
         if (window.location.href.split('cardNumber=').length === 1) {
@@ -380,7 +446,8 @@
 
     document.addEventListener('keyup', function (e) {
         if (e.keyCode === 27) {
-            smallModal.modal('hide');
+            deleteAccountModal.modal('hide');
+            detachCardModal.modal('hide');
         }
     });
 </script>

@@ -829,20 +829,19 @@ form .btn-default a:active {
     width: 100%;
 }
 
-#closeButton {
+.closeButton {
     width: 88%;
     float: left;
     margin: auto;
-    border-radius: 4px;
 }
 
-#confirmButton {
+.confirmButton {
     width: 95%;
     float: right;
 }
 
-#closeButton,
-#confirmButton {
+.closeButton,
+.confirmButton {
     height: 38px;
     text-align: center;
     text-transform: uppercase;

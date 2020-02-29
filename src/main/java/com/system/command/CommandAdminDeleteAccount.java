@@ -17,10 +17,11 @@ public class CommandAdminDeleteAccount implements ICommand {
         request.setAttribute("deleteAccountError", false);
 
         String userId = (String) request.getSession().getAttribute("userId");
-        String accountId = request.getParameter("accountId");
+        String accountNumber = request.getParameter("accountNumber");
+        Integer accountId = AccountService.getInstance().findAccountByAccountNumber(accountNumber).getAccountId();
 
         if (userId != null & accountId != null) {
-            AccountService.getInstance().deleteAccountByAccountId(Integer.valueOf(accountId));
+            AccountService.getInstance().deleteAccountByAccountId(accountId);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
         } else {
             request.setAttribute("deleteAccountError", true);
