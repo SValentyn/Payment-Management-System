@@ -485,10 +485,9 @@ form .btn-default a:active {
 }
 
 .header .logo img {
-    width: 37px;
-    height: 46px;
-    margin-top: 12px;
-    padding-top: 0;
+    width: 40px;
+    height: 50px;
+    margin-top: 8px;
 }
 
 .header .logo h1 {
@@ -803,6 +802,38 @@ form .btn-default a:active {
 }
 
 /****************/
+
+/* Modal */
+
+.modal-footer .btn-group {
+    width: 100%;
+    display: flex;
+}
+
+.modal-footer .btn-group form {
+    width: 100%;
+}
+
+#closeButton {
+    width: 88%;
+    float: left;
+    margin: auto;
+    border-radius: 4px;
+}
+
+#confirmButton {
+    width: 95%;
+    float: right;
+}
+
+#closeButton,
+#confirmButton {
+    height: 38px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-size: 15px;
+}
 
 /* Footer */
 .footer {

@@ -5437,19 +5437,19 @@ button.close {
 }
 
 .modal-open {
-    overflow: hidden
+    overflow: hidden;
 }
 
 .modal {
     position: fixed;
-    top: 0;
+    top: 25%;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: 1040;
     display: none;
-    overflow: auto;
-    overflow-y: scroll
+    overflow: hidden;
+    text-align: center;
 }
 
 .modal.fade .modal-dialog {
@@ -5459,20 +5459,22 @@ button.close {
     -webkit-transition: -webkit-transform .3s ease-out;
     -moz-transition: -moz-transform .3s ease-out;
     -o-transition: -o-transform .3s ease-out;
-    transition: transform .3s ease-out
+    transition: transform .3s ease-out;
 }
 
 .modal.in .modal-dialog {
+    min-width: fit-content;
+    max-width: fit-content;
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
-    transform: translate(0, 0)
+    transform: translate(0, 0);
 }
 
 .modal-dialog {
     position: relative;
     z-index: 1050;
     width: auto;
-    margin: 10px
+    margin: 10px;
 }
 
 .modal-content {
@@ -5503,7 +5505,7 @@ button.close {
 }
 
 .modal-backdrop.in {
-    opacity: .5;
+    opacity: 0.25;
     filter: alpha(opacity=50)
 }
 
@@ -5528,9 +5530,11 @@ button.close {
 }
 
 .modal-footer {
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    text-align: center;
     padding: 19px 20px 20px;
-    margin-top: 15px;
-    text-align: right;
     border-top: 1px solid #e5e5e5
 }
 
@@ -5573,7 +5577,7 @@ button.close {
 
     .modal-content {
         -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5)
     }
 }
 

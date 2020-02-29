@@ -14,9 +14,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
         .ui-spinner {
@@ -42,6 +42,44 @@
     </style>
 </head>
 <body>
+
+<!-- Modal window -->
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">
+                    <fmt:message key="user.page.modalHeader"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="user.makepayment.modalBody"/>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button id="closeButton" type="button" class="btn btn-default"
+                            data-dismiss="modal" onfocus="this.blur()">
+                        <fmt:message key="user.page.closeButton"/>
+                    </button>
+                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
+                    <form action="/" role="form" method="POST">
+                        <input type="hidden" name="command" value="makePayment">
+                        <input type="hidden" name="accountId" id="accountIdModal"/>
+                        <input type="hidden" name="number" id="numberModal"/>
+                        <input type="hidden" name="amount" id="amountModal"/>
+                        <input type="hidden" name="appointment" id="appointmentModal"/>
+
+                        <button id="confirmButton" type="submit" class="btn btn-primary" onfocus="this.blur()">
+                            <fmt:message key="user.page.confirmButton"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
@@ -200,13 +238,13 @@
                                         </div>
 
                                         <!-- Amount Funds -->
+
                                         <div style="margin-top: 4px;">
                                             <div>
                                                 <label for="amount" class="for-form-label">
                                                     ${amount}
                                                 </label>
                                                 <input id="amount" name="amount" placeholder="0.00"
-                                                       data-toggle="tooltip" data-title="${tooltipAmountFunds}"
                                                        oninput="this.value=inputAmount(this.value)"
                                                        value="${amountValue}"/>
                                             </div>
@@ -233,7 +271,7 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 30px 0 5px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                            <button id="submit" type="button" class="btn btn-primary signup"
                                                     onfocus="this.blur()">
                                                 ${makePaymentButton}
                                             </button>
@@ -251,8 +289,6 @@
 </div>
 </body>
 <script src="resources/js/validator_userMakePayment.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(function () {
         $('#amount').spinner({
@@ -262,6 +298,12 @@
             step: 1.00,
             numberFormat: "n"
         });
+    });
+
+    document.addEventListener('keyup', function (e) {
+        if (e.keyCode === 27) {
+            $('#smallModal').modal('hide');
+        }
     });
 </script>
 </html>

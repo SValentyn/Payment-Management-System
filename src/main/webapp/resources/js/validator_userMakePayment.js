@@ -3,6 +3,7 @@ let accountId = document.querySelector("#accountId");
 let bfh_selectbox = $('.bfh-selectbox');
 let number = document.querySelector("#number");
 let amount = document.querySelector("#amount");
+let appointment = document.querySelector("#appointment");
 let submitBtn = document.querySelector("#submit");
 
 
@@ -82,6 +83,9 @@ number.addEventListener('blur', function () {
         notValidNumber();
     } else {
         validNumber();
+        if (number.value.match(/[^0-9]/g).length > 1) {
+            notValidNumber();
+        }
     }
 });
 
@@ -123,7 +127,7 @@ amount.addEventListener('blur', function () {
         notValidAmount();
     } else {
         validAmount();
-        if (amount.value.match(/\[.,]/g).length > 1) {
+        if (amount.value.match(/[.,]/g).length > 1) {
             notValidAmount();
         }
     }
@@ -142,22 +146,36 @@ amount.addEventListener('change', resetAmount);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
+    let isShow = true;
+
     if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
+        isShow = false;
         return false;
     }
 
     if (number.value.trim() === "" || number.value.trim().length < 20 || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
+        isShow = false;
         return false;
     }
 
     if (amount.value.trim() === null || amount.value.trim() === "" || amount.classList.contains("error-input")) {
         event.preventDefault();
         notValidAmount();
+        isShow = false;
         return false;
+    }
+
+    if (isShow === true) {
+        document.querySelector("#accountIdModal").value = accountId.value;
+        document.querySelector("#numberModal").value = number.value;
+        document.querySelector("#amountModal").value = amount.value;
+        document.querySelector("#appointmentModal").value = appointment.value;
+
+        $('#smallModal').modal('show');
     }
 
 });
