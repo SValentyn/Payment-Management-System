@@ -425,7 +425,15 @@
     }
 
     smallModal.on('shown.bs.modal', function () {
-        let cardNumber = window.location.href.split('cardNumber=')[1];
+        let cardNumber;
+
+        if (window.location.href.split('cardNumber=').length === 1) {
+            cardNumber = window.location.href.split('cardNumber=')[1];
+        } else {
+            let length = window.location.href.split('cardNumber=').length;
+            cardNumber = window.location.href.split('cardNumber=')[length - 1];
+        }
+
         $('#cardNumber').val(cardNumber);
         $('#cardNumberText').val(cardNumber);
     });
