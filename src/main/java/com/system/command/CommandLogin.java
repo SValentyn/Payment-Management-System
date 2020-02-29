@@ -8,6 +8,7 @@ import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 public class CommandLogin implements ICommand {
@@ -24,6 +25,8 @@ public class CommandLogin implements ICommand {
         // Authentication
         User user = UserService.getInstance().loginUser(login, password);
         if (user != null) {
+            HttpSession session = request.getSession(true);
+            session.setMaxInactiveInterval(-1);
             request.getSession().setAttribute("currentUser", user);
 
             String role = UserService.getInstance().getRole(user);
