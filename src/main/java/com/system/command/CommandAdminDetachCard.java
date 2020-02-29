@@ -19,13 +19,14 @@ public class CommandAdminDetachCard implements ICommand {
         request.setAttribute("detachCardError", false);
 
         String userId = (String) request.getSession().getAttribute("userId");
-        String cardId = request.getParameter("cardId");
-        Integer accountId = CreditCardService.getInstance().findCardByCardId(Integer.valueOf(cardId)).getAccountId();
+        String cardNumber = request.getParameter("cardNumber");
+        Integer cardId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getCardId();
+        Integer accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
 
         if (userId != null) {
-            CreditCardService.getInstance().deleteCardById(Integer.parseInt(cardId));
+            CreditCardService.getInstance().deleteCardById(cardId);
 
-            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
+            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(accountId));
             request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {

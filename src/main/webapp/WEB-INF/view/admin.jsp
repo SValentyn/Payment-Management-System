@@ -66,7 +66,7 @@
                                     <fmt:message key="admin.users.addAccount" var="addAccount"/>
                                     <fmt:message key="admin.users.showUserAccounts" var="showAccounts"/>
                                     <fmt:message key="admin.users.deleteUser" var="deleteUser"/>
-                                    <fmt:message key="user.card.delete" var="delete"/>
+                                    <fmt:message key="admin.users.delete" var="delete"/>
 
                                     <div class="content-box-header">
                                         <div class="panel-title">
