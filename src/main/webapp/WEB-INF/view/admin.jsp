@@ -18,8 +18,63 @@
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
+
+<!-- Modal window -->
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">
+                    <fmt:message key="admin.users.modalHeader"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="admin.users.modalBody"/>
+                <br>
+                <div style="display: flex; margin-top: 20px;">
+                    <label for="user_bio" class="modal-label">
+                        <fmt:message key="admin.users.user"/>
+                    </label>
+                    <input id="user_bio" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
+                            data-dismiss="modal" onfocus="this.blur()">
+                        <fmt:message key="user.page.closeButton"/>
+                    </button>
+                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
+                    <form action="/" role="form" method="POST">
+                        <input type="hidden" name="command" value="deleteUser">
+                        <input type="hidden" name="userId" id="userId"/>
+
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                            <fmt:message key="user.page.confirmButton"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <jsp:include page="template/header.jsp"/>
+
+    <!-- Alert Success -->
+    <c:if test="${deleted == true}">
+        <div id="alert" class="alert alert-success fade in" role="alert">
+            <p><strong><fmt:message key="registration.success"/>!</strong>
+                <fmt:message key="admin.page.alertUserDeleted"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
 
     <!-- Alert noUsers -->
     <c:if test="${noUsers == true}">
@@ -107,7 +162,8 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="?command=deleteUser&userId=${user.userId}">
+                                                        <a href="#smallModal?userId=${user.userId}&name=${user.name}&surname=${user.surname}"
+                                                           onclick="showModal()">
                                                                 ${delete}
                                                         </a>
                                                     </td>
@@ -127,4 +183,40 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script>
+    // call modal window "deleteAccountModal"
+    let smallModal = $('#smallModal');
+
+    function showModal() {
+        smallModal.modal('show');
+    }
+
+    smallModal.on('shown.bs.modal', function () {
+        let userId;
+        let user_bio;
+
+        let params = window.location.href
+            .split('smallModal')[1]
+            .replace('?', '')
+            .split('&')
+            .reduce(
+                function (element, e) {
+                    let param_value = e.split('=');
+                    element[decodeURIComponent(param_value[0])] = decodeURIComponent(param_value[1]);
+                    return element;
+                }, {}
+            );
+        userId = params['userId'];
+        user_bio = params['name'] + " " + params['surname'];
+
+        $('#userId').val(userId);
+        $('#user_bio').val(user_bio);
+    });
+
+    document.addEventListener('keyup', function (e) {
+        if (e.keyCode === 27) {
+            smallModal.modal('hide');
+        }
+    });
+</script>
 </html>
