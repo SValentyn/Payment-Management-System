@@ -44,21 +44,43 @@
 <body>
 
 <!-- Modal window -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">
-                    <fmt:message key="user.page.modalHeader"/>
+                    <fmt:message key="user.makepayment.modalHeader"/>
                 </h4>
             </div>
             <div class="modal-body">
                 <fmt:message key="user.makepayment.modalBody"/>
+                <br>
+                <div style="display: flex; margin-top: 20px;">
+                    <label for="numberByAccountIdModalText" class="modal-fixed-label">
+                        <fmt:message key="user.makepayment.modalYourNumber"/>
+                    </label>
+                    <input id="numberByAccountIdModalText" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+                <div style="display: flex; margin-top: 10px;">
+                    <label for="numberModalText" class="modal-fixed-label">
+                        <fmt:message key="user.makepayment.modalRecipientNumber"/>
+                    </label>
+                    <input id="numberModalText" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+                <div style="display: flex; margin-top: 10px;">
+                    <label for="amountModalText" class="modal-fixed-label">
+                        <fmt:message key="user.makepayment.modalAmountFunds"/>
+                    </label>
+                    <input id="amountModalText" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button id="closeButton" type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
                             data-dismiss="modal" onfocus="this.blur()">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
@@ -70,7 +92,7 @@
                         <input type="hidden" name="amount" id="amountModal"/>
                         <input type="hidden" name="appointment" id="appointmentModal"/>
 
-                        <button id="confirmButton" type="submit" class="btn btn-primary" onfocus="this.blur()">
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -191,6 +213,10 @@
                                         <!-- AccountId -->
                                         <input id="accountId" name="accountId" type="hidden" value="${accountIdValue}"/>
 
+                                        <!-- numberByAccountIdValue -->
+                                        <input id="numberByAccountId" name="numberByAccountId" type="hidden"
+                                               value="${numberByAccountIdValue}"/>
+
                                         <!-- Select AccountId -->
                                         <div>
                                             <label for="number" class="for-form-label">
@@ -238,7 +264,6 @@
                                         </div>
 
                                         <!-- Amount Funds -->
-
                                         <div style="margin-top: 4px;">
                                             <div>
                                                 <label for="amount" class="for-form-label">

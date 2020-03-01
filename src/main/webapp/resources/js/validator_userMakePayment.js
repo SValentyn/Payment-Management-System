@@ -1,5 +1,6 @@
 // Elements on userMakePayment.jsp page to check
 let accountId = document.querySelector("#accountId");
+let numberByAccountId = document.querySelector("#numberByAccountId");
 let bfh_selectbox = $('.bfh-selectbox');
 let number = document.querySelector("#number");
 let amount = document.querySelector("#amount");
@@ -174,6 +175,10 @@ submitBtn.addEventListener('click', function (event) {
         document.querySelector("#numberModal").value = number.value;
         document.querySelector("#amountModal").value = amount.value;
         document.querySelector("#appointmentModal").value = appointment.value;
+
+        document.querySelector("#numberByAccountIdModalText").value = numberByAccountId.value;
+        document.querySelector("#numberModalText").value = number.value;
+        document.querySelector("#amountModalText").value = amount.value;
 
         $('#smallModal').modal('show');
     }

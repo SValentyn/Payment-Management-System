@@ -42,7 +42,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button id="closeButton" type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
                             data-dismiss="modal" onfocus="this.blur()">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
@@ -51,7 +51,7 @@
                         <input type="hidden" name="command" value="detachCard">
                         <input type="hidden" name="cardNumber" id="cardNumber"/>
 
-                        <button id="confirmButton" type="submit" class="btn btn-primary" onfocus="this.blur()">
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>

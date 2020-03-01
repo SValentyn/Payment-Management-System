@@ -806,10 +806,20 @@ form .btn-default a:active {
 /* Modal */
 
 .modal-label {
-    margin-right: 15px;
-    margin-bottom: 0;
     align-self: center;
+    margin: 0 15px 0 0;
     font-size: 18px;
+    font-weight: normal;
+    color: #989797;
+}
+
+.modal-fixed-label {
+    max-width: 40%;
+    min-width: 28%;
+    align-self: center;
+    margin: 0 15px 0 0;
+    line-height: initial;
+    font-size: 15px;
     font-weight: normal;
     color: #989797;
 }
@@ -899,8 +909,8 @@ form .btn-default a:active {
     height: 56px;
     inline-size: inherit;
     float: right;
-    margin: 0 28px 0 0;
-    padding-top: 8px;
+    margin: 0;
+    padding: 8px 44px 8px 0;
     font-size: 18px;
 }
 
