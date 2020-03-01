@@ -184,3 +184,9 @@ submitBtn.addEventListener('click', function (event) {
     }
 
 });
+
+document.addEventListener('keyup', function (e) {
+    if (e.keyCode === 27) {
+        $('#smallModal').modal('hide');
+    }
+});

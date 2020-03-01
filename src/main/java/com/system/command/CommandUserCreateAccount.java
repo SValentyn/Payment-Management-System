@@ -43,7 +43,7 @@ public class CommandUserCreateAccount implements ICommand {
             for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
                     setRequestAttributes(request, number, currency);
-                    request.setAttribute("numberExistError", true);
+                    request.setAttribute("createAccountError", true);
                     return page;
                 }
             }

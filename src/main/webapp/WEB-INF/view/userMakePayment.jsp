@@ -324,11 +324,5 @@
             numberFormat: "n"
         });
     });
-
-    document.addEventListener('keyup', function (e) {
-        if (e.keyCode === 27) {
-            $('#smallModal').modal('hide');
-        }
-    });
 </script>
 </html>

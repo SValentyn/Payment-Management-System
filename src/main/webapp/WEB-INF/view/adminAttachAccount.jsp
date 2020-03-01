@@ -38,7 +38,7 @@
     <c:if test="${manyAccountWithThisCurrencyError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.manyAccountWithThisCurrencyError"/>
+                <fmt:message key="admin.page.alertManyAccountWithThisCurrencyError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
