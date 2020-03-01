@@ -20,6 +20,7 @@ public class CommandUserCreateAccount implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
 
         request.setAttribute("created", false);
+        request.setAttribute("manyAccountWithThisCurrencyError", false);
         request.setAttribute("createAccountError", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
@@ -41,18 +42,28 @@ public class CommandUserCreateAccount implements ICommand {
             // Check
             for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
-                    request.setAttribute("numberValue", number);
-                    request.setAttribute("currencyValue", currency);
+                    setRequestAttributes(request, number, currency);
                     request.setAttribute("numberExistError", true);
                     return page;
                 }
             }
 
+            // Check
+            int count = 0;
+            for (Account account : accounts) {
+                if (account.getCurrency().equals(currency)) count++;
+            }
+
+            if (count == 3) {
+                setRequestAttributes(request, number, currency);
+                request.setAttribute("manyAccountWithThisCurrencyError", true);
+                return page;
+            }
+
             // Create
             int status = AccountService.getInstance().createAccount(userId, number, currency);
             if (status == 0) {
-                request.setAttribute("numberValue", number);
-                request.setAttribute("currencyValue", currency);
+                setRequestAttributes(request, number, currency);
                 request.setAttribute("createAccountError", true);
             } else {
                 request.setAttribute("numberValue", null);
@@ -61,6 +72,11 @@ public class CommandUserCreateAccount implements ICommand {
         }
 
         return page;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, String number, String currency) {
+        request.setAttribute("numberValue", number);
+        request.setAttribute("currencyValue", currency);
     }
 
 }
