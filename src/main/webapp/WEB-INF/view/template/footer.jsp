@@ -7,6 +7,10 @@
                      title="View project code on GitHub" alt="View project code on GitHub">
             </a>
         </div>
+        <span class="copyright">
+            &copy; 2020 Payment Management System.<br/>
+            All Rights Reserved.
+        </span>
         <div class="time">
             <h3 id="currentDateTime" class="custom-date tooltip-top" title="Current time"></h3>
         </div>
