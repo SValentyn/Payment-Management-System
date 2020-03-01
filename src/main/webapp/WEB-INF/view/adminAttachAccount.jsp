@@ -34,6 +34,18 @@
         </div>
     </c:if>
 
+    <!-- Alert manyAccountWithThisCurrencyError -->
+    <c:if test="${manyAccountWithThisCurrencyError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.manyAccountWithThisCurrencyError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert attachAccountError -->
     <c:if test="${attachAccountError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">

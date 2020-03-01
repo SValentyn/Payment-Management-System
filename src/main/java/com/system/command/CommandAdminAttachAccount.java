@@ -22,6 +22,7 @@ public class CommandAdminAttachAccount implements ICommand {
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("attached", false);
+        request.setAttribute("manyAccountWithThisCurrencyError", false);
         request.setAttribute("attachAccountError", false);
 
         // Data
@@ -54,19 +55,29 @@ public class CommandAdminAttachAccount implements ICommand {
             List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
             for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
-                    request.setAttribute("numberValue", number);
-                    request.setAttribute("currencyValue", currency);
-                    request.setAttribute("numberExistError", true);
+                    setRequestAttributes(request, number, currency);
+                    request.setAttribute("attachAccountError", true);
                     return page;
                 }
             }
 
             request.setAttribute("accounts", accounts);
 
+            // Check
+            int count = 0;
+            for (Account account : accounts) {
+                if (account.getCurrency().equals(currency)) count++;
+            }
+
+            if (count == 3) {
+                setRequestAttributes(request, number, currency);
+                request.setAttribute("manyAccountWithThisCurrencyError", true);
+                return page;
+            }
+
             int status = AccountService.getInstance().createAccount(Integer.parseInt(userId), number, currency);
             if (status == 0) {
-                request.setAttribute("numberValue", number);
-                request.setAttribute("currencyValue", currency);
+                setRequestAttributes(request, number, currency);
                 request.setAttribute("attachAccountError", true);
             } else {
                 request.setAttribute("accountId", status);
@@ -75,6 +86,11 @@ public class CommandAdminAttachAccount implements ICommand {
         }
 
         return page;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, String number, String currency) {
+        request.setAttribute("numberValue", number);
+        request.setAttribute("currencyValue", currency);
     }
 
 }
