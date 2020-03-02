@@ -1,18 +1,28 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="language"
+       value="${not empty param.language ? param.language : not empty language ? language : 'en'}"
+       scope="session"/>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="message"/>
+
 <div class="footer">
     <div class="container">
         <div class="social">
             <a href="https://github.com/SValentyn/Payment-Management-System" onfocus="this.blur()">
                 <img id="github-ico" class="tooltip-top"
                      src="resources/images/GitHub-Mark-32px-white.ico"
-                     title="View project code on GitHub" alt="View project code on GitHub">
+                     title="<fmt:message key="footer.github"/>" alt="<fmt:message key="footer.github"/>">
             </a>
         </div>
         <span class="copyright">
             &copy; 2020 Payment Management System.<br/>
-            All Rights Reserved.
+            <fmt:message key="footer.copyright"/>
         </span>
         <div class="time">
-            <h3 id="currentDateTime" class="custom-date tooltip-top" title="Current time"></h3>
+            <h3 id="currentDateTime" class="custom-date tooltip-top"
+                title="<fmt:message key="footer.time"/>"></h3>
         </div>
     </div>
 </div>
