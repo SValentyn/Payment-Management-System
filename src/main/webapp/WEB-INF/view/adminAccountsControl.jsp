@@ -216,7 +216,7 @@
                                             <th>${number}</th>
                                             <th>${balance}</th>
                                             <th>${status}</th>
-                                            <th>${action}</th>
+                                            <th style="min-width: 134px;">${action}</th>
                                             <th>${showInfo}</th>
                                             <th>${attachCard}</th>
                                             <th>${delete}</th>
@@ -242,6 +242,8 @@
                                                             <td>
                                                                 <a href="?command=unblockAccount&accountId=${account.accountId}">
                                                                         ${unblock}
+                                                                    <img src="resources/images/unlocked.png"
+                                                                         alt="${unblock}" class="icon">
                                                                 </a>
                                                             </td>
                                                         </c:when>
@@ -249,6 +251,8 @@
                                                             <td>
                                                                 <a href="?command=blockAccount&accountId=${account.accountId}">
                                                                         ${block}
+                                                                    <img src="resources/images/locked.png"
+                                                                         alt="${block}" class="icon">
                                                                 </a>
                                                             </td>
                                                         </c:otherwise>
@@ -266,7 +270,9 @@
                                                     <td>
                                                         <a href="#deleteAccountModal?accountNumber=${account.number}"
                                                            onclick="showDeleteAccountModal()">
-                                                                ${delete}
+                                                            <img src="resources/images/delete.png"
+                                                                 alt="${delete}" class="icon"
+                                                                 style="opacity: 1.0; margin-right: 0;">
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -294,16 +300,14 @@
                                 <div class="content-box-large box-with-header">
                                     <table>
                                         <th>${cardNumber}</th>
-                                        <th>${cvv}</th>
                                         <th>${date}</th>
                                         <th>${status}</th>
-                                        <th>${action}</th>
+                                        <th style="min-width: 134px;">${action}</th>
                                         <th>${detachCard}</th>
 
                                         <c:forEach items="${cards}" var="card">
                                             <tr>
                                                 <td>${card.number}</td>
-                                                <td>${card.CVV}</td>
                                                 <td>${card.validity}</td>
                                                 <c:choose>
                                                     <c:when test="${card.isActive}">
@@ -322,6 +326,8 @@
                                                         <td>
                                                             <a href="?command=blockCard&cardNumber=${card.number}">
                                                                     ${block}
+                                                                <img src="resources/images/locked.png"
+                                                                     alt="${block}" class="icon">
                                                             </a>
                                                         </td>
                                                     </c:when>
@@ -329,6 +335,8 @@
                                                         <td>
                                                             <a href="?command=unblockCard&cardNumber=${card.number}">
                                                                     ${unblock}
+                                                                <img src="resources/images/unlocked.png"
+                                                                     alt="${unblock}" class="icon">
                                                             </a>
                                                         </td>
                                                     </c:otherwise>

@@ -149,7 +149,7 @@
                     <c:when test="${showAccounts && !showAccountInfo}">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="padding: 0">
                                     <fmt:message key="user.account.allaccounts" var="allaccounts"/>
                                     <fmt:message key="user.account.number" var="number"/>
                                     <fmt:message key="user.account.balance" var="balance"/>
@@ -173,7 +173,7 @@
                                                 <th>${number}</th>
                                                 <th>${balance}</th>
                                                 <th>${status}</th>
-                                                <th>${action}</th>
+                                                <th style="min-width: 134px;">${action}</th>
                                                 <th>${showInfo}</th>
 
                                                 <c:forEach items="${accounts}" var="account">
@@ -195,12 +195,20 @@
                                                         <c:choose>
                                                             <c:when test="${account.isBlocked}">
                                                                 <td>
-                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">${unblock}</a>
+                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">
+                                                                            ${unblock}
+                                                                        <img src="resources/images/unlocked.png"
+                                                                             alt="${unblock}" class="icon">
+                                                                    </a>
                                                                 </td>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <td>
-                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
+                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">
+                                                                            ${block}
+                                                                        <img src="resources/images/locked.png"
+                                                                             alt="${block}" class="icon">
+                                                                    </a>
                                                                 </td>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -219,7 +227,7 @@
                     <c:when test="${showAccounts && showAccountInfo}">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="padding: 0">
                                     <fmt:message key="user.account.allaccounts" var="allaccounts"/>
                                     <fmt:message key="user.account.number" var="number"/>
                                     <fmt:message key="user.account.balance" var="balance"/>
@@ -243,7 +251,7 @@
                                                 <th>${number}</th>
                                                 <th>${balance}</th>
                                                 <th>${status}</th>
-                                                <th>${action}</th>
+                                                <th style="min-width: 134px;">${action}</th>
                                                 <th>${showInfo}</th>
 
                                                 <c:forEach items="${accounts}" var="account">
@@ -265,12 +273,20 @@
                                                         <c:choose>
                                                             <c:when test="${account.isBlocked}">
                                                                 <td>
-                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">${unblock}</a>
+                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">
+                                                                            ${unblock}
+                                                                        <img src="resources/images/unlocked.png"
+                                                                             alt="${unblock}" class="icon">
+                                                                    </a>
                                                                 </td>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <td>
-                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">${block}</a>
+                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">
+                                                                            ${block}
+                                                                        <img src="resources/images/locked.png"
+                                                                             alt="${block}" class="icon">
+                                                                    </a>
                                                                 </td>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -304,16 +320,14 @@
                                     <div class="content-box-large box-with-header">
                                         <table>
                                             <th>${cardNumber}</th>
-                                            <th>${cvv}</th>
                                             <th>${date}</th>
                                             <th>${status}</th>
-                                            <th>${action}</th>
+                                            <th style="min-width: 134px;">${action}</th>
                                             <th>${detachCard}</th>
 
                                             <c:forEach items="${cards}" var="card">
                                                 <tr>
                                                     <td>${card.number}</td>
-                                                    <td>${card.CVV}</td>
                                                     <td>${card.validity}</td>
                                                     <c:choose>
                                                         <c:when test="${card.isActive}">
@@ -330,12 +344,20 @@
                                                     <c:choose>
                                                         <c:when test="${card.isActive}">
                                                             <td>
-                                                                <a href="?command=blockCard&cardNumber=${card.number}">${block}</a>
+                                                                <a href="?command=blockCard&cardNumber=${card.number}">
+                                                                        ${block}
+                                                                    <img src="resources/images/locked.png"
+                                                                         alt="${block}" class="icon">
+                                                                </a>
                                                             </td>
                                                         </c:when>
                                                         <c:otherwise>
                                                             <td>
-                                                                <a href="?command=unblockCard&cardNumber=${card.number}">${unblock}</a>
+                                                                <a href="?command=unblockCard&cardNumber=${card.number}">
+                                                                        ${unblock}
+                                                                    <img src="resources/images/unlocked.png"
+                                                                         alt="${unblock}" class="icon">
+                                                                </a>
                                                             </td>
                                                         </c:otherwise>
                                                     </c:choose>

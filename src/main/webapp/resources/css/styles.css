@@ -392,6 +392,16 @@ form .btn-default a:active {
     background-image: url("/resources/images/no-view.png");
 }
 
+.icon {
+    position: relative;
+    display: inline-block;
+    top: -2px;
+    line-height: 1;
+    height: 17px;
+    width: 17px;
+    opacity: 1.0;
+}
+
 .tooltip {
     border-radius: 0.25rem;
     color: #fff;
@@ -649,7 +659,7 @@ form .btn-default a:active {
 }
 
 .content-box-large {
-    padding: 20px;
+    padding: 20px 10px 20px 10px;
 }
 
 .box-with-header {

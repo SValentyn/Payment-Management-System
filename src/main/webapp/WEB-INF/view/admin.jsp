@@ -135,9 +135,9 @@
                                             <th>${surname}</th>
                                             <th>${email}</th>
                                             <th>${phone}</th>
-                                            <th>${updateData}</th>
                                             <th>${addAccount}</th>
                                             <th>${showAccounts}</th>
+                                            <th>${updateData}</th>
                                             <th>${deleteUser}</th>
 
                                             <c:forEach items="${users}" var="user">
@@ -147,24 +147,36 @@
                                                     <td>${user.email}</td>
                                                     <td>${user.phone}</td>
                                                     <td>
-                                                        <a href="?command=updateUserData&userId=${user.userId}">
-                                                                ${updateData}
-                                                        </a>
-                                                    </td>
-                                                    <td>
                                                         <a href="?command=attachAccount&userId=${user.userId}">
                                                                 ${addAccount}
+                                                            <img src="resources/images/attach-account.png"
+                                                                 alt="${deleteUser}" class="icon"
+                                                                 style="top: 0; margin-left: 3px; opacity: 0.9;">
                                                         </a>
                                                     </td>
                                                     <td>
                                                         <a href="?command=showUserAccounts&userId=${user.userId}">
                                                                 ${showAccounts}
+                                                            <img src="resources/images/show-user-accounts.png"
+                                                                 alt="${deleteUser}" class="icon"
+                                                                 style="margin-left: 3px; opacity: 0.9;">
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="?command=updateUserData&userId=${user.userId}">
+                                                                ${updateData}
+                                                            <img src="resources/images/change-data.png"
+                                                                 alt="${deleteUser}" class="icon"
+                                                                 style="height: 15px; width: 15px; margin-left: 3px; opacity: 0.9;">
                                                         </a>
                                                     </td>
                                                     <td>
                                                         <a href="#smallModal?userId=${user.userId}&name=${user.name}&surname=${user.surname}"
                                                            onclick="showModal()">
-                                                                ${delete}
+                                                                ${deleteUser}
+                                                            <img src="resources/images/delete.png"
+                                                                 alt="${deleteUser}" class="icon"
+                                                                 style="margin-left: 3px;">
                                                         </a>
                                                     </td>
                                                 </tr>
