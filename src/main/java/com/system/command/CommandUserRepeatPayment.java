@@ -42,6 +42,7 @@ public class CommandUserRepeatPayment implements ICommand {
         request.setAttribute("numberValue", number);
         request.setAttribute("amountValue", amount);
         request.setAttribute("appointmentValue", appointment);
+        request.setAttribute("isRepeatCommandValue", "1");
 
         return page;
     }

@@ -1,11 +1,12 @@
 // Elements on userMakePayment.jsp page to check
+let bfh_selectbox = $('.bfh-selectbox');
 let accountId = document.querySelector("#accountId");
 let numberByAccountId = document.querySelector("#numberByAccountId");
-let bfh_selectbox = $('.bfh-selectbox');
 let number = document.querySelector("#number");
 let amount = document.querySelector("#amount");
 let appointment = document.querySelector("#appointment");
 let submitBtn = document.querySelector("#submit");
+let isRepeatCommand = document.querySelector('#isRepeatCommand');
 
 
 /* Checks Account Id */
@@ -35,15 +36,22 @@ let notValidAccountId = function () {
 
 // on hide
 bfh_selectbox.on('hide.bfhselectbox', function () {
-    accountId.value = $(bfh_selectbox).val();
-
     resetAccountId();
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "") {
-        notValidAccountId();
+    if (isRepeatCommand.value === "0") {
+        accountId.value = $(bfh_selectbox).val();
+        if (accountId.value.trim() === null || accountId.value.trim() === "") {
+            notValidAccountId();
+            return;
+        } else {
+            validAccountId();
+        }
     } else {
+        isRepeatCommand.value = "0";
         validAccountId();
     }
+
+    numberByAccountId.value = $(bfh_selectbox).find('span')[0].innerHTML;
 });
 
 // on keyup/change -> reset
@@ -144,7 +152,7 @@ amount.addEventListener('keyup', resetAmount);
 amount.addEventListener('change', resetAmount);
 
 
-/* Checks for at least one error on the page */
+/* Checks errors on the page and displays a modal window, if everything is in order */
 submitBtn.addEventListener('click', function (event) {
 
     let isShow = true;

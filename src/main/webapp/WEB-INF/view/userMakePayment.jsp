@@ -213,7 +213,7 @@
                                         <!-- AccountId -->
                                         <input id="accountId" name="accountId" type="hidden" value="${accountIdValue}"/>
 
-                                        <!-- numberByAccountIdValue -->
+                                        <!-- Number by AccountId -->
                                         <input id="numberByAccountId" name="numberByAccountId" type="hidden"
                                                value="${numberByAccountIdValue}"/>
 
@@ -293,6 +293,10 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Required for the script to work correctly -->
+                                        <input id="isRepeatCommand" name="isRepeatCommand" type="hidden"
+                                               value="${isRepeatCommandValue}"/>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 30px 0 5px 0">

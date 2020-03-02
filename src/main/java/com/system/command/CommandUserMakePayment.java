@@ -28,6 +28,7 @@ public class CommandUserMakePayment implements ICommand {
         request.setAttribute("accountFromBlockedError", false);
         request.setAttribute("receiverAccountBlockedError", false);
         request.setAttribute("insufficientFundsError", false);
+        request.setAttribute("isRepeatCommandValue", "0");
 
         User user = (User) request.getSession().getAttribute("currentUser");
 
