@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommandUserSupport implements ICommand {
@@ -40,15 +39,14 @@ public class CommandUserSupport implements ICommand {
 
             // Data
             List<Letter> lettersByUserId = LetterService.getInstance().findLettersByUserId(user.getUserId());
-            List<Letter> notProcessedLetters = new ArrayList<>();
-            for (Letter letter : lettersByUserId) {
-                if (!letter.getIsProcessed()) {
-                    notProcessedLetters.add(letter);
-                }
-            }
 
             // Check
-            if (notProcessedLetters.size() == 4) {
+            int count = 0;
+            for (Letter letter : lettersByUserId) {
+                if (!letter.getIsProcessed()) count++;
+            }
+
+            if (count == 4) {
                 setRequestAttributes(request, typeQuestion, description);
                 request.setAttribute("manyLettersError", true);
                 return page;
