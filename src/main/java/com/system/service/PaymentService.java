@@ -49,7 +49,7 @@ public class PaymentService {
         payment.setRecipientAccountNumber(number);
         payment.setSum(amount);
         payment.setAppointment(appointment);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
         payment.setDate(formatter.format(new Date()));
 
         Account accountFrom = accountDao.findAccountById(accountId);
