@@ -146,7 +146,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0;">
                                             <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    style="padding: 0;" onfocus="this.blur()">
+                                                    style="padding: 0;">
                                                 ${addUserButton}
                                             </button>
                                         </div>
@@ -155,10 +155,8 @@
                                         <c:choose>
                                             <c:when test="${added == true}">
                                                 <div class="action" style="padding: 0 0 10px 0;">
-                                                    <button type="button" class="btn btn-default signup"
-                                                            onfocus="this.blur()">
-                                                        <a href="?command=attachAccount&userId=${userId}"
-                                                           onfocus="this.blur()">
+                                                    <button type="button" class="btn btn-default signup">
+                                                        <a href="?command=attachAccount&userId=${userId}">
                                                                 ${backButton}
                                                         </a>
                                                     </button>
@@ -167,9 +165,8 @@
                                             <c:otherwise>
                                                 <div class="action" style="padding: 0 0 10px 0;">
                                                     <button type="button" class="btn btn-default signup"
-                                                            disabled="disabled" onfocus="this.blur()">
-                                                        <a href="?command=attachAccount&userId=${userId}"
-                                                           onfocus="this.blur()">
+                                                            disabled="disabled">
+                                                        <a href="?command=attachAccount&userId=${userId}">
                                                                 ${backButton}
                                                         </a>
                                                     </button>

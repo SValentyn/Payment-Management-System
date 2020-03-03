@@ -276,11 +276,11 @@ form .btn-default a {
     color: #333333;
 }
 
-form .btn-default a:hover {
-    text-decoration: none;
-}
-
+form .btn-default a:hover,
+form .btn-default a:focus,
 form .btn-default a:active {
+    cursor: pointer;
+    outline: none;
     text-decoration: none;
 }
 
@@ -396,10 +396,15 @@ form .btn-default a:active {
     position: relative;
     display: inline-block;
     top: -2px;
-    line-height: 1;
+    margin-left: 3px;
+    line-height: 1.0;
     height: 17px;
     width: 17px;
-    opacity: 1.0;
+    opacity: 0.9;
+}
+
+.icon-header {
+    opacity: 0.9;
 }
 
 .tooltip {
@@ -495,9 +500,9 @@ form .btn-default a:active {
 }
 
 .header .logo img {
-    width: 40px;
-    height: 50px;
-    margin-top: 8px;
+    width: 36px;
+    height: 44px;
+    margin-top: 10px;
 }
 
 .header .logo h1 {
@@ -647,9 +652,9 @@ form .btn-default a:active {
 /**************/
 
 /* Sidebar navigation */
-.content-box, .content-box-large {
+.content-box,
+.content-box-large {
     margin-bottom: 30px;
-    padding: 10px;
     border-radius: 10px;
     border-left: 1px solid #eee;
     border-top: 1px solid #eee;
@@ -658,8 +663,12 @@ form .btn-default a:active {
     background: #fff;
 }
 
+.content-box {
+    padding: 10px;
+}
+
 .content-box-large {
-    padding: 20px 10px 20px 10px;
+    padding: 20px;
 }
 
 .box-with-header {
@@ -776,7 +785,7 @@ form .btn-default a:active {
     top: -2px;
     display: inline-block;
     line-height: 1;
-    margin-right: 5px;
+    margin-right: 12px;
     height: 17px;
     width: 17px;
     opacity: 0.5;

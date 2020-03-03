@@ -36,7 +36,7 @@
                                     <fmt:message key="admin.support.allLetters" var="allLetters"/>
                                     <fmt:message key="admin.support.status" var="status"/>
                                     <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
-                                    <fmt:message key="admin.support.date" var="date"/>
+                                    <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
                                     <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
                                     <fmt:message key="admin.support.showInfo" var="showInfo"/>
 
@@ -48,10 +48,27 @@
 
                                     <div class="content-box-large box-with-header">
                                         <table>
-                                            <th>${status}</th>
-                                            <th>${date}</th>
-                                            <th>${typeQuestion}</th>
-                                            <th>${showInfo}</th>
+                                            <th>
+                                                    ${status}
+                                                <img src="resources/images/status.png"
+                                                     alt="" class="icon icon-header"
+                                                     style="height: 15px; width: 15px; opacity: 0.8;">
+                                            </th>
+                                            <th>
+                                                    ${timeToReceive}
+                                                <img src="resources/images/calendar.png"
+                                                     alt="" class="icon icon-header" style="opacity: 1.0;">
+                                            </th>
+                                            <th>
+                                                    ${typeQuestion}
+                                                <img src="resources/images/question.png"
+                                                     alt="" class="icon icon-header">
+                                            </th>
+                                            <th>
+                                                    ${showInfo}
+                                                <img src="resources/images/show-letter-info.png"
+                                                     alt="" class="icon icon-header">
+                                            </th>
 
                                             <c:forEach items="${letters}" var="letter">
                                                 <tr>
@@ -63,6 +80,8 @@
                                                     <td>
                                                         <a href="?command=showLetterInfo&letterId=${letter.letterId}">
                                                                 ${showInfo}
+                                                            <img src="resources/images/show-letter-info-link.png"
+                                                                 alt="" class="icon">
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -74,7 +93,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <span class="title-label">
+                        <span class="title-label" style="margin-left: 25px;">
                             <label>
                                 <b>
                                     <fmt:message key="admin.support.noLetters"/>

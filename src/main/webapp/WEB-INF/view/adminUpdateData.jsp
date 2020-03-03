@@ -176,17 +176,15 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${updateDataButton}
                                             </button>
                                         </div>
 
                                         <!-- Change Password Button -->
                                         <div class="action">
-                                            <button type="button" class="btn btn-default signup" style="padding: 0;"
-                                                    onfocus="this.blur()">
-                                                <a href="?command=updatePassword" onfocus="this.blur()">
+                                            <button type="button" class="btn btn-default signup">
+                                                <a href="?command=updatePassword">
                                                     ${changePasswordButton}
                                                 </a>
                                             </button>

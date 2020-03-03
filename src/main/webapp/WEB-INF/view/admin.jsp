@@ -113,15 +113,14 @@
                             <c:choose>
                                 <c:when test="${showUsers}">
                                     <fmt:message key="admin.users.allUsers" var="allUsers"/>
-                                    <fmt:message key="admin.users.name" var="name"/>
-                                    <fmt:message key="admin.users.surname" var="surname"/>
+                                    <fmt:message key="admin.users.firstName" var="firstName"/>
+                                    <fmt:message key="admin.users.lastName" var="lastName"/>
                                     <fmt:message key="admin.users.email" var="email"/>
                                     <fmt:message key="admin.users.phone" var="phone"/>
                                     <fmt:message key="admin.users.updateData" var="updateData"/>
-                                    <fmt:message key="admin.users.addAccount" var="addAccount"/>
+                                    <fmt:message key="admin.users.attachAccount" var="attachAccount"/>
                                     <fmt:message key="admin.users.showUserAccounts" var="showAccounts"/>
                                     <fmt:message key="admin.users.deleteUser" var="deleteUser"/>
-                                    <fmt:message key="admin.users.delete" var="delete"/>
 
                                     <div class="content-box-header">
                                         <div class="panel-title">
@@ -130,15 +129,40 @@
                                     </div>
 
                                     <div class="content-box-large box-with-header">
-                                        <table>
-                                            <th>${name}</th>
-                                            <th>${surname}</th>
-                                            <th>${email}</th>
-                                            <th>${phone}</th>
-                                            <th>${addAccount}</th>
-                                            <th>${showAccounts}</th>
-                                            <th>${updateData}</th>
-                                            <th>${deleteUser}</th>
+                                        <table class="table-bordered">
+                                            <th>${firstName}</th>
+                                            <th>${lastName}</th>
+                                            <th>
+                                                    ${email}
+                                                <img src="resources/images/email.png"
+                                                     alt="" class="icon icon-header">
+                                            </th>
+                                            <th>
+                                                    ${phone}
+                                                <img src="resources/images/phone.png"
+                                                     alt="" class="icon icon-header">
+                                            </th>
+                                            <th>
+                                                    ${attachAccount}
+                                                <img src="resources/images/create-account.png"
+                                                     alt="" class="icon icon-header" style="top: 0;">
+                                            </th>
+                                            <th>
+                                                    ${showAccounts}
+                                                <img src="resources/images/show-accounts.png"
+                                                     alt="" class="icon icon-header">
+                                            </th>
+                                            <th>
+                                                    ${updateData}
+                                                <img src="resources/images/update-data.png"
+                                                     alt="" class="icon icon-header">
+                                            </th>
+                                            <th>
+                                                    ${deleteUser}
+                                                <img src="resources/images/delete.png"
+                                                     alt="" class="icon icon-header"
+                                                     style="height: 16px; width: 16px; border-radius: 4px;">
+                                            </th>
 
                                             <c:forEach items="${users}" var="user">
                                                 <tr>
@@ -148,35 +172,34 @@
                                                     <td>${user.phone}</td>
                                                     <td>
                                                         <a href="?command=attachAccount&userId=${user.userId}">
-                                                                ${addAccount}
-                                                            <img src="resources/images/attach-account.png"
-                                                                 alt="${deleteUser}" class="icon"
-                                                                 style="top: 0; margin-left: 3px; opacity: 0.9;">
+                                                                ${attachAccount}
+                                                            <img src="resources/images/create-account-link.png"
+                                                                 alt="" class="icon"
+                                                                 style="top: 0;">
                                                         </a>
                                                     </td>
                                                     <td>
                                                         <a href="?command=showUserAccounts&userId=${user.userId}">
                                                                 ${showAccounts}
-                                                            <img src="resources/images/show-user-accounts.png"
-                                                                 alt="${deleteUser}" class="icon"
-                                                                 style="margin-left: 3px; opacity: 0.9;">
+                                                            <img src="resources/images/show-accounts-link.png"
+                                                                 alt="" class="icon">
                                                         </a>
                                                     </td>
                                                     <td>
                                                         <a href="?command=updateUserData&userId=${user.userId}">
                                                                 ${updateData}
-                                                            <img src="resources/images/change-data.png"
-                                                                 alt="${deleteUser}" class="icon"
-                                                                 style="height: 15px; width: 15px; margin-left: 3px; opacity: 0.9;">
+                                                            <img src="resources/images/update-data-link.png"
+                                                                 alt="" class="icon"
+                                                                 style="height: 15px; width: 15px;">
                                                         </a>
                                                     </td>
                                                     <td>
                                                         <a href="#smallModal?userId=${user.userId}&name=${user.name}&surname=${user.surname}"
                                                            onclick="showModal()">
                                                                 ${deleteUser}
-                                                            <img src="resources/images/delete.png"
-                                                                 alt="${deleteUser}" class="icon"
-                                                                 style="margin-left: 3px;">
+                                                            <img src="resources/images/delete-link.png"
+                                                                 alt="" class="icon"
+                                                                 style="height: 15px; width: 15px; border-radius: 4px;">
                                                         </a>
                                                     </td>
                                                 </tr>

@@ -135,7 +135,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
                                             <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    style="width: 248px" onfocus="this.blur()">
+                                                    style="width: 248px">
                                                 ${processedButton}
                                             </button>
                                         </div>
@@ -143,8 +143,8 @@
                                         <!-- Back -->
                                         <div class="action">
                                             <button type="button" class="btn btn-default signup"
-                                                    style="width: 248px" onfocus="this.blur()">
-                                                <a href="?command=support" onfocus="this.blur()">
+                                                    style="width: 248px">
+                                                <a href="?command=support">
                                                     ${backButton}
                                                 </a>
                                             </button>

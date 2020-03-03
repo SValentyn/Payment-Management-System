@@ -213,16 +213,14 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0;">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${attachButton}
                                             </button>
                                         </div>
 
                                         <!-- Back -->
                                         <div class="action">
-                                            <button type="button" class="btn btn-default signup"
-                                                    style="padding: 0;" onfocus="this.blur()">
+                                            <button type="button" class="btn btn-default signup">
                                                 <a href="?command=showAccountInfo&accountId=${accountId}">
                                                     ${backButton}
                                                 </a>

@@ -150,8 +150,7 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 25px 0 5px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${changePasswordButton}
                                             </button>
                                         </div>

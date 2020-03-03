@@ -160,16 +160,15 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${attachAccountButton}
                                             </button>
                                         </div>
 
                                         <!-- Show Accounts Button -->
                                         <div class="action" style="padding: 0 0 10px 0;">
-                                            <button type="button" class="btn btn-default signup" style="padding: 0;"
-                                                    onfocus="this.blur()">
+                                            <button type="button" class="btn btn-default signup"
+                                                    style="padding: 0;">
                                                 <a href="?command=showAccountInfo">
                                                     ${backToAccountsButton}
                                                 </a>
@@ -180,9 +179,7 @@
                                         <c:choose>
                                             <c:when test="${attached == true}">
                                                 <div class="action">
-                                                    <button type="button" class="btn btn-default signup"
-                                                            style="padding: 0;"
-                                                            onfocus="this.blur()">
+                                                    <button type="button" class="btn btn-default signup">
                                                         <a href="?command=attachCard&accountId=${accountId}">
                                                                 ${attachCardButton}
                                                         </a>
@@ -192,8 +189,7 @@
                                             <c:otherwise>
                                                 <div class="action">
                                                     <button type="button" class="btn btn-default signup"
-                                                            style="padding: 0;"
-                                                            onfocus="this.blur()" disabled="disabled">
+                                                            disabled="disabled">
                                                         <a href="?command=attachCard&accountId=${accountId}">
                                                                 ${attachCardButton}
                                                         </a>

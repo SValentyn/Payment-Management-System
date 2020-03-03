@@ -149,7 +149,7 @@
                                         <!-- Submit -->
                                         <div class="action" style="padding: 20px 0 10px 0">
                                             <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    style="width: 258px;" onfocus="this.blur()">
+                                                    style="width: 258px;">
                                                 ${updateDataButton}
                                             </button>
                                         </div>
@@ -157,8 +157,8 @@
                                         <!-- Back Button -->
                                         <div class="action">
                                             <button type="button" class="btn btn-default signup"
-                                                    style="width: 258px;" onfocus="this.blur()">
-                                                <a href="?command=showUsers" onfocus="this.blur()">
+                                                    style="width: 258px;">
+                                                <a href="?command=showUsers">
                                                     ${backButton}
                                                 </a>
                                             </button>
