@@ -139,8 +139,8 @@ CREATE TABLE payments
   DEFAULT COLLATE 'utf8_general_ci';
 
 INSERT INTO payments (payment_id, account_id, recipient_account_number, sum, appointment, date, `condition`)
-VALUES (1, 2, '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020', true),
-       (2, 4, '00000000000000000002', 400.00, 'charity', '01/10/2020', true);
+VALUES (1, 2, '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020, 19:35', true),
+       (2, 4, '00000000000000000002', 400.00, 'charity', '01/10/2020, 12:00', true);
 -- -- --
 
 -- -- --
