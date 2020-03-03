@@ -19,7 +19,7 @@
                             <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <a href="#" id="dropdown" class="dropdown-toggle" data-toggle="dropdown">
                                             ${currentUser.name} ${currentUser.surname}
                                             <b class="caret"></b>
                                         </a>
