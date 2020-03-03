@@ -104,15 +104,14 @@
 
                                     <!-- Submit -->
                                     <div class="action" style="padding: 25px 0 10px 0">
-                                        <button id="submit" type="submit" class="btn btn-primary signup"
-                                                onfocus="this.blur()">
+                                        <button id="submit" type="submit" class="btn btn-primary signup">
                                             ${button}
                                         </button>
                                     </div>
 
                                     <!-- Back Button -->
                                     <div class="action" style="padding: 0 0 10px 0">
-                                        <button type="button" class="btn btn-default signup" onfocus="this.blur()">
+                                        <button type="button" class="btn btn-default signup">
                                             <a href="/">
                                                 ${backButton}
                                             </a>

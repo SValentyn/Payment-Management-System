@@ -76,7 +76,7 @@
                                         <input type="hidden" name="full_phone" value="+34645364524">
                                         <input type="hidden" name="password" value="000000">
 
-                                        <button type="submit" class="btn btn-default" onfocus="this.blur()">
+                                        <button type="submit" class="btn btn-default">
                                             Beta-User
                                         </button>
                                     </form>
@@ -86,7 +86,7 @@
                                         <input type="hidden" name="full_phone" value="+393524594551">
                                         <input type="hidden" name="password" value="111111">
 
-                                        <button type="submit" class="btn btn-default" onfocus="this.blur()">
+                                        <button type="submit" class="btn btn-default">
                                             Beta-Admin
                                         </button>
                                     </form>
@@ -130,7 +130,7 @@
                                     <!-- Submit -->
                                     <div class="action" style="padding: 20px 0 0 0;">
                                         <button id="submit" type="submit" class="btn btn-primary signup"
-                                                style="font-size: 18px;" onfocus="this.blur()">
+                                                style="font-size: 18px;">
                                             ${submit}
                                             <i class="glyphicon glyphicon-log-in" style="padding-left: 11px;"></i>
                                         </button>

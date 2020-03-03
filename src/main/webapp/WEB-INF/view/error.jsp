@@ -35,7 +35,7 @@
             <c:set var="errorMessage" value="${error_500}" scope="page"/>
         </c:if>
 
-        <div style="text-align: center; margin-top: 150px;">
+        <div style="text-align: center; margin-top: 140px;">
             <span id="error_detail_message">
                  <c:if test="${not empty code}">
                      <h1 class="code">●&nbsp;&nbsp;<c:out value="${code}"/>&nbsp;&nbsp;●</h1>
@@ -47,6 +47,8 @@
             </span>
             <a class="back-homepage" href="/">
                 ${goBackHome}
+                <img src="resources/images/back-home.png" alt="" class="icon"
+                     style="height: 32px; width: 38px; top: -4px; margin-left: 8px; opacity: 0.8;">
             </a>
         </div>
     </div>
