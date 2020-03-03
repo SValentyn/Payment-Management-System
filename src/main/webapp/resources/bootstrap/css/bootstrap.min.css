@@ -2112,6 +2112,9 @@ textarea.input-lg {
 }
 
 .btn:hover, .btn:focus {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     color: #333;
     text-decoration: none
 }
@@ -2139,6 +2142,9 @@ textarea.input-lg {
 }
 
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     color: #333;
     background-color: #ebebeb;
     border-color: #adadad
@@ -2149,6 +2155,9 @@ textarea.input-lg {
 }
 
 .btn-default.disabled, .btn-default[disabled], fieldset[disabled] .btn-default, .btn-default.disabled:hover, .btn-default[disabled]:hover, fieldset[disabled] .btn-default:hover, .btn-default.disabled:focus, .btn-default[disabled]:focus, fieldset[disabled] .btn-default:focus, .btn-default.disabled:active, .btn-default[disabled]:active, fieldset[disabled] .btn-default:active, .btn-default.disabled.active, .btn-default[disabled].active, fieldset[disabled] .btn-default.active {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     background-color: #fff;
     border-color: #ccc
 }
@@ -2165,6 +2174,9 @@ textarea.input-lg {
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     color: #fff;
     background-color: #3276b1;
     border-color: #285e8e
@@ -2191,6 +2203,9 @@ textarea.input-lg {
 }
 
 .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open .dropdown-toggle.btn-warning {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     color: #fff;
     background-color: #ed9c28;
     border-color: #d58512
@@ -2217,6 +2232,9 @@ textarea.input-lg {
 }
 
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open .dropdown-toggle.btn-danger {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     color: #fff;
     background-color: #d2322d;
     border-color: #ac2925
@@ -2243,6 +2261,9 @@ textarea.input-lg {
 }
 
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     color: #fff;
     background-color: #47a447;
     border-color: #398439
@@ -2269,6 +2290,9 @@ textarea.input-lg {
 }
 
 .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
     color: #fff;
     background-color: #39b3d7;
     border-color: #269abc
