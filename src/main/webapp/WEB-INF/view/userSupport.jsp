@@ -154,8 +154,7 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 22px 0 5px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${send}
                                             </button>
                                         </div>

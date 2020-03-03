@@ -135,23 +135,22 @@
                                                 <span id="valid-msg-oldPassword" class="hide">${correct} ✓</span>
                                                 <span id="error-msg-oldPassword" class="hide">${passwordError}</span>
                                                 <span id="passwordNotMatchError">
-                                                <c:if test="${passwordNotMatchError}">
-                                                    ${oldPasswordError}
+                                                    <c:if test="${passwordNotMatchError}">
+                                                        ${oldPasswordError}
 
-                                                    <script>
-                                                        document.querySelector("#passwordNotMatchError").classList.remove("hide");
-                                                        document.querySelector("#valid-msg-oldPassword").classList.add("hide");
-                                                        document.querySelector("#error-msg-oldPassword").classList.add("hide");
-                                                    </script>
-                                                </c:if>
-                                            </span>
+                                                        <script>
+                                                            document.querySelector("#passwordNotMatchError").classList.remove("hide");
+                                                            document.querySelector("#valid-msg-oldPassword").classList.add("hide");
+                                                            document.querySelector("#error-msg-oldPassword").classList.add("hide");
+                                                        </script>
+                                                    </c:if>
+                                                </span>
                                             </label>
                                         </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 25px 0 5px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${changePasswordButton}
                                             </button>
                                         </div>

@@ -134,8 +134,7 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 40px 0 10px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    onfocus="this.blur()">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${createAccountButton}
                                             </button>
                                         </div>

@@ -172,9 +172,18 @@
                                             <table>
                                                 <th>${number}</th>
                                                 <th>${balance}</th>
-                                                <th>${status}</th>
-                                                <th style="min-width: 134px;">${action}</th>
-                                                <th>${showInfo}</th>
+                                                <th>
+                                                        ${status}
+                                                    <img src="resources/images/status.png"
+                                                         alt="" class="icon icon-header"
+                                                         style="height: 15px; width: 15px; opacity: 0.8;">
+                                                </th>
+                                                <th>
+                                                        ${action}
+                                                </th>
+                                                <th>
+                                                        ${showInfo}
+                                                </th>
 
                                                 <c:forEach items="${accounts}" var="account">
                                                     <tr>
@@ -197,8 +206,8 @@
                                                                 <td>
                                                                     <a href="?command=unblockAccount&accountId=${account.accountId}">
                                                                             ${unblock}
-                                                                        <img src="resources/images/unlocked.png"
-                                                                             alt="${unblock}" class="icon">
+                                                                        <img src="resources/images/unlocked-link.png"
+                                                                             alt="" class="icon">
                                                                     </a>
                                                                 </td>
                                                             </c:when>
@@ -206,14 +215,16 @@
                                                                 <td>
                                                                     <a href="?command=blockAccount&accountId=${account.accountId}">
                                                                             ${block}
-                                                                        <img src="resources/images/locked.png"
-                                                                             alt="${block}" class="icon">
+                                                                        <img src="resources/images/locked-link.png"
+                                                                             alt="" class="icon">
                                                                     </a>
                                                                 </td>
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <td>
-                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">${showInfo}</a>
+                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">
+                                                                    ${showInfo}
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -251,7 +262,7 @@
                                                 <th>${number}</th>
                                                 <th>${balance}</th>
                                                 <th>${status}</th>
-                                                <th style="min-width: 134px;">${action}</th>
+                                                <th>${action}</th>
                                                 <th>${showInfo}</th>
 
                                                 <c:forEach items="${accounts}" var="account">
@@ -275,8 +286,8 @@
                                                                 <td>
                                                                     <a href="?command=unblockAccount&accountId=${account.accountId}">
                                                                             ${unblock}
-                                                                        <img src="resources/images/unlocked.png"
-                                                                             alt="${unblock}" class="icon">
+                                                                        <img src="resources/images/unlocked-link.png"
+                                                                             alt="" class="icon">
                                                                     </a>
                                                                 </td>
                                                             </c:when>
@@ -284,14 +295,16 @@
                                                                 <td>
                                                                     <a href="?command=blockAccount&accountId=${account.accountId}">
                                                                             ${block}
-                                                                        <img src="resources/images/locked.png"
-                                                                             alt="${block}" class="icon">
+                                                                        <img src="resources/images/locked-link.png"
+                                                                             alt="" class="icon">
                                                                     </a>
                                                                 </td>
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <td>
-                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">${showInfo}</a>
+                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">
+                                                                    ${showInfo}
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -322,7 +335,7 @@
                                             <th>${cardNumber}</th>
                                             <th>${date}</th>
                                             <th>${status}</th>
-                                            <th style="min-width: 134px;">${action}</th>
+                                            <th>${action}</th>
                                             <th>${detachCard}</th>
 
                                             <c:forEach items="${cards}" var="card">
@@ -346,8 +359,8 @@
                                                             <td>
                                                                 <a href="?command=blockCard&cardNumber=${card.number}">
                                                                         ${block}
-                                                                    <img src="resources/images/locked.png"
-                                                                         alt="${block}" class="icon">
+                                                                    <img src="resources/images/locked-link.png"
+                                                                         alt="" class="icon">
                                                                 </a>
                                                             </td>
                                                         </c:when>
@@ -355,8 +368,8 @@
                                                             <td>
                                                                 <a href="?command=unblockCard&cardNumber=${card.number}">
                                                                         ${unblock}
-                                                                    <img src="resources/images/unlocked.png"
-                                                                         alt="${unblock}" class="icon">
+                                                                    <img src="resources/images/unlocked-link.png"
+                                                                         alt="" class="icon">
                                                                 </a>
                                                             </td>
                                                         </c:otherwise>
