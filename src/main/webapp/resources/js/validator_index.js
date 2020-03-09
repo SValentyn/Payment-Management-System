@@ -25,66 +25,77 @@ let validMsgPhone = document.querySelector("#valid-msg-login"),
     errorMsgPhone = document.querySelector("#error-msg-login");
 
 let resetPhone = function () {
-    validMsgPhone.classList.add("hide");
-    errorMsgPhone.classList.add("hide");
+    validMsgPhone.classList.add("invisible");
+    errorMsgPhone.classList.add("invisible");
     phone.classList.remove("valid-input");
     phone.classList.remove("error-input");
 };
 
 let validPhone = function () {
-    validMsgPhone.classList.remove("hide");
-    errorMsgPhone.classList.add("hide");
+    validMsgPhone.classList.remove("invisible");
+    errorMsgPhone.classList.add("invisible");
     phone.classList.add("valid-input");
     phone.classList.remove("error-input");
 };
 
 let notValidPhone = function () {
-    validMsgPhone.classList.add("hide");
-    errorMsgPhone.classList.remove("hide");
+    validMsgPhone.classList.add("invisible");
+    errorMsgPhone.classList.remove("invisible");
     phone.classList.remove("valid-input");
     phone.classList.add("error-input");
 };
 
-// on blur
-phone.addEventListener('blur', function () {
+phone.addEventListener('click', resetPhone);
+phone.addEventListener('blur', validationPhone);
+phone.addEventListener('keyup', validationPhone);
+phone.addEventListener('change', validationPhone);
+
+function validationPhone() {
     resetPhone();
 
     if (phone.value.trim() === "") {
         notValidPhone();
-    } else if (phone.value.trim()) {
+    } else {
         if (iti.isValidNumber()) {
             validPhone();
         } else {
             notValidPhone();
         }
     }
-});
-
-// on keyup/change -> reset
-phone.addEventListener('keyup', resetPhone);
-phone.addEventListener('change', resetPhone);
+}
 
 
 /* Checks password */
-let errorMsgPassword = document.querySelector("#error-msg-password");
+let errorMsgPassword = document.querySelector("#error-msg-password"),
+    validMsgPassword = document.querySelector("#valid-msg-password");
 
 let resetPassword = function () {
-    errorMsgPassword.classList.add("hide");
+    validMsgPassword.classList.add("invisible");
+    errorMsgPassword.classList.add("invisible");
+    password.classList.remove("valid-input");
     password.classList.remove("error-input");
 };
 
 let validPassword = function () {
-    errorMsgPassword.classList.add("hide");
+    validMsgPassword.classList.remove("invisible");
+    errorMsgPassword.classList.add("invisible");
+    password.classList.add("valid-input");
     password.classList.remove("error-input");
 };
 
 let notValidPassword = function () {
-    errorMsgPassword.classList.remove("hide");
+    validMsgPassword.classList.add("invisible");
+    errorMsgPassword.classList.remove("invisible");
+    password.classList.remove("valid-input");
     password.classList.add("error-input");
 };
 
-// on blur
-password.addEventListener('blur', function () {
+password.addEventListener('click', resetPassword);
+password.addEventListener('blur', validationPassword);
+password.addEventListener('keyup', validationPassword);
+password.addEventListener('change', validationPassword);
+
+function validationPassword() {
     resetPassword();
 
     if (password.value.trim() === "" || password.value.trim().length < 6) {
@@ -92,11 +103,7 @@ password.addEventListener('blur', function () {
     } else {
         validPassword();
     }
-});
-
-// on keyup/change -> reset
-password.addEventListener('keyup', resetPassword);
-password.addEventListener('change', resetPassword);
+}
 
 
 /* Checks for at least one error on the page */

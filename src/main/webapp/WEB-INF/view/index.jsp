@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="login.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
@@ -23,21 +23,34 @@
 
     <!-- Header -->
     <div class="header header-without-margin">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-auto mr-auto">
                     <div class="logo">
                         <a href="/" onfocus="this.blur()">
-                            <img src="resources/images/logo-white.png" alt="Logotype"/></a>
+                            <img src="resources/images/logo-white.png" alt="Logotype"/>
+                        </a>
                         <h1>Payment Management System</h1>
-                        <form class="language-form">
-                            <select id="language" name="language" onchange="submit()" onfocus="this.blur()">
-                                <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-                                <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-                                <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
-                            </select>
-                        </form>
                     </div>
+                </div>
+                <div class="col-auto">
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="collapse navbar-collapse show" role="navigation">
+                            <div class="navbar-nav">
+                                <div class="nav-item" style="margin-left: 10%;">
+                                    <form class="language-form">
+                                        <select id="language" name="language"
+                                                onchange="submit()"
+                                                onfocus="this.blur()">
+                                            <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
+                                            <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
+                                            <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -56,17 +69,17 @@
     </c:if>
 
     <div class="login-bg">
-        <div class="page-content container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
+        <div class="page-content container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-3">
                     <div class="login-wrapper" style="top: 30px;">
                         <div class="box">
                             <div class="content-wrap">
-                                <h4 style="margin-bottom: 22px;">
+                                <h4 style="margin-bottom: 20px;">
                                     <fmt:message key="login.signin"/><br>
                                     Payment Management System
                                 </h4>
-                                <h4>
+                                <h4 style="margin-bottom: 20px">
                                     Status: <abbr style="color: red">Beta</abbr>
                                 </h4>
 
@@ -98,18 +111,19 @@
                                 <fmt:message key="login.passwordError" var="passwordError"/>
                                 <fmt:message key="login.correct" var="correct"/>
 
-                                <form action="/" role="form" method="POST">
+                                <form action="/" role="form" method="POST" novalidate>
                                     <input type="hidden" name="command" value="login"/>
 
                                     <!-- Login -->
                                     <div>
                                         <input id="login" name="login" type="tel" class="form-control"
-                                               style="padding-left: 94px; margin-bottom: 18px;"
                                                onkeypress="onlyNumbers()"
                                                value="${loginValue}"/>
                                         <label for="login" class="default-label">
-                                            <span id="valid-msg-login" class="hide">${correct} ✓</span>
-                                            <span id="error-msg-login" class="hide">${phoneError}</span>
+                                            <span id="valid-msg-login" class="valid-msg invisible">
+                                                ${correct}<img src="resources/images/correct.png" alt="">
+                                            </span>
+                                            <span id="error-msg-login" class="error-msg invisible">${phoneError}</span>
                                         </label>
                                     </div>
 
@@ -117,13 +131,18 @@
                                     <div>
                                         <div class="password-input">
                                             <input type="password" id="password" name="password" class="form-control"
-                                                   style="margin-top: 10px;" placeholder="${password}"
+                                                   style="margin-top: 10px;"
+                                                   placeholder="${password}"
                                                    value=${passwordValue}>
                                             <a href="#" class="password-control" onfocus="this.blur()"
                                                onclick="return show_hide_password(this);"></a>
                                         </div>
                                         <label for="password" class="default-label">
-                                            <span id="error-msg-password" class="hide">${passwordError}</span>
+                                            <span id="valid-msg-password" class="valid-msg invisible">
+                                                ${correct}<img src="resources/images/correct.png" alt="">
+                                            </span>
+                                            <span id="error-msg-password"
+                                                  class="error-msg invisible">${passwordError}</span>
                                         </label>
                                     </div>
 
@@ -132,19 +151,18 @@
                                         <button id="submit" type="submit" class="btn btn-primary signup"
                                                 style="font-size: 18px;">
                                             ${submit}
-                                            <i class="glyphicon glyphicon-log-in" style="padding-left: 11px;"></i>
                                         </button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="already">
-                            <p><fmt:message key="login.forgotPassword"/></p>
+                            <p style="margin-bottom: 6px;"><fmt:message key="login.forgotPassword"/></p>
                             <a href="?command=recovery" onfocus="this.blur()">
                                 <fmt:message key="login.recovery"/>
                             </a>
                             <br>
-                            <p><fmt:message key="login.dontHaveAccount"/></p>
+                            <p style="margin-bottom: 8px;"><fmt:message key="login.dontHaveAccount"/></p>
                             <a href="?command=registration" onfocus="this.blur()">
                                 <fmt:message key="login.signup"/>
                             </a>
@@ -156,7 +174,7 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
-<script src="resources/js/validator_index.js"></script>
 </body>
+<script src="resources/js/validator_index.js"></script>
 </html>
 
