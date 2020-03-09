@@ -8,12 +8,13 @@
 <fmt:setBundle basename="message"/>
 
 <div class="footer">
-    <div class="container">
+    <div class="container-fluid">
         <div class="social">
             <a href="https://github.com/SValentyn/Payment-Management-System" onfocus="this.blur()">
                 <img id="github-ico" class="tooltip-top"
                      src="resources/images/GitHub-Mark-32px-white.ico"
-                     title="<fmt:message key="footer.github"/>" alt="<fmt:message key="footer.github"/>">
+                     title="<fmt:message key="footer.github"/>"
+                     alt="<fmt:message key="footer.github"/>">
             </a>
         </div>
         <span class="copyright">
@@ -22,13 +23,15 @@
         </span>
         <div class="time">
             <h3 id="currentDateTime" class="custom-date tooltip-top"
-                title="<fmt:message key="footer.time"/>"></h3>
+                title="<fmt:message key="footer.time"/>">
+            </h3>
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="resources/bootstrap/js/bootstrap-formhelpers.min.js"></script>
 <script src="resources/js/intlTelInput.js"></script>
