@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="user.makepayment.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
@@ -179,132 +179,179 @@
 
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="page-content container">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper">
-                            <div class="box">
-                                <div class="content-wrap">
-                                    <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>
-                                    <fmt:message key="user.makepayment.fromAccount" var="from"/>
-                                    <fmt:message key="user.makepayment.toAccount" var="toCreditCard"/>
-                                    <fmt:message key="user.makepayment.number" var="number"/>
-                                    <fmt:message key="user.makepayment.amount" var="amount"/>
-                                    <fmt:message key="user.makepayment.appointment" var="appointment"/>
-                                    <fmt:message key="user.makepayment.makePaymentButton" var="makePaymentButton"/>
-                                    <fmt:message key="user.makepayment.accountIdError" var="accountIdError"/>
-                                    <fmt:message key="user.makepayment.numberError" var="numberError"/>
-                                    <fmt:message key="user.makepayment.amountError" var="amountError"/>
-                                    <fmt:message key="user.makepayment.tooltipAccountNumber" var="tooltipCardNumber"/>
-                                    <fmt:message key="user.makepayment.tooltipAmountFunds" var="tooltipAmountFunds"/>
-                                    <fmt:message key="registration.correct" var="correct"/>
+            <div class="col-lg-10">
+                <div class="page-content container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 offset-xl-2 mr-auto">
+                            <div class="login-wrapper">
+                                <div class="box">
+                                    <div class="content-wrap">
+                                        <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>
+                                        <fmt:message key="user.makepayment.fromAccount" var="from"/>
+                                        <fmt:message key="user.makepayment.recipientOfFunds" var="recipientOfFunds"/>
+                                        <fmt:message key="user.makepayment.number" var="number"/>
+                                        <fmt:message key="user.makepayment.amount" var="amount"/>
+                                        <fmt:message key="user.makepayment.appointment" var="appointment"/>
+                                        <fmt:message key="user.makepayment.makePaymentButton" var="makePaymentButton"/>
+                                        <fmt:message key="user.makepayment.accountIdError" var="accountIdError"/>
+                                        <fmt:message key="user.makepayment.numberError" var="numberError"/>
+                                        <fmt:message key="user.makepayment.amountError" var="amountError"/>
+                                        <fmt:message key="user.makepayment.tooltipAccountNumber"
+                                                     var="tooltipAccountNumber"/>
+                                        <fmt:message key="user.makepayment.tooltipAmountFunds"
+                                                     var="tooltipAmountFunds"/>
+                                        <fmt:message key="registration.correct" var="correct"/>
 
-                                    <h4>
-                                        ${createNewPayment}
-                                    </h4>
+                                        <h4>
+                                            ${createNewPayment}
+                                        </h4>
 
-                                    <form action="/" role="form" method="POST">
-                                        <input type="hidden" name="command" value="makePayment">
+                                        <form action="/" role="form" method="POST">
+                                            <input type="hidden" name="command" value="makePayment">
 
-                                        <!-- AccountId -->
-                                        <input id="accountId" name="accountId" type="hidden" value="${accountIdValue}"/>
+                                            <!-- AccountId -->
+                                            <input id="accountId" name="accountId" type="hidden"
+                                                   value="${accountIdValue}"/>
 
-                                        <!-- Number by AccountId -->
-                                        <input id="numberByAccountId" name="numberByAccountId" type="hidden"
-                                               value="${numberByAccountIdValue}"/>
+                                            <!-- Number by AccountId -->
+                                            <input id="numberByAccountId" name="numberByAccountId" type="hidden"
+                                                   value="${numberByAccountIdValue}"/>
 
-                                        <!-- Select AccountId -->
-                                        <div>
-                                            <label for="number" class="for-form-label">
-                                                ${from}
-                                            </label>
-                                            <div>
-                                                <div class="bfh-selectbox">
-                                                    <c:choose>
-                                                        <c:when test="${accountIdValue == null}">
-                                                            <div data-value=""></div>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <div data-value="${accountIdValue}">${numberByAccountIdValue}</div>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <c:forEach items="${accounts}" var="account">
-                                                        <div data-value="${account.accountId}">${account.number}</div>
-                                                    </c:forEach>
-                                                </div>
-                                            </div>
-                                            <label for="accountId" class="default-label">
-                                                <span id="valid-msg-accountId" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-accountId" class="hide">${accountIdError}</span>
-                                            </label>
-                                        </div>
-
-                                        <!-- Account Number -->
-                                        <div style="width: 100%; margin-top: 6px;">
+                                            <!-- Select AccountId -->
                                             <div>
                                                 <label for="number" class="for-form-label">
-                                                    ${toCreditCard}
+                                                    ${from}
                                                 </label>
-                                                <input id="number" name="number" class="form-control"
-                                                       style="margin-top: 0;"
-                                                       type="text" data-toggle="tooltip"
-                                                       data-title="${tooltipCardNumber}"
-                                                       maxlength="20" onkeypress="onlyNumbers();"
-                                                       placeholder="${number}*"
-                                                       value="${numberValue}"/>
-                                            </div>
-                                            <label for="number" class="default-label">
-                                                <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-accountNumber" class="hide">${numberError}</span>
-                                            </label>
-                                        </div>
-
-                                        <!-- Amount Funds -->
-                                        <div style="margin-top: 4px;">
-                                            <div>
-                                                <label for="amount" class="for-form-label">
-                                                    ${amount}
+                                                <div>
+                                                    <div class="bfh-selectbox">
+                                                        <c:choose>
+                                                            <c:when test="${accountIdValue == null}">
+                                                                <div data-value=""></div>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <div data-value="${accountIdValue}">${numberByAccountIdValue}</div>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:forEach items="${accounts}" var="account">
+                                                            <div data-value="${account.accountId}">${account.number}</div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                                <label for="accountId" class="default-label">
+                                                    <span id="valid-msg-accountId" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-accountId" class="error-msg invisible">
+                                                        ${accountIdError}
+                                                    </span>
                                                 </label>
-                                                <input id="amount" name="amount" placeholder="0.00"
-                                                       oninput="this.value=inputAmount(this.value)"
-                                                       value="${amountValue}"/>
                                             </div>
-                                            <label for="amount" class="default-label">
-                                                <span id="valid-msg-amount" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-amount" class="hide">${amountError}</span>
-                                            </label>
-                                        </div>
 
-                                        <!-- Appointment -->
-                                        <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">
-                                            <label for="appointment" class="for-form-label">
-                                                ${appointment}
-                                            </label>
-                                            <div style="width: 100%; position: absolute; display: flex;">
-                                                <textarea id="appointment" name="appointment"
-                                                          class="form-control"
-                                                >${appointmentValue}</textarea>
-                                                <div class="counter">
-                                                    <span id="counter"></span>
+                                            <input id="switcher" class="toggle-btn" type="checkbox"/>
+                                            <label for="switcher" class="toggle-btn-label"></label>
+                                            <div class="form-row">
+                                                <div class="col-md-6" style="margin-top: 10px;">
+                                                    <span class="switcher-case-1">Recipient's account</span>
+                                                </div>
+                                                <div class="col-md-6" style="margin-top: 10px;">
+                                                    <span class="switcher-case-2">Recipient's card</span>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Required for the script to work correctly -->
-                                        <input id="isRepeatCommand" name="isRepeatCommand" type="hidden"
-                                               value="${isRepeatCommandValue}"/>
+                                            <div class="form-row">
 
-                                        <!-- Submit -->
-                                        <div class="action" style="padding: 30px 0 5px 0">
-                                            <button id="submit" type="button" class="btn btn-primary signup">
-                                                ${makePaymentButton}
-                                            </button>
-                                        </div>
-                                    </form>
+                                                <!-- Account Number -->
+                                                <div class="col-md-6" style="margin-top: 4px;">
+                                                    <div>
+                                                        <input id="number" name="number" class="form-control"
+                                                               style="margin-top: 0;" type="text"
+                                                               data-toggle="tooltip-left"
+                                                               data-title="${tooltipAccountNumber}"
+                                                               maxlength="20" onkeypress="onlyNumbers();"
+                                                               placeholder="${number}*"
+                                                               value="${numberValue}"/>
+                                                    </div>
+                                                    <label for="number" class="default-label">
+                                                        <span id="valid-msg-accountNumber" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        </span>
+                                                        <span id="error-msg-accountNumber" class="error-msg invisible">
+                                                            ${numberError}
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <!-- Card Number -->
+                                                <div class="col-md-6" style="margin-top: 4px;">
+                                                    <div>
+                                                        <input id="cardNumber" name="cardNumber" class="form-control"
+                                                               style="margin-top: 0;" type="text"
+                                                               data-toggle="tooltip" data-title="${tooltipCardNumber}"
+                                                               maxlength="20" onkeypress="onlyNumbers();"
+                                                               placeholder="${numberCard}*"
+                                                               value="${numberCardValue}"/>
+                                                    </div>
+                                                    <label for="cardNumber" class="default-label">
+                                                        <span id="valid-msg-cardNumber" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        </span>
+                                                        <span id="error-msg-cardNumber" class="error-msg invisible">
+                                                            ${numberCardError}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Amount Funds -->
+                                            <div style="margin-top: 4px;">
+                                                <div>
+                                                    <label for="amount" class="for-form-label">
+                                                        ${amount}
+                                                    </label>
+                                                    <input id="amount" name="amount" placeholder="0.00"
+                                                           oninput="this.value=inputAmount(this.value)"
+                                                           value="${amountValue}"/>
+                                                </div>
+                                                <label for="amount" class="default-label">
+                                                    <span id="valid-msg-amount" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-amount" class="error-msg invisible">
+                                                        ${amountError}
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                            <!-- Appointment -->
+                                            <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">
+                                                <label for="appointment" class="for-form-label">
+                                                    ${appointment}
+                                                </label>
+                                                <div style="width: 100%; position: absolute; display: flex;">
+                                                    <textarea id="appointment" name="appointment" class="form-control"
+                                                    >${appointmentValue}</textarea>
+                                                    <div class="counter">
+                                                        <span id="counter"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Required for the script to work correctly -->
+                                            <input id="isRepeatCommand" name="isRepeatCommand" type="hidden"
+                                                   value="${isRepeatCommandValue}"/>
+
+                                            <!-- Submit -->
+                                            <div class="action" style="padding: 30px 0 5px 0">
+                                                <button id="submit" type="button" class="btn btn-primary signup">
+                                                    ${makePaymentButton}
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -318,6 +365,40 @@
 </body>
 <script src="resources/js/validator_userMakePayment.js"></script>
 <script>
+    // window.onload = function () {
+    //     document.querySelector(".toggle-btn-label").click();
+    // };
+
+    let on_off = 0;
+    let switcher_case_1 = document.querySelector(".switcher-case-1");
+    let switcher_case_2 = document.querySelector(".switcher-case-2");
+    let numberInput = document.querySelector("#number");
+
+    document.querySelector(".toggle-btn-label").addEventListener('click', function () {
+
+        // clear
+        switcher_case_1.classList.remove("on");
+        switcher_case_1.classList.remove("off");
+        switcher_case_2.classList.remove("on");
+        switcher_case_2.classList.remove("off");
+        numberInput.disabled = false;
+
+        // set
+        if (on_off === 0) {
+            switcher_case_1.classList.add("off");
+            switcher_case_2.classList.add("on");
+            numberInput.disabled = true;
+            resetNumber();
+            on_off++;
+        } else if (on_off === 1) {
+            switcher_case_1.classList.add("on");
+            switcher_case_2.classList.add("off");
+            validationNumber();
+            on_off--;
+        }
+    });
+
+
     $(function () {
         $('#amount').spinner({
             culture: "en-US",
@@ -326,6 +407,12 @@
             step: 1.00,
             numberFormat: "n"
         });
+    });
+
+    document.addEventListener('keyup', function (e) {
+        if (e.keyCode === 27) {
+            $('#smallModal').modal('hide');
+        }
     });
 </script>
 </html>

@@ -14,22 +14,22 @@ let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
 let resetAccountId = function () {
-    validMsgAccountId.classList.add("hide");
-    errorMsgAccountId.classList.add("hide");
+    validMsgAccountId.classList.add("invisible");
+    errorMsgAccountId.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let validAccountId = function () {
-    validMsgAccountId.classList.remove("hide");
-    errorMsgAccountId.classList.add("hide");
+    validMsgAccountId.classList.remove("invisible");
+    errorMsgAccountId.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let notValidAccountId = function () {
-    validMsgAccountId.classList.add("hide");
-    errorMsgAccountId.classList.remove("hide");
+    validMsgAccountId.classList.add("invisible");
+    errorMsgAccountId.classList.remove("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("error-input");
 };
@@ -64,28 +64,32 @@ let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgNumber = document.querySelector("#error-msg-accountNumber");
 
 let resetNumber = function () {
-    validMsgNumber.classList.add("hide");
-    errorMsgNumber.classList.add("hide");
+    validMsgNumber.classList.add("invisible");
+    errorMsgNumber.classList.add("invisible");
     number.classList.remove("valid-input");
     number.classList.remove("error-input");
 };
 
 let validNumber = function () {
-    validMsgNumber.classList.remove("hide");
-    errorMsgNumber.classList.add("hide");
+    validMsgNumber.classList.remove("invisible");
+    errorMsgNumber.classList.add("invisible");
     number.classList.add("valid-input");
     number.classList.remove("error-input");
 };
 
 let notValidNumber = function () {
-    validMsgNumber.classList.add("hide");
-    errorMsgNumber.classList.remove("hide");
+    validMsgNumber.classList.add("invisible");
+    errorMsgNumber.classList.remove("invisible");
     number.classList.remove("valid-input");
     number.classList.add("error-input");
 };
 
-// on blur
-number.addEventListener('blur', function () {
+number.addEventListener('click', resetNumber);
+number.addEventListener('blur', validationNumber);
+number.addEventListener('keyup', validationNumber);
+number.addEventListener('change', validationNumber);
+
+function validationNumber() {
     resetNumber();
 
     if (number.value.trim() === "" || number.value.trim().length < 20) {
@@ -96,11 +100,7 @@ number.addEventListener('blur', function () {
             notValidNumber();
         }
     }
-});
-
-// on keyup/change -> reset
-number.addEventListener('keyup', resetNumber);
-number.addEventListener('change', resetNumber);
+}
 
 
 /* Checks Amount */
@@ -108,28 +108,32 @@ let validMsgAmount = document.querySelector("#valid-msg-amount"),
     errorMsgAmount = document.querySelector("#error-msg-amount");
 
 let resetAmount = function () {
-    validMsgAmount.classList.add("hide");
-    errorMsgAmount.classList.add("hide");
+    validMsgAmount.classList.add("invisible");
+    errorMsgAmount.classList.add("invisible");
     document.querySelector(".ui-spinner").classList.remove("valid-input");
     document.querySelector(".ui-spinner").classList.remove("error-input");
 };
 
 let validAmount = function () {
-    validMsgAmount.classList.remove("hide");
-    errorMsgAmount.classList.add("hide");
+    validMsgAmount.classList.remove("invisible");
+    errorMsgAmount.classList.add("invisible");
     document.querySelector(".ui-spinner").classList.add("valid-input");
     document.querySelector(".ui-spinner").classList.remove("error-input");
 };
 
 let notValidAmount = function () {
-    validMsgAmount.classList.add("hide");
-    errorMsgAmount.classList.remove("hide");
+    validMsgAmount.classList.add("invisible");
+    errorMsgAmount.classList.remove("invisible");
     document.querySelector(".ui-spinner").classList.remove("valid-input");
     document.querySelector(".ui-spinner").classList.add("error-input");
 };
 
-// on blur
-amount.addEventListener('blur', function () {
+amount.addEventListener('click', resetAmount);
+amount.addEventListener('blur', validationAmount);
+amount.addEventListener('keyup', validationAmount);
+amount.addEventListener('change', validationAmount);
+
+function validationAmount() {
     resetAmount();
 
     if (amount.value.trim() === null || amount.value.trim() === "") {
@@ -140,45 +144,41 @@ amount.addEventListener('blur', function () {
             notValidAmount();
         }
     }
-});
+}
 
 function inputAmount(value) {
     let regExps = [/^\D+/, /[^.,\d]+/g, /[.,]+/, /(\d+\.\d{2}).*$/];
     return value.replace(regExps[0], '').replace(regExps[1], '').replace(regExps[2], '.').replace(regExps[3], '$1');
 }
 
-// on keyup/change -> reset
-amount.addEventListener('keyup', resetAmount);
-amount.addEventListener('change', resetAmount);
-
 
 /* Checks errors on the page and displays a modal window, if everything is in order */
 submitBtn.addEventListener('click', function (event) {
 
-    let isShow = true;
+    // let isShow = true;
 
     if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
-        isShow = false;
+        // isShow = false;
         return false;
     }
 
     if (number.value.trim() === "" || number.value.trim().length < 20 || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
-        isShow = false;
+        // isShow = false;
         return false;
     }
 
-    if (amount.value.trim() === null || amount.value.trim() === "" || amount.classList.contains("error-input")) {
+    if (amount.value.trim() === "" || amount.classList.contains("error-input")) {
         event.preventDefault();
         notValidAmount();
-        isShow = false;
+        // isShow = false;
         return false;
     }
 
-    if (isShow === true) {
+    // if (isShow === true) {
         document.querySelector("#accountIdModal").value = accountId.value;
         document.querySelector("#numberModal").value = number.value;
         document.querySelector("#amountModal").value = amount.value;
@@ -189,12 +189,6 @@ submitBtn.addEventListener('click', function (event) {
         document.querySelector("#amountModalText").value = amount.value;
 
         $('#smallModal').modal('show');
-    }
+    // }
 
-});
-
-document.addEventListener('keyup', function (e) {
-    if (e.keyCode === 27) {
-        $('#smallModal').modal('hide');
-    }
 });
