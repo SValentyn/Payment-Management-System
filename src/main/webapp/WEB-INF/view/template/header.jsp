@@ -8,68 +8,79 @@
 <fmt:setBundle basename="message"/>
 
 <div class="header">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-auto mr-auto">
                 <div class="logo">
-                    <a href="/" onfocus="this.blur()"><img src="resources/images/logo-white.png" alt="Logotype"/></a>
+                    <a href="/" onfocus="this.blur()">
+                        <img src="resources/images/logo-white.png" alt="Logotype"/>
+                    </a>
                     <h1>Payment Management System</h1>
-                    <div class="col-md-2">
-                        <div class="navbar navbar-inverse" role="banner">
-                            <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
-                                <ul class="nav navbar-nav">
-                                    <li class="dropdown">
-                                        <a href="#" id="dropdown" class="dropdown-toggle" data-toggle="dropdown">
-                                            ${currentUser.name} ${currentUser.surname}
-                                            <b class="caret"></b>
+                </div>
+            </div>
+            <div class="col-auto">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="collapse navbar-collapse show" role="navigation">
+                        <div class="navbar-nav">
+                            <div class="nav-item">
+                                <a href="#" id="dropdown" class="nav-link dropdown-toggle"
+                                   data-toggle="dropdown">
+                                    ${currentUser.name} ${currentUser.surname}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" style="padding: 0;"
+                                     aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-item" style="display: grid;">
+                                        <a href="?command=profile">
+                                            <div style="float: left;">
+                                                <p style="margin: 0;">
+                                                    <fmt:message key="header.profile"/>
+                                                </p>
+                                            </div>
+                                            <div style="float: right;">
+                                                <img src="resources/images/profile.png"
+                                                     alt="<fmt:message key="header.profile"/>"
+                                                     class="header-icon">
+                                            </div>
                                         </a>
-                                        <ul class="dropdown-menu animated fadeInUp" style="width: 185px;">
-                                            <li style="height: 40px; padding-top: 10px;">
-                                                <div style="display: grid;">
-                                                    <a href="?command=profile">
-                                                        <div style="float: left;">
-                                                            <p style="margin: 0;">
-                                                                <fmt:message key="header.profile"/>
-                                                            </p>
-                                                        </div>
-                                                        <div style="float: right;">
-                                                            <img src="resources/images/profile.png"
-                                                                 alt="" class="header-icon">
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            <li style="height: 40px; padding-top: 10px;">
-                                                <div style="display: grid;">
-                                                    <a href="?command=logout">
-                                                        <div style="float: left;">
-                                                            <p style="margin: 0;">
-                                                                <fmt:message key="header.logout"/>
-                                                            </p>
-                                                        </div>
-                                                        <div style="float: right;">
-                                                            <img src="resources/images/logout.png"
-                                                                 alt="<fmt:message key="header.logout"/>"
-                                                                 class="header-icon"
-                                                                 style="top: 1px;">
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
+                                    </div>
+                                    <div class="dropdown-divider" style="margin: 0 1.5rem;"></div>
+                                    <div class="dropdown-item" style="display: grid;">
+                                        <a href="?command=logout">
+                                            <div style="float: left;">
+                                                <p style="margin-bottom: 0.1rem;">
+                                                    <fmt:message key="header.logout"/>
+                                                </p>
+                                            </div>
+                                            <div style="float: right;">
+                                                <img src="resources/images/logout.png"
+                                                     alt="<fmt:message key="header.logout"/>"
+                                                     class="header-icon">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <form class="language-form">
-                        <select id="language" name="language" onchange="submit()" onfocus="this.blur()">
-                            <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-                            <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-                            <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
-                        </select>
-                    </form>
-                </div>
+                </nav>
+            </div>
+            <div class="col-auto">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="collapse navbar-collapse show">
+                        <div class="navbar-nav">
+                            <div class="nav-item">
+                                <form class="language-form">
+                                    <select id="language" name="language" onchange="submit()"
+                                            onfocus="this.blur()">
+                                        <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
+                                        <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
+                                        <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
             </div>
         </div>
     </div>
