@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="user.support.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
@@ -65,100 +65,104 @@
 
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="page-content container">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper">
-                            <div class="box">
-                                <div class="content-wrap">
-                                    <fmt:message key="user.support.formHeader" var="formHeader"/>
-                                    <fmt:message key="user.support.selectType" var="selectType"/>
-                                    <fmt:message key="user.support.description" var="description"/>
-                                    <fmt:message key="user.support.button.send" var="send"/>
-                                    <fmt:message key="user.support.option.1" var="option_1"/>
-                                    <fmt:message key="user.support.option.2" var="option_2"/>
-                                    <fmt:message key="user.support.option.3" var="option_3"/>
-                                    <fmt:message key="user.support.option.4" var="option_4"/>
-                                    <fmt:message key="user.support.option.5" var="option_5"/>
-                                    <fmt:message key="user.support.option.6" var="option_6"/>
-                                    <fmt:message key="user.support.option.7" var="option_7"/>
-                                    <fmt:message key="user.support.option.8" var="option_8"/>
-                                    <fmt:message key="user.support.option.9" var="option_9"/>
-                                    <fmt:message key="user.support.option.10" var="option_10"/>
-                                    <fmt:message key="user.support.typeQuestionError" var="typeQuestionError"/>
-                                    <fmt:message key="user.support.tooltipDescription" var="tooltipDescription"/>
-                                    <fmt:message key="registration.correct" var="correct"/>
+            <div class="col-lg-10">
+                <div class="page-content container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 offset-lg-3">
+                            <div class="login-wrapper">
+                                <div class="box">
+                                    <div class="content-wrap">
+                                        <fmt:message key="user.support.formHeader" var="formHeader"/>
+                                        <fmt:message key="user.support.selectType" var="selectType"/>
+                                        <fmt:message key="user.support.description" var="description"/>
+                                        <fmt:message key="user.support.button.send" var="send"/>
+                                        <fmt:message key="user.support.option.1" var="option_1"/>
+                                        <fmt:message key="user.support.option.2" var="option_2"/>
+                                        <fmt:message key="user.support.option.3" var="option_3"/>
+                                        <fmt:message key="user.support.option.4" var="option_4"/>
+                                        <fmt:message key="user.support.option.5" var="option_5"/>
+                                        <fmt:message key="user.support.option.6" var="option_6"/>
+                                        <fmt:message key="user.support.option.7" var="option_7"/>
+                                        <fmt:message key="user.support.option.8" var="option_8"/>
+                                        <fmt:message key="user.support.option.9" var="option_9"/>
+                                        <fmt:message key="user.support.option.10" var="option_10"/>
+                                        <fmt:message key="user.support.typeQuestionError" var="typeQuestionError"/>
+                                        <fmt:message key="user.support.tooltipDescription" var="tooltipDescription"/>
+                                        <fmt:message key="registration.correct" var="correct"/>
 
-                                    <h4>
-                                        ${formHeader}
-                                    </h4>
+                                        <h4>
+                                            ${formHeader}
+                                        </h4>
 
-                                    <form action="/" role="form" method="POST">
-                                        <input type="hidden" name="command" value="support">
+                                        <form action="/" role="form" method="POST">
+                                            <input type="hidden" name="command" value="support">
 
-                                        <!-- Type Question -->
-                                        <input id="typeQuestion" name="typeQuestion" type="hidden"
-                                               value="${typeQuestionValue}"/>
+                                            <!-- Type Question -->
+                                            <input id="typeQuestion" name="typeQuestion" type="hidden"
+                                                   value="${typeQuestionValue}"/>
 
-                                        <!-- Select Type Question -->
-                                        <div>
-                                            <label class="for-form-label">
-                                                ${selectType}
-                                            </label>
-                                            <div class="bfh-selectbox">
-                                                <c:choose>
-                                                    <c:when test="${typeQuestionValue == null}">
-                                                        <div data-value=""></div>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <div data-value="${typeQuestionValue}">${typeQuestionValue}</div>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <div data-value="${option_1}">${option_1}</div>
-                                                <div data-value="${option_2}">${option_2}</div>
-                                                <div data-value="${option_3}">${option_3}</div>
-                                                <div data-value="${option_4}">${option_4}</div>
-                                                <div data-value="${option_5}">${option_5}</div>
-                                                <div data-value="${option_6}">${option_6}</div>
-                                                <div data-value="${option_7}">${option_7}</div>
-                                                <div data-value="${option_8}">${option_8}</div>
-                                                <div data-value="${option_9}">${option_9}</div>
-                                                <div data-value="${option_10}">${option_10}</div>
+                                            <!-- Select Type Question -->
+                                            <div>
+                                                <label class="for-form-label">
+                                                    ${selectType}
+                                                </label>
+                                                <div class="bfh-selectbox">
+                                                    <c:choose>
+                                                        <c:when test="${typeQuestionValue == null}">
+                                                            <div data-value=""></div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div data-value="${typeQuestionValue}">${typeQuestionValue}</div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <div data-value="${option_1}">${option_1}</div>
+                                                    <div data-value="${option_2}">${option_2}</div>
+                                                    <div data-value="${option_3}">${option_3}</div>
+                                                    <div data-value="${option_4}">${option_4}</div>
+                                                    <div data-value="${option_5}">${option_5}</div>
+                                                    <div data-value="${option_6}">${option_6}</div>
+                                                    <div data-value="${option_7}">${option_7}</div>
+                                                    <div data-value="${option_8}">${option_8}</div>
+                                                    <div data-value="${option_9}">${option_9}</div>
+                                                    <div data-value="${option_10}">${option_10}</div>
+                                                </div>
+                                                <label for="typeQuestion" class="default-label">
+                                                    <span id="valid-msg-typeQuestion" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-typeQuestion" class="error-msg invisible">
+                                                        ${typeQuestionError}
+                                                    </span>
+                                                </label>
                                             </div>
-                                            <label for="typeQuestion" class="default-label">
-                                                <span id="valid-msg-typeQuestion" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-typeQuestion"
-                                                      class="hide">${typeQuestionError}</span>
-                                            </label>
-                                        </div>
 
-                                        <!-- Description -->
-                                        <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">
-                                            <label for="description" class="for-form-label">
-                                                ${description}
-                                            </label>
-                                            <div style="width: 100%; position: absolute; display: flex;">
-                                                <textarea id="description" name="description" class="form-control"
-                                                          style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
-                                                          data-toggle="tooltip" data-title="${tooltipDescription}"
-                                                >${descriptionValue}</textarea>
-                                                <div class="counter" style="margin-right: 10px;">
-                                                    <span id="counter"></span>
+                                            <!-- Description -->
+                                            <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">
+                                                <label for="description" class="for-form-label">
+                                                    ${description}
+                                                </label>
+                                                <div style="width: 100%; position: absolute; display: flex;" data-toggle="tooltip" data-title="${tooltipDescription}">
+                                                    <textarea id="description" name="description" class="form-control"
+                                                              style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
+                                                    >${descriptionValue}</textarea>
+                                                    <div class="counter" style="margin-right: 10px;">
+                                                        <span id="counter"></span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Submit -->
-                                        <div class="action" style="padding: 22px 0 5px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup">
-                                                ${send}
-                                            </button>
-                                        </div>
-                                    </form>
+                                            <!-- Submit -->
+                                            <div class="action" style="padding: 22px 0 5px 0">
+                                                <button id="submit" type="submit" class="btn btn-primary signup">
+                                                    ${send}
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,6 +173,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
-<script src="resources/js/validator_userSupport.js"></script>
 </body>
+<script src="resources/js/validator_userSupport.js"></script>
 </html>

@@ -9,22 +9,22 @@ let validMsgTypeQuestion = document.querySelector("#valid-msg-typeQuestion"),
     errorMsgTypeQuestion = document.querySelector("#error-msg-typeQuestion");
 
 let resetTypeQuestion = function () {
-    validMsgTypeQuestion.classList.add("hide");
-    errorMsgTypeQuestion.classList.add("hide");
+    validMsgTypeQuestion.classList.add("invisible");
+    errorMsgTypeQuestion.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let validTypeQuestion = function () {
-    validMsgTypeQuestion.classList.remove("hide");
-    errorMsgTypeQuestion.classList.add("hide");
+    validMsgTypeQuestion.classList.remove("invisible");
+    errorMsgTypeQuestion.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let notValidTypeQuestion = function () {
-    validMsgTypeQuestion.classList.add("hide");
-    errorMsgTypeQuestion.classList.remove("hide");
+    validMsgTypeQuestion.classList.add("invisible");
+    errorMsgTypeQuestion.classList.remove("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("error-input");
 };
