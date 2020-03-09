@@ -24,44 +24,44 @@ let validMsgPhone = document.querySelector("#valid-msg-phone"),
     errorMsgPhone = document.querySelector("#error-msg-phone");
 
 let resetPhone = function () {
-    validMsgPhone.classList.add("hide");
-    errorMsgPhone.classList.add("hide");
+    validMsgPhone.classList.add("invisible");
+    errorMsgPhone.classList.add("invisible");
     phone.classList.remove("valid-input");
     phone.classList.remove("error-input");
 };
 
 let validPhone = function () {
-    validMsgPhone.classList.remove("hide");
-    errorMsgPhone.classList.add("hide");
+    validMsgPhone.classList.remove("invisible");
+    errorMsgPhone.classList.add("invisible");
     phone.classList.add("valid-input");
     phone.classList.remove("error-input");
 };
 
 let notValidPhone = function () {
-    validMsgPhone.classList.add("hide");
-    errorMsgPhone.classList.remove("hide");
+    validMsgPhone.classList.add("invisible");
+    errorMsgPhone.classList.remove("invisible");
     phone.classList.remove("valid-input");
     phone.classList.add("error-input");
 };
 
-// on blur
-phone.addEventListener('blur', function () {
+phone.addEventListener('click', resetPhone);
+phone.addEventListener('blur', validationPhone);
+phone.addEventListener('keyup', validationPhone);
+phone.addEventListener('change', validationPhone);
+
+function validationPhone() {
     resetPhone();
 
     if (phone.value.trim() === "") {
         notValidPhone();
-    } else if (phone.value.trim()) {
+    } else {
         if (iti.isValidNumber()) {
             validPhone();
         } else {
             notValidPhone();
         }
     }
-});
-
-// on keyup/change -> reset
-phone.addEventListener('keyup', resetPhone);
-phone.addEventListener('change', resetPhone);
+}
 
 
 /* Checks for at least one error on the page */
