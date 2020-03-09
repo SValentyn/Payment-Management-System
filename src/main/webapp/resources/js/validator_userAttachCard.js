@@ -15,15 +15,15 @@ let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
 let resetAccountId = function () {
-    validMsgAccountId.classList.add("hide");
-    errorMsgAccountId.classList.add("hide");
+    validMsgAccountId.classList.add("invisible");
+    errorMsgAccountId.classList.add("invisible");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let validAccountId = function () {
-    validMsgAccountId.classList.remove("hide");
-    errorMsgAccountId.classList.add("hide");
+    validMsgAccountId.classList.remove("invisible");
+    errorMsgAccountId.classList.add("invisible");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("error-input");
     accountId.classList.add("valid-input");
@@ -31,13 +31,13 @@ let validAccountId = function () {
 };
 
 let notValidAccountId = function () {
-    validMsgAccountId.classList.add("hide");
-    errorMsgAccountId.classList.remove("hide");
+    validMsgAccountId.classList.add("invisible");
+    errorMsgAccountId.classList.remove("invisible");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.add("error-input");
 };
 
-// on hide
+// on invisible
 selectbox_account_id.on('hide.bfhselectbox', function () {
     accountId.value = $(selectbox_account_id).val();
 
@@ -60,28 +60,32 @@ let validMsgNumber = document.querySelector("#valid-msg-cardNumber"),
     errorMsgNumber = document.querySelector("#error-msg-cardNumber");
 
 let resetNumber = function () {
-    validMsgNumber.classList.add("hide");
-    errorMsgNumber.classList.add("hide");
+    validMsgNumber.classList.add("invisible");
+    errorMsgNumber.classList.add("invisible");
     number.classList.remove("valid-input");
     number.classList.remove("error-input");
 };
 
 let validNumber = function () {
-    validMsgNumber.classList.remove("hide");
-    errorMsgNumber.classList.add("hide");
+    validMsgNumber.classList.remove("invisible");
+    errorMsgNumber.classList.add("invisible");
     number.classList.add("valid-input");
     number.classList.remove("error-input");
 };
 
 let notValidNumber = function () {
-    validMsgNumber.classList.add("hide");
-    errorMsgNumber.classList.remove("hide");
+    validMsgNumber.classList.add("invisible");
+    errorMsgNumber.classList.remove("invisible");
     number.classList.remove("valid-input");
     number.classList.add("error-input");
 };
 
-// on blur
-number.addEventListener('blur', function () {
+number.addEventListener('click', resetNumber);
+number.addEventListener('blur', validationNumber);
+number.addEventListener('keyup', validationNumber);
+number.addEventListener('change', validationNumber);
+
+function validationNumber() {
     resetNumber();
 
     if (number.value.trim() === "" || number.value.trim().length < 16) {
@@ -89,11 +93,7 @@ number.addEventListener('blur', function () {
     } else {
         validNumber();
     }
-});
-
-// on keyup/change -> reset
-number.addEventListener('keyup', resetNumber);
-number.addEventListener('change', resetNumber);
+}
 
 
 /* Checks CVV */
@@ -101,28 +101,32 @@ let validMsgCVV = document.querySelector("#valid-msg-cvv"),
     errorMsgCVV = document.querySelector("#error-msg-cvv");
 
 let resetCVV = function () {
-    validMsgCVV.classList.add("hide");
-    errorMsgCVV.classList.add("hide");
+    validMsgCVV.classList.add("invisible");
+    errorMsgCVV.classList.add("invisible");
     CVV.classList.remove("valid-input");
     CVV.classList.remove("error-input");
 };
 
 let validCVV = function () {
-    validMsgCVV.classList.remove("hide");
-    errorMsgCVV.classList.add("hide");
+    validMsgCVV.classList.remove("invisible");
+    errorMsgCVV.classList.add("invisible");
     CVV.classList.add("valid-input");
     CVV.classList.remove("error-input");
 };
 
 let notValidCVV = function () {
-    validMsgCVV.classList.add("hide");
-    errorMsgCVV.classList.remove("hide");
+    validMsgCVV.classList.add("invisible");
+    errorMsgCVV.classList.remove("invisible");
     CVV.classList.remove("valid-input");
     CVV.classList.add("error-input");
 };
 
-// on blur
-CVV.addEventListener('blur', function () {
+CVV.addEventListener('click', resetCVV);
+CVV.addEventListener('blur', validationCVV);
+CVV.addEventListener('keyup', validationCVV);
+CVV.addEventListener('change', validationCVV);
+
+function validationCVV() {
     resetCVV();
 
     if (CVV.value.trim() === "" || CVV.value.trim().length < 3) {
@@ -130,11 +134,7 @@ CVV.addEventListener('blur', function () {
     } else {
         validCVV();
     }
-});
-
-// on keyup/change -> reset
-CVV.addEventListener('keyup', resetCVV);
-CVV.addEventListener('change', resetCVV);
+}
 
 
 /* Checks month and year */
@@ -142,9 +142,9 @@ let validMsgValidity = document.querySelector("#valid-msg-validity"),
     errorMsgValidity = document.querySelector("#error-msg-validity");
 
 let resetValidity = function () {
-    document.querySelector("#validityExpiredError").classList.add("hide");
-    validMsgValidity.classList.add("hide");
-    errorMsgValidity.classList.add("hide");
+    document.querySelector("#validityExpiredError").classList.add("invisible");
+    validMsgValidity.classList.add("invisible");
+    errorMsgValidity.classList.add("invisible");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("error-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("valid-input");
@@ -152,8 +152,8 @@ let resetValidity = function () {
 };
 
 let validValidity = function () {
-    validMsgValidity.classList.remove("hide");
-    errorMsgValidity.classList.add("hide");
+    validMsgValidity.classList.remove("invisible");
+    errorMsgValidity.classList.add("invisible");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("error-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("valid-input");
@@ -161,15 +161,15 @@ let validValidity = function () {
 };
 
 let notValidValidity = function () {
-    validMsgValidity.classList.add("hide");
-    errorMsgValidity.classList.remove("hide");
+    validMsgValidity.classList.add("invisible");
+    errorMsgValidity.classList.remove("invisible");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.add("error-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("error-input");
 };
 
-// on hide
+// on invisible
 selectbox_month.on('hide.bfhselectbox', function () {
     month.value = $(selectbox_month).val();
 
@@ -183,7 +183,7 @@ selectbox_month.on('hide.bfhselectbox', function () {
     }
 });
 
-// on hide
+// on invisible
 selectbox_year.on('hide.bfhselectbox', function () {
     year.value = $(selectbox_year).val();
 
@@ -207,7 +207,7 @@ year.addEventListener('change', resetValidity);
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (accountId.value.trim() === null || accountId.value.trim() === ""  || accountId.classList.contains("error-input")) {
+    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;
