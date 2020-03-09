@@ -26,4 +26,9 @@ public interface PaymentDao {
      */
     List<Payment> findAllPaymentsByAccountId(Integer accountId);
 
+    /**
+     * Retrieves all payments of account by user id
+     */
+    List<Payment> findAllPaymentsByUserId(Integer userId);
+
 }
