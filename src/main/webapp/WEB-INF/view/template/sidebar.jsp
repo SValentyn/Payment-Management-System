@@ -7,86 +7,87 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
 
-<div class="sidebar content-box" style="display: block;">
-    <ul class="nav">
-        <li class="current">
-            <a href="/">
-                <i class="glyphicon glyphicon-home"></i>
-                <fmt:message key="sidebar.home"/>
-            </a>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=showAccounts">
-                    <img src="resources/images/show-accounts.png"
-                         alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.showAccounts"/>
-                </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=createAccount">
-                    <img src="resources/images/create-account.png"
-                         alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.createAccount"/>
-                </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=makePayment">
-                    <img src="resources/images/make-payment.png"
-                         alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.makePayment"/>
-                </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=attachCard">
-                    <img src="resources/images/attach-card.png"
-                         alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.attachCard"/>
-                </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 1}">
-                <a href="?command=support">
-                    <img src="resources/images/user-support.png"
-                         alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.support"/>
-                </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 2}">
-                <a href="?command=showUsers">
-                    <img src="resources/images/glyphicons-halflings-user-group.png"
-                         alt="" class="sidebar-icon"
-                         style="opacity: 0.6;">
-                    <fmt:message key="sidebar.showAllUsers"/>
-                </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 2}">
-                <a href="?command=addUser">
-                    <img src="resources/images/add-user.png"
-                         alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.addUser"/>
-                </a>
-            </c:if>
-        </li>
-        <li>
-            <c:if test="${currentUser.role.id == 2}">
-                <a href="?command=support">
-                    <img src="resources/images/admin-support.png"
-                         alt="" class="sidebar-icon">
-                    <fmt:message key="sidebar.support"/> (${numberOfLetters})
-                </a>
-            </c:if>
-        </li>
-    </ul>
+<div class="list-group list-group-flush sidebar" role="tablist">
+    <a href="/" class="list-group-item list-group-item-action sidebar-header">
+        <div>
+            <img src="resources/images/homepage.png"
+                 alt="" class="sidebar-icon">
+        </div>
+        <div>
+            <fmt:message key="sidebar.home"/>
+        </div>
+    </a>
+    <c:if test="${currentUser.role.id == 1}">
+        <a href="?command=createAccount" class="list-group-item list-group-item-action">
+            <div>
+                <img src="resources/images/create-account.png"
+                     alt="" class="sidebar-icon">
+            </div>
+            <div>
+                <fmt:message key="sidebar.createAccount"/>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 1}">
+        <a href="?command=makePayment" class="list-group-item list-group-item-action">
+            <div>
+                <img src="resources/images/make-payment.png"
+                     alt="" class="sidebar-icon">
+            </div>
+            <div>
+                <fmt:message key="sidebar.makePayment"/>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 1}">
+        <a href="?command=attachCard" class="list-group-item list-group-item-action">
+            <div>
+                <img src="resources/images/attach-card.png"
+                     alt="" class="sidebar-icon">
+            </div>
+            <div>
+                <fmt:message key="sidebar.attachCard"/>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 1}">
+        <a href="?command=support" class="list-group-item list-group-item-action">
+            <img src="resources/images/user-support.png"
+                 alt="" class="sidebar-icon">
+            <fmt:message key="sidebar.support"/>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 2}">
+        <a href="?command=showUsers" class="list-group-item list-group-item-action">
+            <div>
+                <img src="resources/images/glyphicons-halflings-user-group.png"
+                     alt="" class="sidebar-icon" style="opacity: 0.65;">
+            </div>
+            <div>
+                <fmt:message key="sidebar.showAllUsers"/>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 2}">
+        <a href="?command=addUser" class="list-group-item list-group-item-action">
+            <div>
+                <img src="resources/images/add-user.png"
+                     alt="" class="sidebar-icon">
+            </div>
+            <div>
+                <fmt:message key="sidebar.addUser"/>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 2}">
+        <a href="?command=support" class="list-group-item list-group-item-action">
+            <div>
+                <img src="resources/images/admin-support.png"
+                     alt="" class="sidebar-icon">
+            </div>
+            <div>
+                <fmt:message key="sidebar.support"/> (${numberOfLetters})
+            </div>
+        </a>
+    </c:if>
 </div>
