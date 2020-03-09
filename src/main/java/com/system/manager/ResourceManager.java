@@ -14,6 +14,8 @@ public class ResourceManager {
     public static final String ERROR = "ERROR";
     // USER
     public static final String USER = "USER";
+    public static final String USER_SHOW_ACCOUNTS = "USER_SHOW_ACCOUNTS";
+    public static final String USER_SHOW_PAYMENTS = "USER_SHOW_PAYMENTS";
     public static final String USER_UPDATE_DATA = "USER_UPDATE_DATA";
     public static final String USER_UPDATE_PASSWORD = "USER_UPDATE_PASSWORD";
     public static final String USER_CREATE_ACCOUNT = "USER_CREATE_ACCOUNT";

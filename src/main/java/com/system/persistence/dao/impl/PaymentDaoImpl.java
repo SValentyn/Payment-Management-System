@@ -26,6 +26,7 @@ public class PaymentDaoImpl implements PaymentDao {
     private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, recipient_account_number, sum, appointment, date, `condition`) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
     private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ?";
+    private static final String FIND_ALL_PAYMENTS_BY_USER_ID = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id WHERE accounts.user_id = ?";
 
     private static PaymentDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
@@ -66,6 +67,20 @@ public class PaymentDaoImpl implements PaymentDao {
         List<Payment> payments = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_ALL_PAYMENTS_BY_ACCOUNT_ID, accountId);
+            while (rs.next()) {
+                payments.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return payments;
+    }
+
+    @Override
+    public List<Payment> findAllPaymentsByUserId(Integer userId) {
+        List<Payment> payments = new ArrayList<>();
+        try {
+            ResultSet rs = executor.getResultSet(FIND_ALL_PAYMENTS_BY_USER_ID, userId);
             while (rs.next()) {
                 payments.add(createEntity(rs));
             }

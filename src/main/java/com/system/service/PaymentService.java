@@ -126,4 +126,11 @@ public class PaymentService {
         return paymentDao.findAllPaymentsByAccountId(accountId);
     }
 
+    /**
+     * Finds all payments by user id
+     */
+    public List<Payment> findAllPaymentsByUserId(Integer userId) {
+        return paymentDao.findAllPaymentsByUserId(userId);
+    }
+
 }

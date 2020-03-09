@@ -4,6 +4,7 @@ import com.system.entity.Account;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
+import com.system.service.CreditCardService;
 import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +29,11 @@ public class CommandUserShowAccounts implements ICommand {
         if (!accounts.isEmpty()) {
             request.setAttribute("accounts", accounts);
             request.setAttribute("showAccounts", true);
-            request.setAttribute("showAccountInfo", false);
         } else {
             request.setAttribute("noAccounts", true);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.USER);
+        return ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
     }
 
 }
