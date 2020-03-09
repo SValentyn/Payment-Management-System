@@ -5,6 +5,12 @@ $(function () {
         delay: {show: 0, hide: 0}
     });
 
+    $('[data-toggle="tooltip-left"]').tooltip({
+        placement: 'left',
+        trigger: 'focus',
+        delay: {show: 0, hide: 0}
+    });
+
     $('.tooltip-top').tooltip({
         placement: 'top',
         trigger: 'hover',
