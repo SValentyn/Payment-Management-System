@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="user.createAccount.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
@@ -60,85 +60,96 @@
 
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="page-content container">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper">
-                            <div class="box">
-                                <div class="content-wrap">
-                                    <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
-                                    <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
-                                    <fmt:message key="user.createAccount.createAccountButton"
-                                                 var="createAccountButton"/>
-                                    <fmt:message key="user.createAccount.numberError" var="numberError"/>
-                                    <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
-                                    <fmt:message key="registration.correct" var="correct"/>
+            <div class="col-lg-10">
+                <div class="page-content container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 offset-lg-3">
+                            <div class="login-wrapper">
+                                <div class="box">
+                                    <div class="content-wrap">
+                                        <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
+                                        <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
+                                        <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
+                                        <fmt:message key="user.createAccount.createAccountButton"
+                                                     var="createAccountButton"/>
+                                        <fmt:message key="user.createAccount.numberError" var="numberError"/>
+                                        <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
+                                        <fmt:message key="registration.correct" var="correct"/>
 
-                                    <h4>
-                                        ${createNewAccount}
-                                    </h4>
+                                        <h4>
+                                            ${createNewAccount}
+                                        </h4>
 
-                                    <form action="" role="form" method="POST">
-                                        <input type="hidden" name="command" value="createAccount"/>
+                                        <form action="" role="form" method="POST">
+                                            <input type="hidden" name="command" value="createAccount"/>
 
-                                        <!-- Number Account -->
-                                        <div>
-                                            <label class="for-form-label">
-                                                ${numberNewAccount}
-                                            </label>
-                                            <div class="form-group" style="display: flex; margin-bottom: 0;">
-                                                <input id="number" name="number" class="form-control"
-                                                       type="text" readonly="readonly"
-                                                       style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
-                                                       value="${numberValue}"/>
-                                                <i id="repeat" class="glyphicon glyphicon-repeat"></i>
-                                            </div>
-                                            <label for="number" class="default-label">
-                                                <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-accountNumber" class="hide">${numberError}</span>
-                                                <span id="numberExistError">
+                                            <!-- Number Account -->
+                                            <div>
+                                                <label class="for-form-label">
+                                                    ${numberNewAccount}
+                                                </label>
+                                                <div class="form-group" style="display: flex; margin-bottom: 0;">
+                                                    <input id="number" name="number" class="form-control"
+                                                           type="text" readonly="readonly"
+                                                           style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
+                                                           value="${numberValue}"/>
+                                                    <img id="repeat" src="resources/images/repeat.png"
+                                                         alt="" class="glyphicon icon-repeat">
+                                                </div>
+                                                <label for="number" class="default-label">
+                                                    <span id="valid-msg-accountNumber" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-accountNumber" class="error-msg invisible">
+                                                        ${numberError}
+                                                    </span>
+                                                    <span id="numberExistError">
                                                     <c:if test="${numberExistError}">
                                                         <fmt:message key="user.createAccount.numberExistError"/>
 
                                                         <script>
-                                                            document.querySelector("#numberExistError").classList.remove("hide");
-                                                            document.querySelector("#valid-msg-accountNumber").classList.add("hide");
-                                                            document.querySelector("#error-msg-accountNumber").classList.add("hide");
+                                                            document.querySelector("#numberExistError").classList.remove("invisible");
+                                                            document.querySelector("#valid-msg-accountNumber").classList.add("invisible");
+                                                            document.querySelector("#error-msg-accountNumber").classList.add("invisible");
                                                         </script>
                                                     </c:if>
                                                 </span>
-                                            </label>
-                                        </div>
-
-                                        <!-- Currency -->
-                                        <input id="currency" name="currency" type="hidden"/>
-
-                                        <!-- Select Currency -->
-                                        <div style="margin-top: 16px;">
-                                            <label class="for-form-label">
-                                                ${accountCurrency}
-                                            </label>
-                                            <div class="bfh-selectbox bfh-currencies"
-                                                 data-currency="USD" data-flags="true">
+                                                </label>
                                             </div>
-                                            <label for="currency" class="default-label">
-                                                <span id="valid-msg-currency" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-currency" class="hide">${currencyError}</span>
-                                            </label>
-                                        </div>
 
-                                        <!-- Submit -->
-                                        <div class="action" style="padding: 40px 0 10px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup">
-                                                ${createAccountButton}
-                                            </button>
-                                        </div>
-                                    </form>
+                                            <!-- Currency -->
+                                            <input id="currency" name="currency" type="hidden"/>
+
+                                            <!-- Select Currency -->
+                                            <div style="margin-top: 16px;">
+                                                <label class="for-form-label">
+                                                    ${accountCurrency}
+                                                </label>
+                                                <div class="bfh-selectbox bfh-currencies"
+                                                     data-currency="USD" data-flags="true">
+                                                </div>
+                                                <label for="currency" class="default-label">
+                                                    <span id="valid-msg-currency" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-currency" class="error-msg invisible">
+                                                        ${currencyError}
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                            <!-- Submit -->
+                                            <div class="action" style="padding: 40px 0 10px 0">
+                                                <button id="submit" type="submit" class="btn btn-primary signup">
+                                                    ${createAccountButton}
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +160,7 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+</body>
 <script>
     $(document).ready(function () {
         let bfh_selectbox_class = $('.bfh-selectbox');
@@ -158,5 +170,4 @@
     });
 </script>
 <script src="resources/js/validator_userCreateAccount.js"></script>
-</body>
 </html>
