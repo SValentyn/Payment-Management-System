@@ -12,445 +12,60 @@
 <head>
     <title><fmt:message key="user.page.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
 
-<!-- Modal window -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">
-                    <fmt:message key="user.card.modalHeader"/>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <fmt:message key="user.card.modalBody"/>
-                <br>
-                <div style="display: flex; margin-top: 20px;">
-                    <label for="cardNumberText" class="modal-label">
-                        <fmt:message key="user.card.modalCardLabel"/>
-                    </label>
-                    <input id="cardNumberText" class="form-control modal-form-control"
-                           type="text" readonly="readonly"/>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur()">
-                        <fmt:message key="user.page.closeButton"/>
-                    </button>
-                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
-                        <input type="hidden" name="command" value="detachCard">
-                        <input type="hidden" name="cardNumber" id="cardNumber"/>
-
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
-                            <fmt:message key="user.page.confirmButton"/>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert noAccounts -->
-    <c:if test="${noAccounts == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.youNotHaveAccount"/>
-                <a href="?command=createAccount" class="alert-link"><fmt:message key="user.page.create"/></a>
-                <fmt:message key="user.page.itNow"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert blockAccountError -->
-    <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertBlockAccountError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unblockAccountAlert -->
-    <c:if test="${unblockAccountAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><fmt:message key="user.page.alertUnblockAccountError"/>
-                <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert blockCardError -->
-    <c:if test="${blockCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertBlockCardError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unblockCardAlert -->
-    <c:if test="${unblockCardAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><fmt:message key="user.page.alertUnblockCardError"/>
-                <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert detachCardError -->
-    <c:if test="${detachCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertDetachCardError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10" style="padding-left: 0;">
-                <c:choose>
-                    <c:when test="${showAccounts && !showAccountInfo}">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12" style="padding: 0">
-                                    <fmt:message key="user.account.allaccounts" var="allaccounts"/>
-                                    <fmt:message key="user.account.number" var="number"/>
-                                    <fmt:message key="user.account.balance" var="balance"/>
-                                    <fmt:message key="user.account.status" var="status"/>
-                                    <fmt:message key="user.account.action" var="action"/>
-                                    <fmt:message key="user.account.status.active" var="statusActive"/>
-                                    <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
-                                    <fmt:message key="user.account.button.block" var="block"/>
-                                    <fmt:message key="user.account.button.unblock" var="unblock"/>
-                                    <fmt:message key="user.account.button.showInfo" var="showInfo"/>
+            <div class="col-lg-10">
+                <fmt:message key="user.page.myAccounts" var="myAccounts"/>
+                <fmt:message key="user.page.myPayments" var="myPayments"/>
 
-                                    <div class="content-box-large">
-                                        <div class="panel-heading">
-                                            <div class="panel-title">
-                                                    ${allaccounts}
-                                            </div>
-                                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs justify-content-lg-center" role="tablist">
+                            <li class="nav-item-home">
+                                <a class="nav-link" role="tab" data-toggle="tab" aria-selected="false"
+                                   onclick="document.getElementById('form-showAccounts').submit(); return false;">
+                                    <img src="resources/images/show-accounts.png" alt="" class="sidebar-icon">
+                                    ${myAccounts}
+                                </a>
+                            </li>
+                            <li class="nav-item-home">
+                                <a class="nav-link" role="tab" data-toggle="tab" aria-selected="false"
+                                   onclick="document.getElementById('form-showPayments').submit(); return false;">
+                                    <img src="resources/images/balance.png" alt="" class="sidebar-icon">
+                                    ${myPayments}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                                        <div class="panel-body">
-                                            <table>
-                                                <th>${number}</th>
-                                                <th>${balance}</th>
-                                                <th>
-                                                        ${status}
-                                                    <img src="resources/images/status.png"
-                                                         alt="" class="icon icon-header"
-                                                         style="height: 15px; width: 15px; opacity: 0.8;">
-                                                </th>
-                                                <th>
-                                                        ${action}
-                                                </th>
-                                                <th>
-                                                        ${showInfo}
-                                                </th>
+                    <form action="/" role="form" method="GET" id="form-showAccounts">
+                        <input type="hidden" name="command" value="showAccounts">
 
-                                                <c:forEach items="${accounts}" var="account">
-                                                    <tr>
-                                                        <td>${account.number}</td>
-                                                        <td>${account.balance}</td>
-                                                        <c:choose>
-                                                            <c:when test="${account.isBlocked}">
-                                                                <td style="color: darkred;">
-                                                                        ${statusBlocked}
-                                                                </td>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <td style="color: darkgreen;">
-                                                                        ${statusActive}
-                                                                </td>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                        <c:choose>
-                                                            <c:when test="${account.isBlocked}">
-                                                                <td>
-                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">
-                                                                            ${unblock}
-                                                                        <img src="resources/images/unlocked-link.png"
-                                                                             alt="" class="icon">
-                                                                    </a>
-                                                                </td>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <td>
-                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">
-                                                                            ${block}
-                                                                        <img src="resources/images/locked-link.png"
-                                                                             alt="" class="icon">
-                                                                    </a>
-                                                                </td>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                        <td>
-                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">
-                                                                    ${showInfo}
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:when>
-                    <c:when test="${showAccounts && showAccountInfo}">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12" style="padding: 0">
-                                    <fmt:message key="user.account.allaccounts" var="allaccounts"/>
-                                    <fmt:message key="user.account.number" var="number"/>
-                                    <fmt:message key="user.account.balance" var="balance"/>
-                                    <fmt:message key="user.account.status" var="status"/>
-                                    <fmt:message key="user.account.action" var="action"/>
-                                    <fmt:message key="user.account.status.active" var="statusActive"/>
-                                    <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
-                                    <fmt:message key="user.account.button.block" var="block"/>
-                                    <fmt:message key="user.account.button.unblock" var="unblock"/>
-                                    <fmt:message key="user.account.button.showInfo" var="showInfo"/>
+                    </form>
+                    <form action="/" role="form" method="GET" id="form-showPayments">
+                        <input type="hidden" name="command" value="showPayments">
+                    </form>
 
-                                    <div class="content-box-large">
-                                        <div class="panel-heading">
-                                            <div class="panel-title">
-                                                    ${allaccounts}
-                                            </div>
-                                        </div>
-
-                                        <div class="panel-body">
-                                            <table>
-                                                <th>${number}</th>
-                                                <th>${balance}</th>
-                                                <th>${status}</th>
-                                                <th>${action}</th>
-                                                <th>${showInfo}</th>
-
-                                                <c:forEach items="${accounts}" var="account">
-                                                    <tr>
-                                                        <td>${account.number}</td>
-                                                        <td>${account.balance}</td>
-                                                        <c:choose>
-                                                            <c:when test="${account.isBlocked}">
-                                                                <td style="color: darkred;">
-                                                                        ${statusBlocked}
-                                                                </td>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <td style="color: darkgreen;">
-                                                                        ${statusActive}
-                                                                </td>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                        <c:choose>
-                                                            <c:when test="${account.isBlocked}">
-                                                                <td>
-                                                                    <a href="?command=unblockAccount&accountId=${account.accountId}">
-                                                                            ${unblock}
-                                                                        <img src="resources/images/unlocked-link.png"
-                                                                             alt="" class="icon">
-                                                                    </a>
-                                                                </td>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <td>
-                                                                    <a href="?command=blockAccount&accountId=${account.accountId}">
-                                                                            ${block}
-                                                                        <img src="resources/images/locked-link.png"
-                                                                             alt="" class="icon">
-                                                                    </a>
-                                                                </td>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                        <td>
-                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}">
-                                                                    ${showInfo}
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <fmt:message key="user.card.allcards" var="allcards"/>
-                                    <fmt:message key="user.card.number" var="cardNumber"/>
-                                    <fmt:message key="user.card.cvv" var="cvv"/>
-                                    <fmt:message key="user.card.date" var="date"/>
-                                    <fmt:message key="user.card.detachCard" var="detachCard"/>
-                                    <fmt:message key="user.card.detach" var="detach"/>
-
-                                    <div class="content-box-header">
-                                        <div class="panel-title">
-                                                ${allcards}
-                                        </div>
-                                    </div>
-
-                                    <div class="content-box-large box-with-header">
-                                        <table>
-                                            <th>${cardNumber}</th>
-                                            <th>${date}</th>
-                                            <th>${status}</th>
-                                            <th>${action}</th>
-                                            <th>${detachCard}</th>
-
-                                            <c:forEach items="${cards}" var="card">
-                                                <tr>
-                                                    <td>${card.number}</td>
-                                                    <td>${card.validity}</td>
-                                                    <c:choose>
-                                                        <c:when test="${card.isActive}">
-                                                            <td style="color: darkgreen;">
-                                                                    ${statusActive}
-                                                            </td>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <td style="color: darkred;">
-                                                                    ${statusBlocked}
-                                                            </td>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <c:choose>
-                                                        <c:when test="${card.isActive}">
-                                                            <td>
-                                                                <a href="?command=blockCard&cardNumber=${card.number}">
-                                                                        ${block}
-                                                                    <img src="resources/images/locked-link.png"
-                                                                         alt="" class="icon">
-                                                                </a>
-                                                            </td>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <td>
-                                                                <a href="?command=unblockCard&cardNumber=${card.number}">
-                                                                        ${unblock}
-                                                                    <img src="resources/images/unlocked-link.png"
-                                                                         alt="" class="icon">
-                                                                </a>
-                                                            </td>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <td>
-                                                        <a href="#smallModal?cardNumber=${card.number}"
-                                                           onclick="showModal()">
-                                                                ${detach}
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12 panel-warning">
-                                    <fmt:message key="user.payment.allpayments" var="allpayments"/>
-                                    <fmt:message key="user.payments.recipient'sAccount" var="receiverCard"/>
-                                    <fmt:message key="user.payments.sum" var="payment_sum"/>
-                                    <fmt:message key="user.payments.date" var="payment_date"/>
-                                    <fmt:message key="user.payments.appointment" var="payment_appointment"/>
-                                    <fmt:message key="user.payments.success" var="payment_success"/>
-                                    <fmt:message key="user.payments.error" var="payment_error"/>
-                                    <fmt:message key="user.payments.repeat" var="repeat"/>
-                                    <fmt:message key="user.payments.repeatPayment" var="payment_repeat"/>
-
-                                    <div class="content-box-header panel-heading">
-                                        <div class="panel-title ">
-                                                ${allpayments}
-                                        </div>
-                                    </div>
-
-                                    <div class="content-box-large box-with-header">
-                                        <table>
-                                            <th>${receiverCard}</th>
-                                            <th>${payment_sum}</th>
-                                            <th>${payment_date}</th>
-                                            <th>${payment_appointment}</th>
-                                            <th>${status}</th>
-                                            <th>${payment_repeat}</th>
-
-                                            <c:forEach items="${payments}" var="payment">
-                                                <tr>
-                                                    <td>${payment.recipientAccountNumber}</td>
-                                                    <td>${payment.sum}</td>
-                                                    <td>${payment.date}</td>
-                                                    <td>${payment.appointment}</td>
-                                                    <c:choose>
-                                                        <c:when test="${payment.condition}">
-                                                            <td style="color: darkgreen;">
-                                                                    ${payment_success}
-                                                            </td>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <td style="color: darkred;">
-                                                                    ${payment_error}
-                                                            </td>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <td>
-                                                        <a href="?command=repeatPayment&paymentId=${payment.paymentId}">${repeat}</a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:when>
-                    <c:otherwise/>
-                </c:choose>
+                    <div class="card-body"></div>
+                </div>
             </div>
         </div>
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/showingModalWindow_user.js"></script>
 </html>
