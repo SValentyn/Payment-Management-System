@@ -43,8 +43,8 @@
 </head>
 <body>
 
-<!-- Modal window -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<!-- Modal window (when sending to an account) -->
+<div id="smallModal-0" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -57,24 +57,24 @@
                 <fmt:message key="user.makepayment.modalBody"/>
                 <br>
                 <div style="display: flex; margin-top: 20px;">
-                    <label for="numberByAccountIdModalText" class="modal-fixed-label">
+                    <label for="numberByAccountIdModalText-0" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalYourNumber"/>
                     </label>
-                    <input id="numberByAccountIdModalText" class="form-control modal-form-control"
+                    <input id="numberByAccountIdModalText-0" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
-                    <label for="numberModalText" class="modal-fixed-label">
-                        <fmt:message key="user.makepayment.modalRecipientNumber"/>
+                    <label for="accountNumberModalText" class="modal-fixed-label">
+                        <fmt:message key="user.makepayment.modalRecipientAccountNumber"/>
                     </label>
-                    <input id="numberModalText" class="form-control modal-form-control"
+                    <input id="accountNumberModalText" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
-                    <label for="amountModalText" class="modal-fixed-label">
+                    <label for="amountModalText-0" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalAmountFunds"/>
                     </label>
-                    <input id="amountModalText" class="form-control modal-form-control"
+                    <input id="amountModalText-0" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
             </div>
@@ -87,10 +87,69 @@
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="makePayment">
-                        <input type="hidden" name="accountId" id="accountIdModal"/>
-                        <input type="hidden" name="number" id="numberModal"/>
-                        <input type="hidden" name="amount" id="amountModal"/>
-                        <input type="hidden" name="appointment" id="appointmentModal"/>
+                        <input type="hidden" name="accountId" id="accountIdModal-0"/>
+                        <input type="hidden" name="accountNumber" id="accountNumberModal"/>
+                        <input type="hidden" name="amount" id="amountModal-0"/>
+                        <input type="hidden" name="appointment" id="appointmentModal-0"/>
+
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                            <fmt:message key="user.page.confirmButton"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal window (when sending to a bank card) -->
+<div id="smallModal-1" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <fmt:message key="user.makepayment.modalHeader"/>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="user.makepayment.modalBody"/>
+                <br>
+                <div style="display: flex; margin-top: 20px;">
+                    <label for="numberByAccountIdModalText-1" class="modal-fixed-label">
+                        <fmt:message key="user.makepayment.modalYourNumber"/>
+                    </label>
+                    <input id="numberByAccountIdModalText-1" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+                <div style="display: flex; margin-top: 10px;">
+                    <label for="cardNumberModalText" class="modal-fixed-label">
+                        <fmt:message key="user.makepayment.modalRecipientCardNumber"/>
+                    </label>
+                    <input id="cardNumberModalText" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+                <div style="display: flex; margin-top: 10px;">
+                    <label for="amountModalText-1" class="modal-fixed-label">
+                        <fmt:message key="user.makepayment.modalAmountFunds"/>
+                    </label>
+                    <input id="amountModalText-1" class="form-control modal-form-control"
+                           type="text" readonly="readonly"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
+                            data-dismiss="modal" onfocus="this.blur()">
+                        <fmt:message key="user.page.closeButton"/>
+                    </button>
+                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
+                    <form action="/" role="form" method="POST">
+                        <input type="hidden" name="command" value="makePayment">
+                        <input type="hidden" name="accountId" id="accountIdModal-1"/>
+                        <input type="hidden" name="cardNumber" id="cardNumberModal"/>
+                        <input type="hidden" name="amount" id="amountModal-1"/>
+                        <input type="hidden" name="appointment" id="appointmentModal-1"/>
 
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
@@ -129,8 +188,8 @@
         </div>
     </c:if>
 
-    <!-- Alert numberNotExistError -->
-    <c:if test="${numberNotExistError == true}">
+    <!-- Alert accountNumberNotExistError -->
+    <c:if test="${accountNumberNotExistError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertAccountNumberNotExistError"/>
@@ -165,6 +224,18 @@
         </div>
     </c:if>
 
+    <!-- Alert cardNotExistOrBlockedError -->
+    <c:if test="${cardNotExistOrBlockedError == true}">
+        <div id="alert" class="alert alert-danger fade in" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertCardNotExistOrBlockedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert insufficientFundsError -->
     <c:if test="${insufficientFundsError == true}">
         <div id="alert" class="alert alert-danger fade in" role="alert">
@@ -192,16 +263,21 @@
                                     <div class="content-wrap">
                                         <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>
                                         <fmt:message key="user.makepayment.fromAccount" var="from"/>
-                                        <fmt:message key="user.makepayment.recipientOfFunds" var="recipientOfFunds"/>
-                                        <fmt:message key="user.makepayment.number" var="number"/>
+                                        <fmt:message key="user.makepayment.recipientsAccount" var="recipientsAccount"/>
+                                        <fmt:message key="user.makepayment.recipientsCard" var="recipientsCard"/>
+                                        <fmt:message key="user.makepayment.numberAccount" var="numberAccount"/>
+                                        <fmt:message key="user.makepayment.numberCard" var="numberCard"/>
                                         <fmt:message key="user.makepayment.amount" var="amount"/>
                                         <fmt:message key="user.makepayment.appointment" var="appointment"/>
                                         <fmt:message key="user.makepayment.makePaymentButton" var="makePaymentButton"/>
                                         <fmt:message key="user.makepayment.accountIdError" var="accountIdError"/>
-                                        <fmt:message key="user.makepayment.numberError" var="numberError"/>
+                                        <fmt:message key="user.makepayment.numberAccountError"
+                                                     var="numberAccountError"/>
+                                        <fmt:message key="user.makepayment.numberCardError" var="numberCardError"/>
                                         <fmt:message key="user.makepayment.amountError" var="amountError"/>
                                         <fmt:message key="user.makepayment.tooltipAccountNumber"
                                                      var="tooltipAccountNumber"/>
+                                        <fmt:message key="user.makepayment.tooltipCardNumber" var="tooltipCardNumber"/>
                                         <fmt:message key="user.makepayment.tooltipAmountFunds"
                                                      var="tooltipAmountFunds"/>
                                         <fmt:message key="registration.correct" var="correct"/>
@@ -223,7 +299,7 @@
 
                                             <!-- Select AccountId -->
                                             <div>
-                                                <label for="number" class="for-form-label">
+                                                <label class="for-form-label">
                                                     ${from}
                                                 </label>
                                                 <div>
@@ -255,32 +331,35 @@
                                             <label for="switcher" class="toggle-btn-label"></label>
                                             <div class="form-row">
                                                 <div class="col-md-6" style="margin-top: 10px;">
-                                                    <span class="switcher-case-1">Recipient's account</span>
+                                                    <span class="switcher-case-1">${recipientsAccount}</span>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top: 10px;">
-                                                    <span class="switcher-case-2">Recipient's card</span>
+                                                    <span class="switcher-case-2">${recipientsCard}</span>
                                                 </div>
                                             </div>
+
+                                            <!-- Switch position -->
+                                            <input id="case" name="case" type="hidden" value="${caseValue}"/>
 
                                             <div class="form-row">
 
                                                 <!-- Account Number -->
                                                 <div class="col-md-6" style="margin-top: 4px;">
                                                     <div>
-                                                        <input id="number" name="number" class="form-control"
-                                                               style="margin-top: 0;" type="text"
+                                                        <input id="accountNumber" name="accountNumber"
+                                                               class="form-control" style="margin-top: 0;" type="text"
                                                                data-toggle="tooltip-left"
                                                                data-title="${tooltipAccountNumber}"
                                                                maxlength="20" onkeypress="onlyNumbers();"
-                                                               placeholder="${number}*"
-                                                               value="${numberValue}"/>
+                                                               placeholder="${numberAccount}*"
+                                                               value="${accountNumberValue}"/>
                                                     </div>
-                                                    <label for="number" class="default-label">
+                                                    <label for="accountNumber" class="default-label">
                                                         <span id="valid-msg-accountNumber" class="valid-msg invisible">
                                                             ${correct}<img src="resources/images/correct.png" alt="">
                                                         </span>
                                                         <span id="error-msg-accountNumber" class="error-msg invisible">
-                                                            ${numberError}
+                                                            ${numberAccountError}
                                                         </span>
                                                     </label>
                                                 </div>
@@ -288,12 +367,13 @@
                                                 <!-- Card Number -->
                                                 <div class="col-md-6" style="margin-top: 4px;">
                                                     <div>
-                                                        <input id="cardNumber" name="cardNumber" class="form-control"
-                                                               style="margin-top: 0;" type="text"
-                                                               data-toggle="tooltip" data-title="${tooltipCardNumber}"
-                                                               maxlength="20" onkeypress="onlyNumbers();"
+                                                        <input id="cardNumber" name="cardNumber"
+                                                               class="form-control" style="margin-top: 0;" type="text"
+                                                               data-toggle="tooltip"
+                                                               data-title="${tooltipCardNumber}"
+                                                               maxlength="16" onkeypress="onlyNumbers();"
                                                                placeholder="${numberCard}*"
-                                                               value="${numberCardValue}"/>
+                                                               value="${cardNumberValue}"/>
                                                     </div>
                                                     <label for="cardNumber" class="default-label">
                                                         <span id="valid-msg-cardNumber" class="valid-msg invisible">
@@ -365,14 +445,26 @@
 </body>
 <script src="resources/js/validator_userMakePayment.js"></script>
 <script>
-    // window.onload = function () {
-    //     document.querySelector(".toggle-btn-label").click();
-    // };
-
-    let on_off = 0;
+    let on_off = 'off';
     let switcher_case_1 = document.querySelector(".switcher-case-1");
     let switcher_case_2 = document.querySelector(".switcher-case-2");
-    let numberInput = document.querySelector("#number");
+    let accountNumberInput = document.querySelector("#accountNumber");
+    let cardNumberInput = document.querySelector("#cardNumber");
+
+    window.onload = function () {
+        on_off = document.querySelector("#case").value;
+        console.log(on_off);
+
+        if (on_off === 'off') {
+            switcher_case_1.classList.add("on");
+            switcher_case_2.classList.add("off");
+            cardNumberInput.disabled = true;
+        } else if (on_off === 'on') {
+            on_off = 'off';
+            document.querySelector('.toggle-btn-label').click();
+            resetCardNumber();
+        }
+    };
 
     document.querySelector(".toggle-btn-label").addEventListener('click', function () {
 
@@ -381,23 +473,26 @@
         switcher_case_1.classList.remove("off");
         switcher_case_2.classList.remove("on");
         switcher_case_2.classList.remove("off");
-        numberInput.disabled = false;
+        accountNumberInput.disabled = false;
+        cardNumberInput.disabled = false;
 
         // set
-        if (on_off === 0) {
+        if (on_off === 'off') {
             switcher_case_1.classList.add("off");
             switcher_case_2.classList.add("on");
-            numberInput.disabled = true;
-            resetNumber();
-            on_off++;
-        } else if (on_off === 1) {
+            accountNumberInput.disabled = true;
+            resetAccountNumber();
+            validationCardNumber();
+            on_off = 'on';
+        } else if (on_off === 'on') {
             switcher_case_1.classList.add("on");
             switcher_case_2.classList.add("off");
-            validationNumber();
-            on_off--;
+            cardNumberInput.disabled = true;
+            resetCardNumber();
+            validationAccountNumber();
+            on_off = 'off';
         }
     });
-
 
     $(function () {
         $('#amount').spinner({

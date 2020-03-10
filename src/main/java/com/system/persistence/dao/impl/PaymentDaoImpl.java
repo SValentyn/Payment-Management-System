@@ -23,7 +23,7 @@ public class PaymentDaoImpl implements PaymentDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, recipient_account_number, sum, appointment, date, `condition`) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, recipientNumber, sum, appointment, date, `condition`) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
     private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ?";
     private static final String FIND_ALL_PAYMENTS_BY_USER_ID = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id WHERE accounts.user_id = ?";
@@ -44,7 +44,7 @@ public class PaymentDaoImpl implements PaymentDao {
     @Override
     public int create(Payment entity) {
         entity.setAppointment(StringEscapeUtils.escapeJava(entity.getAppointment()));
-        Object[] args = {entity.getAccountId(), entity.getRecipientAccountNumber(), entity.getSum(), entity.getAppointment(), entity.getDate(), entity.getCondition()};
+        Object[] args = {entity.getAccountId(), entity.getRecipientNumber(), entity.getSum(), entity.getAppointment(), entity.getDate(), entity.getCondition()};
         return executor.executeStatement(CREATE_PAYMENT, args);
     }
 
@@ -98,7 +98,7 @@ public class PaymentDaoImpl implements PaymentDao {
         try {
             payment.setPaymentId(rs.getInt("payment_id"));
             payment.setAccountId(rs.getInt("account_id"));
-            payment.setRecipientAccountNumber(rs.getString("recipient_account_number"));
+            payment.setRecipientNumber(rs.getString("recipientNumber"));
             payment.setSum(rs.getBigDecimal("sum"));
             payment.setAppointment(StringEscapeUtils.unescapeJava(rs.getString("appointment")));
             payment.setDate(rs.getString("date"));

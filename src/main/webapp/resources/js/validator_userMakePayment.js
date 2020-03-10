@@ -2,7 +2,8 @@
 let bfh_selectbox = $('.bfh-selectbox');
 let accountId = document.querySelector("#accountId");
 let numberByAccountId = document.querySelector("#numberByAccountId");
-let number = document.querySelector("#number");
+let accountNumber = document.querySelector("#accountNumber");
+let cardNumber = document.querySelector("#cardNumber");
 let amount = document.querySelector("#amount");
 let appointment = document.querySelector("#appointment");
 let submitBtn = document.querySelector("#submit");
@@ -59,45 +60,89 @@ accountId.addEventListener('keyup', resetAccountId);
 accountId.addEventListener('change', resetAccountId);
 
 
-/* Checks accountNumber */
-let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
-    errorMsgNumber = document.querySelector("#error-msg-accountNumber");
+/* Checks Account Number */
+let validMsgAccountNumber = document.querySelector("#valid-msg-accountNumber"),
+    errorMsgAccountNumber = document.querySelector("#error-msg-accountNumber");
 
-let resetNumber = function () {
-    validMsgNumber.classList.add("invisible");
-    errorMsgNumber.classList.add("invisible");
-    number.classList.remove("valid-input");
-    number.classList.remove("error-input");
+let resetAccountNumber = function () {
+    validMsgAccountNumber.classList.add("invisible");
+    errorMsgAccountNumber.classList.add("invisible");
+    accountNumber.classList.remove("valid-input");
+    accountNumber.classList.remove("error-input");
 };
 
-let validNumber = function () {
-    validMsgNumber.classList.remove("invisible");
-    errorMsgNumber.classList.add("invisible");
-    number.classList.add("valid-input");
-    number.classList.remove("error-input");
+let validAccountNumber = function () {
+    validMsgAccountNumber.classList.remove("invisible");
+    errorMsgAccountNumber.classList.add("invisible");
+    accountNumber.classList.add("valid-input");
+    accountNumber.classList.remove("error-input");
 };
 
-let notValidNumber = function () {
-    validMsgNumber.classList.add("invisible");
-    errorMsgNumber.classList.remove("invisible");
-    number.classList.remove("valid-input");
-    number.classList.add("error-input");
+let notValidAccountNumber = function () {
+    validMsgAccountNumber.classList.add("invisible");
+    errorMsgAccountNumber.classList.remove("invisible");
+    accountNumber.classList.remove("valid-input");
+    accountNumber.classList.add("error-input");
 };
 
-number.addEventListener('click', resetNumber);
-number.addEventListener('blur', validationNumber);
-number.addEventListener('keyup', validationNumber);
-number.addEventListener('change', validationNumber);
+accountNumber.addEventListener('click', resetAccountNumber);
+accountNumber.addEventListener('blur', validationAccountNumber);
+accountNumber.addEventListener('keyup', validationAccountNumber);
+accountNumber.addEventListener('change', validationAccountNumber);
 
-function validationNumber() {
-    resetNumber();
+function validationAccountNumber() {
+    resetAccountNumber();
 
-    if (number.value.trim() === "" || number.value.trim().length < 20) {
-        notValidNumber();
+    if (accountNumber.value.trim() === "" || accountNumber.value.trim().length < 20) {
+        notValidAccountNumber();
     } else {
-        validNumber();
-        if (number.value.match(/[^0-9]/g).length > 1) {
-            notValidNumber();
+        validAccountNumber();
+        if (accountNumber.value.match(/[^0-9]/g) != null) {
+            notValidAccountNumber();
+        }
+    }
+}
+
+
+/* Checks Card Number */
+let validMsgCardNumber = document.querySelector("#valid-msg-cardNumber"),
+    errorMsgCardNumber = document.querySelector("#error-msg-cardNumber");
+
+let resetCardNumber = function () {
+    validMsgCardNumber.classList.add("invisible");
+    errorMsgCardNumber.classList.add("invisible");
+    cardNumber.classList.remove("valid-input");
+    cardNumber.classList.remove("error-input");
+};
+
+let validCardNumber = function () {
+    validMsgCardNumber.classList.remove("invisible");
+    errorMsgCardNumber.classList.add("invisible");
+    cardNumber.classList.add("valid-input");
+    cardNumber.classList.remove("error-input");
+};
+
+let notValidCardNumber = function () {
+    validMsgCardNumber.classList.add("invisible");
+    errorMsgCardNumber.classList.remove("invisible");
+    cardNumber.classList.remove("valid-input");
+    cardNumber.classList.add("error-input");
+};
+
+cardNumber.addEventListener('click', resetCardNumber);
+cardNumber.addEventListener('blur', validationCardNumber);
+cardNumber.addEventListener('keyup', validationCardNumber);
+cardNumber.addEventListener('change', validationCardNumber);
+
+function validationCardNumber() {
+    resetCardNumber();
+
+    if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 16) {
+        notValidCardNumber();
+    } else {
+        validCardNumber();
+        if (cardNumber.value.match(/[^0-9]/g) != null) {
+            notValidCardNumber();
         }
     }
 }
@@ -140,8 +185,10 @@ function validationAmount() {
         notValidAmount();
     } else {
         validAmount();
-        if (amount.value.match(/[.,]/g).length > 1) {
-            notValidAmount();
+        if (amount.value.match(/[.,]/g) != null) {
+            if (amount.value.match(/[.,]/g).length > 1) {
+                notValidAmount();
+            }
         }
     }
 }
@@ -155,40 +202,56 @@ function inputAmount(value) {
 /* Checks errors on the page and displays a modal window, if everything is in order */
 submitBtn.addEventListener('click', function (event) {
 
-    // let isShow = true;
-
     if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
-        // isShow = false;
         return false;
     }
 
-    if (number.value.trim() === "" || number.value.trim().length < 20 || number.classList.contains("error-input")) {
-        event.preventDefault();
-        notValidNumber();
-        // isShow = false;
-        return false;
+    if (on_off === 'off') {
+        if (accountNumber.value.trim() === "" || accountNumber.value.trim().length < 20 || accountNumber.classList.contains("error-input")) {
+            event.preventDefault();
+            notValidAccountNumber();
+            return false;
+        }
+    }
+
+    if (on_off === 'on') {
+        if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 16 || cardNumber.classList.contains("error-input")) {
+            event.preventDefault();
+            notValidCardNumber();
+            return false;
+        }
     }
 
     if (amount.value.trim() === "" || amount.classList.contains("error-input")) {
         event.preventDefault();
         notValidAmount();
-        // isShow = false;
         return false;
     }
 
-    // if (isShow === true) {
-        document.querySelector("#accountIdModal").value = accountId.value;
-        document.querySelector("#numberModal").value = number.value;
-        document.querySelector("#amountModal").value = amount.value;
-        document.querySelector("#appointmentModal").value = appointment.value;
+    if (on_off === 'off') {
+        document.querySelector("#numberByAccountIdModalText-0").value = numberByAccountId.value;
+        document.querySelector("#accountNumberModalText").value = accountNumber.value;
+        document.querySelector("#amountModalText-0").value = amount.value;
 
-        document.querySelector("#numberByAccountIdModalText").value = numberByAccountId.value;
-        document.querySelector("#numberModalText").value = number.value;
-        document.querySelector("#amountModalText").value = amount.value;
+        document.querySelector("#accountIdModal-0").value = accountId.value;
+        document.querySelector("#accountNumberModal").value = accountNumber.value;
+        document.querySelector("#amountModal-0").value = amount.value;
+        document.querySelector("#appointmentModal-0").value = appointment.value;
 
-        $('#smallModal').modal('show');
-    // }
+        $('#smallModal-0').modal('show');
+    } else if (on_off === 'on') {
+        document.querySelector("#numberByAccountIdModalText-1").value = numberByAccountId.value;
+        document.querySelector("#cardNumberModalText").value = cardNumber.value;
+        document.querySelector("#amountModalText-1").value = amount.value;
+
+        document.querySelector("#accountIdModal-1").value = accountId.value;
+        document.querySelector("#cardNumberModal").value = cardNumber.value;
+        document.querySelector("#amountModal-1").value = amount.value;
+        document.querySelector("#appointmentModal-1").value = appointment.value;
+
+        $('#smallModal-1').modal('show');
+    }
 
 });

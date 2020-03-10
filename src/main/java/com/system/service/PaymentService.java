@@ -1,7 +1,8 @@
 package com.system.service;
 
 import com.system.entity.Account;
-import com.system.entity.CreditCard;
+import com.system.entity.BankCard;
+import com.system.entity.Letter;
 import com.system.entity.Payment;
 import com.system.persistence.dao.AccountDao;
 import com.system.persistence.dao.PaymentDao;
@@ -39,14 +40,15 @@ public class PaymentService {
     }
 
     /**
+     * Formation and implementation of payment to the recipient's account
      * Checks all conditions, forms payment and adds is to database
      */
-    public synchronized int formingPayment(Integer accountId, String number, BigDecimal amount, String appointment) {
+    public synchronized int makePaymentOnAccount(Integer accountId, String accountNumber, BigDecimal amount, String appointment) {
         int status;
 
         Payment payment = new Payment();
         payment.setAccountId(accountId);
-        payment.setRecipientAccountNumber(number);
+        payment.setRecipientNumber(accountNumber);
         payment.setSum(amount);
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
@@ -59,7 +61,7 @@ public class PaymentService {
             return -1;
         }
 
-        Account accountTo = accountDao.findAccountByNumber(number);
+        Account accountTo = accountDao.findAccountByNumber(accountNumber);
         if (checkAvailableAccount(accountTo)) {
             LOGGER.error("Payment arrangement error!");
             payment.setCondition(false);
@@ -68,6 +70,44 @@ public class PaymentService {
 
         if (checkAvailableSum(accountFrom, amount)) {
             transaction(accountFrom, accountTo, amount);
+            payment.setCondition(true);
+            status = paymentDao.create(payment);
+        } else {
+            LOGGER.error("Payment arrangement error!");
+            payment.setCondition(false);
+            return -3;
+        }
+
+        return status;
+    }
+
+    /**
+     * Formation and implementation of payment to the recipient's bank card
+     * Checks all conditions, forms payment and adds is to database
+     */
+    public synchronized int makePaymentOnCard(Integer accountId, String cardNumber, BigDecimal amount, String appointment) {
+        int status;
+
+        Payment payment = new Payment();
+        payment.setAccountId(accountId);
+        payment.setRecipientNumber(cardNumber);
+        payment.setSum(amount);
+        payment.setAppointment(appointment);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+        payment.setDate(formatter.format(new Date()));
+
+        Account accountFrom = accountDao.findAccountById(accountId);
+        if (checkAvailableAccount(accountFrom)) {
+            LOGGER.error("Payment arrangement error!");
+            payment.setCondition(false);
+            return -1;
+        }
+
+        // [Checking the existence of a bank card] -> return -2
+        // [A money transfer to a bank card should be carried out, but so far, I am not able to implement it]
+
+        if (checkAvailableSum(accountFrom, amount)) {
+            transaction(accountFrom, cardNumber, amount);
             payment.setCondition(true);
             status = paymentDao.create(payment);
         } else {
@@ -93,7 +133,7 @@ public class PaymentService {
      *
      * @return true, if card is active
      */
-    private synchronized boolean checkAvailableCard(CreditCard card) {
+    private synchronized boolean checkAvailableCard(BankCard card) {
         return card.getIsActive();
     }
 
@@ -116,6 +156,19 @@ public class PaymentService {
             accountDao.update(accountTo);
         } else {
             LOGGER.info("Trying to withdraw or add funds to a blocked account!");
+        }
+    }
+
+    /**
+     * Checks if an account is locked and performs a transaction
+     */
+    private synchronized void transaction(Account accountFrom, String cardNumber, BigDecimal amount) {
+        if (!accountFrom.getIsBlocked()) {
+            accountFrom.setBalance(accountFrom.getBalance().subtract(amount));
+            // [Add amount on bank card]
+            accountDao.update(accountFrom);
+        } else {
+            LOGGER.info("Trying to withdraw funds from a blocked account or or add funds to a non-existing card!");
         }
     }
 
