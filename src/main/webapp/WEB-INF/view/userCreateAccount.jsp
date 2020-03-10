@@ -24,7 +24,7 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
                 <fmt:message key="user.page.alertAccountCreated"/>
             </p>
@@ -36,7 +36,7 @@
 
     <!-- Alert manyAccountWithThisCurrencyError -->
     <c:if test="${manyAccountWithThisCurrencyError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.manyAccountWithThisCurrencyError"/>
             </p>
@@ -48,7 +48,7 @@
 
     <!-- Alert createAccountError -->
     <c:if test="${createAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertCreateAccountError"/>
             </p>
@@ -107,17 +107,17 @@
                                                     <span id="error-msg-accountNumber" class="error-msg invisible">
                                                         ${numberError}
                                                     </span>
-                                                    <span id="numberExistError">
-                                                    <c:if test="${numberExistError}">
-                                                        <fmt:message key="user.createAccount.numberExistError"/>
+                                                    <span id="numberExistError" class="error-msg invisible">
+                                                        <c:if test="${numberExistError}">
+                                                            <fmt:message key="user.createAccount.numberExistError"/>
 
-                                                        <script>
-                                                            document.querySelector("#numberExistError").classList.remove("invisible");
-                                                            document.querySelector("#valid-msg-accountNumber").classList.add("invisible");
-                                                            document.querySelector("#error-msg-accountNumber").classList.add("invisible");
-                                                        </script>
-                                                    </c:if>
-                                                </span>
+                                                            <script>
+                                                                document.querySelector("#numberExistError").classList.remove("invisible");
+                                                                document.querySelector("#valid-msg-accountNumber").classList.add("invisible");
+                                                                document.querySelector("#error-msg-accountNumber").classList.add("invisible");
+                                                            </script>
+                                                        </c:if>
+                                                    </span>
                                                 </label>
                                             </div>
 
@@ -134,7 +134,7 @@
                                                 </div>
                                                 <label for="currency" class="default-label">
                                                     <span id="valid-msg-currency" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-currency" class="error-msg invisible">
                                                         ${currencyError}

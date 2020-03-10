@@ -8,20 +8,10 @@ let submitBtn = document.querySelector("#submit");
 
 /* It starts immediately after the page loads */
 window.addEventListener("load", function () {
-    document.querySelector("#numberExistError").classList.add("hide");
+    document.querySelector("#numberExistError").classList.add("invisible");
     repeat.click();
-
-    if (number.value.trim() === null || number.value.trim() === "") {
-        notValidNumber();
-    } else {
-        validNumber();
-    }
-
-    if (currency.value.trim() === null || currency.value.trim() === "") {
-        notValidCurrency();
-    } else {
-        validCurrency();
-    }
+    validationNumber();
+    validationCurrency();
 });
 
 
@@ -110,22 +100,24 @@ let notValidCurrency = function () {
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.add("error-input");
 };
 
+currency.addEventListener('click', resetCurrency);
+currency.addEventListener('change', validationCurrency);
+
 // on hide
 bfh_selectbox_class.on('hide.bfhselectbox', function () {
-    currency.value = $(bfh_selectbox_class).val();
+    validationCurrency();
+});
 
+function validationCurrency() {
     resetCurrency();
 
+    currency.value = $(bfh_selectbox_class).val();
     if (currency.value.trim() === null || currency.value.trim() === "") {
         notValidCurrency();
     } else {
         validCurrency();
     }
-});
-
-// on keyup/change -> reset
-currency.addEventListener('keyup', resetCurrency);
-currency.addEventListener('change', resetCurrency);
+}
 
 
 /* Checks for at least one error on the page */
