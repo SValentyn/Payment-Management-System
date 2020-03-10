@@ -26,7 +26,7 @@ public class TestPaymentService {
         payment = new Payment();
         payment.setPaymentId(1);
         payment.setAccountId(1);
-        payment.setRecipientAccountNumber("5450655032805450");
+        payment.setRecipientNumber("5450655032805450");
         payment.setSum(new BigDecimal("1000.00"));
         payment.setAppointment("Thank you for dinner!");
 
@@ -44,13 +44,13 @@ public class TestPaymentService {
         account_2.setBalance(new BigDecimal("50000.00"));
         account_2.setIsBlocked(false);
 
-        when(paymentService.formingPayment(payment.getAccountId(), payment.getRecipientAccountNumber(), new BigDecimal("1000.00"), payment.getAppointment()))
+        when(paymentService.makePaymentOnAccount(payment.getAccountId(), payment.getRecipientNumber(), new BigDecimal("1000.00"), payment.getAppointment()))
                 .thenReturn(payment.getPaymentId());
     }
 
     @Test
     public void testCreatePayment() {
-        Integer paymentId = paymentService.formingPayment(1, "5450655032805450", new BigDecimal("1000.00"), "Thank you for dinner!");
+        Integer paymentId = paymentService.makePaymentOnAccount(1, "5450655032805450", new BigDecimal("1000.00"), "Thank you for dinner!");
         assertNotNull(paymentId);
         assertEquals(new Integer(1), paymentId);
     }
