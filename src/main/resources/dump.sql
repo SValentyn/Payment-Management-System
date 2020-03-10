@@ -50,13 +50,13 @@ CREATE TABLE users
 INSERT INTO users (user_id, name, surname, phone, email, password, role_id)
 VALUES
 # admin (pass: 111111)
-       (1, 'Cristoforo', 'Colombo', '+393524594551', 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112',2),
+(1, 'Cristoforo', 'Colombo', '+393524594551', 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112', 2),
 # user (pass: 000000)
-       (2, 'Fernando', 'de Magallanes', '+34645364524', 'Fernando-de-Magallanes@outlook.com','670b14728ad9902aecba32e22fa4f6bd', 1),
+(2, 'Fernando', 'de Magallanes', '+34645364524', 'Fernando-de-Magallanes@outlook.com','670b14728ad9902aecba32e22fa4f6bd', 1),
 # user (pass: 000001)
-       (3, 'James', 'Cook', '+447465106475', 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1),
+(3, 'James', 'Cook', '+447465106475', 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1),
 # user (pass: 000002)
-       (4, 'Vasco', 'da Gama', '+351919131006', 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', 1);
+(4, 'Vasco', 'da Gama', '+351919131006', 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', 1);
 -- -- --
 
 -- -- --
@@ -118,7 +118,7 @@ VALUES (1, 1, '0000000000000000', '200', '03/2021', true),
        (2, 1, '0000007777000000', '717', '11/2021', true),
        (3, 2, '0000008888000000', '809', '09/2020', false),
        (4, 2, '0000009999000000', '191', '01/2022', true),
-       (5, 3, '0000009999000000', '500', '05/2021', true),
+       (5, 3, '0000006666000000', '500', '05/2021', true),
        (6, 4, '4444000000000000', '404', '10/2020', true);
 -- -- --
 
