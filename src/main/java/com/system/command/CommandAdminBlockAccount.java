@@ -2,7 +2,7 @@ package com.system.command;
 
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
-import com.system.service.CreditCardService;
+import com.system.service.BankCardService;
 import com.system.service.LetterService;
 import com.system.service.PaymentService;
 
@@ -25,7 +25,7 @@ public class CommandAdminBlockAccount implements ICommand {
             AccountService.getInstance().blockAccount(Integer.parseInt(accountId));
 
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
-            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
+            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
         } else {
             request.setAttribute("blockAccountError", true);

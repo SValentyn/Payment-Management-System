@@ -2,7 +2,7 @@ package com.system.entity;
 
 import java.io.Serializable;
 
-public class CreditCard implements Serializable {
+public class BankCard implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -13,7 +13,7 @@ public class CreditCard implements Serializable {
     private String validity;
     private Boolean isActive;
 
-    public CreditCard() {
+    public BankCard() {
     }
 
     public Integer getCardId() {
@@ -86,7 +86,7 @@ public class CreditCard implements Serializable {
         if (getClass() != obj.getClass())
             return false;
 
-        CreditCard other = (CreditCard) obj;
+        BankCard other = (BankCard) obj;
 
         if (cardId == null) {
             if (other.cardId != null)

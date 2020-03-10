@@ -1,9 +1,9 @@
 package com.system.service;
 
 import com.system.entity.Account;
-import com.system.entity.CreditCard;
+import com.system.entity.BankCard;
 import com.system.persistence.dao.AccountDao;
-import com.system.persistence.dao.CreditCardDao;
+import com.system.persistence.dao.BankCardDao;
 import com.system.persistence.factory.DaoFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -23,7 +23,7 @@ public class AccountService {
 
     private static AccountService instance = null;
     private AccountDao accountDao = DaoFactory.createAccountDao();
-    private CreditCardDao creditCardDao = DaoFactory.createCreditCardDao();
+    private BankCardDao bankCardDao = DaoFactory.createBankCardDao();
 
     private AccountService() throws SQLException {
     }
@@ -54,16 +54,16 @@ public class AccountService {
 
     /**
      * Finds account by id and blocks it
-     * Blocks all credit cards that belong to this account
+     * Blocks all bank cards that belong to this account
      */
     public int blockAccount(Integer accountId) {
         int status = 0;
         if (accountId != null) {
             Account account = accountDao.findAccountById(accountId);
-            List<CreditCard> creditCards = creditCardDao.findCardsByAccountId(accountId);
-            for (CreditCard creditCard : creditCards) {
-                creditCard.setIsActive(false);
-                creditCardDao.update(creditCard);
+            List<BankCard> bankCards = bankCardDao.findCardsByAccountId(accountId);
+            for (BankCard bankCard : bankCards) {
+                bankCard.setIsActive(false);
+                bankCardDao.update(bankCard);
             }
             account.setIsBlocked(true);
             status = accountDao.update(account);
@@ -73,16 +73,16 @@ public class AccountService {
 
     /**
      * Finds account by id and unblock it
-     * Unlocks all credit cards that belong to this account
+     * Unlocks all bank cards that belong to this account
      */
     public int unblockAccount(Integer accountId) {
         int status = 0;
         if (accountId != null) {
             Account account = accountDao.findAccountById(accountId);
-            List<CreditCard> creditCards = creditCardDao.findCardsByAccountId(accountId);
-            for (CreditCard creditCard : creditCards) {
-                creditCard.setIsActive(true);
-                creditCardDao.update(creditCard);
+            List<BankCard> bankCards = bankCardDao.findCardsByAccountId(accountId);
+            for (BankCard bankCard : bankCards) {
+                bankCard.setIsActive(true);
+                bankCardDao.update(bankCard);
             }
             account.setIsBlocked(false);
             status = accountDao.update(account);

@@ -3,7 +3,7 @@ package com.system.command;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
-import com.system.service.CreditCardService;
+import com.system.service.BankCardService;
 import com.system.service.PaymentService;
 import com.system.service.UserService;
 
@@ -31,7 +31,7 @@ public class CommandUserBlockAccount implements ICommand {
             request.setAttribute("showAccounts", true);
             request.setAttribute("showAccountInfo", true);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
-            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
+            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
         } else {
             request.setAttribute("blockAccountError", true);

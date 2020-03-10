@@ -1,10 +1,10 @@
 package com.system.command;
 
-import com.system.entity.CreditCard;
+import com.system.entity.BankCard;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
-import com.system.service.CreditCardService;
+import com.system.service.BankCardService;
 import com.system.service.LetterService;
 import com.system.utils.Validator;
 
@@ -47,8 +47,8 @@ public class CommandAdminAttachCard implements ICommand {
             }
 
             // Check
-            List<CreditCard> cardsByAccountId = CreditCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId));
-            for (CreditCard card : cardsByAccountId) {
+            List<BankCard> cardsByAccountId = BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId));
+            for (BankCard card : cardsByAccountId) {
                 if (card.getNumber().equals(number)) {
                     request.setAttribute("cardNumberError", true);
                     setRequestAttributes(request, number, CVV, month, year);
@@ -57,7 +57,7 @@ public class CommandAdminAttachCard implements ICommand {
             }
 
             // Attach Card
-            int status = CreditCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
+            int status = BankCardService.getInstance().addNewCard(accountId, number, CVV, month, year);
             if (status == 0) {
                 setRequestAttributes(request, number, CVV, month, year);
                 request.setAttribute("cardAttachError", true);

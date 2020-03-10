@@ -2,7 +2,7 @@ package com.system.command;
 
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
-import com.system.service.CreditCardService;
+import com.system.service.BankCardService;
 import com.system.service.LetterService;
 import com.system.service.PaymentService;
 
@@ -20,14 +20,14 @@ public class CommandAdminDetachCard implements ICommand {
 
         String userId = (String) request.getSession().getAttribute("userId");
         String cardNumber = request.getParameter("cardNumber");
-        Integer cardId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getCardId();
-        Integer accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
+        Integer cardId = BankCardService.getInstance().findCardByCardNumber(cardNumber).getCardId();
+        Integer accountId = BankCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
 
         if (userId != null) {
-            CreditCardService.getInstance().deleteCardById(cardId);
+            BankCardService.getInstance().deleteCardById(cardId);
 
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
-            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
+            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {
             request.setAttribute("detachCardError", true);

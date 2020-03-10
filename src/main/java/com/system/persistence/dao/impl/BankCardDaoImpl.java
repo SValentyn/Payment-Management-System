@@ -1,7 +1,7 @@
 package com.system.persistence.dao.impl;
 
-import com.system.entity.CreditCard;
-import com.system.persistence.dao.CreditCardDao;
+import com.system.entity.BankCard;
+import com.system.persistence.dao.BankCardDao;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -11,46 +11,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Realizes methods from CreditCardDao interface
+ * Realizes methods from BankCardDao interface
  *
  * @author Syniuk Valentyn
  */
-public class CreditCardDaoImpl implements CreditCardDao {
+public class BankCardDaoImpl implements BankCardDao {
 
-    private static final Logger LOGGER = LogManager.getLogger(CreditCardDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(BankCardDaoImpl.class);
 
     /**
      * SQL queries
      */
-    private static final String CREATE_CARD = "INSERT INTO credit_cards(account_id, number, cvv, validity, is_active) VALUES(?, ?, ?, ?, ?)";
-    private static final String UPDATE_CARD = "UPDATE credit_cards SET is_active = ? WHERE card_id = ?";
-    private static final String DELETE_CARD = "DELETE FROM credit_cards WHERE card_id = ?";
-    private static final String FIND_CARD_BY_USER_ID = "SELECT * FROM credit_cards WHERE card_id = ?";
-    private static final String FIND_CARD_BY_NUMBER = "SELECT * FROM credit_cards WHERE number = ?";
-    private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM credit_cards WHERE account_id = ?";
-    private static final String FIND_ALL_CARDS = "SELECT * FROM credit_cards";
+    private static final String CREATE_CARD = "INSERT INTO bank_cards(account_id, number, cvv, validity, is_active) VALUES(?, ?, ?, ?, ?)";
+    private static final String UPDATE_CARD = "UPDATE bank_cards SET is_active = ? WHERE card_id = ?";
+    private static final String DELETE_CARD = "DELETE FROM bank_cards WHERE card_id = ?";
+    private static final String FIND_CARD_BY_USER_ID = "SELECT * FROM bank_cards WHERE card_id = ?";
+    private static final String FIND_CARD_BY_NUMBER = "SELECT * FROM bank_cards WHERE number = ?";
+    private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM bank_cards WHERE account_id = ?";
+    private static final String FIND_ALL_CARDS = "SELECT * FROM bank_cards";
 
-    private static CreditCardDaoImpl instance = null;
+    private static BankCardDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
 
-    private CreditCardDaoImpl() throws SQLException {
+    private BankCardDaoImpl() throws SQLException {
     }
 
-    public static synchronized CreditCardDaoImpl getInstance() throws SQLException {
+    public static synchronized BankCardDaoImpl getInstance() throws SQLException {
         if (instance == null) {
-            instance = new CreditCardDaoImpl();
+            instance = new BankCardDaoImpl();
         }
         return instance;
     }
 
     @Override
-    public int create(CreditCard entity) {
+    public int create(BankCard entity) {
         Object[] args = {entity.getAccountId(), entity.getNumber(), entity.getCVV(), entity.getValidity(), entity.getIsActive()};
         return executor.executeStatement(CREATE_CARD, args);
     }
 
     @Override
-    public int update(CreditCard entity) {
+    public int update(BankCard entity) {
         Object[] args = {entity.getIsActive(), entity.getCardId()};
         return executor.executeStatement(UPDATE_CARD, args);
     }
@@ -61,8 +61,8 @@ public class CreditCardDaoImpl implements CreditCardDao {
     }
 
     @Override
-    public CreditCard findCardByCardId(Integer cardId) {
-        CreditCard creditCard = null;
+    public BankCard findCardByCardId(Integer cardId) {
+        BankCard creditCard = null;
         try {
             ResultSet rs = executor.getResultSet(FIND_CARD_BY_USER_ID, cardId);
             if (rs.next()) {
@@ -75,8 +75,8 @@ public class CreditCardDaoImpl implements CreditCardDao {
     }
 
     @Override
-    public CreditCard findCardByCardNumber(String number) {
-        CreditCard creditCard = null;
+    public BankCard findCardByCardNumber(String number) {
+        BankCard creditCard = null;
         try {
             ResultSet rs = executor.getResultSet(FIND_CARD_BY_NUMBER, number);
             if (rs.next()) {
@@ -89,8 +89,8 @@ public class CreditCardDaoImpl implements CreditCardDao {
     }
 
     @Override
-    public List<CreditCard> findCardsByAccountId(Integer accountId) {
-        List<CreditCard> creditCards = new ArrayList<>();
+    public List<BankCard> findCardsByAccountId(Integer accountId) {
+        List<BankCard> creditCards = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_CARDS_BY_ACCOUNT_ID, accountId);
             while (rs.next()) {
@@ -103,8 +103,8 @@ public class CreditCardDaoImpl implements CreditCardDao {
     }
 
     @Override
-    public List<CreditCard> findAllCards() {
-        List<CreditCard> creditCards = new ArrayList<>();
+    public List<BankCard> findAllCards() {
+        List<BankCard> creditCards = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_ALL_CARDS);
             while (rs.next()) {
@@ -119,8 +119,8 @@ public class CreditCardDaoImpl implements CreditCardDao {
     /**
      * Creates entity from result set
      */
-    private CreditCard createEntity(ResultSet rs) {
-        CreditCard creditCard = new CreditCard();
+    private BankCard createEntity(ResultSet rs) {
+        BankCard creditCard = new BankCard();
         try {
             creditCard.setAccountId(rs.getInt("account_id"));
             creditCard.setCardId(rs.getInt("card_id"));

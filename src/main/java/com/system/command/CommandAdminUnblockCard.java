@@ -2,7 +2,7 @@ package com.system.command;
 
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
-import com.system.service.CreditCardService;
+import com.system.service.BankCardService;
 import com.system.service.LetterService;
 import com.system.service.PaymentService;
 
@@ -20,13 +20,13 @@ public class CommandAdminUnblockCard implements ICommand {
 
         String userId = (String) request.getSession().getAttribute("userId");
         String cardNumber = request.getParameter("cardNumber");
-        int accountId = CreditCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
+        int accountId = BankCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
 
         if (cardNumber != null) {
-            CreditCardService.getInstance().unblockCreditCard(cardNumber);
+            BankCardService.getInstance().unblockBankCard(cardNumber);
 
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
-            request.setAttribute("cards", CreditCardService.getInstance().findAllCardsByAccountId(accountId));
+            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {
             request.setAttribute("unblockCardError", true);

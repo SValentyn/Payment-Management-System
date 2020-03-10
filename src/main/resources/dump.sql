@@ -99,7 +99,7 @@ VALUES (1, 2, '00000000000000000000', 9500.00, 'MXN', false),
 -- -- --
 
 -- -- --
-CREATE TABLE credit_cards
+CREATE TABLE bank_cards
 (
     card_id    INT(11)      NOT NULL AUTO_INCREMENT,
     account_id INT(11)      NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE credit_cards
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-INSERT INTO credit_cards (card_id, account_id, number, cvv, validity, is_active)
+INSERT INTO bank_cards (card_id, account_id, number, cvv, validity, is_active)
 VALUES (1, 1, '0000000000000000', '200', '03/2021', true),
        (2, 1, '0000007777000000', '717', '11/2021', true),
        (3, 2, '0000008888000000', '809', '09/2020', false),
@@ -125,20 +125,20 @@ VALUES (1, 1, '0000000000000000', '200', '03/2021', true),
 -- -- --
 CREATE TABLE payments
 (
-    payment_id               INT(11)      NOT NULL AUTO_INCREMENT,
-    account_id               INT(11)      NOT NULL,
-    recipient_account_number VARCHAR(255) NOT NULL,
-    sum                      DOUBLE       NOT NULL,
-    appointment              VARCHAR(255),
-    date                     VARCHAR(255) NOT NULL,
-    `condition`              BOOLEAN      NOT NULL,
+    payment_id      INT(11)      NOT NULL AUTO_INCREMENT,
+    account_id      INT(11)      NOT NULL,
+    recipientNumber VARCHAR(255) NOT NULL,
+    sum             DOUBLE       NOT NULL,
+    appointment     VARCHAR(255),
+    date            VARCHAR(255) NOT NULL,
+    `condition`     BOOLEAN      NOT NULL,
     PRIMARY KEY (payment_id),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-INSERT INTO payments (payment_id, account_id, recipient_account_number, sum, appointment, date, `condition`)
+INSERT INTO payments (payment_id, account_id, recipientNumber, sum, appointment, date, `condition`)
 VALUES (1, 2, '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020, 19:35', true),
        (2, 4, '00000000000000000002', 400.00, 'charity', '01/10/2020, 12:00', true);
 -- -- --

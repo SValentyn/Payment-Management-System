@@ -27,10 +27,10 @@ public class DaoFactory {
     }
 
     /**
-     * @return CreditCardDao
+     * @return BankCardDao
      */
-    public static CreditCardDao createCreditCardDao() throws SQLException {
-        return CreditCardDaoImpl.getInstance();
+    public static BankCardDao createBankCardDao() throws SQLException {
+        return BankCardDaoImpl.getInstance();
     }
 
     /**
