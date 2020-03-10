@@ -1,14 +1,15 @@
+// For textarea "appointment"
 $(window).ready(function () {
-    var maxLength = 26;
+    let maxLength = 100;
 
     $("#appointment").focus(function () {
         let revText = this.value.length;
 
-        let cnt = (maxLength - revText);
-        if (cnt <= 0) {
+        let count = (maxLength - revText);
+        if (count <= 0) {
             $("#counter").html('0');
         } else {
-            $("#counter").html(cnt);
+            $("#counter").html(count);
         }
     });
 
@@ -23,26 +24,27 @@ $(window).ready(function () {
             this.value = this.value.substr(0, maxLength);
         }
 
-        let cnt = (maxLength - revText);
-        if (cnt <= 0) {
+        let count = (maxLength - revText);
+        if (count <= 0) {
             $("#counter").html('0');
         } else {
-            $("#counter").html(cnt);
+            $("#counter").html(count);
         }
     });
 });
 
+// For textarea "description"
 $(window).ready(function () {
-    var maxLength = 200;
+    let maxLength = 200;
 
     $("#description").focus(function () {
         let revText = this.value.length;
 
-        let cnt = (maxLength - revText);
-        if (cnt <= 0) {
+        let count = (maxLength - revText);
+        if (count <= 0) {
             $("#counter").html('0');
         } else {
-            $("#counter").html(cnt);
+            $("#counter").html(count);
         }
     });
 
@@ -53,11 +55,11 @@ $(window).ready(function () {
             this.value = this.value.substr(0, maxLength);
         }
 
-        let cnt = (maxLength - revText);
-        if (cnt <= 0) {
+        let count = (maxLength - revText);
+        if (count <= 0) {
             $("#counter").html('0');
         } else {
-            $("#counter").html(cnt);
+            $("#counter").html(count);
         }
     });
 });

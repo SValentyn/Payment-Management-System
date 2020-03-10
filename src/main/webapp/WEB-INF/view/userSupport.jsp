@@ -33,7 +33,7 @@
 
     <!-- Alert Success -->
     <c:if test="${sended == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
                 <fmt:message key="user.page.alertLetterSended"/>
             </p>
@@ -45,7 +45,7 @@
 
     <!-- Alert manyLettersError -->
     <c:if test="${manyLettersError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertManyLettersError"/>
             </p>
@@ -57,7 +57,7 @@
 
     <!-- Alert sendLetterError -->
     <c:if test="${sendLetterError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertSendLetterError"/>
             </p>
@@ -145,17 +145,15 @@
                                             </div>
 
                                             <!-- Description -->
-                                            <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">
+                                            <div class="textarea-parent"
+                                                 data-toggle="tooltip" data-title="${tooltipDescription}">
                                                 <label for="description" class="for-form-label">
                                                     ${description}
                                                 </label>
-                                                <div style="width: 100%; position: absolute; display: flex;">
-                                                    <textarea id="description" name="description"
-                                                              class="form-control"
-                                                              style="height: 75px; padding-right: 20px; resize: none; outline: none; overflow-x: hidden;"
-                                                              data-toggle="tooltip" data-title="${tooltipDescription}"
+                                                <div>
+                                                    <textarea id="description" name="description" class="form-control"
                                                     >${descriptionValue}</textarea>
-                                                    <div class="counter" style="margin-right: 16px;">
+                                                    <div class="counter">
                                                         <span id="counter"></span>
                                                     </div>
                                                 </div>

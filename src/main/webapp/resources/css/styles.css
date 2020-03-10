@@ -243,11 +243,35 @@ body {
     border-radius: 5px;
 }
 
-.login-wrapper .box form textarea {
+.login-wrapper .box form .textarea-parent {
+    width: 100%;
+    position: relative;
+}
+
+.login-wrapper .box form .textarea-parent div {
+    width: 100%;
+    display: flex;
+}
+
+.login-wrapper .box form .textarea-parent textarea {
     height: 75px;
-    resize: none;
-    outline: none;
+    min-height: 54px;
+    max-height: 180px;
     overflow-x: hidden;
+    overflow-y: scroll;
+    outline: none;
+    padding-right: 38px;
+}
+
+.login-wrapper .box form .textarea-parent .counter {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    margin: 6px 0 0 0;
+    padding-right: 45px;
+    font-size: 14px;
+    color: #929292;
 }
 
 .panel-heading > .panel-title, .sidebar-header .panel-title {
@@ -562,17 +586,6 @@ form .btn-default a:active {
     text-decoration: none;
     color: #000;
     opacity: 0.6;
-}
-
-.counter {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    right: 0;
-    margin-top: 6px;
-    padding-right: 8px;
-    font-size: 14px;
-    color: #929292;
 }
 
 /**********/

@@ -166,7 +166,7 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
                 <fmt:message key="user.page.alertPaymentCompleted"/>
             </p>
@@ -178,7 +178,7 @@
 
     <!-- Alert paymentToYourAccountError -->
     <c:if test="${paymentToYourAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertPaymentToYourAccountError"/>
             </p>
@@ -190,7 +190,7 @@
 
     <!-- Alert accountNumberNotExistError -->
     <c:if test="${accountNumberNotExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertAccountNumberNotExistError"/>
             </p>
@@ -202,7 +202,7 @@
 
     <!-- Alert accountFromBlockedError -->
     <c:if test="${accountFromBlockedError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertAccountFromBlockedError"/>
             </p>
@@ -214,7 +214,7 @@
 
     <!-- Alert receiverAccountBlockedError -->
     <c:if test="${receiverAccountBlockedError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertReceiverAccountBlockedError"/>
             </p>
@@ -226,7 +226,7 @@
 
     <!-- Alert cardNotExistOrBlockedError -->
     <c:if test="${cardNotExistOrBlockedError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertCardNotExistOrBlockedError"/>
             </p>
@@ -238,7 +238,7 @@
 
     <!-- Alert insufficientFundsError -->
     <c:if test="${insufficientFundsError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertInsufficientFundsError"/>
             </p>
@@ -407,11 +407,11 @@
                                             </div>
 
                                             <!-- Appointment -->
-                                            <div style="width: 100%; height:105px; position: relative; margin-top: 10px;">
+                                            <div class="textarea-parent">
                                                 <label for="appointment" class="for-form-label">
                                                     ${appointment}
                                                 </label>
-                                                <div style="width: 100%; position: absolute; display: flex;">
+                                                <div>
                                                     <textarea id="appointment" name="appointment" class="form-control"
                                                     >${appointmentValue}</textarea>
                                                     <div class="counter">
@@ -420,7 +420,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Required for the script to work correctly -->
+                                            <!-- A variable that allows you to determine which command was invoked -->
                                             <input id="isRepeatCommand" name="isRepeatCommand" type="hidden"
                                                    value="${isRepeatCommandValue}"/>
 
@@ -493,7 +493,8 @@
             on_off = 'off';
         }
     });
-
+</script>
+<script>
     $(function () {
         $('#amount').spinner({
             culture: "en-US",
