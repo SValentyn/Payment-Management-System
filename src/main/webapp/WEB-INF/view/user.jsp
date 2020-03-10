@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
-
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 

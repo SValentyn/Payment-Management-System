@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        .bs-tooltip-auto[x-placement^=right], .bs-tooltip-right {
+        .bs-tooltip-right {
             margin-left: 0;
         }
     </style>

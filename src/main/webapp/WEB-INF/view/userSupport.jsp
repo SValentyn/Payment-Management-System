@@ -21,6 +21,10 @@
         .bfh-selectbox.open > .bfh-selectbox-options {
             width: auto;
         }
+
+        .bs-tooltip-right {
+            margin-left: 11px;
+        }
     </style>
 </head>
 <body>
@@ -145,11 +149,13 @@
                                                 <label for="description" class="for-form-label">
                                                     ${description}
                                                 </label>
-                                                <div style="width: 100%; position: absolute; display: flex;" data-toggle="tooltip" data-title="${tooltipDescription}">
-                                                    <textarea id="description" name="description" class="form-control"
-                                                              style="height: 75px; resize: none; outline: none; overflow-x: hidden;"
+                                                <div style="width: 100%; position: absolute; display: flex;">
+                                                    <textarea id="description" name="description"
+                                                              class="form-control"
+                                                              style="height: 75px; padding-right: 20px; resize: none; outline: none; overflow-x: hidden;"
+                                                              data-toggle="tooltip" data-title="${tooltipDescription}"
                                                     >${descriptionValue}</textarea>
-                                                    <div class="counter" style="margin-right: 10px;">
+                                                    <div class="counter" style="margin-right: 16px;">
                                                         <span id="counter"></span>
                                                     </div>
                                                 </div>

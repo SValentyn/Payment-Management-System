@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <style>
+        .bs-tooltip-right {
+            margin-left: 11px;
+        }
+    </style>
 </head>
 <body>
 <div class="main">

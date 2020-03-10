@@ -45,13 +45,13 @@
 
 <!-- Modal window -->
 <div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">
                     <fmt:message key="user.makepayment.modalHeader"/>
                 </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <fmt:message key="user.makepayment.modalBody"/>

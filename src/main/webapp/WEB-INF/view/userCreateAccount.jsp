@@ -95,7 +95,7 @@
                                                 <div class="form-group" style="display: flex; margin-bottom: 0;">
                                                     <input id="number" name="number" class="form-control"
                                                            type="text" readonly="readonly"
-                                                           style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
+                                                           style="max-width: 85%; height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
                                                            value="${numberValue}"/>
                                                     <img id="repeat" src="resources/images/repeat.png"
                                                          alt="" class="glyphicon icon-repeat">
