@@ -1,7 +1,20 @@
-window.document.getElementById("dropdown").addEventListener('click', function () {
-    $("#alert").alert('close');
+let alert = $("#alert");
+let language = document.getElementById("language");
+let dropdown = document.getElementById("dropdown");
+
+if (alert !== null) {
+    setTimeout(function () {
+        alert.alert('close');
+    }, 5500);
+}
+
+language.addEventListener('click', function () {
+    alert.alert('close');
 });
 
-setTimeout(function () {
-    $("#alert").alert('close')
-}, 5500);
+
+if (dropdown !== null) {
+    dropdown.addEventListener('click', function () {
+        alert.alert('close');
+    });
+}
