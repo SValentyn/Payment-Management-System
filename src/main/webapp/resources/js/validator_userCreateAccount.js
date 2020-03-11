@@ -10,7 +10,7 @@ let submitBtn = document.querySelector("#submit");
 window.addEventListener("load", function () {
     document.querySelector("#numberExistError").classList.add("invisible");
     repeat.click();
-    validationNumber();
+    validationAccountNumber();
     validationCurrency();
 });
 
@@ -37,7 +37,7 @@ repeat.addEventListener('click', function (event) {
 let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgNumber = document.querySelector("#error-msg-accountNumber");
 
-let resetNumber = function () {
+let resetAccountNumber = function () {
     document.querySelector("#numberExistError").classList.add("invisible");
     validMsgNumber.classList.add("invisible");
     errorMsgNumber.classList.add("invisible");
@@ -45,32 +45,34 @@ let resetNumber = function () {
     number.classList.remove("error-input");
 };
 
-let validNumber = function () {
+let validAccountNumber = function () {
     validMsgNumber.classList.remove("invisible");
     errorMsgNumber.classList.add("invisible");
     number.classList.add("valid-input");
     number.classList.remove("error-input");
 };
 
-let notValidNumber = function () {
+let notValidAccountNumber = function () {
     validMsgNumber.classList.add("invisible");
     errorMsgNumber.classList.remove("invisible");
     number.classList.remove("valid-input");
     number.classList.add("error-input");
 };
 
-number.addEventListener('click', resetNumber);
-number.addEventListener('blur', validationNumber);
-number.addEventListener('keyup', validationNumber);
-number.addEventListener('change', validationNumber);
+number.addEventListener('click', resetAccountNumber);
+number.addEventListener('blur', validationAccountNumber);
+number.addEventListener('keyup', validationAccountNumber);
+number.addEventListener('change', validationAccountNumber);
 
-function validationNumber() {
-    resetNumber();
+function validationAccountNumber() {
+    resetAccountNumber();
 
-    if (number.value.trim() === null || number.value.trim() === "") {
-        notValidNumber();
+    if (number.value.trim() === null || number.value.trim() === "" || number.value.trim().length < 20) {
+        notValidAccountNumber();
+    } else if (number.value.match(/[^0-9]/g) != null) {
+        notValidAccountNumber();
     } else {
-        validNumber();
+        validAccountNumber();
     }
 }
 
@@ -101,9 +103,9 @@ let notValidCurrency = function () {
 };
 
 currency.addEventListener('click', resetCurrency);
+currency.addEventListener('blur', validationCurrency);
 currency.addEventListener('change', validationCurrency);
 
-// on hide
 bfh_selectbox_class.on('hide.bfhselectbox', function () {
     validationCurrency();
 });
@@ -123,9 +125,9 @@ function validationCurrency() {
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (number.value.trim() === null || number.value.trim() === "" || number.classList.contains("error-input")) {
+    if (number.value.trim() === null || number.value.trim() === "" || number.value.trim().length < 20 || number.classList.contains("error-input")) {
         event.preventDefault();
-        notValidNumber();
+        notValidAccountNumber();
         return false;
     }
 

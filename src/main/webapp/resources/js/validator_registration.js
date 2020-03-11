@@ -33,7 +33,6 @@ let notValidName = function () {
     name.classList.add("error-input");
 };
 
-
 name.addEventListener('click', resetName);
 name.addEventListener('blur', validationName);
 name.addEventListener('keyup', validationName);

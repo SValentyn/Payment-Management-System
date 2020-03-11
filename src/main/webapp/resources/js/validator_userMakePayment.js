@@ -35,8 +35,13 @@ let notValidAccountId = function () {
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("error-input");
 };
 
-// on hide
+accountId.addEventListener('change', validationAccountId);
+
 bfh_selectbox.on('hide.bfhselectbox', function () {
+    validationAccountId();
+});
+
+function validationAccountId() {
     resetAccountId();
 
     if (isRepeatCommand.value === "0") {
@@ -53,11 +58,7 @@ bfh_selectbox.on('hide.bfhselectbox', function () {
     }
 
     numberByAccountId.value = $(bfh_selectbox).find('span')[0].innerHTML;
-});
-
-// on keyup/change -> reset
-accountId.addEventListener('keyup', resetAccountId);
-accountId.addEventListener('change', resetAccountId);
+}
 
 
 /* Checks Account Number */
@@ -95,11 +96,10 @@ function validationAccountNumber() {
 
     if (accountNumber.value.trim() === "" || accountNumber.value.trim().length < 20) {
         notValidAccountNumber();
+    } else if (accountNumber.value.match(/[^0-9]/g) != null) {
+        notValidAccountNumber();
     } else {
         validAccountNumber();
-        if (accountNumber.value.match(/[^0-9]/g) != null) {
-            notValidAccountNumber();
-        }
     }
 }
 
@@ -139,11 +139,10 @@ function validationCardNumber() {
 
     if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 16) {
         notValidCardNumber();
+    } else if (cardNumber.value.match(/[^0-9]/g) != null) {
+        notValidCardNumber();
     } else {
         validCardNumber();
-        if (cardNumber.value.match(/[^0-9]/g) != null) {
-            notValidCardNumber();
-        }
     }
 }
 

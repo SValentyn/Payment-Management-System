@@ -37,22 +37,23 @@ let notValidAccountId = function () {
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.add("error-input");
 };
 
-// on invisible
-selectbox_account_id.on('hide.bfhselectbox', function () {
-    accountId.value = $(selectbox_account_id).val();
+accountId.addEventListener('click', resetAccountId);
+accountId.addEventListener('blur', validationAccountId);
 
+selectbox_account_id.on('hide.bfhselectbox', function () {
+    validationAccountId();
+});
+
+function validationAccountId() {
     resetAccountId();
 
+    accountId.value = $(selectbox_account_id).val();
     if (accountId.value.trim() === null || accountId.value.trim() === "") {
         notValidAccountId();
     } else {
         validAccountId();
     }
-});
-
-// on keyup/change -> reset
-accountId.addEventListener('keyup', resetAccountId);
-accountId.addEventListener('change', resetAccountId);
+}
 
 
 /* Checks cardNumber */
@@ -89,6 +90,8 @@ function validationNumber() {
     resetNumber();
 
     if (number.value.trim() === "" || number.value.trim().length < 16) {
+        notValidNumber();
+    } else if (number.value.match(/[^0-9]/g) != null) {
         notValidNumber();
     } else {
         validNumber();
@@ -130,6 +133,8 @@ function validationCVV() {
     resetCVV();
 
     if (CVV.value.trim() === "" || CVV.value.trim().length < 3) {
+        notValidCVV();
+    } else if (CVV.value.match(/[^0-9]/g) != null) {
         notValidCVV();
     } else {
         validCVV();

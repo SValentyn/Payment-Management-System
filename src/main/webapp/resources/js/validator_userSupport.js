@@ -29,22 +29,25 @@ let notValidTypeQuestion = function () {
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("error-input");
 };
 
-// on hide
-bfh_selectbox_class.on('hide.bfhselectbox', function () {
-    typeQuestion.value = $(bfh_selectbox_class).val();
+typeQuestion.addEventListener('click', resetTypeQuestion);
+typeQuestion.addEventListener('blur', validationTypeQuestion);
+typeQuestion.addEventListener('keyup', validationTypeQuestion);
+typeQuestion.addEventListener('change', validationTypeQuestion);
 
+bfh_selectbox_class.on('hide.bfhselectbox', function () {
+    validationTypeQuestion();
+});
+
+function validationTypeQuestion() {
     resetTypeQuestion();
 
+    typeQuestion.value = $(bfh_selectbox_class).val();
     if (typeQuestion.value.trim() === null || typeQuestion.value.trim() === "") {
         notValidTypeQuestion();
     } else {
         validTypeQuestion();
     }
-});
-
-// on keyup/change -> reset
-typeQuestion.addEventListener('keyup', resetTypeQuestion);
-typeQuestion.addEventListener('change', resetTypeQuestion);
+}
 
 
 /* Checks for at least one error on the page */
