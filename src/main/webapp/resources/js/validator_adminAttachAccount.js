@@ -8,20 +8,10 @@ let submitBtn = document.querySelector("#submit");
 
 /* It starts immediately after the page loads */
 window.addEventListener("load", function () {
-    document.querySelector("#numberExistError").classList.add("hide");
+    document.querySelector("#numberExistError").classList.add("invisible");
     repeat.click();
-
-    if (number.value.trim() === "" || number.value.trim() === null) {
-        notValidNumber();
-    } else {
-        validNumber();
-    }
-
-    if (currency.value.trim() === "" || currency.value.trim() === null) {
-        notValidCurrency();
-    } else {
-        validCurrency();
-    }
+    validationNumber();
+    validationCurrency();
 });
 
 
@@ -48,41 +38,41 @@ let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgNumber = document.querySelector("#error-msg-accountNumber");
 
 let resetNumber = function () {
-    document.querySelector("#numberExistError").classList.add("hide");
-    validMsgNumber.classList.add("hide");
-    errorMsgNumber.classList.add("hide");
+    document.querySelector("#numberExistError").classList.add("invisible");
+    validMsgNumber.classList.add("invisible");
+    errorMsgNumber.classList.add("invisible");
     number.classList.remove("valid-input");
     number.classList.remove("error-input");
 };
 
 let validNumber = function () {
-    validMsgNumber.classList.remove("hide");
-    errorMsgNumber.classList.add("hide");
+    validMsgNumber.classList.remove("invisible");
+    errorMsgNumber.classList.add("invisible");
     number.classList.add("valid-input");
     number.classList.remove("error-input");
 };
 
 let notValidNumber = function () {
-    validMsgNumber.classList.add("hide");
-    errorMsgNumber.classList.remove("hide");
+    validMsgNumber.classList.add("invisible");
+    errorMsgNumber.classList.remove("invisible");
     number.classList.remove("valid-input");
     number.classList.add("error-input");
 };
 
-// on blur
-number.addEventListener('blur', function () {
+number.addEventListener('click', resetNumber);
+number.addEventListener('blur', validationNumber);
+number.addEventListener('keyup', validationNumber);
+number.addEventListener('change', validationNumber);
+
+function validationNumber() {
     resetNumber();
 
-    if (number.value.trim() === null || number.value.trim() === "" || number.value.trim() < 20) {
+    if (number.value.trim() === null || number.value.trim() === "") {
         notValidNumber();
     } else {
         validNumber();
     }
-});
-
-// on keyup/change -> reset
-number.addEventListener('keyup', resetNumber);
-number.addEventListener('change', resetNumber);
+}
 
 
 /* Checks Currency */
@@ -90,54 +80,56 @@ let validMsgCurrency = document.querySelector("#valid-msg-currency"),
     errorMsgCurrency = document.querySelector("#error-msg-currency");
 
 let resetCurrency = function () {
-    validMsgCurrency.classList.add("hide");
-    errorMsgCurrency.classList.add("hide");
+    validMsgCurrency.classList.add("invisible");
+    errorMsgCurrency.classList.add("invisible");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let validCurrency = function () {
-    validMsgCurrency.classList.remove("hide");
-    errorMsgCurrency.classList.add("hide");
+    validMsgCurrency.classList.remove("invisible");
+    errorMsgCurrency.classList.add("invisible");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("error-input");
 };
 
 let notValidCurrency = function () {
-    validMsgCurrency.classList.add("hide");
-    errorMsgCurrency.classList.remove("hide");
+    validMsgCurrency.classList.add("invisible");
+    errorMsgCurrency.classList.remove("invisible");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.add("error-input");
 };
 
+currency.addEventListener('click', resetCurrency);
+currency.addEventListener('change', validationCurrency);
+
 // on hide
 bfh_selectbox_class.on('hide.bfhselectbox', function () {
-    currency.value = $(bfh_selectbox_class).val();
+    validationCurrency();
+});
 
+function validationCurrency() {
     resetCurrency();
 
+    currency.value = $(bfh_selectbox_class).val();
     if (currency.value.trim() === null || currency.value.trim() === "") {
         notValidCurrency();
     } else {
         validCurrency();
     }
-});
-
-// on keyup/change -> reset
-currency.addEventListener('keyup', resetCurrency);
-currency.addEventListener('change', resetCurrency);
+}
 
 
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (number.value.trim() === "" || number.value.trim() === null || number.classList.contains("error-input")) {
+    if (number.value.trim() === null || number.value.trim() === "" || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
         return false;
     }
 
-    if (currency.value.trim() === "" || currency.value.trim() === null || currency.classList.contains("error-input")) {
+    if (currency.value.trim() === null || currency.value.trim() === "" || currency.classList.contains("error-input")) {
         event.preventDefault();
         notValidCurrency();
         return false;

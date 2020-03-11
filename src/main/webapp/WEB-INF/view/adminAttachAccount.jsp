@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="user.createAccount.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
@@ -24,7 +24,7 @@
 
     <!-- Alert Success -->
     <c:if test="${attached == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertAccountAttached"/>
             </p>
@@ -36,7 +36,7 @@
 
     <!-- Alert manyAccountWithThisCurrencyError -->
     <c:if test="${manyAccountWithThisCurrencyError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertManyAccountWithThisCurrencyError"/>
             </p>
@@ -48,7 +48,7 @@
 
     <!-- Alert attachAccountError -->
     <c:if test="${attachAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertAttachAccountError"/>
             </p>
@@ -60,144 +60,154 @@
 
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="page-content container">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper">
-                            <div class="box">
-                                <div class="content-wrap">
-                                    <fmt:message key="admin.attachAccount.formHeader" var="formHeader"/>
-                                    <fmt:message key="admin.attachAccount.user_bio" var="user_bio"/>
-                                    <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                    <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
-                                    <fmt:message key="admin.attachAccount.attachAccountButton"
-                                                 var="attachAccountButton"/>
-                                    <fmt:message key="admin.attachAccount.backToAccountsButton"
-                                                 var="backToAccountsButton"/>
-                                    <fmt:message key="admin.attachAccount.attachCardButton"
-                                                 var="attachCardButton"/>
-                                    <fmt:message key="user.createAccount.numberError" var="numberError"/>
-                                    <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
-                                    <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
-                                    <fmt:message key="registration.correct" var="correct"/>
+            <div class="col-lg-10">
+                <div class="page-content container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 offset-lg-3">
+                            <div class="login-wrapper">
+                                <div class="box">
+                                    <div class="content-wrap">
+                                        <fmt:message key="admin.attachAccount.formHeader" var="formHeader"/>
+                                        <fmt:message key="admin.attachAccount.user_bio" var="user_bio"/>
+                                        <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
+                                        <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
+                                        <fmt:message key="admin.attachAccount.attachAccountButton"
+                                                     var="attachAccountButton"/>
+                                        <fmt:message key="admin.attachAccount.backToAccountsButton"
+                                                     var="backToAccountsButton"/>
+                                        <fmt:message key="admin.attachAccount.attachCardButton"
+                                                     var="attachCardButton"/>
+                                        <fmt:message key="user.createAccount.numberError" var="numberError"/>
+                                        <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
+                                        <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
+                                        <fmt:message key="registration.correct" var="correct"/>
 
-                                    <h4 style="margin-bottom: 30px;">
-                                        ${formHeader}
-                                    </h4>
+                                        <h4>
+                                            ${formHeader}
+                                        </h4>
 
-                                    <form action="" role="form" method="POST">
-                                        <input type="hidden" name="command" value="attachAccount"/>
+                                        <form action="" role="form" method="POST">
+                                            <input type="hidden" name="command" value="attachAccount"/>
 
-                                        <!-- User Id -->
-                                        <input id="userId" name="userId" class="form-control"
-                                               type="hidden" value="${userId}"/>
+                                            <!-- User Id -->
+                                            <input id="userId" name="userId" class="form-control"
+                                                   type="hidden" value="${userId}"/>
 
-                                        <!-- User bio -->
-                                        <div class="form-group" style="height:46px; margin-bottom: 34px;">
-                                            <label class="for-form-label" style="width: 100%;">
-                                                ${user_bio}
-
-                                                <span tabindex="0" data-toggle="tooltip-right-hover"
-                                                      title="${tooltipUserBio}">
+                                            <!-- User bio -->
+                                            <div>
+                                                <label class="for-form-label">
+                                                    ${user_bio}
+                                                </label>
+                                                <div>
                                                     <input id="bio" name="bio" class="form-control"
-                                                           type="text" style="margin-top: 0;"
-                                                           disabled="disabled" onfocus="this.blur()"
+                                                           type="text" style="height: 46px; margin-top: 0;"
+                                                           readonly="readonly" onfocus="this.blur()"
+                                                           data-toggle="tooltip-right-hover" title="${tooltipUserBio}"
                                                            value="${bio}"/>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <!-- Account Number -->
-                                        <div style="margin-bottom: 10px;">
-                                            <label class="for-form-label">
-                                                ${numberNewAccount}
-                                            </label>
-                                            <div class="form-group" style="display: flex; margin-bottom: 0;">
-                                                <input id="number" name="number" class="form-control"
-                                                       type="text" readonly="readonly"
-                                                       style="height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
-                                                       value="${numberValue}"/>
-                                                <i id="repeat" class="glyphicon glyphicon-repeat"
-                                                   onfocus="this.blur()"></i>
+                                                    <label for="bio" class="default-label"></label>
+                                                </div>
                                             </div>
-                                            <label for="number" class="default-label">
-                                                <span id="valid-msg-accountNumber" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-accountNumber" class="hide">${numberError}</span>
-                                                <span id="numberExistError">
-                                                    <c:if test="${numberExistError}">
-                                                        <fmt:message key="user.createAccount.numberExistError"/>
 
-                                                        <script>
-                                                            document.querySelector("#numberExistError").classList.remove("hide");
-                                                            document.querySelector("#valid-msg-accountNumber").classList.add("hide");
-                                                            document.querySelector("#error-msg-accountNumber").classList.add("hide");
-                                                        </script>
-                                                    </c:if>
-                                                </span>
-                                            </label>
-                                        </div>
+                                            <!-- Account Number -->
+                                            <div>
+                                                <label class="for-form-label">
+                                                    ${numberNewAccount}
+                                                </label>
+                                                <div class="form-group" style="display: flex; margin-bottom: 0;">
+                                                    <input id="number" name="number" class="form-control"
+                                                           type="text" readonly="readonly"
+                                                           style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
+                                                           value="${numberValue}"/>
+                                                    <img id="repeat" src="resources/images/repeat.png"
+                                                         alt="" class="glyphicon icon-repeat">
+                                                </div>
+                                                <label for="number" class="default-label">
+                                                    <span id="valid-msg-accountNumber" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-accountNumber" class="error-msg invisible">
+                                                        ${numberError}
+                                                    </span>
+                                                    <span id="numberExistError" class="error-msg invisible">
+                                                        <c:if test="${numberExistError}">
+                                                            <fmt:message key="user.createAccount.numberExistError"/>
 
-                                        <!-- Currency -->
-                                        <input id="currency" name="currency" type="hidden"/>
-
-                                        <!-- Select Currency -->
-                                        <div>
-                                            <label class="for-form-label">
-                                                ${accountCurrency}
-                                            </label>
-                                            <div class="bfh-selectbox bfh-currencies"
-                                                 data-currency="USD" data-flags="true">
+                                                            <script>
+                                                                document.querySelector("#numberExistError").classList.remove("invisible");
+                                                                document.querySelector("#valid-msg-accountNumber").classList.add("invisible");
+                                                                document.querySelector("#error-msg-accountNumber").classList.add("invisible");
+                                                            </script>
+                                                        </c:if>
+                                                    </span>
+                                                </label>
                                             </div>
-                                            <label for="currency" class="default-label">
-                                                <span id="valid-msg-currency" class="hide">${correct} ✓</span>
-                                                <span id="error-msg-currency" class="hide">${currencyError}</span>
-                                            </label>
-                                        </div>
 
-                                        <!-- Submit -->
-                                        <div class="action" style="padding: 20px 0 10px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup">
-                                                ${attachAccountButton}
-                                            </button>
-                                        </div>
+                                            <!-- Currency -->
+                                            <input id="currency" name="currency" type="hidden"/>
+
+                                            <!-- Select Currency -->
+                                            <div>
+                                                <label class="for-form-label">
+                                                    ${accountCurrency}
+                                                </label>
+                                                <div class="bfh-selectbox bfh-currencies"
+                                                     data-currency="USD" data-flags="true">
+                                                </div>
+                                                <label for="currency" class="default-label">
+                                                    <span id="valid-msg-currency" class="valid-msg invisible">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-currency" class="error-msg invisible">
+                                                        ${currencyError}
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                            <!-- Submit -->
+                                            <div class="action" style="padding: 20px 0 10px 0">
+                                                <button id="submit" type="submit" class="btn btn-primary signup">
+                                                    ${attachAccountButton}
+                                                </button>
+                                            </div>
+                                        </form>
 
                                         <!-- Show Accounts Button -->
-                                        <div class="action" style="padding: 0 0 10px 0;">
-                                            <button type="button" class="btn btn-default signup"
-                                                    style="padding: 0;">
-                                                <a href="?command=showAccountInfo">
-                                                    ${backToAccountsButton}
-                                                </a>
-                                            </button>
+                                        <div class="action back-btn">
+                                            <form action="/" method="GET">
+                                                <input type="hidden" name="command" value="showAccountInfo">
+                                                <input type="submit" class="btn btn-default signup"
+                                                       value="${backToAccountsButton}">
+                                            </form>
                                         </div>
 
-                                        <!-- AddCard Button -->
+                                        <!-- Add Card Button -->
                                         <c:choose>
                                             <c:when test="${attached == true}">
-                                                <div class="action">
-                                                    <button type="button" class="btn btn-default signup">
-                                                        <a href="?command=attachCard&accountId=${accountId}">
-                                                                ${attachCardButton}
-                                                        </a>
-                                                    </button>
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET">
+                                                        <input type="hidden" name="command" value="attachCard">
+                                                        <input type="hidden" name="accountId" value="${accountId}">
+                                                        <input type="submit" class="btn btn-default signup"
+                                                               value="${attachCardButton}">
+                                                    </form>
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="action">
-                                                    <button type="button" class="btn btn-default signup"
-                                                            disabled="disabled">
-                                                        <a href="?command=attachCard&accountId=${accountId}">
-                                                                ${attachCardButton}
-                                                        </a>
-                                                    </button>
+                                                <div class="action back-btn disabled">
+                                                    <form action="/" method="GET">
+                                                        <input type="hidden" name="command" value="attachCard">
+                                                        <input type="hidden" name="accountId" value="${accountId}">
+                                                        <input type="submit" class="btn btn-default signup"
+                                                               value="${attachCardButton}">
+                                                    </form>
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -208,14 +218,11 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
+</body>
+<script src="resources/js/validator_adminAttachAccount.js"></script>
 <script>
     $(document).ready(function () {
-        let bfh_selectbox_class = $('.bfh-selectbox');
-
-        let currency = $(bfh_selectbox_class).val();
-        $('#currency').val(currency);
+        $('#currency').val($('.bfh-selectbox').val());
     });
 </script>
-<script src="resources/js/validator_adminAttachAccount.js"></script>
-</body>
 </html>
