@@ -11,7 +11,7 @@ $(function () {
         delay: {show: 0, hide: 0}
     });
 
-    $('.tooltip-top').tooltip({
+    $('[data-toggle="tooltip-top"]').tooltip({
         placement: 'top',
         trigger: 'hover',
         delay: {show: 0, hide: 0}

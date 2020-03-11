@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div class="social">
             <a href="https://github.com/SValentyn/Payment-Management-System" onfocus="this.blur()">
-                <img id="github-ico" class="tooltip-top"
+                <img id="github-ico" data-toggle="tooltip-top"
                      src="resources/images/GitHub-Mark-32px-white.ico"
                      title="<fmt:message key="footer.github"/>"
                      alt="<fmt:message key="footer.github"/>">
@@ -22,7 +22,7 @@
             <fmt:message key="footer.copyright"/>
         </span>
         <div class="time">
-            <h3 id="currentDateTime" class="custom-date tooltip-top"
+            <h3 id="currentDateTime" class="custom-date" data-toggle="tooltip-top"
                 title="<fmt:message key="footer.time"/>">
             </h3>
         </div>
