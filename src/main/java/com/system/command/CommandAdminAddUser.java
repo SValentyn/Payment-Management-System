@@ -5,6 +5,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.LetterService;
 import com.system.service.UserService;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,8 @@ public class CommandAdminAddUser implements ICommand {
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("added", false);
         request.setAttribute("phoneExistError", false);
+        request.setAttribute("emailExistError", false);
+        request.setAttribute("addUserError", false);
         request.setAttribute("userId", null);
 
         String method = request.getMethod();
@@ -32,7 +35,7 @@ public class CommandAdminAddUser implements ICommand {
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
-            String email = request.getParameter("email");
+            String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
 
             // Check
             List<User> users = UserService.getInstance().findAllUsers();
@@ -41,6 +44,17 @@ public class CommandAdminAddUser implements ICommand {
                     setRequestAttributes(request, name, surname, phone, email);
                     request.setAttribute("phoneExistError", true);
                     return page;
+                }
+            }
+
+            // Check
+            for (User user : users) {
+                if (!email.equals("")) {
+                    if (user.getEmail().equals(email)) {
+                        setRequestAttributes(request, name, surname, phone, email);
+                        request.setAttribute("emailExistError", true);
+                        return page;
+                    }
                 }
             }
 

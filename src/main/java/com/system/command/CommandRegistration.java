@@ -48,10 +48,12 @@ public class CommandRegistration implements ICommand {
 
             // Check
             for (User user : users) {
-                if (user.getEmail().equals(email)) {
-                    setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
-                    request.setAttribute("emailExistError", true);
-                    return page;
+                if (!email.equals("")) {
+                    if (user.getEmail().equals(email)) {
+                        setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
+                        request.setAttribute("emailExistError", true);
+                        return page;
+                    }
                 }
             }
 

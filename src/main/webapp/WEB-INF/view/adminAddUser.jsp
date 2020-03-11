@@ -46,6 +46,18 @@
         </div>
     </c:if>
 
+    <!-- Alert emailExistError -->
+    <c:if test="${emailExistError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertEmailExistError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert addUserError -->
     <c:if test="${addUserError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
