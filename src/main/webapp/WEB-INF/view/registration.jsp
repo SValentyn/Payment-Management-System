@@ -63,7 +63,7 @@
 
     <!-- Alert Success -->
     <c:if test="${created == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-success fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.success"/>!</strong>
                 <fmt:message key="registration.accountCreated"/>
                 <a href="/" class="alert-link"><fmt:message key="registration.logging"/></a>
@@ -77,7 +77,7 @@
 
     <!-- Alert phoneExistError -->
     <c:if test="${phoneExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertPhoneExistError"/>
             </p>
@@ -89,7 +89,7 @@
 
     <!-- Alert emailExistError -->
     <c:if test="${emailExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertEmailExistError"/>
             </p>
@@ -101,7 +101,7 @@
 
     <!-- Alert registrationError -->
     <c:if test="${registrationError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertRegistrationError"/>
             </p>

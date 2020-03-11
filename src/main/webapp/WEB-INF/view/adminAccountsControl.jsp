@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="admin.page.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
@@ -21,13 +21,13 @@
 
 <!-- Modal window (deleteAccountModal) -->
 <div id="deleteAccountModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">
                     <fmt:message key="admin.account.modalHeader"/>
                 </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <fmt:message key="admin.account.modalBody"/>
@@ -63,13 +63,13 @@
 
 <!-- Modal window (detachCardModal) -->
 <div id="detachCardModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">
                     <fmt:message key="user.card.modalHeader"/>
                 </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <fmt:message key="admin.card.modalBody"/>
@@ -108,7 +108,7 @@
 
     <!-- Alert blockAccountError -->
     <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertBlockAccountError"/>
             </p>
@@ -120,7 +120,7 @@
 
     <!-- Alert unblockAccountError -->
     <c:if test="${unblockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertUnblockAccountError"/>
             </p>
@@ -132,7 +132,7 @@
 
     <!-- Alert blockCardError -->
     <c:if test="${blockCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertBlockCard"/>
             </p>
@@ -144,7 +144,7 @@
 
     <!-- Alert unblockCardError -->
     <c:if test="${unblockCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertUnblockCard"/>
             </p>
@@ -156,7 +156,7 @@
 
     <!-- Alert deleteAccountError -->
     <c:if test="${deleteAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertDeleteAccount"/>
             </p>
@@ -168,7 +168,7 @@
 
     <!-- Alert detachCardError -->
     <c:if test="${detachCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertDetachCard"/>
             </p>
@@ -203,7 +203,7 @@
                                 <fmt:message key="admin.users.deleteAccount" var="deleteAccount"/>
                                 <fmt:message key="user.card.detachCard" var="detachCard"/>
 
-                                <div class="content-box-large" style="padding: 20px 3px 20px 3px;">
+                                <div class="sidebar-large" style="padding: 20px 3px 20px 3px;">
                                     <div class="panel-heading">
                                         <div class="panel-title">
                                             ${allaccounts}
@@ -327,13 +327,13 @@
                                 <fmt:message key="user.card.cvv" var="cvv"/>
                                 <fmt:message key="user.card.date" var="date"/>
 
-                                <div class="content-box-header">
+                                <div class="sidebar-header">
                                     <div class="panel-title">
                                         ${allcards}
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header">
+                                <div class="sidebar-large box-with-header">
                                     <table>
                                         <th>
                                             ${cardNumber}
@@ -426,13 +426,13 @@
                                 <fmt:message key="user.payments.success" var="payment_success"/>
                                 <fmt:message key="user.payments.error" var="payment_error"/>
 
-                                <div class="content-box-header panel-heading">
+                                <div class="sidebar-header panel-heading">
                                     <div class="panel-title ">
                                         ${allpayments}
                                     </div>
                                 </div>
 
-                                <div class="content-box-large box-with-header">
+                                <div class="sidebar-large box-with-header">
                                     <table>
                                         <th>${receiverCard}</th>
                                         <th>${payment_sum}</th>

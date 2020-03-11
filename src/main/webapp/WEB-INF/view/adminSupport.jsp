@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="admin.support.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
@@ -40,13 +40,13 @@
                                     <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
                                     <fmt:message key="admin.support.showInfo" var="showInfo"/>
 
-                                    <div class="content-box-header">
+                                    <div class="sidebar-header">
                                         <div class="panel-title">
                                                 ${allLetters}
                                         </div>
                                     </div>
 
-                                    <div class="content-box-large box-with-header">
+                                    <div class="sidebar-large box-with-header">
                                         <table>
                                             <th>
                                                     ${status}

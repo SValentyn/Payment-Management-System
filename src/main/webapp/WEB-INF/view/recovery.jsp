@@ -63,7 +63,7 @@
 
     <!-- Alert Success -->
     <c:if test="${sended == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-success fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="recovery.success"/>!</strong>
                 <fmt:message key="recovery.alertPasswordSent"/>
             </p>
@@ -75,7 +75,7 @@
 
     <!-- Alert phoneNotExistError -->
     <c:if test="${phoneNotExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="recovery.failed"/>!</strong>
                 <fmt:message key="recovery.alertPhoneNotExistError"/>
             </p>
@@ -129,8 +129,8 @@
                                 </form>
 
                                 <!-- Back Button -->
-                                <div class="action" style="padding: 0 0 10px 0">
-                                    <form action="/" method="GET">
+                                <div class="action back-btn">
+                                    <form action="/" method="GET" role="form">
                                         <input type="submit" class="btn btn-default signup" value="${backButton}">
                                     </form>
                                 </div>

@@ -24,7 +24,7 @@
 
     <!-- Alert Success -->
     <c:if test="${updated == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
                 <fmt:message key="user.page.alertDataUpdated"/>
             </p>
@@ -36,7 +36,7 @@
 
     <!-- Alert phoneExistError -->
     <c:if test="${phoneExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertPhoneExistError"/>
             </p>
@@ -48,7 +48,7 @@
 
     <!-- Alert updateDataError -->
     <c:if test="${updateDataError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertUpdateDataError"/>
             </p>
@@ -215,8 +215,8 @@
                                         </form>
 
                                         <!-- Change Password Button -->
-                                        <div class="action" style="padding: 0 0 10px 0">
-                                            <form action="/" method="GET">
+                                        <div class="action back-btn">
+                                            <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="updatePassword">
                                                 <input type="submit" class="btn btn-default signup" style="width: 44%;"
                                                        value="${changePasswordButton}">

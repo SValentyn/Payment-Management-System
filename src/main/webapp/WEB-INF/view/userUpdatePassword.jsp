@@ -23,7 +23,7 @@
 
     <!-- Alert Success -->
     <c:if test="${updated == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
                 <fmt:message key="user.page.alertPasswordUpdated"/>
             </p>
@@ -35,7 +35,7 @@
 
     <!-- Alert passwordUpdateError -->
     <c:if test="${passwordUpdateError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertPasswordUpdateError"/>
             </p>

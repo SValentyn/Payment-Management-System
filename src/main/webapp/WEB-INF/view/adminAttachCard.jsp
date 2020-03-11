@@ -246,7 +246,7 @@
 
                                         <!-- Back Button -->
                                         <div class="action back-btn">
-                                            <form action="/" method="GET">
+                                            <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="showAccountInfo">
                                                 <input type="hidden" name="accountId" value="${accountId}">
                                                 <input type="submit" class="btn btn-default signup"

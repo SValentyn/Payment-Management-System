@@ -24,7 +24,7 @@
 
     <!-- Alert noPayments -->
     <c:if test="${noPayments == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.youNotHaveAccount"/>
                 <a href="?command=createAccount" class="alert-link"><fmt:message key="user.page.create"/></a>

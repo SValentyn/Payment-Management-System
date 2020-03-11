@@ -172,7 +172,6 @@ body {
 .login-wrapper .box .action {
     position: relative;
     top: 0;
-    padding: 0;
     text-align: center;
 }
 
@@ -460,6 +459,10 @@ form .btn-default a:active {
     background-image: url("/resources/images/no-view.png");
 }
 
+.back-btn {
+    padding: 0 0 10px 0;
+}
+
 .toggle-btn {
     position: absolute;
     left: -5000px;
@@ -523,6 +526,11 @@ form .btn-default a:active {
 
 .off {
     color: #989797;
+}
+
+div .disabled {
+    pointer-events: none;
+    opacity: 0.4;
 }
 
 .icon {
@@ -826,6 +834,10 @@ form .btn-default a:active {
 
 /* Modal */
 
+.modal {
+    top: -20px;
+}
+
 .modal-label {
     align-self: center;
     margin: 0 15px 0 0;
@@ -958,9 +970,10 @@ form .btn-default a:active {
 }
 
 .icon-repeat {
-    height: 36px;
-    width: 36px;
-    margin-left: 10px;
+    min-height: 36px !important;
+    min-width: 36px !important;
+    max-height: 36px;
+    max-width: 36px;
 }
 
 .icon-repeat:hover {

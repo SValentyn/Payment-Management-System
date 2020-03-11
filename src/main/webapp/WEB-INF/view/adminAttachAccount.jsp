@@ -177,7 +177,7 @@
 
                                         <!-- Show Accounts Button -->
                                         <div class="action back-btn">
-                                            <form action="/" method="GET">
+                                            <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="showAccountInfo">
                                                 <input type="submit" class="btn btn-default signup"
                                                        value="${backToAccountsButton}">
@@ -188,7 +188,7 @@
                                         <c:choose>
                                             <c:when test="${attached == true}">
                                                 <div class="action back-btn">
-                                                    <form action="/" method="GET">
+                                                    <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachCard">
                                                         <input type="hidden" name="accountId" value="${accountId}">
                                                         <input type="submit" class="btn btn-default signup"
@@ -198,7 +198,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <div class="action back-btn disabled">
-                                                    <form action="/" method="GET">
+                                                    <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachCard">
                                                         <input type="hidden" name="accountId" value="${accountId}">
                                                         <input type="submit" class="btn btn-default signup"

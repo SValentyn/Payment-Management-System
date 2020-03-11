@@ -6208,6 +6208,7 @@ a.close.disabled {
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
+    align-self: center;
     text-align: left;
     text-align: start;
     text-decoration: none;
@@ -6287,6 +6288,7 @@ a.close.disabled {
 }
 
 .bs-tooltip-auto[x-placement^=left], .bs-tooltip-left {
+    margin: 0;
     padding: 0 .4rem
 }
 

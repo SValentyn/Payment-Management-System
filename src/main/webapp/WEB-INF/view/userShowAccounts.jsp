@@ -21,7 +21,7 @@
 
 <!-- Modal window -->
 <div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -66,7 +66,7 @@
 
     <!-- Alert noAccounts -->
     <c:if test="${noAccounts == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.youNotHaveAccount"/>
                 <a href="?command=createAccount" class="alert-link"><fmt:message key="user.page.create"/></a>
@@ -80,7 +80,7 @@
 
     <!-- Alert blockAccountError -->
     <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertBlockAccountError"/>
             </p>
@@ -92,7 +92,7 @@
 
     <!-- Alert unblockAccountAlert -->
     <c:if test="${unblockAccountAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><fmt:message key="user.page.alertUnblockAccountError"/>
                 <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
             </p>
@@ -104,7 +104,7 @@
 
     <!-- Alert blockCardError -->
     <c:if test="${blockCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertBlockCardError"/>
             </p>
@@ -116,7 +116,7 @@
 
     <!-- Alert unblockCardAlert -->
     <c:if test="${unblockCardAlert == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><fmt:message key="user.page.alertUnblockCardError"/>
                 <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
             </p>
@@ -128,7 +128,7 @@
 
     <!-- Alert detachCardError -->
     <c:if test="${detachCardError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertDetachCardError"/>
             </p>

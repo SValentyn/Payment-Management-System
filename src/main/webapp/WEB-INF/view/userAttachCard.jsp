@@ -29,7 +29,7 @@
 
     <!-- Alert Success -->
     <c:if test="${attached == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
                 <fmt:message key="user.page.alertCardAttached"/>
             </p>
@@ -41,7 +41,7 @@
 
     <!-- Alert cardNumberError -->
     <c:if test="${cardNumberError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertCardNumberAttachError"/>
             </p>
@@ -53,7 +53,7 @@
 
     <!-- Alert cardAttachError -->
     <c:if test="${cardAttachError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertCardAttachError"/>
             </p>

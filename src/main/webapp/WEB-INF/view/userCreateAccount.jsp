@@ -87,7 +87,7 @@
                                         <form action="" role="form" method="POST">
                                             <input type="hidden" name="command" value="createAccount"/>
 
-                                            <!-- Number Account -->
+                                            <!-- Account Number -->
                                             <div>
                                                 <label class="for-form-label">
                                                     ${numberNewAccount}
@@ -95,7 +95,7 @@
                                                 <div class="form-group" style="display: flex; margin-bottom: 0;">
                                                     <input id="number" name="number" class="form-control"
                                                            type="text" readonly="readonly"
-                                                           style="max-width: 85%; height: 46px; margin-top: 0; text-align: center; font-size: 18px;"
+                                                           style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
                                                            value="${numberValue}"/>
                                                     <img id="repeat" src="resources/images/repeat.png"
                                                          alt="" class="glyphicon icon-repeat">
@@ -163,10 +163,7 @@
 </body>
 <script>
     $(document).ready(function () {
-        let bfh_selectbox_class = $('.bfh-selectbox');
-
-        let currency = $(bfh_selectbox_class).val();
-        $('#currency').val(currency);
+        $('#currency').val($('.bfh-selectbox').val());
     });
 </script>
 <script src="resources/js/validator_userCreateAccount.js"></script>

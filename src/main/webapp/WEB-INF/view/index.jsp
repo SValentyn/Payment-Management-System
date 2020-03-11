@@ -58,7 +58,7 @@
 
     <!-- Alert loginError -->
     <c:if test="${loginError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="login.failed"/></strong>
                 <fmt:message key="login.alertLoginError"/>
             </p>

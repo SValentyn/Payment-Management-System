@@ -24,7 +24,7 @@
 
     <!-- Alert Success -->
     <c:if test="${added == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertUserAdded"/>
             </p>
@@ -36,7 +36,7 @@
 
     <!-- Alert phoneExistError -->
     <c:if test="${phoneExistError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertPhoneExistError"/>
             </p>
@@ -48,7 +48,7 @@
 
     <!-- Alert addUserError -->
     <c:if test="${addUserError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="registration.failed"/></strong>
                 <fmt:message key="admin.addUser.alertAddUserError"/>
             </p>
@@ -168,7 +168,8 @@
 
                                             <!-- Submit -->
                                             <div class="action" style="padding: 20px 0 10px 0;">
-                                                <button id="submit" type="submit" class="btn btn-primary signup">
+                                                <button id="submit" type="submit" class="btn btn-primary signup"
+                                                        style="width: 54%;">
                                                     ${addUserButton}
                                                 </button>
                                             </div>
@@ -177,24 +178,22 @@
                                         <!-- Back Button -->
                                         <c:choose>
                                             <c:when test="${added == true}">
-                                                <div class="action" style="padding: 0 0 10px 0">
-                                                    <form action="/" method="GET">
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachAccount">
                                                         <input type="hidden" name="userId" value="${userId}">
                                                         <input type="submit" class="btn btn-default signup"
-                                                               value="${backButton}">
+                                                               style="width: 54%;" value="${backButton}">
                                                     </form>
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="action"
-                                                     style="padding: 0 0 10px 0; pointer-events: none; opacity: 0.4;">
-                                                        <%--  disabled="disabled"--%>
-                                                    <form action="/" method="GET">
+                                                <div class="action back-btn disabled">
+                                                    <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachAccount">
                                                         <input type="hidden" name="userId" value="${userId}">
                                                         <input type="submit" class="btn btn-default signup"
-                                                               value="${backButton}">
+                                                               style="width: 54%;" value="${backButton}">
                                                     </form>
                                                 </div>
                                             </c:otherwise>

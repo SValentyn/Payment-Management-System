@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="admin.page.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
@@ -21,13 +21,13 @@
 
 <!-- Modal window -->
 <div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">
                     <fmt:message key="admin.users.modalHeader"/>
                 </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <fmt:message key="admin.users.modalBody"/>
@@ -66,7 +66,7 @@
 
     <!-- Alert Success -->
     <c:if test="${deleted == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="registration.success"/>!</strong>
                 <fmt:message key="admin.page.alertUserDeleted"/>
             </p>
@@ -78,7 +78,7 @@
 
     <!-- Alert noUsers -->
     <c:if test="${noUsers == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertNoUsersError"/>
             </p>
@@ -90,7 +90,7 @@
 
     <!-- Alert deleteUserError -->
     <c:if test="${deleteUserError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertDeleteUserError"/>
             </p>
@@ -122,13 +122,13 @@
                                     <fmt:message key="admin.users.showUserAccounts" var="showAccounts"/>
                                     <fmt:message key="admin.users.deleteUser" var="deleteUser"/>
 
-                                    <div class="content-box-header">
+                                    <div class="sidebar-header">
                                         <div class="panel-title">
                                                 ${allUsers}
                                         </div>
                                     </div>
 
-                                    <div class="content-box-large box-with-header">
+                                    <div class="sidebar-large box-with-header">
                                         <table class="table-bordered">
                                             <th>${firstName}</th>
                                             <th>${lastName}</th>

@@ -12,7 +12,7 @@
 <head>
     <title><fmt:message key="admin.letter.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
@@ -24,7 +24,7 @@
 
     <!-- Alert Success -->
     <c:if test="${processed == true}">
-        <div id="alert" class="alert alert-success fade in" role="alert">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertLetterProcessed"/>
             </p>
@@ -36,7 +36,7 @@
 
     <!-- Alert letterError -->
     <c:if test="${letterError == true}">
-        <div id="alert" class="alert alert-danger fade in" role="alert">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertLetterError"/>
             </p>
@@ -141,7 +141,7 @@
                                         </div>
 
                                         <!-- Back -->
-                                        <div class="action">
+                                        <div class="action back-btn">
                                             <button type="button" class="btn btn-default signup"
                                                     style="width: 248px">
                                                 <a href="?command=support">
@@ -160,6 +160,6 @@
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
-<script src="resources/js/validator_adminLetterInfo.js"></script>
 </body>
+<script src="resources/js/validator_adminLetterInfo.js"></script>
 </html>
