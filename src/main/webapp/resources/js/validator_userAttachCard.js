@@ -169,39 +169,42 @@ let notValidValidity = function () {
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("error-input");
 };
 
-// on invisible
+month.addEventListener('click', resetValidity);
+month.addEventListener('change', validationMonth);
+year.addEventListener('click', resetValidity);
+year.addEventListener('change', validationYear);
+
 selectbox_month.on('hide.bfhselectbox', function () {
-    month.value = $(selectbox_month).val();
-
-    resetValidity();
-
-    if (month.value.trim() === null || month.value.trim() === "" ||
-        year.value.trim() === null || year.value.trim() === "") {
-        notValidValidity();
-    } else {
-        validValidity();
-    }
+    validationMonth();
 });
 
-// on invisible
 selectbox_year.on('hide.bfhselectbox', function () {
-    year.value = $(selectbox_year).val();
+    validationYear();
+});
 
+function validationMonth() {
     resetValidity();
 
+    month.value = $(selectbox_month).val();
     if (month.value.trim() === null || month.value.trim() === "" ||
         year.value.trim() === null || year.value.trim() === "") {
         notValidValidity();
     } else {
         validValidity();
     }
-});
+}
 
-// on keyup/change -> reset
-month.addEventListener('keyup', resetValidity);
-month.addEventListener('change', resetValidity);
-year.addEventListener('keyup', resetValidity);
-year.addEventListener('change', resetValidity);
+function validationYear() {
+    resetValidity();
+
+    year.value = $(selectbox_year).val();
+    if (month.value.trim() === null || month.value.trim() === "" ||
+        year.value.trim() === null || year.value.trim() === "") {
+        notValidValidity();
+    } else {
+        validValidity();
+    }
+}
 
 
 /* Checks for at least one error on the page */
