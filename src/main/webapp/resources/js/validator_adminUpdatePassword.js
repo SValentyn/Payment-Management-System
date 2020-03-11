@@ -140,7 +140,6 @@ let notValidOldPassword = function () {
     oldPassword.classList.add("error-input");
 };
 
-
 oldPassword.addEventListener('click', resetOldPassword);
 oldPassword.addEventListener('blur', validationOldPassword);
 oldPassword.addEventListener('keyup', validationOldPassword);
