@@ -6,33 +6,46 @@ let email = document.querySelector("#email");
 let submitBtn = document.querySelector("#submit");
 
 
+/* It starts immediately after the page loads */
+window.addEventListener("load", function () {
+    validationName();
+    validationSurname();
+    validationPhone();
+    validationEmail();
+});
+
+
 /* Checks name */
 let validMsgName = document.querySelector("#valid-msg-name"),
     errorMsgName = document.querySelector("#error-msg-name");
 
 let resetName = function () {
-    validMsgName.classList.add("hide");
-    errorMsgName.classList.add("hide");
+    validMsgName.classList.add("invisible");
+    errorMsgName.classList.add("invisible");
     name.classList.remove("valid-input");
     name.classList.remove("error-input");
 };
 
 let validName = function () {
-    validMsgName.classList.remove("hide");
-    errorMsgName.classList.add("hide");
+    validMsgName.classList.remove("invisible");
+    errorMsgName.classList.add("invisible");
     name.classList.add("valid-input");
     name.classList.remove("error-input");
 };
 
 let notValidName = function () {
-    validMsgName.classList.add("hide");
-    errorMsgName.classList.remove("hide");
+    validMsgName.classList.add("invisible");
+    errorMsgName.classList.remove("invisible");
     name.classList.remove("valid-input");
     name.classList.add("error-input");
 };
 
-// on blur
-name.addEventListener('blur', function () {
+name.addEventListener('click', resetName);
+name.addEventListener('blur', validationName);
+name.addEventListener('keyup', validationName);
+name.addEventListener('change', validationName);
+
+function validationName() {
     resetName();
 
     if (name.value.trim() === "") {
@@ -44,11 +57,7 @@ name.addEventListener('blur', function () {
             validName();
         }
     }
-});
-
-// on keyup/change -> reset
-name.addEventListener('keyup', resetName);
-name.addEventListener('change', resetName);
+}
 
 
 /* Checks surname */
@@ -56,28 +65,32 @@ let validMsgSurname = document.querySelector("#valid-msg-surname"),
     errorMsgSurname = document.querySelector("#error-msg-surname");
 
 let resetSurname = function () {
-    validMsgSurname.classList.add("hide");
-    errorMsgSurname.classList.add("hide");
+    validMsgSurname.classList.add("invisible");
+    errorMsgSurname.classList.add("invisible");
     surname.classList.remove("valid-input");
     surname.classList.remove("error-input");
 };
 
 let validSurname = function () {
-    validMsgSurname.classList.remove("hide");
-    errorMsgSurname.classList.add("hide");
+    validMsgSurname.classList.remove("invisible");
+    errorMsgSurname.classList.add("invisible");
     surname.classList.add("valid-input");
     surname.classList.remove("error-input");
 };
 
 let notValidSurname = function () {
-    validMsgSurname.classList.add("hide");
-    errorMsgSurname.classList.remove("hide");
+    validMsgSurname.classList.add("invisible");
+    errorMsgSurname.classList.remove("invisible");
     surname.classList.remove("valid-input");
     surname.classList.add("error-input");
 };
 
-// on blur
-surname.addEventListener('blur', function () {
+surname.addEventListener('click', resetSurname);
+surname.addEventListener('blur', validationSurname);
+surname.addEventListener('keyup', validationSurname);
+surname.addEventListener('change', validationSurname);
+
+function validationSurname() {
     resetSurname();
 
     if (surname.value.trim() === "") {
@@ -89,11 +102,7 @@ surname.addEventListener('blur', function () {
             validSurname();
         }
     }
-});
-
-// on keyup/change -> reset
-surname.addEventListener('keyup', resetSurname);
-surname.addEventListener('change', resetSurname);
+}
 
 
 /* Configuring the phone number input field.
@@ -117,44 +126,44 @@ let validMsgPhone = document.querySelector("#valid-msg-phone"),
     errorMsgPhone = document.querySelector("#error-msg-phone");
 
 let resetPhone = function () {
-    validMsgPhone.classList.add("hide");
-    errorMsgPhone.classList.add("hide");
+    validMsgPhone.classList.add("invisible");
+    errorMsgPhone.classList.add("invisible");
     phone.classList.remove("valid-input");
     phone.classList.remove("error-input");
 };
 
 let validPhone = function () {
-    validMsgPhone.classList.remove("hide");
-    errorMsgPhone.classList.add("hide");
+    validMsgPhone.classList.remove("invisible");
+    errorMsgPhone.classList.add("invisible");
     phone.classList.add("valid-input");
     phone.classList.remove("error-input");
 };
 
 let notValidPhone = function () {
-    validMsgPhone.classList.add("hide");
-    errorMsgPhone.classList.remove("hide");
+    validMsgPhone.classList.add("invisible");
+    errorMsgPhone.classList.remove("invisible");
     phone.classList.remove("valid-input");
     phone.classList.add("error-input");
 };
 
-// on blur
-phone.addEventListener('blur', function () {
+phone.addEventListener('click', resetPhone);
+phone.addEventListener('blur', validationPhone);
+phone.addEventListener('keyup', validationPhone);
+phone.addEventListener('change', validationPhone);
+
+function validationPhone() {
     resetPhone();
 
     if (phone.value.trim() === "") {
         notValidPhone();
-    } else if (phone.value.trim()) {
+    } else {
         if (iti.isValidNumber()) {
             validPhone();
         } else {
             notValidPhone();
         }
     }
-});
-
-// on keyup/change -> reset
-phone.addEventListener('keyup', resetPhone);
-phone.addEventListener('change', resetPhone);
+}
 
 
 /* Checks email */
@@ -162,42 +171,43 @@ let validMsgEmail = document.querySelector("#valid-msg-email"),
     errorMsgEmail = document.querySelector("#error-msg-email");
 
 let resetEmail = function () {
-    validMsgEmail.classList.add("hide");
-    errorMsgEmail.classList.add("hide");
+    validMsgEmail.classList.add("invisible");
+    errorMsgEmail.classList.add("invisible");
     email.classList.remove("valid-input");
     email.classList.remove("error-input");
 };
 
 let validEmail = function () {
-    validMsgEmail.classList.remove("hide");
-    errorMsgEmail.classList.add("hide");
+    validMsgEmail.classList.remove("invisible");
+    errorMsgEmail.classList.add("invisible");
     email.classList.add("valid-input");
     email.classList.remove("error-input");
 };
 
 let notValidEmail = function () {
-    validMsgEmail.classList.add("hide");
-    errorMsgEmail.classList.remove("hide");
+    validMsgEmail.classList.add("invisible");
+    errorMsgEmail.classList.remove("invisible");
     email.classList.remove("valid-input");
     email.classList.add("error-input");
 };
 
-// on blur
-email.addEventListener('blur', function () {
+email.addEventListener('click', resetEmail);
+email.addEventListener('blur', validationEmail);
+email.addEventListener('keyup', validationEmail);
+email.addEventListener('change', validationEmail);
+
+function validationEmail() {
     resetEmail();
 
+    let regExp = /[a-zA-Z0-9._-]+@[a-z0-9.-]+.[a-z]{2,}$/;
     if (email.value.trim() !== "") {
-        if (email.value.trim().search(/[a-zA-Z0-9._-]+@[a-z0-9.-]+.[a-z]{2,}$/) === -1) {
+        if (email.value.trim().search(regExp) === -1) {
             notValidEmail();
         } else {
             validEmail();
         }
     }
-});
-
-// on keyup/change -> reset
-email.addEventListener('keyup', resetEmail);
-email.addEventListener('change', resetEmail);
+}
 
 
 /* Checks for at least one error on the page */
