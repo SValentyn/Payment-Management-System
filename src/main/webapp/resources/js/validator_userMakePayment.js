@@ -208,17 +208,17 @@ submitBtn.addEventListener('click', function (event) {
     }
 
     if (on_off === 'off') {
-        if (accountNumber.value.trim() === "" || accountNumber.value.trim().length < 20 || accountNumber.classList.contains("error-input")) {
+        if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 16 || cardNumber.classList.contains("error-input")) {
             event.preventDefault();
-            notValidAccountNumber();
+            notValidCardNumber();
             return false;
         }
     }
 
     if (on_off === 'on') {
-        if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 16 || cardNumber.classList.contains("error-input")) {
+        if (accountNumber.value.trim() === "" || accountNumber.value.trim().length < 20 || accountNumber.classList.contains("error-input")) {
             event.preventDefault();
-            notValidCardNumber();
+            notValidAccountNumber();
             return false;
         }
     }
@@ -229,28 +229,31 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
+    /*
+        CN - card number
+        AN - account number
+    */
     if (on_off === 'off') {
-        document.querySelector("#numberByAccountIdModalText-0").value = numberByAccountId.value;
-        document.querySelector("#accountNumberModalText").value = accountNumber.value;
-        document.querySelector("#amountModalText-0").value = amount.value;
+        document.querySelector("#numberByAccountIdModal-CN").value = numberByAccountId.value;
+        document.querySelector("#cardNumberModal-CN").value = cardNumber.value;
+        document.querySelector("#amountModal-CN").value = amount.value;
 
-        document.querySelector("#accountIdModal-0").value = accountId.value;
-        document.querySelector("#accountNumberModal").value = accountNumber.value;
-        document.querySelector("#amountModal-0").value = amount.value;
-        document.querySelector("#appointmentModal-0").value = appointment.value;
+        document.querySelector("#accountIdParam-CN").value = accountId.value;
+        document.querySelector("#cardNumberParam-CN").value = cardNumber.value;
+        document.querySelector("#amountParam-CN").value = amount.value;
+        document.querySelector("#appointmentParam-CN").value = appointment.value;
 
-        $('#smallModal-0').modal('show');
+        $('#smallModal-CN').modal('show');
     } else if (on_off === 'on') {
-        document.querySelector("#numberByAccountIdModalText-1").value = numberByAccountId.value;
-        document.querySelector("#cardNumberModalText").value = cardNumber.value;
-        document.querySelector("#amountModalText-1").value = amount.value;
+        document.querySelector("#numberByAccountIdModal-AN").value = numberByAccountId.value;
+        document.querySelector("#accountNumberModal-AN").value = accountNumber.value;
+        document.querySelector("#amountModal-AN").value = amount.value;
 
-        document.querySelector("#accountIdModal-1").value = accountId.value;
-        document.querySelector("#cardNumberModal").value = cardNumber.value;
-        document.querySelector("#amountModal-1").value = amount.value;
-        document.querySelector("#appointmentModal-1").value = appointment.value;
+        document.querySelector("#accountIdParam-AN").value = accountId.value;
+        document.querySelector("#accountNumberParam-AN").value = accountNumber.value;
+        document.querySelector("#amountParam-AN").value = amount.value;
+        document.querySelector("#appointmentParam-AN").value = appointment.value;
 
-        $('#smallModal-1').modal('show');
+        $('#smallModal-AN').modal('show');
     }
-
 });

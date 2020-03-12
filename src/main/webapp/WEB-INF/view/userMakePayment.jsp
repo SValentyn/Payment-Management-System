@@ -44,7 +44,7 @@
 <body>
 
 <!-- Modal window (when sending to an account) -->
-<div id="smallModal-0" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="smallModal-AN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -57,24 +57,24 @@
                 <fmt:message key="user.makepayment.modalBody"/>
                 <br>
                 <div style="display: flex; margin-top: 20px;">
-                    <label for="numberByAccountIdModalText-0" class="modal-fixed-label">
+                    <label for="numberByAccountIdModal-AN" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalYourNumber"/>
                     </label>
-                    <input id="numberByAccountIdModalText-0" class="form-control modal-form-control"
+                    <input id="numberByAccountIdModal-AN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
-                    <label for="accountNumberModalText" class="modal-fixed-label">
+                    <label for="accountNumberModal-AN" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalRecipientAccountNumber"/>
                     </label>
-                    <input id="accountNumberModalText" class="form-control modal-form-control"
+                    <input id="accountNumberModal-AN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
-                    <label for="amountModalText-0" class="modal-fixed-label">
+                    <label for="amountModal-AN" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalAmountFunds"/>
                     </label>
-                    <input id="amountModalText-0" class="form-control modal-form-control"
+                    <input id="amountModal-AN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
             </div>
@@ -87,10 +87,10 @@
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="makePayment">
-                        <input type="hidden" name="accountId" id="accountIdModal-0"/>
-                        <input type="hidden" name="accountNumber" id="accountNumberModal"/>
-                        <input type="hidden" name="amount" id="amountModal-0"/>
-                        <input type="hidden" name="appointment" id="appointmentModal-0"/>
+                        <input type="hidden" name="accountId" id="accountIdParam-AN"/>
+                        <input type="hidden" name="accountNumber" id="accountNumberParam-AN"/>
+                        <input type="hidden" name="amount" id="amountParam-AN"/>
+                        <input type="hidden" name="appointment" id="appointmentParam-AN"/>
 
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
@@ -103,7 +103,7 @@
 </div>
 
 <!-- Modal window (when sending to a bank card) -->
-<div id="smallModal-1" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="smallModal-CN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -116,24 +116,24 @@
                 <fmt:message key="user.makepayment.modalBody"/>
                 <br>
                 <div style="display: flex; margin-top: 20px;">
-                    <label for="numberByAccountIdModalText-1" class="modal-fixed-label">
+                    <label for="numberByAccountIdModal-CN" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalYourNumber"/>
                     </label>
-                    <input id="numberByAccountIdModalText-1" class="form-control modal-form-control"
+                    <input id="numberByAccountIdModal-CN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
-                    <label for="cardNumberModalText" class="modal-fixed-label">
+                    <label for="cardNumberModal-CN" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalRecipientCardNumber"/>
                     </label>
-                    <input id="cardNumberModalText" class="form-control modal-form-control"
+                    <input id="cardNumberModal-CN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
-                    <label for="amountModalText-1" class="modal-fixed-label">
+                    <label for="amountModal-CN" class="modal-fixed-label">
                         <fmt:message key="user.makepayment.modalAmountFunds"/>
                     </label>
-                    <input id="amountModalText-1" class="form-control modal-form-control"
+                    <input id="amountModal-CN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
             </div>
@@ -146,10 +146,10 @@
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="makePayment">
-                        <input type="hidden" name="accountId" id="accountIdModal-1"/>
-                        <input type="hidden" name="cardNumber" id="cardNumberModal"/>
-                        <input type="hidden" name="amount" id="amountModal-1"/>
-                        <input type="hidden" name="appointment" id="appointmentModal-1"/>
+                        <input type="hidden" name="accountId" id="accountIdParam-CN"/>
+                        <input type="hidden" name="cardNumber" id="cardNumberParam-CN"/>
+                        <input type="hidden" name="amount" id="amountParam-CN"/>
+                        <input type="hidden" name="appointment" id="appointmentParam-CN"/>
 
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
@@ -456,43 +456,50 @@
         console.log(on_off);
 
         if (on_off === 'off') {
-            switcher_case_1.classList.add("on");
-            switcher_case_2.classList.add("off");
-            cardNumberInput.disabled = true;
+            off();
+            resetAccountNumber();
         } else if (on_off === 'on') {
-            on_off = 'off';
-            document.querySelector('.toggle-btn-label').click();
+            on();
             resetCardNumber();
         }
     };
 
     document.querySelector(".toggle-btn-label").addEventListener('click', function () {
+        clear();
 
-        // clear
+        if (on_off === 'off') {
+            off();
+        } else if (on_off === 'on') {
+            on();
+        }
+    });
+
+    function clear() {
         switcher_case_1.classList.remove("on");
         switcher_case_1.classList.remove("off");
         switcher_case_2.classList.remove("on");
         switcher_case_2.classList.remove("off");
         accountNumberInput.disabled = false;
         cardNumberInput.disabled = false;
+    }
 
-        // set
-        if (on_off === 'off') {
-            switcher_case_1.classList.add("off");
-            switcher_case_2.classList.add("on");
-            accountNumberInput.disabled = true;
-            resetAccountNumber();
-            validationCardNumber();
-            on_off = 'on';
-        } else if (on_off === 'on') {
-            switcher_case_1.classList.add("on");
-            switcher_case_2.classList.add("off");
-            cardNumberInput.disabled = true;
-            resetCardNumber();
-            validationAccountNumber();
-            on_off = 'off';
-        }
-    });
+    function off() {
+        switcher_case_1.classList.add("on");
+        switcher_case_2.classList.add("off");
+        cardNumberInput.disabled = true;
+        resetCardNumber();
+        validationAccountNumber();
+        on_off = 'on';
+    }
+
+    function on() {
+        switcher_case_1.classList.add("off");
+        switcher_case_2.classList.add("on");
+        accountNumberInput.disabled = true;
+        resetAccountNumber();
+        validationCardNumber();
+        on_off = 'off';
+    }
 </script>
 <script>
     $(function () {
@@ -507,7 +514,8 @@
 
     document.addEventListener('keyup', function (e) {
         if (e.keyCode === 27) {
-            $('#smallModal').modal('hide');
+            $('#smallModal-AN').modal('hide');
+            $('#smallModal-CN').modal('hide');
         }
     });
 </script>
