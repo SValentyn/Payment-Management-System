@@ -88,6 +88,21 @@
         </div>
     </c:if>
 
+    <!-- Alert userHasFundsError -->
+    <c:if test="${userHasFundsError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertUserHasFundsError"/>
+                <a href="?command=showUserAccounts&userId=${userId}" class="alert-link">
+                    <fmt:message key="user.page.viewAccounts"/>
+                </a>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert deleteUserError -->
     <c:if test="${deleteUserError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
