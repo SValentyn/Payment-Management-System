@@ -119,7 +119,7 @@
                                                 </label>
                                                 <div class="form-group" style="display: flex; margin-bottom: 0;">
                                                     <input id="number" name="number" class="form-control"
-                                                           type="text" readonly="readonly"
+                                                           type="text" readonly="readonly" maxlength="20"
                                                            style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
                                                            value="${numberValue}"/>
                                                     <img id="repeat" src="resources/images/repeat.png"

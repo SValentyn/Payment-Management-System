@@ -97,7 +97,7 @@
                                                 </div>
                                                 <label for="newPassword" class="default-label">
                                                     <span id="valid-msg-newPassword" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-newPassword" class="error-msg invisible">
                                                         ${passwordError}
@@ -122,7 +122,7 @@
                                                 <label for="passwordConfirmation" class="default-label">
                                                     <span id="valid-msg-passwordConfirmation"
                                                           class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-passwordConfirmation"
                                                           class="error-msg invisible">

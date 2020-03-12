@@ -7,6 +7,15 @@ let password = document.querySelector("#password");
 let submitBtn = document.querySelector("#submit");
 
 
+/* It starts immediately after the page loads */
+window.addEventListener("load", function () {
+    validationName();
+    validationSurname();
+    validationPhone();
+    validationEmail();
+});
+
+
 /* Checks name */
 let validMsgName = document.querySelector("#valid-msg-name"),
     errorMsgName = document.querySelector("#error-msg-name");

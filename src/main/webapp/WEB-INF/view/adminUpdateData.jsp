@@ -137,7 +137,7 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-md-9" style="margin-top: 8px">
                                                     <input id="phone" name="phone" type="tel" class="form-control"
-                                                           data-toggle="tooltip-left" data-title="${tooltipPhone}"
+                                                           data-toggle="tooltip" data-title="${tooltipPhone}"
                                                            onkeypress="onlyNumbers()"
                                                            value="${phoneValue}"/>
                                                     <label for="phone" class="default-label">
@@ -206,9 +206,9 @@
                                             </div>
 
                                             <!-- Submit -->
-                                            <div class="action" style="padding: 12px 0 10px 0">
-                                                <button id="submit" type="submit"
-                                                        class="btn btn-primary signup" style="width: 44%;">
+                                            <div class="action" style="padding: 20px 0 10px 0">
+                                                <button id="submit" type="submit" class="btn btn-primary signup"
+                                                        style="width: 56%;">
                                                     ${updateDataButton}
                                                 </button>
                                             </div>
@@ -218,7 +218,7 @@
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="updatePassword">
-                                                <input type="submit" class="btn btn-default signup" style="width: 44%;"
+                                                <input type="submit" class="btn btn-default signup" style="width: 56%;"
                                                        value="${changePasswordButton}">
                                             </form>
                                         </div>

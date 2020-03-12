@@ -1,4 +1,3 @@
-
 // Disabling paste
 $(document).ready(function () {
     $('#passwordConfirmation').on("paste", function (e) {

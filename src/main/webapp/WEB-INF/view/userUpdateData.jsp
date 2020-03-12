@@ -137,7 +137,7 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-md-9" style="margin-top: 8px">
                                                     <input id="phone" name="phone" type="tel" class="form-control"
-                                                           data-toggle="tooltip-left" data-title="${tooltipPhone}"
+                                                           data-toggle="tooltip" data-title="${tooltipPhone}"
                                                            onkeypress="onlyNumbers()"
                                                            value="${phoneValue}"/>
                                                     <label for="phone" class="default-label">
@@ -179,7 +179,7 @@
                                                                data-toggle="tooltip" data-title="${tooltipPassword}"
                                                                placeholder="${password}*"
                                                                value="${passwordValue}"/>
-                                                        <a href="#" class="password-control" style="top: 8px;"
+                                                        <a href="#" class="password-control" style="top: 9px;"
                                                            onfocus="this.blur()"
                                                            onclick="return show_hide_password(this);"></a>
                                                     </div>
@@ -195,9 +195,9 @@
                                                                 <fmt:message key="user.updateData.passwordError"/>
 
                                                                 <script>
-                                                                    document.querySelector("#passwordNotMatchError").classList.remove("hide");
-                                                                    document.querySelector("#valid-msg-password").classList.add("hide");
-                                                                    document.querySelector("#error-msg-password").classList.add("hide");
+                                                                    document.querySelector("#passwordNotMatchError").classList.remove("invisible");
+                                                                    document.querySelector("#valid-msg-password").classList.add("invisible");
+                                                                    document.querySelector("#error-msg-password").classList.add("invisible");
                                                                 </script>
                                                             </c:if>
                                                         </span>
@@ -206,9 +206,9 @@
                                             </div>
 
                                             <!-- Submit -->
-                                            <div class="action" style="padding: 12px 0 10px 0">
+                                            <div class="action" style="padding: 25px 0 10px 0">
                                                 <button id="submit" type="submit"
-                                                        class="btn btn-primary signup" style="width: 44%;">
+                                                        class="btn btn-primary signup" style="width: 56%;">
                                                     ${updateDataButton}
                                                 </button>
                                             </div>
@@ -218,7 +218,7 @@
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="updatePassword">
-                                                <input type="submit" class="btn btn-default signup" style="width: 44%;"
+                                                <input type="submit" class="btn btn-default signup" style="width: 56%;"
                                                        value="${changePasswordButton}">
                                             </form>
                                         </div>

@@ -147,20 +147,22 @@
                                             <!-- Description -->
                                             <div class="textarea-parent"
                                                  data-toggle="tooltip" data-title="${tooltipDescription}">
-                                                <label for="description" class="for-form-label">
+                                                <label class="for-form-label">
                                                     ${description}
                                                 </label>
                                                 <div>
-                                                    <textarea id="description" name="description" class="form-control"
+                                                    <textarea id="description" name="description"
+                                                              class="form-control"
                                                     >${descriptionValue}</textarea>
                                                     <div class="counter">
                                                         <span id="counter"></span>
                                                     </div>
+                                                    <label for="description" class="default-label"></label>
                                                 </div>
                                             </div>
 
                                             <!-- Submit -->
-                                            <div class="action" style="padding: 22px 0 5px 0">
+                                            <div class="action" style="padding: 35px 0 5px 0">
                                                 <button id="submit" type="submit" class="btn btn-primary signup">
                                                     ${send}
                                                 </button>
