@@ -19,6 +19,42 @@
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
+
+<!-- Modal window  -->
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <fmt:message key="user.updateData.modalHeader"/>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="user.updateData.modalBody"/>
+                <a href="?command=showAccounts">
+                    <fmt:message key="user.page.viewAccounts"/>
+                </a>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
+                            data-dismiss="modal" onfocus="this.blur()">
+                        <fmt:message key="user.page.closeButton"/>
+                    </button>
+                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
+                    <form action="/" role="form" method="POST">
+                        <input type="hidden" name="command" value="deleteProfile">
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                            <fmt:message key="user.page.confirmButton"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
@@ -51,6 +87,33 @@
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
                 <fmt:message key="user.page.alertUpdateDataError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert userHasFundsError -->
+    <c:if test="${userHasFundsError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertUserHasFundsError"/>
+                <a href="?command=showAccounts" class="alert-link">
+                    <fmt:message key="user.page.viewAccounts"/>
+                </a>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert deleteProfileError -->
+    <c:if test="${deleteProfileError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="user.page.alertDeleteProfileError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -222,6 +285,15 @@
                                                        value="${changePasswordButton}">
                                             </form>
                                         </div>
+
+                                        <div class="already" style="margin-top: 0;">
+                                            <p style="margin-bottom: 0;">
+                                                <fmt:message key="user.updateData.wantDeleteAccount"/>
+                                            </p>
+                                            <a href="#smallModal" onclick="showModal()" onfocus="this.blur()">
+                                                <fmt:message key="user.updateData.delete"/>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -235,4 +307,5 @@
 </div>
 </body>
 <script src="resources/js/validator_userUpdateData.js"></script>
+<script src="resources/js/showingModalWindow_userUpdateData.js"></script>
 </html>

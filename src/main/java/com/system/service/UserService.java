@@ -130,10 +130,12 @@ public class UserService {
     /**
      * Checks if user id not null and deletes it
      */
-    public void deleteUserById(Integer userId) {
+    public int deleteUserById(Integer userId) {
+        int status = 0;
         if (userId != null) {
-            userDao.delete(userId);
+            status = userDao.delete(userId);
         }
+        return status;
     }
 
     /**

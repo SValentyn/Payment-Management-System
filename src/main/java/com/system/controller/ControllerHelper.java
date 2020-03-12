@@ -42,6 +42,7 @@ public class ControllerHelper {
         // User commands
         userCommands.put("logout", new CommandLogout());
         userCommands.put("profile", new CommandUserUpdatePersonalData());
+        userCommands.put("deleteProfile", new CommandUserDeleteProfile());
         userCommands.put("updatePassword", new CommandUserUpdatePassword());
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showPayments", new CommandUserShowPayments());
