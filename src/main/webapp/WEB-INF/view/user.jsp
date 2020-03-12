@@ -51,11 +51,10 @@
                         </ul>
                     </div>
 
-                    <form action="/" role="form" method="GET" id="form-showAccounts">
+                    <form action="/" method="GET" id="form-showAccounts" role="form">
                         <input type="hidden" name="command" value="showAccounts">
-
                     </form>
-                    <form action="/" role="form" method="GET" id="form-showPayments">
+                    <form action="/" method="GET" id="form-showPayments" role="form">
                         <input type="hidden" name="command" value="showPayments">
                     </form>
 

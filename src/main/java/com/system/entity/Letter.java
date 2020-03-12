@@ -1,7 +1,5 @@
 package com.system.entity;
 
-import org.apache.commons.lang.StringEscapeUtils;
-
 import java.io.Serializable;
 
 public class Letter implements Serializable {

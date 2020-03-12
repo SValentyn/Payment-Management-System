@@ -4,7 +4,7 @@ let dropdown = document.getElementById("dropdown");
 
 setTimeout(function () {
     alert.alert('close');
-}, 5500);
+}, 5000);
 
 language.addEventListener('click', function () {
     alert.alert('close');

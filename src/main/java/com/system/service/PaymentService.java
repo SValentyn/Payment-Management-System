@@ -2,7 +2,6 @@ package com.system.service;
 
 import com.system.entity.Account;
 import com.system.entity.BankCard;
-import com.system.entity.Letter;
 import com.system.entity.Payment;
 import com.system.persistence.dao.AccountDao;
 import com.system.persistence.dao.PaymentDao;
