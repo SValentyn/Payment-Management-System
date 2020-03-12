@@ -48,108 +48,118 @@
 
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="page-content container">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <div class="login-wrapper">
-                            <div class="box">
-                                <div class="content-wrap">
-                                    <fmt:message key="admin.letter.title" var="title"/>
-                                    <fmt:message key="admin.letter.letterFromUser" var="letterFromUser"/>
-                                    <fmt:message key="admin.letter.user_bio" var="user_bio"/>
-                                    <fmt:message key="admin.letter.phone" var="user_phone"/>
-                                    <fmt:message key="admin.letter.email" var="user_email"/>
-                                    <fmt:message key="admin.letter.description" var="letter_description"/>
-                                    <fmt:message key="admin.letter.processedButton" var="processedButton"/>
-                                    <fmt:message key="admin.letter.backButton" var="backButton"/>
-                                    <fmt:message key="admin.support.tooltipUserBio" var="tooltipUserBio"/>
+            <div class="col-lg-10">
+                <div class="page-content container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 offset-xl-2 mr-auto">
+                            <div class="login-wrapper">
+                                <div class="box">
+                                    <div class="content-wrap">
+                                        <fmt:message key="admin.letter.title" var="title"/>
+                                        <fmt:message key="admin.letter.letterFromUser" var="letterFromUser"/>
+                                        <fmt:message key="admin.letter.user_bio" var="user_bio"/>
+                                        <fmt:message key="admin.letter.phone" var="user_phone"/>
+                                        <fmt:message key="admin.letter.email" var="user_email"/>
+                                        <fmt:message key="admin.letter.description" var="letter_description"/>
+                                        <fmt:message key="admin.letter.processedButton" var="processedButton"/>
+                                        <fmt:message key="admin.letter.backButton" var="backButton"/>
 
-                                    <h4 style="margin-bottom: 25px">
-                                        ${letterFromUser}
-                                    </h4>
+                                        <h4 style="margin-bottom: 25px">
+                                            ${letterFromUser}
+                                        </h4>
 
-                                    <form action="" role="form" method="POST">
-                                        <input type="hidden" name="command" value="showLetterInfo">
+                                        <form action="" role="form" method="POST">
+                                            <input type="hidden" name="command" value="showLetterInfo">
 
-                                        <!-- Letter Id -->
-                                        <input id="letterId" name="letterId" class="form-control"
-                                               type="hidden" value="${letterId}"/>
+                                            <!-- Letter Id -->
+                                            <input id="letterId" name="letterId" type="hidden" value="${letterId}"/>
 
-                                        <!-- bio -->
-                                        <div style="margin-bottom: 15px;">
-                                            <label for="bio" class="for-form-label">
-                                                ${user_bio}
-                                            </label>
-                                            <div>
-                                                <span tabindex="0" data-toggle="tooltip-right-hover"
-                                                      title="${tooltipUserBio}">
-                                                    <input id="bio" name="bio" class="form-control"
-                                                           type="text" style="margin-top: 0;"
-                                                           disabled="disabled" onfocus="this.blur()"
-                                                           value="${bioValue}"/>
-                                                </span>
+                                            <div class="form-row" style="align-self: center">
+
+                                                <div class="col-md-6">
+
+                                                    <!-- User bio -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                            ${user_bio}
+                                                        </label>
+                                                        <div>
+                                                            <input id="bio" name="bio" type="text" class="form-control"
+                                                                   style="margin-top: 0;" readonly="readonly"
+                                                                   value="${bioValue}"/>
+                                                            <label for="bio" class="default-label"></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Phone -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                            ${user_phone}
+                                                        </label>
+                                                        <div>
+                                                            <input id="phone" name="phone" type="tel"
+                                                                   class="form-control" readonly="readonly"
+                                                                   value="${phoneValue}"/>
+                                                            <label for="phone" class="default-label"></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Email -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                            ${user_email}
+                                                        </label>
+                                                        <div>
+                                                            <input id="email" name="email" type="email"
+                                                                   class="form-control" style="margin-top: 0;"
+                                                                   readonly="readonly"
+                                                                   value="${emailValue}"/>
+                                                            <label for="email" class="default-label"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <!-- Description -->
+                                                    <div class="textarea-parent">
+                                                        <label class="for-form-label">
+                                                            ${letter_description}
+                                                        </label>
+                                                        <div>
+                                                    <textarea id="description" name="description" class="form-control"
+                                                              style="min-height: 206px; max-height: 206px; resize: none"
+                                                              readonly="readonly"
+                                                    >${descriptionValue}</textarea>
+                                                            <label for="description" class="default-label"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Phone -->
-                                        <div style="margin-bottom: 15px;">
-                                            <label for="phone" class="for-form-label">
-                                                ${user_phone}
-                                            </label>
-                                            <div>
-                                                <input id="phone" name="phone" class="form-control" type="text"
-                                                       style="padding-left: 94px;" disabled="disabled"
-                                                       onfocus="this.blur()"
-                                                       value="${phoneValue}"/>
+                                            <!-- Submit -->
+                                            <div class="action" style="padding: 25px 0 10px 0">
+                                                <button id="submit" type="submit" class="btn btn-primary signup"
+                                                        style="width: 62%;">
+                                                    ${processedButton}
+                                                </button>
                                             </div>
-                                        </div>
+                                        </form>
 
-                                        <!-- Email -->
-                                        <div style="margin-bottom: 15px;">
-                                            <label for="email" class="for-form-label">
-                                                ${user_email}
-                                            </label>
-                                            <div>
-                                                <input id="email" name="email" class="form-control" type="text"
-                                                       style="margin-top: 0;" disabled="disabled" onfocus="this.blur()"
-                                                       value="${emailValue}"/>
-                                            </div>
-                                        </div>
-
-                                        <!-- Description -->
-                                        <div style="margin-bottom: 15px;">
-                                            <label for="description" class="for-form-label">
-                                                ${letter_description}
-                                            </label>
-                                            <div>
-                                                <textarea id="description" name="description" class="form-control"
-                                                          disabled="disabled" onfocus="this.blur()"
-                                                >${descriptionValue}</textarea>
-                                            </div>
-                                        </div>
-
-                                        <!-- Submit -->
-                                        <div class="action" style="padding: 20px 0 10px 0">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    style="width: 248px">
-                                                ${processedButton}
-                                            </button>
-                                        </div>
-
-                                        <!-- Back -->
+                                        <!-- Back Button -->
                                         <div class="action back-btn">
-                                            <button type="button" class="btn btn-default signup"
-                                                    style="width: 248px">
-                                                <a href="?command=support">
-                                                    ${backButton}
-                                                </a>
-                                            </button>
+                                            <form action="/" method="GET" role="form">
+                                                <input type="hidden" name="command" value="support">
+                                                <input type="submit" class="btn btn-default signup"
+                                                       style="width: 62%;"
+                                                       value="${backButton}">
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
