@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        .bs-tooltip-right {
-            margin-left: 11px;
+        @media (min-width: 1276px) {
+            .footer {
+                position: fixed;
+            }
         }
     </style>
 </head>

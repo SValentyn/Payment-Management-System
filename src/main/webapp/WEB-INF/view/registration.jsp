@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        .bs-tooltip-right {
-            margin-left: 0;
+        @media (min-width: 1276px) {
+            .footer {
+                position: fixed;
+            }
         }
     </style>
 </head>

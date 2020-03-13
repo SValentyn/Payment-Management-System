@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
+        @media (min-width: 1276px) {
+            .footer {
+                position: fixed;
+            }
+        }
+
         @media (max-width: 542px) {
             #error_detail_message .code {
                 font-size: 74px !important;;

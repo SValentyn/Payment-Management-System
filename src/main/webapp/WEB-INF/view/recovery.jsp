@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        .bs-tooltip-right {
-            margin-left: 11px;
+        @media (min-width: 1276px) {
+            .footer {
+                position: fixed;
+            }
         }
     </style>
 </head>
@@ -88,9 +90,9 @@
     <div class="login-bg">
         <div class="page-content container-fluid">
             <div class="row justify-content-center">
-                <div class="col-xl-3">
+                <div class="col-md-3">
                     <div class="login-wrapper" style="top: 30px;">
-                        <div class="box">
+                        <div class="box" style="max-width: 85%;">
                             <div class="content-wrap">
                                 <fmt:message key="recovery.formHeader" var="formHeader"/>
                                 <fmt:message key="recovery.recoveryButton" var="button"/>

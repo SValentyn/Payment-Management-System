@@ -18,12 +18,10 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        .bfh-selectbox.open > .bfh-selectbox-options {
-            width: auto;
-        }
-
-        .bs-tooltip-right {
-            margin-left: 11px;
+        @media (min-width: 1276px) {
+            .footer {
+                position: fixed;
+            }
         }
     </style>
 </head>
