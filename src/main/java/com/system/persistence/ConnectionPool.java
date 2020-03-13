@@ -47,8 +47,8 @@ public class ConnectionPool {
             e.printStackTrace();
         }
 
-        // mysql://b13cd007edb0bd:a480f834@eu-cdbr-west-02.cleardb.net/heroku_a77bbc8929247c7?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true
-        URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
+        // jdbc:mysql://azjetwv6skkeel05:rhjk8jjqxr4ef2zf@r42ii9gualwp7i1y.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/ha9pcps6k1m1y674?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
+        URI dbUri = new URI(System.getenv("JAWSDB_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
