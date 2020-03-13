@@ -43,6 +43,7 @@ public class ConnectionPool {
                 e.printStackTrace();
             }
         } catch (InstantiationException | IllegalAccessException e) {
+            LOGGER.error("Class object cannot be instantiated! Exception:" + e.getMessage());
             e.printStackTrace();
         }
 

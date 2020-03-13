@@ -6,27 +6,27 @@
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_a77bbc8929247c7?autoReconnect=true"
+              url="jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_a77bbc8929247c7?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC"
               username="b13cd007edb0bd"
               password="a480f834"
               validationQuery="select 1"
-              maxWaitMillis="15000"
-              maxTotal="100"
-              maxIdle="100">
+              maxWaitMillis="-1"
+              maxTotal="-1"
+              maxIdle="-1">
     </Resource>
 
     <!-- The JDBC data source for deployment locally is specified -->
-<!--        <Resource name="jdbc/pool"-->
-<!--                  auth="Container"-->
-<!--                  type="javax.sql.DataSource"-->
-<!--                  driverClassName="com.mysql.jdbc.Driver"-->
-<!--                  url="jdbc:mysql://localhost:3306/pms_db?useSSL=false&amp;useUnicode=true&amp;autoReconnect=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"-->
-<!--                  username="root"-->
-<!--                  password="pppp"-->
-<!--                  validationQuery="select 1"-->
-<!--                  maxWaitMillis="15000"-->
-<!--                  maxTotal="100"-->
-<!--                  maxIdle="100">-->
-<!--        </Resource>-->
+<!--    <Resource name="jdbc/pool"-->
+<!--              auth="Container"-->
+<!--              type="javax.sql.DataSource"-->
+<!--              driverClassName="com.mysql.jdbc.Driver"-->
+<!--              url="jdbc:mysql://localhost:3306/pms_db?useSSL=false&amp;useUnicode=true&amp;autoReconnect=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"-->
+<!--              username="root"-->
+<!--              password=""-->
+<!--              validationQuery="select 1"-->
+<!--              maxWaitMillis="-1"-->
+<!--              maxTotal="-1"-->
+<!--              maxIdle="-1">-->
+<!--    </Resource>-->
 
 </Context>

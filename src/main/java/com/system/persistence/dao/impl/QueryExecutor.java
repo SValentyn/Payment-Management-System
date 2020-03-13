@@ -1,10 +1,14 @@
 package com.system.persistence.dao.impl;
 
+import com.mysql.jdbc.ResultSetRow;
 import com.mysql.jdbc.Statement;
 import com.system.persistence.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetFactory;
+import javax.sql.rowset.RowSetProvider;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,10 +46,11 @@ public class QueryExecutor {
      * <p>
      * Getting a connection directly from the DB
      */
-    private Connection getConnection() throws SQLException {
+    private Connection getConnection() {
         try {
             return ConnectionPool.getConnection();
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | SQLException e) {
+            LOGGER.error("SQLException: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
