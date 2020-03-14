@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        @media (min-width: 1276px) {
+        @media (min-width: 1342px) {
             .footer {
                 position: fixed;
             }

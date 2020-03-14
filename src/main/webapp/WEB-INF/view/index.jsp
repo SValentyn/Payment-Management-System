@@ -18,10 +18,18 @@
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        @media (min-width: 1276px) {
+        @media (min-width: 1342px) {
             .footer {
                 position: fixed;
             }
+        }
+
+        .login-bg {
+            min-height: 100vh;
+        }
+
+        .footer {
+            margin-top: 0;
         }
     </style>
 </head>
@@ -80,7 +88,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-3">
                     <div class="login-wrapper" style="top: 30px;">
-                        <div class="box" style="max-width: 80%;">
+                        <div class="box" style="max-width: 75%;">
                             <div class="content-wrap">
                                 <h4 style="margin-bottom: 20px;">
                                     <fmt:message key="login.signin"/><br>

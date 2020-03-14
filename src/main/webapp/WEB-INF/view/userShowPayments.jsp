@@ -16,6 +16,17 @@
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <style>
+        @media (min-width: 2212px) {
+            .footer {
+                position: fixed;
+            }
+        }
+
+        .page-content {
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
 
@@ -105,7 +116,7 @@
 
                                     <c:forEach items="${payments}" var="payment">
                                         <tr>
-                                            <td>${payment.recipientAccountNumber}</td>
+                                            <td>${payment.recipientNumber}</td>
                                             <td>${payment.sum}</td>
                                             <td>${payment.date}</td>
                                             <td>${payment.appointment}</td>

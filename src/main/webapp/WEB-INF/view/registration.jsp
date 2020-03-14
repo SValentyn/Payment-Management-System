@@ -18,10 +18,18 @@
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        @media (min-width: 1276px) {
+        @media (min-width: 1342px) {
             .footer {
                 position: fixed;
             }
+        }
+
+        .login-bg {
+            min-height: 100vh;
+        }
+
+        .footer {
+            margin-top: 0;
         }
     </style>
 </head>

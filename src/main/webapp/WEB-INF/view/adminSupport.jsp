@@ -16,6 +16,13 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <style>
+        @media (min-width: 2212px) {
+            .footer {
+                position: fixed;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="main">
@@ -81,16 +88,14 @@
             <c:otherwise>
                 <span class="title-label" style="margin-left: 25px;">
                     <label>
-                        <b>
-                            <fmt:message key="admin.support.noLetters"/>
-                        </b>
+                        <b><fmt:message key="admin.support.noLetters"/></b>
                     </label>
                 </span>
             </c:otherwise>
             </c:choose>
         </div>
     </div>
-    <jsp:include page="template/footer.jsp"/>
 </div>
+<jsp:include page="template/footer.jsp"/>
 </body>
 </html>

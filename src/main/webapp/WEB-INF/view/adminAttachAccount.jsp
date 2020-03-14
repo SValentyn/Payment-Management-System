@@ -17,6 +17,17 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <style>
+        @media (min-width: 2212px) {
+            .footer {
+                position: fixed;
+            }
+        }
+
+        .page-content {
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
 <div class="main">

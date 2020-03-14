@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
+        @media (min-width: 2212px) {
+            .footer {
+                position: fixed;
+            }
+        }
+
         .ui-spinner {
             width: 100%;
             height: 40px;

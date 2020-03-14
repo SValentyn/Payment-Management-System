@@ -17,10 +17,18 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        @media (min-width: 1276px) {
+        @media (min-width: 1342px) {
             .footer {
                 position: fixed;
             }
+        }
+
+        .page-content {
+            min-height: 100vh;
+        }
+
+        .footer {
+            margin-top: 0;
         }
     </style>
 </head>
