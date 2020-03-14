@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        @media (min-width: 1276px) {
+        @media (min-width: 1342px) {
             .footer {
                 position: fixed;
             }
@@ -62,7 +62,7 @@
             <div class="col-lg-10">
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
-                        <div class="col-xl-6 offset-xl-2 mr-auto">
+                        <div class="col-xl-8 offset-xl-1 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
@@ -71,6 +71,7 @@
                                         <fmt:message key="admin.letter.user_bio" var="user_bio"/>
                                         <fmt:message key="admin.letter.phone" var="user_phone"/>
                                         <fmt:message key="admin.letter.email" var="user_email"/>
+                                        <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
                                         <fmt:message key="admin.letter.description" var="letter_description"/>
                                         <fmt:message key="admin.letter.processedButton" var="processedButton"/>
                                         <fmt:message key="admin.letter.backButton" var="backButton"/>
@@ -85,8 +86,7 @@
                                             <!-- Letter Id -->
                                             <input id="letterId" name="letterId" type="hidden" value="${letterId}"/>
 
-                                            <div class="form-row" style="align-self: center">
-
+                                            <div class="form-row">
                                                 <div class="col-md-6">
 
                                                     <!-- User bio -->
@@ -132,6 +132,20 @@
 
                                                 <div class="col-md-6">
 
+                                                    <!-- Type Question -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                            ${typeQuestion}:
+                                                        </label>
+                                                        <div>
+                                                            <input id="typeQuestion" name="typeQuestion" type="text"
+                                                                   class="form-control" style="margin-top: 0;"
+                                                                   readonly="readonly"
+                                                                   value="${typeQuestionValue}"/>
+                                                            <label for="typeQuestion" class="default-label"></label>
+                                                        </div>
+                                                    </div>
+
                                                     <!-- Description -->
                                                     <div class="textarea-parent">
                                                         <label class="for-form-label">
@@ -139,7 +153,7 @@
                                                         </label>
                                                         <div>
                                                     <textarea id="description" name="description" class="form-control"
-                                                              style="min-height: 206px; max-height: 206px; resize: none"
+                                                              style="min-height: 123px; padding-right: .75rem; resize: none;"
                                                               readonly="readonly"
                                                     >${descriptionValue}</textarea>
                                                             <label for="description" class="default-label"></label>

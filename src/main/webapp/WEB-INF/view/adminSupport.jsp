@@ -23,86 +23,71 @@
 
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <jsp:include page="template/sidebar.jsp"/>
             </div>
 
-            <div class="col-md-10" style="padding-left: 0;">
+            <div class="col-lg-10">
                 <c:choose>
-                    <c:when test="${showLetters}">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <fmt:message key="admin.support.allLetters" var="allLetters"/>
-                                    <fmt:message key="admin.support.status" var="status"/>
-                                    <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
-                                    <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
-                                    <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
-                                    <fmt:message key="admin.support.showInfo" var="showInfo"/>
+                <c:when test="${showLetters}">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <fmt:message key="admin.support.allLetters" var="allLetters"/>
+                        <fmt:message key="admin.support.status" var="status"/>
+                        <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
+                        <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
+                        <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
+                        <fmt:message key="admin.support.showInfo" var="showInfo"/>
 
-                                    <div class="sidebar-header">
-                                        <div class="panel-title">
-                                                ${allLetters}
-                                        </div>
-                                    </div>
-
-                                    <div class="sidebar-large box-with-header">
-                                        <table>
-                                            <th>
-                                                    ${status}
-                                                <img src="resources/images/status.png"
-                                                     alt="" class="icon icon-header"
-                                                     style="height: 15px; width: 15px; opacity: 0.8;">
-                                            </th>
-                                            <th>
-                                                    ${timeToReceive}
-                                                <img src="resources/images/calendar.png"
-                                                     alt="" class="icon icon-header" style="opacity: 1.0;">
-                                            </th>
-                                            <th>
-                                                    ${typeQuestion}
-                                                <img src="resources/images/question.png"
-                                                     alt="" class="icon icon-header">
-                                            </th>
-                                            <th>
-                                                    ${showInfo}
-                                                <img src="resources/images/show-letter-info.png"
-                                                     alt="" class="icon icon-header">
-                                            </th>
-
-                                            <c:forEach items="${letters}" var="letter">
-                                                <tr>
-                                                    <td style="color: darkred;">
-                                                            ${notProcessed}
-                                                    </td>
-                                                    <td>${letter.date}</td>
-                                                    <td>${letter.typeQuestion}</td>
-                                                    <td>
-                                                        <a href="?command=showLetterInfo&letterId=${letter.letterId}">
-                                                                ${showInfo}
-                                                            <img src="resources/images/show-letter-info-link.png"
-                                                                 alt="" class="icon">
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </table>
-                                    </div>
-                                </div>
+                        <div class="sidebar-header">
+                            <div class="panel-title">
+                                    ${allLetters}
                             </div>
                         </div>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="title-label" style="margin-left: 25px;">
-                            <label>
-                                <b>
-                                    <fmt:message key="admin.support.noLetters"/>
-                                </b>
-                            </label>
-                        </span>
-                    </c:otherwise>
-                </c:choose>
+
+                        <div class="sidebar-large box-with-header">
+                            <table>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                        ${timeToReceive}
+                                </th>
+                                <th>
+                                        ${typeQuestion}
+                                </th>
+                                <th>
+                                        ${showInfo}
+                                </th>
+
+                                <c:forEach items="${letters}" var="letter">
+                                    <tr>
+                                        <td>${letter.letterId}</td>
+                                        <td>${letter.date}</td>
+                                        <td>${letter.typeQuestion}</td>
+                                        <td>
+                                            <a href="?command=showLetterInfo&letterId=${letter.letterId}">
+                                                    ${showInfo}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
+            </c:when>
+            <c:otherwise>
+                <span class="title-label" style="margin-left: 25px;">
+                    <label>
+                        <b>
+                            <fmt:message key="admin.support.noLetters"/>
+                        </b>
+                    </label>
+                </span>
+            </c:otherwise>
+            </c:choose>
         </div>
     </div>
     <jsp:include page="template/footer.jsp"/>

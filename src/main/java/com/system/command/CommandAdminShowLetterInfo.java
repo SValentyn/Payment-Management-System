@@ -19,7 +19,6 @@ public class CommandAdminShowLetterInfo implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_LETTER_INFO);
-
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("processed", false);
         request.setAttribute("letterError", false);
@@ -53,6 +52,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
             // Letter processed
             LetterService.getInstance().updateLetterByLetterId(Integer.parseInt(letterId));
+            request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
             request.setAttribute("processed", true);
         }
 
@@ -63,6 +63,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
         request.setAttribute("bioValue", user.getName() + " " + user.getSurname());
         request.setAttribute("phoneValue", user.getPhone());
         request.setAttribute("emailValue", user.getEmail());
+        request.setAttribute("typeQuestionValue", letter.getTypeQuestion());
         request.setAttribute("descriptionValue", letter.getDescription());
     }
 
