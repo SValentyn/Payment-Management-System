@@ -384,6 +384,10 @@ form .btn-default a:active {
     z-index: 2;
 }
 
+.bfh-selectbox .bfh-selectbox-toggle .bfh-selectbox-option {
+    line-height: 1.2;
+}
+
 .bfh-selectbox-month,
 .bfh-selectbox-year {
     min-width: 32%;
@@ -978,6 +982,22 @@ div .disabled {
 
 /* Other */
 
+.list-group-item.active {
+    border-color: #ffffff;
+}
+
+.list-group-item-button-primary {
+    color: #fff !important;
+    background-color: #428bca !important;
+    border: 1px solid #ffffff;
+}
+
+.list-group-item-button-danger {
+    color: #fff !important;
+    background-color: #dc3545 !important;
+    border: 1px solid #ffffff;
+}
+
 .badge-light {
     color: #495057;
 }
@@ -999,8 +1019,12 @@ div .disabled {
 
 .card-footer a:hover,
 .card-footer a:active,
+.list-group-item:hover,
+.list-group-item:active,
 .card-footer a:hover .arrow-link-symbol,
 .card-footer a:active .arrow-link-symbol,
+.list-group-item:hover .arrow-link-symbol,
+.list-group-item:active .arrow-link-symbol,
 .arrow-link-symbol:hover,
 .arrow-link-symbol:active {
     outline: none;

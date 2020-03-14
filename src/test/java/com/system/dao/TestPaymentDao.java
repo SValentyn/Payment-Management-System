@@ -26,6 +26,7 @@ public class TestPaymentDao {
         payment = new Payment();
         payment.setPaymentId(1);
         payment.setAccountId(1);
+        payment.setSenderNumber("59595654654654512546");
         payment.setRecipientNumber("5450655032805450");
         payment.setSum(new BigDecimal("1000.00"));
         payment.setAppointment("Thank you for dinner!");

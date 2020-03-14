@@ -9,6 +9,7 @@ public class Payment implements Serializable {
 
     private Integer paymentId;
     private Integer accountId;
+    private String senderNumber;
     private String recipientNumber;
     private BigDecimal sum;
     private String appointment;
@@ -32,6 +33,14 @@ public class Payment implements Serializable {
 
     public void setAccountId(Integer accountId) {
         this.accountId = accountId;
+    }
+
+    public String getSenderNumber() {
+        return senderNumber;
+    }
+
+    public void setSenderNumber(String senderNumber) {
+        this.senderNumber = senderNumber;
     }
 
     public String getRecipientNumber() {
@@ -80,6 +89,7 @@ public class Payment implements Serializable {
         int result = 1;
         result = prime * result + ((paymentId == null) ? 0 : paymentId.hashCode());
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+        result = prime * result + ((senderNumber == null) ? 0 : senderNumber.hashCode());
         result = prime * result + ((recipientNumber == null) ? 0 : recipientNumber.hashCode());
         result = prime * result + ((sum == null) ? 0 : sum.hashCode());
         result = prime * result + ((appointment == null) ? 0 : appointment.hashCode());
@@ -108,6 +118,12 @@ public class Payment implements Serializable {
             if (other.accountId != null)
                 return false;
         } else if (!accountId.equals(other.accountId))
+            return false;
+
+        if (senderNumber == null) {
+            if (other.senderNumber != null)
+                return false;
+        } else if (!senderNumber.equals(other.senderNumber))
             return false;
 
         if (recipientNumber == null) {
@@ -144,6 +160,7 @@ public class Payment implements Serializable {
     public String toString() {
         return "Payment [paymentId=" + paymentId +
                 ", accountId=" + accountId +
+                ", senderNumber=" + senderNumber +
                 ", recipientNumber=" + recipientNumber +
                 ", sum=" + sum +
                 ", appointment=" + appointment +

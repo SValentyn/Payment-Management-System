@@ -12,13 +12,13 @@ SHOW VARIABLES LIKE 'auto_inc%';
 SHOW VARIABLES LIKE '%character%';
 SHOW VARIABLES LIKE '%collation%';
 
-DROP DATABASE IF EXISTS heroku_a77bbc8929247c7;
+DROP DATABASE IF EXISTS pms_db;
 
-CREATE DATABASE heroku_a77bbc8929247c7
+CREATE DATABASE pms_db
     CHARACTER SET utf8
     COLLATE utf8_general_ci;
 
-USE heroku_a77bbc8929247c7;
+USE pms_db;
 
 DROP TABLE IF EXISTS letters;
 
@@ -127,10 +127,11 @@ CREATE TABLE payments
 (
     payment_id      INT(11)      NOT NULL AUTO_INCREMENT,
     account_id      INT(11)      NOT NULL,
+    senderNumber    VARCHAR(255) NOT NULL,
     recipientNumber VARCHAR(255) NOT NULL,
-    sum             DOUBLE       NOT NULL,
+    `sum`           DOUBLE       NOT NULL,
     appointment     VARCHAR(255),
-    date            VARCHAR(255) NOT NULL,
+    `date`          VARCHAR(255) NOT NULL,
     `condition`     BOOLEAN      NOT NULL,
     PRIMARY KEY (payment_id),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
@@ -138,9 +139,9 @@ CREATE TABLE payments
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-INSERT INTO payments (payment_id, account_id, recipientNumber, sum, appointment, date, `condition`)
-VALUES (1, 2, '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020, 19:35', true),
-       (2, 4, '00000000000000000002', 400.00, 'charity', '01/10/2020, 12:00', true);
+INSERT INTO payments (payment_id, account_id, senderNumber, recipientNumber, sum, appointment, date, `condition`)
+VALUES (1, 2, '11111000000000000000', '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020, 19:35', true),
+       (2, 4, '00000000000000000001', '00000000000000000002', 400.00, 'charity', '01/10/2020, 12:00', true);
 -- -- --
 
 -- -- --

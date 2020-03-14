@@ -45,22 +45,24 @@ public class PaymentService {
     public synchronized int makePaymentOnAccount(Integer accountId, String accountNumber, BigDecimal amount, String appointment) {
         int status;
 
+        Account accountFrom = accountDao.findAccountById(accountId);
+        Account accountTo = accountDao.findAccountByNumber(accountNumber);
+
         Payment payment = new Payment();
         payment.setAccountId(accountId);
+        payment.setSenderNumber(accountFrom.getNumber());
         payment.setRecipientNumber(accountNumber);
         payment.setSum(amount);
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
         payment.setDate(formatter.format(new Date()));
 
-        Account accountFrom = accountDao.findAccountById(accountId);
         if (checkAvailableAccount(accountFrom)) {
             LOGGER.error("Payment arrangement error!");
             payment.setCondition(false);
             return -1;
         }
 
-        Account accountTo = accountDao.findAccountByNumber(accountNumber);
         if (checkAvailableAccount(accountTo)) {
             LOGGER.error("Payment arrangement error!");
             payment.setCondition(false);
