@@ -16,17 +16,11 @@ public class CommandAdminShowUsers implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("noUsers", false);
+        List<User> users = UserService.getInstance().findAllUsers();
+        request.setAttribute("users", users);
+        request.setAttribute("totalUsers", users.size());
 
-        List<User> allUsers = UserService.getInstance().findAllUsers();
-        if (allUsers.isEmpty()) {
-            request.setAttribute("noUsers", true);
-        } else {
-            request.setAttribute("showUsers", true);
-            request.setAttribute("users", allUsers);
-        }
-
-        return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
+        return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USERS);
     }
 
 }

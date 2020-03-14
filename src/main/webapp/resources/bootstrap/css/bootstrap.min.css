@@ -6759,11 +6759,11 @@ a.close.disabled {
 }
 
 .bg-primary {
-    background-color: #007bff !important
+    background-color: #428bca !important
 }
 
 a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
-    background-color: #0062cc !important
+    background-color: #3276b1 !important
 }
 
 .bg-secondary {

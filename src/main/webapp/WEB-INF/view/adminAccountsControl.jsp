@@ -200,7 +200,7 @@
                                 <fmt:message key="user.account.button.unblock" var="unblock"/>
                                 <fmt:message key="user.account.button.showInfo" var="showInfo"/>
                                 <fmt:message key="sidebar.attachCard" var="attachCard"/>
-                                <fmt:message key="admin.users.deleteAccount" var="deleteAccount"/>
+                                <fmt:message key="admin.user.deleteAccount" var="deleteAccount"/>
                                 <fmt:message key="user.card.detachCard" var="detachCard"/>
 
                                 <div class="sidebar-large" style="padding: 20px 3px 20px 3px;">

@@ -13,7 +13,12 @@ html, body {
     width: 100%;
 }
 
+html {
+    overflow: auto;
+}
+
 body {
+    padding: 0 !important;
     overflow-x: hidden;
     font-size: 14px;
     font-family: 'Open Sans', sans-serif;
@@ -276,7 +281,7 @@ body {
     position: absolute;
     right: 0;
     margin: 6px 0 0 0;
-    padding-right: 45px;
+    padding-right: 50px;
     font-size: 14px;
     color: #929292;
 }
@@ -451,7 +456,7 @@ form .btn-default a:active {
 
 #country-listbox {
     font-size: 13px;
-    border-radius: .25rem;
+    border-radius: .375rem;
 }
 
 .password-input {
@@ -573,10 +578,11 @@ div .disabled {
 
 #alert {
     width: auto;
-    height: 60px;
+    height: auto;
+    min-height: 60px;
     position: fixed;
     display: flex;
-    z-index: 1;
+    z-index: 10;
     right: 0;
     padding: 0 10px 0 20px;
     margin: 0 20px 0 0;
@@ -914,6 +920,7 @@ div .disabled {
     position: relative;
     left: 0;
     bottom: 0;
+    margin-top: 20px;
     z-index: 2;
     align-self: center;
     line-height: 25px;
@@ -971,6 +978,36 @@ div .disabled {
 
 /* Other */
 
+.badge-light {
+    color: #495057;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-title {
+    margin-bottom: 0;
+}
+
+.arrow-link-symbol {
+    display: inline-block;
+    margin-left: 5px;
+    transition: .2s;
+    transform: translateX(0);
+}
+
+.card-footer a:hover,
+.card-footer a:active,
+.card-footer a:hover .arrow-link-symbol,
+.card-footer a:active .arrow-link-symbol,
+.arrow-link-symbol:hover,
+.arrow-link-symbol:active {
+    outline: none;
+    text-decoration: none;
+    transform: translateX(3px);
+}
+
 .iti {
     width: 100% !important;
 }
@@ -1027,7 +1064,6 @@ div .disabled {
     font-weight: normal;
     text-decoration: none;
     color: #100d37;
-    text-shadow: 0px 0px 20px rgba(107, 137, 156, 0.9);
 }
 
 .back-homepage:hover {
@@ -1055,6 +1091,7 @@ div .disabled {
 
 /*************/
 
+/* @media */
 @media (max-width: 992px) {
     .header .logo h1 {
         font-size: 26px !important;
@@ -1166,3 +1203,4 @@ div .disabled {
     }
 }
 
+/****************/

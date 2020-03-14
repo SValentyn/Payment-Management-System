@@ -30,6 +30,7 @@ public class CommandLogin implements ICommand {
             String role = UserService.getInstance().getRole(user);
             if (role.equals(Role.ROLE_ADMIN)) {
                 request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+                request.setAttribute("totalUsers", UserService.getInstance().findAllUsers().size());
                 page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
             } else if (role.equals(Role.ROLE_CLIENT)) {
                 page = ResourceManager.getInstance().getProperty(ResourceManager.USER);

@@ -22,6 +22,7 @@ public class CommandIndex implements ICommand {
         if (user != null) {
             String role = UserService.getInstance().getRole(user);
             if (role.equals("admin")) {
+                request.setAttribute("totalUsers", UserService.getInstance().findAllUsers().size());
                 page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
             } else if (role.equals("client")) {
                 page = ResourceManager.getInstance().getProperty(ResourceManager.USER);

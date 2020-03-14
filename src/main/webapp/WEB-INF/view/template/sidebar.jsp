@@ -58,17 +58,6 @@
         </a>
     </c:if>
     <c:if test="${currentUser.role.id == 2}">
-        <a href="?command=showUsers" class="list-group-item list-group-item-action">
-            <div>
-                <img src="resources/images/glyphicons-halflings-user-group.png"
-                     alt="" class="sidebar-icon" style="opacity: 0.65;">
-            </div>
-            <div>
-                <fmt:message key="sidebar.showAllUsers"/>
-            </div>
-        </a>
-    </c:if>
-    <c:if test="${currentUser.role.id == 2}">
         <a href="?command=addUser" class="list-group-item list-group-item-action">
             <div>
                 <img src="resources/images/add-user.png"
@@ -86,7 +75,8 @@
                      alt="" class="sidebar-icon">
             </div>
             <div>
-                <fmt:message key="sidebar.support"/> (${numberOfLetters})
+                <fmt:message key="sidebar.support"/> <span class="badge badge-pill badge-light">
+                    ${numberOfLetters}</span>
             </div>
         </a>
     </c:if>
