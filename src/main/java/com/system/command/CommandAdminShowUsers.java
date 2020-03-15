@@ -15,6 +15,8 @@ public class CommandAdminShowUsers implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        request.setAttribute("showUserError", false);
+
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         List<User> users = UserService.getInstance().findAllUsers();
         request.setAttribute("users", users);

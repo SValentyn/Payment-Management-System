@@ -16,11 +16,29 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <style>
+        @media (min-width: 2212px) {
+            .footer {
+                position: fixed;
+            }
+        }
+    </style>
 </head>
 <body>
-
 <div class="main">
     <jsp:include page="template/header.jsp"/>
+
+    <!-- Alert showUserError -->
+    <c:if test="${showUserError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertShowUserError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
 
     <div class="page-content">
         <div class="row">
@@ -68,7 +86,7 @@
                                                     </small>
                                                 </div>
                                                 <div class="card-footer">
-                                                    <a href="?command=adminShowUser&userId=${user.userId}">
+                                                    <a href="?command=showUser&userId=${user.userId}">
                                                             ${gotoAccount}<span class="arrow-link-symbol">→</span>
                                                     </a>
                                                 </div>
@@ -88,7 +106,7 @@
                                                 </div>
                                                 <div class="card-footer">
                                                     <a class="text-white"
-                                                       href="?command=adminShowUser&userId=${user.userId}">
+                                                       href="?command=showUser&userId=${user.userId}">
                                                             ${gotoAccount}<span class="arrow-link-symbol">→</span>
                                                     </a>
                                                 </div>
