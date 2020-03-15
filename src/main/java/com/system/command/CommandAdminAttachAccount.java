@@ -21,7 +21,6 @@ public class CommandAdminAttachAccount implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ATTACH_ACCOUNT);
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("attached", false);
         request.setAttribute("manyAccountWithThisCurrencyError", false);
         request.setAttribute("attachAccountError", false);
 
@@ -81,7 +80,6 @@ public class CommandAdminAttachAccount implements ICommand {
                 request.setAttribute("attachAccountError", true);
             } else {
                 request.setAttribute("accountId", status);
-                request.setAttribute("attached", true);
             }
         }
 

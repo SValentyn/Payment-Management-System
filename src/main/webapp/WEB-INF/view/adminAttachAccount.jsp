@@ -83,15 +83,13 @@
                                 <div class="box">
                                     <div class="content-wrap">
                                         <fmt:message key="admin.attachAccount.formHeader" var="formHeader"/>
-                                        <fmt:message key="admin.attachAccount.user_bio" var="user_bio"/>
+                                        <fmt:message key="admin.attachAccount.user_bio" var="user_rank"/>
                                         <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
                                         <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
                                         <fmt:message key="admin.attachAccount.attachAccountButton"
                                                      var="attachAccountButton"/>
                                         <fmt:message key="admin.attachAccount.backToAccountsButton"
                                                      var="backToAccountsButton"/>
-                                        <fmt:message key="admin.attachAccount.attachCardButton"
-                                                     var="attachCardButton"/>
                                         <fmt:message key="user.createAccount.numberError" var="numberError"/>
                                         <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
                                         <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
@@ -111,7 +109,7 @@
                                             <!-- User bio -->
                                             <div>
                                                 <label class="for-form-label">
-                                                    ${user_bio}
+                                                    ${user_rank}
                                                 </label>
                                                 <div>
                                                     <input id="bio" name="bio" class="form-control"
@@ -194,30 +192,6 @@
                                                        value="${backToAccountsButton}">
                                             </form>
                                         </div>
-
-                                        <!-- Add Card Button -->
-                                        <c:choose>
-                                            <c:when test="${attached == true}">
-                                                <div class="action back-btn">
-                                                    <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="attachCard">
-                                                        <input type="hidden" name="accountId" value="${accountId}">
-                                                        <input type="submit" class="btn btn-default signup"
-                                                               value="${attachCardButton}">
-                                                    </form>
-                                                </div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <div class="action back-btn disabled">
-                                                    <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="attachCard">
-                                                        <input type="hidden" name="accountId" value="${accountId}">
-                                                        <input type="submit" class="btn btn-default signup"
-                                                               value="${attachCardButton}">
-                                                    </form>
-                                                </div>
-                                            </c:otherwise>
-                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
