@@ -23,6 +23,7 @@ public class CommandAdminAttachAccount implements ICommand {
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("manyAccountWithThisCurrencyError", false);
         request.setAttribute("attachAccountError", false);
+        request.setAttribute("attached", false);
 
         // Data
         String userId = request.getParameter("userId");
@@ -80,6 +81,7 @@ public class CommandAdminAttachAccount implements ICommand {
                 request.setAttribute("attachAccountError", true);
             } else {
                 request.setAttribute("accountId", status);
+                request.setAttribute("attached", true);
             }
         }
 

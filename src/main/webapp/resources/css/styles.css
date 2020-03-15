@@ -25,6 +25,12 @@ body {
     background-color: #f7f7f7;
 }
 
+a:hover,
+a:active {
+    outline: none;
+    text-decoration: none;
+}
+
 .main {
     position: relative;
     min-height: 100%;
@@ -418,10 +424,6 @@ form .btn-default a:active {
     text-decoration: none;
 }
 
-.title-label:hover {
-    text-decoration: none;
-}
-
 .for-form-label {
     width: 100%;
     margin-right: 15px;
@@ -628,7 +630,7 @@ div .disabled {
     position: sticky;
     display: flex;
     top: 0;
-    z-index: 2;
+    z-index: 5;
     margin-bottom: 22px;
     padding: 0 0 0 20px;
     background-color: #2c3742;
@@ -1010,6 +1012,16 @@ div .disabled {
     margin-bottom: 0;
 }
 
+.card-title img {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 0 0 2px 5px;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+}
+
 .arrow-link-symbol {
     display: inline-block;
     margin-left: 5px;
@@ -1019,16 +1031,14 @@ div .disabled {
 
 .card-footer a:hover,
 .card-footer a:active,
+a:hover .arrow-link-symbol,
+a:active .arrow-link-symbol,
 .list-group-item:hover,
 .list-group-item:active,
-.card-footer a:hover .arrow-link-symbol,
-.card-footer a:active .arrow-link-symbol,
 .list-group-item:hover .arrow-link-symbol,
 .list-group-item:active .arrow-link-symbol,
 .arrow-link-symbol:hover,
 .arrow-link-symbol:active {
-    outline: none;
-    text-decoration: none;
     transform: translateX(3px);
 }
 

@@ -194,7 +194,7 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <fmt:message key="user.account.allaccounts" var="allaccounts"/>
+                                            <fmt:message key="user.account.allAccounts" var="allAccounts"/>
                                             <fmt:message key="user.account.number" var="number"/>
                                             <fmt:message key="user.account.balance" var="balance"/>
                                             <fmt:message key="user.account.status" var="status"/>
@@ -208,7 +208,7 @@
                                             <div class="sidebar-large">
                                                 <div class="panel-heading">
                                                     <div class="panel-title">
-                                                            ${allaccounts}
+                                                            ${allAccounts}
                                                     </div>
                                                 </div>
 
@@ -274,7 +274,7 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <fmt:message key="user.account.allaccounts" var="allaccounts"/>
+                                            <fmt:message key="user.account.allAccounts" var="allaccounts"/>
                                             <fmt:message key="user.account.number" var="number"/>
                                             <fmt:message key="user.account.balance" var="balance"/>
                                             <fmt:message key="user.account.status" var="status"/>
@@ -288,7 +288,7 @@
                                             <div class="sidebar-large">
                                                 <div class="panel-heading">
                                                     <div class="panel-title">
-                                                            ${allaccounts}
+                                                            ${allAccounts}
                                                     </div>
                                                 </div>
 
