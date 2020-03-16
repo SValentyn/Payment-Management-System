@@ -174,6 +174,13 @@ public class PaymentService {
     }
 
     /**
+     * Finds payment by payment id
+     */
+    public Payment findPaymentByPaymentId(Integer paymentId) {
+        return paymentDao.findPaymentByPaymentId(paymentId);
+    }
+
+    /**
      * Finds all payments by account id
      */
     public List<Payment> findAllPaymentsByAccountId(Integer accountId) {
