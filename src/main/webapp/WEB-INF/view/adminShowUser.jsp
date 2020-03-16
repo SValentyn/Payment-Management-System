@@ -135,7 +135,7 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert Success -->
+    <!-- Alert Success Deleted -->
     <c:if test="${deleted == true}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="registration.success"/>!</strong>
@@ -364,9 +364,7 @@
                                                                     <c:otherwise>
                                                                         <span class="title-label">
                                                                             <label>
-                                                                                <b>
-                                                                                    <fmt:message key="admin.user.paymentsEmpty"/>
-                                                                                </b>
+                                                                                <fmt:message key="admin.user.paymentsEmpty"/>
                                                                             </label>
                                                                         </span>
                                                                     </c:otherwise>
@@ -429,9 +427,7 @@
                                                                     <c:otherwise>
                                                                             <span class="title-label">
                                                                                 <label>
-                                                                                    <b>
-                                                                                        <fmt:message key="admin.user.accountsEmpty"/>
-                                                                                    </b>
+                                                                                    <fmt:message key="admin.user.accountsEmpty"/>
                                                                                 </label>
                                                                             </span>
                                                                     </c:otherwise>
