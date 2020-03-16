@@ -1,4 +1,4 @@
-// Elements on adminLetterInfo.jsp page to check
+// Elements on adminShowLetterInfo.jsp page to check
 let phone = document.querySelector("#phone");
 let submitBtn = document.querySelector("#submit");
 

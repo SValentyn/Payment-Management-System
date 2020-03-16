@@ -18,7 +18,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_LETTER_INFO);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_LETTER_INFO);
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("processed", false);
         request.setAttribute("letterError", false);
