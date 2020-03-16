@@ -194,4 +194,18 @@ public class PaymentService {
         return paymentDao.findAllPaymentsByUserId(userId);
     }
 
+    /**
+     * Finds last payments by user id
+     */
+    public List<Payment> findLastPaymentsByUserId(Integer userId) {
+        return paymentDao.findLastPaymentsByUserId(userId);
+    }
+
+    /**
+     * Finds all payments in system
+     */
+    public List<Payment> findAllPayments() {
+        return paymentDao.findAllPayments();
+    }
+
 }

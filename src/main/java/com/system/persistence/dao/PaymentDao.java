@@ -31,4 +31,14 @@ public interface PaymentDao {
      */
     List<Payment> findAllPaymentsByUserId(Integer userId);
 
+    /**
+     * Retrieves last payments of account by user id
+     */
+    List<Payment> findLastPaymentsByUserId(Integer userId);
+
+    /**
+     * Retrieves all payments
+     */
+    List<Payment> findAllPayments();
+
 }

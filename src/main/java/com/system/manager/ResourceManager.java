@@ -29,6 +29,7 @@ public class ResourceManager {
     public static final String ADMIN_SHOW_USER = "ADMIN_SHOW_USER";
     public static final String ADMIN_SHOW_USERS = "ADMIN_SHOW_USERS";
     public static final String ADMIN_SHOW_PAYMENT_INFO = "ADMIN_SHOW_PAYMENT_INFO";
+    public static final String ADMIN_SHOW_USER_PAYMENTS = "ADMIN_SHOW_USER_PAYMENTS";
     public static final String ADMIN_ACCOUNTS_CONTROL = "ADMIN_ACCOUNTS_CONTROL"; // del
     public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
