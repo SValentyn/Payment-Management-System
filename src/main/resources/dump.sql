@@ -12,6 +12,8 @@ SHOW VARIABLES LIKE 'auto_inc%';
 SHOW VARIABLES LIKE '%character%';
 SHOW VARIABLES LIKE '%collation%';
 
+# ha9pcps6k1m1y674
+
 DROP DATABASE IF EXISTS pms_db;
 
 CREATE DATABASE pms_db
@@ -83,19 +85,20 @@ CREATE TABLE accounts
     balance    DOUBLE       NOT NULL,
     currency   VARCHAR(3)   NOT NULL,
     is_blocked BOOLEAN      NOT NULL,
+    is_deleted BOOLEAN      NOT NULL,
     PRIMARY KEY (account_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-INSERT INTO accounts (account_id, user_id, number, balance, currency, is_blocked)
-VALUES (1, 2, '00000000000000000000', 9500.00, 'MXN', false),
-       (2, 2, '11111000000000000000', 7805.00, 'UAH', false),
-       (3, 2, '11111222220000000000', 3030.00, 'PLN', false),
-       (4, 3, '00000000000000000001', 10020.00, 'YER', true),
-       (5, 3, '11111000000000000001', 990.00, 'AUD', false),
-       (6, 4, '00000000000000000002', 1115.00, 'MKD', false);
+INSERT INTO accounts (account_id, user_id, number, balance, currency, is_blocked, is_deleted)
+VALUES (1, 2, '00000000000000000000', 9500.00, 'MXN', false, false),
+       (2, 2, '11111000000000000000', 7805.00, 'UAH', false, false),
+       (3, 2, '11111222220000000000', 3030.00, 'PLN', false, false),
+       (4, 3, '00000000000000000001', 10020.00, 'YER', true, false),
+       (5, 3, '11111000000000000001', 990.00, 'AUD', false, false),
+       (6, 4, '00000000000000000002', 1115.00, 'MKD', false, false);
 -- -- --
 
 -- -- --

@@ -13,6 +13,7 @@ public class Account implements Serializable {
     private BigDecimal balance;
     private String currency;
     private Boolean isBlocked;
+    private Boolean isDeleted;
 
     public Account() {
     }
@@ -65,6 +66,14 @@ public class Account implements Serializable {
         this.isBlocked = isBlocked;
     }
 
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -75,6 +84,7 @@ public class Account implements Serializable {
         result = prime * result + ((balance == null) ? 0 : balance.hashCode());
         result = prime * result + ((currency == null) ? 0 : currency.hashCode());
         result = prime * result + ((isBlocked == null) ? 0 : isBlocked.hashCode());
+        result = prime * result + ((isDeleted == null) ? 0 : isDeleted.hashCode());
         return result;
     }
 
@@ -119,8 +129,14 @@ public class Account implements Serializable {
             return false;
 
         if (isBlocked == null) {
-            return other.isBlocked == null;
-        } else return isBlocked.equals(other.isBlocked);
+            if (other.isBlocked != null)
+                return false;
+        } else if (!isBlocked.equals(other.isBlocked))
+            return false;
+
+        if (isDeleted == null) {
+            return other.isDeleted == null;
+        } else return isDeleted.equals(other.isDeleted);
 
     }
 
@@ -131,7 +147,8 @@ public class Account implements Serializable {
                 ", number=" + number +
                 ", balance=" + balance +
                 ", currency=" + currency +
-                ", isBlocked=" + isBlocked + "]";
+                ", isBlocked=" + isBlocked +
+                ", isDeleted=" + isDeleted + "]";
     }
 
 }

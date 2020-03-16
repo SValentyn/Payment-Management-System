@@ -22,7 +22,7 @@ public interface AccountDao {
     int update(Account entity);
 
     /**
-     * Removes account by account id
+     * It does not delete the account, but makes it completely inaccessible
      */
     int delete(Integer id);
 

@@ -44,9 +44,10 @@ public class AccountService {
             Account account = new Account();
             account.setUserId(userId);
             account.setNumber(number);
-            account.setBalance(new BigDecimal(0.00));
+            account.setBalance(new BigDecimal("0.00"));
             account.setCurrency(currency);
             account.setIsBlocked(false);
+            account.setIsDeleted(false);
             status = accountDao.create(account);
         }
         return status;

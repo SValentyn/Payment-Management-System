@@ -22,9 +22,9 @@ public class AccountDaoImpl implements AccountDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_ACCOUNT = "INSERT INTO accounts(user_id, number, balance, currency, is_blocked) VALUES(?, ?, ?, ?, ?)";
+    private static final String CREATE_ACCOUNT = "INSERT INTO accounts(user_id, number, balance, currency, is_blocked, is_deleted) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_ACCOUNT = "UPDATE accounts SET balance = ?, is_blocked = ? WHERE account_id = ?";
-    private static final String DELETE_ACCOUNT = "DELETE FROM accounts WHERE account_id = ?";
+    private static final String DELETE_ACCOUNT = "UPDATE accounts SET is_blocked = 1, is_deleted = 1 WHERE account_id = ?";
     private static final String FIND_ACCOUNT_BY_ID = "SELECT * FROM accounts WHERE account_id = ?";
     private static final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM accounts WHERE number = ?";
     private static final String FIND_ALL_USER_ACCOUNTS = "SELECT * FROM accounts WHERE user_id = ?";
@@ -44,7 +44,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     public int create(Account entity) {
-        Object[] args = {entity.getUserId(), entity.getNumber(), entity.getBalance(), entity.getCurrency(), entity.getIsBlocked()};
+        Object[] args = {entity.getUserId(), entity.getNumber(), entity.getBalance(), entity.getCurrency(), entity.getIsBlocked(), entity.getIsDeleted()};
         return executor.executeStatement(CREATE_ACCOUNT, args);
     }
 
@@ -127,6 +127,7 @@ public class AccountDaoImpl implements AccountDao {
             account.setBalance(rs.getBigDecimal("balance"));
             account.setCurrency(rs.getString("currency"));
             account.setIsBlocked(rs.getBoolean("is_blocked"));
+            account.setIsDeleted(rs.getBoolean("is_deleted"));
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }
