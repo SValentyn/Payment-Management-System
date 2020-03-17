@@ -1,38 +1,62 @@
 package com.system.command;
 
+import com.system.entity.Account;
 import com.system.manager.ResourceManager;
-import com.system.service.AccountService;
-import com.system.service.BankCardService;
-import com.system.service.LetterService;
-import com.system.service.PaymentService;
+import com.system.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandAdminUnblockCard implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+
         request.setAttribute("unblockCardError", false);
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
 
-        String userId = (String) request.getSession().getAttribute("userId");
+        // Data
         String cardNumber = request.getParameter("cardNumber");
-        int accountId = BankCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
+        Integer accountId = BankCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
 
-        if (cardNumber != null) {
-            BankCardService.getInstance().unblockBankCard(cardNumber);
-
-            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
-            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(accountId));
-            request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
-        } else {
+        // Check
+        if (cardNumber == null) {
             request.setAttribute("unblockCardError", true);
+            return page;
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ACCOUNTS_CONTROL);
+        // Data
+        List<Account> accounts = AccountService.getInstance().findAllAccounts();
+        List<Integer> accountsIds = new ArrayList<>();
+        for (Account account : accounts) {
+            accountsIds.add(account.getAccountId());
+        }
+
+        // Check
+        if (!accountsIds.contains(accountId)) {
+            request.setAttribute("unblockCardError", true);
+            return page;
+        }
+
+        // Action
+        BankCardService.getInstance().unblockBankCard(cardNumber);
+
+        // Set Attributes
+        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+        request.setAttribute("account", account);
+        request.setAttribute("user", UserService.getInstance().findUserById(account.getUserId()));
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountId).isEmpty());
+        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(accountId).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
+        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(accountId));
+        request.setAttribute("showAccountError", false);
+
+        return page;
     }
 
 }
