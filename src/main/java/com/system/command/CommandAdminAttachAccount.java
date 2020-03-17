@@ -11,6 +11,7 @@ import com.system.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandAdminAttachAccount implements ICommand {
@@ -31,19 +32,33 @@ public class CommandAdminAttachAccount implements ICommand {
         String currency = request.getParameter("currency");
 
         // Check
-        if (userId != null) {
-            User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
-            String name = user.getName();
-            String surname = user.getSurname();
-
-            request.getSession().setAttribute("userId", userId);
-            request.setAttribute("userId", userId);
-            request.setAttribute("bio", name + " " + surname);
-        } else {
-            request.setAttribute("numberValue", number);
-            request.setAttribute("currencyValue", currency);
+        if (userId == null) {
             request.setAttribute("attachAccountError", true);
             return page;
+        } else {
+            // Data
+            List<User> users = UserService.getInstance().findAllUsers();
+            List<Integer> usersIds = new ArrayList<>();
+            for (User user : users) {
+                usersIds.add(user.getUserId());
+            }
+
+            // Check
+            if (!usersIds.contains(Integer.valueOf(userId))) {
+                request.setAttribute("numberValue", number);
+                request.setAttribute("currencyValue", currency);
+                request.setAttribute("attachAccountError", true);
+                return page;
+            } else {
+                User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
+                String name = user.getName();
+                String surname = user.getSurname();
+
+                // Set Attributes
+                request.getSession().setAttribute("userId", userId);
+                request.setAttribute("userId", userId);
+                request.setAttribute("bio", name + " " + surname);
+            }
         }
 
         String method = request.getMethod();
@@ -61,9 +76,11 @@ public class CommandAdminAttachAccount implements ICommand {
                 }
             }
 
+            // Set Attributes
             request.setAttribute("accounts", accounts);
 
             // Check
+            // Condition: the user cannot have more than 3 accounts with a certain currency
             int count = 0;
             for (Account account : accounts) {
                 if (account.getCurrency().equals(currency)) count++;
@@ -75,7 +92,7 @@ public class CommandAdminAttachAccount implements ICommand {
                 return page;
             }
 
-            int status = AccountService.getInstance().createAccount(Integer.parseInt(userId), number, currency);
+            int status = AccountService.getInstance().createAccount(Integer.valueOf(userId), number, currency);
             if (status == 0) {
                 setRequestAttributes(request, number, currency);
                 request.setAttribute("attachAccountError", true);
