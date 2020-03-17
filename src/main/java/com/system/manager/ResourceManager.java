@@ -26,15 +26,15 @@ public class ResourceManager {
     public static final String ADMIN = "ADMIN";
     public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_DATA";
     public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
+    public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
+    public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_SHOW_USER = "ADMIN_SHOW_USER";
     public static final String ADMIN_SHOW_USERS = "ADMIN_SHOW_USERS";
     public static final String ADMIN_SHOW_PAYMENT_INFO = "ADMIN_SHOW_PAYMENT_INFO";
     public static final String ADMIN_SHOW_USER_PAYMENTS = "ADMIN_SHOW_USER_PAYMENTS";
+    public static final String ADMIN_SHOW_ACCOUNT_INFO = "ADMIN_SHOW_ACCOUNT_INFO";
     public static final String ADMIN_SHOW_USER_ACCOUNTS = "ADMIN_SHOW_USER_ACCOUNTS";
-    public static final String ADMIN_ACCOUNTS_CONTROL = "ADMIN_ACCOUNTS_CONTROL"; // del
-    public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
-    public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
     public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
     public static final String ADMIN_SHOW_LETTER_INFO = "ADMIN_SHOW_LETTER_INFO";
 
