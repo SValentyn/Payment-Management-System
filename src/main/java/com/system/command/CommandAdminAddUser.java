@@ -37,7 +37,7 @@ public class CommandAdminAddUser implements ICommand {
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
 
-            // Check
+            // Check Phone
             List<User> users = UserService.getInstance().findAllUsers();
             for (User user : users) {
                 if (user.getPhone().equals(phone)) {
@@ -47,7 +47,7 @@ public class CommandAdminAddUser implements ICommand {
                 }
             }
 
-            // Check
+            // Check Email
             for (User user : users) {
                 if (!email.equals("")) {
                     if (user.getEmail().equals(email)) {

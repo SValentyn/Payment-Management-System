@@ -47,9 +47,9 @@ public class CommandAdminShowAccountInfo implements ICommand {
         request.setAttribute("account", account);
         request.setAttribute("user", UserService.getInstance().findUserById(account.getUserId()));
         request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
-        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
+        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)));
+        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)));
 
         return page;
     }

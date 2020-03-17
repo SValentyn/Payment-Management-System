@@ -43,17 +43,17 @@ public class CommandAdminBlockAccount implements ICommand {
         }
 
         // Action
-        AccountService.getInstance().blockAccount(Integer.parseInt(accountId));
+        AccountService.getInstance().blockAccount(Integer.valueOf(accountId));
 
         // Set Attributes
-        Account account = AccountService.getInstance().findAccountByAccountId(Integer.parseInt(accountId));
+        Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId));
         request.setAttribute("showAccountError", false);
         request.setAttribute("account", account);
         request.setAttribute("user", UserService.getInstance().findUserById(account.getUserId()));
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
-        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)).isEmpty());
+        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)));
+        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)));
 
         return page;
     }

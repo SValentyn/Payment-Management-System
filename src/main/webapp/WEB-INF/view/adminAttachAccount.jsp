@@ -24,6 +24,12 @@
             }
         }
 
+        @media (min-width: 1342px) {
+            .footer {
+                position: fixed;
+            }
+        }
+
         .page-content {
             min-height: 100vh;
         }

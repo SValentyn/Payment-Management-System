@@ -268,35 +268,35 @@
                                                                        href="#list-payments" role="tab"
                                                                        aria-controls="payments">
                                                                             ${showPayments} <span
-                                                                            class="arrow-link-symbol">→</span>
+                                                                            class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-accounts-list" data-toggle="list"
                                                                        href="#list-accounts" role="tab"
                                                                        aria-controls="accounts">
                                                                             ${showAccounts} <span
-                                                                            class="arrow-link-symbol">→</span>
+                                                                            class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-attachAccount-list"
                                                                        href="?command=attachAccount&userId=${user.userId}"
                                                                        role="tab" aria-controls="attachAccount">
                                                                             ${attachAccount} <span
-                                                                            class="arrow-link-symbol">→</span>
+                                                                            class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-updateData-list"
                                                                        href="?command=updateUserData&userId=${user.userId}"
                                                                        role="tab" aria-controls="updateData">
                                                                             ${updateData} <span
-                                                                            class="arrow-link-symbol">→</span>
+                                                                            class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                        id="list-deleteUser-list" onclick="showModal()"
                                                                        href="#smallModal?userId=${user.userId}&name=${user.name}&surname=${user.surname}"
                                                                        role="tab" aria-controls="deleteUser">
                                                                             ${deleteUser} <span
-                                                                            class="arrow-link-symbol">→</span>
+                                                                            class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -383,7 +383,7 @@
                                                                     <c:when test="${!accountsEmpty}">
                                                                         <div class="card-container"
                                                                              style="width: 100% !important;">
-                                                                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-3">
+                                                                            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
                                                                                 <c:forEach items="${accounts}"
                                                                                            var="account">
                                                                                     <div class="col mb-4">

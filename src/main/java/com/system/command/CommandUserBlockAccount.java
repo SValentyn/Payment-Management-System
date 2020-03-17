@@ -26,13 +26,13 @@ public class CommandUserBlockAccount implements ICommand {
 
         String accountId = request.getParameter("accountId");
         if (accountId != null) {
-            AccountService.getInstance().blockAccount(Integer.parseInt(accountId));
+            AccountService.getInstance().blockAccount(Integer.valueOf(accountId));
 
             request.setAttribute("showAccounts", true);
             request.setAttribute("showAccountInfo", true);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
-            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.parseInt(accountId)));
-            request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.parseInt(accountId)));
+            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)));
+            request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)));
         } else {
             request.setAttribute("blockAccountError", true);
         }

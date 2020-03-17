@@ -34,7 +34,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
 
             // Data
-            Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.parseInt(letterId));
+            Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterId));
             User user = UserService.getInstance().findUserById(letter.getUserId());
 
             // Check
@@ -51,7 +51,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
             // Letter processed
-            LetterService.getInstance().updateLetterByLetterId(Integer.parseInt(letterId));
+            LetterService.getInstance().updateLetterByLetterId(Integer.valueOf(letterId));
             request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
             request.setAttribute("processed", true);
         }

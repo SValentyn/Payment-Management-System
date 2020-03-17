@@ -45,7 +45,7 @@ public class CommandAdminShowUserAccounts implements ICommand {
         }
 
         // Set Attributes
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.parseInt(userId)));
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
 
         return page;
     }

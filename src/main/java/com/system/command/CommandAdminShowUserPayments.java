@@ -20,11 +20,12 @@ public class CommandAdminShowUserPayments implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_PAYMENTS);
 
         request.setAttribute("showUserPaymentsError", false);
-
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
 
-        // Check
+        // Data
         String userId = request.getParameter("userId");
+
+        // Check
         if (userId == null) {
             request.setAttribute("showUserPaymentsError", true);
             return page;
@@ -37,11 +38,13 @@ public class CommandAdminShowUserPayments implements ICommand {
             usersIds.add(String.valueOf(user.getUserId()));
         }
 
+        // Check
         if (!usersIds.contains(userId)) {
             request.setAttribute("showUserPaymentsError", true);
             return page;
         }
 
+        // Set Attributes
         request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByUserId(Integer.valueOf(userId)));
 
         return page;

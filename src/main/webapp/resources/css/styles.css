@@ -552,11 +552,6 @@ form .btn-default a:active {
     color: #989797;
 }
 
-div .disabled {
-    pointer-events: none;
-    opacity: 0.5;
-}
-
 .icon {
     position: relative;
     display: inline-block;
@@ -1022,7 +1017,8 @@ div .disabled {
     text-decoration: none;
 }
 
-.arrow-link-symbol {
+.arrow-link-symbol-right,
+.arrow-link-symbol-left {
     display: inline-block;
     margin-left: 5px;
     transition: .2s;
@@ -1031,15 +1027,22 @@ div .disabled {
 
 .card-footer a:hover,
 .card-footer a:active,
-a:hover .arrow-link-symbol,
-a:active .arrow-link-symbol,
+a:hover .arrow-link-symbol-right,
+a:active .arrow-link-symbol-right,
 .list-group-item:hover,
 .list-group-item:active,
-.list-group-item:hover .arrow-link-symbol,
-.list-group-item:active .arrow-link-symbol,
-.arrow-link-symbol:hover,
-.arrow-link-symbol:active {
+.list-group-item:hover .arrow-link-symbol-right,
+.list-group-item:active .arrow-link-symbol-right,
+.arrow-link-symbol-right:hover,
+.arrow-link-symbol-right:active {
     transform: translateX(3px);
+}
+
+a:hover .arrow-link-symbol-left,
+a:active .arrow-link-symbol-left,
+.arrow-link-symbol-left:hover,
+.arrow-link-symbol-left:active {
+    transform: translateX(-3px);
 }
 
 .iti {

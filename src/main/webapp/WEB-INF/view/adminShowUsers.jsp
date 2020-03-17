@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="card-footer">
                                                     <a href="?command=showUser&userId=${user.userId}">
-                                                            ${gotoAccount}<span class="arrow-link-symbol">→</span>
+                                                            ${gotoAccount}<span class="arrow-link-symbol-right">→</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -107,7 +107,7 @@
                                                 <div class="card-footer">
                                                     <a class="text-white"
                                                        href="?command=showUser&userId=${user.userId}">
-                                                            ${gotoAccount}<span class="arrow-link-symbol">→</span>
+                                                            ${gotoAccount}<span class="arrow-link-symbol-right">→</span>
                                                     </a>
                                                 </div>
                                             </div>

@@ -24,11 +24,12 @@ public class CommandAdminShowPaymentInfo implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_PAYMENT_INFO);
 
         request.setAttribute("showPaymentError", false);
-
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
 
-        // Check
+        // Data
         String paymentId = request.getParameter("paymentId");
+
+        // Check
         if (paymentId == null) {
             request.setAttribute("showPaymentError", true);
             return page;
@@ -72,6 +73,7 @@ public class CommandAdminShowPaymentInfo implements ICommand {
             request.setAttribute("recipientIsAccount", false);
         }
 
+        // Set Attributes
         request.setAttribute("recipientAccount", recipientAccount);
         request.setAttribute("recipientCard", recipientCard);
         request.setAttribute("recipientUser", recipientUser);

@@ -36,7 +36,7 @@ public class CommandRegistration implements ICommand {
             String password = request.getParameter("password");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
 
-            // Check
+            // Check Phone
             List<User> users = UserService.getInstance().findAllUsers();
             for (User user : users) {
                 if (user.getPhone().equals(phone)) {
@@ -46,7 +46,7 @@ public class CommandRegistration implements ICommand {
                 }
             }
 
-            // Check
+            // Check Email
             for (User user : users) {
                 if (!email.equals("")) {
                     if (user.getEmail().equals(email)) {
