@@ -19,12 +19,6 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
         .ui-spinner {
             width: 100%;
             height: 40px;
@@ -44,6 +38,31 @@
 
         .ui-spinner-input:focus {
             outline: none;
+        }
+
+        @media (min-width: 2212px) {
+            .footer {
+                position: fixed;
+            }
+        }
+
+        @media (max-width: 769px) {
+            .switcher-case-2 {
+                float: left;
+            }
+
+            .bfh-selectbox .bfh-selectbox-toggle,
+            .switcher-case-1,
+            .switcher-case-2 {
+                font-size: 100% !important;
+            }
+        }
+
+        @media (max-width: 316px) {
+            .switcher-case-1,
+            .switcher-case-2 {
+                font-size: 80% !important;
+            }
         }
     </style>
 </head>
@@ -194,11 +213,11 @@
         </div>
     </c:if>
 
-    <!-- Alert accountNumberNotExistError -->
-    <c:if test="${accountNumberNotExistError == true}">
+    <!-- Alert recipientAccountNotExistError -->
+    <c:if test="${recipientAccountNotExistError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertAccountNumberNotExistError"/>
+                <fmt:message key="user.page.alertRecipientAccountNotExistError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -206,11 +225,11 @@
         </div>
     </c:if>
 
-    <!-- Alert accountFromBlockedError -->
-    <c:if test="${accountFromBlockedError == true}">
+    <!-- Alert senderAccountBlockedError -->
+    <c:if test="${senderAccountBlockedError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertAccountFromBlockedError"/>
+                <fmt:message key="user.page.alertSenderAccountBlockedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -218,11 +237,11 @@
         </div>
     </c:if>
 
-    <!-- Alert receiverAccountBlockedError -->
-    <c:if test="${receiverAccountBlockedError == true}">
+    <!-- Alert recipientAccountBlockedError -->
+    <c:if test="${recipientAccountBlockedError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertReceiverAccountBlockedError"/>
+                <fmt:message key="user.page.alertRecipientAccountBlockedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -230,11 +249,11 @@
         </div>
     </c:if>
 
-    <!-- Alert cardNotExistOrBlockedError -->
-    <c:if test="${cardNotExistOrBlockedError == true}">
+    <!-- Alert recipientCardNotExistOrBlockedError -->
+    <c:if test="${recipientCardNotExistOrBlockedError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertCardNotExistOrBlockedError"/>
+                <fmt:message key="user.page.alertRecipientCardNotExistOrBlockedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -295,6 +314,10 @@
                                         <form action="/" role="form" method="POST">
                                             <input type="hidden" name="command" value="makePayment">
 
+                                            <!-- A variable that allows you to determine which command was invoked -->
+                                            <input id="isRepeatCommand" name="isRepeatCommand" type="hidden"
+                                                   value="${isRepeatCommandValue}"/>
+
                                             <!-- AccountId -->
                                             <input id="accountId" name="accountId" type="hidden"
                                                    value="${accountIdValue}"/>
@@ -333,62 +356,65 @@
                                                 </label>
                                             </div>
 
-                                            <input id="switcher" class="toggle-btn" type="checkbox"/>
-                                            <label for="switcher" class="toggle-btn-label"></label>
-                                            <div class="form-row">
-                                                <div class="col-md-6" style="margin-top: 10px;">
-                                                    <span class="switcher-case-1">${recipientsAccount}</span>
-                                                </div>
-                                                <div class="col-md-6" style="margin-top: 10px;">
-                                                    <span class="switcher-case-2">${recipientsCard}</span>
-                                                </div>
-                                            </div>
-
                                             <!-- Switch position -->
                                             <input id="case" name="case" type="hidden" value="${caseValue}"/>
 
+                                            <!-- Switch -->
+                                            <input id="switcher" class="toggle-btn" type="checkbox"/>
+                                            <label for="switcher" class="toggle-btn-label"></label>
                                             <div class="form-row">
 
                                                 <!-- Account Number -->
-                                                <div class="col-md-6" style="margin-top: 4px;">
-                                                    <div>
-                                                        <input id="accountNumber" name="accountNumber"
-                                                               class="form-control" style="margin-top: 0;" type="text"
-                                                               data-toggle="tooltip-left"
-                                                               data-title="${tooltipAccountNumber}"
-                                                               maxlength="20" onkeypress="onlyNumbers();"
-                                                               placeholder="${numberAccount}*"
-                                                               value="${accountNumberValue}"/>
-                                                    </div>
-                                                    <label for="accountNumber" class="default-label">
+                                                <div class="col-md-6" style="margin-top: 10px;">
+                                                    <span class="switcher-case-1">${recipientsAccount}</span>
+
+                                                    <div style="margin-top: 4px;">
+                                                        <div>
+                                                            <input id="accountNumber" name="accountNumber"
+                                                                   class="form-control" style="margin-top: 0;"
+                                                                   type="text"
+                                                                   data-toggle="tooltip-left"
+                                                                   data-title="${tooltipAccountNumber}"
+                                                                   maxlength="20" onkeypress="onlyNumbers();"
+                                                                   placeholder="${numberAccount}*"
+                                                                   value="${accountNumberValue}"/>
+                                                        </div>
+                                                        <label for="accountNumber" class="default-label">
                                                         <span id="valid-msg-accountNumber" class="valid-msg invisible">
                                                             ${correct}<img src="resources/images/correct.png" alt="">
                                                         </span>
-                                                        <span id="error-msg-accountNumber" class="error-msg invisible">
-                                                            ${numberAccountError}
-                                                        </span>
-                                                    </label>
+                                                            <span id="error-msg-accountNumber"
+                                                                  class="error-msg invisible">
+                                                                ${numberAccountError}
+                                                            </span>
+                                                        </label>
+                                                    </div>
                                                 </div>
 
                                                 <!-- Card Number -->
-                                                <div class="col-md-6" style="margin-top: 4px;">
-                                                    <div>
-                                                        <input id="cardNumber" name="cardNumber"
-                                                               class="form-control" style="margin-top: 0;" type="text"
-                                                               data-toggle="tooltip"
-                                                               data-title="${tooltipCardNumber}"
-                                                               maxlength="16" onkeypress="onlyNumbers();"
-                                                               placeholder="${numberCard}*"
-                                                               value="${cardNumberValue}"/>
-                                                    </div>
-                                                    <label for="cardNumber" class="default-label">
+                                                <div class="col-md-6" style="margin-top: 10px;">
+                                                    <span class="switcher-case-2">${recipientsCard}</span>
+
+                                                    <div style="margin-top: 4px;">
+                                                        <div>
+                                                            <input id="cardNumber" name="cardNumber"
+                                                                   class="form-control" style="margin-top: 0;"
+                                                                   type="text"
+                                                                   data-toggle="tooltip"
+                                                                   data-title="${tooltipCardNumber}"
+                                                                   maxlength="16" onkeypress="onlyNumbers();"
+                                                                   placeholder="${numberCard}*"
+                                                                   value="${cardNumberValue}"/>
+                                                        </div>
+                                                        <label for="cardNumber" class="default-label">
                                                         <span id="valid-msg-cardNumber" class="valid-msg invisible">
                                                             ${correct}<img src="resources/images/correct.png" alt="">
                                                         </span>
-                                                        <span id="error-msg-cardNumber" class="error-msg invisible">
-                                                            ${numberCardError}
-                                                        </span>
-                                                    </label>
+                                                            <span id="error-msg-cardNumber" class="error-msg invisible">
+                                                                ${numberCardError}
+                                                            </span>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -425,10 +451,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <!-- A variable that allows you to determine which command was invoked -->
-                                            <input id="isRepeatCommand" name="isRepeatCommand" type="hidden"
-                                                   value="${isRepeatCommandValue}"/>
 
                                             <!-- Submit -->
                                             <div class="action" style="padding: 30px 0 5px 0">
@@ -467,6 +489,18 @@
         } else if (on_off === 'on') {
             on();
             resetCardNumber();
+        }
+
+        if (isRepeatCommand.value === "1") {
+            validationAccountId();
+            validationAmount();
+
+            if (on_off === 'off') {
+                validationCardNumber();
+                $('.toggle-btn-label').css('transform', 'rotate(180deg)');
+            } else if (on_off === 'on') {
+                validationAccountNumber();
+            }
         }
     };
 
