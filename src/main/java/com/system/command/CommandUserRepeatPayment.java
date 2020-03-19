@@ -21,6 +21,14 @@ public class CommandUserRepeatPayment implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
+        request.setAttribute("created", false);
+        request.setAttribute("paymentToYourAccountError", false);
+        request.setAttribute("accountNumberNotExistError", false);
+        request.setAttribute("accountFromBlockedError", false);
+        request.setAttribute("receiverAccountBlockedError", false);
+        request.setAttribute("cardNotExistOrBlockedError", false);
+        request.setAttribute("insufficientFundsError", false);
+
         // Data
         User user = (User) request.getSession().getAttribute("currentUser");
         request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
@@ -39,10 +47,17 @@ public class CommandUserRepeatPayment implements ICommand {
         request.setAttribute("accounts", accounts);
         request.setAttribute("accountIdValue", accountId);
         request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(accountId));
-        request.setAttribute("numberValue", number);
         request.setAttribute("amountValue", amount);
         request.setAttribute("appointmentValue", appointment);
         request.setAttribute("isRepeatCommandValue", "1");
+
+        if (payment.getRecipientNumber().length() == 20) {  // if recipient number is account number
+            request.setAttribute("accountNumberValue", number);
+            request.setAttribute("caseValue", "off");
+        } else {                                            // if recipient number is card number
+            request.setAttribute("cardNumberValue", number);
+            request.setAttribute("caseValue", "on");
+        }
 
         return page;
     }

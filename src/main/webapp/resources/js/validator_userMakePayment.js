@@ -46,6 +46,7 @@ function validationAccountId() {
 
     if (isRepeatCommand.value === "0") {
         accountId.value = $(bfh_selectbox).val();
+
         if (accountId.value.trim() === null || accountId.value.trim() === "") {
             notValidAccountId();
             return;
@@ -54,6 +55,7 @@ function validationAccountId() {
         }
     } else {
         isRepeatCommand.value = "0";
+        $(bfh_selectbox).val(accountId.value);
         validAccountId();
     }
 

@@ -89,15 +89,17 @@ public class PaymentService {
     public synchronized int makePaymentOnCard(Integer accountId, String cardNumber, BigDecimal amount, String appointment) {
         int status;
 
+        Account accountFrom = accountDao.findAccountById(accountId);
+
         Payment payment = new Payment();
         payment.setAccountId(accountId);
+        payment.setSenderNumber(accountFrom.getNumber());
         payment.setRecipientNumber(cardNumber);
         payment.setSum(amount);
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
         payment.setDate(formatter.format(new Date()));
 
-        Account accountFrom = accountDao.findAccountById(accountId);
         if (checkAvailableAccount(accountFrom)) {
             LOGGER.error("Payment arrangement error!");
             payment.setCondition(false);

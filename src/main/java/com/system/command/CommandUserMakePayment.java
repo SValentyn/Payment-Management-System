@@ -24,10 +24,10 @@ public class CommandUserMakePayment implements ICommand {
 
         request.setAttribute("created", false);
         request.setAttribute("paymentToYourAccountError", false);
-        request.setAttribute("accountNumberNotExistError", false);
-        request.setAttribute("accountFromBlockedError", false);
-        request.setAttribute("receiverAccountBlockedError", false);
-        request.setAttribute("cardNotExistOrBlockedError", false);
+        request.setAttribute("recipientAccountNotExistError", false);
+        request.setAttribute("senderAccountBlockedError", false);
+        request.setAttribute("recipientAccountBlockedError", false);
+        request.setAttribute("recipientCardNotExistOrBlockedError", false);
         request.setAttribute("insufficientFundsError", false);
         request.setAttribute("isRepeatCommandValue", "0");
         request.setAttribute("caseValue", "off");
@@ -45,16 +45,16 @@ public class CommandUserMakePayment implements ICommand {
 
             // Data
             String accountId = request.getParameter("accountId");
-            String accountNumber = request.getParameter("accountNumber"); // recipient account number
-            String cardNumber = request.getParameter("cardNumber"); // recipient card number
+            String recipientAccountNumber = request.getParameter("accountNumber");
+            String recipientCardNumber = request.getParameter("cardNumber");
             String amount = request.getParameter("amount");
             String appointment = request.getParameter("appointment");
 
             // Check
-            if (accountNumber != null) {
+            if (recipientAccountNumber != null) {
                 Account senderAccount = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId));
-                if (senderAccount.getNumber().equals(accountNumber)) {
-                    setRequestAttributes(request, accountId, accountNumber, cardNumber, amount, appointment);
+                if (senderAccount.getNumber().equals(recipientAccountNumber)) {
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
                     request.setAttribute("paymentToYourAccountError", true);
                     return page;
                 }
@@ -65,24 +65,26 @@ public class CommandUserMakePayment implements ICommand {
                     allNumbersAccounts.add(account.getNumber());
                 }
 
-                if (!allNumbersAccounts.contains(accountNumber)) {
-                    setRequestAttributes(request, accountId, accountNumber, cardNumber, amount, appointment);
-                    request.setAttribute("accountNumberNotExistError", true);
+                if (!allNumbersAccounts.contains(recipientAccountNumber)) {
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
+                    request.setAttribute("recipientAccountNotExistError", true);
                     return page;
                 }
             }
 
             // Forming Payment
-            if (accountNumber != null) {
-                int status = PaymentService.getInstance().makePaymentOnAccount(Integer.valueOf(accountId), accountNumber, new BigDecimal(amount), appointment);
+            if (recipientAccountNumber != null) {
+                request.setAttribute("caseValue", "off");
+
+                int status = PaymentService.getInstance().makePaymentOnAccount(Integer.valueOf(accountId), recipientAccountNumber, new BigDecimal(amount), appointment);
                 if (status == -1) {
-                    setRequestAttributes(request, accountId, accountNumber, cardNumber, amount, appointment);
-                    request.setAttribute("accountFromBlockedError", true);
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
+                    request.setAttribute("senderAccountBlockedError", true);
                 } else if (status == -2) {
-                    setRequestAttributes(request, accountId, accountNumber, cardNumber, amount, appointment);
-                    request.setAttribute("receiverAccountBlockedError", true);
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
+                    request.setAttribute("recipientAccountBlockedError", true);
                 } else if (status == -3) {
-                    setRequestAttributes(request, accountId, accountNumber, cardNumber, amount, appointment);
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
                     request.setAttribute("insufficientFundsError", true);
                 } else {
                     request.setAttribute("created", true);
@@ -90,18 +92,17 @@ public class CommandUserMakePayment implements ICommand {
             } else {
                 request.setAttribute("caseValue", "on");
 
-                int status = PaymentService.getInstance().makePaymentOnCard(Integer.valueOf(accountId), cardNumber, new BigDecimal(amount), appointment);
+                int status = PaymentService.getInstance().makePaymentOnCard(Integer.valueOf(accountId), recipientCardNumber, new BigDecimal(amount), appointment);
                 if (status == -1) {
-                    setRequestAttributes(request, accountId, null, cardNumber, amount, appointment);
-                    request.setAttribute("accountFromBlockedError", true);
+                    setRequestAttributes(request, accountId, null, recipientCardNumber, amount, appointment);
+                    request.setAttribute("senderAccountBlockedError", true);
                 } else if (status == -2) {
-                    setRequestAttributes(request, accountId, null, cardNumber, amount, appointment);
-                    request.setAttribute("cardNotExistOrBlockedError", true);
+                    setRequestAttributes(request, accountId, null, recipientCardNumber, amount, appointment);
+                    request.setAttribute("recipientCardNotExistOrBlockedError", true);
                 } else if (status == -3) {
-                    setRequestAttributes(request, accountId, null, cardNumber, amount, appointment);
+                    setRequestAttributes(request, accountId, null, recipientCardNumber, amount, appointment);
                     request.setAttribute("insufficientFundsError", true);
                 } else {
-                    request.setAttribute("caseValue", "off");
                     request.setAttribute("created", true);
                 }
             }

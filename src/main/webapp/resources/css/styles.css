@@ -492,17 +492,6 @@ form .btn-default a:active {
     left: -5000px;
 }
 
-.toggle-btn:checked + .toggle-btn-label {
-    background: #428bca;
-    box-shadow: 0 0 0 2px #357ebd;
-}
-
-.toggle-btn:checked + .toggle-btn-label:before {
-    left: 40px;
-    background: #ffffff;
-    box-shadow: 0 0 0 2px #357ebd;
-}
-
 .toggle-btn-label {
     height: 20px;
     width: 60px;
@@ -524,8 +513,19 @@ form .btn-default a:active {
     left: 0;
     z-index: 1;
     background: white;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px #dddddd;
+    box-shadow: 30px 0 18px rgb(255, 255, 255);
     border-radius: 50px;
+}
+
+.toggle-btn:checked + .toggle-btn-label {
+    background: #428bca;
+    box-shadow: 0 0 0 2px #357ebd;
+}
+
+.toggle-btn:checked + .toggle-btn-label:before {
+    left: 40px;
+    background: #ffffff;
+    box-shadow: -30px 0 26px #ffffff, 30px 0 26px #ffffff;
 }
 
 .switcher-case-1 {
@@ -979,6 +979,12 @@ form .btn-default a:active {
 
 /* Other */
 
+.disabled {
+    pointer-events: none;
+    outline: none;
+    text-decoration: none;
+}
+
 .list-group-item.active {
     border-color: #ffffff;
 }
@@ -1237,6 +1243,12 @@ a:active .arrow-link-symbol-left,
 
     .footer .container-fluid .copyright {
         font-size: 9px;
+    }
+}
+
+@media (max-width: 298px) {
+    .header .logo h1 {
+        font-size: 16px !important;
     }
 }
 
