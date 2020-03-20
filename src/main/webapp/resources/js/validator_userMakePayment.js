@@ -139,9 +139,9 @@ cardNumber.addEventListener('change', validationCardNumber);
 function validationCardNumber() {
     resetCardNumber();
 
-    if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 16) {
+    if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 19) {
         notValidCardNumber();
-    } else if (cardNumber.value.match(/[^0-9]/g) != null) {
+    } else if (cardNumber.value.match(/[^0-9 ]/g) != null) {
         notValidCardNumber();
     } else {
         validCardNumber();
@@ -210,7 +210,7 @@ submitBtn.addEventListener('click', function (event) {
     }
 
     if (on_off === 'off') {
-        if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 16 || cardNumber.classList.contains("error-input")) {
+        if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 19 || cardNumber.classList.contains("error-input")) {
             event.preventDefault();
             notValidCardNumber();
             return false;
@@ -230,6 +230,8 @@ submitBtn.addEventListener('click', function (event) {
         notValidAmount();
         return false;
     }
+
+    cardNumber.value = cardNumber.value.replace(/\s+/g, "");
 
     /*
         CN - card number

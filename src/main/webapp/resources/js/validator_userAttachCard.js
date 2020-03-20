@@ -1,7 +1,7 @@
 // Elements on userAttachCard.jsp page to check
 let accountId = document.querySelector("#accountId");
 let selectbox_account_id = $('.selectbox-account-id');
-let number = document.querySelector("#number");
+let number = document.querySelector("#cardNumber");
 let CVV = document.querySelector("#CVV");
 let month = document.querySelector("#month");
 let year = document.querySelector("#year");
@@ -89,9 +89,9 @@ number.addEventListener('change', validationNumber);
 function validationNumber() {
     resetNumber();
 
-    if (number.value.trim() === "" || number.value.trim().length < 16) {
+    if (number.value.trim() === "" || number.value.trim().length < 19) {
         notValidNumber();
-    } else if (number.value.match(/[^0-9]/g) != null) {
+    } else if (number.value.match(/[^0-9 ]/g) != null) {
         notValidNumber();
     } else {
         validNumber();
@@ -221,7 +221,7 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (number.value.trim() === "" || number.value.trim().length < 16 || number.classList.contains("error-input")) {
+    if (number.value.trim() === "" || number.value.trim().length < 19 || number.classList.contains("error-input")) {
         event.preventDefault();
         notValidNumber();
         return false;
@@ -239,5 +239,7 @@ submitBtn.addEventListener('click', function (event) {
         notValidValidity();
         return false;
     }
+
+    number.value = number.value.replace(/\s+/g, "");
 
 });

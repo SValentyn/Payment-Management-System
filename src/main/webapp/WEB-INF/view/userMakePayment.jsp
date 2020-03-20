@@ -402,7 +402,8 @@
                                                                    type="text"
                                                                    data-toggle="tooltip"
                                                                    data-title="${tooltipCardNumber}"
-                                                                   maxlength="16" onkeypress="onlyNumbers();"
+                                                                   maxlength="19"
+                                                                   oninput="this.value=card_space_format(this.value)"
                                                                    placeholder="${numberCard}*"
                                                                    value="${cardNumberValue}"/>
                                                         </div>

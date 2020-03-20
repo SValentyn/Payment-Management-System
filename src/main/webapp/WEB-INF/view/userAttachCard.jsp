@@ -74,7 +74,7 @@
             <div class="col-lg-10">
                 <div class="page-content container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 offset-lg-3">
+                        <div class="col-xl-6 offset-xl-2">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
@@ -135,12 +135,12 @@
 
                                             <!-- Number -->
                                             <div>
-                                                <input id="number" name="number" class="form-control" type="text"
+                                                <input id="cardNumber" name="number" class="form-control" type="text"
                                                        data-toggle="tooltip" data-title="${tooltipCardNumber}"
-                                                       maxlength="16" onkeypress="onlyNumbers();"
+                                                       maxlength="19" oninput="this.value=card_space_format(this.value)"
                                                        placeholder="${number}*"
                                                        value="${numberValue}"/>
-                                                <label for="number" class="default-label">
+                                                <label for="cardNumber" class="default-label">
                                                     <span id="valid-msg-cardNumber" class="valid-msg invisible">
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
@@ -177,7 +177,7 @@
                                             <div>
                                                 <div class="form-group" id="expiration-date"
                                                      style="display: flex; align-items: center; margin: 10px 0 0 0;">
-                                                    <label class="for-form-label" style="margin-right: 10px;">
+                                                    <label class="for-form-label" style="width: 50%;">
                                                         ${validity}
                                                     </label>
 

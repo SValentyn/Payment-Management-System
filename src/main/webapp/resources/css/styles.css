@@ -396,7 +396,7 @@ form .btn-default a:active {
 
 .bfh-selectbox-month,
 .bfh-selectbox-year {
-    min-width: 32%;
+    width: 100%;
 }
 
 .bfh-selectbox-year {
