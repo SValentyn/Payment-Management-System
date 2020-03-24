@@ -1,0 +1,13 @@
+.login-bg {
+    min-height: 100vh;
+}
+
+.footer {
+    margin-top: 0;
+}
+
+@media (max-width: 960px) {
+    form .btn-default {
+        height: 50px;
+    }
+}

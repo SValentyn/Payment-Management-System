@@ -17,21 +17,8 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        .login-bg {
-            min-height: 100vh;
-        }
-
-        .footer {
-            margin-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
+    <link rel="stylesheet" href="resources/css/style_registrationPage.css">
 </head>
 <body>
 <div class="main">
@@ -181,7 +168,7 @@
                                                 <input id="surname" name="surname" class="form-control"
                                                        type="text" data-toggle="tooltip"
                                                        data-title="${tooltipOnlyLetters}"
-                                                       maxlength="24" placeholder="${surname}*"
+                                                       maxlength="32" placeholder="${surname}*"
                                                        value="${surnameValue}"/>
                                                 <label for="surname" class="default-label">
                                                     <span id="valid-msg-surname" class="valid-msg invisible">
@@ -229,7 +216,7 @@
                                         </div>
 
                                         <!-- Password -->
-                                        <div class="row justify-content-center row-passwords">
+                                        <div class="row justify-content-center" style="margin-top: 20px;">
                                             <div class="col-md-6">
                                                 <div class="password-input">
                                                     <input id="password" name="password" type="password"
@@ -301,5 +288,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/validator_registration.js"></script>
+<script src="resources/js/validator_registrationPage.js"></script>
 </html>

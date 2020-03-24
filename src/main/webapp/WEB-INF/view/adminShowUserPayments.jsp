@@ -16,43 +16,9 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 744px) {
-            .card-container {
-                width: 100% !important;
-                margin: 0;
-            }
-        }
-
-        @media (max-width: 394px) {
-            h4 {
-                font-size: 18px !important;
-            }
-
-            .card-container {
-                font-size: 80%;
-            }
-        }
-
-        @media (max-width: 354px) {
-            h4 {
-                font-size: 16px !important;
-            }
-
-            .card-container {
-                font-size: 65%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style_adminShowUserPayments.css">
 </head>
 <body>
-
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 

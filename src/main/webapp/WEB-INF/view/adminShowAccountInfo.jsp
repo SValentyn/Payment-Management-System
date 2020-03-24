@@ -17,85 +17,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        .page-content {
-            min-height: 100vh;
-        }
-
-        .content-wrap {
-            width: 88% !important;
-        }
-
-        .form-control {
-            height: 46px !important;
-            margin-top: 0 !important;
-        }
-
-        .bfh-currencies .bfh-selectbox-toggle {
-            background-color: #e9ecef;
-        }
-
-        span[class="title-label"] label {
-            font-size: 22px !important;
-        }
-
-        .card-container {
-            padding: 0;
-            margin: auto;
-        }
-
-        .footer {
-            margin-top: 0;
-        }
-
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 744px) {
-            .card-container {
-                width: 100% !important;
-            }
-
-            span[class="title-label"] label {
-                font-size: 70% !important;
-            }
-        }
-
-        @media (max-width: 412px) {
-            h4 {
-                font-size: 18px !important;
-            }
-
-            .form-control {
-                font-size: 13px !important;
-            }
-
-            span[class="title-label"] label {
-                font-size: 55% !important;
-            }
-
-            .card-container {
-                font-size: 80%;
-            }
-        }
-
-        @media (max-width: 354px) {
-            h4 {
-                font-size: 16px !important;
-            }
-
-            .form-control {
-                font-size: 12px !important;
-            }
-
-            .card-container {
-                font-size: 65%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style_adminShowAccountInfo.css">
 </head>
 <body>
 
@@ -110,8 +32,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <fmt:message key="admin.account_info.account.modalBody"/>
-                <br>
+                <fmt:message key="admin.account_info.account.modalBody"/><br>
                 <div style="display: flex; margin-top: 20px;">
                     <label for="accountNumberText" class="modal-label">
                         <fmt:message key="admin.account_info.account.modalAccountLabel"/>
@@ -122,8 +43,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur()">
+                    <button type="button" class="btn btn-default closeButton" data-dismiss="modal">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
@@ -616,5 +536,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/showingModalWindow_adminShowAccountInfo.js"></script>
+<script src="resources/js/modalWindow_adminShowAccountInfo.js"></script>
 </html>

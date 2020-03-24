@@ -1,0 +1,19 @@
+@media (max-width: 444px) {
+    input[id="number"] {
+        font-size: 100% !important;
+    }
+
+    h4 {
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 383px) {
+    .form-control {
+        font-size: 100% !important;
+    }
+
+    input[id="number"] {
+        font-size: 85% !important;
+    }
+}

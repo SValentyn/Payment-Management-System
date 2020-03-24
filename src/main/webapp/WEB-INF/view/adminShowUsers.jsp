@@ -16,13 +16,6 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-    </style>
 </head>
 <body>
 <div class="main">
@@ -52,7 +45,7 @@
                 <fmt:message key="admin.users.admin" var="admin_rank"/>
                 <fmt:message key="admin.users.gotoAccount" var="gotoAccount"/>
 
-                <div class="card" style="box-shadow: none;">
+                <div class="card shadow-none">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center" role="tablist">
                             <li class="nav-item-active">

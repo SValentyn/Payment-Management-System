@@ -17,13 +17,6 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-    </style>
 </head>
 <body>
 
@@ -45,8 +38,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur()">
+                    <button type="button" class="btn btn-default closeButton" data-dismiss="modal">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
@@ -314,5 +306,5 @@
 </div>
 </body>
 <script src="resources/js/validator_userUpdateData.js"></script>
-<script src="resources/js/showingModalWindow_userUpdateData.js"></script>
+<script src="resources/js/modalWindow_userUpdateData.js"></script>
 </html>

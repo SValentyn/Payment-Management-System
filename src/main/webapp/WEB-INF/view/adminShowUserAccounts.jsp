@@ -16,37 +16,7 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        .login-wrapper .box .content-wrap {
-            width: 92%;
-        }
-
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 394px) {
-            h4 {
-                font-size: 18px !important;
-            }
-
-            .card-container {
-                font-size: 80%;
-            }
-        }
-
-        @media (max-width: 354px) {
-            h4 {
-                font-size: 16px !important;
-            }
-
-            .card-container {
-                font-size: 65%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style_adminShowUserAccounts.css">
 </head>
 <body>
 <div class="main">
@@ -132,7 +102,8 @@
                                                             <c:choose>
                                                                 <c:when test="${!accountsEmpty}">
                                                                     <div class="form-row">
-                                                                        <div class="card-container" style="width: 100%;">
+                                                                        <div class="card-container"
+                                                                             style="width: 100%;">
                                                                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-2 row-cols-xl-2">
                                                                                 <c:forEach items="${accounts}"
                                                                                            var="account">

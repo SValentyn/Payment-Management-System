@@ -16,13 +16,6 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-    </style>
 </head>
 <body>
 <div class="main">
@@ -46,56 +39,37 @@
                         <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
                         <fmt:message key="admin.support.showInfo" var="showInfo"/>
 
-                        <div class="sidebar-header">
-                            <div class="panel-title">
-                                    ${allLetters}
-                            </div>
-                        </div>
+                            ${allLetters}
+                        User ID:
 
-                        <div class="sidebar-large box-with-header">
-                            <table>
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                        ${timeToReceive}
-                                </th>
-                                <th>
-                                        ${typeQuestion}
-                                </th>
-                                <th>
-                                        ${showInfo}
-                                </th>
+                            ${timeToReceive}
+                            ${typeQuestion}
+                            ${showInfo}
 
-                                <c:forEach items="${letters}" var="letter">
-                                    <tr>
-                                        <td>${letter.letterId}</td>
-                                        <td>${letter.date}</td>
-                                        <td>${letter.typeQuestion}</td>
-                                        <td>
-                                            <a href="?command=showLetterInfo&letterId=${letter.letterId}">
-                                                    ${showInfo}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </div>
+                        <c:forEach items="${letters}" var="letter">
+                            ${letter.letterId}
+                            ${letter.date}
+                            ${letter.typeQuestion}
+
+                            <a href="?command=showLetterInfo&letterId=${letter.letterId}">
+                                    ${showInfo}
+                            </a>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
-            </c:when>
-            <c:otherwise>
+        </div>
+        </c:when>
+        <c:otherwise>
                 <span class="title-label" style="margin-left: 25px;">
                     <label>
                         <b><fmt:message key="admin.support.noLetters"/></b>
                     </label>
                 </span>
-            </c:otherwise>
-            </c:choose>
-        </div>
+        </c:otherwise>
+        </c:choose>
     </div>
+    <jsp:include page="template/footer.jsp"/>
 </div>
-<jsp:include page="template/footer.jsp"/>
 </body>
 </html>

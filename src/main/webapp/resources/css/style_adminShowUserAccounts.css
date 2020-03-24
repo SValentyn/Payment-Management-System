@@ -1,0 +1,23 @@
+.login-wrapper .box .content-wrap {
+    width: 92%;
+}
+
+@media (max-width: 394px) {
+    h4 {
+        font-size: 18px !important;
+    }
+
+    .card-container {
+        font-size: 80%;
+    }
+}
+
+@media (max-width: 354px) {
+    h4 {
+        font-size: 16px !important;
+    }
+
+    .card-container {
+        font-size: 65%;
+    }
+}

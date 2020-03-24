@@ -17,19 +17,8 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 444px) {
-            input[id="number"] {
-                font-size: 100% !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
+    <link rel="stylesheet" href="resources/css/style_userCreateAccount.css">
 </head>
 <body>
 <div class="main">
@@ -105,7 +94,7 @@
                                                 <label class="for-form-label">
                                                     ${numberNewAccount}
                                                 </label>
-                                                <div class="form-group" style="display: flex; margin-bottom: 0;">
+                                                <div class="form-group">
                                                     <input id="number" name="number" class="form-control"
                                                            type="text" readonly="readonly" maxlength="20"
                                                            style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
@@ -174,10 +163,10 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script src="resources/js/validator_userCreateAccount.js"></script>
 <script>
     $(document).ready(function () {
         $('#currency').val($('.bfh-selectbox').val());
     });
 </script>
-<script src="resources/js/validator_userCreateAccount.js"></script>
 </html>

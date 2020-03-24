@@ -18,45 +18,8 @@
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 542px) {
-            #error_detail_message .code {
-                font-size: 74px !important;;
-            }
-
-            #error_detail_message .msg {
-                margin-top: 18px;
-                margin-bottom: 38px;
-                font-size: 52px !important;
-            }
-
-            .back-homepage {
-                font-size: 20px !important;
-            }
-        }
-
-        @media (max-width: 356px) {
-            #error_detail_message .code {
-                font-size: 56px !important;;
-            }
-
-            #error_detail_message .msg {
-                margin-top: 16px;
-                margin-bottom: 34px;
-                font-size: 34px !important;
-            }
-
-            .back-homepage {
-                font-size: 15px !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
+    <link rel="stylesheet" href="resources/css/style_errorPage.css">
 </head>
 <body>
 <div class="main">
@@ -77,7 +40,7 @@
                     <c:set var="errorMessage" value="${error_500}" scope="page"/>
                 </c:if>
 
-                <div style="text-align: center; margin-top: 85px;">
+                <div class="error_detail">
                     <span id="error_detail_message">
                          <c:if test="${not empty code}">
                              <h1 class="code">●&nbsp;&nbsp;<c:out value="${code}"/>&nbsp;&nbsp;●</h1>

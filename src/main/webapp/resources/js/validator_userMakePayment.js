@@ -261,3 +261,10 @@ submitBtn.addEventListener('click', function (event) {
         $('#smallModal-AN').modal('show');
     }
 });
+
+document.addEventListener('keyup', function (e) {
+    if (e.keyCode === 27) {
+        $('#smallModal-AN').modal('hide');
+        $('#smallModal-CN').modal('hide');
+    }
+});

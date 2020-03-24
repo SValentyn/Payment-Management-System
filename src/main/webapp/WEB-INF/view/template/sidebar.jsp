@@ -75,8 +75,8 @@
                      alt="" class="sidebar-icon">
             </div>
             <div>
-                <fmt:message key="sidebar.support"/> <span class="badge badge-pill badge-light">
-                    ${numberOfLetters}</span>
+                <fmt:message key="sidebar.support"/>
+                <span class="badge badge-pill badge-light">${numberOfLetters}</span>
             </div>
         </a>
     </c:if>

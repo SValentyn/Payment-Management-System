@@ -17,13 +17,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
 </head>
 <body>
 <div class="main">
@@ -76,7 +70,7 @@
                                         <fmt:message key="admin.letter.processedButton" var="processedButton"/>
                                         <fmt:message key="admin.letter.backButton" var="backButton"/>
 
-                                        <h4 style="margin-bottom: 25px">
+                                        <h4 style="margin-bottom: 25px;">
                                             ${letterFromUser}
                                         </h4>
 
@@ -152,10 +146,11 @@
                                                             ${letter_description}
                                                         </label>
                                                         <div>
-                                                    <textarea id="description" name="description" class="form-control"
-                                                              style="min-height: 123px; padding-right: .75rem; resize: none;"
-                                                              readonly="readonly"
-                                                    >${descriptionValue}</textarea>
+                                                            <textarea id="description" name="description"
+                                                                      class="form-control"
+                                                                      style="min-height: 123px; padding-right: .75rem; resize: none;"
+                                                                      readonly="readonly"
+                                                            >${descriptionValue}</textarea>
                                                             <label for="description" class="default-label"></label>
                                                         </div>
                                                     </div>
@@ -193,5 +188,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/validator_adminLetterInfo.js"></script>
+<script src="resources/js/validator_adminShowLetterInfo.js"></script>
 </html>

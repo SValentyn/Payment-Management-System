@@ -16,71 +16,8 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        .form-control {
-            height: 46px !important;
-            margin-top: 0 !important;
-        }
-
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-
-        @media (max-width: 470px) {
-            .detail {
-                font-size: 90% !important;
-            }
-
-            .col-md-12 a {
-                font-size: 90% !important;
-            }
-        }
-
-        @media (max-width: 412px) {
-            h4 {
-                font-size: 16px !important;
-            }
-
-            .form-control {
-                font-size: 13px !important;
-            }
-
-            .detail {
-                font-size: 80% !important;
-            }
-
-            .col-md-12 a {
-                font-size: 80% !important;
-            }
-        }
-
-        @media (max-width: 354px) {
-            h4 {
-                font-size: 14px !important;
-            }
-
-            .form-control {
-                font-size: 12px !important;
-            }
-
-            .detail {
-                font-size: 65% !important;
-            }
-
-            .col-md-12 a {
-                font-size: 65% !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
+    <link rel="stylesheet" href="resources/css/style_adminShowPaymentInfo.css">
 </head>
 <body>
 
@@ -256,9 +193,7 @@
                                                         </c:choose>
 
                                                         <!-- Date and Time  -->
-                                                        <span>
-                                                                ${payment.date}
-                                                        </span><br/>
+                                                        <span>${payment.date}</span><br/>
 
                                                         <!-- Payment Condition  -->
                                                         <c:choose>

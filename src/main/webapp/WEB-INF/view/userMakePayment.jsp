@@ -18,53 +18,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        .ui-spinner {
-            width: 100%;
-            height: 40px;
-            padding: 6px 12px;
-            font-size: 15px;
-            color: #555;
-            border-radius: 4px !important;
-            background-color: #fff;
-        }
-
-        .ui-spinner-input {
-            width: 100%;
-            padding: 4px 0 6px 0;
-            margin: 0;
-            line-height: normal;
-        }
-
-        .ui-spinner-input:focus {
-            outline: none;
-        }
-
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 769px) {
-            .switcher-case-2 {
-                float: left;
-            }
-
-            .bfh-selectbox .bfh-selectbox-toggle,
-            .switcher-case-1,
-            .switcher-case-2 {
-                font-size: 100% !important;
-            }
-        }
-
-        @media (max-width: 316px) {
-            .switcher-case-1,
-            .switcher-case-2 {
-                font-size: 80% !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style_userMakePayment.css">
 </head>
 <body>
 
@@ -105,8 +59,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur()">
+                    <button type="button" class="btn btn-default closeButton" data-dismiss="modal">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
@@ -164,8 +117,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur()">
+                    <button type="button" class="btn btn-default closeButton" data-dismiss="modal">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
@@ -474,6 +426,16 @@
 </body>
 <script src="resources/js/validator_userMakePayment.js"></script>
 <script>
+    $(function () {
+        $('#amount').spinner({
+            culture: "en-US",
+            start: 0.00,
+            min: 0.00,
+            step: 1.00,
+            numberFormat: "n"
+        });
+    });
+
     let on_off = 'off';
     let switcher_case_1 = document.querySelector(".switcher-case-1");
     let switcher_case_2 = document.querySelector(".switcher-case-2");
@@ -541,23 +503,5 @@
         validationCardNumber();
         on_off = 'off';
     }
-</script>
-<script>
-    $(function () {
-        $('#amount').spinner({
-            culture: "en-US",
-            start: 0.00,
-            min: 0.00,
-            step: 1.00,
-            numberFormat: "n"
-        });
-    });
-
-    document.addEventListener('keyup', function (e) {
-        if (e.keyCode === 27) {
-            $('#smallModal-AN').modal('hide');
-            $('#smallModal-CN').modal('hide');
-        }
-    });
 </script>
 </html>

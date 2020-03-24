@@ -17,21 +17,8 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        .login-bg {
-            min-height: 100vh;
-        }
-
-        .footer {
-            margin-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
+    <link rel="stylesheet" href="resources/css/style_recoveryPage.css">
 </head>
 <body>
 <div class="main">
@@ -154,5 +141,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/validator_recovery.js"></script>
+<script src="resources/js/validator_recoveryPage.js"></script>
 </html>

@@ -1,0 +1,10 @@
+.form-group {
+    display: flex;
+    margin-bottom: 0;
+}
+
+@media (max-width: 444px) {
+    input[id="number"] {
+        font-size: 100% !important;
+    }
+}

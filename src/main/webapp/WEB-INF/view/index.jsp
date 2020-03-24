@@ -17,27 +17,8 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        .login-bg {
-            min-height: 100vh;
-        }
-
-        .footer {
-            margin-top: 0;
-        }
-
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 960px) {
-            form .btn-default {
-                height: 50px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
+    <link rel="stylesheet" href="resources/css/style_indexPage.css">
 </head>
 <body>
 <div class="main">
@@ -196,6 +177,6 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/validator_index.js"></script>
+<script src="resources/js/validator_indexPage.js"></script>
 </html>
 

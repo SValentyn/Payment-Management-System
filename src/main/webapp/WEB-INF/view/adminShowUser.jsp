@@ -24,81 +24,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <style>
-        .page-content {
-            min-height: 100vh;
-        }
-
-        .content-wrap {
-            width: 88% !important;
-        }
-
-        .form-control {
-            height: 46px !important;
-            margin-top: 0 !important;
-        }
-
-        span[class="title-label"] label {
-            font-size: 22px !important;
-        }
-
-        .card-container {
-            padding: 0;
-            margin: auto;
-        }
-
-        .footer {
-            margin-top: 0;
-        }
-
-        @media (min-width: 2212px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
-        @media (max-width: 744px) {
-            .card-container {
-                width: 100% !important;
-            }
-
-            span[class="title-label"] label {
-                font-size: 70% !important;
-            }
-        }
-
-        @media (max-width: 412px) {
-            h4 {
-                font-size: 18px !important;
-            }
-
-            .form-control {
-                font-size: 13px !important;
-            }
-
-            span[class="title-label"] label {
-                font-size: 55% !important;
-            }
-
-            .card-container {
-                font-size: 80%;
-            }
-        }
-
-        @media (max-width: 354px) {
-            h4 {
-                font-size: 16px !important;
-            }
-
-            .form-control {
-                font-size: 12px !important;
-            }
-
-            .card-container {
-                font-size: 65%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/style_adminShowUser.css">
 </head>
 <body>
 
@@ -125,15 +51,13 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur()">
+                    <button type="button" class="btn btn-default closeButton" data-dismiss="modal">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="deleteUser">
                         <input type="hidden" name="userId" id="userId"/>
-
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
@@ -520,7 +444,7 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/showingModalWindow_adminShowUser.js"></script>
+<script src="resources/js/modalWindow_adminShowUser.js"></script>
 <script>
     let phone = document.querySelector("#phone");
 

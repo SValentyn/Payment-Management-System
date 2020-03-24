@@ -1,0 +1,67 @@
+.page-content {
+    min-height: 100vh;
+}
+
+.content-wrap {
+    width: 88% !important;
+}
+
+.form-control {
+    height: 46px !important;
+    margin-top: 0 !important;
+}
+
+.bfh-currencies .bfh-selectbox-toggle {
+    background-color: #e9ecef;
+}
+
+.card-container {
+    padding: 0;
+    margin: auto;
+}
+
+span[class="title-label"] label {
+    font-size: 22px !important;
+}
+
+@media (max-width: 744px) {
+    .card-container {
+        width: 100% !important;
+    }
+
+    span[class="title-label"] label {
+        font-size: 70% !important;
+    }
+}
+
+@media (max-width: 412px) {
+    h4 {
+        font-size: 18px !important;
+    }
+
+    .form-control {
+        font-size: 13px !important;
+    }
+
+    span[class="title-label"] label {
+        font-size: 55% !important;
+    }
+
+    .card-container {
+        font-size: 80%;
+    }
+}
+
+@media (max-width: 354px) {
+    h4 {
+        font-size: 16px !important;
+    }
+
+    .form-control {
+        font-size: 12px !important;
+    }
+
+    .card-container {
+        font-size: 65%;
+    }
+}
