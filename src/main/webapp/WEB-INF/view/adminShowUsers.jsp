@@ -52,7 +52,7 @@
                 <fmt:message key="admin.users.admin" var="admin_rank"/>
                 <fmt:message key="admin.users.gotoAccount" var="gotoAccount"/>
 
-                <div class="card">
+                <div class="card" style="box-shadow: none;">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center" role="tablist">
                             <li class="nav-item-active">

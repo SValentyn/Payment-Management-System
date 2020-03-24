@@ -18,18 +18,24 @@
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <style>
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
-            }
-        }
-
         .login-bg {
             min-height: 100vh;
         }
 
         .footer {
             margin-top: 0;
+        }
+
+        @media (min-width: 1342px) {
+            .footer {
+                position: fixed;
+            }
+        }
+
+        @media (max-width: 960px) {
+            form .btn-default {
+                height: 50px;
+            }
         }
     </style>
 </head>
@@ -48,7 +54,7 @@
                         <h1>Payment Management System</h1>
                     </div>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto ml-auto">
                     <nav class="navbar navbar-expand-lg">
                         <div class="collapse navbar-collapse show" role="navigation">
                             <div class="navbar-nav">
@@ -98,8 +104,8 @@
                                     Status: <abbr style="color: red">Beta</abbr>
                                 </h4>
 
-                                <div class="form-group group-btn" style="margin-bottom: 35px;">
-                                    <form action="/" role="form" method="POST" style="width: 100%;">
+                                <div class="form-group group-btn" style="height: 60px;">
+                                    <form action="/" role="form" method="POST" style="width: 100%; align-self: center;">
                                         <input type="hidden" name="command" value="login">
                                         <input type="hidden" name="full_phone" value="+34645364524">
                                         <input type="hidden" name="password" value="000000">
@@ -109,7 +115,7 @@
                                         </button>
                                     </form>
 
-                                    <form action="/" role="form" method="POST" style="width: 100%;">
+                                    <form action="/" role="form" method="POST" style="width: 100%; align-self: center;">
                                         <input type="hidden" name="command" value="login">
                                         <input type="hidden" name="full_phone" value="+393524594551">
                                         <input type="hidden" name="password" value="111111">

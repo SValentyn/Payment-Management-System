@@ -38,6 +38,10 @@
             margin-top: 0 !important;
         }
 
+        span[class="title-label"] label {
+            font-size: 22px !important;
+        }
+
         .card-container {
             padding: 0;
             margin: auto;
@@ -57,15 +61,23 @@
             .card-container {
                 width: 100% !important;
             }
+
+            span[class="title-label"] label {
+                font-size: 70% !important;
+            }
         }
 
-        @media (max-width: 394px) {
+        @media (max-width: 412px) {
             h4 {
                 font-size: 18px !important;
             }
 
             .form-control {
                 font-size: 13px !important;
+            }
+
+            span[class="title-label"] label {
+                font-size: 55% !important;
             }
 
             .card-container {
@@ -226,7 +238,7 @@
                                                                     <div>
                                                                         <input id="bio" name="bio" type="text"
                                                                                class="form-control" readonly="readonly"
-                                                                               value="${user.name} ${user.surname}"/>
+                                                                               value="${viewableUser.name} ${viewableUser.surname}"/>
                                                                         <label for="bio" class="default-label"></label>
                                                                     </div>
                                                                 </div>
@@ -239,7 +251,7 @@
                                                                     <div>
                                                                         <input id="phone" name="phone" type="tel"
                                                                                class="form-control" readonly="readonly"
-                                                                               value="${user.phone}"/>
+                                                                               value="${viewableUser.phone}"/>
                                                                         <label for="phone"
                                                                                class="default-label"></label>
                                                                     </div>
@@ -253,7 +265,7 @@
                                                                     <div>
                                                                         <input id="email" name="email" type="email"
                                                                                class="form-control" readonly="readonly"
-                                                                               value="${user.email}"/>
+                                                                               value="${viewableUser.email}"/>
                                                                         <label for="email"
                                                                                class="default-label"></label>
                                                                     </div>
@@ -279,21 +291,21 @@
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-attachAccount-list"
-                                                                       href="?command=attachAccount&userId=${user.userId}"
+                                                                       href="?command=attachAccount"
                                                                        role="tab" aria-controls="attachAccount">
                                                                             ${attachAccount} <span
                                                                             class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-updateData-list"
-                                                                       href="?command=updateUserData&userId=${user.userId}"
+                                                                       href="?command=updateUserData&userId=${viewableUser.userId}"
                                                                        role="tab" aria-controls="updateData">
                                                                             ${updateData} <span
                                                                             class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                        id="list-deleteUser-list" onclick="showModal()"
-                                                                       href="#smallModal?userId=${user.userId}&name=${user.name}&surname=${user.surname}"
+                                                                       href="#smallModal?userId=${viewableUser.userId}&name=${viewableUser.name}&surname=${viewableUser.surname}"
                                                                        role="tab" aria-controls="deleteUser">
                                                                             ${deleteUser} <span
                                                                             class="arrow-link-symbol-right">→</span>
@@ -355,7 +367,7 @@
                                                                                     </div>
                                                                                 </c:forEach>
                                                                             </div>
-                                                                            <a href="?command=showUserPayments&userId=${user.userId}"
+                                                                            <a href="?command=showUserPayments&userId=${viewableUser.userId}"
                                                                                class="float-right">
                                                                                     ${morePayments}
                                                                             </a>
@@ -364,7 +376,8 @@
                                                                     <c:otherwise>
                                                                         <span class="title-label">
                                                                             <label>
-                                                                                <fmt:message key="admin.user.paymentsEmpty"/>
+                                                                                <fmt:message
+                                                                                        key="admin.user.paymentsEmpty"/>
                                                                             </label>
                                                                         </span>
                                                                     </c:otherwise>
@@ -418,18 +431,19 @@
                                                                                     </div>
                                                                                 </c:forEach>
                                                                             </div>
-                                                                            <a href="?command=showUserAccounts&userId=${user.userId}"
+                                                                            <a href="?command=showUserAccounts&userId=${viewableUser.userId}"
                                                                                class="float-right">
                                                                                     ${userAccounts}
                                                                             </a>
                                                                         </div>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                            <span class="title-label">
-                                                                                <label>
-                                                                                    <fmt:message key="admin.user.accountsEmpty"/>
-                                                                                </label>
-                                                                            </span>
+                                                                        <span class="title-label">
+                                                                            <label>
+                                                                                <fmt:message
+                                                                                        key="admin.user.accountsEmpty"/>
+                                                                            </label>
+                                                                        </span>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </div>
@@ -454,7 +468,7 @@
                                                                     <div>
                                                                         <input id="bio_admin" name="bio" type="text"
                                                                                class="form-control" readonly="readonly"
-                                                                               value="${user.name} ${user.surname}"/>
+                                                                               value="${viewableUser.name} ${viewableUser.surname}"/>
                                                                         <label for="bio_admin"
                                                                                class="default-label"></label>
                                                                     </div>
@@ -468,7 +482,7 @@
                                                                     <div>
                                                                         <input id="phone_admin" name="phone" type="tel"
                                                                                class="form-control" readonly="readonly"
-                                                                               value="${user.phone}"/>
+                                                                               value="${viewableUser.phone}"/>
                                                                         <label for="phone_admin"
                                                                                class="default-label"></label>
                                                                     </div>
@@ -483,7 +497,7 @@
                                                                         <input id="email_admin" name="email"
                                                                                type="email" class="form-control"
                                                                                readonly="readonly"
-                                                                               value="${user.email}"/>
+                                                                               value="${viewableUser.email}"/>
                                                                         <label for="email_admin"
                                                                                class="default-label"></label>
                                                                     </div>
@@ -506,7 +520,7 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/showingModalWindow_admin.js"></script>
+<script src="resources/js/showingModalWindow_adminShowUser.js"></script>
 <script>
     let phone = document.querySelector("#phone");
 

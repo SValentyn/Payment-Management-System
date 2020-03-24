@@ -318,27 +318,8 @@ a:active {
     clear: both;
 }
 
-table {
-    width: 100%;
-    border: 1px solid #333333;
-}
-
-td, th, tr {
-    text-align: center;
-    padding: 4px;
-    border: 1px solid #333333;
-}
-
-th {
-    background: rgba(208, 204, 204, 0.15);
-}
-
-tr:hover {
-    background: rgba(208, 204, 204, 0.15);
-}
-
-td a:hover {
-    text-decoration: none;
+.form-control:focus {
+    box-shadow: inset 0 1px 2px #dddddd, 0 0 5px #28a0e5;
 }
 
 form .action {
@@ -349,34 +330,42 @@ form .action .btn-default {
     padding: 0;
 }
 
-form .btn-default {
+.btn-primary:focus,
+.btn-primary:active {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+    box-shadow: none;
+}
+
+.btn-default {
     width: 85%;
     height: 40px;
     padding: 0;
     text-align: center;
     text-transform: uppercase;
-    color: #333333;
+    color: #333333 !important;;
     background-color: #ffffff;
 }
 
-form .btn-default:hover {
-    box-shadow: 0 0 5px rgba(55, 55, 55, 0.1) inset;
+.btn-default:hover {
     text-decoration: none;
-    color: #333333;
-    background-color: #ffffff;
+    color: #333333 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 5px rgba(55, 55, 55, 0.1) inset !important;
 }
 
-form .btn-default:active {
+.btn-default:active {
     box-shadow: none;
 }
 
-form .btn-default a {
+.btn-default a {
     color: #333333;
 }
 
-form .btn-default a:hover,
-form .btn-default a:focus,
-form .btn-default a:active {
+.btn-default a:hover,
+.btn-default a:focus,
+.btn-default a:active {
     cursor: pointer;
     outline: none;
     text-decoration: none;
@@ -1005,6 +994,10 @@ form .btn-default a:active {
     color: #495057;
 }
 
+.card:hover {
+    box-shadow: 0px 0px 8px -5px #000000;
+}
+
 .card-body {
     padding: 1rem;
 }
@@ -1026,9 +1019,16 @@ form .btn-default a:active {
 .arrow-link-symbol-right,
 .arrow-link-symbol-left {
     display: inline-block;
-    margin-left: 5px;
     transition: .2s;
     transform: translateX(0);
+}
+
+.arrow-link-symbol-right {
+    margin: 0 0 0 5px;
+}
+
+.arrow-link-symbol-left {
+    margin: 0 5px 0 0;
 }
 
 .card-footer a:hover,

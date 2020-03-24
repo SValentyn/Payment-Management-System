@@ -48,7 +48,7 @@
                         <h1>Payment Management System</h1>
                     </div>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto ml-auto">
                     <nav class="navbar navbar-expand-lg">
                         <div class="collapse navbar-collapse show" role="navigation">
                             <div class="navbar-nav">

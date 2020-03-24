@@ -225,8 +225,10 @@
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="updatePassword">
-                                                <input type="submit" class="btn btn-default signup" style="width: 56%;"
-                                                       value="${changePasswordButton}">
+                                                <button type="submit" class="btn btn-primary signup btn-default"
+                                                        style="width: 56%;">
+                                                    ${changePasswordButton}
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

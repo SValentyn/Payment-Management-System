@@ -175,9 +175,10 @@
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="support">
-                                                <input type="submit" class="btn btn-default signup"
-                                                       style="width: 62%;"
-                                                       value="${backButton}">
+                                                <button type="submit" class="btn btn-primary signup btn-default"
+                                                        style="width: 62%;">
+                                                    ${backButton}
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

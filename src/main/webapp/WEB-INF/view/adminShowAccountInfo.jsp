@@ -35,6 +35,10 @@
             background-color: #e9ecef;
         }
 
+        span[class="title-label"] label {
+            font-size: 22px !important;
+        }
+
         .card-container {
             padding: 0;
             margin: auto;
@@ -54,15 +58,23 @@
             .card-container {
                 width: 100% !important;
             }
+
+            span[class="title-label"] label {
+                font-size: 70% !important;
+            }
         }
 
-        @media (max-width: 394px) {
+        @media (max-width: 412px) {
             h4 {
                 font-size: 18px !important;
             }
 
             .form-control {
                 font-size: 13px !important;
+            }
+
+            span[class="title-label"] label {
+                font-size: 55% !important;
             }
 
             .card-container {
@@ -285,6 +297,8 @@
                 <fmt:message key="admin.account_info.blockCard" var="blockCard"/>
                 <fmt:message key="admin.account_info.unblockCard" var="unblockCard"/>
                 <fmt:message key="admin.account_info.detachCard" var="detachCard"/>
+                <fmt:message key="admin.attachAccount.returnToUserProfile"
+                             var="returnToUserProfile"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -359,7 +373,7 @@
                                                                 <div style="display: flex; margin-bottom: 25px;">
                                                                     <input id="balance" name="balance" type="text"
                                                                            class="form-control" readonly="readonly"
-                                                                           style="min-width: 49%;margin-right: 1%;"
+                                                                           style="min-width: 49%; margin-right: 1%;"
                                                                            value="${account.balance}"/>
                                                                     <div id="currency"
                                                                          class="bfh-selectbox bfh-currencies"
@@ -373,7 +387,15 @@
 
                                                             <div class="col-md-4 col-lg-4 col-xl-4 offset-md-1"
                                                                  style="align-self: center;">
-                                                                <div class="list-group" id="list-tab" role="tablist">
+                                                                <div class="list-group" id="list-tab" role="tablist"
+                                                                     style="margin-top: 24px;">
+                                                                    <a class="list-group-item list-group-item-action list-group-item-button-primary"
+                                                                       id="list-unblockAccount-list" role="tab"
+                                                                       href="?command=showUser&userId=${viewableUser.userId}"
+                                                                       aria-controls="unblockAccount">
+                                                                            ${accountOwner} <span
+                                                                            class="arrow-link-symbol-right">→</span>
+                                                                    </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-payments-list" data-toggle="list"
                                                                        href="#list-payments" role="tab"
@@ -570,13 +592,16 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <label style="font-size: 20px;">
-                                                    <a href="" class="float-left"
-                                                       onclick="history.back(); return false;">
-                                                        <span class="arrow-link-symbol-left" style="margin: 0 5px 0 0;">←</span>
-                                                        <fmt:message key="admin.account_info.backToAccount"/>
-                                                    </a>
-                                                </label>
+                                                <!-- Return to User Profile -->
+                                                <div style="height: 22px; margin-top: 15px;">
+                                                    <label style="font-size: 16px;">
+                                                        <a href="?command=showUser&userId=${viewableUser.userId}"
+                                                           class="float-left">
+                                                            <span class="arrow-link-symbol-left">←</span>
+                                                                ${returnToUserProfile}
+                                                        </a>
+                                                    </label>
+                                                </div>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>

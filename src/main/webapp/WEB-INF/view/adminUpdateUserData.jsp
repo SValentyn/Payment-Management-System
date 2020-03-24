@@ -92,6 +92,8 @@
                                         <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                         <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                                         <fmt:message key="registration.correct" var="correct"/>
+                                        <fmt:message key="admin.attachAccount.returnToUserProfile"
+                                                     var="returnToUserProfile"/>
 
                                         <h4>
                                             ${formHeader}
@@ -185,12 +187,14 @@
                                             </div>
                                         </form>
 
-                                        <!-- Back Button -->
+                                        <!-- Return to User Profile -->
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="showUsers">
-                                                <input type="submit" class="btn btn-default signup" style="width: 56%;"
-                                                       value="${backButton}">
+                                                <input type="hidden" name="command" value="showUser">
+                                                <input type="hidden" name="userId" value="${viewableUser.userId}">
+                                                <button type="submit" class="btn btn-primary signup btn-default"
+                                                        style="width: 56%;">
+                                                    ${returnToUserProfile}
                                             </form>
                                         </div>
                                     </div>

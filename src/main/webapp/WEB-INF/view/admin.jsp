@@ -38,7 +38,7 @@
             <div class="col-lg-10">
                 <fmt:message key="admin.users.allUsers" var="allUsers"/>
 
-                <div class="card">
+                <div class="card" style="box-shadow: none;">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center" role="tablist">
                             <li class="nav-item-home">

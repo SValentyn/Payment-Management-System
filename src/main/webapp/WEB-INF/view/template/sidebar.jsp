@@ -29,17 +29,6 @@
         </a>
     </c:if>
     <c:if test="${currentUser.role.id == 1}">
-        <a href="?command=makePayment" class="list-group-item list-group-item-action">
-            <div>
-                <img src="resources/images/make-payment.png"
-                     alt="" class="sidebar-icon">
-            </div>
-            <div>
-                <fmt:message key="sidebar.makePayment"/>
-            </div>
-        </a>
-    </c:if>
-    <c:if test="${currentUser.role.id == 1}">
         <a href="?command=attachCard" class="list-group-item list-group-item-action">
             <div>
                 <img src="resources/images/attach-card.png"
@@ -47,6 +36,17 @@
             </div>
             <div>
                 <fmt:message key="sidebar.attachCard"/>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 1}">
+        <a href="?command=makePayment" class="list-group-item list-group-item-action">
+            <div>
+                <img src="resources/images/make-payment.png"
+                     alt="" class="sidebar-icon">
+            </div>
+            <div>
+                <fmt:message key="sidebar.makePayment"/>
             </div>
         </a>
     </c:if>

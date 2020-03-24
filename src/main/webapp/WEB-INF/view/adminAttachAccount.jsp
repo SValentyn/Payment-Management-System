@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.createAccount.title"/></title>
+    <title><fmt:message key="admin.attachAccount.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -24,14 +24,24 @@
             }
         }
 
-        @media (min-width: 1342px) {
-            .footer {
-                position: fixed;
+        @media (max-width: 444px) {
+            input[id="number"] {
+                font-size: 100% !important;
+            }
+
+            h4 {
+                font-size: 16px !important;
             }
         }
 
-        .page-content {
-            min-height: 100vh;
+        @media (max-width: 383px) {
+            .form-control {
+                font-size: 100% !important;
+            }
+
+            input[id="number"] {
+                font-size: 85% !important;
+            }
         }
     </style>
 </head>
@@ -84,7 +94,7 @@
             <div class="col-lg-10">
                 <div class="page-content container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 offset-lg-3">
+                        <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
@@ -94,23 +104,21 @@
                                         <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
                                         <fmt:message key="admin.attachAccount.attachAccountButton"
                                                      var="attachAccountButton"/>
-                                        <fmt:message key="admin.attachAccount.backToAccountsButton"
-                                                     var="backToAccountsButton"/>
+                                        <fmt:message key="admin.attachAccount.showAllAccountsButton"
+                                                     var="showAllAccountsButton"/>
+                                        <fmt:message key="admin.attachAccount.returnToUserProfile"
+                                                     var="returnToUserProfile"/>
                                         <fmt:message key="user.createAccount.numberError" var="numberError"/>
                                         <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
                                         <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
                                         <fmt:message key="registration.correct" var="correct"/>
 
-                                        <h4>
+                                        <h4 style="margin-bottom: 15px;">
                                             ${formHeader}
                                         </h4>
 
                                         <form action="" role="form" method="POST">
                                             <input type="hidden" name="command" value="attachAccount"/>
-
-                                            <!-- User Id -->
-                                            <input id="userId" name="userId" class="form-control"
-                                                   type="hidden" value="${userId}"/>
 
                                             <!-- User bio -->
                                             <div>
@@ -120,9 +128,9 @@
                                                 <div>
                                                     <input id="bio" name="bio" class="form-control"
                                                            type="text" style="height: 46px; margin-top: 0;"
-                                                           readonly="readonly" onfocus="this.blur()"
+                                                           readonly="readonly"
                                                            data-toggle="tooltip-right-hover" title="${tooltipUserBio}"
-                                                           value="${bio}"/>
+                                                           value="${bioValue}"/>
                                                     <label for="bio" class="default-label"></label>
                                                 </div>
                                             </div>
@@ -190,12 +198,22 @@
                                             </div>
                                         </form>
 
-                                        <!-- Show Accounts Button -->
+                                        <!-- Show All Accounts Button -->
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="showAccountInfo">
-                                                <input type="submit" class="btn btn-default signup"
-                                                       value="${backToAccountsButton}">
+                                                <input type="hidden" name="command" value="showUserAccounts">
+                                                <button type="submit" class="btn btn-primary signup btn-default">
+                                                    ${showAllAccountsButton}
+                                            </form>
+                                        </div>
+
+                                        <!-- Return to User Profile -->
+                                        <div class="action back-btn">
+                                            <form action="/" method="GET" role="form">
+                                                <input type="hidden" name="command" value="showUser">
+                                                <input type="hidden" name="userId" value="${viewableUser.userId}">
+                                                <button type="submit" class="btn btn-primary signup btn-default">
+                                                    ${returnToUserProfile}
                                             </form>
                                         </div>
                                     </div>

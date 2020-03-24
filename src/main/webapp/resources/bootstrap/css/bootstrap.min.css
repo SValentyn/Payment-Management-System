@@ -2664,7 +2664,7 @@ a.btn.disabled, fieldset:disabled a.btn {
     color: #fff;
     background-color: #3276b1;
     border-color: #285e8e;
-    box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .5)
+    box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .5);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
@@ -2729,9 +2729,10 @@ a.btn.disabled, fieldset:disabled a.btn {
     cursor: pointer;
     outline: none;
     text-decoration: none;
-    color: #333;
-    background-color: #ebebeb;
-    border-color: #adadad
+    color: #333 !important;;
+    background-color: #ebebeb !important;;
+    border-color: #adadad !important;;
+    box-shadow: 0 0 0 0.2rem rgba(181, 182, 183, 0.25) !important;
 }
 
 .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {

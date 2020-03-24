@@ -23,6 +23,12 @@
                 position: fixed;
             }
         }
+
+        @media (max-width: 444px) {
+            input[id="number"] {
+                font-size: 100% !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -74,7 +80,7 @@
             <div class="col-lg-10">
                 <div class="page-content container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 offset-lg-3">
+                        <div class="col-xl-4 offset-xl-3">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">

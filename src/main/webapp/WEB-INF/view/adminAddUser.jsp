@@ -95,7 +95,7 @@
                                         <fmt:message key="registration.surname" var="surname"/>
                                         <fmt:message key="registration.email" var="email"/>
                                         <fmt:message key="admin.addUser.addUserButton" var="addUserButton"/>
-                                        <fmt:message key="admin.addUser.backButton" var="backButton"/>
+                                        <fmt:message key="admin.addUser.attachAccount" var="backButton"/>
                                         <fmt:message key="admin.addUser.nameError" var="nameError"/>
                                         <fmt:message key="admin.addUser.surnameError" var="surnameError"/>
                                         <fmt:message key="registration.phoneError" var="phoneError"/>
@@ -200,19 +200,22 @@
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachAccount">
-                                                        <input type="hidden" name="userId" value="${userId}">
-                                                        <input type="submit" class="btn btn-default signup"
-                                                               style="width: 54%;" value="${backButton}">
+                                                        <button type="submit" class="btn btn-primary signup btn-default"
+                                                                style="width: 54%;">
+                                                                ${backButton}
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="action back-btn disabled">
+                                                <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachAccount">
-                                                        <input type="hidden" name="userId" value="${userId}">
-                                                        <input type="submit" class="btn btn-default signup"
-                                                               style="width: 54%;" value="${backButton}">
+                                                        <button type="submit"
+                                                                class="btn btn-primary signup btn-default disabled"
+                                                                style="width: 54%;">
+                                                                ${backButton}
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </c:otherwise>
