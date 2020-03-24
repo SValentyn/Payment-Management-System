@@ -24,7 +24,6 @@ public class CommandAdminAddUser implements ICommand {
         request.setAttribute("phoneExistError", false);
         request.setAttribute("emailExistError", false);
         request.setAttribute("addUserError", false);
-        request.setAttribute("userId", null);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
@@ -64,7 +63,7 @@ public class CommandAdminAddUser implements ICommand {
                 setRequestAttributes(request, name, surname, phone, email);
                 request.setAttribute("addUserError", true);
             } else {
-                request.setAttribute("userId", status);
+                request.getSession().setAttribute("viewableUser", UserService.getInstance().findUserById(status));
                 request.setAttribute("added", true);
             }
         }

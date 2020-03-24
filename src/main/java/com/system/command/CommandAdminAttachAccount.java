@@ -27,57 +27,57 @@ public class CommandAdminAttachAccount implements ICommand {
         request.setAttribute("attached", false);
 
         // Data
-        String userId = request.getParameter("userId");
-        String number = request.getParameter("number");
-        String currency = request.getParameter("currency");
+        Integer userId;
+        String bio, number, currency;
+        User user = (User) request.getSession().getAttribute("viewableUser");
 
         // Check
-        if (userId == null) {
+        if (user == null) {
             request.setAttribute("attachAccountError", true);
             return page;
-        } else {
-            // Data
-            List<User> users = UserService.getInstance().findAllUsers();
-            List<Integer> usersIds = new ArrayList<>();
-            for (User user : users) {
-                usersIds.add(user.getUserId());
-            }
-
-            // Check
-            if (!usersIds.contains(Integer.valueOf(userId))) {
-                request.setAttribute("numberValue", number);
-                request.setAttribute("currencyValue", currency);
-                request.setAttribute("attachAccountError", true);
-                return page;
-            } else {
-                User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
-                String name = user.getName();
-                String surname = user.getSurname();
-
-                // Set Attributes
-                request.getSession().setAttribute("userId", userId);
-                request.setAttribute("userId", userId);
-                request.setAttribute("bio", name + " " + surname);
-            }
         }
+
+        // Data
+        List<User> users = UserService.getInstance().findAllUsers();
+        List<Integer> usersIds = new ArrayList<>();
+        for (User aUser : users) {
+            usersIds.add(aUser.getUserId());
+        }
+
+        // Check
+        if (!usersIds.contains(user.getUserId())) {
+            request.setAttribute("attachAccountError", true);
+            return page;
+        }
+
+        // Data
+        userId = user.getUserId();
+        bio = user.getName() + " " + user.getSurname();
+        number = request.getParameter("number");
+        currency = request.getParameter("currency");
+
+        // Set Attributes
+        setRequestAttributes(request, bio, number, currency);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             return page;
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
+            // Server Validation
+            if (number == null || number.length() < 20 || currency == null || currency.equals("")) {
+                request.setAttribute("attachAccountError", true);
+                return page;
+            }
+
             // Check
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
+            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
             for (Account account : accounts) {
                 if (account.getNumber().equals(number)) {
-                    setRequestAttributes(request, number, currency);
                     request.setAttribute("attachAccountError", true);
                     return page;
                 }
             }
-
-            // Set Attributes
-            request.setAttribute("accounts", accounts);
 
             // Check
             // Condition: the user cannot have more than 3 accounts with a certain currency
@@ -87,14 +87,12 @@ public class CommandAdminAttachAccount implements ICommand {
             }
 
             if (count == 3) {
-                setRequestAttributes(request, number, currency);
                 request.setAttribute("manyAccountWithThisCurrencyError", true);
                 return page;
             }
 
-            int status = AccountService.getInstance().createAccount(Integer.valueOf(userId), number, currency);
+            int status = AccountService.getInstance().createAccount(userId, number, currency);
             if (status == 0) {
-                setRequestAttributes(request, number, currency);
                 request.setAttribute("attachAccountError", true);
             } else {
                 request.setAttribute("accountId", status);
@@ -105,7 +103,8 @@ public class CommandAdminAttachAccount implements ICommand {
         return page;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String number, String currency) {
+    private void setRequestAttributes(HttpServletRequest request, String bio, String number, String currency) {
+        request.setAttribute("bioValue", bio);
         request.setAttribute("numberValue", number);
         request.setAttribute("currencyValue", currency);
     }

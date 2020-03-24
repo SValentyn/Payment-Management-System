@@ -53,7 +53,7 @@ public class CommandAdminShowUser implements ICommand {
         }
 
         User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
-        request.setAttribute("user", user);
+        request.getSession().setAttribute("viewableUser", user);
 
         if (user.getRole().getId() == 2) {
             request.setAttribute("userIsAdmin", true);

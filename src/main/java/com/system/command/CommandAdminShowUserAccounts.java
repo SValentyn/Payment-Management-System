@@ -19,23 +19,24 @@ public class CommandAdminShowUserAccounts implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
 
-        request.setAttribute("showUserAccountsError", false);
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+        request.setAttribute("showUserAccountsError", false);
 
         // Data
-        String userId = request.getParameter("userId");
+        User user = (User) request.getSession().getAttribute("viewableUser");
 
         // Check
-        if (userId == null) {
+        if (user == null) {
             request.setAttribute("showUserAccountsError", true);
             return page;
         }
 
         // Data
+        Integer userId = user.getUserId();
         List<User> users = UserService.getInstance().findAllUsers();
-        List<String> usersIds = new ArrayList<>();
-        for (User user : users) {
-            usersIds.add(String.valueOf(user.getUserId()));
+        List<Integer> usersIds = new ArrayList<>();
+        for (User aUser : users) {
+            usersIds.add(aUser.getUserId());
         }
 
         // Check
@@ -45,7 +46,8 @@ public class CommandAdminShowUserAccounts implements ICommand {
         }
 
         // Set Attributes
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
+        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
 
         return page;
     }
