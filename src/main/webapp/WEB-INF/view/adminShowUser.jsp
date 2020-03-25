@@ -130,6 +130,7 @@
                 <fmt:message key="admin.user.deleteUser" var="deleteUser"/>
                 <fmt:message key="admin.user.lastPayments" var="lastPayments"/>
                 <fmt:message key="admin.user.morePayments" var="morePayments"/>
+                <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
                 <fmt:message key="user.account.allAccounts" var="allAccounts"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
@@ -148,9 +149,11 @@
                                             <c:when test="${!userIsAdmin}">
                                                 <div class="row">
                                                     <div class="col-xl-12">
+
                                                         <h4>
                                                                 ${userProfile}
                                                         </h4>
+
                                                         <div class="form-row">
                                                             <div class="col-md-7 col-lg-7 col-xl-7">
 
@@ -159,12 +162,10 @@
                                                                     <label class="for-form-label">
                                                                             ${user_rank}:
                                                                     </label>
-                                                                    <div>
-                                                                        <input id="bio" name="bio" type="text"
-                                                                               class="form-control" readonly="readonly"
-                                                                               value="${viewableUser.name} ${viewableUser.surname}"/>
-                                                                        <label for="bio" class="default-label"></label>
-                                                                    </div>
+                                                                    <input id="bio" name="bio" type="text"
+                                                                           class="form-control" readonly="readonly"
+                                                                           value="${viewableUser.name} ${viewableUser.surname}"/>
+                                                                    <label for="bio" class="default-label"></label>
                                                                 </div>
 
                                                                 <!-- User Phone -->
@@ -172,13 +173,10 @@
                                                                     <label class="for-form-label">
                                                                             ${phone}:
                                                                     </label>
-                                                                    <div>
-                                                                        <input id="phone" name="phone" type="tel"
-                                                                               class="form-control" readonly="readonly"
-                                                                               value="${viewableUser.phone}"/>
-                                                                        <label for="phone"
-                                                                               class="default-label"></label>
-                                                                    </div>
+                                                                    <input id="phone" name="phone" type="tel"
+                                                                           class="form-control" readonly="readonly"
+                                                                           value="${viewableUser.phone}"/>
+                                                                    <label for="phone" class="default-label"></label>
                                                                 </div>
 
                                                                 <!-- User Email -->
@@ -186,13 +184,10 @@
                                                                     <label class="for-form-label">
                                                                             ${email}:
                                                                     </label>
-                                                                    <div>
-                                                                        <input id="email" name="email" type="email"
-                                                                               class="form-control" readonly="readonly"
-                                                                               value="${viewableUser.email}"/>
-                                                                        <label for="email"
-                                                                               class="default-label"></label>
-                                                                    </div>
+                                                                    <input id="email" name="email" type="email"
+                                                                           class="form-control" readonly="readonly"
+                                                                           value="${viewableUser.email}"/>
+                                                                    <label for="email" class="default-label"></label>
                                                                 </div>
                                                             </div>
 
@@ -276,6 +271,8 @@
                                                                                             </div>
                                                                                             <div class="card-body"
                                                                                                  style="padding: 0.75rem 1.25rem;">
+
+                                                                                                <!-- Sender and Recipient -->
                                                                                                 <p class="card-title text-muted">
                                                                                                         ${payment.senderNumber}
                                                                                                     <span style="margin: 0 5px 0 5px;">→</span>
@@ -285,6 +282,18 @@
                                                                                                         <img src="resources/images/info.png"
                                                                                                              alt="">
                                                                                                     </a>
+                                                                                                </p>
+
+                                                                                                <!-- Sent Funds -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${sentFunds}: ${payment.sum}
+                                                                                                    <c:forEach
+                                                                                                            items="${accountsMap}"
+                                                                                                            var="entry">
+                                                                                                        <c:if test="${payment.paymentId == entry.key}">
+                                                                                                            ${entry.value.currency}
+                                                                                                        </c:if>
+                                                                                                    </c:forEach>
                                                                                                 </p>
                                                                                             </div>
                                                                                         </div>

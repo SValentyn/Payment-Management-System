@@ -1,5 +1,7 @@
 package com.system.command;
 
+import com.system.entity.Account;
+import com.system.entity.Payment;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommandAdminShowUser implements ICommand {
@@ -20,16 +23,15 @@ public class CommandAdminShowUser implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER);
 
+        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("showUserError", false);
         request.setAttribute("userIsAdmin", false);
 
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-
         // Data
+        String userId = request.getParameter("userId");
         List<User> users = UserService.getInstance().findAllUsers();
 
         // Check
-        String userId = request.getParameter("userId");
         if (userId == null) {
             request.setAttribute("users", users);
             request.setAttribute("totalUsers", users.size());
@@ -39,12 +41,14 @@ public class CommandAdminShowUser implements ICommand {
         }
 
         // Data
-        List<String> usersIds = new ArrayList<>();
+        Integer userIdInt = Integer.valueOf(userId);
+        List<Integer> usersIds = new ArrayList<>();
         for (User user : users) {
-            usersIds.add(String.valueOf(user.getUserId()));
+            usersIds.add(user.getUserId());
         }
 
-        if (!usersIds.contains(userId)) {
+        // Check
+        if (!usersIds.contains(userIdInt)) {
             request.setAttribute("users", users);
             request.setAttribute("totalUsers", users.size());
             request.setAttribute("showUserError", true);
@@ -52,18 +56,32 @@ public class CommandAdminShowUser implements ICommand {
             return page;
         }
 
-        User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
+        // Data
+        User user = UserService.getInstance().findUserById(userIdInt);
+
+        // Set session attribute
         request.getSession().setAttribute("viewableUser", user);
 
+        // Check
         if (user.getRole().getId() == 2) {
             request.setAttribute("userIsAdmin", true);
             return page;
         }
 
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findLastPaymentsByUserId(Integer.valueOf(userId)).isEmpty());
-        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(Integer.valueOf(userId)));
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId)));
+        // Data
+        List<Payment> payments = PaymentService.getInstance().findAllPaymentsByUserId(userIdInt);
+        HashMap<Integer, Account> accountsMap = new HashMap<>();
+
+        for (Payment payment : payments) {
+            accountsMap.put(payment.getPaymentId(), AccountService.getInstance().findAccountByAccountId(payment.getAccountId()));
+        }
+
+        // Set Attributes
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findLastPaymentsByUserId(userIdInt).isEmpty());
+        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userIdInt).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userIdInt));
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userIdInt));
+        request.setAttribute("accountsMap", accountsMap);
         return page;
     }
 
