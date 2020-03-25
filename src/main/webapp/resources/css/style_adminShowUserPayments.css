@@ -1,9 +1,15 @@
-@media (max-width: 744px) {
-    .card-container {
-        width: 100% !important;
-        margin: 0;
-    }
+.login-wrapper .box .content-wrap {
+    width: 92%;
 }
+
+.card-container {
+    width: 100%;
+    margin: 0;
+}
+
+/*@media (max-width: 744px) {*/
+
+/*}*/
 
 @media (max-width: 394px) {
     h4 {

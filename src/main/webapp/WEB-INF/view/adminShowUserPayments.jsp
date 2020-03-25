@@ -44,6 +44,10 @@
                 <fmt:message key="admin.user_payments.formHeader" var="formHeader"/>
                 <fmt:message key="admin.page.success" var="success"/>
                 <fmt:message key="admin.page.failed" var="failed"/>
+                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
+                <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
+                <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -58,44 +62,113 @@
                                                     ${formHeader}
                                                 </h4>
 
-                                                <div class="card-container" style="width: 75%; margin: 40px auto auto;">
-                                                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
-                                                        <c:forEach items="${payments}" var="payment">
-                                                            <div class="col mb-4">
-                                                                <div class="card bg-light">
-                                                                    <div class="card-header">
-                                                                        <small class="text-muted float-left">
-                                                                                ${payment.date}
-                                                                        </small>
-                                                                        <c:choose>
-                                                                            <c:when test="${payment.condition}">
-                                                                                <small class="text-success float-right">
-                                                                                        ${success}
-                                                                                </small>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <small class="text-danger float-right">
-                                                                                        ${failed}
-                                                                                </small>
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                    </div>
-                                                                    <div class="card-body"
-                                                                         style="padding: 0.75rem 1.25rem;">
-                                                                        <p class="card-title text-muted">
-                                                                                ${payment.senderNumber}
-                                                                            <span style="margin: 0 5px 0 5px;">→</span>
-                                                                                ${payment.recipientNumber}
-                                                                            <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
-                                                                               style="float: right">
-                                                                                <img src="resources/images/info.png"
-                                                                                     alt="">
-                                                                            </a>
-                                                                        </p>
-                                                                    </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-xl-3">
+                                                        <div>
+                                                            <form action="/" method="GET" role="form">
+                                                                <input type="hidden" name="command"
+                                                                       value="showUser">
+                                                                <input type="hidden" name="userId"
+                                                                       value="${viewableUser.userId}">
+                                                                <div class="action" style="text-align: unset;">
+                                                                    <button id="submit" type="submit"
+                                                                            class="btn btn-primary signup btn-default"
+                                                                            style="width: 100%;">
+                                                                        ${returnToUserProfile}
+                                                                    </button>
                                                                 </div>
-                                                            </div>
-                                                        </c:forEach>
+                                                            </form>
+                                                        </div>
+
+                                                        <div style="text-align: center; margin: 20px 0 30px 0;">
+                                                            <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
+                                                                ${searchCriteria}:
+                                                            </label>
+                                                            <form action="/" method="GET" role="form">
+                                                                <input type="hidden" name="command"
+                                                                       value="searchAccounts">
+                                                                <div class="action" style="text-align: unset;">
+                                                                    <button id="search" type="submit"
+                                                                            class="btn btn-primary signup">
+                                                                        ${searchButton}
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-9 col-xl-9">
+                                                        <div class="col-xl-12">
+                                                            <c:choose>
+                                                                <c:when test="${!paymentsEmpty}">
+                                                                    <div class="form-row">
+                                                                        <div class="card-container">
+                                                                            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
+                                                                                <c:forEach items="${payments}"
+                                                                                           var="payment">
+                                                                                    <div class="col mb-4">
+                                                                                        <div class="card bg-light">
+                                                                                            <div class="card-header">
+                                                                                                <small class="text-muted float-left">
+                                                                                                        ${payment.date}
+                                                                                                </small>
+                                                                                                <c:choose>
+                                                                                                    <c:when test="${payment.condition}">
+                                                                                                        <small class="text-success float-right">
+                                                                                                                ${success}
+                                                                                                        </small>
+                                                                                                    </c:when>
+                                                                                                    <c:otherwise>
+                                                                                                        <small class="text-danger float-right">
+                                                                                                                ${failed}
+                                                                                                        </small>
+                                                                                                    </c:otherwise>
+                                                                                                </c:choose>
+                                                                                            </div>
+                                                                                            <div class="card-body"
+                                                                                                 style="padding: 0.75rem 1.25rem;">
+
+                                                                                                <!-- Sender and Recipient -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${payment.senderNumber}
+                                                                                                    <span style="margin: 0 5px 0 5px;">→</span>
+                                                                                                        ${payment.recipientNumber}
+                                                                                                    <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                       style="float: right">
+                                                                                                        <img src="resources/images/info.png"
+                                                                                                             alt="">
+                                                                                                    </a>
+                                                                                                </p>
+
+                                                                                                <!-- Sent Funds -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${sentFunds}: ${payment.sum}
+                                                                                                    <c:forEach
+                                                                                                            items="${accounts}"
+                                                                                                            var="entry">
+                                                                                                        <c:if test="${payment.paymentId == entry.key}">
+                                                                                                            ${entry.value.currency}
+                                                                                                        </c:if>
+                                                                                                    </c:forEach>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </c:forEach>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <span class="title-label">
+                                                                        <label style="font-size: 22px;">
+                                                                            <fmt:message
+                                                                                    key="admin.user.paymentsEmpty"/>
+                                                                        </label>
+                                                                    </span>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
