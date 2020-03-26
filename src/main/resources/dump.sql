@@ -52,13 +52,17 @@ CREATE TABLE users
 INSERT INTO users (user_id, name, surname, phone, email, password, role_id)
 VALUES
 # admin (pass: 111111)
-(1, 'Cristoforo', 'Colombo', '+393524594551', 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112', 2),
+(1, 'Cristoforo', 'Colombo', '+393524594551',
+ 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112', 2),
 # user (pass: 000000)
-(2, 'Fernando', 'de Magallanes', '+34645364524', 'Fernando-de-Magallanes@outlook.com','670b14728ad9902aecba32e22fa4f6bd', 1),
+(2, 'Fernando', 'de Magallanes', '+34645364524',
+ 'Fernando-de-Magallanes@outlook.com', '670b14728ad9902aecba32e22fa4f6bd', 1),
 # user (pass: 000001)
-(3, 'James', 'Cook', '+447465106475', 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1),
+(3, 'James', 'Cook', '+447465106475',
+ 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1),
 # user (pass: 000002)
-(4, 'Vasco', 'da Gama', '+351919131006', 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', 1);
+(4, 'Vasco', 'da Gama', '+351919131006',
+ 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', 1);
 -- -- --
 
 -- -- --
@@ -128,23 +132,36 @@ VALUES (1, 1, '0000000000000000', '200', '03/2021', true),
 -- -- --
 CREATE TABLE payments
 (
-    payment_id      INT(11)      NOT NULL AUTO_INCREMENT,
-    account_id      INT(11)      NOT NULL,
-    senderNumber    VARCHAR(255) NOT NULL,
-    recipientNumber VARCHAR(255) NOT NULL,
-    `sum`           DOUBLE       NOT NULL,
-    appointment     VARCHAR(255),
-    `date`          VARCHAR(255) NOT NULL,
-    `condition`     BOOLEAN      NOT NULL,
+    payment_id        INT(11)      NOT NULL AUTO_INCREMENT,
+    account_id        INT(11)      NOT NULL,
+    isOutgoing        BOOLEAN      NOT NULL DEFAULT TRUE,
+    senderNumber      VARCHAR(255) NOT NULL,
+    senderAmount      DOUBLE       NOT NULL,
+    senderCurrency    VARCHAR(3)   NOT NULL,
+    recipientNumber   VARCHAR(255) NOT NULL,
+    recipientAmount   DOUBLE,
+    recipientCurrency VARCHAR(3),
+    exchangeRate      DOUBLE       NOT NULL,
+    newBalance        DOUBLE       NOT NULL,
+    appointment       VARCHAR(255),
+    `date`            VARCHAR(255) NOT NULL,
+    `condition`       BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (payment_id),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 ) ENGINE = InnoDB
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-INSERT INTO payments (payment_id, account_id, senderNumber, recipientNumber, sum, appointment, date, `condition`)
-VALUES (1, 2, '11111000000000000000', '11111000000000000001', 2000.00, 'for accommodation', '01/02/2020, 19:35', true),
-       (2, 4, '00000000000000000001', '00000000000000000002', 400.00, 'charity', '01/10/2020, 12:00', true);
+INSERT INTO payments (account_id, isOutgoing, senderNumber, senderAmount, senderCurrency, recipientNumber,
+                      recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, date, `condition`)
+VALUES (1, 1, '00000000000000000000', 20.0, 'MXN', '11111000000000000000',
+        20.0, 'UAH', 1.0, 9480.0, '', '26/03/2020, 00:43', 1),
+       (2, 0, '00000000000000000000', 20.0, 'MXN', '11111000000000000000',
+        20.0, 'UAH', 1.0, 7825.0, '', '26/03/2020, 00:43', 1),
+       (3, 1, '11111222220000000000', 620.0, 'PLN', '11111000000000000001',
+        620.0, 'AUD', 1.0, 2410.0, '', '26/03/2020, 01:34', 1),
+       (5, 0, '11111222220000000000', 620.0, 'PLN', '11111000000000000001',
+        620.0, 'AUD', 1.0, 1610.0, '', '26/03/2020, 01:34', 1);
 -- -- --
 
 -- -- --

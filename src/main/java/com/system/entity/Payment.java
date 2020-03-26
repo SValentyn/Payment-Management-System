@@ -9,9 +9,15 @@ public class Payment implements Serializable {
 
     private Integer paymentId;
     private Integer accountId;
+    private Boolean isOutgoing;
     private String senderNumber;
+    private BigDecimal senderAmount;
+    private String senderCurrency;
     private String recipientNumber;
-    private BigDecimal sum;
+    private BigDecimal recipientAmount;
+    private String recipientCurrency;
+    private BigDecimal exchangeRate;
+    private BigDecimal newBalance;
     private String appointment;
     private String date;
     private Boolean condition;
@@ -35,12 +41,36 @@ public class Payment implements Serializable {
         this.accountId = accountId;
     }
 
+    public Boolean getIsOutgoing() {
+        return isOutgoing;
+    }
+
+    public void setIsOutgoing(Boolean outgoing) {
+        isOutgoing = outgoing;
+    }
+
     public String getSenderNumber() {
         return senderNumber;
     }
 
     public void setSenderNumber(String senderNumber) {
         this.senderNumber = senderNumber;
+    }
+
+    public BigDecimal getSenderAmount() {
+        return senderAmount;
+    }
+
+    public void setSenderAmount(BigDecimal senderAmount) {
+        this.senderAmount = senderAmount;
+    }
+
+    public String getSenderCurrency() {
+        return senderCurrency;
+    }
+
+    public void setSenderCurrency(String senderCurrency) {
+        this.senderCurrency = senderCurrency;
     }
 
     public String getRecipientNumber() {
@@ -51,12 +81,36 @@ public class Payment implements Serializable {
         this.recipientNumber = recipientNumber;
     }
 
-    public BigDecimal getSum() {
-        return sum;
+    public BigDecimal getRecipientAmount() {
+        return recipientAmount;
     }
 
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
+    public void setRecipientAmount(BigDecimal recipientAmount) {
+        this.recipientAmount = recipientAmount;
+    }
+
+    public String getRecipientCurrency() {
+        return recipientCurrency;
+    }
+
+    public void setRecipientCurrency(String recipientCurrency) {
+        this.recipientCurrency = recipientCurrency;
+    }
+
+    public BigDecimal getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(BigDecimal exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public BigDecimal getNewBalance() {
+        return newBalance;
+    }
+
+    public void setNewBalance(BigDecimal newBalance) {
+        this.newBalance = newBalance;
     }
 
     public String getAppointment() {
@@ -89,9 +143,15 @@ public class Payment implements Serializable {
         int result = 1;
         result = prime * result + ((paymentId == null) ? 0 : paymentId.hashCode());
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+        result = prime * result + ((isOutgoing == null) ? 0 : isOutgoing.hashCode());
         result = prime * result + ((senderNumber == null) ? 0 : senderNumber.hashCode());
+        result = prime * result + ((senderAmount == null) ? 0 : senderAmount.hashCode());
+        result = prime * result + ((senderCurrency == null) ? 0 : senderCurrency.hashCode());
         result = prime * result + ((recipientNumber == null) ? 0 : recipientNumber.hashCode());
-        result = prime * result + ((sum == null) ? 0 : sum.hashCode());
+        result = prime * result + ((recipientAmount == null) ? 0 : recipientAmount.hashCode());
+        result = prime * result + ((recipientCurrency == null) ? 0 : recipientCurrency.hashCode());
+        result = prime * result + ((exchangeRate == null) ? 0 : exchangeRate.hashCode());
+        result = prime * result + ((newBalance == null) ? 0 : newBalance.hashCode());
         result = prime * result + ((appointment == null) ? 0 : appointment.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((condition == null) ? 0 : condition.hashCode());
@@ -120,10 +180,28 @@ public class Payment implements Serializable {
         } else if (!accountId.equals(other.accountId))
             return false;
 
+        if (isOutgoing == null) {
+            if (other.isOutgoing != null)
+                return false;
+        } else if (!isOutgoing.equals(other.isOutgoing))
+            return false;
+
         if (senderNumber == null) {
             if (other.senderNumber != null)
                 return false;
         } else if (!senderNumber.equals(other.senderNumber))
+            return false;
+
+        if (senderAmount == null) {
+            if (other.senderAmount != null)
+                return false;
+        } else if (!senderAmount.equals(other.senderAmount))
+            return false;
+
+        if (senderCurrency == null) {
+            if (other.senderCurrency != null)
+                return false;
+        } else if (!senderCurrency.equals(other.senderCurrency))
             return false;
 
         if (recipientNumber == null) {
@@ -132,10 +210,28 @@ public class Payment implements Serializable {
         } else if (!recipientNumber.equals(other.recipientNumber))
             return false;
 
-        if (sum == null) {
-            if (other.sum != null)
+        if (recipientAmount == null) {
+            if (other.recipientAmount != null)
                 return false;
-        } else if (!sum.equals(other.sum))
+        } else if (!recipientAmount.equals(other.recipientAmount))
+            return false;
+
+        if (recipientCurrency == null) {
+            if (other.recipientCurrency != null)
+                return false;
+        } else if (!recipientCurrency.equals(other.recipientCurrency))
+            return false;
+
+        if (exchangeRate == null) {
+            if (other.exchangeRate != null)
+                return false;
+        } else if (!exchangeRate.equals(other.exchangeRate))
+            return false;
+
+        if (newBalance == null) {
+            if (other.newBalance != null)
+                return false;
+        } else if (!newBalance.equals(other.newBalance))
             return false;
 
         if (appointment == null) {
@@ -160,9 +256,15 @@ public class Payment implements Serializable {
     public String toString() {
         return "Payment [paymentId=" + paymentId +
                 ", accountId=" + accountId +
+                ", isOutgoing=" + isOutgoing +
                 ", senderNumber=" + senderNumber +
+                ", senderAmount=" + senderAmount +
+                ", senderCurrency=" + senderCurrency +
                 ", recipientNumber=" + recipientNumber +
-                ", sum=" + sum +
+                ", recipientAmount=" + recipientAmount +
+                ", recipientCurrency=" + recipientCurrency +
+                ", exchangeRate=" + exchangeRate +
+                ", newBalance=" + newBalance +
                 ", appointment=" + appointment +
                 ", date=" + date +
                 ", condition=" + condition + "]";

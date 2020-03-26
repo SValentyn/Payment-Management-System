@@ -39,43 +39,61 @@ public class PaymentService {
     }
 
     /**
-     * Formation and implementation of payment to the recipient's account
-     * Checks all conditions, forms payment and adds is to database
+     * *** The logic of making payments ***
+     * The system has two types of payments: Outgoing and Incoming.
+     * They are inserted into the "payments" table one by one.
+     * They have the same data, except for the fields: accountId, isOutgoing and newBalance.
+     * It is made so that it is possible to correctly receive all types of payments.
      */
-    public synchronized int makePaymentOnAccount(Integer accountId, String accountNumber, BigDecimal amount, String appointment) {
-        int status;
+
+    /**
+     * Formation and implementation of payment to the recipient's account
+     * Checks all conditions, forms payments and adds them to the DB
+     */
+    public synchronized int makePaymentOnAccount(Integer accountId, String accountNumber, BigDecimal amount, BigDecimal exchangeRate, String appointment) {
+        int status = 0;
 
         Account accountFrom = accountDao.findAccountById(accountId);
         Account accountTo = accountDao.findAccountByNumber(accountNumber);
 
-        Payment payment = new Payment();
-        payment.setAccountId(accountId);
-        payment.setSenderNumber(accountFrom.getNumber());
-        payment.setRecipientNumber(accountNumber);
-        payment.setSum(amount);
-        payment.setAppointment(appointment);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
-        payment.setDate(formatter.format(new Date()));
-
         if (checkAvailableAccount(accountFrom)) {
-            LOGGER.error("Payment arrangement error!");
-            payment.setCondition(false);
+            LOGGER.error("Sender account is blocked");
             return -1;
         }
 
         if (checkAvailableAccount(accountTo)) {
-            LOGGER.error("Payment arrangement error!");
-            payment.setCondition(false);
+            LOGGER.error("Recipient account is blocked");
             return -2;
         }
 
-        if (checkAvailableSum(accountFrom, amount)) {
+        // Outgoing payment details
+        Payment payment = new Payment();
+        payment.setAccountId(accountId);
+        payment.setIsOutgoing(true);
+        payment.setSenderNumber(accountFrom.getNumber());
+        payment.setSenderAmount(amount);
+        payment.setSenderCurrency(accountFrom.getCurrency());
+        payment.setRecipientNumber(accountNumber);
+        payment.setRecipientAmount(amount.multiply(exchangeRate));
+        payment.setRecipientCurrency(accountTo.getCurrency());
+        payment.setExchangeRate(exchangeRate);
+        payment.setAppointment(appointment);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+        payment.setDate(formatter.format(new Date()));
+
+        if (checkAvailableAmount(accountFrom, amount)) {
             transaction(accountFrom, accountTo, amount);
+            payment.setNewBalance(accountFrom.getBalance());
             payment.setCondition(true);
-            status = paymentDao.create(payment);
+            paymentDao.create(payment);
+
+            // Incoming payment details
+            payment.setAccountId(accountTo.getAccountId());
+            payment.setIsOutgoing(false);
+            payment.setNewBalance(accountTo.getBalance());
+            paymentDao.create(payment);
         } else {
             LOGGER.error("Payment arrangement error!");
-            payment.setCondition(false);
             return -3;
         }
 
@@ -87,35 +105,37 @@ public class PaymentService {
      * Checks all conditions, forms payment and adds is to database
      */
     public synchronized int makePaymentOnCard(Integer accountId, String cardNumber, BigDecimal amount, String appointment) {
-        int status;
+        int status = 0;
 
         Account accountFrom = accountDao.findAccountById(accountId);
 
-        Payment payment = new Payment();
-        payment.setAccountId(accountId);
-        payment.setSenderNumber(accountFrom.getNumber());
-        payment.setRecipientNumber(cardNumber);
-        payment.setSum(amount);
-        payment.setAppointment(appointment);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
-        payment.setDate(formatter.format(new Date()));
-
         if (checkAvailableAccount(accountFrom)) {
-            LOGGER.error("Payment arrangement error!");
-            payment.setCondition(false);
+            LOGGER.error("Sender account is blocked");
             return -1;
         }
 
         // [Checking the existence of a bank card] -> return -2
         // [A money transfer to a bank card should be carried out, but so far, I am not able to implement it]
 
-        if (checkAvailableSum(accountFrom, amount)) {
+        Payment payment = new Payment();
+        payment.setAccountId(accountId);
+        payment.setIsOutgoing(true);
+        payment.setSenderNumber(accountFrom.getNumber());
+        payment.setSenderAmount(amount);
+        payment.setSenderCurrency(accountFrom.getCurrency());
+        payment.setRecipientNumber(cardNumber);
+        payment.setExchangeRate(new BigDecimal("1.0"));
+        payment.setAppointment(appointment);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+        payment.setDate(formatter.format(new Date()));
+
+        if (checkAvailableAmount(accountFrom, amount)) {
             transaction(accountFrom, cardNumber, amount);
+            payment.setNewBalance(accountFrom.getBalance());
             payment.setCondition(true);
-            status = paymentDao.create(payment);
+            paymentDao.create(payment);
         } else {
             LOGGER.error("Payment arrangement error!");
-            payment.setCondition(false);
             return -3;
         }
 
@@ -141,11 +161,11 @@ public class PaymentService {
     }
 
     /**
-     * Checks and form final sum with percent for payment
+     * Checks the availability of the amount to be debited
      */
-    private synchronized boolean checkAvailableSum(Account account, BigDecimal paymentSum) {
+    private synchronized boolean checkAvailableAmount(Account account, BigDecimal amount) {
         BigDecimal balance = account.getBalance();
-        return balance.compareTo(paymentSum) >= 0;
+        return balance.compareTo(amount) >= 0;
     }
 
     /**

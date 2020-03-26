@@ -23,7 +23,7 @@ public class PaymentDaoImpl implements PaymentDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, senderNumber, recipientNumber, sum, appointment, date, `condition`) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, isOutgoing, senderNumber, senderAmount, senderCurrency, recipientNumber, recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, `date`, `condition`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
     private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ?";
     private static final String FIND_ALL_PAYMENTS_BY_USER_ID = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id WHERE accounts.user_id = ? ORDER BY payment_id DESC";
@@ -46,7 +46,21 @@ public class PaymentDaoImpl implements PaymentDao {
     @Override
     public int create(Payment entity) {
         entity.setAppointment(StringEscapeUtils.escapeJava(entity.getAppointment()));
-        Object[] args = {entity.getAccountId(), entity.getSenderNumber(), entity.getRecipientNumber(), entity.getSum(), entity.getAppointment(), entity.getDate(), entity.getCondition()};
+        Object[] args = {
+                entity.getAccountId(),
+                entity.getIsOutgoing(),
+                entity.getSenderNumber(),
+                entity.getSenderAmount(),
+                entity.getSenderCurrency(),
+                entity.getRecipientNumber(),
+                entity.getRecipientAmount(),
+                entity.getRecipientCurrency(),
+                entity.getExchangeRate(),
+                entity.getNewBalance(),
+                entity.getAppointment(),
+                entity.getDate(),
+                entity.getCondition()
+        };
         return executor.executeStatement(CREATE_PAYMENT, args);
     }
 
@@ -128,9 +142,15 @@ public class PaymentDaoImpl implements PaymentDao {
         try {
             payment.setPaymentId(rs.getInt("payment_id"));
             payment.setAccountId(rs.getInt("account_id"));
+            payment.setIsOutgoing(rs.getBoolean("isOutgoing"));
             payment.setSenderNumber(rs.getString("senderNumber"));
+            payment.setSenderAmount(rs.getBigDecimal("senderAmount"));
+            payment.setSenderCurrency(rs.getString("senderCurrency"));
             payment.setRecipientNumber(rs.getString("recipientNumber"));
-            payment.setSum(rs.getBigDecimal("sum"));
+            payment.setRecipientAmount(rs.getBigDecimal("recipientAmount"));
+            payment.setRecipientCurrency(rs.getString("recipientCurrency"));
+            payment.setExchangeRate(rs.getBigDecimal("exchangeRate"));
+            payment.setNewBalance(rs.getBigDecimal("newBalance"));
             payment.setAppointment(StringEscapeUtils.unescapeJava(rs.getString("appointment")));
             payment.setDate(rs.getString("date"));
             payment.setCondition(rs.getBoolean("condition"));
