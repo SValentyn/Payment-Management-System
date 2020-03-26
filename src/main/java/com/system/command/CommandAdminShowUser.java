@@ -1,7 +1,5 @@
 package com.system.command;
 
-import com.system.entity.Account;
-import com.system.entity.Payment;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CommandAdminShowUser implements ICommand {

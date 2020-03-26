@@ -49,7 +49,15 @@ public class UserDaoImpl implements UserDao {
     public int create(User entity) {
         entity.setName(StringEscapeUtils.escapeJava(entity.getName()));
         entity.setSurname(StringEscapeUtils.escapeJava(entity.getSurname()));
-        Object[] args = {entity.getName(), entity.getSurname(), entity.getPhone(), entity.getEmail(), entity.getPassword(), entity.getRole().getId()};
+
+        Object[] args = {
+                entity.getName(),
+                entity.getSurname(),
+                entity.getPhone(),
+                entity.getEmail(),
+                entity.getPassword(),
+                entity.getRole().getId()
+        };
         return executor.executeStatement(CREATE_USER, args);
     }
 
@@ -57,7 +65,15 @@ public class UserDaoImpl implements UserDao {
     public int update(User entity) {
         entity.setName(StringEscapeUtils.escapeJava(entity.getName()));
         entity.setSurname(StringEscapeUtils.escapeJava(entity.getSurname()));
-        Object[] args = {entity.getName(), entity.getSurname(), entity.getPhone(), entity.getEmail(), entity.getPassword(), entity.getUserId()};
+
+        Object[] args = {
+                entity.getName(),
+                entity.getSurname(),
+                entity.getPhone(),
+                entity.getEmail(),
+                entity.getPassword(),
+                entity.getUserId()
+        };
         return executor.executeStatement(UPDATE_USER, args);
     }
 

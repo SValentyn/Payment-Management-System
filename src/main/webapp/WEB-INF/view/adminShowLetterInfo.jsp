@@ -86,41 +86,35 @@
                                                     <!-- User bio -->
                                                     <div>
                                                         <label class="for-form-label">
-                                                            ${user_bio}
+                                                            ${user_bio}:
                                                         </label>
-                                                        <div>
-                                                            <input id="bio" name="bio" type="text" class="form-control"
-                                                                   style="margin-top: 0;" readonly="readonly"
-                                                                   value="${bioValue}"/>
-                                                            <label for="bio" class="default-label"></label>
-                                                        </div>
+                                                        <input id="bio" name="bio" type="text" class="form-control"
+                                                               style="margin-top: 0;" readonly="readonly"
+                                                               value="${bioValue}"/>
+                                                        <label for="bio" class="default-label"></label>
                                                     </div>
 
                                                     <!-- Phone -->
                                                     <div>
                                                         <label class="for-form-label">
-                                                            ${user_phone}
+                                                            ${user_phone}:
                                                         </label>
-                                                        <div>
-                                                            <input id="phone" name="phone" type="tel"
-                                                                   class="form-control" readonly="readonly"
-                                                                   value="${phoneValue}"/>
-                                                            <label for="phone" class="default-label"></label>
-                                                        </div>
+                                                        <input id="phone" name="phone" type="tel"
+                                                               class="form-control" readonly="readonly"
+                                                               value="${phoneValue}"/>
                                                     </div>
+                                                    <label for="phone" class="default-label"></label>
 
                                                     <!-- Email -->
                                                     <div>
                                                         <label class="for-form-label">
-                                                            ${user_email}
+                                                            ${user_email}:
                                                         </label>
-                                                        <div>
-                                                            <input id="email" name="email" type="email"
-                                                                   class="form-control" style="margin-top: 0;"
-                                                                   readonly="readonly"
-                                                                   value="${emailValue}"/>
-                                                            <label for="email" class="default-label"></label>
-                                                        </div>
+                                                        <input id="email" name="email" type="email"
+                                                               class="form-control" style="margin-top: 0;"
+                                                               readonly="readonly"
+                                                               value="${emailValue}"/>
+                                                        <label for="email" class="default-label"></label>
                                                     </div>
                                                 </div>
 
@@ -131,19 +125,17 @@
                                                         <label class="for-form-label">
                                                             ${typeQuestion}:
                                                         </label>
-                                                        <div>
-                                                            <input id="typeQuestion" name="typeQuestion" type="text"
-                                                                   class="form-control" style="margin-top: 0;"
-                                                                   readonly="readonly"
-                                                                   value="${typeQuestionValue}"/>
-                                                            <label for="typeQuestion" class="default-label"></label>
-                                                        </div>
+                                                        <input id="typeQuestion" name="typeQuestion" type="text"
+                                                               class="form-control" style="margin-top: 0;"
+                                                               readonly="readonly"
+                                                               value="${typeQuestionValue}"/>
+                                                        <label for="typeQuestion" class="default-label"></label>
                                                     </div>
 
                                                     <!-- Description -->
                                                     <div class="textarea-parent">
                                                         <label class="for-form-label">
-                                                            ${letter_description}
+                                                            ${letter_description}:
                                                         </label>
                                                         <div>
                                                             <textarea id="description" name="description"
@@ -151,8 +143,8 @@
                                                                       style="min-height: 123px; padding-right: .75rem; resize: none;"
                                                                       readonly="readonly"
                                                             >${descriptionValue}</textarea>
-                                                            <label for="description" class="default-label"></label>
                                                         </div>
+                                                        <label for="description" class="default-label"></label>
                                                     </div>
                                                 </div>
                                             </div>

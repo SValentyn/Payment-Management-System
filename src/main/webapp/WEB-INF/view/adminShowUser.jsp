@@ -134,6 +134,7 @@
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="user.account.allAccounts" var="allAccounts"/>
+                <fmt:message key="admin.account_info.balance" var="balance"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
                 <fmt:message key="admin.user.userAccounts" var="userAccounts"/>

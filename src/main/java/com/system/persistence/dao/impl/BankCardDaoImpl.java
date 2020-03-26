@@ -45,13 +45,22 @@ public class BankCardDaoImpl implements BankCardDao {
 
     @Override
     public int create(BankCard entity) {
-        Object[] args = {entity.getAccountId(), entity.getNumber(), entity.getCVV(), entity.getValidity(), entity.getIsActive()};
+        Object[] args = {
+                entity.getAccountId(),
+                entity.getNumber(),
+                entity.getCVV(),
+                entity.getValidity(),
+                entity.getIsActive()
+        };
         return executor.executeStatement(CREATE_CARD, args);
     }
 
     @Override
     public int update(BankCard entity) {
-        Object[] args = {entity.getIsActive(), entity.getCardId()};
+        Object[] args = {
+                entity.getIsActive(),
+                entity.getCardId()
+        };
         return executor.executeStatement(UPDATE_CARD, args);
     }
 

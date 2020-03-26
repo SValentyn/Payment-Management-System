@@ -52,6 +52,7 @@
                 <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
                 <fmt:message key="admin.payment_info.recipientReceived" var="recipientReceived"/>
+                <fmt:message key="admin.payment_info.conversion" var="сonversion"/>
                 <fmt:message key="admin.payment_info.rate" var="rate"/>
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="admin.page.success" var="success"/>
@@ -169,12 +170,13 @@
                                                                             ${sentFunds}: ${payment.senderAmount} ${payment.senderCurrency}
                                                                         </span><br/>
 
+                                                                        <!-- Recipient Received -->
                                                                         <span>
                                                                             ${recipientReceived}: ${payment.recipientAmount} ${payment.recipientCurrency}
                                                                         </span><br/>
 
                                                                         <span>
-                                                                            ${rate}: ${payment.exchangeRate}
+                                                                            ${rate}: 1 ${payment.senderCurrency} = ${payment.exchangeRate} ${payment.recipientCurrency}
                                                                         </span><br/>
 
                                                                         <div style="height: 6px; margin-top: 5px; border-top: 2px solid #e9ecef;"></div>
@@ -186,13 +188,18 @@
                                                                     </c:when>
                                                                     <c:otherwise>
 
-                                                                        <!-- Received Funds -->
+                                                                        <!-- Sent Funds -->
                                                                         <span>
-                                                                            ${receivedFunds}: ${payment.recipientAmount} ${payment.recipientCurrency}
+                                                                            ${receivedFunds}: ${payment.senderAmount} ${payment.senderCurrency}
+                                                                        </span><br/>
+
+                                                                        <!-- Conversion Result -->
+                                                                        <span>
+                                                                            ${сonversion}: ${payment.recipientAmount} ${payment.recipientCurrency}
                                                                         </span><br/>
 
                                                                         <span>
-                                                                            ${rate}: ${payment.exchangeRate}
+                                                                            ${rate}: 1 ${payment.senderCurrency} = ${payment.exchangeRate} ${payment.recipientCurrency}
                                                                         </span><br/>
 
                                                                         <div style="height: 6px; margin-top: 5px; border-top: 2px solid #e9ecef;"></div>

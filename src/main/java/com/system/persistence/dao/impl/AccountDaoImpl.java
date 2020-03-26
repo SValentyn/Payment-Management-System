@@ -44,13 +44,24 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     public int create(Account entity) {
-        Object[] args = {entity.getUserId(), entity.getNumber(), entity.getBalance(), entity.getCurrency(), entity.getIsBlocked(), entity.getIsDeleted()};
+        Object[] args = {
+                entity.getUserId(),
+                entity.getNumber(),
+                entity.getBalance(),
+                entity.getCurrency(),
+                entity.getIsBlocked(),
+                entity.getIsDeleted()
+        };
         return executor.executeStatement(CREATE_ACCOUNT, args);
     }
 
     @Override
     public int update(Account entity) {
-        Object[] args = {entity.getBalance(), entity.getIsBlocked(), entity.getAccountId()};
+        Object[] args = {
+                entity.getBalance(),
+                entity.getIsBlocked(),
+                entity.getAccountId()
+        };
         return executor.executeStatement(UPDATE_ACCOUNT, args);
     }
 

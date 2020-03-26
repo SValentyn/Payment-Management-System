@@ -47,13 +47,23 @@ public class LetterDaoImpl implements LetterDao {
     public int create(Letter entity) {
         entity.setTypeQuestion(StringEscapeUtils.escapeJava(entity.getTypeQuestion()));
         entity.setDescription(StringEscapeUtils.escapeJava(entity.getDescription()));
-        Object[] args = {entity.getUserId(), entity.getTypeQuestion(), entity.getDescription(), entity.getDate(), entity.getIsProcessed()};
+
+        Object[] args = {
+                entity.getUserId(),
+                entity.getTypeQuestion(),
+                entity.getDescription(),
+                entity.getDate(),
+                entity.getIsProcessed()
+        };
         return executor.executeStatement(CREATE_LETTER, args);
     }
 
     @Override
     public int update(Letter entity) {
-        Object[] args = {entity.getIsProcessed(), entity.getLetterId()};
+        Object[] args = {
+                entity.getIsProcessed(),
+                entity.getLetterId()
+        };
         return executor.executeStatement(UPDATE_LETTER, args);
     }
 
