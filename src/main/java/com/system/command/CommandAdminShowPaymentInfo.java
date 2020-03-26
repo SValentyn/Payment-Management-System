@@ -1,7 +1,6 @@
 package com.system.command;
 
 import com.system.entity.Account;
-import com.system.entity.BankCard;
 import com.system.entity.Payment;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
@@ -48,34 +47,24 @@ public class CommandAdminShowPaymentInfo implements ICommand {
             return page;
         }
 
-        /* Payment Data */
+        // Data
         Payment payment = PaymentService.getInstance().findPaymentByPaymentId(Integer.valueOf(paymentId));
-        request.setAttribute("payment", payment);
-
-        /* Sender Data */
         Account senderAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getSenderNumber());
-        request.setAttribute("senderAccount", senderAccount);
-        request.setAttribute("senderUser", UserService.getInstance().findUserById(senderAccount.getUserId()));
-
-        /* Recipient Data */
-        Account recipientAccount = null;
-        BankCard recipientCard = null;
+        User senderUser = UserService.getInstance().findUserById(senderAccount.getUserId());
+        Account recipientAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getRecipientNumber());
         User recipientUser = null;
 
-        if (payment.getRecipientNumber().length() == 20) {  // if recipient number is account number
-            recipientAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getRecipientNumber());
-            recipientUser = UserService.getInstance().findUserById(recipientAccount.getUserId());
+        if (payment.getRecipientNumber().length() == 20) {
             request.setAttribute("recipientIsAccount", true);
-        } else {                                            // if recipient number is card number
-            recipientCard = new BankCard();
-            recipientCard.setNumber(payment.getRecipientNumber());
-            // [Obtaining cardholder data]
+            recipientUser = UserService.getInstance().findUserById(recipientAccount.getUserId());
+        } else {
             request.setAttribute("recipientIsAccount", false);
+            // [Obtaining cardholder data]
         }
 
         // Set Attributes
-        request.setAttribute("recipientAccount", recipientAccount);
-        request.setAttribute("recipientCard", recipientCard);
+        request.setAttribute("payment", payment);
+        request.setAttribute("senderUser", senderUser);
         request.setAttribute("recipientUser", recipientUser);
 
         return page;

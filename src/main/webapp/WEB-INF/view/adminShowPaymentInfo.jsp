@@ -51,6 +51,9 @@
                 <fmt:message key="admin.payment_info.cardOwner" var="cardOwner"/>
                 <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
+                <fmt:message key="admin.payment_info.recipientReceived" var="recipientReceived"/>
+                <fmt:message key="admin.payment_info.rate" var="rate"/>
+                <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="admin.page.success" var="success"/>
                 <fmt:message key="admin.page.failed" var="failed"/>
                 <fmt:message key="admin.user.morePayments" var="morePayments"/>
@@ -68,129 +71,12 @@
 
                                         <c:if test="${showPaymentError == false}">
                                             <jsp:useBean id="payment" scope="request" type="com.system.entity.Payment"/>
-                                            <jsp:useBean id="senderAccount" scope="request"
-                                                         type="com.system.entity.Account"/>
                                             <jsp:useBean id="senderUser" scope="request" type="com.system.entity.User"/>
 
                                             <div class="col-xl-12">
                                                 <div class="row justify-content-center">
-                                                    <div class="col-md-6">
-
-                                                        <!-- Sender Account Number -->
-                                                        <label class="for-form-label">
-                                                                ${senderAccountNumber}:
-                                                        </label>
-                                                        <div>
-                                                            <input id="senderAccount" name="senderAccount" type="text"
-                                                                   class="form-control" readonly="readonly"
-                                                                   value="${senderAccount.number}"/>
-                                                            <label for="senderAccount" class="default-label"></label>
-                                                        </div>
-
-                                                        <!-- Sender Account Owner -->
-                                                        <label class="for-form-label">
-                                                                ${accountOwner}:
-                                                        </label>
-                                                        <div>
-                                                            <input id="senderAccountOwner" name="senderAccountOwner"
-                                                                   type="text" class="form-control" readonly="readonly"
-                                                                   value="${senderUser.name} ${senderUser.surname}"/>
-                                                            <label for="senderAccountOwner"
-                                                                   class="default-label"></label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <c:choose>
-                                                            <c:when test="${recipientIsAccount == true}">
-                                                                <jsp:useBean id="recipientAccount" scope="request"
-                                                                             type="com.system.entity.Account"/>
-                                                                <jsp:useBean id="recipientUser" scope="request"
-                                                                             type="com.system.entity.User"/>
-
-                                                                <!-- Recipient Account Number -->
-                                                                <label class="for-form-label">
-                                                                        ${recipientAccountNumber}:
-                                                                </label>
-                                                                <div>
-                                                                    <input id="recipientAccount" name="senderAccount"
-                                                                           type="text" class="form-control"
-                                                                           readonly="readonly"
-                                                                           value="${recipientAccount.number}"/>
-                                                                    <label for="recipientAccount"
-                                                                           class="default-label"></label>
-                                                                </div>
-
-                                                                <!-- Recipient Account Owner -->
-                                                                <label class="for-form-label">
-                                                                        ${accountOwner}:
-                                                                </label>
-                                                                <div>
-                                                                    <input id="recipientAccountOwner"
-                                                                           name="recipientAccountOwner"
-                                                                           type="text" class="form-control"
-                                                                           readonly="readonly"
-                                                                           value="${recipientUser.name} ${recipientUser.surname}"/>
-                                                                    <label for="recipientAccountOwner"
-                                                                           class="default-label"></label>
-                                                                </div>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <jsp:useBean id="recipientCard" scope="request"
-                                                                             type="com.system.entity.BankCard"/>
-
-                                                                <!-- Recipient Card Number -->
-                                                                <label class="for-form-label">
-                                                                        ${recipientCardNumber}:
-                                                                </label>
-                                                                <div>
-                                                                    <input id="recipientCard" name="recipientCard"
-                                                                           type="text" class="form-control"
-                                                                           readonly="readonly"
-                                                                           value="${recipientCard.number}"/>
-                                                                    <label for="recipientCard"
-                                                                           class="default-label"></label>
-                                                                </div>
-
-                                                                <!-- Recipient Card Owner -->
-                                                                <label class="for-form-label">
-                                                                        ${cardOwner}:
-                                                                </label>
-                                                                <div>
-                                                                    <input id="recipientCardOwner"
-                                                                           name="recipientCardOwner"
-                                                                           type="text" class="form-control"
-                                                                           readonly="readonly"
-                                                                           value="–"/>
-                                                                    <label for="recipientCardOwner"
-                                                                           class="default-label"></label>
-                                                                </div>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </div>
-
-                                                    <div class="col-md-6 text-center detail"
-                                                         style="margin-top: 20px; font-size: 18px">
-
-                                                        <!-- Sent Funds -->
-                                                        <span>
-                                                            ${sentFunds}: ${payment.sum} ${senderAccount.currency}
-                                                        </span><br/>
-
-                                                        <!-- Received Funds -->
-                                                        <!-- Will be changed -->
-                                                        <c:choose>
-                                                            <c:when test="${recipientIsAccount == true}">
-                                                                <span>
-                                                                    ${receivedFunds}: ${payment.sum} ${recipientAccount.currency}
-                                                                </span><br/>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <span>
-                                                                    ${receivedFunds}: ${payment.sum} ${senderAccount.currency}
-                                                                </span><br/>
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                    <div class="col-md-12 text-center detail"
+                                                         style="margin-bottom: 20px; font-size: 18px">
 
                                                         <!-- Date and Time  -->
                                                         <span>${payment.date}</span><br/>
@@ -209,9 +95,177 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </div>
-                                                    <div class="col-md-12" style="margin-top: 30px;">
-                                                        <a href="?command=showUserPayments&userId=${senderUser.userId}"
-                                                           class="float-right">
+
+                                                    <div class="col-md-6">
+
+                                                        <!-- Sender Account Number -->
+                                                        <div>
+                                                            <label class="for-form-label">
+                                                                    ${senderAccountNumber}:
+                                                            </label>
+                                                            <input id="senderAccount" name="senderAccount" type="text"
+                                                                   class="form-control" readonly="readonly"
+                                                                   value="${payment.senderNumber}"/>
+                                                            <label for="senderAccount" class="default-label"></label>
+                                                        </div>
+
+                                                        <!-- Sender Account Owner -->
+                                                        <div>
+                                                            <label class="for-form-label">
+                                                                    ${accountOwner}:
+                                                            </label>
+                                                            <input id="senderAccountOwner" name="senderAccountOwner"
+                                                                   type="text" class="form-control" readonly="readonly"
+                                                                   value="${senderUser.name} ${senderUser.surname}"/>
+                                                            <label for="senderAccountOwner"
+                                                                   class="default-label"></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <c:choose>
+                                                        <c:when test="${recipientIsAccount}">
+                                                            <jsp:useBean id="recipientUser" scope="request"
+                                                                         type="com.system.entity.User"/>
+
+                                                            <div class="col-md-6">
+
+                                                                <!-- Recipient Account Number -->
+                                                                <div>
+                                                                    <label class="for-form-label">
+                                                                            ${recipientAccountNumber}:
+                                                                    </label>
+                                                                    <input id="recipientAccount" name="senderAccount"
+                                                                           type="text" class="form-control"
+                                                                           readonly="readonly"
+                                                                           value="${payment.recipientNumber}"/>
+                                                                    <label for="recipientAccount"
+                                                                           class="default-label"></label>
+                                                                </div>
+
+                                                                <!-- Recipient Account Owner -->
+                                                                <div>
+                                                                    <label class="for-form-label">
+                                                                            ${accountOwner}:
+                                                                    </label>
+                                                                    <input id="recipientAccountOwner"
+                                                                           name="recipientAccountOwner"
+                                                                           type="text" class="form-control"
+                                                                           readonly="readonly"
+                                                                           value="${recipientUser.name} ${recipientUser.surname}"/>
+                                                                    <label for="recipientAccountOwner"
+                                                                           class="default-label"></label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 text-center detail"
+                                                                 style="margin-top: 20px; font-size: 18px">
+
+                                                                <!-- Outgoing and Incoming Payments -->
+                                                                <c:choose>
+                                                                    <c:when test="${payment.isOutgoing}">
+
+                                                                        <!-- Sent Funds -->
+                                                                        <span>
+                                                                            ${sentFunds}: ${payment.senderAmount} ${payment.senderCurrency}
+                                                                        </span><br/>
+
+                                                                        <span>
+                                                                            ${recipientReceived}: ${payment.recipientAmount} ${payment.recipientCurrency}
+                                                                        </span><br/>
+
+                                                                        <span>
+                                                                            ${rate}: ${payment.exchangeRate}
+                                                                        </span><br/>
+
+                                                                        <div style="height: 6px; margin-top: 5px; border-top: 2px solid #e9ecef;"></div>
+
+                                                                        <!-- Remained -->
+                                                                        <span>
+                                                                            ${remained}: ${payment.newBalance} ${payment.senderCurrency}
+                                                                        </span><br/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+
+                                                                        <!-- Received Funds -->
+                                                                        <span>
+                                                                            ${receivedFunds}: ${payment.recipientAmount} ${payment.recipientCurrency}
+                                                                        </span><br/>
+
+                                                                        <span>
+                                                                            ${rate}: ${payment.exchangeRate}
+                                                                        </span><br/>
+
+                                                                        <div style="height: 6px; margin-top: 5px; border-top: 2px solid #e9ecef;"></div>
+
+                                                                        <!-- New balance -->
+                                                                        <span>
+                                                                            ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
+                                                                        </span><br/>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="col-md-6">
+
+                                                                <!-- Recipient Card Number -->
+                                                                <div>
+                                                                    <label class="for-form-label">
+                                                                            ${recipientCardNumber}:
+                                                                    </label>
+                                                                    <input id="recipientCard" name="recipientCard"
+                                                                           type="text" class="form-control"
+                                                                           readonly="readonly"
+                                                                           value="${payment.recipientNumber}"/>
+                                                                    <label for="recipientCard"
+                                                                           class="default-label"></label>
+                                                                </div>
+
+                                                                <!-- Recipient Card Owner -->
+                                                                <div>
+                                                                    <label class="for-form-label">
+                                                                            ${cardOwner}:
+                                                                    </label>
+                                                                    <input id="recipientCardOwner"
+                                                                           name="recipientCardOwner"
+                                                                           type="text" class="form-control"
+                                                                           readonly="readonly" value="–"/>
+                                                                    <label for="recipientCardOwner"
+                                                                           class="default-label"></label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 text-center detail"
+                                                                 style="margin-top: 20px; font-size: 18px">
+
+                                                                <!-- Outgoing and Incoming Payments -->
+                                                                <c:choose>
+                                                                    <c:when test="${payment.isOutgoing}">
+
+                                                                        <!-- Sent Funds -->
+                                                                        <span>
+                                                                            ${sentFunds}: ${payment.senderAmount} ${payment.senderCurrency}
+                                                                        </span><br/>
+
+                                                                        <div style="height: 6px; margin-top: 5px; border-top: 2px solid #e9ecef;"></div>
+
+                                                                        <!-- Remained -->
+                                                                        <span>
+                                                                            ${remained}: ${payment.newBalance} ${payment.senderCurrency}
+                                                                        </span><br/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+
+                                                                        <!-- [Received funds from the card] -->
+
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <div class="col-md-12">
+                                                        <a href="?command=showUserPayments&userId=${viewableUser.userId}"
+                                                           class="float-right" style="padding-top: 15px;">
                                                                 ${morePayments}
                                                         </a>
                                                     </div>
