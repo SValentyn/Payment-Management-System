@@ -26,31 +26,43 @@ public class TestPaymentService {
         payment = new Payment();
         payment.setPaymentId(1);
         payment.setAccountId(1);
-        payment.setRecipientNumber("5450655032805450");
-        payment.setSum(new BigDecimal("1000.00"));
+        payment.setIsOutgoing(true);
+        payment.setSenderNumber("00000000000000000000");
+        payment.setSenderAmount(new BigDecimal("200.0"));
+        payment.setSenderCurrency("MXN");
+        payment.setRecipientNumber("11111000000000000000");
+        payment.setRecipientAmount(new BigDecimal("245.46"));
+        payment.setRecipientCurrency("UAH");
+        payment.setExchangeRate(new BigDecimal("1.23"));
+        payment.setNewBalance(new BigDecimal("9725.46"));
         payment.setAppointment("Thank you for dinner!");
+        payment.setDate("26/03/2020, 00:43");
+        payment.setCondition(true);
 
         account_1 = new Account();
         account_1.setAccountId(1);
         account_1.setUserId(1);
-        account_1.setNumber("11110000111100001111");
+        account_1.setNumber("00000000000000000000");
         account_1.setBalance(new BigDecimal("100000.00"));
+        account_1.setCurrency("MXN");
         account_1.setIsBlocked(false);
+        account_1.setIsDeleted(false);
 
         account_2 = new Account();
         account_2.setAccountId(2);
         account_2.setUserId(2);
-        account_2.setNumber("22220000222200002222");
+        account_2.setNumber("11111000000000000000");
         account_2.setBalance(new BigDecimal("50000.00"));
+        account_1.setCurrency("UAH");
         account_2.setIsBlocked(false);
+        account_2.setIsDeleted(false);
 
-        when(paymentService.makePaymentOnAccount(payment.getAccountId(), payment.getRecipientNumber(), new BigDecimal("1000.00"), payment.getAppointment()))
-                .thenReturn(payment.getPaymentId());
+        when(paymentService.makePaymentOnAccount(payment.getAccountId(), payment.getSenderNumber(), payment.getSenderAmount(), payment.getExchangeRate(), payment.getAppointment())).thenReturn(payment.getPaymentId());
     }
 
     @Test
     public void testCreatePayment() {
-        Integer paymentId = paymentService.makePaymentOnAccount(1, "5450655032805450", new BigDecimal("1000.00"), "Thank you for dinner!");
+        Integer paymentId = paymentService.makePaymentOnAccount(1, "00000000000000000000", new BigDecimal("200.0"), new BigDecimal("1.23"), "Thank you for dinner!");
         assertNotNull(paymentId);
         assertEquals(new Integer(1), paymentId);
     }

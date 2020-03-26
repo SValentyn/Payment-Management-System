@@ -63,7 +63,7 @@ public class TestBankCardDao {
         Integer expectedId = bankCard.getAccountId();
         BankCard creditCard_1 = bankCardDao.findCardByCardNumber(bankCard.getNumber());
         BankCard creditCard_2 = bankCardDao.findCardByCardNumber("5450655032800000"); // null
-        assertEquals(expectedId, (Integer) creditCard_1.getAccountId());
+        assertEquals(expectedId, creditCard_1.getAccountId());
         assertNull(creditCard_2);
     }
 
