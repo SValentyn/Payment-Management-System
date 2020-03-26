@@ -25,7 +25,7 @@ public class PaymentDaoImpl implements PaymentDao {
      */
     private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, isOutgoing, senderNumber, senderAmount, senderCurrency, recipientNumber, recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, `date`, `condition`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
-    private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ?";
+    private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ? ORDER BY payment_id DESC";
     private static final String FIND_ALL_PAYMENTS_BY_USER_ID = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id WHERE accounts.user_id = ? ORDER BY payment_id DESC";
     private static final String FIND_ALL_PAYMENTS_BY_USER_ID_LIMIT_3 = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id WHERE accounts.user_id = ? ORDER BY payment_id DESC LIMIT 3";
     private static final String FIND_ALL_PAYMENTS = "SELECT * FROM payments";

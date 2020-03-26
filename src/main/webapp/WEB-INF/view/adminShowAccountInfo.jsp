@@ -208,8 +208,9 @@
                 <fmt:message key="admin.account_info.accountBalance" var="accountBalance"/>
                 <fmt:message key="admin.account_info.accountStatus" var="accountStatus"/>
                 <fmt:message key="admin.account_info.allPayments" var="allPayments"/>
-                <fmt:message key="admin.page.success" var="success"/>
-                <fmt:message key="admin.page.failed" var="failed"/>
+                <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
+                <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
+                <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="admin.account_info.allAttachedCards" var="allAttachedCards"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
@@ -219,6 +220,8 @@
                 <fmt:message key="admin.account_info.detachCard" var="detachCard"/>
                 <fmt:message key="admin.attachAccount.returnToUserProfile"
                              var="returnToUserProfile"/>
+                <fmt:message key="admin.page.success" var="success"/>
+                <fmt:message key="admin.page.failed" var="failed"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -379,6 +382,7 @@
                                                                     <c:when test="${!paymentsEmpty}">
                                                                         <div class="card-container" style="width: 75%;">
                                                                             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
+
                                                                                 <c:forEach items="${payments}"
                                                                                            var="payment">
                                                                                     <div class="col mb-4">
@@ -402,16 +406,62 @@
                                                                                             </div>
                                                                                             <div class="card-body"
                                                                                                  style="padding: 0.75rem 1.25rem;">
-                                                                                                <p class="card-title text-muted">
-                                                                                                        ${payment.senderNumber}
-                                                                                                    <span style="margin: 0 5px 0 5px;">→</span>
-                                                                                                        ${payment.recipientNumber}
-                                                                                                    <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
-                                                                                                       style="float: right">
-                                                                                                        <img src="resources/images/info.png"
-                                                                                                             alt="">
-                                                                                                    </a>
-                                                                                                </p>
+
+                                                                                                <!-- Outgoing and Incoming Payments -->
+                                                                                                <c:choose>
+                                                                                                    <c:when test="${payment.isOutgoing}">
+
+                                                                                                        <!-- Sender and Recipient -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${payment.senderNumber}
+                                                                                                            <span class="arrow-link-symbol-right">→</span>
+                                                                                                                ${payment.recipientNumber}
+                                                                                                        </p>
+
+                                                                                                        <!-- Sent Funds -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${sentFunds}: ${payment.senderAmount} ${payment.senderCurrency}
+                                                                                                        </p>
+
+                                                                                                        <!-- New balance -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${remained}: ${payment.newBalance} ${payment.senderCurrency}
+
+                                                                                                            <!-- Show Payment Info -->
+                                                                                                            <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                               style="float: right">
+                                                                                                                <img src="resources/images/info.png"
+                                                                                                                     alt="">
+                                                                                                            </a>
+                                                                                                        </p>
+                                                                                                    </c:when>
+                                                                                                    <c:otherwise>
+
+                                                                                                        <!-- Sender and Recipient -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${payment.recipientNumber}
+                                                                                                            <span class="arrow-link-symbol-left">←</span>
+                                                                                                                ${payment.senderNumber}
+                                                                                                        </p>
+
+                                                                                                        <!-- Received Funds -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${receivedFunds}: ${payment.recipientAmount} ${payment.recipientCurrency}
+                                                                                                        </p>
+
+                                                                                                        <!-- New balance -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
+
+                                                                                                            <!-- Show Payment Info -->
+                                                                                                            <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                               style="float: right">
+                                                                                                                <img src="resources/images/info.png"
+                                                                                                                     alt="">
+                                                                                                            </a>
+                                                                                                        </p>
+                                                                                                    </c:otherwise>
+                                                                                                </c:choose>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
