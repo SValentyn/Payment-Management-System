@@ -68,20 +68,12 @@ public class CommandAdminShowUser implements ICommand {
             return page;
         }
 
-        // Data
-        List<Payment> payments = PaymentService.getInstance().findAllPaymentsByUserId(userIdInt);
-        HashMap<Integer, Account> accountsMap = new HashMap<>();
-
-        for (Payment payment : payments) {
-            accountsMap.put(payment.getPaymentId(), AccountService.getInstance().findAccountByAccountId(payment.getAccountId()));
-        }
-
         // Set Attributes
         request.setAttribute("paymentsEmpty", PaymentService.getInstance().findLastPaymentsByUserId(userIdInt).isEmpty());
         request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userIdInt).isEmpty());
         request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userIdInt));
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userIdInt));
-        request.setAttribute("accountsMap", accountsMap);
+
         return page;
     }
 

@@ -1003,16 +1003,10 @@ a:active {
 .arrow-link-symbol-right,
 .arrow-link-symbol-left {
     display: inline-block;
+    margin: 0 5px 0 5px;
+    font-size: 16px;
     transition: .2s;
     transform: translateX(0);
-}
-
-.arrow-link-symbol-right {
-    margin: 0 0 0 5px;
-}
-
-.arrow-link-symbol-left {
-    margin: 0 5px 0 0;
 }
 
 .card-footer a:hover,
