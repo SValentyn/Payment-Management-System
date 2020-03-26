@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 /**
  * Validates input strings for validity for form validation
  */
-@Deprecated
 public class Validator {
 
     public static boolean checkLengthName(String name) {
@@ -20,11 +19,11 @@ public class Validator {
     }
 
     public static boolean checkLengthSurname(String surname) {
-        return surname != null && surname.length() > 24;
+        return surname != null && surname.length() > 32;
     }
 
     public static boolean checkPhoneNumber(String number) {
-        Pattern p = Pattern.compile("\\d{8,12}");
+        Pattern p = Pattern.compile("\\d{6,18}");
         Matcher m = p.matcher(number);
         return m.matches();
     }
@@ -67,6 +66,9 @@ public class Validator {
         return Objects.requireNonNull(date).before(now);
     }
 
+    /**
+     * @return true, if the number is negative or not a number
+     */
     public static boolean isNegative(String strNum) {
         try {
             if (Integer.parseInt(strNum) < 0) {
@@ -78,6 +80,9 @@ public class Validator {
         return false;
     }
 
+    /**
+     * @return true, if the transmitted string is a number
+     */
     public static boolean isNumeric(String strNum) {
         try {
             Integer.parseInt(strNum);

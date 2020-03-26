@@ -7,6 +7,7 @@ import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.PaymentService;
 import com.system.service.UserService;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ public class CommandUserMakePayment implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
         request.setAttribute("created", false);
+        request.setAttribute("paymentError", false);
         request.setAttribute("paymentToYourAccountError", false);
         request.setAttribute("recipientAccountNotExistError", false);
         request.setAttribute("senderAccountBlockedError", false);
@@ -33,6 +35,11 @@ public class CommandUserMakePayment implements ICommand {
         request.setAttribute("caseValue", "off");
 
         User user = (User) request.getSession().getAttribute("currentUser");
+
+        if (user == null) {
+            request.setAttribute("paymentError", true);
+            return page;
+        }
 
         // Set Attributes
         request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
@@ -49,6 +56,28 @@ public class CommandUserMakePayment implements ICommand {
             String recipientCardNumber = request.getParameter("cardNumber");
             String amount = request.getParameter("amount");
             String appointment = request.getParameter("appointment");
+            BigDecimal exchangeRate = new BigDecimal("1.0");
+
+            // Check
+            if (!validation(accountId, recipientAccountNumber, recipientCardNumber, amount)) {
+                setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
+                request.setAttribute("paymentError", true);
+                return page;
+            }
+
+            // Data
+            Integer accountIdInt = Integer.valueOf(accountId);
+            List<Account> accounts = AccountService.getInstance().findAllAccounts();
+            List<Integer> accountIds = new ArrayList<>();
+            for (Account account : accounts) {
+                accountIds.add(account.getAccountId());
+            }
+
+            // Check
+            if (!accountIds.contains(accountIdInt)) {
+                request.setAttribute("paymentError", true);
+                return page;
+            }
 
             // Check
             if (recipientAccountNumber != null) {
@@ -70,13 +99,17 @@ public class CommandUserMakePayment implements ICommand {
                     request.setAttribute("recipientAccountNotExistError", true);
                     return page;
                 }
+
+                // [There will be a currency conversion module]
+                // stub:
+                exchangeRate = new BigDecimal("1.0");
             }
 
             // Forming Payment
             if (recipientAccountNumber != null) {
                 request.setAttribute("caseValue", "off");
 
-                int status = PaymentService.getInstance().makePaymentOnAccount(Integer.valueOf(accountId), recipientAccountNumber, new BigDecimal(amount), appointment);
+                int status = PaymentService.getInstance().makePaymentOnAccount(Integer.valueOf(accountId), recipientAccountNumber, new BigDecimal(amount), exchangeRate, appointment);
                 if (status == -1) {
                     setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
                     request.setAttribute("senderAccountBlockedError", true);
@@ -94,13 +127,13 @@ public class CommandUserMakePayment implements ICommand {
 
                 int status = PaymentService.getInstance().makePaymentOnCard(Integer.valueOf(accountId), recipientCardNumber, new BigDecimal(amount), appointment);
                 if (status == -1) {
-                    setRequestAttributes(request, accountId, null, recipientCardNumber, amount, appointment);
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
                     request.setAttribute("senderAccountBlockedError", true);
                 } else if (status == -2) {
-                    setRequestAttributes(request, accountId, null, recipientCardNumber, amount, appointment);
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
                     request.setAttribute("recipientCardNotExistOrBlockedError", true);
                 } else if (status == -3) {
-                    setRequestAttributes(request, accountId, null, recipientCardNumber, amount, appointment);
+                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
                     request.setAttribute("insufficientFundsError", true);
                 } else {
                     request.setAttribute("created", true);
@@ -109,6 +142,14 @@ public class CommandUserMakePayment implements ICommand {
         }
 
         return page;
+    }
+
+    private boolean validation(String accountId, String accountNumber, String cardNumber, String amount) {
+        if (accountId == null || Validator.isNegative(accountId) || amount == null || amount.equals("")) return false;
+        if (accountNumber != null) return Validator.checkAccountNumber(accountNumber);
+        if (cardNumber != null) return Validator.checkCardNumber(cardNumber);
+
+        return true;
     }
 
     private void setRequestAttributes(HttpServletRequest request, String accountId, String accountNumber, String cardNumber, String amount, String appointment) throws SQLException {

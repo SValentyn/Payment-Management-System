@@ -153,6 +153,18 @@
         </div>
     </c:if>
 
+    <!-- Alert paymentError -->
+    <c:if test="${paymentError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertPaymentError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert paymentToYourAccountError -->
     <c:if test="${paymentToYourAccountError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
