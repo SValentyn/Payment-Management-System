@@ -49,7 +49,6 @@
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="deleteAccount">
-                        <input type="hidden" name="accountNumber" id="accountNumber"/>
 
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
@@ -118,6 +117,42 @@
         </div>
     </c:if>
 
+    <!-- Alert accountDeleted -->
+    <c:if test="${accountDeleted == true}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertAccountDeleted"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert accountHasFundsError -->
+    <c:if test="${accountHasFundsError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertAccountHasFundsError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert deleteAccountError -->
+    <c:if test="${deleteAccountError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertDeleteAccountError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert blockAccountError -->
     <c:if test="${blockAccountError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
@@ -142,35 +177,11 @@
         </div>
     </c:if>
 
-    <!-- Alert deleteAccountError -->
-    <c:if test="${deleteAccountError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertDeleteAccount"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert blockCardError -->
-    <c:if test="${blockCardError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertBlockCard"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unblockCardError -->
-    <c:if test="${unblockCardError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnblockCard"/>
+    <!-- Alert cardDetached -->
+    <c:if test="${cardDetached == true}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertCardDetached"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -182,7 +193,55 @@
     <c:if test="${detachCardError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertDetachCard"/>
+                <fmt:message key="admin.page.alertDetachCardError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert cardBlocked -->
+    <c:if test="${cardBlocked == true}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertCardBlocked"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert blockCardError -->
+    <c:if test="${blockCardError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertBlockCardError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert cardUnblocked -->
+    <c:if test="${cardUnblocked == true}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertCardUnblocked"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unblockCardError -->
+    <c:if test="${unblockCardError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnblockCardError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -236,9 +295,10 @@
 
                                         <c:choose>
                                             <c:when test="${showAccountError == false}">
-                                                <jsp:useBean id="account" scope="request"
+                                                <jsp:useBean id="viewableUser" scope="session"
+                                                             type="com.system.entity.User"/>
+                                                <jsp:useBean id="viewableAccount" scope="session"
                                                              type="com.system.entity.Account"/>
-                                                <jsp:useBean id="user" scope="request" type="com.system.entity.User"/>
 
                                                 <div class="row">
                                                     <div class="col-xl-12">
@@ -247,7 +307,7 @@
 
                                                                 <!-- Account Status -->
                                                                 <c:choose>
-                                                                    <c:when test="${account.isBlocked}">
+                                                                    <c:when test="${viewableAccount.isBlocked}">
                                                                         <label class="for-form-label text-center"
                                                                                style="font-size: 18px;">
                                                                                 ${accountStatus}:
@@ -274,7 +334,7 @@
                                                                 <div>
                                                                     <input id="number" name="number" type="text"
                                                                            class="form-control" readonly="readonly"
-                                                                           value="${account.number}"/>
+                                                                           value="${viewableAccount.number}"/>
                                                                     <label for="number" class="default-label"></label>
                                                                 </div>
 
@@ -285,7 +345,7 @@
                                                                 <div>
                                                                     <input id="owner" name="owner" type="text"
                                                                            class="form-control" readonly="readonly"
-                                                                           value="${user.name} ${user.surname}"/>
+                                                                           value="${viewableUser.name} ${viewableUser.surname}"/>
                                                                     <label for="owner" class="default-label"></label>
                                                                 </div>
 
@@ -297,11 +357,11 @@
                                                                     <input id="balance" name="balance" type="text"
                                                                            class="form-control" readonly="readonly"
                                                                            style="min-width: 49%; margin-right: 1%;"
-                                                                           value="${account.balance}"/>
+                                                                           value="${viewableAccount.balance}"/>
                                                                     <div id="currency"
                                                                          class="bfh-selectbox bfh-currencies"
                                                                          style="min-width: 49%; margin-left: 1%; pointer-events: none;"
-                                                                         data-currency="${account.currency}"
+                                                                         data-currency="${viewableAccount.currency}"
                                                                          data-flags="true">
                                                                     </div>
                                                                     <label for="balance" class="default-label"></label>
@@ -334,11 +394,10 @@
                                                                             class="arrow-link-symbol-right">→</span>
                                                                     </a>
                                                                     <c:choose>
-                                                                        <c:when test="${account.isBlocked}">
+                                                                        <c:when test="${viewableAccount.isBlocked}">
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-unblockAccount-list"
-                                                                               href="?command=unblockAccount&accountId=${account.accountId}"
-                                                                               role="tab"
+                                                                               href="?command=unblockAccount" role="tab"
                                                                                aria-controls="unblockAccount">
                                                                                     ${unblockAccount} <span
                                                                                     class="arrow-link-symbol-right">→</span>
@@ -347,8 +406,8 @@
                                                                         <c:otherwise>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-blockAccount-list"
-                                                                               href="?command=blockAccount&accountId=${account.accountId}"
-                                                                               role="tab" aria-controls="blockAccount">
+                                                                               href="?command=blockAccount" role="tab"
+                                                                               aria-controls="blockAccount">
                                                                                     ${blockAccount} <span
                                                                                     class="arrow-link-symbol-right">→</span>
                                                                             </a>
@@ -356,9 +415,9 @@
                                                                     </c:choose>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                        id="list-deleteAccount-list"
-                                                                       href="#deleteAccountModal?accountNumber=${account.number}"
-                                                                       onclick="showDeleteAccountModal()"
-                                                                       role="tab" aria-controls="deleteAccount">
+                                                                       href="#deleteAccountModal?accountNumber=${viewableAccount.number}"
+                                                                       onclick="showDeleteAccountModal()" role="tab"
+                                                                       aria-controls="deleteAccount">
                                                                             ${deleteAccount} <span
                                                                             class="arrow-link-symbol-right">→</span>
                                                                     </a>
