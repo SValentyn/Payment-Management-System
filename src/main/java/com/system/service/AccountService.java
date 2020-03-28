@@ -55,17 +55,11 @@ public class AccountService {
 
     /**
      * Finds account by id and blocks it
-     * Blocks all bank cards that belong to this account
      */
     public int blockAccount(Integer accountId) {
         int status = 0;
         if (accountId != null) {
             Account account = accountDao.findAccountById(accountId);
-            List<BankCard> bankCards = bankCardDao.findCardsByAccountId(accountId);
-            for (BankCard bankCard : bankCards) {
-                bankCard.setIsActive(false);
-                bankCardDao.update(bankCard);
-            }
             account.setIsBlocked(true);
             status = accountDao.update(account);
         }
@@ -74,17 +68,11 @@ public class AccountService {
 
     /**
      * Finds account by id and unblock it
-     * Unlocks all bank cards that belong to this account
      */
     public int unblockAccount(Integer accountId) {
         int status = 0;
         if (accountId != null) {
             Account account = accountDao.findAccountById(accountId);
-            List<BankCard> bankCards = bankCardDao.findCardsByAccountId(accountId);
-            for (BankCard bankCard : bankCards) {
-                bankCard.setIsActive(true);
-                bankCardDao.update(bankCard);
-            }
             account.setIsBlocked(false);
             status = accountDao.update(account);
         }
@@ -98,7 +86,9 @@ public class AccountService {
         int status = 0;
         if (accountId != null) {
             Account account = accountDao.findAccountById(accountId);
-            if (!account.getIsBlocked()) { // account isn't blocked
+
+            // if account isn't blocked
+            if (!account.getIsBlocked()) {
                 account.setBalance(account.getBalance().add(funds));
                 status = accountDao.update(account);
             } else {
@@ -109,12 +99,26 @@ public class AccountService {
     }
 
     /**
-     * Checks if account id not null and deletes it
+     * Deletes an account if the accountId is not NULL and if there are no funds left on it
+     * In addition, detaches all attached cards to the account
      */
-    public void deleteAccountByAccountId(Integer accountId) {
+    public int deleteAccountByAccountId(Integer accountId) throws SQLException {
         if (accountId != null) {
-            accountDao.delete(accountId);
+            BigDecimal balance = AccountService.getInstance().findAccountByAccountId(accountId).getBalance();
+            if (balance.compareTo(BigDecimal.valueOf(0.0)) > 0) {
+                return -1;
+            }
+
+            int result = accountDao.delete(accountId);
+            if (result != 0) {
+                List<BankCard> cards = BankCardService.getInstance().findCardsByAccountId(accountId);
+                for (BankCard card : cards) {
+                    BankCardService.getInstance().deleteCardById(card.getCardId());
+                }
+            }
+            return result;
         }
+        return -2;
     }
 
     /**
