@@ -25,9 +25,10 @@ public class BankCardDaoImpl implements BankCardDao {
     private static final String CREATE_CARD = "INSERT INTO bank_cards(account_id, number, cvv, validity, is_active) VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_CARD = "UPDATE bank_cards SET is_active = ? WHERE card_id = ?";
     private static final String DELETE_CARD = "DELETE FROM bank_cards WHERE card_id = ?";
-    private static final String FIND_CARD_BY_USER_ID = "SELECT * FROM bank_cards WHERE card_id = ?";
+    private static final String FIND_CARD_BY_CARD_ID = "SELECT * FROM bank_cards WHERE card_id = ?";
     private static final String FIND_CARD_BY_NUMBER = "SELECT * FROM bank_cards WHERE number = ?";
     private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM bank_cards WHERE account_id = ?";
+    private static final String FIND_CARDS_BY_USER_ID = "SELECT bank_cards.* FROM bank_cards INNER JOIN accounts ON bank_cards.account_id = accounts.account_id WHERE accounts.user_id = ?";
     private static final String FIND_ALL_CARDS = "SELECT * FROM bank_cards";
 
     private static BankCardDaoImpl instance = null;
@@ -73,7 +74,7 @@ public class BankCardDaoImpl implements BankCardDao {
     public BankCard findCardByCardId(Integer cardId) {
         BankCard creditCard = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_CARD_BY_USER_ID, cardId);
+            ResultSet rs = executor.getResultSet(FIND_CARD_BY_CARD_ID, cardId);
             if (rs.next()) {
                 creditCard = createEntity(rs);
             }
@@ -102,6 +103,20 @@ public class BankCardDaoImpl implements BankCardDao {
         List<BankCard> creditCards = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_CARDS_BY_ACCOUNT_ID, accountId);
+            while (rs.next()) {
+                creditCards.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return creditCards;
+    }
+
+    @Override
+    public List<BankCard> findCardsByUserId(Integer userId) {
+        List<BankCard> creditCards = new ArrayList<>();
+        try {
+            ResultSet rs = executor.getResultSet(FIND_CARDS_BY_USER_ID, userId);
             while (rs.next()) {
                 creditCards.add(createEntity(rs));
             }
