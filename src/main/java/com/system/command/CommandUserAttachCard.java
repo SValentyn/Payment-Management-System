@@ -50,7 +50,7 @@ public class CommandUserAttachCard implements ICommand {
             }
 
             // Check
-            List<BankCard> cardsByAccountId = BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId));
+            List<BankCard> cardsByAccountId = BankCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountId));
             for (BankCard card : cardsByAccountId) {
                 if (card.getNumber().equals(number)) {
                     setRequestAttributes(request, accountId, number, CVV, month, year);

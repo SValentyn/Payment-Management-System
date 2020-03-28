@@ -88,7 +88,7 @@
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertUserHasFundsError"/>
-                <a href="?command=showUserAccounts&userId=${userId}" class="alert-link">
+                <a href="?command=showUserAccounts&userId=${viewableUser.userId}" class="alert-link">
                     <fmt:message key="user.page.viewAccounts"/>
                 </a>
             </p>
@@ -178,8 +178,8 @@
                                                                     <input id="phone" name="phone" type="tel"
                                                                            class="form-control" readonly="readonly"
                                                                            value="${viewableUser.phone}"/>
-                                                                    <label for="phone" class="default-label"></label>
                                                                 </div>
+                                                                <label for="phone" class="default-label"></label>
 
                                                                 <!-- User Email -->
                                                                 <div>

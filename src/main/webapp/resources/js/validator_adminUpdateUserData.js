@@ -225,7 +225,7 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
+    if (phone.value.trim() === "" || !iti.isValidNumber() || phone.classList.contains("error-input")) {
         event.preventDefault();
         notValidPhone();
         return false;

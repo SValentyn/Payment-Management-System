@@ -174,10 +174,13 @@ let notValidValidity = function () {
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("error-input");
 };
 
-month.addEventListener('click', resetValidity);
-month.addEventListener('change', validationMonth);
-year.addEventListener('click', resetValidity);
-year.addEventListener('change', validationYear);
+selectbox_month.on('show.bfhselectbox', function () {
+    resetValidity();
+});
+
+selectbox_year.on('show.bfhselectbox', function () {
+    resetValidity();
+});
 
 selectbox_month.on('hide.bfhselectbox', function () {
     validationMonth();

@@ -43,7 +43,7 @@
                 <fmt:message key="admin.users.allUsers" var="allUsers"/>
                 <fmt:message key="admin.users.user" var="user_rank"/>
                 <fmt:message key="admin.users.admin" var="admin_rank"/>
-                <fmt:message key="admin.users.gotoAccount" var="gotoAccount"/>
+                <fmt:message key="admin.users.gotoProfile" var="gotoProfile"/>
 
                 <div class="card shadow-none">
                     <div class="card-header">
@@ -80,7 +80,7 @@
                                                 </div>
                                                 <div class="card-footer">
                                                     <a href="?command=showUser&userId=${user.userId}">
-                                                            ${gotoAccount}<span class="arrow-link-symbol-right">→</span>
+                                                            ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -100,7 +100,7 @@
                                                 <div class="card-footer">
                                                     <a class="text-white"
                                                        href="?command=showUser&userId=${user.userId}">
-                                                            ${gotoAccount}<span class="arrow-link-symbol-right">→</span>
+                                                            ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
                                                     </a>
                                                 </div>
                                             </div>

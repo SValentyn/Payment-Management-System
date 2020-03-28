@@ -91,7 +91,7 @@
                                         <input type="hidden" name="full_phone" value="+34645364524">
                                         <input type="hidden" name="password" value="000000">
 
-                                        <button type="submit" class="btn btn-default">
+                                        <button type="submit" class="btn btn-primary signup btn-default">
                                             Beta-User
                                         </button>
                                     </form>
@@ -101,7 +101,7 @@
                                         <input type="hidden" name="full_phone" value="+393524594551">
                                         <input type="hidden" name="password" value="111111">
 
-                                        <button type="submit" class="btn btn-default">
+                                        <button type="submit" class="btn btn-primary signup btn-default">
                                             Beta-Admin
                                         </button>
                                     </form>

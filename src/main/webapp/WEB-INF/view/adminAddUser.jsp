@@ -88,6 +88,7 @@
                                         <fmt:message key="registration.name" var="name"/>
                                         <fmt:message key="registration.surname" var="surname"/>
                                         <fmt:message key="registration.email" var="email"/>
+                                        <fmt:message key="admin.addUser.passwordGenerated" var="passwordGenerated"/>
                                         <fmt:message key="admin.addUser.addUserButton" var="addUserButton"/>
                                         <fmt:message key="admin.addUser.attachAccount" var="backButton"/>
                                         <fmt:message key="admin.addUser.nameError" var="nameError"/>
@@ -176,6 +177,16 @@
                                                             ${emailError}
                                                         </span>
                                                     </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Password -->
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-9">
+                                                    <input id="password" name="password" type="password"
+                                                           class="form-control" readonly="readonly"
+                                                           placeholder="${passwordGenerated}"/>
+                                                    <label for="password" class="default-label"></label>
                                                 </div>
                                             </div>
 

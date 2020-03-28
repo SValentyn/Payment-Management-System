@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.BankCard;
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
@@ -26,14 +27,15 @@ public class CommandUserBlockCard implements ICommand {
 
         String cardNumber = request.getParameter("cardNumber");
         Integer accountId = BankCardService.getInstance().findCardByCardNumber(cardNumber).getAccountId();
+        BankCard card = BankCardService.getInstance().findCardByCardNumber(cardNumber);
 
         if (cardNumber != null) {
-            BankCardService.getInstance().blockBankCard(cardNumber);
+            BankCardService.getInstance().blockBankCard(card.getCardId());
 
             request.setAttribute("showAccounts", true);
             request.setAttribute("showAccountInfo", true);
             request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
-            request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(accountId));
+            request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountId));
             request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         } else {
             request.setAttribute("blockCardError", true);
