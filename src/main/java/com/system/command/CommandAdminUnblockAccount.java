@@ -2,13 +2,14 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.manager.ResourceManager;
-import com.system.service.*;
+import com.system.service.AccountService;
+import com.system.service.BankCardService;
+import com.system.service.LetterService;
+import com.system.service.PaymentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandAdminUnblockAccount implements ICommand {
 
@@ -17,43 +18,34 @@ public class CommandAdminUnblockAccount implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
 
-        request.setAttribute("unblockAccountError", false);
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+        request.setAttribute("showAccountError", false);
+        request.setAttribute("unblockAccountError", false);
 
         // Data
-        String accountId = request.getParameter("accountId");
+        Account account = (Account) request.getSession().getAttribute("viewableAccount");
 
         // Check
-        if (accountId == null) {
+        if (account == null) {
             request.setAttribute("unblockAccountError", true);
             return page;
         }
 
         // Data
-        List<Account> accounts = AccountService.getInstance().findAllAccounts();
-        List<String> accountsIds = new ArrayList<>();
-        for (Account account : accounts) {
-            accountsIds.add(String.valueOf(account.getAccountId()));
-        }
-
-        // Check
-        if (!accountsIds.contains(accountId)) {
-            request.setAttribute("unblockAccountError", true);
-            return page;
-        }
+        Integer accountId = account.getAccountId();
 
         // Action
-        AccountService.getInstance().unblockAccount(Integer.valueOf(accountId));
+        int status = AccountService.getInstance().unblockAccount(accountId);
+        if (status == 0) {
+            request.setAttribute("unblockAccountError", true);
+        }
 
         // Set Attributes
-        Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId));
-        request.setAttribute("account", account);
-        request.setAttribute("user", UserService.getInstance().findUserById(account.getUserId()));
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)));
-        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)));
-        request.setAttribute("showAccountError", false);
+        request.getSession().setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(account.getAccountId()));
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountId).isEmpty());
+        request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountId).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
+        request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountId));
 
         return page;
     }
