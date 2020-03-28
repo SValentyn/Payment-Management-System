@@ -42,6 +42,11 @@ public interface BankCardDao {
     List<BankCard> findCardsByAccountId(Integer accountId);
 
     /**
+     * Retrieves bank cards by userId
+     */
+    List<BankCard> findCardsByUserId(Integer userId);
+
+    /**
      * Retrieves all bank cards
      */
     List<BankCard> findAllCards();
