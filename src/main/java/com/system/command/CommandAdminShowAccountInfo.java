@@ -2,7 +2,10 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.manager.ResourceManager;
-import com.system.service.*;
+import com.system.service.AccountService;
+import com.system.service.BankCardService;
+import com.system.service.LetterService;
+import com.system.service.PaymentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +20,8 @@ public class CommandAdminShowAccountInfo implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
 
-        request.setAttribute("showAccountError", false);
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+        request.setAttribute("showAccountError", false);
 
         // Data
         String accountId = request.getParameter("accountId");
@@ -42,14 +45,15 @@ public class CommandAdminShowAccountInfo implements ICommand {
             return page;
         }
 
+        // Data
+        Integer accountIdInt = Integer.valueOf(accountId);
+
         // Set Attributes
-        Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId));
-        request.setAttribute("account", account);
-        request.setAttribute("user", UserService.getInstance().findUserById(account.getUserId()));
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(Integer.valueOf(accountId)));
-        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(Integer.valueOf(accountId)));
+        request.getSession().setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(accountIdInt));
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountIdInt).isEmpty());
+        request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountIdInt).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountIdInt));
+        request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountIdInt));
 
         return page;
     }
