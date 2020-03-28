@@ -37,32 +37,33 @@ DROP TABLE IF EXISTS users;
 -- -- --
 CREATE TABLE users
 (
-    user_id  INT(11)      NOT NULL AUTO_INCREMENT,
-    name     VARCHAR(255) NOT NULL,
-    surname  VARCHAR(255) NOT NULL,
-    phone    VARCHAR(255) NOT NULL,
-    email    VARCHAR(255),
-    password VARCHAR(255) NOT NULL,
-    role_id  INT(11)      NOT NULL,
+    user_id           INT(11)      NOT NULL AUTO_INCREMENT,
+    name              VARCHAR(255) NOT NULL,
+    surname           VARCHAR(255) NOT NULL,
+    phone             VARCHAR(255) NOT NULL,
+    email             VARCHAR(255),
+    password          VARCHAR(255) NOT NULL,
+    date_registration VARCHAR(255) NOT NULL,
+    role_id           INT(11)      NOT NULL,
     PRIMARY KEY (user_id)
 ) ENGINE = InnoDB
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-INSERT INTO users (user_id, name, surname, phone, email, password, role_id)
+INSERT INTO users (user_id, name, surname, phone, email, password, date_registration, role_id)
 VALUES
 # admin (pass: 111111)
 (1, 'Cristoforo', 'Colombo', '+393524594551',
- 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112', 2),
+ 'Cristoforo-Colombo@gmail.com', '96e79218965eb72c92a549dd5a330112', '26/10/2019', 2),
 # user (pass: 000000)
 (2, 'Fernando', 'de Magallanes', '+34645364524',
- 'Fernando-de-Magallanes@outlook.com', '670b14728ad9902aecba32e22fa4f6bd', 1),
+ 'Fernando-de-Magallanes@outlook.com', '670b14728ad9902aecba32e22fa4f6bd', '16/11/2019', 1),
 # user (pass: 000001)
 (3, 'James', 'Cook', '+447465106475',
- 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', 1),
+ 'James-Cook@gmail.com', '04fc711301f3c784d66955d98d399afb', '02/01/2020', 1),
 # user (pass: 000002)
 (4, 'Vasco', 'da Gama', '+351919131006',
- 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', 1);
+ 'Vasco-da-Gama@gmail.com', '768c1c687efe184ae6dd2420710b8799', '13/02/2020', 1);
 -- -- --
 
 -- -- --

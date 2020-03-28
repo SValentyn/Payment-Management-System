@@ -12,18 +12,10 @@ public class User implements Serializable {
     private String phone;
     private String email;
     private String password;
+    private String dateRegistration;
     private Role role;
 
     public User() {
-    }
-
-    public User(String name, String surname, String phone, String email, String password, Role role) {
-        this.name = name;
-        this.surname = surname;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.role = role;
     }
 
     public Integer getUserId() {
@@ -74,6 +66,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getDateRegistration() {
+        return dateRegistration;
+    }
+
+    public void setDateRegistration(String dateRegistration) {
+        this.dateRegistration = dateRegistration;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -92,6 +92,7 @@ public class User implements Serializable {
         result = prime * result + ((phone == null) ? 0 : phone.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
+        result = prime * result + ((dateRegistration == null) ? 0 : dateRegistration.hashCode());
         return result;
     }
 
@@ -135,6 +136,12 @@ public class User implements Serializable {
         } else if (!password.equals(other.password))
             return false;
 
+        if (dateRegistration == null) {
+            if (other.dateRegistration != null)
+                return false;
+        } else if (!dateRegistration.equals(other.dateRegistration))
+            return false;
+
         return userId.equals(other.userId);
     }
 
@@ -146,6 +153,7 @@ public class User implements Serializable {
                 ", phone=" + phone +
                 ", email=" + email +
                 ", password=" + password +
+                ", dateRegistration=" + dateRegistration +
                 ", role=" + role + "]";
     }
 

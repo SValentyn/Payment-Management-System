@@ -9,6 +9,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -69,9 +71,17 @@ public class UserService {
         int status = 0;
         User user = findUserByPhoneNumber(phone);
         if (user == null) {
+            user = new User();
+            user.setName(name);
+            user.setSurname(surname);
+            user.setPhone(phone);
+            user.setEmail(email);
+            user.setPassword(encryptor.encode(password));
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            user.setDateRegistration(formatter.format(new Date()));
             Role role = new Role();
             role.setRolename(Role.ROLE_CLIENT);
-            user = new User(name, surname, phone, email, encryptor.encode(password), role);
+            user.setRole(role);
             status = userDao.create(user);
         }
         return status;
@@ -88,10 +98,17 @@ public class UserService {
 
         User user = findUserByPhoneNumber(phone);
         if (user == null) {
-            String password = generatePassword(8);
+            user = new User();
+            user.setName(name);
+            user.setSurname(surname);
+            user.setPhone(phone);
+            user.setEmail(email);
+            user.setPassword(encryptor.encode(generatePassword(8)));
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            user.setDateRegistration(formatter.format(new Date()));
             Role role = new Role();
             role.setRolename(Role.ROLE_CLIENT);
-            user = new User(name, surname, phone, email, encryptor.encode(password), role);
+            user.setRole(role);
             status = userDao.create(user);
 
             // ------------------------------------------------------------- //

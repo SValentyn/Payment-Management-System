@@ -24,13 +24,13 @@ public class UserDaoImpl implements UserDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_USER = "INSERT INTO users (name, surname, phone, email, password, role_id) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_USER = "INSERT INTO users (name, surname, phone, email, password, date_registration, role_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_USER = "UPDATE users SET name = ?, surname = ?, phone = ?, email = ?, password = ? WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE user_id = ?";
-    private static final String FIND_BY_ID = "SELECT users.user_id, users.name, users.surname, users.phone, users.email, users.password, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.user_id = ?";
-    private static final String FIND_BY_LOGIN_PASSWORD = "SELECT users.user_id, users.name, users.surname, users.phone, users.email, users.password, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ? AND users.password = ?";
-    private static final String FIND_BY_PHONE = "SELECT users.user_id, users.name, users.surname, users.phone, users.email, users.password, users.role_id, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ?";
-    private static final String FIND_ALL = "SELECT users.user_id, users.name, users.surname, users.phone, users.email, users.password, users.role_Id, roles.title FROM users JOIN roles ON users.role_id = roles.id";
+    private static final String FIND_BY_ID = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.user_id = ?";
+    private static final String FIND_BY_LOGIN_PASSWORD = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ? AND users.password = ?";
+    private static final String FIND_BY_PHONE = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ?";
+    private static final String FIND_ALL = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id";
 
     private static UserDaoImpl instance = null;
     private QueryExecutor executor = QueryExecutor.getInstance();
@@ -56,6 +56,7 @@ public class UserDaoImpl implements UserDao {
                 entity.getPhone(),
                 entity.getEmail(),
                 entity.getPassword(),
+                entity.getDateRegistration(),
                 entity.getRole().getId()
         };
         return executor.executeStatement(CREATE_USER, args);
@@ -153,6 +154,7 @@ public class UserDaoImpl implements UserDao {
             user.setPhone(rs.getString("phone"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
+            user.setDateRegistration(rs.getString("date_registration"));
             Role role = new Role();
             role.setId(rs.getInt("role_id"));
             role.setRolename(rs.getString("title"));
