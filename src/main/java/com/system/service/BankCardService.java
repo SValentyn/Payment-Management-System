@@ -61,44 +61,52 @@ public class BankCardService {
     }
 
     /**
-     * Blocks bank card by number
+     * Blocks bank card by cardId
      */
-    public void blockBankCard(String number) {
-        if (number != null) {
-            BankCard bankCard = bankCardDao.findCardByCardNumber(number);
+    public int blockBankCard(Integer cardId) {
+        int status = 0;
+        if (cardId != null) {
+            BankCard bankCard = bankCardDao.findCardByCardId(cardId);
             bankCard.setIsActive(false);
-            bankCardDao.update(bankCard);
+            status = bankCardDao.update(bankCard);
         }
+        return status;
     }
 
     /**
-     * Unblocks bank card by number
+     * Unblocks bank card by cardId
      */
-    public void unblockBankCard(String number) {
-        if (number != null) {
-            BankCard creditCard = bankCardDao.findCardByCardNumber(number);
+    public int unblockBankCard(Integer cardId) {
+        int status = 0;
+        if (cardId != null) {
+            BankCard creditCard = bankCardDao.findCardByCardId(cardId);
             creditCard.setIsActive(true);
-            bankCardDao.update(creditCard);
+            status = bankCardDao.update(creditCard);
         }
+        return status;
     }
 
     /**
      * Checks if cardId not null and deletes it
      */
-    public void deleteCardById(Integer cardId) {
+    public int deleteCardById(Integer cardId) {
+        int status = 0;
         if (cardId != null) {
-            bankCardDao.delete(cardId);
+            status = bankCardDao.delete(cardId);
         }
+        return status;
     }
 
     /**
      * Checks if card number not null and deletes it
      */
-    public void deleteCardByNumber(String number) {
+    public int deleteCardByNumber(String number) {
+        int status = 0;
         if (number != null) {
             BankCard card = findCardByCardNumber(number);
-            bankCardDao.delete(card.getCardId());
+            status = bankCardDao.delete(card.getCardId());
         }
+        return status;
     }
 
     /**
@@ -118,8 +126,15 @@ public class BankCardService {
     /**
      * Finds all bank cards by account id
      */
-    public List<BankCard> findAllCardsByAccountId(Integer accountId) {
+    public List<BankCard> findCardsByAccountId(Integer accountId) {
         return bankCardDao.findCardsByAccountId(accountId);
+    }
+
+    /**
+     * Finds all bank cards by user id
+     */
+    public List<BankCard> findCardsByUserId(Integer userId) {
+        return bankCardDao.findCardsByUserId(userId);
     }
 
     /**
