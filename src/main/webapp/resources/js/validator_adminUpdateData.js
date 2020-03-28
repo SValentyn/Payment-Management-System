@@ -7,6 +7,15 @@ let password = document.querySelector("#password");
 let submitBtn = document.querySelector("#submit");
 
 
+/* It starts immediately after the page loads */
+window.addEventListener("load", function () {
+    validationName();
+    validationSurname();
+    validationPhone();
+    validationEmail();
+});
+
+
 /* Checks name */
 let validMsgName = document.querySelector("#valid-msg-name"),
     errorMsgName = document.querySelector("#error-msg-name");
@@ -266,7 +275,7 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
+    if (phone.value.trim() === "" || !iti.isValidNumber() || phone.classList.contains("error-input")) {
         event.preventDefault();
         notValidPhone();
         return false;
