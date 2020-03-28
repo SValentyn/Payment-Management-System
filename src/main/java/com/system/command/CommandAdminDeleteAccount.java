@@ -2,13 +2,14 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.manager.ResourceManager;
-import com.system.service.*;
+import com.system.service.AccountService;
+import com.system.service.BankCardService;
+import com.system.service.LetterService;
+import com.system.service.PaymentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandAdminDeleteAccount implements ICommand {
 
@@ -17,44 +18,41 @@ public class CommandAdminDeleteAccount implements ICommand {
 
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
 
-        request.setAttribute("deleteAccountError", false);
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+        request.setAttribute("showAccountError", false);
+        request.setAttribute("accountHasFundsError", false);
+        request.setAttribute("deleteAccountError", false);
+        request.setAttribute("accountDeleted", false);
 
         // Data
-        String accountNumber = request.getParameter("accountNumber");
-        Integer accountId = AccountService.getInstance().findAccountByAccountNumber(accountNumber).getAccountId();
+        Account account = (Account) request.getSession().getAttribute("viewableAccount");
 
         // Check
-        if (accountId == null) {
+        if (account == null) {
             request.setAttribute("deleteAccountError", true);
             return page;
         }
 
         // Data
-        List<Account> accounts = AccountService.getInstance().findAllAccounts();
-        List<Integer> accountsIds = new ArrayList<>();
-        for (Account account : accounts) {
-            accountsIds.add(account.getAccountId());
-        }
-
-        // Check
-        if (!accountsIds.contains(accountId)) {
-            request.setAttribute("deleteAccountError", true);
-            return page;
-        }
+        Integer accountId = account.getAccountId();
 
         // Action
-        AccountService.getInstance().deleteAccountByAccountId(accountId);
+        int status = AccountService.getInstance().deleteAccountByAccountId(accountId);
+        if (status == -1) {
+            request.setAttribute("accountHasFundsError", true);
+        } else if (status == -2) {
+            request.setAttribute("deleteAccountError", true);
+        } else {
+            request.setAttribute("showAccountError", true);
+            request.setAttribute("accountDeleted", true);
+            return page;
+        }
 
         // Set Attributes
-        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
-        request.setAttribute("account", account);
-        request.setAttribute("user", UserService.getInstance().findUserById(account.getUserId()));
         request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountId).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findAllCardsByAccountId(accountId).isEmpty());
+        request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountId).isEmpty());
         request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
-        request.setAttribute("cards", BankCardService.getInstance().findAllCardsByAccountId(accountId));
-        request.setAttribute("showAccountError", false);
+        request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountId));
 
         return page;
     }
