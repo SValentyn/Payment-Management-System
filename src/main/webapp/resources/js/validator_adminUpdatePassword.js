@@ -1,8 +1,49 @@
 // Elements on adminUpdatePassword.jsp page to check
+let oldPassword = document.querySelector("#oldPassword");
 let newPassword = document.querySelector("#newPassword");
 let passwordConfirmation = document.querySelector("#passwordConfirmation");
-let oldPassword = document.querySelector("#oldPassword");
 let submitBtn = document.querySelector("#submit");
+
+
+/* Checks Old Password */
+let validMsgOldPassword = document.querySelector("#valid-msg-oldPassword"),
+    errorMsgOldPassword = document.querySelector("#error-msg-oldPassword");
+
+let resetOldPassword = function () {
+    validMsgOldPassword.classList.add("invisible");
+    errorMsgOldPassword.classList.add("invisible");
+    oldPassword.classList.remove("valid-input");
+    oldPassword.classList.remove("error-input");
+};
+
+let validOldPassword = function () {
+    validMsgOldPassword.classList.remove("invisible");
+    errorMsgOldPassword.classList.add("invisible");
+    oldPassword.classList.add("valid-input");
+    oldPassword.classList.remove("error-input");
+};
+
+let notValidOldPassword = function () {
+    validMsgOldPassword.classList.add("invisible");
+    errorMsgOldPassword.classList.remove("invisible");
+    oldPassword.classList.remove("valid-input");
+    oldPassword.classList.add("error-input");
+};
+
+oldPassword.addEventListener('click', resetOldPassword);
+oldPassword.addEventListener('blur', validationOldPassword);
+oldPassword.addEventListener('keyup', validationOldPassword);
+oldPassword.addEventListener('change', validationOldPassword);
+
+function validationOldPassword() {
+    resetOldPassword();
+
+    if (oldPassword.value.trim() === "" || oldPassword.value.trim().length < 6) {
+        notValidOldPassword();
+    } else {
+        validOldPassword();
+    }
+}
 
 
 /* Checks New Password */
@@ -10,7 +51,6 @@ let validMsgNewPassword = document.querySelector("#valid-msg-newPassword"),
     errorMsgNewPassword = document.querySelector("#error-msg-newPassword");
 
 let resetNewPassword = function () {
-    document.querySelector("#passwordNotMatchError").classList.add("invisible");
     validMsgNewPassword.classList.add("invisible");
     errorMsgNewPassword.classList.add("invisible");
     newPassword.classList.remove("valid-input");
@@ -114,50 +154,14 @@ var matching = function () {
 };
 
 
-/* Checks Old Password */
-let validMsgOldPassword = document.querySelector("#valid-msg-oldPassword"),
-    errorMsgOldPassword = document.querySelector("#error-msg-oldPassword");
-
-let resetOldPassword = function () {
-    document.querySelector("#passwordNotMatchError").classList.add("invisible");
-    validMsgOldPassword.classList.add("invisible");
-    errorMsgOldPassword.classList.add("invisible");
-    oldPassword.classList.remove("valid-input");
-    oldPassword.classList.remove("error-input");
-};
-
-let validOldPassword = function () {
-    validMsgOldPassword.classList.remove("invisible");
-    errorMsgOldPassword.classList.add("invisible");
-    oldPassword.classList.add("valid-input");
-    oldPassword.classList.remove("error-input");
-};
-
-let notValidOldPassword = function () {
-    validMsgOldPassword.classList.add("invisible");
-    errorMsgOldPassword.classList.remove("invisible");
-    oldPassword.classList.remove("valid-input");
-    oldPassword.classList.add("error-input");
-};
-
-oldPassword.addEventListener('click', resetOldPassword);
-oldPassword.addEventListener('blur', validationOldPassword);
-oldPassword.addEventListener('keyup', validationOldPassword);
-oldPassword.addEventListener('change', validationOldPassword);
-
-function validationOldPassword() {
-    resetOldPassword();
-
-    if (oldPassword.value.trim() === "" || oldPassword.value.trim().length < 6) {
-        notValidOldPassword();
-    } else {
-        validOldPassword();
-    }
-}
-
-
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
+
+    if (oldPassword.value.trim() === "" || oldPassword.value.trim().length < 6 || oldPassword.classList.contains("error-input")) {
+        event.preventDefault();
+        notValidOldPassword();
+        return false;
+    }
 
     if (newPassword.value.trim() === "" || newPassword.value.trim().length < 6 || newPassword.classList.contains("error-input")) {
         event.preventDefault();
@@ -168,12 +172,6 @@ submitBtn.addEventListener('click', function (event) {
     if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6 || passwordConfirmation.classList.contains("error-input")) {
         event.preventDefault();
         notValidPasswordConfirmation();
-        return false;
-    }
-
-    if (oldPassword.value.trim() === "" || oldPassword.value.trim().length < 6 || oldPassword.classList.contains("error-input")) {
-        event.preventDefault();
-        notValidOldPassword();
         return false;
     }
 

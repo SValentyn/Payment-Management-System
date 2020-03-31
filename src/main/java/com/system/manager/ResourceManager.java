@@ -24,7 +24,7 @@ public class ResourceManager {
     public static final String USER_SUPPORT = "USER_SUPPORT";
     // ADMIN
     public static final String ADMIN = "ADMIN";
-    public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_DATA";
+    public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_PERSONAL_DATA";
     public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
     public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
     public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
