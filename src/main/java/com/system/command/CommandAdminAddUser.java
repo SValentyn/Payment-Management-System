@@ -5,6 +5,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.LetterService;
 import com.system.service.UserService;
+import com.system.utils.Validator;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +21,12 @@ public class CommandAdminAddUser implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("added", false);
         request.setAttribute("phoneExistError", false);
         request.setAttribute("emailExistError", false);
         request.setAttribute("addUserError", false);
+        request.setAttribute("added", false);
 
+        // Actions depend on the method
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             return page;
@@ -35,6 +37,12 @@ public class CommandAdminAddUser implements ICommand {
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
+
+            // Validation
+            if (!validation(name, surname, phone)) {
+                request.setAttribute("addUserError", true);
+                return page;
+            }
 
             // Check Phone
             List<User> users = UserService.getInstance().findAllUsers();
@@ -57,18 +65,23 @@ public class CommandAdminAddUser implements ICommand {
                 }
             }
 
-            // Register User
+            // Register new user
             int status = UserService.getInstance().registerUser(name, surname, phone, email);
             if (status == 0) {
                 setRequestAttributes(request, name, surname, phone, email);
                 request.setAttribute("addUserError", true);
             } else {
-                request.getSession().setAttribute("viewableUser", UserService.getInstance().findUserById(status));
                 request.setAttribute("added", true);
             }
         }
 
         return page;
+    }
+
+    private boolean validation(String name, String surname, String phone) {
+        return Validator.checkName(name) &&
+                Validator.checkSurname(surname) &&
+                Validator.checkPhoneNumber(phone);
     }
 
     private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email) {

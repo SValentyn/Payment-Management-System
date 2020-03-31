@@ -71,7 +71,7 @@ public class Validator {
      */
     public static boolean checkPhoneNumber(String number) {
         if (number == null) return false;
-        Pattern p = Pattern.compile("\\d{6,18}");
+        Pattern p = Pattern.compile(".{6,18}");
         Matcher m = p.matcher(number);
         return m.matches();
     }
