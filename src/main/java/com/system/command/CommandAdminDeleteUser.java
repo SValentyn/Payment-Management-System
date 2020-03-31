@@ -1,10 +1,13 @@
 package com.system.command;
 
 import com.system.entity.Account;
+import com.system.entity.User;
 import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.LetterService;
+import com.system.service.PaymentService;
 import com.system.service.UserService;
+import com.system.utils.Validator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,40 +22,57 @@ public class CommandAdminDeleteUser implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
+        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER);
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("showUsers", true);
-        request.setAttribute("deleted", false);
+        request.setAttribute("showUserError", false);
         request.setAttribute("userHasFundsError", false);
         request.setAttribute("deleteUserError", false);
+        request.setAttribute("deleted", false);
 
-        String userId = request.getParameter("userId");
+        // Data
+        String userIdParam = request.getParameter("userId");
 
-        if (userId != null) {
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userId));
-            for (Account account : accounts) {
-                BigDecimal balance = account.getBalance();
-                if (balance.compareTo(BigDecimal.ZERO) != 0) {
-                    request.setAttribute("users", UserService.getInstance().findAllUsers());
-                    request.setAttribute("userId", userId);
-                    request.setAttribute("userHasFundsError", true);
-                    return page;
-                }
-            }
-
-            int status = UserService.getInstance().deleteUserById(Integer.valueOf(userId));
-            if (status == 0) {
-                request.setAttribute("deleteUserError", true);
-            } else {
-                request.setAttribute("deleted", true);
-            }
-        } else {
+        // Validation
+        if (!Validator.checkUserId(userIdParam)) {
             request.setAttribute("deleteUserError", true);
+            return page;
         }
 
-        request.setAttribute("users", UserService.getInstance().findAllUsers());
+        // Set Attributes
+        Integer userId = Integer.parseInt(userIdParam);
+        setRequestAttributes(request, userId);
+
+        // Check
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
+        for (Account account : accounts) {
+            BigDecimal balance = account.getBalance();
+            if (balance.compareTo(BigDecimal.ZERO) != 0) {
+                request.setAttribute("userHasFundsError", true);
+                return page;
+            }
+        }
+
+        // Action
+        int status = UserService.getInstance().deleteUserById(userId);
+        if (status == 0) {
+            request.setAttribute("deleteUserError", true);
+        } else {
+            request.setAttribute("showUserError", true);
+            request.setAttribute("deleted", true);
+        }
+
         return page;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, Integer userId) throws SQLException {
+        User user = UserService.getInstance().findUserById(userId);
+        request.setAttribute("userId", userId);
+        request.setAttribute("viewableUser", user);
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findLastPaymentsByUserId(userId).isEmpty());
+        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userId));
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
     }
 
 }
