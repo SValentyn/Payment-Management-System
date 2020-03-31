@@ -7,11 +7,11 @@ import com.system.manager.ResourceManager;
 import com.system.service.AccountService;
 import com.system.service.LetterService;
 import com.system.service.UserService;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommandAdminAttachAccount implements ICommand {
@@ -27,45 +27,32 @@ public class CommandAdminAttachAccount implements ICommand {
         request.setAttribute("attached", false);
 
         // Data
-        Integer userId;
-        String bio, number, currency;
-        User user = (User) request.getSession().getAttribute("viewableUser");
+        String userIdParam = request.getParameter("userId");
 
-        // Check
-        if (user == null) {
+        // Validation
+        if (!Validator.checkUserId(userIdParam)) {
             request.setAttribute("attachAccountError", true);
             return page;
         }
 
         // Data
-        List<User> users = UserService.getInstance().findAllUsers();
-        List<Integer> usersIds = new ArrayList<>();
-        for (User aUser : users) {
-            usersIds.add(aUser.getUserId());
-        }
-
-        // Check
-        if (!usersIds.contains(user.getUserId())) {
-            request.setAttribute("attachAccountError", true);
-            return page;
-        }
-
-        // Data
-        userId = user.getUserId();
-        bio = user.getName() + " " + user.getSurname();
-        number = request.getParameter("number");
-        currency = request.getParameter("currency");
+        Integer userId = Integer.parseInt(userIdParam);
+        User user = UserService.getInstance().findUserById(userId);
+        String bio = user.getName() + " " + user.getSurname();
+        String number = request.getParameter("number");
+        String currency = request.getParameter("currency");
 
         // Set Attributes
-        setRequestAttributes(request, bio, number, currency);
+        setRequestAttributes(request, userId, bio, number, currency);
 
+        // Actions depend on the method
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             return page;
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
 
-            // Server Validation
-            if (number == null || number.length() < 20 || currency == null || currency.equals("")) {
+            // Validation
+            if (!validation(number, currency)) {
                 request.setAttribute("attachAccountError", true);
                 return page;
             }
@@ -95,7 +82,6 @@ public class CommandAdminAttachAccount implements ICommand {
             if (status == 0) {
                 request.setAttribute("attachAccountError", true);
             } else {
-                request.setAttribute("accountId", status);
                 request.setAttribute("attached", true);
             }
         }
@@ -103,7 +89,13 @@ public class CommandAdminAttachAccount implements ICommand {
         return page;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String bio, String number, String currency) {
+    private boolean validation(String number, String currency) {
+        return Validator.checkAccountNumber(number) &&
+                Validator.checkCurrency(currency);
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, Integer userId, String bio, String number, String currency) {
+        request.setAttribute("userId", userId);
         request.setAttribute("bioValue", bio);
         request.setAttribute("numberValue", number);
         request.setAttribute("currencyValue", currency);

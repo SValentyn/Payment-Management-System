@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Validates input strings for validity for form validation
+ * Class for validation input parameters from a form
  */
 public class Validator {
 
@@ -97,15 +97,10 @@ public class Validator {
     }
 
     /**
-     * @return true, if the currency is not NULL and the string is a floating point number
+     * @return true, if the currency is not NULL
      */
     public static boolean checkCurrency(String currency) {
-        try {
-            Double.parseDouble(currency);
-        } catch (NumberFormatException | NullPointerException e) {
-            return false;
-        }
-        return true;
+        return currency != null && !currency.equals("") && currency.length() == 3;
     }
 
     /**

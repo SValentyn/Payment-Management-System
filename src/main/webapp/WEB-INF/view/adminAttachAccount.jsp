@@ -176,6 +176,7 @@
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="showUserAccounts">
+                                                <input type="hidden" name="userId" value="${userId}">
                                                 <button type="submit" class="btn btn-primary signup btn-default">
                                                     ${showAllAccountsButton}
                                             </form>
@@ -185,7 +186,7 @@
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="showUser">
-                                                <input type="hidden" name="userId" value="${viewableUser.userId}">
+                                                <input type="hidden" name="userId" value="${userId}">
                                                 <button type="submit" class="btn btn-primary signup btn-default">
                                                     ${returnToUserProfile}
                                             </form>
