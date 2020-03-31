@@ -71,7 +71,7 @@
                                                                 <input type="hidden" name="command"
                                                                        value="showUser">
                                                                 <input type="hidden" name="userId"
-                                                                       value="${viewableUser.userId}">
+                                                                       value="${userId}">
                                                                 <div class="action" style="text-align: unset;">
                                                                     <button id="submit" type="submit"
                                                                             class="btn btn-primary signup btn-default"
