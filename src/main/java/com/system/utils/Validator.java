@@ -67,13 +67,37 @@ public class Validator {
     }
 
     /**
-     * @return true, if the phone number is not NULL and its length is in the range of 6 to 18 digits
+     * @return true, if the phone number is not NULL and its length is in the range of 6 to 18 digits,
+     * and also if it is not already in the system
      */
-    public static boolean checkPhoneNumber(String number) {
-        if (number == null) return false;
+    public static boolean checkPhone(String phone) throws SQLException {
+        if (phone == null) return false;
         Pattern p = Pattern.compile(".{6,18}");
-        Matcher m = p.matcher(number);
-        return m.matches();
+        Matcher m = p.matcher(phone);
+        if (!m.matches()) return false;
+
+        List<User> users = UserService.getInstance().findAllUsers();
+        for (User user : users) {
+            if (user.getPhone().equals(phone)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return true, if the email is not already in the system
+     */
+    public static boolean checkEmail(String email) throws SQLException {
+        List<User> users = UserService.getInstance().findAllUsers();
+        for (User user : users) {
+            if (user.getEmail().equals(email) && !email.equals("")) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

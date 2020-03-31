@@ -47,6 +47,18 @@
         </div>
     </c:if>
 
+    <!-- Alert emailExistError -->
+    <c:if test="${emailExistError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="admin.page.alertEmailExistError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert updateUserDataError -->
     <c:if test="${updateUserDataError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
@@ -185,7 +197,7 @@
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="showUser">
-                                                <input type="hidden" name="userId" value="${viewableUser.userId}">
+                                                <input type="hidden" name="userId" value="${userId}">
                                                 <button type="submit" class="btn btn-primary signup btn-default"
                                                         style="width: 56%;">
                                                     ${returnToUserProfile}
