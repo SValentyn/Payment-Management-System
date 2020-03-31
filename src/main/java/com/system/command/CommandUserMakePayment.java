@@ -144,12 +144,11 @@ public class CommandUserMakePayment implements ICommand {
         return page;
     }
 
-    private boolean validation(String accountId, String accountNumber, String cardNumber, String amount) {
-        if (accountId == null || Validator.isNegative(accountId) || amount == null || amount.equals("")) return false;
-        if (accountNumber != null) return Validator.checkAccountNumber(accountNumber);
-        if (cardNumber != null) return Validator.checkCardNumber(cardNumber);
-
-        return true;
+    private boolean validation(String accountId, String accountNumber, String cardNumber, String amount) throws SQLException {
+        return Validator.checkAccountId(accountId) &&
+                Validator.checkAccountNumber(accountNumber) &&
+                Validator.checkCardNumber(cardNumber) &&
+                Validator.checkAmount(amount);
     }
 
     private void setRequestAttributes(HttpServletRequest request, String accountId, String accountNumber, String cardNumber, String amount, String appointment) throws SQLException {

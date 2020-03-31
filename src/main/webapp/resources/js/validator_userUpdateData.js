@@ -97,7 +97,7 @@ function validationSurname() {
     if (surname.value.trim() === "") {
         notValidSurname();
     } else {
-        if (surname.value.trim().search(/[a-zA-Zа-яА-ЯёЁїЇ ]{1,24}/) === -1) {
+        if (surname.value.trim().search(/[a-zA-Zа-яА-ЯёЁїЇ ]{1,32}/) === -1) {
             notValidSurname();
         } else {
             validSurname();

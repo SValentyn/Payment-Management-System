@@ -60,7 +60,7 @@ public class ControllerHelper {
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
         adminCommands.put("profile", new CommandAdminUpdatePersonalData());
-        adminCommands.put("updatePassword", new CommandAdminChangePassword());
+        adminCommands.put("updatePassword", new CommandAdminUpdatePassword());
         adminCommands.put("showUser", new CommandAdminShowUser());
         adminCommands.put("showUsers", new CommandAdminShowUsers());
         adminCommands.put("showPaymentInfo", new CommandAdminShowPaymentInfo());

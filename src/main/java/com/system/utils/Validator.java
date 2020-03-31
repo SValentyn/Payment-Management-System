@@ -121,10 +121,21 @@ public class Validator {
     }
 
     /**
-     * @return true, if the currency is not NULL
+     * @return true, if the currency is not NULL and is 3 letters
      */
     public static boolean checkCurrency(String currency) {
-        return currency != null && !currency.equals("") && currency.length() == 3;
+        if (currency == null || currency.equals("") || currency.length() != 3) {
+            return false;
+        }
+
+        char[] chars = currency.toCharArray();
+        for (int i = 0; i < currency.length() - 1; i++) {
+            if (!Character.isLetter(chars[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

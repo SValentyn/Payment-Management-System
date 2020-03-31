@@ -391,7 +391,7 @@ h4, h5 {
 }
 
 .login-wrapper .box .title-label {
-    font-size: 28px;
+    font-size: 22px;
     text-decoration: none;
 }
 
@@ -772,19 +772,17 @@ h4, h5 {
 #alert {
     width: auto;
     height: auto;
-    min-height: 60px;
     position: fixed;
     display: flex;
     z-index: 10;
     right: 0;
     padding: 0 10px 0 20px;
-    margin: 0 20px 0 0;
+    margin: 0 30px 0 0;
     opacity: 0.95;
     font-size: 16px;
 }
 
 #alert p {
-    height: 36px;
     margin-right: 18px;
     padding-top: 18px;
 }
@@ -1142,6 +1140,11 @@ a:active .arrow-link-symbol-left,
 @media (max-width: 465px) {
     .header .logo h1 {
         font-size: 18px !important;
+    }
+
+    #alert {
+        margin: 0 10px 0 10px;
+        font-size: 15px;
     }
 
     .custom-date {

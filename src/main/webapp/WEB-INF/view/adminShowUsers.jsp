@@ -21,18 +21,6 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert showUserError -->
-    <c:if test="${showUserError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertShowUserError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <div class="page-content">
         <div class="row">
             <div class="col-lg-2">

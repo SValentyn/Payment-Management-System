@@ -622,8 +622,8 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <!-- Return to User Profile -->
-                                                <div style="height: 22px; margin-top: 15px;">
-                                                    <label style="font-size: 16px;">
+                                                <div style="margin-top: 15px;">
+                                                    <label class="title-label">
                                                         <a href="?command=showUser&userId=${viewableUser.userId}"
                                                            class="float-left">
                                                             <span class="arrow-link-symbol-left">←</span>

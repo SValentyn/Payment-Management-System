@@ -20,6 +20,7 @@ public class CommandAdminUpdateUserData implements ICommand {
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
         request.setAttribute("phoneExistError", false);
+        request.setAttribute("emailExistError", false);
         request.setAttribute("updateUserDataError", false);
         request.setAttribute("updated", false);
 
@@ -49,6 +50,8 @@ public class CommandAdminUpdateUserData implements ICommand {
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = request.getParameter("email");
 
+            setRequestAttributes(request, userId, name, surname, phone, email);
+
             // Validation
             if (!validation(name, surname)) {
                 request.setAttribute("updateUserDataError", true);
@@ -58,7 +61,6 @@ public class CommandAdminUpdateUserData implements ICommand {
             // Check if the phone has been changed
             if (!user.getPhone().equals(phone)) {
                 if (!Validator.checkPhone(phone)) {
-                    setRequestAttributes(request, userId, name, surname, phone, email);
                     request.setAttribute("phoneExistError", true);
                     return page;
                 }
@@ -67,7 +69,6 @@ public class CommandAdminUpdateUserData implements ICommand {
             // Check if the email has been changed
             if (!user.getEmail().equals(email)) {
                 if (!Validator.checkEmail(email)) {
-                    setRequestAttributes(request, userId, name, surname, phone, email);
                     request.setAttribute("emailExistError", true);
                     return page;
                 }
@@ -79,7 +80,7 @@ public class CommandAdminUpdateUserData implements ICommand {
             user.setPhone(phone);
             user.setEmail(email);
 
-            // Update
+            // Action
             setRequestAttributes(request, user);
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {

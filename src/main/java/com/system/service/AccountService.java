@@ -23,7 +23,6 @@ public class AccountService {
 
     private static AccountService instance = null;
     private AccountDao accountDao = DaoFactory.createAccountDao();
-    private BankCardDao bankCardDao = DaoFactory.createBankCardDao();
 
     private AccountService() throws SQLException {
     }
@@ -105,7 +104,7 @@ public class AccountService {
     public int deleteAccountByAccountId(Integer accountId) throws SQLException {
         if (accountId != null) {
             BigDecimal balance = AccountService.getInstance().findAccountByAccountId(accountId).getBalance();
-            if (balance.compareTo(BigDecimal.valueOf(0.0)) > 0) {
+            if (balance.compareTo(BigDecimal.ZERO) != 0) {
                 return -1;
             }
 
