@@ -1,6 +1,5 @@
 package com.system.command;
 
-import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.service.LetterService;
@@ -11,7 +10,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandAdminAddUser implements ICommand {
 
@@ -26,7 +24,6 @@ public class CommandAdminAddUser implements ICommand {
         request.setAttribute("addUserError", false);
         request.setAttribute("added", false);
 
-        // Actions depend on the method
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             return page;
@@ -39,30 +36,23 @@ public class CommandAdminAddUser implements ICommand {
             String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
 
             // Validation
-            if (!validation(name, surname, phone)) {
+            if (!validation(name, surname)) {
                 request.setAttribute("addUserError", true);
                 return page;
             }
 
-            // Check Phone
-            List<User> users = UserService.getInstance().findAllUsers();
-            for (User user : users) {
-                if (user.getPhone().equals(phone)) {
-                    setRequestAttributes(request, name, surname, phone, email);
-                    request.setAttribute("phoneExistError", true);
-                    return page;
-                }
+            // Validation
+            if (!Validator.checkPhone(phone)) {
+                setRequestAttributes(request, name, surname, phone, email);
+                request.setAttribute("phoneExistError", true);
+                return page;
             }
 
-            // Check Email
-            for (User user : users) {
-                if (!email.equals("")) {
-                    if (user.getEmail().equals(email)) {
-                        setRequestAttributes(request, name, surname, phone, email);
-                        request.setAttribute("emailExistError", true);
-                        return page;
-                    }
-                }
+            // Validation
+            if (!Validator.checkEmail(email)) {
+                setRequestAttributes(request, name, surname, phone, email);
+                request.setAttribute("emailExistError", true);
+                return page;
             }
 
             // Register new user
@@ -78,10 +68,9 @@ public class CommandAdminAddUser implements ICommand {
         return page;
     }
 
-    private boolean validation(String name, String surname, String phone) {
+    private boolean validation(String name, String surname) {
         return Validator.checkName(name) &&
-                Validator.checkSurname(surname) &&
-                Validator.checkPhoneNumber(phone);
+                Validator.checkSurname(surname);
     }
 
     private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email) {
