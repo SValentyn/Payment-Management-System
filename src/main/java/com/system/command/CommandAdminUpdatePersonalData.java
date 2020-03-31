@@ -6,11 +6,11 @@ import com.system.manager.ResourceManager;
 import com.system.service.LetterService;
 import com.system.service.UserService;
 import com.system.utils.PasswordEncryptor;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandAdminUpdatePersonalData implements ICommand {
 
@@ -22,12 +22,18 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_DATA);
 
         request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("updated", false);
+        request.setAttribute("passwordNotMatchError", false);
         request.setAttribute("phoneExistError", false);
+        request.setAttribute("emailExistError", false);
         request.setAttribute("updateDataError", false);
+        request.setAttribute("updated", false);
 
         User user = (User) request.getSession().getAttribute("currentUser");
-        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+
+        if (user == null) {
+            request.setAttribute("updateDataError", true);
+            return page;
+        }
 
         // Set Attributes
         setRequestAttributes(request, user);
@@ -45,21 +51,34 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
+            // Set Attributes
+            setRequestAttributes(request, name, surname, phone, email);
+
             // Check
-            if (checkPassword(request, userId, password)) {
-                setRequestAttributes(request, name, surname, phone, email, password);
+            if (!checkPassword(userId, password)) {
+                request.setAttribute("passwordNotMatchError", true);
                 return page;
             }
 
-            // Check
+            // Validation
+            if (!validation(name, surname)) {
+                request.setAttribute("updateDataError", true);
+                return page;
+            }
+
+            // Check if the phone has been changed
             if (!user.getPhone().equals(phone)) {
-                List<User> users = UserService.getInstance().findAllUsers();
-                for (User aUser : users) {
-                    if (aUser.getPhone().equals(phone)) {
-                        setRequestAttributes(request, name, surname, phone, email, password);
-                        request.setAttribute("phoneExistError", true);
-                        return page;
-                    }
+                if (!Validator.checkPhone(phone)) {
+                    request.setAttribute("phoneExistError", true);
+                    return page;
+                }
+            }
+
+            // Check if the email has been changed
+            if (!user.getEmail().equals(email)) {
+                if (!Validator.checkEmail(email)) {
+                    request.setAttribute("emailExistError", true);
+                    return page;
                 }
             }
 
@@ -70,8 +89,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             user.setEmail(email);
             user.setPassword(encryptor.encode(password));
 
-            // Update
-            setRequestAttributes(request, name, surname, phone, email, password);
+            // Action
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 request.setAttribute("updateDataError", true);
@@ -83,13 +101,15 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         return page;
     }
 
-    private boolean checkPassword(HttpServletRequest request, Integer userId, String password) throws SQLException {
+    private boolean checkPassword(Integer userId, String password) throws SQLException {
+        if (!Validator.checkPassword(password)) return false;
         String correctPassword = UserService.getInstance().findUserById(userId).getPassword();
-        if (!correctPassword.equals(encryptor.encode(password))) {
-            request.setAttribute("passwordNotMatchError", true);
-            return true;
-        }
-        return false;
+        return correctPassword.equals(encryptor.encode(password));
+    }
+
+    private boolean validation(String name, String surname) {
+        return Validator.checkName(name) &&
+                Validator.checkSurname(surname);
     }
 
     private void setRequestAttributes(HttpServletRequest request, User user) {
@@ -99,12 +119,11 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         request.setAttribute("emailValue", user.getEmail());
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password) {
+    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email) {
         request.setAttribute("nameValue", name);
         request.setAttribute("surnameValue", surname);
         request.setAttribute("phoneValue", phone);
         request.setAttribute("emailValue", email);
-        request.setAttribute("passwordValue", password);
     }
 
 }

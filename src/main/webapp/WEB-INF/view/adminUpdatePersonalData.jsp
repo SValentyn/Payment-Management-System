@@ -35,11 +35,35 @@
         </div>
     </c:if>
 
+    <!-- Alert passwordNotMatchError -->
+    <c:if test="${passwordNotMatchError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertPasswordNotMatchError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert phoneExistError -->
     <c:if test="${phoneExistError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertPhoneExistError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert emailExistError -->
+    <c:if test="${emailExistError == true}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="admin.page.alertEmailExistError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -121,7 +145,7 @@
                                                     <input id="surname" name="surname" class="form-control"
                                                            type="text" data-toggle="tooltip"
                                                            data-title="${tooltipOnlyLetters}"
-                                                           maxlength="24" placeholder="${surname}*"
+                                                           maxlength="32" placeholder="${surname}*"
                                                            value="${surnameValue}"/>
                                                     <label for="surname" class="default-label">
                                                         <span id="valid-msg-surname" class="valid-msg invisible">
@@ -178,8 +202,7 @@
                                                         <input id="password" name="password" type="password"
                                                                class="form-control"
                                                                data-toggle="tooltip" data-title="${tooltipPassword}"
-                                                               placeholder="${password}*"
-                                                               value="${passwordValue}"/>
+                                                               placeholder="${password}*"/>
                                                         <a href="#" class="password-control" style="top: 8px;"
                                                            onfocus="this.blur()"
                                                            onclick="return show_hide_password(this);"></a>
@@ -190,17 +213,6 @@
                                                         </span>
                                                         <span id="error-msg-password" class="error-msg invisible">
                                                             ${passwordError}
-                                                        </span>
-                                                        <span id="passwordNotMatchError">
-                                                            <c:if test="${passwordNotMatchError}">
-                                                                <fmt:message key="user.updateData.passwordError"/>
-
-                                                                <script>
-                                                                    document.querySelector("#passwordNotMatchError").classList.remove("invisible");
-                                                                    document.querySelector("#valid-msg-password").classList.add("invisible");
-                                                                    document.querySelector("#error-msg-password").classList.add("invisible");
-                                                                </script>
-                                                            </c:if>
                                                         </span>
                                                     </label>
                                                 </div>
@@ -237,5 +249,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/validator_adminUpdateData.js"></script>
+<script src="resources/js/validator_adminUpdatePersonalData.js"></script>
 </html>
