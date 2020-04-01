@@ -17,4 +17,7 @@ public interface ICommand {
      */
     String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
 
+    default String getName() {
+        return getClass().getSimpleName();
+    }
 }
