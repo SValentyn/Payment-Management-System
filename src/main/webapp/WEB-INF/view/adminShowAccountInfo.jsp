@@ -49,6 +49,7 @@
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="deleteAccount">
+                        <input type="hidden" name="accountId" value="${viewableAccount.accountId}">
 
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
@@ -277,10 +278,9 @@
                 <fmt:message key="admin.account_info.blockCard" var="blockCard"/>
                 <fmt:message key="admin.account_info.unblockCard" var="unblockCard"/>
                 <fmt:message key="admin.account_info.detachCard" var="detachCard"/>
-                <fmt:message key="admin.attachAccount.returnToUserProfile"
-                             var="returnToUserProfile"/>
                 <fmt:message key="admin.page.success" var="success"/>
                 <fmt:message key="admin.page.failed" var="failed"/>
+                <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -295,9 +295,9 @@
 
                                         <c:choose>
                                             <c:when test="${showAccountError == false}">
-                                                <jsp:useBean id="viewableUser" scope="session"
+                                                <jsp:useBean id="viewableUser" scope="request"
                                                              type="com.system.entity.User"/>
-                                                <jsp:useBean id="viewableAccount" scope="session"
+                                                <jsp:useBean id="viewableAccount" scope="request"
                                                              type="com.system.entity.Account"/>
 
                                                 <div class="row">
@@ -396,8 +396,8 @@
                                                                     <c:choose>
                                                                         <c:when test="${viewableAccount.isBlocked}">
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
-                                                                               id="list-unblockAccount-list"
-                                                                               href="?command=unblockAccount" role="tab"
+                                                                               id="list-unblockAccount-list" role="tab"
+                                                                               href="?command=unblockAccount&accountId=${viewableAccount.accountId}"
                                                                                aria-controls="unblockAccount">
                                                                                     ${unblockAccount} <span
                                                                                     class="arrow-link-symbol-right">→</span>
@@ -405,8 +405,8 @@
                                                                         </c:when>
                                                                         <c:otherwise>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
-                                                                               id="list-blockAccount-list"
-                                                                               href="?command=blockAccount" role="tab"
+                                                                               id="list-blockAccount-list" role="tab"
+                                                                               href="?command=blockAccount&accountId=${viewableAccount.accountId}"
                                                                                aria-controls="blockAccount">
                                                                                     ${blockAccount} <span
                                                                                     class="arrow-link-symbol-right">→</span>
@@ -414,9 +414,9 @@
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-danger"
-                                                                       id="list-deleteAccount-list"
+                                                                       id="list-deleteAccount-list" role="tab"
                                                                        href="#deleteAccountModal?accountNumber=${viewableAccount.number}"
-                                                                       onclick="showDeleteAccountModal()" role="tab"
+                                                                       onclick="showDeleteAccountModal()"
                                                                        aria-controls="deleteAccount">
                                                                             ${deleteAccount} <span
                                                                             class="arrow-link-symbol-right">→</span>
@@ -621,13 +621,12 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <!-- Return to User Profile -->
+                                                <!-- Return to Users -->
                                                 <div style="margin-top: 15px;">
                                                     <label class="title-label">
-                                                        <a href="?command=showUser&userId=${viewableUser.userId}"
-                                                           class="float-left">
+                                                        <a href="?command=showUsers" class="float-left">
                                                             <span class="arrow-link-symbol-left">←</span>
-                                                                ${returnToUserProfile}
+                                                                ${returnToUsers}
                                                         </a>
                                                     </label>
                                                 </div>

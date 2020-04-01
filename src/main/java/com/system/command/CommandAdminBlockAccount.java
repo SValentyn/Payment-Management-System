@@ -2,10 +2,8 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.manager.ResourceManager;
-import com.system.service.AccountService;
-import com.system.service.BankCardService;
-import com.system.service.LetterService;
-import com.system.service.PaymentService;
+import com.system.service.*;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,31 +21,37 @@ public class CommandAdminBlockAccount implements ICommand {
         request.setAttribute("blockAccountError", false);
 
         // Data
-        Account account = (Account) request.getSession().getAttribute("viewableAccount");
+        String accountIdParam = request.getParameter("accountId");
 
-        // Check
-        if (account == null) {
-            request.setAttribute("blockAccountError", true);
+        // Validation
+        if (!Validator.checkAccountId(accountIdParam)) {
+            request.setAttribute("showAccountError", true);
             return page;
         }
 
         // Data
-        Integer accountId = account.getAccountId();
+        Integer accountId = Integer.valueOf(accountIdParam);
 
         // Action
         int status = AccountService.getInstance().blockAccount(accountId);
         if (status == 0) {
+            setRequestAttributes(request, accountId);
             request.setAttribute("blockAccountError", true);
+        } else {
+            setRequestAttributes(request, accountId);
         }
 
-        // Set Attributes
-        request.getSession().setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(account.getAccountId()));
+        return page;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, Integer accountId) throws SQLException {
+        Account viewableAccount = AccountService.getInstance().findAccountByAccountId(accountId);
+        request.setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(accountId));
+        request.setAttribute("viewableUser", UserService.getInstance().findUserById(viewableAccount.getUserId()));
         request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountId).isEmpty());
         request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountId).isEmpty());
         request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
         request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountId));
-
-        return page;
     }
 
 }
