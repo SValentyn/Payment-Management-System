@@ -2,16 +2,12 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.manager.ResourceManager;
-import com.system.service.AccountService;
-import com.system.service.BankCardService;
-import com.system.service.LetterService;
-import com.system.service.PaymentService;
+import com.system.service.*;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandAdminShowAccountInfo implements ICommand {
 
@@ -24,38 +20,31 @@ public class CommandAdminShowAccountInfo implements ICommand {
         request.setAttribute("showAccountError", false);
 
         // Data
-        String accountId = request.getParameter("accountId");
+        String accountIdParam = request.getParameter("accountId");
 
-        // Check
-        if (accountId == null) {
+        // Validation
+        if (!Validator.checkAccountId(accountIdParam)) {
             request.setAttribute("showAccountError", true);
             return page;
         }
 
         // Data
-        List<Account> accounts = AccountService.getInstance().findAllAccounts();
-        List<String> accountsIds = new ArrayList<>();
-        for (Account account : accounts) {
-            accountsIds.add(String.valueOf(account.getAccountId()));
-        }
-
-        // Check
-        if (!accountsIds.contains(accountId)) {
-            request.setAttribute("showAccountError", true);
-            return page;
-        }
-
-        // Data
-        Integer accountIdInt = Integer.valueOf(accountId);
+        Integer accountId = Integer.valueOf(accountIdParam);
 
         // Set Attributes
-        request.getSession().setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(accountIdInt));
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountIdInt).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountIdInt).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountIdInt));
-        request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountIdInt));
+        setRequestAttributes(request, accountId);
 
         return page;
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, Integer accountId) throws SQLException {
+        Account viewableAccount = AccountService.getInstance().findAccountByAccountId(accountId);
+        request.setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(accountId));
+        request.setAttribute("viewableUser", UserService.getInstance().findUserById(viewableAccount.getUserId()));
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountId).isEmpty());
+        request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountId).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
+        request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountId));
     }
 
 }
