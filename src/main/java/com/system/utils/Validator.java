@@ -19,6 +19,26 @@ import java.util.regex.Pattern;
 public class Validator {
 
     /**
+     * @return true, if the login is not NULL and its length is in the range of 6 to 18 digits
+     * and also if it in the system
+     */
+    public static boolean checkLogin(String login) throws SQLException {
+        if (login == null) return false;
+        Pattern p = Pattern.compile(".{6,18}");
+        Matcher m = p.matcher(login);
+        if (!m.matches()) return false;
+
+        List<User> users = UserService.getInstance().findAllUsers();
+        for (User user : users) {
+            if (user.getPhone().equals(login)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @return true, if the identifier is a non-negative number and is in the system
      */
     public static boolean checkUserId(String userId) throws SQLException {

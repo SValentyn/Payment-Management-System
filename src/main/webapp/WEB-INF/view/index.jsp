@@ -58,11 +58,23 @@
         </div>
     </div>
 
-    <!-- Alert loginError -->
-    <c:if test="${loginError == true}">
+    <!-- Alert invalidData -->
+    <c:if test="${typeOfError eq 'invalidData'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="login.failed"/></strong>
-                <fmt:message key="login.alertLoginError"/>
+                <fmt:message key="login.alertInvalidDataError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert authenticationError -->
+    <c:if test="${typeOfError eq 'authenticationError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="login.failed"/></strong>
+                <fmt:message key="login.alertAuthenticationError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -134,8 +146,7 @@
                                         <div class="password-input">
                                             <input type="password" id="password" name="password" class="form-control"
                                                    style="margin-top: 10px;"
-                                                   placeholder="${password}"
-                                                   value=${passwordValue}>
+                                                   placeholder="${password}">
                                             <a href="#" class="password-control" onfocus="this.blur()"
                                                onclick="return show_hide_password(this);"></a>
                                         </div>

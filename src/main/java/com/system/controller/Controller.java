@@ -1,6 +1,7 @@
 package com.system.controller;
 
 import com.system.command.ICommand;
+import com.system.manager.HTTPMethod;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ public class Controller extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(Controller.class);
 
     @Override
-    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("===> GET processing");
         try {
             processing(request, response);
@@ -34,7 +35,7 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("===> POST processing");
         try {
             processing(request, response);
@@ -44,7 +45,7 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("===> PUT processing");
         try {
             processing(request, response);
@@ -54,7 +55,7 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("===> DELETE processing");
         try {
             processing(request, response);
@@ -63,10 +64,25 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void processing(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException, SQLException {
+    private void processing(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+        String commandName = request.getParameter("command");
+        LOGGER.info("Request parameter: command --> " + commandName);
+
+        // obtain command object by its name
         ICommand command = ControllerHelper.getInstance().getCommand(request);
+        LOGGER.info("Obtained command --> " + command.getName());
+
+        // execute command and get forward address
         String pathRedirect = command.execute(request, response);
-        request.getRequestDispatcher(pathRedirect).forward(request, response);
+        LOGGER.info("Forward address --> " + pathRedirect);
+
+        // the choice of redirection type depends on the HTTP method
+        String method = request.getMethod();
+        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            request.getRequestDispatcher(pathRedirect).forward(request, response);
+        } else {
+            response.sendRedirect(pathRedirect);
+        }
     }
 
 }
