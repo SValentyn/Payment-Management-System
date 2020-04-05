@@ -2,6 +2,7 @@ package com.system.command;
 
 import com.system.entity.User;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.UserService;
 import com.system.utils.Validator;
 
@@ -23,8 +24,8 @@ public class CommandLogin implements ICommand {
 
         // Validation
         if (!validation(login, password)) {
-            setRequestAttributes(login);
-            return pathRedirect += "&typeOfError=invalidData";
+            setSessionAttributes(request, login, ServerResponse.INVALID_LOGIN_DATA);
+            return pathRedirect;
         }
 
         // Authentication
@@ -32,20 +33,20 @@ public class CommandLogin implements ICommand {
         if (user != null) {
             request.getSession().setAttribute("currentUser", user);
         } else {
-            setRequestAttributes(login);
-            pathRedirect += "&typeOfError=authenticationError";
+            setSessionAttributes(request, login, ServerResponse.AUTHENTICATION_ERROR);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(String login, String password) throws SQLException {
+    private boolean validation(String login, String password) {
         return Validator.checkLogin(login) &&
                 Validator.checkPassword(password);
     }
 
-    private void setRequestAttributes(String login) {
-        pathRedirect = "?login=" + login;
+    private void setSessionAttributes(HttpServletRequest request, String login, ServerResponse serverResponse) {
+        request.getSession().setAttribute("login", login);
+        request.getSession().setAttribute("typeOfError", serverResponse.getResponse());
     }
 
 }

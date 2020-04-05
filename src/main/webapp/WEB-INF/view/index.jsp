@@ -58,8 +58,8 @@
         </div>
     </div>
 
-    <!-- Alert invalidData -->
-    <c:if test="${typeOfError eq 'invalidData'}">
+    <!-- Alert invalidLoginData -->
+    <c:if test="${typeOfError eq 'invalidLoginData'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="login.failed"/></strong>
                 <fmt:message key="login.alertInvalidDataError"/>

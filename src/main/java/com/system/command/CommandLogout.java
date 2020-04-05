@@ -10,7 +10,7 @@ public class CommandLogout implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().invalidate();
-        return ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
+        return ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
     }
 
 }

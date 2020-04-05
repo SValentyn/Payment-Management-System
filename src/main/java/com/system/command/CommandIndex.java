@@ -8,6 +8,7 @@ import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 public class CommandIndex implements ICommand {
@@ -42,9 +43,18 @@ public class CommandIndex implements ICommand {
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
-        String login = request.getParameter("login");
+        HttpSession session = request.getSession(false);
+
+        String login = (String) session.getAttribute("login");
         if (login != null) {
             request.setAttribute("loginValue", login);
+            session.removeAttribute(login);
+        }
+
+        String typeOfError = (String) session.getAttribute("typeOfError");
+        if (typeOfError != null) {
+            request.setAttribute("typeOfError", typeOfError);
+            session.removeAttribute(typeOfError);
         }
     }
 
