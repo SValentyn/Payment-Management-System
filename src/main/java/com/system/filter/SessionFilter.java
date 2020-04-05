@@ -27,19 +27,19 @@ public class SessionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
-        HttpSession session = servletRequest.getSession(true);
+        HttpSession session = servletRequest.getSession();
 
         if (session.getAttribute("typeOfError") != null && !session.getAttribute("typeOfError").equals("")) {
-            LOGGER.info("typeOfError=" + session.getAttribute("typeOfError"));
+            LOGGER.info("Type of Error = " + session.getAttribute("typeOfError"));
         } else {
-            LOGGER.info("typeOfError=null");
+            LOGGER.info("Type of Error = null");
         }
 
         // Set totalUsers and numberOfLetters
         User user = (User) session.getAttribute("currentUser");
         if (user != null) {
             try {
-                String role = UserService.getInstance().getRole(user);
+                String role = user.getRole().getRolename();
                 if (role.equals(Role.ROLE_ADMIN)) {
                     session.setAttribute("totalUsers", UserService.getInstance().findAllUsers().size());
                     session.setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());

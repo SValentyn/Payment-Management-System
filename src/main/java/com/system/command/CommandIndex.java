@@ -4,7 +4,6 @@ import com.system.entity.Role;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
-import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +18,8 @@ public class CommandIndex implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        clearRequestAttributes(request);
+
         // if the POST method is received
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             return ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
@@ -29,7 +30,7 @@ public class CommandIndex implements ICommand {
 
         // Check
         if (user != null) {
-            String role = UserService.getInstance().getRole(user);
+            String role = user.getRole().getRolename();
             if (role.equals(Role.ROLE_ADMIN)) {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
             } else if (role.equals(Role.ROLE_CLIENT)) {
@@ -42,19 +43,24 @@ public class CommandIndex implements ICommand {
         return pathRedirect;
     }
 
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("loginValue", null);
+        request.setAttribute("typeOfError", "");
+    }
+
     private void setRequestAttributes(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
 
         String login = (String) session.getAttribute("login");
         if (login != null) {
             request.setAttribute("loginValue", login);
-            session.removeAttribute(login);
+            session.removeAttribute("login");
         }
 
         String typeOfError = (String) session.getAttribute("typeOfError");
         if (typeOfError != null) {
             request.setAttribute("typeOfError", typeOfError);
-            session.removeAttribute(typeOfError);
+            session.removeAttribute("typeOfError");
         }
     }
 
