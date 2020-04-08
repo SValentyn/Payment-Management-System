@@ -6,7 +6,9 @@ package com.system.manager;
 public enum HTTPMethod {
 
     GET("GET"),
-    POST("POST");
+    POST("POST"),
+    PUT("PUT"),
+    DELETE("DELETE");
 
     private String method;
 

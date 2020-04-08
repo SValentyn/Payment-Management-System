@@ -92,7 +92,7 @@
                                         <fmt:message key="admin.updateUserData.backButton" var="backButton"/>
                                         <fmt:message key="registration.nameError" var="nameError"/>
                                         <fmt:message key="registration.surnameError" var="surnameError"/>
-                                        <fmt:message key="registration.phoneError" var="phoneError"/>
+                                        <fmt:message key="registration.phoneError" var="loginError"/>
                                         <fmt:message key="registration.emailError" var="emailError"/>
                                         <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                         <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
@@ -105,8 +105,8 @@
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="" role="form" method="POST">
-                                            <input type="hidden" name="command" value="changeUserData">
+                                        <form action="/" role="form" method="POST">
+                                            <input type="hidden" name="command" value="updateUserData">
 
                                             <!-- User Id -->
                                             <input id="userId" name="userId" type="hidden" value="${userId}"/>
@@ -159,7 +159,7 @@
                                                             ${correct}<img src="resources/images/correct.png" alt="">
                                                         </span>
                                                         <span id="error-msg-phone"
-                                                              class="error-msg invisible">${phoneError}
+                                                              class="error-msg invisible">${loginError}
                                                         </span>
                                                     </label>
                                                 </div>
@@ -201,6 +201,7 @@
                                                 <button type="submit" class="btn btn-primary signup btn-default"
                                                         style="width: 56%;">
                                                     ${returnToUserProfile}
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

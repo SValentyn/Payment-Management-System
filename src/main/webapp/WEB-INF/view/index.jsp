@@ -182,12 +182,16 @@
                             </div>
                         </div>
                         <div class="already">
-                            <p style="margin-bottom: 6px;"><fmt:message key="login.forgotPassword"/></p>
+                            <p style="margin-bottom: 6px;">
+                                <fmt:message key="login.forgotPassword"/>
+                            </p>
                             <a href="?command=recovery" onfocus="this.blur()">
                                 <fmt:message key="login.recovery"/>
                             </a>
                             <br>
-                            <p style="margin-bottom: 8px;"><fmt:message key="login.dontHaveAccount"/></p>
+                            <p style="margin-bottom: 8px;">
+                                <fmt:message key="login.dontHaveAccount"/>
+                            </p>
                             <a href="?command=registration" onfocus="this.blur()">
                                 <fmt:message key="login.signup"/>
                             </a>

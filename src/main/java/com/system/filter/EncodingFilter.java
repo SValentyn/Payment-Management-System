@@ -19,7 +19,7 @@ public class EncodingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         encoding = filterConfig.getInitParameter("encoding");
-        LOGGER.info("The filter will set the encoding to: " + encoding);
+        LOGGER.info("The encoding filter has started and will set the encoding to: " + encoding);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class EncodingFilter implements Filter {
 
     @Override
     public void destroy() {
-        LOGGER.info("Filter was destroyed..");
+        LOGGER.info("Encoding filter destroyed ..");
     }
 
 }

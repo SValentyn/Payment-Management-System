@@ -24,8 +24,7 @@ public class CommandIndex implements ICommand {
 
         // if the POST method is received
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
-            return pathRedirect;
+            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
         }
 
         // Data

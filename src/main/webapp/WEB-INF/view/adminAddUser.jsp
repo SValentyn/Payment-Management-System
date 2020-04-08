@@ -93,7 +93,7 @@
                                         <fmt:message key="admin.addUser.attachAccount" var="backButton"/>
                                         <fmt:message key="admin.addUser.nameError" var="nameError"/>
                                         <fmt:message key="admin.addUser.surnameError" var="surnameError"/>
-                                        <fmt:message key="registration.phoneError" var="phoneError"/>
+                                        <fmt:message key="registration.phoneError" var="loginError"/>
                                         <fmt:message key="registration.emailError" var="emailError"/>
                                         <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                                         <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
@@ -155,7 +155,7 @@
                                                             ${correct}<img src="resources/images/correct.png" alt="">
                                                         </span>
                                                         <span id="error-msg-phone"
-                                                              class="error-msg invisible">${phoneError}
+                                                              class="error-msg invisible">${loginError}
                                                         </span>
                                                     </label>
                                                 </div>
