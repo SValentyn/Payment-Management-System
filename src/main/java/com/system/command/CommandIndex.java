@@ -22,7 +22,8 @@ public class CommandIndex implements ICommand {
 
         // if the POST method is received
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
+            return pathRedirect;
         }
 
         // Data
@@ -45,7 +46,7 @@ public class CommandIndex implements ICommand {
 
     private void clearRequestAttributes(HttpServletRequest request) {
         request.setAttribute("loginValue", null);
-        request.setAttribute("typeOfError", "");
+        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -57,10 +58,10 @@ public class CommandIndex implements ICommand {
             session.removeAttribute("login");
         }
 
-        String typeOfError = (String) session.getAttribute("typeOfError");
-        if (typeOfError != null) {
-            request.setAttribute("typeOfError", typeOfError);
-            session.removeAttribute("typeOfError");
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
         }
     }
 

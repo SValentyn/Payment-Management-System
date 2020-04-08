@@ -21,6 +21,7 @@ public class SessionFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
+        LOGGER.info("The session filter has started..");
     }
 
     @Override
@@ -29,10 +30,10 @@ public class SessionFilter implements Filter {
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         HttpSession session = servletRequest.getSession();
 
-        if (session.getAttribute("typeOfError") != null && !session.getAttribute("typeOfError").equals("")) {
-            LOGGER.info("Type of Error = " + session.getAttribute("typeOfError"));
+        if (session.getAttribute("response") != null && !session.getAttribute("response").equals("")) {
+            LOGGER.info("Server response --> " + session.getAttribute("response"));
         } else {
-            LOGGER.info("Type of Error = null");
+            LOGGER.info("Server response --> null");
         }
 
         // Set totalUsers and numberOfLetters
@@ -56,6 +57,7 @@ public class SessionFilter implements Filter {
 
     @Override
     public void destroy() {
+        LOGGER.info("Session filter destroyed ..");
     }
 
 }

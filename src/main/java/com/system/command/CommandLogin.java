@@ -23,7 +23,13 @@ public class CommandLogin implements ICommand {
         String password = request.getParameter("password");
 
         // Validation
-        if (!validation(login, password)) {
+        if (!Validator.checkLogin(login)) {
+            setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
+            return pathRedirect;
+        }
+
+        // Validation
+        if (!Validator.checkPassword(password)) {
             setSessionAttributes(request, login, ServerResponse.INVALID_LOGIN_DATA);
             return pathRedirect;
         }
@@ -39,14 +45,9 @@ public class CommandLogin implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(String login, String password) {
-        return Validator.checkLogin(login) &&
-                Validator.checkPassword(password);
-    }
-
     private void setSessionAttributes(HttpServletRequest request, String login, ServerResponse serverResponse) {
         request.getSession().setAttribute("login", login);
-        request.getSession().setAttribute("typeOfError", serverResponse.getResponse());
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }
