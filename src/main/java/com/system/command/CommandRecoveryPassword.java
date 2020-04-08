@@ -1,53 +1,73 @@
 package com.system.command;
 
-import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
-import com.system.service.UserService;
+import com.system.manager.ServerResponse;
+import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandRecoveryPassword implements ICommand {
+
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
-
-        request.setAttribute("sended", false);
-        request.setAttribute("phoneNotExistError", false);
+        clearRequestAttributes(request);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return page;
+            setRequestAttributes(request);
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
+            return pathRedirect;
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_RECOVERY);
 
             // Data
-            String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
+            String login = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
 
-            // Check
-            int status = 0;
-            List<User> users = UserService.getInstance().findAllUsers();
-            for (User user : users) {
-                if (user.getPhone().equals(phone)) {
-                    status = 1;
-                    break;
-                }
+            // Validation
+            if (!Validator.checkLogin(login)) {
+                setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
+                return pathRedirect;
             }
 
-            // Recovery
-            if (status == 0) {
-                request.setAttribute("phoneValue", phone);
-                request.setAttribute("phoneNotExistError", true);
-            } else {
-                request.setAttribute("sended", true);
-            }
+            // [There should be an implementation of sending a message with a password to the user]
+            setSessionAttributes(request, null, ServerResponse.PASSWORD_SENT);
         }
 
-        return page;
+        return pathRedirect;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("loginValue", null);
+        request.setAttribute("response", "");
+    }
+
+    private void setRequestAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String login = (String) session.getAttribute("login");
+        if (login != null) {
+            request.setAttribute("loginValue", login);
+            session.removeAttribute("login");
+        }
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, String login, ServerResponse serverResponse) {
+        request.getSession().setAttribute("login", login);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }

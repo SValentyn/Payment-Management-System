@@ -2,8 +2,10 @@ package com.system.manager;
 
 public enum ServerResponse {
 
+    LOGIN_NOT_EXIST("loginNotExist"),
     INVALID_LOGIN_DATA("invalidLoginData"),
-    AUTHENTICATION_ERROR("authenticationError");
+    AUTHENTICATION_ERROR("authenticationError"),
+    PASSWORD_SENT("passwordSent");
 
     private String response;
 
@@ -14,4 +16,5 @@ public enum ServerResponse {
     public String getResponse() {
         return response;
     }
+
 }
