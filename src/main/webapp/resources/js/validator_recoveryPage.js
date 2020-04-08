@@ -1,11 +1,11 @@
 // Elements on recovery.jsp page to check
-let phone = document.querySelector("#phone");
+let login = document.querySelector("#login");
 let submitBtn = document.querySelector("#submit");
 
 
 /* Configuring the phone number input field.
 * "token" must be obtained on the api website */
-let iti = window.intlTelInput(phone, {
+let iti = window.intlTelInput(login, {
     separateDialCode: true,
     hiddenInput: "full_phone",
     initialCountry: "auto",
@@ -19,46 +19,46 @@ let iti = window.intlTelInput(phone, {
 });
 
 
-/* Checks phone number */
-let validMsgPhone = document.querySelector("#valid-msg-phone"),
-    errorMsgPhone = document.querySelector("#error-msg-phone");
+/* Checks login (phone number) */
+let validMsgLogin = document.querySelector("#valid-msg-login"),
+    errorMsgLogin = document.querySelector("#error-msg-login");
 
-let resetPhone = function () {
-    validMsgPhone.classList.add("invisible");
-    errorMsgPhone.classList.add("invisible");
-    phone.classList.remove("valid-input");
-    phone.classList.remove("error-input");
+let resetLogin = function () {
+    validMsgLogin.classList.add("invisible");
+    errorMsgLogin.classList.add("invisible");
+    login.classList.remove("valid-input");
+    login.classList.remove("error-input");
 };
 
-let validPhone = function () {
-    validMsgPhone.classList.remove("invisible");
-    errorMsgPhone.classList.add("invisible");
-    phone.classList.add("valid-input");
-    phone.classList.remove("error-input");
+let validLogin = function () {
+    validMsgLogin.classList.remove("invisible");
+    errorMsgLogin.classList.add("invisible");
+    login.classList.add("valid-input");
+    login.classList.remove("error-input");
 };
 
-let notValidPhone = function () {
-    validMsgPhone.classList.add("invisible");
-    errorMsgPhone.classList.remove("invisible");
-    phone.classList.remove("valid-input");
-    phone.classList.add("error-input");
+let notValidLogin = function () {
+    validMsgLogin.classList.add("invisible");
+    errorMsgLogin.classList.remove("invisible");
+    login.classList.remove("valid-input");
+    login.classList.add("error-input");
 };
 
-phone.addEventListener('click', resetPhone);
-phone.addEventListener('blur', validationPhone);
-phone.addEventListener('keyup', validationPhone);
-phone.addEventListener('change', validationPhone);
+login.addEventListener('click', resetLogin);
+login.addEventListener('blur', validationLogin);
+login.addEventListener('keyup', validationLogin);
+login.addEventListener('change', validationLogin);
 
-function validationPhone() {
-    resetPhone();
+function validationLogin() {
+    resetLogin();
 
-    if (phone.value.trim() === "") {
-        notValidPhone();
+    if (login.value.trim() === "") {
+        notValidLogin();
     } else {
         if (iti.isValidNumber()) {
-            validPhone();
+            validLogin();
         } else {
-            notValidPhone();
+            notValidLogin();
         }
     }
 }
@@ -67,9 +67,9 @@ function validationPhone() {
 /* Checks for at least one error on the page */
 submitBtn.addEventListener('click', function (event) {
 
-    if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
+    if (login.value.trim() === "" || login.classList.contains("error-input")) {
         event.preventDefault();
-        notValidPhone();
+        notValidLogin();
         return false;
     }
 

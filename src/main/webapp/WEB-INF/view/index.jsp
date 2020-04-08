@@ -58,11 +58,23 @@
         </div>
     </div>
 
-    <!-- Alert invalidLoginData -->
-    <c:if test="${typeOfError eq 'invalidLoginData'}">
+    <!-- Alert loginNotExist -->
+    <c:if test="${response eq 'loginNotExist'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="login.failed"/></strong>
-                <fmt:message key="login.alertInvalidDataError"/>
+                <fmt:message key="login.alertLoginNotExistError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert invalidLoginData -->
+    <c:if test="${response eq 'invalidLoginData'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="login.failed"/></strong>
+                <fmt:message key="login.alertInvalidLoginDataError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -71,7 +83,7 @@
     </c:if>
 
     <!-- Alert authenticationError -->
-    <c:if test="${typeOfError eq 'authenticationError'}">
+    <c:if test="${response eq 'authenticationError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="login.failed"/></strong>
                 <fmt:message key="login.alertAuthenticationError"/>
@@ -121,11 +133,11 @@
 
                                 <fmt:message key="login.password" var="password"/>
                                 <fmt:message key="login.submit" var="submit"/>
-                                <fmt:message key="login.phoneError" var="phoneError"/>
+                                <fmt:message key="login.loginError" var="loginError"/>
                                 <fmt:message key="login.passwordError" var="passwordError"/>
                                 <fmt:message key="login.correct" var="correct"/>
 
-                                <form action="/" role="form" method="POST" novalidate>
+                                <form action="/" method="POST" role="form">
                                     <input type="hidden" name="command" value="login"/>
 
                                     <!-- Login -->
@@ -137,7 +149,7 @@
                                             <span id="valid-msg-login" class="valid-msg invisible">
                                                 ${correct}<img src="resources/images/correct.png" alt="">
                                             </span>
-                                            <span id="error-msg-login" class="error-msg invisible">${phoneError}</span>
+                                            <span id="error-msg-login" class="error-msg invisible">${loginError}</span>
                                         </label>
                                     </div>
 

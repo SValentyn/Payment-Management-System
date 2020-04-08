@@ -59,7 +59,7 @@
     </div>
 
     <!-- Alert Success -->
-    <c:if test="${sended == true}">
+    <c:if test="${response eq 'passwordSent'}">
         <div id="alert" class="alert alert-success fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="recovery.success"/>!</strong>
                 <fmt:message key="recovery.alertPasswordSent"/>
@@ -70,11 +70,11 @@
         </div>
     </c:if>
 
-    <!-- Alert phoneNotExistError -->
-    <c:if test="${phoneNotExistError == true}">
+    <!-- Alert loginNotExist -->
+    <c:if test="${response eq 'loginNotExist'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="recovery.failed"/>!</strong>
-                <fmt:message key="recovery.alertPhoneNotExistError"/>
+                <fmt:message key="login.alertLoginNotExistError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -92,7 +92,7 @@
                                 <fmt:message key="recovery.formHeader" var="formHeader"/>
                                 <fmt:message key="recovery.recoveryButton" var="button"/>
                                 <fmt:message key="recovery.backButton" var="backButton"/>
-                                <fmt:message key="login.phoneError" var="phoneError"/>
+                                <fmt:message key="login.loginError" var="loginError"/>
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                 <fmt:message key="login.correct" var="correct"/>
 
@@ -100,20 +100,20 @@
                                     ${formHeader}
                                 </h4>
 
-                                <form action="" role="form" method="POST" novalidate>
+                                <form action="" method="POST" role="form">
                                     <input type="hidden" name="command" value="recovery">
 
-                                    <!-- Phone -->
+                                    <!-- Login -->
                                     <div>
-                                        <input id="phone" name="phone" class="form-control"
-                                               type="text" onkeypress="onlyNumbers();"
+                                        <input id="login" name="login" type="text" class="form-control"
+                                               onkeypress="onlyNumbers();"
                                                data-toggle="tooltip" data-title="${tooltipPhone}"
-                                               value="${phoneValue}">
-                                        <label for="phone" class="default-label">
-                                            <span id="valid-msg-phone" class="valid-msg invisible">
+                                               value="${loginValue}">
+                                        <label for="login" class="default-label">
+                                            <span id="valid-msg-login" class="valid-msg invisible">
                                                 ${correct}<img src="resources/images/correct.png" alt="">
                                             </span>
-                                            <span id="error-msg-phone" class="error-msg invisible">${phoneError}</span>
+                                            <span id="error-msg-login" class="error-msg invisible">${loginError}</span>
                                         </label>
                                     </div>
 
@@ -128,7 +128,8 @@
                                 <!-- Back Button -->
                                 <div class="action back-btn">
                                     <form action="/" method="GET" role="form">
-                                        <input type="submit" class="btn btn-default signup" value="${backButton}">
+                                        <button type="submit" class="btn btn-primary signup btn-default">
+                                            ${backButton}
                                     </form>
                                 </div>
                             </div>
