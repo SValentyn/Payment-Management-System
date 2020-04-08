@@ -10,7 +10,8 @@ public enum ServerResponse {
     EMAIL_EXIST_ERROR("emailExistError"),
     REGISTRATION_ERROR("registrationError"),
     REGISTRATION_SUCCESS("registrationSuccess"),
-    PASSWORD_SENT("passwordSent");
+    PASSWORD_SENT("passwordSent"),
+    SHOW_USER_ERROR("showUserError");
 
     private String response;
 

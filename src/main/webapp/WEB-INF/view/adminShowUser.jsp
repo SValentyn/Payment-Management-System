@@ -73,7 +73,7 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert showUserError -->
-    <c:if test="${showUserError == true}">
+    <c:if test="${response eq 'showUserError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertShowUserError"/>
@@ -84,8 +84,8 @@
         </div>
     </c:if>
 
-    <!-- Alert Success Deleted -->
-    <c:if test="${deleted == true}">
+    <!-- Alert Success -->
+    <c:if test="${response eq 'userDeleted'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="registration.success"/>!</strong>
                 <fmt:message key="admin.page.alertUserDeleted"/>
@@ -97,7 +97,7 @@
     </c:if>
 
     <!-- Alert userHasFundsError -->
-    <c:if test="${userHasFundsError == true}">
+    <c:if test="${response eq 'userHasFundsError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertUserHasFundsError"/>
@@ -112,7 +112,7 @@
     </c:if>
 
     <!-- Alert deleteUserError -->
-    <c:if test="${deleteUserError == true}">
+    <c:if test="${response eq 'deleteUserError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertDeleteUserError"/>
@@ -164,7 +164,7 @@
 
                                         <!-- Perhaps there was an error or the viewableUser was deleted from the system -->
                                         <c:choose>
-                                            <c:when test="${showUserError == false}">
+                                            <c:when test="${response ne 'showUserError'}">
                                                 <jsp:useBean id="viewableUser" scope="request"
                                                              type="com.system.entity.User"/>
 
@@ -524,7 +524,7 @@
                                                 </h4>
 
                                                 <!-- Return to Users -->
-                                                <div style="margin-top: 15px;">
+                                                <div class="message-block">
                                                     <label class="title-label">
                                                         <a href="/" class="float-left">
                                                             <span class="arrow-link-symbol-left">←</span>

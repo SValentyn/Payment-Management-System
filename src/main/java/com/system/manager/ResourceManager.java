@@ -42,7 +42,7 @@ public class ResourceManager {
     public static final String COMMAND_INDEX = "COMMAND_INDEX";
     public static final String COMMAND_RECOVERY = "COMMAND_RECOVERY";
     public static final String COMMAND_REGISTRATION = "COMMAND_REGISTRATION";
-//    public static final String COMMAND_ = "COMMAND_";
+    public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";
 //    public static final String COMMAND_ = "COMMAND_";
 //    public static final String COMMAND_ = "COMMAND_";
 
