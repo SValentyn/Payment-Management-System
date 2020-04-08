@@ -4,11 +4,13 @@ import com.system.entity.Role;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CommandIndex implements ICommand {
 
@@ -33,6 +35,7 @@ public class CommandIndex implements ICommand {
         if (user != null) {
             String role = user.getRole().getRolename();
             if (role.equals(Role.ROLE_ADMIN)) {
+                request.setAttribute("users", UserService.getInstance().findAllUsers());
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
             } else if (role.equals(Role.ROLE_CLIENT)) {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER);

@@ -16,7 +16,6 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
 </head>
 <body>
 <div class="main">
@@ -30,12 +29,15 @@
 
             <div class="col-lg-10">
                 <fmt:message key="admin.users.allUsers" var="allUsers"/>
+                <fmt:message key="admin.users.user" var="user_rank"/>
+                <fmt:message key="admin.users.admin" var="admin_rank"/>
+                <fmt:message key="admin.users.gotoProfile" var="gotoProfile"/>
 
                 <div class="card shadow-none">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center" role="tablist">
-                            <li class="nav-item-home">
-                                <a class="nav-link" role="tab" data-toggle="tab" aria-selected="false"
+                            <li class="nav-item-active">
+                                <a class="nav-link" role="tab" data-toggle="tab" aria-selected="true"
                                    onclick="document.getElementById('form-showUsers').submit(); return false;">
                                     <img src="resources/images/show-users.png"
                                          alt="" class="sidebar-icon" style="opacity: 0.6;">
@@ -45,11 +47,55 @@
                         </ul>
                     </div>
 
-                    <form action="/" method="GET" id="form-showUsers" role="form">
-                        <input type="hidden" name="command" value="showUsers">
-                    </form>
+                    <form action="/" method="GET" id="form-showUsers" role="form"></form>
 
-                    <div class="card-body"></div>
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                            <c:forEach items="${users}" var="user">
+                                <c:choose>
+                                    <c:when test="${user.role.id == 1}">
+                                        <div class="col mb-4">
+                                            <div class="card bg-light">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                            ${user.name} ${user.surname}
+                                                    </h5>
+                                                    <small class="text-muted">
+                                                        User ID: ${user.userId}
+                                                    </small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <a href="?command=showUser&userId=${user.userId}">
+                                                            ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="col mb-4">
+                                            <div class="card text-white bg-primary">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                            ${user.name} ${user.surname}
+                                                    </h5>
+                                                    <small>
+                                                            ${admin_rank}
+                                                    </small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <a class="text-white"
+                                                       href="?command=showUser&userId=${user.userId}">
+                                                            ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

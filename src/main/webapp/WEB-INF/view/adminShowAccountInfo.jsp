@@ -624,7 +624,7 @@
                                                 <!-- Return to Users -->
                                                 <div style="margin-top: 15px;">
                                                     <label class="title-label">
-                                                        <a href="?command=showUsers" class="float-left">
+                                                        <a href="/" class="float-left">
                                                             <span class="arrow-link-symbol-left">←</span>
                                                                 ${returnToUsers}
                                                         </a>

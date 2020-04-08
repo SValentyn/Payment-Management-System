@@ -62,7 +62,6 @@ public class ControllerHelper {
         adminCommands.put("profile", new CommandAdminUpdatePersonalData());
         adminCommands.put("updatePassword", new CommandAdminUpdatePassword());
         adminCommands.put("showUser", new CommandAdminShowUser());
-        adminCommands.put("showUsers", new CommandAdminShowUsers());
         adminCommands.put("showPaymentInfo", new CommandAdminShowPaymentInfo());
         adminCommands.put("showUserPayments", new CommandAdminShowUserPayments());
         adminCommands.put("showAccountInfo", new CommandAdminShowAccountInfo());
