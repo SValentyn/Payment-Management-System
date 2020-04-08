@@ -22,11 +22,19 @@ public class Validator {
      * @return true, if the login is not NULL and its length is in the range of 6 to 18 digits
      * and also if it in the system
      */
-    public static boolean checkLogin(String login) {
+    public static boolean checkLogin(String login) throws SQLException {
         if (login == null) return false;
         Pattern p = Pattern.compile(".{6,18}");
         Matcher m = p.matcher(login);
-        return m.matches();
+        if (!m.matches()) return false;
+
+        List<User> users = UserService.getInstance().findAllUsers();
+        List<String> userLogins = new ArrayList<>();
+        for (User user : users) {
+            userLogins.add(user.getPhone());
+        }
+
+        return userLogins.contains(login);
     }
 
     /**
@@ -78,7 +86,7 @@ public class Validator {
     }
 
     /**
-     * @return true, if the phone number is not NULL and its length is in the range of 6 to 18 digits,
+     * @return true, if the phone number is not NULL and its length is in the range of 6 to 18 characters,
      * and also if it is not already in the system
      */
     public static boolean checkPhone(String phone) throws SQLException {
