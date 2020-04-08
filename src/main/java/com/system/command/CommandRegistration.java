@@ -1,32 +1,33 @@
 package com.system.command;
 
-import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.UserService;
+import com.system.utils.Validator;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandRegistration implements ICommand {
+
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
-
-        request.setAttribute("created", false);
-        request.setAttribute("phoneExistError", false);
-        request.setAttribute("emailExistError", false);
-        request.setAttribute("registrationError", false);
+        clearRequestAttributes(request);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return page;
+            setRequestAttributes(request);
+            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_REGISTRATION);
 
             // Data
             String name = request.getParameter("name");
@@ -36,47 +37,108 @@ public class CommandRegistration implements ICommand {
             String password = request.getParameter("password");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
 
-            // Check Phone
-            List<User> users = UserService.getInstance().findAllUsers();
-            for (User user : users) {
-                if (user.getPhone().equals(phone)) {
-                    setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
-                    request.setAttribute("phoneExistError", true);
-                    return page;
-                }
+            // Validation
+            if (!validation(name, surname, password, passwordConfirmation)) {
+                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.INCORRECT_REGISTRATION_DATA);
+                return pathRedirect;
             }
 
-            // Check Email
-            for (User user : users) {
-                if (!email.equals("")) {
-                    if (user.getEmail().equals(email)) {
-                        setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
-                        request.setAttribute("emailExistError", true);
-                        return page;
-                    }
-                }
+            // Validation phone
+            if (!Validator.checkPhone(phone)) {
+                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.PHONE_EXIST_ERROR);
+                return pathRedirect;
+            }
+
+            // Validation email
+            if (!Validator.checkEmail(email)) {
+                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.EMAIL_EXIST_ERROR);
+                return pathRedirect;
             }
 
             // Create
             int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
-                setRequestAttributes(request, name, surname, phone, email, password, passwordConfirmation);
-                request.setAttribute("registrationError", true);
+                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.REGISTRATION_ERROR);
             } else {
-                request.setAttribute("created", true);
+                setSessionAttributes(request, null, null, null, null, null, null, ServerResponse.REGISTRATION_SUCCESS);
             }
         }
 
-        return page;
+        return pathRedirect;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation) {
-        request.setAttribute("nameValue", name);
-        request.setAttribute("surnameValue", surname);
-        request.setAttribute("phoneValue", phone);
-        request.setAttribute("emailValue", StringEscapeUtils.unescapeJava(email));
-        request.setAttribute("passwordValue", password);
-        request.setAttribute("passwordConfirmationValue", passwordConfirmation);
+    private boolean validation(String name, String surname, String password, String passwordConfirmation) {
+        return Validator.checkName(name) &&
+                Validator.checkSurname(surname) &&
+                Validator.checkPassword(password) &&
+                Validator.checkPassword(passwordConfirmation) &&
+                password.equals(passwordConfirmation);
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("nameValue", null);
+        request.setAttribute("surnameValue", null);
+        request.setAttribute("phoneValue", null);
+        request.setAttribute("emailValue", null);
+        request.setAttribute("passwordValue", null);
+        request.setAttribute("passwordConfirmationValue", null);
+        request.setAttribute("response", "");
+    }
+
+    private void setRequestAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String name = (String) session.getAttribute("name");
+        if (name != null) {
+            request.setAttribute("nameValue", name);
+            session.removeAttribute("name");
+        }
+
+        String surname = (String) session.getAttribute("surname");
+        if (surname != null) {
+            request.setAttribute("surnameValue", surname);
+            session.removeAttribute("surname");
+        }
+
+        String phone = (String) session.getAttribute("phone");
+        if (phone != null) {
+            request.setAttribute("phoneValue", phone);
+            session.removeAttribute("phone");
+        }
+
+        String email = (String) session.getAttribute("email");
+        if (email != null) {
+            request.setAttribute("emailValue", email);
+            session.removeAttribute("email");
+        }
+
+        String password = (String) session.getAttribute("password");
+        if (password != null) {
+            request.setAttribute("passwordValue", password);
+            session.removeAttribute("password");
+        }
+
+        String passwordConfirmation = (String) session.getAttribute("passwordConfirmation");
+        if (passwordConfirmation != null) {
+            request.setAttribute("passwordConfirmationValue", passwordConfirmation);
+            session.removeAttribute("passwordConfirmation");
+        }
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation, ServerResponse serverResponse) {
+        request.getSession().setAttribute("name", name);
+        request.getSession().setAttribute("surname", surname);
+        request.getSession().setAttribute("phone", phone);
+        request.getSession().setAttribute("email", email);
+        request.getSession().setAttribute("password", password);
+        request.getSession().setAttribute("passwordConfirmation", passwordConfirmation);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }

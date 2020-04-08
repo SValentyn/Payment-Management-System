@@ -59,10 +59,10 @@
     </div>
 
     <!-- Alert Success -->
-    <c:if test="${created == true}">
+    <c:if test="${response eq 'registrationSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.success"/>!</strong>
-                <fmt:message key="registration.accountCreated"/>
+                <fmt:message key="registration.alertAccountCreated"/>
                 <a href="/" class="alert-link"><fmt:message key="registration.logging"/></a>
                 <fmt:message key="registration.intoYourAccount"/>
             </p>
@@ -72,8 +72,20 @@
         </div>
     </c:if>
 
+    <!-- Alert incorrectRegistrationData -->
+    <c:if test="${response eq 'incorrectRegistrationData'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="registration.alertIncorrectRegistrationDataError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert phoneExistError -->
-    <c:if test="${phoneExistError == true}">
+    <c:if test="${response eq 'phoneExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertPhoneExistError"/>
@@ -85,7 +97,7 @@
     </c:if>
 
     <!-- Alert emailExistError -->
-    <c:if test="${emailExistError == true}">
+    <c:if test="${response eq 'emailExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertEmailExistError"/>
@@ -97,7 +109,7 @@
     </c:if>
 
     <!-- Alert registrationError -->
-    <c:if test="${registrationError == true}">
+    <c:if test="${response eq 'registrationError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertRegistrationError"/>
@@ -124,7 +136,7 @@
                                     <fmt:message key="registration.confirmation" var="confirmation"/>
                                     <fmt:message key="registration.nameError" var="nameError"/>
                                     <fmt:message key="registration.surnameError" var="surnameError"/>
-                                    <fmt:message key="registration.phoneError" var="phoneError"/>
+                                    <fmt:message key="registration.phoneError" var="loginError"/>
                                     <fmt:message key="registration.emailError" var="emailError"/>
                                     <fmt:message key="registration.passwordError" var="passwordError"/>
                                     <fmt:message key="registration.passwordConfirmationError"
@@ -193,7 +205,7 @@
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-phone"
-                                                          class="error-msg invisible">${phoneError}
+                                                          class="error-msg invisible">${loginError}
                                                     </span>
                                                 </label>
                                             </div>
