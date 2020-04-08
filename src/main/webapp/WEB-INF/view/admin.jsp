@@ -21,6 +21,18 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert noUsers -->
+    <c:if test="${totalUsers == null || totalUsers == 0}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertNoUsersError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-lg-2">
@@ -32,6 +44,7 @@
                 <fmt:message key="admin.users.user" var="user_rank"/>
                 <fmt:message key="admin.users.admin" var="admin_rank"/>
                 <fmt:message key="admin.users.gotoProfile" var="gotoProfile"/>
+                <fmt:message key="admin.users.noUsers" var="noUsers"/>
 
                 <div class="card shadow-none">
                     <div class="card-header">
@@ -47,55 +60,68 @@
                         </ul>
                     </div>
 
-                    <form action="/" method="GET" id="form-showUsers" role="form"></form>
+                    <form action="" method="GET" id="form-showUsers" role="form"></form>
 
-                    <div class="card-body">
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                            <c:forEach items="${users}" var="user">
-                                <c:choose>
-                                    <c:when test="${user.role.id == 1}">
-                                        <div class="col mb-4">
-                                            <div class="card bg-light">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                            ${user.name} ${user.surname}
-                                                    </h5>
-                                                    <small class="text-muted">
-                                                        User ID: ${user.userId}
-                                                    </small>
+                    <c:choose>
+                        <c:when test="${totalUsers != null && totalUsers != 0}">
+                            <div class="card-body">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                                    <c:forEach items="${users}" var="user">
+                                        <c:choose>
+                                            <c:when test="${user.role.id == 1}">
+                                                <div class="col mb-4">
+                                                    <div class="card bg-light">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                    ${user.name} ${user.surname}
+                                                            </h5>
+                                                            <small class="text-muted">
+                                                                User ID: ${user.userId}
+                                                            </small>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <a href="?command=showUser&userId=${user.userId}">
+                                                                    ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="card-footer">
-                                                    <a href="?command=showUser&userId=${user.userId}">
-                                                            ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
-                                                    </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col mb-4">
+                                                    <div class="card text-white bg-primary">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                    ${user.name} ${user.surname}
+                                                            </h5>
+                                                            <small>
+                                                                    ${admin_rank}
+                                                            </small>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <a class="text-white"
+                                                               href="?command=showUser&userId=${user.userId}">
+                                                                    ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="col mb-4">
-                                            <div class="card text-white bg-primary">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                            ${user.name} ${user.surname}
-                                                    </h5>
-                                                    <small>
-                                                            ${admin_rank}
-                                                    </small>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <a class="text-white"
-                                                       href="?command=showUser&userId=${user.userId}">
-                                                            ${gotoProfile}<span class="arrow-link-symbol-right">→</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </div>
-                    </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="card-body">
+                                <div class="message-block">
+                                    <label class="title-label">
+                                            ${noUsers}
+                                    </label>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>

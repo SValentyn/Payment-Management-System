@@ -390,11 +390,6 @@ h4, h5 {
     color: #000000;
 }
 
-.login-wrapper .box .title-label {
-    font-size: 22px;
-    text-decoration: none;
-}
-
 .login-wrapper .already {
     float: none;
     text-align: center;
@@ -417,6 +412,15 @@ h4, h5 {
     text-decoration: none;
     color: #000;
     border-bottom-color: #000;
+}
+
+div[class="message-block"] {
+    margin-top: 15px;
+}
+
+div[class="message-block"] .title-label {
+    font-size: 22px;
+    text-decoration: none;
 }
 
 /*** STYLE OF INPUTS ***/
