@@ -11,9 +11,11 @@ public enum ServerResponse {
     REGISTRATION_ERROR("registrationError"),
     REGISTRATION_SUCCESS("registrationSuccess"),
     PASSWORD_SENT("passwordSent"),
-    SHOW_USER_ERROR("showUserError");
+    SHOW_USER_ERROR("showUserError"),
+    ADD_USER_ERROR("addUserError"),
+    ADD_USER_SUCCESS("addUserSuccess");
 
-    private String response;
+    private final String response;
 
     ServerResponse(String response) {
         this.response = response;

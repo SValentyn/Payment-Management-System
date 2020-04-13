@@ -24,7 +24,7 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${added == true}">
+    <c:if test="${response eq 'addUserSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertUserAdded"/>
@@ -36,7 +36,7 @@
     </c:if>
 
     <!-- Alert phoneExistError -->
-    <c:if test="${phoneExistError == true}">
+    <c:if test="${response eq 'phoneExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertPhoneExistError"/>
@@ -48,7 +48,7 @@
     </c:if>
 
     <!-- Alert emailExistError -->
-    <c:if test="${emailExistError == true}">
+    <c:if test="${response eq 'emailExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertEmailExistError"/>
@@ -60,9 +60,9 @@
     </c:if>
 
     <!-- Alert addUserError -->
-    <c:if test="${addUserError == true}">
+    <c:if test="${response eq 'addUserError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="registration.failed"/></strong>
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="admin.addUser.alertAddUserError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -185,6 +185,7 @@
                                                 <div class="col-md-9">
                                                     <input id="password" name="password" type="password"
                                                            class="form-control" readonly="readonly"
+                                                           disabled="disabled"
                                                            placeholder="${passwordGenerated}"/>
                                                     <label for="password" class="default-label"></label>
                                                 </div>
@@ -201,7 +202,7 @@
 
                                         <!-- Back Button -->
                                         <c:choose>
-                                            <c:when test="${added == true}">
+                                            <c:when test="${response eq 'addUserSuccess'}">
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachAccount">
