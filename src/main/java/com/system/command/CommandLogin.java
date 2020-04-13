@@ -1,6 +1,7 @@
 package com.system.command;
 
 import com.system.entity.User;
+import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.UserService;
@@ -17,6 +18,11 @@ public class CommandLogin implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+
+        // if the GET method is received
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
+            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
+        }
 
         // Data
         String login = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
