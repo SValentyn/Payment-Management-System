@@ -24,10 +24,22 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${attached == true}">
+    <c:if test="${response eq 'accountAttachedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertAccountAttached"/>
+                <fmt:message key="admin.page.alertAccountAttachedSuccess"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unableGetUserId -->
+    <c:if test="${response eq 'unableGetUserId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetUserIdError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -36,7 +48,7 @@
     </c:if>
 
     <!-- Alert manyAccountWithThisCurrencyError -->
-    <c:if test="${manyAccountWithThisCurrencyError == true}">
+    <c:if test="${response eq 'manyAccountWithThisCurrencyError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertManyAccountWithThisCurrencyError"/>
@@ -47,11 +59,11 @@
         </div>
     </c:if>
 
-    <!-- Alert attachAccountError -->
-    <c:if test="${attachAccountError == true}">
+    <!-- Alert accountAttachError -->
+    <c:if test="${response eq 'accountAttachError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertAttachAccountError"/>
+                <fmt:message key="admin.page.alertAccountAttachError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -129,17 +141,6 @@
                                                     <span id="error-msg-accountNumber" class="error-msg invisible">
                                                         ${numberError}
                                                     </span>
-                                                    <span id="numberExistError" class="error-msg invisible">
-                                                        <c:if test="${numberExistError}">
-                                                            <fmt:message key="user.createAccount.numberExistError"/>
-
-                                                            <script>
-                                                                document.querySelector("#numberExistError").classList.remove("invisible");
-                                                                document.querySelector("#valid-msg-accountNumber").classList.add("invisible");
-                                                                document.querySelector("#error-msg-accountNumber").classList.add("invisible");
-                                                            </script>
-                                                        </c:if>
-                                                    </span>
                                                 </label>
                                             </div>
 
@@ -165,32 +166,74 @@
                                             </div>
 
                                             <!-- Submit -->
-                                            <div class="action" style="padding: 20px 0 10px 0">
-                                                <button id="submit" type="submit" class="btn btn-primary signup">
-                                                    ${attachAccountButton}
-                                                </button>
-                                            </div>
+                                            <c:choose>
+                                                <c:when test="${response eq 'unableGetUserId'}">
+                                                    <div class="action" style="padding: 20px 0 10px 0">
+                                                        <button type="submit" class="btn btn-primary signup disabled">
+                                                                ${attachAccountButton}
+                                                        </button>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="action" style="padding: 20px 0 10px 0">
+                                                        <button id="submit" type="submit"
+                                                                class="btn btn-primary signup">
+                                                                ${attachAccountButton}
+                                                        </button>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </form>
 
-                                        <!-- Show All Accounts Button -->
-                                        <div class="action back-btn">
-                                            <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="showUserAccounts">
-                                                <input type="hidden" name="userId" value="${userId}">
-                                                <button type="submit" class="btn btn-primary signup btn-default">
-                                                    ${showAllAccountsButton}
-                                            </form>
-                                        </div>
+                                        <!-- "Show all accounts" Button and "Return to User Profile" Button -->
+                                        <c:choose>
+                                            <c:when test="${response eq 'unableGetUserId'}">
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
+                                                        <input type="hidden" name="command" value="showUserAccounts">
+                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <button type="submit"
+                                                                class="btn btn-primary signup btn-default disabled">
+                                                                ${showAllAccountsButton}
+                                                        </button>
+                                                    </form>
+                                                </div>
 
-                                        <!-- Return to User Profile -->
-                                        <div class="action back-btn">
-                                            <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="showUser">
-                                                <input type="hidden" name="userId" value="${userId}">
-                                                <button type="submit" class="btn btn-primary signup btn-default">
-                                                    ${returnToUserProfile}
-                                            </form>
-                                        </div>
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
+                                                        <input type="hidden" name="command" value="showUser">
+                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <button type="submit"
+                                                                class="btn btn-primary signup btn-default disabled">
+                                                                ${returnToUserProfile}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
+                                                        <input type="hidden" name="command" value="showUserAccounts">
+                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <button type="submit"
+                                                                class="btn btn-primary signup btn-default">
+                                                                ${showAllAccountsButton}
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
+                                                        <input type="hidden" name="command" value="showUser">
+                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <button type="submit"
+                                                                class="btn btn-primary signup btn-default">
+                                                                ${returnToUserProfile}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>

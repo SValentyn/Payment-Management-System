@@ -12,8 +12,12 @@ public enum ServerResponse {
     REGISTRATION_SUCCESS("registrationSuccess"),
     PASSWORD_SENT("passwordSent"),
     SHOW_USER_ERROR("showUserError"),
+    ADD_USER_SUCCESS("addUserSuccess"),
     ADD_USER_ERROR("addUserError"),
-    ADD_USER_SUCCESS("addUserSuccess");
+    UNABLE_GET_USER_ID("unableGetUserId"),
+    MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR("manyAccountWithThisCurrencyError"),
+    ACCOUNT_ATTACHED_SUCCESS("accountAttachedSuccess"),
+    ACCOUNT_ATTACHED_ERROR("accountAttachError");
 
     private final String response;
 

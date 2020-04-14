@@ -4,101 +4,117 @@ import com.system.entity.Account;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
-import com.system.service.LetterService;
 import com.system.service.UserService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandAdminAttachAccount implements ICommand {
+
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ATTACH_ACCOUNT);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ATTACH_ACCOUNT);
+        clearRequestAttributes(request);
 
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("manyAccountWithThisCurrencyError", false);
-        request.setAttribute("attachAccountError", false);
-        request.setAttribute("attached", false);
-
-        // Data
-        String userIdParam = request.getParameter("userId");
-
-        // Validation
-        if (!Validator.checkUserId(userIdParam)) {
-            request.setAttribute("attachAccountError", true);
-            return page;
-        }
-
-        // Data
-        Integer userId = Integer.parseInt(userIdParam);
-        User user = UserService.getInstance().findUserById(userId);
-        String bio = user.getName() + " " + user.getSurname();
-        String number = request.getParameter("number");
-        String currency = request.getParameter("currency");
-
-        // Set Attributes
-        setRequestAttributes(request, userId, bio, number, currency);
-
-        // Actions depend on the method
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return page;
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ATTACH_ACCOUNT);
+
+            // Data
+            String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!validation(number, currency)) {
-                request.setAttribute("attachAccountError", true);
-                return page;
+            if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
+                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+                return pathRedirect;
             }
 
-            // Check
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
-            for (Account account : accounts) {
-                if (account.getNumber().equals(number)) {
-                    request.setAttribute("attachAccountError", true);
-                    return page;
-                }
+            // Data
+            Integer userId = Integer.parseInt(userIdParam);
+            User user = UserService.getInstance().findUserById(userId);
+            String bio = user.getName() + " " + user.getSurname();
+
+            // Set Attributes
+            setRequestAttributes(request, userId, bio);
+
+        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_ATTACH_ACCOUNT);
+
+            // Data
+            String userIdParam = request.getParameter("userId");
+
+            // Validation
+            if (!Validator.checkUserId(userIdParam)) {
+                return pathRedirect;
+            }
+
+            pathRedirect += "&userId=" + userIdParam;
+
+            // Data
+            Integer userId = Integer.parseInt(userIdParam);
+            String number = request.getParameter("number");
+            String currency = request.getParameter("currency");
+
+            // Validation
+            if (!Validator.checkAccountNumber(number)) {
+                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            // Validation
+            if (!Validator.checkCurrency(currency)) {
+                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_ERROR.getResponse());
+                return pathRedirect;
             }
 
             // Check
             // Condition: the user cannot have more than 3 accounts with a certain currency
             int count = 0;
-            for (Account account : accounts) {
+            for (Account account : AccountService.getInstance().findAllAccountsByUserId(userId)) {
                 if (account.getCurrency().equals(currency)) count++;
             }
 
             if (count == 3) {
-                request.setAttribute("manyAccountWithThisCurrencyError", true);
-                return page;
+                request.getSession().setAttribute("response", ServerResponse.MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR.getResponse());
+                return pathRedirect;
             }
 
             int status = AccountService.getInstance().createAccount(userId, number, currency);
             if (status == 0) {
-                request.setAttribute("attachAccountError", true);
+                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_ERROR.getResponse());
             } else {
-                request.setAttribute("attached", true);
+                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_SUCCESS.getResponse());
             }
         }
 
-        return page;
+        return pathRedirect;
     }
 
-    private boolean validation(String number, String currency) {
-        return Validator.checkAccountNumber(number) &&
-                Validator.checkCurrency(currency);
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("bioValue", null);
+        request.setAttribute("numberValue", null);
+        request.setAttribute("currencyValue", null);
+        request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer userId, String bio, String number, String currency) {
+    private void setRequestAttributes(HttpServletRequest request, Integer userId, String bio) {
         request.setAttribute("userId", userId);
         request.setAttribute("bioValue", bio);
-        request.setAttribute("numberValue", number);
-        request.setAttribute("currencyValue", currency);
+
+        HttpSession session = request.getSession();
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
     }
 
 }

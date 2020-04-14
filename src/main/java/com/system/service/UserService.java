@@ -68,7 +68,8 @@ public class UserService {
      * Registers the user in the system by the entered phone number and password.
      */
     public int registerUser(String name, String surname, String phone, String email, String password) {
-        int status = 0;
+        int userId = 0;
+
         User user = findUserByPhoneNumber(phone);
         if (user == null) {
             user = new User();
@@ -82,9 +83,9 @@ public class UserService {
             Role role = new Role();
             role.setRolename(Role.ROLE_CLIENT);
             user.setRole(role);
-            status = userDao.create(user);
+            userId = userDao.create(user);
         }
-        return status;
+        return userId;
     }
 
     /**
@@ -94,7 +95,7 @@ public class UserService {
      * [in the future] Sends the generated password to the phone.
      */
     public int registerUser(String name, String surname, String phone, String email) {
-        int status;
+        int userId;
 
         User user = findUserByPhoneNumber(phone);
         if (user == null) {
@@ -109,15 +110,15 @@ public class UserService {
             Role role = new Role();
             role.setRolename(Role.ROLE_CLIENT);
             user.setRole(role);
-            status = userDao.create(user);
+            userId = userDao.create(user);
 
             // ------------------------------------------------------------- //
             // There must be an API to send the password to the user's phone //
             // ------------------------------------------------------------- //
         } else {
-            status = 0; // if user is registered in the payment system
+            userId = 0; // if user is registered in the system or an error occurred
         }
-        return status;
+        return userId;
     }
 
     private String generatePassword(int lengthPassword) {

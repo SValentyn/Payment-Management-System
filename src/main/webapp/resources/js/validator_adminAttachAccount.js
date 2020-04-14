@@ -8,7 +8,6 @@ let submitBtn = document.querySelector("#submit");
 
 /* It starts immediately after the page loads */
 window.addEventListener("load", function () {
-    document.querySelector("#numberExistError").classList.add("invisible");
     repeat.click();
     validationAccountNumber();
     validationCurrency();
@@ -38,7 +37,6 @@ let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgNumber = document.querySelector("#error-msg-accountNumber");
 
 let resetAccountNumber = function () {
-    document.querySelector("#numberExistError").classList.add("invisible");
     validMsgNumber.classList.add("invisible");
     errorMsgNumber.classList.add("invisible");
     number.classList.remove("valid-input");
