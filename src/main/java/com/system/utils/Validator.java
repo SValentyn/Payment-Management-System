@@ -38,12 +38,23 @@ public class Validator {
     }
 
     /**
+     * @return true, if the identifier is a non-negative number
+     * and user found by identifier is not an admin
+     */
+    public static boolean checkUserIsAdmin(String userId) throws SQLException {
+        if (!checkUserId(userId)) return false;
+
+        User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
+        if (user.getRole().getRolename().equals("admin")) return false;
+
+        return true;
+    }
+
+    /**
      * @return true, if the identifier is a non-negative number and is in the system
      */
     public static boolean checkUserId(String userId) throws SQLException {
-        if (userId == null || isNegative(userId)) {
-            return false;
-        }
+        if (userId == null || isNegative(userId)) return false;
 
         List<User> users = UserService.getInstance().findAllUsers();
         List<Integer> userIds = new ArrayList<>();
@@ -58,9 +69,7 @@ public class Validator {
      * @return true, if the identifier is a non-negative number and is in the system
      */
     public static boolean checkAccountId(String accountId) throws SQLException {
-        if (accountId == null || isNegative(accountId)) {
-            return false;
-        }
+        if (accountId == null || isNegative(accountId)) return false;
 
         List<Account> accounts = AccountService.getInstance().findAllAccounts();
         List<Integer> accountIds = new ArrayList<>();
@@ -130,22 +139,30 @@ public class Validator {
     }
 
     /**
-     * @return true, if the account number is not NULL and is 20 digits
+     * @return true, if the account number is not NULL and is 20 digits,
+     * and also if it is not already in the system
      */
-    public static boolean checkAccountNumber(String number) {
+    public static boolean checkAccountNumber(String number) throws SQLException {
         if (number == null) return false;
         Pattern p = Pattern.compile("\\d{20}");
         Matcher m = p.matcher(number);
-        return m.matches();
+        if (!m.matches()) return false;
+
+        List<Account> accounts = AccountService.getInstance().findAllAccounts();
+        for (Account account : accounts) {
+            if (account.getNumber().equals(number)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
      * @return true, if the currency is not NULL and is 3 letters
      */
     public static boolean checkCurrency(String currency) {
-        if (currency == null || currency.equals("") || currency.length() != 3) {
-            return false;
-        }
+        if (currency == null || currency.equals("") || currency.length() != 3) return false;
 
         char[] chars = currency.toCharArray();
         for (int i = 0; i < currency.length() - 1; i++) {
