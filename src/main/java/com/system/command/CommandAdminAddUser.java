@@ -54,11 +54,11 @@ public class CommandAdminAddUser implements ICommand {
             }
 
             // Register new user
-            int status = UserService.getInstance().registerUser(name, surname, phone, email);
-            if (status == 0) {
+            int userId = UserService.getInstance().registerUser(name, surname, phone, email);
+            if (userId == 0) {
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.ADD_USER_ERROR);
             } else {
-                setSessionAttributes(request, null, null, null, null, ServerResponse.ADD_USER_SUCCESS);
+                setSessionAttributes(request, userId, ServerResponse.ADD_USER_SUCCESS);
             }
         }
 
@@ -80,6 +80,12 @@ public class CommandAdminAddUser implements ICommand {
 
     private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
+
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId != null) {
+            request.setAttribute("userId", userId);
+            session.removeAttribute("userId");
+        }
 
         String name = (String) session.getAttribute("name");
         if (name != null) {
@@ -117,6 +123,11 @@ public class CommandAdminAddUser implements ICommand {
         request.getSession().setAttribute("surname", surname);
         request.getSession().setAttribute("phone", phone);
         request.getSession().setAttribute("email", email);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, Integer userId, ServerResponse serverResponse) {
+        request.getSession().setAttribute("userId", userId);
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
