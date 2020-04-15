@@ -24,7 +24,7 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${updated == true}">
+    <c:if test="${response eq 'dataUpdatedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertUserDataUpdated"/>
@@ -35,8 +35,32 @@
         </div>
     </c:if>
 
+    <!-- Alert unableGetUserId -->
+    <c:if test="${response eq 'unableGetUserId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetUserIdError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert invalidData -->
+    <c:if test="${response eq 'invalidData'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="admin.page.alertInvalidDataError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert phoneExistError -->
-    <c:if test="${phoneExistError == true}">
+    <c:if test="${response eq 'phoneExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertPhoneExistError"/>
@@ -48,7 +72,7 @@
     </c:if>
 
     <!-- Alert emailExistError -->
-    <c:if test="${emailExistError == true}">
+    <c:if test="${response eq 'emailExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="admin.page.alertEmailExistError"/>
@@ -59,8 +83,8 @@
         </div>
     </c:if>
 
-    <!-- Alert updateUserDataError -->
-    <c:if test="${updateUserDataError == true}">
+    <!-- Alert dataUpdatedError -->
+    <c:if test="${response eq 'dataUpdatedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertUpdateUserDataError"/>
@@ -185,25 +209,54 @@
                                             </div>
 
                                             <!-- Submit -->
-                                            <div class="action" style="padding: 25px 0 10px 0">
-                                                <button id="submit" type="submit" class="btn btn-primary signup"
-                                                        style="width: 56%;">
-                                                    ${updateDataButton}
-                                                </button>
-                                            </div>
+                                            <c:choose>
+                                                <c:when test="${response ne 'unableGetUserId'}">
+                                                    <div class="action" style="padding: 25px 0 10px 0">
+                                                        <button id="submit" type="submit" class="btn btn-primary signup"
+                                                                style="width: 56%;">
+                                                                ${updateDataButton}
+                                                        </button>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="action" style="padding: 25px 0 10px 0">
+                                                        <button type="submit" class="btn btn-primary signup disabled"
+                                                                style="width: 56%;">
+                                                                ${updateDataButton}
+                                                        </button>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </form>
 
                                         <!-- Return to User Profile -->
-                                        <div class="action back-btn">
-                                            <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="showUser">
-                                                <input type="hidden" name="userId" value="${userId}">
-                                                <button type="submit" class="btn btn-primary signup btn-default"
-                                                        style="width: 56%;">
-                                                    ${returnToUserProfile}
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <c:choose>
+                                            <c:when test="${response ne 'unableGetUserId'}">
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
+                                                        <input type="hidden" name="command" value="showUser">
+                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <button type="submit" class="btn btn-primary signup btn-default"
+                                                                style="width: 56%;">
+                                                                ${returnToUserProfile}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
+                                                        <input type="hidden" name="command" value="showUser">
+                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <button type="submit"
+                                                                class="btn btn-primary signup btn-default disabled"
+                                                                style="width: 56%;">
+                                                                ${returnToUserProfile}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>

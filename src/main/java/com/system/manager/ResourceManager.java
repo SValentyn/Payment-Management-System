@@ -45,7 +45,7 @@ public class ResourceManager {
     public static final String COMMAND_ADMIN_ADD_USER = "COMMAND_ADMIN_ADD_USER";
     public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";
     public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";
-//    public static final String COMMAND_ = "COMMAND_";
+    public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
 
     private static ResourceManager instance;
     private ResourceBundle resourceBundle;

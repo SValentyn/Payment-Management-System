@@ -2,10 +2,9 @@ package com.system.manager;
 
 public enum ServerResponse {
 
+    INVALID_DATA("invalidData"),
     LOGIN_NOT_EXIST("loginNotExist"),
-    INVALID_LOGIN_DATA("invalidLoginData"),
     AUTHENTICATION_ERROR("authenticationError"),
-    INCORRECT_REGISTRATION_DATA("incorrectRegistrationData"),
     PHONE_EXIST_ERROR("phoneExistError"),
     EMAIL_EXIST_ERROR("emailExistError"),
     REGISTRATION_ERROR("registrationError"),
@@ -17,7 +16,9 @@ public enum ServerResponse {
     UNABLE_GET_USER_ID("unableGetUserId"),
     MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR("manyAccountWithThisCurrencyError"),
     ACCOUNT_ATTACHED_SUCCESS("accountAttachedSuccess"),
-    ACCOUNT_ATTACHED_ERROR("accountAttachError");
+    ACCOUNT_ATTACHED_ERROR("accountAttachError"),
+    DATA_UPDATED_SUCCESS("dataUpdatedSuccess"),
+    DATA_UPDATED_ERROR("dataUpdatedError");
 
     private final String response;
 
