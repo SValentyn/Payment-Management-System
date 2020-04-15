@@ -58,7 +58,6 @@
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="deleteUser">
                         <input type="hidden" name="userId" value="${userId}">
-
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
@@ -72,11 +71,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert showUserError -->
-    <c:if test="${response eq 'showUserError'}">
+    <!-- Alert unableGetUserId -->
+    <c:if test="${response eq 'unableGetUserId'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertShowUserError"/>
+                <fmt:message key="admin.page.alertUnableGetUserIdError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -84,11 +83,11 @@
         </div>
     </c:if>
 
-    <!-- Alert Success -->
-    <c:if test="${response eq 'userDeleted'}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="registration.success"/>!</strong>
-                <fmt:message key="admin.page.alertUserDeleted"/>
+    <!-- Alert showUserError -->
+    <c:if test="${response eq 'showUserError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertShowUserError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -111,11 +110,11 @@
         </div>
     </c:if>
 
-    <!-- Alert deleteUserError -->
-    <c:if test="${response eq 'deleteUserError'}">
+    <!-- Alert userDeletedError -->
+    <c:if test="${response eq 'userDeletedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
-                <fmt:message key="admin.page.alertDeleteUserError"/>
+                <fmt:message key="admin.page.alertUserDeletedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -164,7 +163,7 @@
 
                                         <!-- Perhaps there was an error or the viewableUser was deleted from the system -->
                                         <c:choose>
-                                            <c:when test="${response ne 'showUserError'}">
+                                            <c:when test="${response ne 'showUserError' && response ne 'unableGetUserId'}">
                                                 <jsp:useBean id="viewableUser" scope="request"
                                                              type="com.system.entity.User"/>
 

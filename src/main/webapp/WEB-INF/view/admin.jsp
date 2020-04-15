@@ -33,6 +33,18 @@
         </div>
     </c:if>
 
+    <!-- Alert Success -->
+    <c:if test="${response eq 'userDeletedSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertUserDeleted"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-lg-2">
