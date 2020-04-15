@@ -11,6 +11,7 @@ import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 public class CommandAdminShowUser implements ICommand {
@@ -23,31 +24,36 @@ public class CommandAdminShowUser implements ICommand {
 
         clearRequestAttributes(request);
 
-        // if the POST method is received
+        String method = request.getMethod();
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER);
-        }
+        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER);
 
-        // Data
-        String userIdParam = request.getParameter("userId");
+            // Set Attributes
+            setRequestAttributes(request);
 
-        // Validation
-        if (!Validator.checkUserId(userIdParam)) {
-            request.setAttribute("response", ServerResponse.SHOW_USER_ERROR.getResponse());
-            return pathRedirect;
-        }
+            // Data
+            String userIdParam = request.getParameter("userId");
 
-        // Data
-        Integer userId = Integer.valueOf(userIdParam);
-        User user = UserService.getInstance().findUserById(userId);
+            // Validation
+            if (!Validator.checkUserId(userIdParam)) {
+                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+                return pathRedirect;
+            }
 
-        // Check and Set attributes
-        if (user.getRole().getId() == 1) {
-            setRequestAttributes(request, userId, user, false);
-        } else if (user.getRole().getId() == 2) {
-            setRequestAttributes(request, userId, user, true);
-        } else {
-            request.setAttribute("response", ServerResponse.SHOW_USER_ERROR.getResponse());
+            // Data
+            Integer userId = Integer.valueOf(userIdParam);
+            User user = UserService.getInstance().findUserById(userId);
+
+            // Check and Set Attributes
+            if (user.getRole().getId() == 1) {
+                setRequestAttributes(request, userId, user, false);
+            } else if (user.getRole().getId() == 2) {
+                setRequestAttributes(request, userId, user, true);
+            } else {
+                request.setAttribute("response", ServerResponse.SHOW_USER_ERROR.getResponse());
+            }
         }
 
         return pathRedirect;
@@ -72,6 +78,16 @@ public class CommandAdminShowUser implements ICommand {
         request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
         request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userId));
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
+    }
+
+    private void setRequestAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
     }
 
 }

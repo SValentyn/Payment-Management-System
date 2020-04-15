@@ -19,33 +19,35 @@ public class CommandLogin implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        // if the GET method is received
+        String method = request.getMethod();
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
-        }
+        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
 
-        // Data
-        String login = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
-        String password = request.getParameter("password");
+            // Data
+            String login = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
+            String password = request.getParameter("password");
 
-        // Validation
-        if (!Validator.checkLogin(login)) {
-            setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
-            return pathRedirect;
-        }
+            // Validation
+            if (!Validator.checkLogin(login)) {
+                setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
+                return pathRedirect;
+            }
 
-        // Validation
-        if (!Validator.checkPassword(password)) {
-            setSessionAttributes(request, login, ServerResponse.INVALID_DATA);
-            return pathRedirect;
-        }
+            // Validation
+            if (!Validator.checkPassword(password)) {
+                setSessionAttributes(request, login, ServerResponse.INVALID_DATA);
+                return pathRedirect;
+            }
 
-        // Authentication
-        User user = UserService.getInstance().loginUser(login, password);
-        if (user != null) {
-            request.getSession().setAttribute("currentUser", user);
-        } else {
-            setSessionAttributes(request, login, ServerResponse.AUTHENTICATION_ERROR);
+            // Authentication
+            User user = UserService.getInstance().loginUser(login, password);
+            if (user != null) {
+                request.getSession().setAttribute("currentUser", user);
+            } else {
+                setSessionAttributes(request, login, ServerResponse.AUTHENTICATION_ERROR);
+            }
         }
 
         return pathRedirect;

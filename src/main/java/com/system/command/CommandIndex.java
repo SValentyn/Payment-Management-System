@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandIndex implements ICommand {
 
@@ -22,24 +21,27 @@ public class CommandIndex implements ICommand {
 
         clearRequestAttributes(request);
 
-        // if the POST method is received
+        String method = request.getMethod();
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
-        }
+        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
 
-        // Data
-        User user = (User) request.getSession().getAttribute("currentUser");
+            // Data
+            User user = (User) request.getSession().getAttribute("currentUser");
 
-        // Check
-        if (user != null) {
-            String role = user.getRole().getRolename();
-            if (role.equals(Role.ROLE_ADMIN)) {
-                request.setAttribute("users", UserService.getInstance().findAllUsers());
-                pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
-            } else if (role.equals(Role.ROLE_CLIENT)) {
-                pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER);
+            // Check
+            if (user != null) {
+                String role = user.getRole().getRolename();
+                if (role.equals(Role.ROLE_ADMIN)) {
+                    request.setAttribute("users", UserService.getInstance().findAllUsers());
+                    pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
+                } else if (role.equals(Role.ROLE_CLIENT)) {
+                    pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER);
+                }
             }
-        } else {
+
+            // Set Attributes
             setRequestAttributes(request);
         }
 
