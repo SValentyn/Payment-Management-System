@@ -96,7 +96,6 @@ public class CommandAdminUpdateUserData implements ICommand {
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.DATA_UPDATED_ERROR);
             } else {
                 request.getSession().setAttribute("response", ServerResponse.DATA_UPDATED_SUCCESS.getResponse());
-
             }
         }
 

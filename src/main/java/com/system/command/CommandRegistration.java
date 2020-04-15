@@ -39,7 +39,7 @@ public class CommandRegistration implements ICommand {
 
             // Validation
             if (!validation(name, surname, password, passwordConfirmation)) {
-                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.INCORRECT_REGISTRATION_DATA);
+                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.INVALID_DATA);
                 return pathRedirect;
             }
 

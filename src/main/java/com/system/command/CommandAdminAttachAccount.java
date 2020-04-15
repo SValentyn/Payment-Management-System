@@ -38,12 +38,10 @@ public class CommandAdminAttachAccount implements ICommand {
             }
 
             // Data
-            Integer userId = Integer.parseInt(userIdParam);
-            User user = UserService.getInstance().findUserById(userId);
-            String bio = user.getName() + " " + user.getSurname();
+            User user = UserService.getInstance().findUserById(Integer.parseInt(userIdParam));
 
             // Set Attributes
-            setRequestAttributes(request, userId, bio);
+            setRequestAttributes(request, user);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_ATTACH_ACCOUNT);
@@ -52,7 +50,7 @@ public class CommandAdminAttachAccount implements ICommand {
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!Validator.checkUserId(userIdParam)) {
+            if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
                 return pathRedirect;
             }
 
@@ -87,6 +85,7 @@ public class CommandAdminAttachAccount implements ICommand {
                 return pathRedirect;
             }
 
+            // Action
             int status = AccountService.getInstance().createAccount(userId, number, currency);
             if (status == 0) {
                 request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_ERROR.getResponse());
@@ -105,9 +104,9 @@ public class CommandAdminAttachAccount implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer userId, String bio) {
-        request.setAttribute("userId", userId);
-        request.setAttribute("bioValue", bio);
+    private void setRequestAttributes(HttpServletRequest request, User user) {
+        request.setAttribute("userId", user.getUserId());
+        request.setAttribute("bioValue", user.getName() + " " + user.getSurname());
 
         HttpSession session = request.getSession();
         String response = (String) session.getAttribute("response");

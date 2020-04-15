@@ -72,8 +72,8 @@
         </div>
     </c:if>
 
-    <!-- Alert incorrectRegistrationData -->
-    <c:if test="${response eq 'incorrectRegistrationData'}">
+    <!-- Alert invalidData -->
+    <c:if test="${response eq 'invalidData'}">
         <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertIncorrectRegistrationDataError"/>

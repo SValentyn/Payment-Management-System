@@ -44,7 +44,7 @@ public class Validator {
     public static boolean checkUserIsAdmin(String userId) throws SQLException {
         if (!checkUserId(userId)) return false;
 
-        User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
+        User user = UserService.getInstance().findUserById(Integer.parseInt(userId));
         if (user.getRole().getRolename().equals("admin")) return false;
 
         return true;
@@ -62,7 +62,7 @@ public class Validator {
             userIds.add(user.getUserId());
         }
 
-        return userIds.contains(Integer.valueOf(userId));
+        return userIds.contains(Integer.parseInt(userId));
     }
 
     /**

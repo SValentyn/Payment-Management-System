@@ -36,7 +36,7 @@ public class CommandLogin implements ICommand {
 
         // Validation
         if (!Validator.checkPassword(password)) {
-            setSessionAttributes(request, login, ServerResponse.INVALID_LOGIN_DATA);
+            setSessionAttributes(request, login, ServerResponse.INVALID_DATA);
             return pathRedirect;
         }
 

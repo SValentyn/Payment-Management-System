@@ -167,17 +167,17 @@
 
                                             <!-- Submit -->
                                             <c:choose>
-                                                <c:when test="${response eq 'unableGetUserId'}">
+                                                <c:when test="${response ne 'unableGetUserId'}">
                                                     <div class="action" style="padding: 20px 0 10px 0">
-                                                        <button type="submit" class="btn btn-primary signup disabled">
+                                                        <button id="submit" type="submit"
+                                                                class="btn btn-primary signup">
                                                                 ${attachAccountButton}
                                                         </button>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="action" style="padding: 20px 0 10px 0">
-                                                        <button id="submit" type="submit"
-                                                                class="btn btn-primary signup">
+                                                        <button type="submit" class="btn btn-primary signup disabled">
                                                                 ${attachAccountButton}
                                                         </button>
                                                     </div>
@@ -187,13 +187,13 @@
 
                                         <!-- "Show all accounts" Button and "Return to User Profile" Button -->
                                         <c:choose>
-                                            <c:when test="${response eq 'unableGetUserId'}">
+                                            <c:when test="${response ne 'unableGetUserId'}">
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="showUserAccounts">
                                                         <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit"
-                                                                class="btn btn-primary signup btn-default disabled">
+                                                                class="btn btn-primary signup btn-default">
                                                                 ${showAllAccountsButton}
                                                         </button>
                                                     </form>
@@ -204,7 +204,7 @@
                                                         <input type="hidden" name="command" value="showUser">
                                                         <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit"
-                                                                class="btn btn-primary signup btn-default disabled">
+                                                                class="btn btn-primary signup btn-default">
                                                                 ${returnToUserProfile}
                                                         </button>
                                                     </form>
@@ -216,7 +216,7 @@
                                                         <input type="hidden" name="command" value="showUserAccounts">
                                                         <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit"
-                                                                class="btn btn-primary signup btn-default">
+                                                                class="btn btn-primary signup btn-default disabled">
                                                                 ${showAllAccountsButton}
                                                         </button>
                                                     </form>
@@ -227,7 +227,7 @@
                                                         <input type="hidden" name="command" value="showUser">
                                                         <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit"
-                                                                class="btn btn-primary signup btn-default">
+                                                                class="btn btn-primary signup btn-default disabled">
                                                                 ${returnToUserProfile}
                                                         </button>
                                                     </form>
