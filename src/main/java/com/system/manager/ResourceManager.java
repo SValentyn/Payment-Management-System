@@ -31,10 +31,10 @@ public class ResourceManager {
     public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
     public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
     public static final String ADMIN_SHOW_USER = "ADMIN_SHOW_USER";
-    public static final String ADMIN_SHOW_PAYMENT_INFO = "ADMIN_SHOW_PAYMENT_INFO";
     public static final String ADMIN_SHOW_USER_PAYMENTS = "ADMIN_SHOW_USER_PAYMENTS";
-    public static final String ADMIN_SHOW_ACCOUNT_INFO = "ADMIN_SHOW_ACCOUNT_INFO";
+    public static final String ADMIN_SHOW_PAYMENT_INFO = "ADMIN_SHOW_PAYMENT_INFO";
     public static final String ADMIN_SHOW_USER_ACCOUNTS = "ADMIN_SHOW_USER_ACCOUNTS";
+    public static final String ADMIN_SHOW_ACCOUNT_INFO = "ADMIN_SHOW_ACCOUNT_INFO";
     public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
     public static final String ADMIN_SHOW_LETTER_INFO = "ADMIN_SHOW_LETTER_INFO";
@@ -45,8 +45,9 @@ public class ResourceManager {
     public static final String COMMAND_ADMIN_ADD_USER = "COMMAND_ADMIN_ADD_USER";
     public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";
     public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";
-    public static final String COMMAND_ADMIN_SHOW_USER_ACCOUNTS = "COMMAND_ADMIN_SHOW_USER_ACCOUNTS";
     public static final String COMMAND_ADMIN_SHOW_USER_PAYMENTS = "COMMAND_ADMIN_SHOW_USER_PAYMENTS";
+    public static final String COMMAND_ADMIN_SHOW_ACCOUNT_INFO = "COMMAND_ADMIN_SHOW_ACCOUNT_INFO";
+    public static final String COMMAND_ADMIN_SHOW_USER_ACCOUNTS = "COMMAND_ADMIN_SHOW_USER_ACCOUNTS";
     public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
     public static final String COMMAND_ADMIN_SUPPORT = "COMMAND_ADMIN_SUPPORT";
     public static final String COMMAND_ADMIN_SHOW_LETTER_INFO = "COMMAND_ADMIN_SHOW_LETTER_INFO";

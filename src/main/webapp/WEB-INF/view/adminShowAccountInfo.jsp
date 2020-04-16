@@ -50,7 +50,6 @@
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="deleteAccount">
                         <input type="hidden" name="accountId" value="${viewableAccount.accountId}">
-
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
@@ -92,7 +91,6 @@
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="detachCard">
                         <input type="hidden" name="cardNumber" id="cardNumber"/>
-
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
@@ -106,8 +104,20 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert unableGetAccountId -->
+    <c:if test="${response eq 'unableGetAccountId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetAccountIdError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert showAccountError -->
-    <c:if test="${showAccountError == true}">
+    <c:if test="${response eq 'showAccountError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertShowAccountError"/>
@@ -119,7 +129,7 @@
     </c:if>
 
     <!-- Alert accountDeleted -->
-    <c:if test="${accountDeleted == true}">
+    <c:if test="${response eq 'accountDeleted'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertAccountDeleted"/>
@@ -131,7 +141,7 @@
     </c:if>
 
     <!-- Alert accountHasFundsError -->
-    <c:if test="${accountHasFundsError == true}">
+    <c:if test="${response eq 'accountHasFundsError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertAccountHasFundsError"/>
@@ -143,7 +153,7 @@
     </c:if>
 
     <!-- Alert deleteAccountError -->
-    <c:if test="${deleteAccountError == true}">
+    <c:if test="${response eq 'deleteAccountError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertDeleteAccountError"/>
@@ -155,7 +165,7 @@
     </c:if>
 
     <!-- Alert blockAccountError -->
-    <c:if test="${blockAccountError == true}">
+    <c:if test="${response eq 'blockAccountError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertBlockAccountError"/>
@@ -167,7 +177,7 @@
     </c:if>
 
     <!-- Alert unblockAccountError -->
-    <c:if test="${unblockAccountError == true}">
+    <c:if test="${response eq 'unblockAccountError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertUnblockAccountError"/>
@@ -179,7 +189,7 @@
     </c:if>
 
     <!-- Alert cardDetached -->
-    <c:if test="${cardDetached == true}">
+    <c:if test="${response eq 'cardDetached'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertCardDetached"/>
@@ -191,7 +201,7 @@
     </c:if>
 
     <!-- Alert detachCardError -->
-    <c:if test="${detachCardError == true}">
+    <c:if test="${response eq 'detachCardError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertDetachCardError"/>
@@ -203,7 +213,7 @@
     </c:if>
 
     <!-- Alert cardBlocked -->
-    <c:if test="${cardBlocked == true}">
+    <c:if test="${response eq 'cardBlocked'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertCardBlocked"/>
@@ -215,7 +225,7 @@
     </c:if>
 
     <!-- Alert blockCardError -->
-    <c:if test="${blockCardError == true}">
+    <c:if test="${response eq 'blockCardError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertBlockCardError"/>
@@ -227,7 +237,7 @@
     </c:if>
 
     <!-- Alert cardUnblocked -->
-    <c:if test="${cardUnblocked == true}">
+    <c:if test="${response eq 'cardUnblocked'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertCardUnblocked"/>
@@ -239,7 +249,7 @@
     </c:if>
 
     <!-- Alert unblockCardError -->
-    <c:if test="${unblockCardError == true}">
+    <c:if test="${response eq 'unblockCardError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertUnblockCardError"/>
@@ -294,11 +304,11 @@
                                         </h4>
 
                                         <c:choose>
-                                            <c:when test="${showAccountError == false}">
-                                                <jsp:useBean id="viewableUser" scope="request"
-                                                             type="com.system.entity.User"/>
+                                            <c:when test="${response ne 'unableGetAccountId' && response ne 'showAccountError'}">
                                                 <jsp:useBean id="viewableAccount" scope="request"
                                                              type="com.system.entity.Account"/>
+                                                <jsp:useBean id="viewableUser" scope="request"
+                                                             type="com.system.entity.User"/>
 
                                                 <div class="row">
                                                     <div class="col-xl-12">
@@ -621,8 +631,9 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
+
                                                 <!-- Return to Users -->
-                                                <div style="margin-top: 15px;">
+                                                <div class="message-block">
                                                     <label class="title-label">
                                                         <a href="/" class="float-left">
                                                             <span class="arrow-link-symbol-left">←</span>
