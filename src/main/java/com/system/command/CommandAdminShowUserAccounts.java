@@ -62,7 +62,7 @@ public class CommandAdminShowUserAccounts implements ICommand {
         if (accounts != null) {
             request.setAttribute("userId", userId);
             request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
-            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
+            request.setAttribute("accounts", accounts);
         } else {
             request.setAttribute("response", ServerResponse.SHOW_USER_ACCOUNTS_ERROR.getResponse());
         }

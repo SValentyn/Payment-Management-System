@@ -113,7 +113,7 @@
                                         <fmt:message key="registration.surname" var="surname"/>
                                         <fmt:message key="registration.email" var="email"/>
                                         <fmt:message key="user.updateData.updateDataButton" var="updateDataButton"/>
-                                        <fmt:message key="admin.updateUserData.backButton" var="backButton"/>
+                                        <fmt:message key="admin.updateUserData.backButton" var="returnToLetters"/>
                                         <fmt:message key="registration.nameError" var="nameError"/>
                                         <fmt:message key="registration.surnameError" var="surnameError"/>
                                         <fmt:message key="registration.phoneError" var="loginError"/>

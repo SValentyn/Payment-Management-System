@@ -36,7 +36,7 @@ public class CommandAdminUpdateUserData implements ICommand {
             }
 
             // Data
-            User user = UserService.getInstance().findUserById(Integer.parseInt(userIdParam));
+            User user = UserService.getInstance().findUserById(Integer.valueOf(userIdParam));
 
             // Set Attributes
             setRequestAttributes(request, user);

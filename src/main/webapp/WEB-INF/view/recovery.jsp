@@ -91,7 +91,7 @@
                             <div class="content-wrap">
                                 <fmt:message key="recovery.formHeader" var="formHeader"/>
                                 <fmt:message key="recovery.recoveryButton" var="button"/>
-                                <fmt:message key="recovery.backButton" var="backButton"/>
+                                <fmt:message key="recovery.backButton" var="returnToLetters"/>
                                 <fmt:message key="login.loginError" var="loginError"/>
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                 <fmt:message key="login.correct" var="correct"/>
@@ -129,7 +129,7 @@
                                 <div class="action back-btn">
                                     <form action="/" method="GET" role="form">
                                         <button type="submit" class="btn btn-primary signup btn-default">
-                                            ${backButton}
+                                            ${returnToLetters}
                                     </form>
                                 </div>
                             </div>

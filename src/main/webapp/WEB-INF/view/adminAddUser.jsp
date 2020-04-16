@@ -90,7 +90,7 @@
                                         <fmt:message key="registration.email" var="email"/>
                                         <fmt:message key="admin.addUser.passwordGenerated" var="passwordGenerated"/>
                                         <fmt:message key="admin.addUser.addUserButton" var="addUserButton"/>
-                                        <fmt:message key="admin.addUser.attachAccount" var="backButton"/>
+                                        <fmt:message key="admin.addUser.attachAccount" var="returnToLetters"/>
                                         <fmt:message key="admin.addUser.nameError" var="nameError"/>
                                         <fmt:message key="admin.addUser.surnameError" var="surnameError"/>
                                         <fmt:message key="registration.phoneError" var="loginError"/>
@@ -209,7 +209,7 @@
                                                         <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit" class="btn btn-primary signup btn-default"
                                                                 style="width: 54%;">
-                                                                ${backButton}
+                                                                ${returnToLetters}
                                                         </button>
                                                     </form>
                                                 </div>
@@ -222,7 +222,7 @@
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default disabled"
                                                                 style="width: 54%;">
-                                                                ${backButton}
+                                                                ${returnToLetters}
                                                         </button>
                                                     </form>
                                                 </div>
