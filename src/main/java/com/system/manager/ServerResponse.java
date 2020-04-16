@@ -23,7 +23,8 @@ public enum ServerResponse {
     USER_HAS_FUNDS_ERROR("userHasFundsError"),
     USER_DELETED_ERROR("userDeletedError"),
     SHOW_USER_ACCOUNTS_ERROR("showUserAccountsError"),
-    SHOW_USER_PAYMENTS_ERROR("showUserPaymentsError");
+    SHOW_USER_PAYMENTS_ERROR("showUserPaymentsError"),
+    SHOW_LETTERS_ERROR("showLettersError");
 
     private final String response;
 

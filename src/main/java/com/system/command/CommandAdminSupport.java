@@ -1,7 +1,9 @@
 package com.system.command;
 
 import com.system.entity.Letter;
+import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.LetterService;
 
 import javax.servlet.ServletException;
@@ -14,30 +16,56 @@ import java.util.List;
 
 public class CommandAdminSupport implements ICommand {
 
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+        clearRequestAttributes(request);
 
-        List<Letter> letters = LetterService.getInstance().findAllLetters();
-        List<Letter> notProcessedLetters = new ArrayList<>();
+        String method = request.getMethod();
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
+            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SUPPORT);
+        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
 
-        for (Letter letter : letters) {
-            if (!letter.getIsProcessed()) {
-                notProcessedLetters.add(letter);
+            // Only not processed letters must be displayed on the site
+            List<Letter> letters = LetterService.getInstance().findAllLetters();
+
+            if (letters == null) {
+                setRequestAttributes(request, null, false);
+                request.setAttribute("response", ServerResponse.SHOW_LETTERS_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            List<Letter> notProcessedLetters = new ArrayList<>();
+            for (Letter letter : letters) {
+                if (!letter.getIsProcessed()) {
+                    notProcessedLetters.add(letter);
+                }
+            }
+
+            // Set Attributes
+            if (notProcessedLetters.isEmpty()) {
+                setRequestAttributes(request, null, false);
+            } else {
+                setRequestAttributes(request, notProcessedLetters, true);
             }
         }
 
-        if (notProcessedLetters.isEmpty()) {
-            request.setAttribute("showLetters", false);
-            return page;
-        }
+        return pathRedirect;
+    }
 
-        request.setAttribute("letters", notProcessedLetters);
-        request.setAttribute("showLetters", true);
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("letters", null);
+        request.setAttribute("showLetters", null);
+        request.setAttribute("response", "");
+    }
 
-        return page;
+    private void setRequestAttributes(HttpServletRequest request, List<Letter> letters, boolean showLetters) {
+        request.setAttribute("letters", letters);
+        request.setAttribute("showLetters", showLetters);
     }
 
 }

@@ -22,6 +22,18 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert showLettersError -->
+    <c:if test="${response eq 'showLettersError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertShowLettersError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-lg-2">
@@ -30,45 +42,45 @@
 
             <div class="col-lg-10">
                 <c:choose>
-                <c:when test="${showLetters}">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <fmt:message key="admin.support.allLetters" var="allLetters"/>
-                        <fmt:message key="admin.support.status" var="status"/>
-                        <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
-                        <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
-                        <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
-                        <fmt:message key="admin.support.showInfo" var="showInfo"/>
+                    <c:when test="${showLetters}">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <fmt:message key="admin.support.allLetters" var="allLetters"/>
+                                <fmt:message key="admin.support.status" var="status"/>
+                                <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
+                                <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
+                                <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
+                                <fmt:message key="admin.support.showInfo" var="showInfo"/>
 
-                            ${allLetters}
-                        User ID:
+                                    ${allLetters}
+                                User ID:
 
-                            ${timeToReceive}
-                            ${typeQuestion}
-                            ${showInfo}
-
-                        <c:forEach items="${letters}" var="letter">
-                            ${letter.letterId}
-                            ${letter.date}
-                            ${letter.typeQuestion}
-
-                            <a href="?command=showLetterInfo&letterId=${letter.letterId}">
+                                    ${timeToReceive}
+                                    ${typeQuestion}
                                     ${showInfo}
-                            </a>
-                        </c:forEach>
-                    </div>
-                </div>
+
+                                <c:forEach items="${letters}" var="letter">
+                                    ${letter.letterId}
+                                    ${letter.date}
+                                    ${letter.typeQuestion}
+
+                                    <a href="?command=showLetterInfo&letterId=${letter.letterId}">
+                                            ${showInfo}
+                                    </a>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="message-block">
+                            <label class="title-label float-left">
+                                <fmt:message key="admin.support.noLetters"/>
+                            </label>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
-        </c:when>
-        <c:otherwise>
-                <span class="title-label" style="margin-left: 25px;">
-                    <label>
-                        <b><fmt:message key="admin.support.noLetters"/></b>
-                    </label>
-                </span>
-        </c:otherwise>
-        </c:choose>
     </div>
     <jsp:include page="template/footer.jsp"/>
 </div>
