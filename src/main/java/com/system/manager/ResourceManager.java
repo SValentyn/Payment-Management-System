@@ -46,6 +46,7 @@ public class ResourceManager {
     public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";
     public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";
     public static final String COMMAND_ADMIN_SHOW_USER_ACCOUNTS = "COMMAND_ADMIN_SHOW_USER_ACCOUNTS";
+    public static final String COMMAND_ADMIN_SHOW_USER_PAYMENTS = "COMMAND_ADMIN_SHOW_USER_PAYMENTS";
     public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
 
     private static ResourceManager instance;
