@@ -1,8 +1,10 @@
 package com.system.utils;
 
 import com.system.entity.Account;
+import com.system.entity.Letter;
 import com.system.entity.User;
 import com.system.service.AccountService;
+import com.system.service.LetterService;
 import com.system.service.UserService;
 
 import java.sql.SQLException;
@@ -44,7 +46,7 @@ public class Validator {
     public static boolean checkUserIsAdmin(String userId) throws SQLException {
         if (!checkUserId(userId)) return false;
 
-        User user = UserService.getInstance().findUserById(Integer.parseInt(userId));
+        User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
         if (user.getRole().getRolename().equals("admin")) return false;
 
         return true;
@@ -62,7 +64,7 @@ public class Validator {
             userIds.add(user.getUserId());
         }
 
-        return userIds.contains(Integer.parseInt(userId));
+        return userIds.contains(Integer.valueOf(userId));
     }
 
     /**
@@ -78,6 +80,21 @@ public class Validator {
         }
 
         return accountIds.contains(Integer.valueOf(accountId));
+    }
+
+    /**
+     * @return true, if the identifier is a non-negative number and is in the system
+     */
+    public static boolean checkLetterId(String letterId) throws SQLException {
+        if (letterId == null || isNegative(letterId)) return false;
+
+        List<Letter> letters = LetterService.getInstance().findAllLetters();
+        List<Integer> letterIds = new ArrayList<>();
+        for (Letter letter : letters) {
+            letterIds.add(letter.getLetterId());
+        }
+
+        return letterIds.contains(Integer.valueOf(letterId));
     }
 
     /**
