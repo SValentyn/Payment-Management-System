@@ -1,47 +1,71 @@
 package com.system.command;
 
+import com.system.entity.Account;
+import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
-import com.system.service.LetterService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CommandAdminShowUserAccounts implements ICommand {
+
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
+        clearRequestAttributes(request);
 
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("showUserAccountsError", false);
+        String method = request.getMethod();
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
+            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER_ACCOUNTS);
+        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
 
-        // Data
-        String userIdParam = request.getParameter("userId");
+            // Data
+            String userIdParam = request.getParameter("userId");
 
-        // Validation
-        if (!validation(userIdParam)) {
-            request.setAttribute("showUserAccountsError", true);
-            return page;
+            // Validation
+            if (!Validator.checkUserId(userIdParam)) {
+                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+                return pathRedirect;
+            }
+
+            // Validation
+            if (!Validator.checkUserIsAdmin(userIdParam)) {
+                request.setAttribute("response", ServerResponse.SHOW_USER_ACCOUNTS_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            // Set Attributes
+            setRequestAttributes(request, Integer.parseInt(userIdParam));
         }
 
-        // Set Attributes
-        setRequestAttributes(request, Integer.parseInt(userIdParam));
-
-        return page;
+        return pathRedirect;
     }
 
-    private boolean validation(String userId) throws SQLException {
-        return Validator.checkUserId(userId);
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("userId", null);
+        request.setAttribute("accountsEmpty", null);
+        request.setAttribute("accounts", null);
+        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request, Integer userId) throws SQLException {
-        request.setAttribute("userId", userId);
-        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
+        if (accounts != null) {
+            request.setAttribute("userId", userId);
+            request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
+            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
+        } else {
+            request.setAttribute("response", ServerResponse.SHOW_USER_ACCOUNTS_ERROR.getResponse());
+        }
     }
 
 }

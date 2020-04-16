@@ -21,7 +21,8 @@ public enum ServerResponse {
     DATA_UPDATED_ERROR("dataUpdatedError"),
     USER_DELETED_SUCCESS("userDeletedSuccess"),
     USER_HAS_FUNDS_ERROR("userHasFundsError"),
-    USER_DELETED_ERROR("userDeletedError");
+    USER_DELETED_ERROR("userDeletedError"),
+    SHOW_USER_ACCOUNTS_ERROR("showUserAccountsError");
 
     private final String response;
 
