@@ -38,7 +38,10 @@ public class CommandAdminShowUser implements ICommand {
 
             // Validation
             if (!Validator.checkUserId(userIdParam)) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+                // The "response" can already store the value obtained from another command
+                if (request.getAttribute("response") == "") {
+                    request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+                }
                 return pathRedirect;
             }
 

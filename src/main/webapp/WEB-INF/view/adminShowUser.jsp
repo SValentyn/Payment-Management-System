@@ -163,7 +163,7 @@
 
                                         <!-- Perhaps there was an error or the viewableUser was deleted from the system -->
                                         <c:choose>
-                                            <c:when test="${response ne 'showUserError' && response ne 'unableGetUserId'}">
+                                            <c:when test="${response ne 'unableGetUserId' && response ne 'showUserError' && response ne 'userDeletedError'}">
                                                 <jsp:useBean id="viewableUser" scope="request"
                                                              type="com.system.entity.User"/>
 

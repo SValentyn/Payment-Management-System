@@ -34,7 +34,13 @@ public class CommandAdminDeleteUser implements ICommand {
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
+            if (!Validator.checkUserId(userIdParam)) {
+                return pathRedirect;
+            }
+
+            // Validation
+            if (!Validator.checkUserIsAdmin(userIdParam)) {
+                request.getSession().setAttribute("response", ServerResponse.USER_DELETED_ERROR.getResponse());
                 return pathRedirect;
             }
 
