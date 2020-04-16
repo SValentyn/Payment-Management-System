@@ -49,6 +49,7 @@ public class ResourceManager {
     public static final String COMMAND_ADMIN_SHOW_USER_PAYMENTS = "COMMAND_ADMIN_SHOW_USER_PAYMENTS";
     public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
     public static final String COMMAND_ADMIN_SUPPORT = "COMMAND_ADMIN_SUPPORT";
+    public static final String COMMAND_ADMIN_SHOW_LETTER_INFO = "COMMAND_ADMIN_SHOW_LETTER_INFO";
 
     private static ResourceManager instance;
     private ResourceBundle resourceBundle;

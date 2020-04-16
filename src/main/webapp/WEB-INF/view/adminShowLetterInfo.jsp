@@ -24,10 +24,10 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${processed == true}">
+    <c:if test="${response eq 'letterProcessedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertLetterProcessed"/>
+                <fmt:message key="admin.page.alertLetterProcessedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -35,12 +35,46 @@
         </div>
     </c:if>
 
-    <!-- Alert letterError -->
-    <c:if test="${letterError == true}">
+    <!-- Alert unableGetLetterId -->
+    <c:if test="${response eq 'unableGetLetterId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetLetterIdError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert showLetterError -->
+    <c:if test="${response eq 'showLetterError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
-                <fmt:message key="admin.page.alertLetterError"/>
+                <fmt:message key="admin.page.alertShowLetterError"/>
             </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert letterProcessedError -->
+    <c:if test="${response eq 'letterProcessedError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertLetterProcessedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert letterWasProcessed -->
+    <c:if test="${response eq 'letterWasProcessed'}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p><fmt:message key="admin.page.alertLetterWasProcessedWarning"/></p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -54,120 +88,155 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="admin.letter.title" var="title"/>
+                <fmt:message key="admin.letter.letterFromUser" var="letterFromUser"/>
+                <fmt:message key="admin.letter.user_bio" var="user_bio"/>
+                <fmt:message key="admin.letter.phone" var="user_phone"/>
+                <fmt:message key="admin.letter.email" var="user_email"/>
+                <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
+                <fmt:message key="admin.letter.description" var="letter_description"/>
+                <fmt:message key="admin.letter.processedButton" var="processedButton"/>
+                <fmt:message key="admin.letter.returnToLetters" var="returnToLetters"/>
+
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-xl-8 offset-xl-1 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="admin.letter.title" var="title"/>
-                                        <fmt:message key="admin.letter.letterFromUser" var="letterFromUser"/>
-                                        <fmt:message key="admin.letter.user_bio" var="user_bio"/>
-                                        <fmt:message key="admin.letter.phone" var="user_phone"/>
-                                        <fmt:message key="admin.letter.email" var="user_email"/>
-                                        <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
-                                        <fmt:message key="admin.letter.description" var="letter_description"/>
-                                        <fmt:message key="admin.letter.processedButton" var="processedButton"/>
-                                        <fmt:message key="admin.letter.backButton" var="backButton"/>
 
                                         <h4 style="margin-bottom: 25px;">
                                             ${letterFromUser}
                                         </h4>
 
-                                        <form action="" role="form" method="POST">
-                                            <input type="hidden" name="command" value="showLetterInfo">
+                                        <!-- Perhaps there was an error or the letter was processed -->
+                                        <c:choose>
+                                            <c:when test="${response ne 'unableGetLetterId' && response ne 'showLetterError' && response ne 'letterProcessedSuccess'}">
+                                                <form action="" role="form" method="POST">
+                                                    <input type="hidden" name="command" value="showLetterInfo">
 
-                                            <!-- Letter Id -->
-                                            <input id="letterId" name="letterId" type="hidden" value="${letterId}"/>
+                                                    <!-- Letter Id -->
+                                                    <input id="letterId" name="letterId" type="hidden"
+                                                           value="${letterId}"/>
 
-                                            <div class="form-row">
-                                                <div class="col-md-6">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
 
-                                                    <!-- User bio -->
-                                                    <div>
-                                                        <label class="for-form-label">
-                                                            ${user_bio}:
-                                                        </label>
-                                                        <input id="bio" name="bio" type="text" class="form-control"
-                                                               style="margin-top: 0;" readonly="readonly"
-                                                               value="${bioValue}"/>
-                                                        <label for="bio" class="default-label"></label>
-                                                    </div>
+                                                            <!-- User bio -->
+                                                            <div>
+                                                                <label class="for-form-label">
+                                                                        ${user_bio}:
+                                                                </label>
+                                                                <input id="bio" name="bio" type="text"
+                                                                       class="form-control"
+                                                                       style="margin-top: 0;" readonly="readonly"
+                                                                       value="${bioValue}"/>
+                                                                <label for="bio" class="default-label"></label>
+                                                            </div>
 
-                                                    <!-- Phone -->
-                                                    <div>
-                                                        <label class="for-form-label">
-                                                            ${user_phone}:
-                                                        </label>
-                                                        <input id="phone" name="phone" type="tel"
-                                                               class="form-control" readonly="readonly"
-                                                               value="${phoneValue}"/>
-                                                    </div>
-                                                    <label for="phone" class="default-label"></label>
+                                                            <!-- Phone -->
+                                                            <div>
+                                                                <label class="for-form-label">
+                                                                        ${user_phone}:
+                                                                </label>
+                                                                <input id="phone" name="phone" type="tel"
+                                                                       class="form-control" readonly="readonly"
+                                                                       value="${phoneValue}"/>
+                                                            </div>
+                                                            <label for="phone" class="default-label"></label>
 
-                                                    <!-- Email -->
-                                                    <div>
-                                                        <label class="for-form-label">
-                                                            ${user_email}:
-                                                        </label>
-                                                        <input id="email" name="email" type="email"
-                                                               class="form-control" style="margin-top: 0;"
-                                                               readonly="readonly"
-                                                               value="${emailValue}"/>
-                                                        <label for="email" class="default-label"></label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-
-                                                    <!-- Type Question -->
-                                                    <div>
-                                                        <label class="for-form-label">
-                                                            ${typeQuestion}:
-                                                        </label>
-                                                        <input id="typeQuestion" name="typeQuestion" type="text"
-                                                               class="form-control" style="margin-top: 0;"
-                                                               readonly="readonly"
-                                                               value="${typeQuestionValue}"/>
-                                                        <label for="typeQuestion" class="default-label"></label>
-                                                    </div>
-
-                                                    <!-- Description -->
-                                                    <div class="textarea-parent">
-                                                        <label class="for-form-label">
-                                                            ${letter_description}:
-                                                        </label>
-                                                        <div>
-                                                            <textarea id="description" name="description"
-                                                                      class="form-control"
-                                                                      style="min-height: 123px; padding-right: .75rem; resize: none;"
-                                                                      readonly="readonly"
-                                                            >${descriptionValue}</textarea>
+                                                            <!-- Email -->
+                                                            <div>
+                                                                <label class="for-form-label">
+                                                                        ${user_email}:
+                                                                </label>
+                                                                <input id="email" name="email" type="email"
+                                                                       class="form-control" style="margin-top: 0;"
+                                                                       readonly="readonly"
+                                                                       value="${emailValue}"/>
+                                                                <label for="email" class="default-label"></label>
+                                                            </div>
                                                         </div>
-                                                        <label for="description" class="default-label"></label>
+
+                                                        <div class="col-md-6">
+
+                                                            <!-- Type Question -->
+                                                            <div>
+                                                                <label class="for-form-label">
+                                                                        ${typeQuestion}:
+                                                                </label>
+                                                                <input id="typeQuestion" name="typeQuestion" type="text"
+                                                                       class="form-control" style="margin-top: 0;"
+                                                                       readonly="readonly"
+                                                                       value="${typeQuestionValue}"/>
+                                                                <label for="typeQuestion" class="default-label"></label>
+                                                            </div>
+
+                                                            <!-- Description -->
+                                                            <div class="textarea-parent">
+                                                                <label class="for-form-label">
+                                                                        ${letter_description}:
+                                                                </label>
+                                                                <div>
+                                                                    <textarea id="description" name="description"
+                                                                              class="form-control"
+                                                                              style="min-height: 123px; padding-right: .75rem; resize: none;"
+                                                                              readonly="readonly"
+                                                                    >${descriptionValue}</textarea>
+                                                                </div>
+                                                                <label for="description" class="default-label"></label>
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    <!-- Submit -->
+                                                    <c:choose>
+                                                        <c:when test="${response ne 'letterWasProcessed'}">
+                                                            <div class="action" style="padding: 25px 0 10px 0">
+                                                                <button id="submit" type="submit"
+                                                                        class="btn btn-primary signup"
+                                                                        style="width: 62%;">
+                                                                        ${processedButton}
+                                                                </button>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="action" style="padding: 25px 0 10px 0">
+                                                                <button id="" type="submit"
+                                                                        class="btn btn-primary signup disabled"
+                                                                        disabled="disabled" style="width: 62%;">
+                                                                        ${processedButton}
+                                                                </button>
+                                                            </div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </form>
+
+                                                <!-- Return to Letters -->
+                                                <div class="action back-btn">
+                                                    <form action="/" method="GET" role="form">
+                                                        <input type="hidden" name="command" value="support">
+                                                        <button type="submit"
+                                                                class="btn btn-primary signup btn-default"
+                                                                style="width: 62%;">
+                                                                ${returnToLetters}
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                            </div>
+                                            </c:when>
+                                            <c:otherwise>
 
-                                            <!-- Submit -->
-                                            <div class="action" style="padding: 25px 0 10px 0">
-                                                <button id="submit" type="submit" class="btn btn-primary signup"
-                                                        style="width: 62%;">
-                                                    ${processedButton}
-                                                </button>
-                                            </div>
-                                        </form>
-
-                                        <!-- Back Button -->
-                                        <div class="action back-btn">
-                                            <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="support">
-                                                <button type="submit" class="btn btn-primary signup btn-default"
-                                                        style="width: 62%;">
-                                                    ${backButton}
-                                                </button>
-                                            </form>
-                                        </div>
+                                                <!-- Return to Letters -->
+                                                <div class="message-block">
+                                                    <label class="title-label">
+                                                        <a href="?command=support" class="float-left">
+                                                            <span class="arrow-link-symbol-left">←</span>
+                                                                ${returnToLetters}
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>

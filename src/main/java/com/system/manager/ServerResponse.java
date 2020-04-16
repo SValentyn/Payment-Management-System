@@ -24,7 +24,12 @@ public enum ServerResponse {
     USER_DELETED_ERROR("userDeletedError"),
     SHOW_USER_ACCOUNTS_ERROR("showUserAccountsError"),
     SHOW_USER_PAYMENTS_ERROR("showUserPaymentsError"),
-    SHOW_LETTERS_ERROR("showLettersError");
+    SHOW_LETTERS_ERROR("showLettersError"),
+    UNABLE_GET_LETTER_ID("unableGetLetterId"),
+    SHOW_LETTER_ERROR("showLetterError"),
+    LETTER_PROCESSED_SUCCESS("letterProcessedSuccess"),
+    LETTER_WAS_PROCESSED("letterWasProcessed"),
+    LETTER_PROCESSED_ERROR("letterProcessedError");
 
     private final String response;
 

@@ -55,12 +55,14 @@ public class LetterService {
     /**
      * Checks if letter id not null and updates it
      */
-    public void updateLetterByLetterId(Integer letterId) {
+    public int updateLetterByLetterId(Integer letterId) {
+        int status = 0;
         if (letterId != null) {
             Letter letter = findLetterByLetterId(letterId);
             letter.setIsProcessed(true);
-            letterDao.update(letter);
+            status = letterDao.update(letter);
         }
+        return status;
     }
 
     /**
