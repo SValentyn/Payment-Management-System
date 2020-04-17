@@ -128,6 +128,30 @@
         </div>
     </c:if>
 
+    <!-- Alert accountBlockedError -->
+    <c:if test="${response eq 'accountBlockedError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertAccountBlockedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert accountUnblockedError -->
+    <c:if test="${response eq 'accountUnblockedError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertAccountUnblockedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert accountDeletedSuccess -->
     <c:if test="${response eq 'accountDeletedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
@@ -164,54 +188,6 @@
         </div>
     </c:if>
 
-    <!-- Alert accountBlockedError -->
-    <c:if test="${response eq 'accountBlockedError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertAccountBlockedError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert accountUnblockedError -->
-    <c:if test="${response eq 'accountUnblockedError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertAccountUnblockedError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardDetached -->
-    <c:if test="${response eq 'cardDetached'}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertCardDetached"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert detachCardError -->
-    <c:if test="${response eq 'detachCardError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertDetachCardError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <!-- Alert cardBlockedSuccess -->
     <c:if test="${response eq 'cardBlockedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
@@ -236,11 +212,11 @@
         </div>
     </c:if>
 
-    <!-- Alert cardUnblocked -->
-    <c:if test="${response eq 'cardUnblocked'}">
+    <!-- Alert cardUnblockedSuccess -->
+    <c:if test="${response eq 'cardUnblockedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertCardUnblocked"/>
+                <fmt:message key="admin.page.alertCardUnblockedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -248,11 +224,35 @@
         </div>
     </c:if>
 
-    <!-- Alert unblockCardError -->
-    <c:if test="${response eq 'unblockCardError'}">
+    <!-- Alert cardUnblockedError -->
+    <c:if test="${response eq 'cardUnblockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnblockCardError"/>
+                <fmt:message key="admin.page.alertCardUnblockedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert cardDetached -->
+    <c:if test="${response eq 'cardDetached'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertCardDetached"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert detachCardError -->
+    <c:if test="${response eq 'detachCardError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertDetachCardError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -619,7 +619,7 @@
                                                                                                             </a>
                                                                                                         </c:when>
                                                                                                         <c:otherwise>
-                                                                                                            <a href="?command=unblockCard&cardNumber=${card.number}"
+                                                                                                            <a href="?command=unblockCard&accountId=${viewableAccount.accountId}&cardNumber=${card.number}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/unlocked-link.png"
                                                                                                                      alt="${unblockCard}">

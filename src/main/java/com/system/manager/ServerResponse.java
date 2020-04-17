@@ -33,6 +33,8 @@ public enum ServerResponse {
     ACCOUNT_DELETED_ERROR("accountDeletedError"),
     CARD_BLOCKED_SUCCESS("cardBlockedSuccess"),
     CARD_BLOCKED_ERROR("cardBlockedError"),
+    CARD_UNBLOCKED_SUCCESS("cardUnblockedSuccess"),
+    CARD_UNBLOCKED_ERROR("cardUnblockedError"),
     SHOW_LETTERS_ERROR("showLettersError"),
     UNABLE_GET_LETTER_ID("unableGetLetterId"),
     SHOW_LETTER_ERROR("showLetterError"),
