@@ -164,11 +164,11 @@
         </div>
     </c:if>
 
-    <!-- Alert blockAccountError -->
-    <c:if test="${response eq 'blockAccountError'}">
+    <!-- Alert accountBlockedError -->
+    <c:if test="${response eq 'accountBlockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertBlockAccountError"/>
+                <fmt:message key="admin.page.alertAccountBlockedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -176,11 +176,11 @@
         </div>
     </c:if>
 
-    <!-- Alert unblockAccountError -->
-    <c:if test="${response eq 'unblockAccountError'}">
+    <!-- Alert accountUnblockedError -->
+    <c:if test="${response eq 'accountUnblockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnblockAccountError"/>
+                <fmt:message key="admin.page.alertAccountUnblockedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -212,11 +212,11 @@
         </div>
     </c:if>
 
-    <!-- Alert cardBlocked -->
-    <c:if test="${response eq 'cardBlocked'}">
+    <!-- Alert cardBlockedSuccess -->
+    <c:if test="${response eq 'cardBlockedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertCardBlocked"/>
+                <fmt:message key="admin.page.alertCardBlockedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -224,11 +224,11 @@
         </div>
     </c:if>
 
-    <!-- Alert blockCardError -->
-    <c:if test="${response eq 'blockCardError'}">
+    <!-- Alert cardBlockedError -->
+    <c:if test="${response eq 'cardBlockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertBlockCardError"/>
+                <fmt:message key="admin.page.alertCardBlockedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -612,7 +612,7 @@
                                                                                                     </a>
                                                                                                     <c:choose>
                                                                                                         <c:when test="${card.isActive}">
-                                                                                                            <a href="?command=blockCard&cardNumber=${card.number}"
+                                                                                                            <a href="?command=blockCard&accountId=${viewableAccount.accountId}&cardNumber=${card.number}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/locked-link.png"
                                                                                                                      alt="${blockCard}">

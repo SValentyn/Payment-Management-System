@@ -2,81 +2,85 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.entity.BankCard;
+import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
 import com.system.service.BankCardService;
-import com.system.service.LetterService;
-import com.system.service.PaymentService;
+import com.system.utils.Validator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandAdminBlockCard implements ICommand {
+
+    private static final Logger LOGGER = LogManager.getLogger(CommandAdminBlockCard.class);
+
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+        clearRequestAttributes(request);
 
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("showAccountError", false);
-        request.setAttribute("blockCardError", false);
-        request.setAttribute("cardBlocked", false);
+        String method = request.getMethod();
+        if (method.equalsIgnoreCase(HTTPMethod.GET.name()) || method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
-        // Data
-        String cardNumber = request.getParameter("cardNumber");
+            // Data
+            String accountIdParam = request.getParameter("accountId");
+            String cardNumberParam = request.getParameter("cardNumber");
 
-        // Check
-        if (cardNumber == null) {
-            request.setAttribute("blockCardError", true);
-            return page;
+            // Validation
+            if (!Validator.checkAccountId(accountIdParam)) {
+                return pathRedirect;
+            }
+
+            pathRedirect += "&accountId=" + accountIdParam;
+
+            // Validation
+            if (!Validator.checkCardNumber(cardNumberParam)) {
+                request.getSession().setAttribute("response", ServerResponse.CARD_BLOCKED_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            // Data
+            BankCard card = BankCardService.getInstance().findCardByCardNumber(cardNumberParam);
+
+            // Check
+            if (card == null) {
+                request.getSession().setAttribute("response", ServerResponse.CARD_BLOCKED_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            // Data
+            Account accountByAccountId = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+            Account accountByCard = AccountService.getInstance().findAccountByAccountId(card.getAccountId());
+
+            // Check
+            if (!accountByAccountId.equals(accountByCard)) {
+                request.getSession().setAttribute("response", ServerResponse.CARD_BLOCKED_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            // Action
+            int status = BankCardService.getInstance().blockBankCard(card.getCardId());
+            if (status == 0) {
+                request.getSession().setAttribute("response", ServerResponse.CARD_BLOCKED_ERROR.getResponse());
+            } else {
+                request.getSession().setAttribute("response", ServerResponse.CARD_BLOCKED_SUCCESS.getResponse());
+            }
         }
 
-        // Data
-        Account account = (Account) request.getSession().getAttribute("viewableAccount");
+        return pathRedirect;
+    }
 
-        // Check
-        if (account == null) {
-            request.setAttribute("blockCardError", true);
-            return page;
-        }
-
-        // Data
-        Integer accountId = account.getAccountId();
-        List<BankCard> cards = BankCardService.getInstance().findCardsByAccountId(accountId);
-        List<String> cardNumbers = new ArrayList<>();
-        for (BankCard card : cards) {
-            cardNumbers.add(card.getNumber());
-        }
-
-        // Check
-        if (!cardNumbers.contains(cardNumber)) {
-            request.setAttribute("blockCardError", true);
-            return page;
-        }
-
-        // Data
-        Integer cardId = BankCardService.getInstance().findCardByCardNumber(cardNumber).getCardId();
-
-        // Action
-        int status = BankCardService.getInstance().blockBankCard(cardId);
-        if (status == 0) {
-            request.setAttribute("blockCardError", true);
-        } else {
-            request.setAttribute("cardBlocked", true);
-        }
-
-        // Set Attributes
-        request.getSession().setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(account.getAccountId()));
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountId).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountId).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
-        request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountId));
-
-        return page;
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("response", "");
     }
 
 }
