@@ -37,8 +37,8 @@ public class CommandAdminShowAccountInfo implements ICommand {
             // Set Attributes
             setRequestAttributes(request);
 
-            // The "response" can already store the value obtained from another command
-            if (request.getAttribute("response") != "") {
+            // Return from the command if the account was successfully deleted
+            if (request.getAttribute("response") == "accountDeletedSuccess") {
                 return pathRedirect;
             }
 
