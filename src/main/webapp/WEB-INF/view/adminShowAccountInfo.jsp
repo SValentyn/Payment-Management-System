@@ -90,6 +90,7 @@
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="detachCard">
+                        <input type="hidden" name="accountId" value="${viewableAccount.accountId}">
                         <input type="hidden" name="cardNumber" id="cardNumber"/>
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
@@ -236,11 +237,11 @@
         </div>
     </c:if>
 
-    <!-- Alert cardDetached -->
-    <c:if test="${response eq 'cardDetached'}">
+    <!-- Alert cardDetachedSuccess -->
+    <c:if test="${response eq 'cardDetachedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertCardDetached"/>
+                <fmt:message key="admin.page.alertCardDetachedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -248,11 +249,11 @@
         </div>
     </c:if>
 
-    <!-- Alert detachCardError -->
-    <c:if test="${response eq 'detachCardError'}">
+    <!-- Alert cardDetachedError -->
+    <c:if test="${response eq 'cardDetachedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertDetachCardError"/>
+                <fmt:message key="admin.page.alertCardDetachedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
