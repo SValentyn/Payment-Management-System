@@ -41,6 +41,7 @@ detachCardModal.on('shown.bs.modal', function () {
     $('#cardNumberText').val(cardNumber);
 });
 
+
 document.addEventListener('keyup', function (e) {
     if (e.keyCode === 27) {
         deleteAccountModal.modal('hide');

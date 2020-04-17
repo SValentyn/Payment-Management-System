@@ -3,7 +3,6 @@ package com.system.service;
 import com.system.entity.Account;
 import com.system.entity.BankCard;
 import com.system.persistence.dao.AccountDao;
-import com.system.persistence.dao.BankCardDao;
 import com.system.persistence.factory.DaoFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -102,22 +101,23 @@ public class AccountService {
      * In addition, detaches all attached cards to the account
      */
     public int deleteAccountByAccountId(Integer accountId) throws SQLException {
+        int status = 0;
+
         if (accountId != null) {
             BigDecimal balance = AccountService.getInstance().findAccountByAccountId(accountId).getBalance();
             if (balance.compareTo(BigDecimal.ZERO) != 0) {
                 return -1;
             }
 
-            int result = accountDao.delete(accountId);
-            if (result != 0) {
+            status = accountDao.delete(accountId);
+            if (status != 0) {
                 List<BankCard> cards = BankCardService.getInstance().findCardsByAccountId(accountId);
                 for (BankCard card : cards) {
                     BankCardService.getInstance().deleteCardById(card.getCardId());
                 }
             }
-            return result;
         }
-        return -2;
+        return status;
     }
 
     /**

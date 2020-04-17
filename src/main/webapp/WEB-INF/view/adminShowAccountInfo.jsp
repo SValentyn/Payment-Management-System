@@ -128,11 +128,11 @@
         </div>
     </c:if>
 
-    <!-- Alert accountDeleted -->
-    <c:if test="${response eq 'accountDeleted'}">
+    <!-- Alert accountDeletedSuccess -->
+    <c:if test="${response eq 'accountDeletedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertAccountDeleted"/>
+                <fmt:message key="admin.page.alertAccountDeletedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -152,11 +152,11 @@
         </div>
     </c:if>
 
-    <!-- Alert deleteAccountError -->
-    <c:if test="${response eq 'deleteAccountError'}">
+    <!-- Alert accountDeletedError -->
+    <c:if test="${response eq 'accountDeletedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertDeleteAccountError"/>
+                <fmt:message key="admin.page.alertAccountDeletedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -305,9 +305,8 @@
 
                                         <c:choose>
                                             <c:when test="${response ne 'unableGetAccountId'
-                                                            && response ne 'showAccountError'
-                                                            && response ne 'blockAccountError'
-                                                            && response ne 'unblockAccountError'}">
+                                                         && response ne 'showAccountError'
+                                                         && response ne 'accountDeletedSuccess'}">
                                                 <jsp:useBean id="viewableAccount" scope="request"
                                                              type="com.system.entity.Account"/>
                                                 <jsp:useBean id="viewableUser" scope="request"
