@@ -304,7 +304,9 @@
                                         </h4>
 
                                         <c:choose>
-                                            <c:when test="${response ne 'unableGetAccountId' && response ne 'showAccountError'}">
+                                            <c:when test="${response ne 'unableGetAccountId'
+                                                            && response ne 'showAccountError'
+                                                            && response ne 'blockAccountError'}">
                                                 <jsp:useBean id="viewableAccount" scope="request"
                                                              type="com.system.entity.Account"/>
                                                 <jsp:useBean id="viewableUser" scope="request"
@@ -416,11 +418,19 @@
                                                                         <c:otherwise>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-blockAccount-list" role="tab"
-                                                                               href="?command=blockAccount&accountId=${viewableAccount.accountId}"
+                                                                               href="?command=blockAccount"
+                                                                               onclick="document.getElementById('form-blockAccount').submit(); return false;"
                                                                                aria-controls="blockAccount">
                                                                                     ${blockAccount} <span
                                                                                     class="arrow-link-symbol-right">→</span>
                                                                             </a>
+                                                                            <form action="/" method="POST"
+                                                                                  id="form-blockAccount" role="form">
+                                                                                <input type="hidden" name="command"
+                                                                                       value="blockAccount">
+                                                                                <input type="hidden" name="accountId"
+                                                                                       value="${viewableAccount.accountId}">
+                                                                            </form>
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-danger"

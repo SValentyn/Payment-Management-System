@@ -14,6 +14,7 @@ import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -32,6 +33,14 @@ public class CommandAdminShowAccountInfo implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
         } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+
+            // Set Attributes
+            setRequestAttributes(request);
+
+            // The "response" can already store the value obtained from another command
+            if (request.getAttribute("response") != "") {
+                return pathRedirect;
+            }
 
             // Data
             String accountIdParam = request.getParameter("accountId");
@@ -57,6 +66,16 @@ public class CommandAdminShowAccountInfo implements ICommand {
         request.setAttribute("cardsEmpty", null);
         request.setAttribute("cards", null);
         request.setAttribute("response", "");
+    }
+
+    private void setRequestAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
     }
 
     private void setRequestAttributes(HttpServletRequest request, Integer accountId) throws SQLException {
