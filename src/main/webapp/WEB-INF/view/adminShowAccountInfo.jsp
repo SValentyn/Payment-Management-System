@@ -306,7 +306,8 @@
                                         <c:choose>
                                             <c:when test="${response ne 'unableGetAccountId'
                                                             && response ne 'showAccountError'
-                                                            && response ne 'blockAccountError'}">
+                                                            && response ne 'blockAccountError'
+                                                            && response ne 'unblockAccountError'}">
                                                 <jsp:useBean id="viewableAccount" scope="request"
                                                              type="com.system.entity.Account"/>
                                                 <jsp:useBean id="viewableUser" scope="request"
@@ -409,11 +410,19 @@
                                                                         <c:when test="${viewableAccount.isBlocked}">
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-unblockAccount-list" role="tab"
-                                                                               href="?command=unblockAccount&accountId=${viewableAccount.accountId}"
+                                                                               href="?command=unblockAccount"
+                                                                               onclick="document.getElementById('form-unblockAccount').submit(); return false;"
                                                                                aria-controls="unblockAccount">
                                                                                     ${unblockAccount} <span
                                                                                     class="arrow-link-symbol-right">→</span>
                                                                             </a>
+                                                                            <form action="/" method="POST"
+                                                                                  id="form-unblockAccount" role="form">
+                                                                                <input type="hidden" name="command"
+                                                                                       value="unblockAccount">
+                                                                                <input type="hidden" name="accountId"
+                                                                                       value="${viewableAccount.accountId}">
+                                                                            </form>
                                                                         </c:when>
                                                                         <c:otherwise>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"

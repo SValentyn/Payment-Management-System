@@ -27,6 +27,7 @@ public enum ServerResponse {
     UNABLE_GET_ACCOUNT_ID("unableGetAccountId"),
     SHOW_ACCOUNT_ERROR("showAccountError"),
     BLOCK_ACCOUNT_ERROR("blockAccountError"),
+    UNBLOCK_ACCOUNT_ERROR("unblockAccountError"),
     SHOW_LETTERS_ERROR("showLettersError"),
     UNABLE_GET_LETTER_ID("unableGetLetterId"),
     SHOW_LETTER_ERROR("showLetterError"),

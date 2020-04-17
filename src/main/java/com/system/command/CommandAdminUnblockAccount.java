@@ -1,8 +1,9 @@
 package com.system.command;
 
-import com.system.entity.Account;
+import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
-import com.system.service.*;
+import com.system.manager.ServerResponse;
+import com.system.service.AccountService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,47 +12,43 @@ import java.sql.SQLException;
 
 public class CommandAdminUnblockAccount implements ICommand {
 
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+        clearRequestAttributes(request);
 
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("showAccountError", false);
-        request.setAttribute("unblockAccountError", false);
+        String method = request.getMethod();
+        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            request.setAttribute("response", ServerResponse.UNBLOCK_ACCOUNT_ERROR.getResponse());
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
-        // Data
-        String accountIdParam = request.getParameter("accountId");
+            // Data
+            String accountIdParam = request.getParameter("accountId");
 
-        // Validation
-        if (!Validator.checkAccountId(accountIdParam)) {
-            request.setAttribute("showAccountError", true);
-            return page;
+            // Validation
+            if (!Validator.checkAccountId(accountIdParam)) {
+                return pathRedirect;
+            }
+
+            pathRedirect += "&accountId=" + accountIdParam;
+
+            // Action
+            int status = AccountService.getInstance().unblockAccount(Integer.valueOf(accountIdParam));
+            if (status == 0) {
+                request.getSession().setAttribute("response", ServerResponse.UNBLOCK_ACCOUNT_ERROR.getResponse());
+            }
         }
 
-        // Data
-        Integer accountId = Integer.valueOf(accountIdParam);
-
-        // Action
-        int status = AccountService.getInstance().unblockAccount(accountId);
-        if (status == 0) {
-            setRequestAttributes(request, accountId);
-            request.setAttribute("unblockAccountError", true);
-        } else {
-            setRequestAttributes(request, accountId);
-        }
-
-        return page;
+        return pathRedirect;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer accountId) throws SQLException {
-        Account viewableAccount = AccountService.getInstance().findAccountByAccountId(accountId);
-        request.setAttribute("viewableAccount", AccountService.getInstance().findAccountByAccountId(accountId));
-        request.setAttribute("viewableUser", UserService.getInstance().findUserById(viewableAccount.getUserId()));
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findAllPaymentsByAccountId(accountId).isEmpty());
-        request.setAttribute("cardsEmpty", BankCardService.getInstance().findCardsByAccountId(accountId).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findAllPaymentsByAccountId(accountId));
-        request.setAttribute("cards", BankCardService.getInstance().findCardsByAccountId(accountId));
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("response", "");
     }
 
 }
