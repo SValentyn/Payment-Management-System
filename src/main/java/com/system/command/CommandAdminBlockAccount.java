@@ -21,10 +21,7 @@ public class CommandAdminBlockAccount implements ICommand {
         clearRequestAttributes(request);
 
         String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            request.setAttribute("response", ServerResponse.BLOCK_ACCOUNT_ERROR.getResponse());
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        if (method.equalsIgnoreCase(HTTPMethod.GET.name()) || method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
             // Data
