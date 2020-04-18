@@ -253,6 +253,7 @@
                                                                                     class="arrow-link-symbol-right">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-danger"
+                                                                               style="margin-top: 1px;"
                                                                                id="list-deleteUser-list"
                                                                                onclick="showModal()"
                                                                                href="#smallModal?name=${viewableUser.name}&surname=${viewableUser.surname}"
@@ -326,7 +327,7 @@
                                                                                                                         ${remained}: ${payment.newBalance} ${payment.senderCurrency}
 
                                                                                                                     <!-- Show Payment Info -->
-                                                                                                                    <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                                    <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                        style="float: right">
                                                                                                                         <img src="resources/images/info.png"
                                                                                                                              alt="">
@@ -352,7 +353,7 @@
                                                                                                                         ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
 
                                                                                                                     <!-- Show Payment Info -->
-                                                                                                                    <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                                    <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                        style="float: right">
                                                                                                                         <img src="resources/images/info.png"
                                                                                                                              alt="">

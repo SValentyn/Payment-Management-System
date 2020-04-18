@@ -341,21 +341,24 @@
                                                                 </c:choose>
 
                                                                 <!-- Account Number -->
-                                                                <label class="for-form-label" style="margin-top: 5px;">
-                                                                        ${accountNumber}:
-                                                                </label>
                                                                 <div>
+                                                                    <label class="for-form-label"
+                                                                           style="margin-top: 5px;">
+                                                                            ${accountNumber}:
+                                                                    </label>
                                                                     <input id="number" name="number" type="text"
                                                                            class="form-control" readonly="readonly"
                                                                            value="${viewableAccount.number}"/>
-                                                                    <label for="number" class="default-label"></label>
+                                                                    <label for="number"
+                                                                           class="default-label"></label>
                                                                 </div>
 
                                                                 <!-- Account Owner -->
-                                                                <label class="for-form-label">
-                                                                        ${accountOwner}:
-                                                                </label>
                                                                 <div>
+                                                                    <label class="for-form-label">
+                                                                            ${accountOwner}:
+                                                                    </label>
+
                                                                     <input id="owner" name="owner" type="text"
                                                                            class="form-control" readonly="readonly"
                                                                            value="${viewableUser.name} ${viewableUser.surname}"/>
@@ -363,21 +366,24 @@
                                                                 </div>
 
                                                                 <!-- Account Balance and Currency -->
-                                                                <label class="for-form-label">
-                                                                        ${accountBalance}:
-                                                                </label>
-                                                                <div style="display: flex; margin-bottom: 25px;">
-                                                                    <input id="balance" name="balance" type="text"
-                                                                           class="form-control" readonly="readonly"
-                                                                           style="min-width: 49%; margin-right: 1%;"
-                                                                           value="${viewableAccount.balance}"/>
-                                                                    <div id="currency"
-                                                                         class="bfh-selectbox bfh-currencies"
-                                                                         style="min-width: 49%; margin-left: 1%; pointer-events: none;"
-                                                                         data-currency="${viewableAccount.currency}"
-                                                                         data-flags="true">
+                                                                <div>
+                                                                    <label class="for-form-label">
+                                                                            ${accountBalance}:
+                                                                    </label>
+                                                                    <div style="display: flex; margin-bottom: 25px;">
+                                                                        <input id="balance" name="balance" type="text"
+                                                                               class="form-control" readonly="readonly"
+                                                                               style="min-width: 49%; margin-right: 1%;"
+                                                                               value="${viewableAccount.balance}"/>
+                                                                        <div id="currency"
+                                                                             class="bfh-selectbox bfh-currencies"
+                                                                             style="min-width: 49%; margin-left: 1%; pointer-events: none;"
+                                                                             data-currency="${viewableAccount.currency}"
+                                                                             data-flags="true">
+                                                                        </div>
+                                                                        <label for="balance"
+                                                                               class="default-label"></label>
                                                                     </div>
-                                                                    <label for="balance" class="default-label"></label>
                                                                 </div>
                                                             </div>
 
@@ -516,7 +522,7 @@
                                                                                                                 ${remained}: ${payment.newBalance} ${payment.senderCurrency}
 
                                                                                                             <!-- Show Payment Info -->
-                                                                                                            <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                            <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                style="float: right">
                                                                                                                 <img src="resources/images/info.png"
                                                                                                                      alt="">
@@ -542,7 +548,7 @@
                                                                                                                 ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
 
                                                                                                             <!-- Show Payment Info -->
-                                                                                                            <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                                    <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                style="float: right">
                                                                                                                 <img src="resources/images/info.png"
                                                                                                                      alt="">

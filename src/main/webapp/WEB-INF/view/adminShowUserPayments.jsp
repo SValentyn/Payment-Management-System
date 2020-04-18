@@ -165,7 +165,7 @@
                                                                                                                     ${remained}: ${payment.newBalance} ${payment.senderCurrency}
 
                                                                                                                 <!-- Show Payment Info -->
-                                                                                                                <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                                <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
                                                                                                                    style="float: right">
                                                                                                                     <img src="resources/images/info.png"
                                                                                                                          alt="">
@@ -191,7 +191,7 @@
                                                                                                                     ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
 
                                                                                                                 <!-- Show Payment Info -->
-                                                                                                                <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                                <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
                                                                                                                    style="float: right">
                                                                                                                     <img src="resources/images/info.png"
                                                                                                                          alt="">
