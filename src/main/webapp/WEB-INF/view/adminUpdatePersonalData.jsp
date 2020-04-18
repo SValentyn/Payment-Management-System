@@ -24,10 +24,10 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${updated == true}">
+    <c:if test="${response eq 'dataUpdatedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertDataUpdated"/>
+                <fmt:message key="admin.page.alertDataUpdatedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -36,7 +36,7 @@
     </c:if>
 
     <!-- Alert passwordNotMatchError -->
-    <c:if test="${passwordNotMatchError == true}">
+    <c:if test="${response eq 'passwordNotMatchError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertPasswordNotMatchError"/>
@@ -47,8 +47,20 @@
         </div>
     </c:if>
 
+    <!-- Alert invalidData -->
+    <c:if test="${response eq 'invalidData'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="admin.page.alertInvalidDataError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert phoneExistError -->
-    <c:if test="${phoneExistError == true}">
+    <c:if test="${response eq 'phoneExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertPhoneExistError"/>
@@ -60,7 +72,7 @@
     </c:if>
 
     <!-- Alert emailExistError -->
-    <c:if test="${emailExistError == true}">
+    <c:if test="${response eq 'emailExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="admin.page.alertEmailExistError"/>
@@ -71,11 +83,11 @@
         </div>
     </c:if>
 
-    <!-- Alert updateDataError -->
-    <c:if test="${updateDataError == true}">
+    <!-- Alert dataUpdatedError -->
+    <c:if test="${response eq 'dataUpdatedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertDataUpdateError"/>
+                <fmt:message key="admin.page.alertDataUpdatedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

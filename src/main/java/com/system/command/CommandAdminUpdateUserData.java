@@ -68,7 +68,7 @@ public class CommandAdminUpdateUserData implements ICommand {
                 return pathRedirect;
             }
 
-            // Validation phone
+            // Validation if the phone has been changed
             if (!user.getPhone().equals(phone)) {
                 if (!Validator.checkPhone(phone)) {
                     setSessionAttributes(request, name, surname, phone, email, ServerResponse.PHONE_EXIST_ERROR);
@@ -76,7 +76,7 @@ public class CommandAdminUpdateUserData implements ICommand {
                 }
             }
 
-            // Validation email
+            // Validation if the email has been changed
             if (!user.getEmail().equals(email)) {
                 if (!Validator.checkEmail(email)) {
                     setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
@@ -108,6 +108,7 @@ public class CommandAdminUpdateUserData implements ICommand {
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("userId", null);
         request.setAttribute("nameValue", null);
         request.setAttribute("surnameValue", null);
         request.setAttribute("phoneValue", null);
