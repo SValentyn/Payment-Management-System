@@ -3,81 +3,92 @@ package com.system.command;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
-import com.system.service.LetterService;
+import com.system.manager.ServerResponse;
 import com.system.service.UserService;
 import com.system.utils.PasswordEncryptor;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 public class CommandAdminUpdatePassword implements ICommand {
 
     private final PasswordEncryptor encryptor = new PasswordEncryptor();
 
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PASSWORD);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PASSWORD);
-
-        request.getSession().setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
-        request.setAttribute("oldPasswordError", false);
-        request.setAttribute("newPasswordError", false);
-        request.setAttribute("updatePasswordError", false);
-        request.setAttribute("updated", false);
-
-        User user = (User) request.getSession().getAttribute("currentUser");
-
-        if (user == null) {
-            request.setAttribute("updatePasswordError", true);
-            return page;
-        }
+        clearRequestAttributes(request);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return page;
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PASSWORD);
 
             // Data
-            Integer userId = user.getUserId();
+            User user = (User) request.getSession().getAttribute("currentUser");
+
+            // Check
+            if (user == null) {
+                request.setAttribute("response", ServerResponse.PASSWORD_UPDATED_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            // Set Attributes
+            setRequestAttributes(request);
+
+        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_UPDATE_PASSWORD);
+
+            // Data
+            User user = (User) request.getSession().getAttribute("currentUser");
+
+            // Check
+            if (user == null) {
+                request.setAttribute("response", ServerResponse.PASSWORD_UPDATED_ERROR.getResponse());
+                return pathRedirect;
+            }
+
+            // Data
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
 
             // Check
-            if (checkOldPassword(userId, oldPassword)) {
-                setRequestAttributes(request, oldPassword, newPassword, passwordConfirmation);
-                request.setAttribute("oldPasswordError", true);
-                return page;
+            if (!checkOldPassword(user, oldPassword)) {
+                setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.OLD_PASSWORD_ERROR);
+                return pathRedirect;
             }
 
             // Validation
             if (!validation(newPassword, passwordConfirmation)) {
-                setRequestAttributes(request, oldPassword, newPassword, passwordConfirmation);
-                request.setAttribute("newPasswordError", true);
-                return page;
+                setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.NEW_PASSWORD_ERROR);
+                return pathRedirect;
             }
 
-            // Set new user properties
+            // Set new password
             user.setPassword(encryptor.encode(newPassword));
 
             // Action
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
-                setRequestAttributes(request, oldPassword, newPassword, passwordConfirmation);
-                request.setAttribute("updatePasswordError", true);
+                setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.PASSWORD_UPDATED_ERROR);
             } else {
-                request.setAttribute("updated", true);
+                request.getSession().setAttribute("response", ServerResponse.PASSWORD_UPDATED_SUCCESS.getResponse());
             }
         }
 
-        return page;
+        return pathRedirect;
     }
 
-    private boolean checkOldPassword(Integer userId, String oldPassword) throws SQLException {
-        String correctPassword = UserService.getInstance().findUserById(userId).getPassword();
-        return !correctPassword.equals(encryptor.encode(oldPassword));
+    private boolean checkOldPassword(User user, String oldPassword) throws SQLException {
+        if (!Validator.checkPassword(oldPassword)) return false;
+        String correctPassword = UserService.getInstance().findUserById(user.getUserId()).getPassword();
+        return correctPassword.equals(encryptor.encode(oldPassword));
     }
 
     private boolean validation(String newPassword, String passwordConfirmation) {
@@ -86,10 +97,46 @@ public class CommandAdminUpdatePassword implements ICommand {
                 newPassword.equals(passwordConfirmation);
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String oldPassword, String newPassword, String passwordConfirmation) {
-        request.setAttribute("oldPasswordValue", oldPassword);
-        request.setAttribute("newPasswordValue", newPassword);
-        request.setAttribute("passwordConfirmationValue", passwordConfirmation);
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("oldPasswordValue", null);
+        request.setAttribute("newPasswordValue", null);
+        request.setAttribute("passwordConfirmationValue", null);
+        request.setAttribute("response", "");
+    }
+
+    private void setRequestAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String oldPassword = (String) session.getAttribute("oldPassword");
+        if (oldPassword != null) {
+            request.setAttribute("oldPasswordValue", oldPassword);
+            session.removeAttribute("oldPassword");
+        }
+
+        String newPassword = (String) session.getAttribute("newPassword");
+        if (newPassword != null) {
+            request.setAttribute("newPasswordValue", newPassword);
+            session.removeAttribute("newPassword");
+        }
+
+        String passwordConfirmation = (String) session.getAttribute("passwordConfirmation");
+        if (passwordConfirmation != null) {
+            request.setAttribute("passwordConfirmationValue", passwordConfirmation);
+            session.removeAttribute("passwordConfirmation");
+        }
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, String oldPassword, String newPassword, String passwordConfirmation, ServerResponse serverResponse) {
+        request.getSession().setAttribute("oldPassword", oldPassword);
+        request.getSession().setAttribute("newPassword", newPassword);
+        request.getSession().setAttribute("passwordConfirmation", passwordConfirmation);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }

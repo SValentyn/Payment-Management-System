@@ -43,6 +43,7 @@ public class ResourceManager {
     public static final String COMMAND_RECOVERY = "COMMAND_RECOVERY";
     public static final String COMMAND_REGISTRATION = "COMMAND_REGISTRATION";
     public static final String COMMAND_ADMIN_UPDATE_DATA = "COMMAND_ADMIN_UPDATE_DATA";
+    public static final String COMMAND_ADMIN_UPDATE_PASSWORD = "COMMAND_ADMIN_UPDATE_PASSWORD";
     public static final String COMMAND_ADMIN_ADD_USER = "COMMAND_ADMIN_ADD_USER";
     public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";
     public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";

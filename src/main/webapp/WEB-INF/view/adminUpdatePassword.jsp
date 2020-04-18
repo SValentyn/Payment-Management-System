@@ -23,7 +23,7 @@
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert Success -->
-    <c:if test="${updated == true}">
+    <c:if test="${response eq 'passwordUpdatedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertPasswordUpdated"/>
@@ -35,7 +35,7 @@
     </c:if>
 
     <!-- Alert oldPasswordError -->
-    <c:if test="${oldPasswordError == true}">
+    <c:if test="${response eq 'oldPasswordError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertOldPasswordNotMatch"/>
@@ -47,7 +47,7 @@
     </c:if>
 
     <!-- Alert newPasswordError -->
-    <c:if test="${newPasswordError == true}">
+    <c:if test="${response eq 'newPasswordError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertNewPasswordNotConfirmed"/>
@@ -58,11 +58,11 @@
         </div>
     </c:if>
 
-    <!-- Alert updatePasswordError -->
-    <c:if test="${updatePasswordError == true}">
+    <!-- Alert passwordUpdatedError -->
+    <c:if test="${response eq 'passwordUpdatedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUpdatePasswordError"/>
+                <fmt:message key="admin.page.alertPasswordUpdatedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -78,8 +78,8 @@
 
             <div class="col-lg-10">
                 <div class="page-content container-fluid">
-                    <div class="row">
-                        <div class="col-lg-4 offset-lg-3">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
@@ -120,12 +120,10 @@
                                                        onclick="return show_hide_oldPassword(this);"></a>
                                                 </div>
                                                 <label for="oldPassword" class="default-label">
-                                                    <span id="valid-msg-oldPassword"
-                                                          class="valid-msg invisible">
+                                                    <span id="valid-msg-oldPassword" class="valid-msg invisible">
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
-                                                    <span id="error-msg-oldPassword"
-                                                          class="error-msg invisible">
+                                                    <span id="error-msg-oldPassword" class="error-msg invisible">
                                                         ${passwordError}
                                                     </span>
                                                 </label>
@@ -136,7 +134,7 @@
                                                 <div class="password-input">
                                                     <input id="newPassword" name="newPassword"
                                                            type="password" class="form-control"
-                                                           style="height: 40px; margin: 0;"
+                                                           style="height: 40px; margin: 8px 0 0 0;"
                                                            data-toggle="tooltip" data-title="${tooltipNewPassword}"
                                                            placeholder="${newPassword}*"
                                                            value="${newPasswordValue}"/>
