@@ -8,16 +8,12 @@ import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
 import com.system.service.BankCardService;
 import com.system.utils.Validator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class CommandAdminBlockCard implements ICommand {
-
-    private static final Logger LOGGER = LogManager.getLogger(CommandAdminBlockCard.class);
 
     // Default path
     private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);

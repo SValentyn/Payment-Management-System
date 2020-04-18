@@ -19,6 +19,8 @@ public class CommandLogin implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
+        clearRequestAttributes(request);
+
         String method = request.getMethod();
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
@@ -51,6 +53,10 @@ public class CommandLogin implements ICommand {
         }
 
         return pathRedirect;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("response", "");
     }
 
     private void setSessionAttributes(HttpServletRequest request, String login, ServerResponse serverResponse) {

@@ -163,7 +163,9 @@
 
                                         <!-- Perhaps there was an error or the viewableUser was deleted from the system -->
                                         <c:choose>
-                                            <c:when test="${response ne 'unableGetUserId' && response ne 'showUserError' && response ne 'userDeletedError'}">
+                                            <c:when test="${response ne 'unableGetUserId' &&
+                                                            response ne 'showUserError' &&
+                                                            response ne 'userDeletedError'}">
                                                 <jsp:useBean id="viewableUser" scope="request"
                                                              type="com.system.entity.User"/>
 
@@ -202,9 +204,9 @@
                                                                                    class="form-control"
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.phone}"/>
+                                                                            <label for="phone"
+                                                                                   class="default-label"></label>
                                                                         </div>
-                                                                        <label for="phone"
-                                                                               class="default-label"></label>
 
                                                                         <!-- User Email -->
                                                                         <div>
@@ -469,15 +471,12 @@
                                                                             <label class="for-form-label">
                                                                                     ${admin_rank}:
                                                                             </label>
-                                                                            <div>
-                                                                                <input id="bio_admin" name="bio"
-                                                                                       type="text"
-                                                                                       class="form-control"
-                                                                                       readonly="readonly"
-                                                                                       value="${viewableUser.name} ${viewableUser.surname}"/>
-                                                                                <label for="bio_admin"
-                                                                                       class="default-label"></label>
-                                                                            </div>
+                                                                            <input id="bio_admin" name="bio"
+                                                                                   type="text" class="form-control"
+                                                                                   readonly="readonly"
+                                                                                   value="${viewableUser.name} ${viewableUser.surname}"/>
+                                                                            <label for="bio_admin"
+                                                                                   class="default-label"></label>
                                                                         </div>
 
                                                                         <!-- Admin Phone -->
@@ -485,15 +484,12 @@
                                                                             <label class="for-form-label">
                                                                                     ${phone}:
                                                                             </label>
-                                                                            <div>
-                                                                                <input id="phone_admin" name="phone"
-                                                                                       type="tel"
-                                                                                       class="form-control"
-                                                                                       readonly="readonly"
-                                                                                       value="${viewableUser.phone}"/>
-                                                                                <label for="phone_admin"
-                                                                                       class="default-label"></label>
-                                                                            </div>
+                                                                            <input id="phone_admin" name="phone"
+                                                                                   type="tel" class="form-control"
+                                                                                   readonly="readonly"
+                                                                                   value="${viewableUser.phone}"/>
+                                                                            <label for="phone_admin"
+                                                                                   class="default-label"></label>
                                                                         </div>
 
                                                                         <!-- Admin Email -->
@@ -501,14 +497,12 @@
                                                                             <label class="for-form-label">
                                                                                     ${email}:
                                                                             </label>
-                                                                            <div>
-                                                                                <input id="email_admin" name="email"
-                                                                                       type="email" class="form-control"
-                                                                                       readonly="readonly"
-                                                                                       value="${viewableUser.email}"/>
-                                                                                <label for="email_admin"
-                                                                                       class="default-label"></label>
-                                                                            </div>
+                                                                            <input id="email_admin" name="email"
+                                                                                   type="email" class="form-control"
+                                                                                   readonly="readonly"
+                                                                                   value="${viewableUser.email}"/>
+                                                                            <label for="email_admin"
+                                                                                   class="default-label"></label>
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -111,7 +111,9 @@
 
                                         <!-- Perhaps there was an error or the letter was processed -->
                                         <c:choose>
-                                            <c:when test="${response ne 'unableGetLetterId' && response ne 'showLetterError' && response ne 'letterProcessedSuccess'}">
+                                            <c:when test="${response ne 'unableGetLetterId' &&
+                                                            response ne 'showLetterError' &&
+                                                            response ne 'letterProcessedSuccess'}">
                                                 <form action="" role="form" method="POST">
                                                     <input type="hidden" name="command" value="showLetterInfo">
 
@@ -142,8 +144,8 @@
                                                                 <input id="phone" name="phone" type="tel"
                                                                        class="form-control" readonly="readonly"
                                                                        value="${phoneValue}"/>
+                                                                <label for="phone" class="default-label"></label>
                                                             </div>
-                                                            <label for="phone" class="default-label"></label>
 
                                                             <!-- Email -->
                                                             <div>

@@ -30,7 +30,7 @@ public class CommandAdminShowAccountInfo implements ICommand {
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
+            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
         } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
 

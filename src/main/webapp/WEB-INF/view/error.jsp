@@ -2,13 +2,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="code"
+       value="${requestScope['javax.servlet.error.status_code']}"
+       scope="page"/>
 <c:set var="language"
        value="${not empty param.language ? param.language : not empty language ? language : 'en'}"
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
-<c:set var="code" value="${requestScope['javax.servlet.error.status_code']}" scope="page"/>
-
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
@@ -28,7 +29,6 @@
     <div class="page-content container-fluid">
         <div class="row justify-content-center">
             <div class="col-xl-8">
-
                 <fmt:message key="error.404" var="error_404"/>
                 <fmt:message key="error.500" var="error_500"/>
                 <fmt:message key="error.goBackHome" var="goBackHome"/>
@@ -36,6 +36,7 @@
                 <c:if test="${code == '404'}">
                     <c:set var="errorMessage" value="${error_404}" scope="page"/>
                 </c:if>
+
                 <c:if test="${code == '500'}">
                     <c:set var="errorMessage" value="${error_500}" scope="page"/>
                 </c:if>

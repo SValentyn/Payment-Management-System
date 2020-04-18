@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <!-- Alert Success -->
+    <!-- Alert registrationSuccess -->
     <c:if test="${response eq 'registrationSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.success"/>!</strong>
@@ -169,8 +169,8 @@
                                                     <span id="valid-msg-name" class="valid-msg invisible">
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
-                                                    <span id="error-msg-name"
-                                                          class="error-msg invisible">${nameError}
+                                                    <span id="error-msg-name" class="error-msg invisible">
+                                                        ${nameError}
                                                     </span>
                                                 </label>
                                             </div>
@@ -186,8 +186,8 @@
                                                     <span id="valid-msg-surname" class="valid-msg invisible">
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
-                                                    <span id="error-msg-surname"
-                                                          class="error-msg invisible">${surnameError}
+                                                    <span id="error-msg-surname" class="error-msg invisible">
+                                                        ${surnameError}
                                                     </span>
                                                 </label>
                                             </div>
@@ -204,8 +204,8 @@
                                                     <span id="valid-msg-phone" class="valid-msg invisible">
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
-                                                    <span id="error-msg-phone"
-                                                          class="error-msg invisible">${loginError}
+                                                    <span id="error-msg-phone" class="error-msg invisible">
+                                                        ${loginError}
                                                     </span>
                                                 </label>
                                             </div>
@@ -244,8 +244,8 @@
                                                     <span id="valid-msg-password" class="valid-msg invisible">
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
-                                                    <span id="error-msg-password"
-                                                          class="error-msg invisible">${passwordError}</span>
+                                                    <span id="error-msg-password" class="error-msg invisible">
+                                                        ${passwordError}</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -270,23 +270,27 @@
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-passwordConfirmation"
-                                                          class="error-msg invisible">${passwordConfirmationError}</span>
+                                                          class="error-msg invisible">
+                                                        ${passwordConfirmationError}
+                                                    </span>
                                                 </label>
                                             </div>
                                         </div>
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 25px 0 0 0;">
-                                            <button id="submit" type="submit"
-                                                    class="btn btn-primary signup" style="width: 44%;">
+                                            <button id="submit" type="submit" class="btn btn-primary signup"
+                                                    style="width: 44%;">
                                                 ${signupButton}
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <div class="already">
-                                <p><fmt:message key="registration.haveAccountAlready"/></p>
+                            <div class="block-questions">
+                                <p>
+                                    <fmt:message key="registration.haveAccountAlready"/>
+                                </p>
                                 <a href="/" onfocus="this.blur()">
                                     <fmt:message key="registration.login"/>
                                 </a>

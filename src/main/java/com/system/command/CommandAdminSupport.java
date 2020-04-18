@@ -33,12 +33,14 @@ public class CommandAdminSupport implements ICommand {
             // Only not processed letters must be displayed on the site
             List<Letter> letters = LetterService.getInstance().findAllLetters();
 
+            // Check
             if (letters == null) {
                 setRequestAttributes(request, null, false);
                 request.setAttribute("response", ServerResponse.SHOW_LETTERS_ERROR.getResponse());
                 return pathRedirect;
             }
 
+            // Data
             List<Letter> notProcessedLetters = new ArrayList<>();
             for (Letter letter : letters) {
                 if (!letter.getIsProcessed()) {

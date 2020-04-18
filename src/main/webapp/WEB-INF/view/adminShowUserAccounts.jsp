@@ -158,12 +158,12 @@
                                                                             </div>
                                                                         </c:when>
                                                                         <c:otherwise>
-                                                                    <span class="title-label">
-                                                                        <label style="font-size: 22px;">
-                                                                            <fmt:message
-                                                                                    key="admin.user.accountsEmpty"/>
-                                                                        </label>
-                                                                    </span>
+                                                                            <span class="title-label">
+                                                                                <label style="font-size: 22px;">
+                                                                                    <fmt:message
+                                                                                            key="admin.user.accountsEmpty"/>
+                                                                                </label>
+                                                                            </span>
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                 </div>

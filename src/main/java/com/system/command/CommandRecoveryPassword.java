@@ -22,8 +22,11 @@ public class CommandRecoveryPassword implements ICommand {
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
+
+            // Set Attributes
             setRequestAttributes(request);
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
+
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_RECOVERY);
 
@@ -36,7 +39,11 @@ public class CommandRecoveryPassword implements ICommand {
                 return pathRedirect;
             }
 
-            // [There should be an implementation of sending a message with a password to the user]
+            /*
+                [There should be an implementation of sending a message with a password to the user]
+             */
+
+            // Set Attributes
             setSessionAttributes(request, null, ServerResponse.PASSWORD_SENT);
         }
 

@@ -24,8 +24,11 @@ public class CommandRegistration implements ICommand {
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
+
+            // Set Attributes
             setRequestAttributes(request);
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
+
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_REGISTRATION);
 
@@ -60,7 +63,7 @@ public class CommandRegistration implements ICommand {
             if (status == 0) {
                 setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.REGISTRATION_ERROR);
             } else {
-                setSessionAttributes(request, null, null, null, null, null, null, ServerResponse.REGISTRATION_SUCCESS);
+                request.getSession().setAttribute("response", ServerResponse.REGISTRATION_SUCCESS.getResponse());
             }
         }
 

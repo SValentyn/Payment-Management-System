@@ -390,25 +390,25 @@ h4, h5 {
     color: #000000;
 }
 
-.login-wrapper .already {
+.login-wrapper .block-questions {
     float: none;
     text-align: center;
     margin-top: 20px;
     font-size: 13px;
 }
 
-.login-wrapper .already p {
+.login-wrapper .block-questions p {
     display: inline-block;
     color: #222;
 }
 
-.login-wrapper .already a {
+.login-wrapper .block-questions a {
     margin-left: 7px;
     color: #222;
     border-bottom: 1px solid;
 }
 
-.login-wrapper .already a:hover {
+.login-wrapper .block-questions a:hover {
     text-decoration: none;
     color: #000;
     border-bottom-color: #000;
@@ -965,12 +965,14 @@ div[class="message-block"] .title-label {
 }
 
 .list-group-item-button-primary {
+    font-size: 14px !important;
     color: #fff !important;
     background-color: #428bca !important;
     border: 1px solid #ffffff;
 }
 
 .list-group-item-button-danger {
+    font-size: 14px !important;
     color: #fff !important;
     background-color: #dc3545 !important;
     border: 1px solid #ffffff;

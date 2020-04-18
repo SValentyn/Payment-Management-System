@@ -90,8 +90,8 @@
                         <div class="box" style="max-width: 85%;">
                             <div class="content-wrap">
                                 <fmt:message key="recovery.formHeader" var="formHeader"/>
-                                <fmt:message key="recovery.recoveryButton" var="button"/>
-                                <fmt:message key="recovery.backButton" var="returnToLetters"/>
+                                <fmt:message key="recovery.recoveryButton" var="recoveryButton"/>
+                                <fmt:message key="recovery.backButton" var="backButton"/>
                                 <fmt:message key="login.loginError" var="loginError"/>
                                 <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                 <fmt:message key="login.correct" var="correct"/>
@@ -113,14 +113,16 @@
                                             <span id="valid-msg-login" class="valid-msg invisible">
                                                 ${correct}<img src="resources/images/correct.png" alt="">
                                             </span>
-                                            <span id="error-msg-login" class="error-msg invisible">${loginError}</span>
+                                            <span id="error-msg-login" class="error-msg invisible">
+                                                ${loginError}
+                                            </span>
                                         </label>
                                     </div>
 
                                     <!-- Submit -->
                                     <div class="action" style="padding: 25px 0 10px 0">
                                         <button id="submit" type="submit" class="btn btn-primary signup">
-                                            ${button}
+                                            ${recoveryButton}
                                         </button>
                                     </div>
                                 </form>
@@ -129,7 +131,8 @@
                                 <div class="action back-btn">
                                     <form action="/" method="GET" role="form">
                                         <button type="submit" class="btn btn-primary signup btn-default">
-                                            ${returnToLetters}
+                                            ${backButton}
+                                        </button>
                                     </form>
                                 </div>
                             </div>

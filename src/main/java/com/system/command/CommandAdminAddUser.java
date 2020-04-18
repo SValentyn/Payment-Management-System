@@ -25,8 +25,10 @@ public class CommandAdminAddUser implements ICommand {
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
+
+            // Set Attributes
             setRequestAttributes(request);
-            return pathRedirect;
+
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_ADD_USER);
 

@@ -113,7 +113,6 @@
                                         <fmt:message key="registration.surname" var="surname"/>
                                         <fmt:message key="registration.email" var="email"/>
                                         <fmt:message key="user.updateData.updateDataButton" var="updateDataButton"/>
-                                        <fmt:message key="admin.updateUserData.backButton" var="returnToLetters"/>
                                         <fmt:message key="registration.nameError" var="nameError"/>
                                         <fmt:message key="registration.surnameError" var="surnameError"/>
                                         <fmt:message key="registration.phoneError" var="loginError"/>
@@ -158,7 +157,7 @@
                                                     <input id="surname" name="surname" class="form-control"
                                                            type="text" data-toggle="tooltip"
                                                            data-title="${tooltipOnlyLetters}"
-                                                           maxlength="24" placeholder="${surname}*"
+                                                           maxlength="32" placeholder="${surname}*"
                                                            value="${surnameValue}"/>
                                                     <label for="surname" class="default-label">
                                                         <span id="valid-msg-surname" class="valid-msg invisible">

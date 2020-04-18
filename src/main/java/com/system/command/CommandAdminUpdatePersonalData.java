@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class CommandAdminUpdatePersonalData implements ICommand {
 
-    private PasswordEncryptor encryptor = new PasswordEncryptor();
+    private final PasswordEncryptor encryptor = new PasswordEncryptor();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {

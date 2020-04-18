@@ -101,8 +101,15 @@
                     <div class="login-wrapper" style="top: 30px;">
                         <div class="box" style="max-width: 75%;">
                             <div class="content-wrap">
+                                <fmt:message key="login.signin" var="signin"/>
+                                <fmt:message key="login.password" var="password"/>
+                                <fmt:message key="login.submit" var="submit"/>
+                                <fmt:message key="login.loginError" var="loginError"/>
+                                <fmt:message key="login.passwordError" var="passwordError"/>
+                                <fmt:message key="login.correct" var="correct"/>
+
                                 <h4 style="margin-bottom: 20px;">
-                                    <fmt:message key="login.signin"/><br>
+                                    ${signin}<br>
                                     Payment Management System
                                 </h4>
                                 <h4 style="margin-bottom: 20px">
@@ -114,7 +121,6 @@
                                         <input type="hidden" name="command" value="login">
                                         <input type="hidden" name="full_phone" value="+34645364524">
                                         <input type="hidden" name="password" value="000000">
-
                                         <button type="submit" class="btn btn-primary signup btn-default">
                                             Beta-User
                                         </button>
@@ -124,18 +130,11 @@
                                         <input type="hidden" name="command" value="login">
                                         <input type="hidden" name="full_phone" value="+393524594551">
                                         <input type="hidden" name="password" value="111111">
-
                                         <button type="submit" class="btn btn-primary signup btn-default">
                                             Beta-Admin
                                         </button>
                                     </form>
                                 </div>
-
-                                <fmt:message key="login.password" var="password"/>
-                                <fmt:message key="login.submit" var="submit"/>
-                                <fmt:message key="login.loginError" var="loginError"/>
-                                <fmt:message key="login.passwordError" var="passwordError"/>
-                                <fmt:message key="login.correct" var="correct"/>
 
                                 <form action="/" method="POST" role="form">
                                     <input type="hidden" name="command" value="login"/>
@@ -149,7 +148,9 @@
                                             <span id="valid-msg-login" class="valid-msg invisible">
                                                 ${correct}<img src="resources/images/correct.png" alt="">
                                             </span>
-                                            <span id="error-msg-login" class="error-msg invisible">${loginError}</span>
+                                            <span id="error-msg-login" class="error-msg invisible">
+                                                ${loginError}
+                                            </span>
                                         </label>
                                     </div>
 
@@ -166,8 +167,9 @@
                                             <span id="valid-msg-password" class="valid-msg invisible">
                                                 ${correct}<img src="resources/images/correct.png" alt="">
                                             </span>
-                                            <span id="error-msg-password"
-                                                  class="error-msg invisible">${passwordError}</span>
+                                            <span id="error-msg-password" class="error-msg invisible">
+                                                ${passwordError}
+                                            </span>
                                         </label>
                                     </div>
 
@@ -181,7 +183,9 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="already">
+
+                        <!-- Block of Questions -->
+                        <div class="block-questions">
                             <p style="margin-bottom: 6px;">
                                 <fmt:message key="login.forgotPassword"/>
                             </p>

@@ -62,7 +62,7 @@ public class CommandAdminUpdateUserData implements ICommand {
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = request.getParameter("email");
 
-            // Validation
+            // Validation name and surname
             if (!validation(name, surname)) {
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.INVALID_DATA);
                 return pathRedirect;

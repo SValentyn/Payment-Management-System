@@ -30,7 +30,7 @@ span[class="title-label"] label {
     }
 
     span[class="title-label"] label {
-        font-size: 70% !important;
+        font-size: 18px !important;
     }
 }
 
@@ -44,7 +44,7 @@ span[class="title-label"] label {
     }
 
     span[class="title-label"] label {
-        font-size: 55% !important;
+        font-size: 16px !important;
     }
 
     .card-container {
@@ -59,6 +59,10 @@ span[class="title-label"] label {
 
     .form-control {
         font-size: 12px !important;
+    }
+
+    span[class="title-label"] label {
+        font-size: 14px !important;
     }
 
     .card-container {

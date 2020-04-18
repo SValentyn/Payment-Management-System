@@ -358,7 +358,6 @@
                                                                     <label class="for-form-label">
                                                                             ${accountOwner}:
                                                                     </label>
-
                                                                     <input id="owner" name="owner" type="text"
                                                                            class="form-control" readonly="readonly"
                                                                            value="${viewableUser.name} ${viewableUser.surname}"/>
@@ -548,7 +547,7 @@
                                                                                                                 ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
 
                                                                                                             <!-- Show Payment Info -->
-                                                                                                                    <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
+                                                                                                            <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                style="float: right">
                                                                                                                 <img src="resources/images/info.png"
                                                                                                                      alt="">

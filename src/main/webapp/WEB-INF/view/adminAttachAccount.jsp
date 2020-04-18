@@ -111,14 +111,12 @@
                                                 <label class="for-form-label">
                                                     ${user_rank}
                                                 </label>
-                                                <div>
-                                                    <input id="bio" name="bio" class="form-control"
-                                                           type="text" style="height: 46px; margin-top: 0;"
-                                                           readonly="readonly"
-                                                           data-toggle="tooltip-right-hover" title="${tooltipUserBio}"
-                                                           value="${bioValue}"/>
-                                                    <label for="bio" class="default-label"></label>
-                                                </div>
+                                                <input id="bio" name="bio" class="form-control"
+                                                       type="text" style="height: 46px; margin-top: 0;"
+                                                       readonly="readonly"
+                                                       data-toggle="tooltip-right-hover" title="${tooltipUserBio}"
+                                                       value="${bioValue}"/>
+                                                <label for="bio" class="default-label"></label>
                                             </div>
 
                                             <!-- Account Number -->

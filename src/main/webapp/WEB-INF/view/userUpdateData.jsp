@@ -285,7 +285,7 @@
                                             </form>
                                         </div>
 
-                                        <div class="already" style="margin-top: 0;">
+                                        <div class="block-questions" style="margin-top: 0;">
                                             <p style="margin-bottom: 0;">
                                                 <fmt:message key="user.updateData.wantDeleteAccount"/>
                                             </p>
