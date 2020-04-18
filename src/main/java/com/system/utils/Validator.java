@@ -2,9 +2,11 @@ package com.system.utils;
 
 import com.system.entity.Account;
 import com.system.entity.Letter;
+import com.system.entity.Payment;
 import com.system.entity.User;
 import com.system.service.AccountService;
 import com.system.service.LetterService;
+import com.system.service.PaymentService;
 import com.system.service.UserService;
 
 import java.sql.SQLException;
@@ -80,6 +82,21 @@ public class Validator {
         }
 
         return accountIds.contains(Integer.valueOf(accountId));
+    }
+
+    /**
+     * @return true, if the identifier is a non-negative number and is in the system
+     */
+    public static boolean checkPaymentId(String paymentId) throws SQLException {
+        if (paymentId == null || isNegative(paymentId)) return false;
+
+        List<Payment> payments = PaymentService.getInstance().findAllPayments();
+        List<Integer> paymentIds = new ArrayList<>();
+        for (Payment payment : payments) {
+            paymentIds.add(payment.getPaymentId());
+        }
+
+        return paymentIds.contains(Integer.valueOf(paymentId));
     }
 
     /**
