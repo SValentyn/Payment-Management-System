@@ -33,11 +33,6 @@ public class CommandAdminShowUser implements ICommand {
             // Set Attributes
             setRequestAttributes(request);
 
-            // The "response" can already store the value obtained from another command
-            if (request.getAttribute("response") != "") {
-                return pathRedirect;
-            }
-
             // Data
             String userIdParam = request.getParameter("userId");
 
@@ -75,16 +70,6 @@ public class CommandAdminShowUser implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer userId, User user, Boolean userIsAdmin) throws SQLException {
-        request.setAttribute("userId", userId);
-        request.setAttribute("viewableUser", user);
-        request.setAttribute("userIsAdmin", userIsAdmin);
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findLastPaymentsByUserId(userId).isEmpty());
-        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userId));
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
-    }
-
     private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
@@ -93,6 +78,16 @@ public class CommandAdminShowUser implements ICommand {
             request.setAttribute("response", response);
             session.removeAttribute("response");
         }
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, Integer userId, User user, Boolean userIsAdmin) throws SQLException {
+        request.setAttribute("userId", userId);
+        request.setAttribute("viewableUser", user);
+        request.setAttribute("userIsAdmin", userIsAdmin);
+        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findLastPaymentsByUserId(userId).isEmpty());
+        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
+        request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userId));
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
     }
 
 }

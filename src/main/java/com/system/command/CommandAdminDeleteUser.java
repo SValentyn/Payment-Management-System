@@ -24,6 +24,8 @@ public class CommandAdminDeleteUser implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
+        clearRequestAttributes(request);
+
         String method = request.getMethod();
         if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER);
@@ -38,19 +40,19 @@ public class CommandAdminDeleteUser implements ICommand {
                 return pathRedirect;
             }
 
+            pathRedirect += "&userId=" + userIdParam;
+
             // Validation
             if (!Validator.checkUserIsAdmin(userIdParam)) {
                 request.getSession().setAttribute("response", ServerResponse.USER_DELETED_ERROR.getResponse());
                 return pathRedirect;
             }
 
-            pathRedirect += "&userId=" + userIdParam;
-
-            // Set Attributes
-            Integer userId = Integer.parseInt(userIdParam);
-
             // Data
+            Integer userId = Integer.valueOf(userIdParam);
             List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
+
+            // Check
             for (Account account : accounts) {
                 BigDecimal balance = account.getBalance();
                 if (balance.compareTo(BigDecimal.ZERO) != 0) {
@@ -70,6 +72,10 @@ public class CommandAdminDeleteUser implements ICommand {
         }
 
         return pathRedirect;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("response", "");
     }
 
 }
