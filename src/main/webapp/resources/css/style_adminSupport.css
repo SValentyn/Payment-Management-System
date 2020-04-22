@@ -1,3 +1,55 @@
 .page-content {
     min-height: 90vh;
 }
+
+.login-wrapper .box .content-wrap {
+    width: 92%;
+}
+
+.card-container {
+    width: 100%;
+    margin: 0;
+}
+
+.forward-right-link-img {
+    float: right;
+}
+
+.type-question {
+    padding-left: 28px;
+}
+
+.message-block {
+    margin-top: 0 !important;
+}
+
+@media (max-width: 482px) {
+    .type-question {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 394px) {
+    h4 {
+        font-size: 18px !important;
+    }
+
+    .card-container {
+        font-size: 90%;
+    }
+
+    .forward-right-link-img img {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 354px) {
+    h4 {
+        font-size: 16px !important;
+    }
+
+    .card-container {
+        font-size: 70%;
+    }
+}

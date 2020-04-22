@@ -41,44 +41,118 @@
             </div>
 
             <div class="col-lg-10">
-                <c:choose>
-                    <c:when test="${showLetters}">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <fmt:message key="admin.support.allLetters" var="allLetters"/>
-                                <fmt:message key="admin.support.status" var="status"/>
-                                <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
-                                <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
-                                <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
-                                <fmt:message key="admin.support.showInfo" var="showInfo"/>
+                <fmt:message key="admin.support.allLetters" var="formHeader"/>
+                <fmt:message key="admin.support.status" var="status"/>
+                <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
+                <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
+                <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
+                <fmt:message key="admin.support.showInfo" var="showInfo"/>
+                <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
+                <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
-                                    ${allLetters}
-                                User ID:
+                <div class="page-content container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="login-wrapper">
+                                <div class="box">
+                                    <div class="content-wrap">
+                                        <div class="row justify-content-center">
+                                            <div class="col-xl-12">
 
-                                    ${timeToReceive}
-                                    ${typeQuestion}
-                                    ${showInfo}
+                                                <h4>
+                                                    ${formHeader}
+                                                </h4>
 
-                                <c:forEach items="${letters}" var="letter">
-                                    ${letter.letterId}
-                                    ${letter.date}
-                                    ${letter.typeQuestion}
+                                                <c:choose>
+                                                    <c:when test="${response ne 'showLettersError'}">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-xl-3">
+                                                                <div style="text-align: center; margin: 0 0 30px 0;">
+                                                                    <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
+                                                                            ${searchCriteria}:
+                                                                    </label>
+                                                                    <form action="/" method="GET" role="form">
+                                                                        <input type="hidden" name="command"
+                                                                               value="searchLetters">
+                                                                        <div class="action" style="text-align: unset;">
+                                                                            <button id="search" type="submit"
+                                                                                    class="btn btn-primary signup">
+                                                                                    ${searchButton}
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
 
-                                    <a href="?command=showLetterInfo&letterId=${letter.letterId}">
-                                            ${showInfo}
-                                    </a>
-                                </c:forEach>
+                                                            <div class="col-lg-9 col-xl-9">
+                                                                <div class="col-xl-12">
+                                                                    <c:choose>
+                                                                        <c:when test="${!lettersEmpty}">
+                                                                            <div class="card-container">
+                                                                                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
+                                                                                    <c:forEach items="${letters}"
+                                                                                               var="letter">
+                                                                                        <div class="col mb-4">
+                                                                                            <div class="card bg-light">
+                                                                                                <div class="card-body"
+                                                                                                     style="padding: 0.75rem 1.25rem;">
+                                                                                                    <p class="card-title text-muted">
+                                                                                                        <span>
+                                                                                                            #${letter.letterId}
+                                                                                                        </span>
+                                                                                                        <span style="padding-left: 28px;">
+                                                                                                                ${letter.date}
+                                                                                                        </span>
+                                                                                                        <span class="type-question">
+                                                                                                                ${letter.typeQuestion}
+                                                                                                        </span>
+                                                                                                        <span class="forward-right-link-img"
+                                                                                                              style="padding-left: 28px;">
+                                                                                                            <a href="?command=showLetterInfo&letterId=${letter.letterId}"
+                                                                                                               style="float: right">
+                                                                                                                <img src="resources/images/forward.png"
+                                                                                                                     alt="${showInfo}">
+                                                                                                            </a>
+                                                                                                        </span>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </c:forEach>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <div class="message-block">
+                                                                                <span class="title-label float-left">
+                                                                                    <label>
+                                                                                        <fmt:message
+                                                                                                key="admin.support.noLetters"/>
+                                                                                    </label>
+                                                                                </span>
+                                                                            </div>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="message-block">
+                                                            <label class="title-label float-left">
+                                                                <fmt:message key="admin.support.noLetters"/>
+                                                            </label>
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="message-block">
-                            <label class="title-label float-left">
-                                <fmt:message key="admin.support.noLetters"/>
-                            </label>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

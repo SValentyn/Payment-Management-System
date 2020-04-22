@@ -50,9 +50,9 @@ public class CommandAdminSupport implements ICommand {
 
             // Set Attributes
             if (notProcessedLetters.isEmpty()) {
-                setRequestAttributes(request, null, false);
+                setRequestAttributes(request, null, true);
             } else {
-                setRequestAttributes(request, notProcessedLetters, true);
+                setRequestAttributes(request, notProcessedLetters, false);
             }
         }
 
@@ -61,13 +61,13 @@ public class CommandAdminSupport implements ICommand {
 
     private void clearRequestAttributes(HttpServletRequest request) {
         request.setAttribute("letters", null);
-        request.setAttribute("showLetters", null);
+        request.setAttribute("lettersEmpty", null);
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, List<Letter> letters, boolean showLetters) {
+    private void setRequestAttributes(HttpServletRequest request, List<Letter> letters, boolean lettersEmpty) {
         request.setAttribute("letters", letters);
-        request.setAttribute("showLetters", showLetters);
+        request.setAttribute("lettersEmpty", lettersEmpty);
     }
 
 }
