@@ -231,28 +231,28 @@
                                                                                data-toggle="list" href="#list-payments"
                                                                                aria-controls="payments">
                                                                                     ${showPayments} <span
-                                                                                    class="arrow-link-symbol-right">→</span>
+                                                                                    class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-accounts-list" role="tab"
                                                                                data-toggle="list" href="#list-accounts"
                                                                                aria-controls="accounts">
                                                                                     ${showAccounts} <span
-                                                                                    class="arrow-link-symbol-right">→</span>
+                                                                                    class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-attachAccount-list"
                                                                                href="?command=attachAccount&userId=${viewableUser.userId}"
                                                                                role="tab" aria-controls="attachAccount">
                                                                                     ${attachAccount} <span
-                                                                                    class="arrow-link-symbol-right">→</span>
+                                                                                    class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-updateData-list"
                                                                                href="?command=updateUserData&userId=${viewableUser.userId}"
                                                                                role="tab" aria-controls="updateData">
                                                                                     ${updateData} <span
-                                                                                    class="arrow-link-symbol-right">→</span>
+                                                                                    class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                                style="margin-top: 1px;"
@@ -261,7 +261,7 @@
                                                                                href="#smallModal?name=${viewableUser.name}&surname=${viewableUser.surname}"
                                                                                role="tab" aria-controls="deleteUser">
                                                                                     ${deleteUser} <span
-                                                                                    class="arrow-link-symbol-right">→</span>
+                                                                                    class="forward-right-link-img">→</span>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -315,7 +315,7 @@
                                                                                                                 <!-- Sender and Recipient -->
                                                                                                                 <p class="card-title text-muted">
                                                                                                                         ${payment.senderNumber}
-                                                                                                                    <span class="arrow-link-symbol-right">→</span>
+                                                                                                                    <span class="forward-right-link-img">→</span>
                                                                                                                         ${payment.recipientNumber}
                                                                                                                 </p>
 
@@ -341,7 +341,7 @@
                                                                                                                 <!-- Sender and Recipient -->
                                                                                                                 <p class="card-title text-muted">
                                                                                                                         ${payment.recipientNumber}
-                                                                                                                    <span class="arrow-link-symbol-left">←</span>
+                                                                                                                    <span class="forward-left-link-img">←</span>
                                                                                                                         ${payment.senderNumber}
                                                                                                                 </p>
 
@@ -521,7 +521,7 @@
                                                 <div class="message-block">
                                                     <label class="title-label">
                                                         <a href="/" class="float-left">
-                                                            <span class="arrow-link-symbol-left">←</span>
+                                                            <span class="forward-left-link-img">←</span>
                                                                 ${returnToUsers}
                                                         </a>
                                                     </label>

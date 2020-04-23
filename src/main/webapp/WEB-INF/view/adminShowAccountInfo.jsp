@@ -395,21 +395,21 @@
                                                                        href="?command=showUser&userId=${viewableUser.userId}"
                                                                        aria-controls="unblockAccount">
                                                                             ${accountOwner} <span
-                                                                            class="arrow-link-symbol-right">→</span>
+                                                                            class="forward-right-link-img">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-payments-list" data-toggle="list"
                                                                        href="#list-payments" role="tab"
                                                                        aria-controls="showPayments">
                                                                             ${showPayments} <span
-                                                                            class="arrow-link-symbol-right">→</span>
+                                                                            class="forward-right-link-img">→</span>
                                                                     </a>
                                                                     <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                        id="list-attachedCards-list" data-toggle="list"
                                                                        href="#list-attachedCards" role="tab"
                                                                        aria-controls="showAttachedCards">
                                                                             ${showAttachedCards} <span
-                                                                            class="arrow-link-symbol-right">→</span>
+                                                                            class="forward-right-link-img">→</span>
                                                                     </a>
                                                                     <c:choose>
                                                                         <c:when test="${viewableAccount.isBlocked}">
@@ -419,7 +419,7 @@
                                                                                onclick="document.getElementById('form-unblockAccount').submit(); return false;"
                                                                                aria-controls="unblockAccount">
                                                                                     ${unblockAccount} <span
-                                                                                    class="arrow-link-symbol-right">→</span>
+                                                                                    class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <form action="/" method="POST"
                                                                                   id="form-unblockAccount" role="form">
@@ -436,7 +436,7 @@
                                                                                onclick="document.getElementById('form-blockAccount').submit(); return false;"
                                                                                aria-controls="blockAccount">
                                                                                     ${blockAccount} <span
-                                                                                    class="arrow-link-symbol-right">→</span>
+                                                                                    class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <form action="/" method="POST"
                                                                                   id="form-blockAccount" role="form">
@@ -453,7 +453,7 @@
                                                                        onclick="showDeleteAccountModal()"
                                                                        aria-controls="deleteAccount">
                                                                             ${deleteAccount} <span
-                                                                            class="arrow-link-symbol-right">→</span>
+                                                                            class="forward-right-link-img">→</span>
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -507,7 +507,7 @@
                                                                                                         <!-- Sender and Recipient -->
                                                                                                         <p class="card-title text-muted">
                                                                                                                 ${payment.senderNumber}
-                                                                                                            <span class="arrow-link-symbol-right">→</span>
+                                                                                                            <span class="forward-right-link-img">→</span>
                                                                                                                 ${payment.recipientNumber}
                                                                                                         </p>
 
@@ -533,7 +533,7 @@
                                                                                                         <!-- Sender and Recipient -->
                                                                                                         <p class="card-title text-muted">
                                                                                                                 ${payment.recipientNumber}
-                                                                                                            <span class="arrow-link-symbol-left">←</span>
+                                                                                                            <span class="forward-left-link-img">←</span>
                                                                                                                 ${payment.senderNumber}
                                                                                                         </p>
 
@@ -660,7 +660,7 @@
                                                 <div class="message-block">
                                                     <label class="title-label">
                                                         <a href="/" class="float-left">
-                                                            <span class="arrow-link-symbol-left">←</span>
+                                                            <span class="forward-left-link-img">←</span>
                                                                 ${returnToUsers}
                                                         </a>
                                                     </label>

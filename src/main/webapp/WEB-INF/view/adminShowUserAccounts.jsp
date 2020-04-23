@@ -176,7 +176,7 @@
                                                         <div class="message-block">
                                                             <label class="title-label">
                                                                 <a href="/" class="float-left">
-                                                                    <span class="arrow-link-symbol-left">←</span>
+                                                                    <span class="forward-left-link-img">←</span>
                                                                         ${returnToUsers}
                                                                 </a>
                                                             </label>

@@ -232,7 +232,7 @@
                                                 <div class="message-block">
                                                     <label class="title-label">
                                                         <a href="?command=support" class="float-left">
-                                                            <span class="arrow-link-symbol-left">←</span>
+                                                            <span class="forward-left-link-img">←</span>
                                                                 ${returnToLetters}
                                                         </a>
                                                     </label>

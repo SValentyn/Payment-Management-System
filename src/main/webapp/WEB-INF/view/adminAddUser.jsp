@@ -27,7 +27,7 @@
     <c:if test="${response eq 'addUserSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertUserAdded"/>
+                <fmt:message key="admin.page.alertUserAddedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

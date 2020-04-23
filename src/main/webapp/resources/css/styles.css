@@ -306,8 +306,6 @@ body {
     cursor: pointer;
     overflow: hidden;
     background: #ffffff;
-    border: 1px solid;
-    border-color: #dee2e6 #dee2e6 #ffffff;
     border-top-left-radius: .55rem;
     border-top-right-radius: .55rem;
 }
@@ -351,6 +349,7 @@ body {
 }
 
 .sidebar .list-group-item {
+    color: #2981cc !important;
     border-radius: 4px;
 }
 
@@ -360,6 +359,7 @@ body {
 
 .list-group-item-sidebar:hover,
 .list-group-item-sidebar:active {
+    color: #0056b3 !important;
     transform: translateY(2px) !important;
 }
 
@@ -415,7 +415,8 @@ h4, h5 {
 }
 
 div[class="message-block"] {
-    margin-top: 15px;
+    margin: 0;
+    padding: 25px 0 20px 30px;
 }
 
 div[class="message-block"] .title-label {
@@ -888,29 +889,23 @@ div[class="message-block"] .title-label {
 /* STYLE OF ICONS */
 
 .icon {
+    height: 18px;
+    width: 18px;
     position: relative;
     display: inline-block;
     top: -2px;
     margin-left: 3px;
     line-height: 1.0;
-    height: 17px;
-    width: 17px;
-    opacity: 0.9;
-}
-
-.icon-header {
-    opacity: 0.9;
 }
 
 .sidebar-icon {
-    height: 17px;
-    width: 17px;
+    height: 18px;
+    width: 18px;
     position: relative;
     display: inline-block;
-    top: -1px;
-    line-height: 1;
+    top: -2px;
     margin-right: 12px;
-    opacity: 0.5;
+    line-height: 1.0;
 }
 
 .sidebar-icon:hover,
@@ -979,7 +974,9 @@ div[class="message-block"] .title-label {
 }
 
 .badge-light {
-    color: #495057;
+    vertical-align: text-bottom;
+    color: #2981cc;
+    background-color: #f7f7f7;
 }
 
 .card:hover {
@@ -1004,32 +1001,40 @@ div[class="message-block"] .title-label {
     text-decoration: none;
 }
 
-.arrow-link-symbol-right,
-.arrow-link-symbol-left {
+.forward-right-link-img,
+.forward-left-link-img {
     display: inline-block;
-    margin: 0 5px 0 5px;
-    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    font-size: 15px;
+    text-decoration: none;
     transition: .2s;
     transform: translateX(0);
 }
 
+.forward-right-link-img img,
+.forward-left-link-img img {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 0 0 2px 5px;
+}
+
 .card-footer a:hover,
 .card-footer a:active,
-a:hover .arrow-link-symbol-right,
-a:active .arrow-link-symbol-right,
+.forward-right-link-img:hover,
+.forward-right-link-img:active,
 .list-group-item:hover,
 .list-group-item:active,
-.list-group-item:hover .arrow-link-symbol-right,
-.list-group-item:active .arrow-link-symbol-right,
-.arrow-link-symbol-right:hover,
-.arrow-link-symbol-right:active {
+.list-group-item:hover .forward-right-link-img,
+.list-group-item:active .forward-right-link-img img {
     transform: translateX(3px);
 }
 
-a:hover .arrow-link-symbol-left,
-a:active .arrow-link-symbol-left,
-.arrow-link-symbol-left:hover,
-.arrow-link-symbol-left:active {
+a:hover .forward-left-link-img img,
+a:active .forward-left-link-img img,
+.forward-left-link-img:hover img,
+.forward-left-link-img:active img {
     transform: translateX(-3px);
 }
 

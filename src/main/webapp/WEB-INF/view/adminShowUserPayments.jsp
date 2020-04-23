@@ -151,7 +151,7 @@
                                                                                                             <!-- Sender and Recipient -->
                                                                                                             <p class="card-title text-muted">
                                                                                                                     ${payment.senderNumber}
-                                                                                                                <span class="arrow-link-symbol-right">→</span>
+                                                                                                                <span class="forward-right-link-img">→</span>
                                                                                                                     ${payment.recipientNumber}
                                                                                                             </p>
 
@@ -177,7 +177,7 @@
                                                                                                             <!-- Sender and Recipient -->
                                                                                                             <p class="card-title text-muted">
                                                                                                                     ${payment.recipientNumber}
-                                                                                                                <span class="arrow-link-symbol-left">←</span>
+                                                                                                                <span class="forward-left-link-img">←</span>
                                                                                                                     ${payment.senderNumber}
                                                                                                             </p>
 
@@ -207,12 +207,12 @@
                                                                             </div>
                                                                         </c:when>
                                                                         <c:otherwise>
-                                                                        <span class="title-label">
-                                                                            <label>
-                                                                                <fmt:message
-                                                                                        key="admin.user.paymentsEmpty"/>
-                                                                            </label>
-                                                                        </span>
+                                                                            <span class="title-label">
+                                                                                <label>
+                                                                                    <fmt:message
+                                                                                            key="admin.user.paymentsEmpty"/>
+                                                                                </label>
+                                                                            </span>
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                 </div>
@@ -225,7 +225,7 @@
                                                         <div class="message-block">
                                                             <label class="title-label">
                                                                 <a href="/" class="float-left">
-                                                                    <span class="arrow-link-symbol-left">←</span>
+                                                                    <span class="forward-left-link-img">←</span>
                                                                         ${returnToUsers}
                                                                 </a>
                                                             </label>
