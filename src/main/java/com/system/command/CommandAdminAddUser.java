@@ -26,7 +26,7 @@ public class CommandAdminAddUser implements ICommand {
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
 
-            // Set Attributes
+            // Set attributes obtained from the session
             setRequestAttributes(request);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
@@ -39,24 +39,11 @@ public class CommandAdminAddUser implements ICommand {
             String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
 
             // Validation
-            if (!validation(name, surname)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.ADD_USER_ERROR);
+            if (!validation(request, name, surname, phone, email)) {
                 return pathRedirect;
             }
 
-            // Validation
-            if (!Validator.checkPhone(phone)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.PHONE_EXIST_ERROR);
-                return pathRedirect;
-            }
-
-            // Validation
-            if (!Validator.checkEmail(email)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
-                return pathRedirect;
-            }
-
-            // Register new user
+            // Action (register new user)
             int userId = UserService.getInstance().registerUser(name, surname, phone, email);
             if (userId == 0) {
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.ADD_USER_ERROR);
@@ -68,17 +55,41 @@ public class CommandAdminAddUser implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(String name, String surname) {
-        return Validator.checkName(name) &&
-                Validator.checkSurname(surname);
-    }
-
     private void clearRequestAttributes(HttpServletRequest request) {
         request.setAttribute("nameValue", null);
         request.setAttribute("surnameValue", null);
         request.setAttribute("phoneValue", null);
         request.setAttribute("emailValue", null);
         request.setAttribute("response", "");
+    }
+
+    private boolean validation(HttpServletRequest request, String name, String surname, String phone, String email) throws SQLException {
+
+        // Validation name
+        if (!Validator.checkName(name)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.ADD_USER_ERROR);
+            return false;
+        }
+
+        // Validation name
+        if (!Validator.checkSurname(surname)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.ADD_USER_ERROR);
+            return false;
+        }
+
+        // Validation phone
+        if (!Validator.checkPhone(phone)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.PHONE_EXIST_ERROR);
+            return false;
+        }
+
+        // Validation email
+        if (!Validator.checkEmail(email)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
+            return false;
+        }
+
+        return true;
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
