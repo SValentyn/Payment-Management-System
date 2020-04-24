@@ -1,5 +1,6 @@
 package com.system.command;
 
+import com.system.entity.Account;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
@@ -25,26 +26,24 @@ public class CommandAdminDeleteAccount implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
             // Data
+            String userIdParam = request.getParameter("userId");
             String accountIdParam = request.getParameter("accountId");
 
             // Validation
-            if (!Validator.checkAccountId(accountIdParam)) {
+            if (!validation(request, userIdParam, accountIdParam)) {
                 return pathRedirect;
             }
 
-            pathRedirect += "&accountId=" + accountIdParam;
-
-            // Data
-            Integer accountId = Integer.valueOf(accountIdParam);
-
             // Action
-            int status = AccountService.getInstance().deleteAccountByAccountId(accountId);
+            int status = AccountService.getInstance().deleteAccountByAccountId(Integer.valueOf(accountIdParam));
             if (status == 0) {
-                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_DELETED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.ACCOUNT_DELETED_ERROR);
             } else if (status == -1) {
-                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_HAS_FUNDS_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.ACCOUNT_HAS_FUNDS_ERROR);
             } else {
-                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_DELETED_SUCCESS.getResponse());
+                pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
+                pathRedirect += "&userId=" + userIdParam;
+                setSessionAttributes(request, ServerResponse.ACCOUNT_DELETED_SUCCESS);
             }
         }
 
@@ -53,6 +52,45 @@ public class CommandAdminDeleteAccount implements ICommand {
 
     private void clearRequestAttributes(HttpServletRequest request) {
         request.setAttribute("response", "");
+    }
+
+    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            return false;
+        }
+
+        // Change redirect path
+        pathRedirect += "&userId=" + userIdParam;
+
+        // Validation accountId
+        if (!Validator.checkAccountId(accountIdParam)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
+            return false;
+        }
+
+        // Change redirect path
+        pathRedirect += "&accountId=" + accountIdParam;
+
+        // Data
+        Integer userId = Integer.valueOf(userIdParam);
+        Integer accountId = Integer.valueOf(accountIdParam);
+        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+
+        // Check that the userId by account matches the received
+        if (!account.getUserId().equals(userId)) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
+            return false;
+        }
+
+        return true;
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }
