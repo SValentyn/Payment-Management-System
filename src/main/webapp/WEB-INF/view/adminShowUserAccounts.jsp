@@ -76,7 +76,8 @@
                                                 </h4>
 
                                                 <c:choose>
-                                                    <c:when test="${response ne 'unableGetUserId' && response ne 'showUserAccountsError'}">
+                                                    <c:when test="${response ne 'unableGetUserId' &&
+                                                                    response ne 'showUserAccountsError'}">
                                                         <div class="row">
                                                             <div class="col-lg-3 col-xl-3">
                                                                 <div>
@@ -143,7 +144,9 @@
                                                                                                         <p class="card-title text-muted">
                                                                                                                 ${account.number}<br/>
                                                                                                                 ${balance}: ${account.balance} ${account.currency}
-                                                                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}"
+
+                                                                                                            <!-- Show Account Info -->
+                                                                                                            <a href="?command=showAccountInfo&userId=${viewableUser.userId}&accountId=${account.accountId}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/info.png"
                                                                                                                      alt="">

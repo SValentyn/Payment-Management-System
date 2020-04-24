@@ -26,7 +26,7 @@ public class Account implements Serializable {
         this.accountId = accountId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 

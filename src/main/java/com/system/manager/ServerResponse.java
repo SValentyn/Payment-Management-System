@@ -30,6 +30,7 @@ public enum ServerResponse {
     SHOW_USER_PAYMENTS_ERROR("showUserPaymentsError"),
     SHOW_USER_ACCOUNTS_ERROR("showUserAccountsError"),
     UNABLE_GET_ACCOUNT_ID("unableGetAccountId"),
+    UNABLE_GET_ACCOUNT_BY_USER_ID("unableGetAccountByUserId"),
     SHOW_ACCOUNT_ERROR("showAccountError"),
     ACCOUNT_BLOCKED_ERROR("accountBlockedError"),
     ACCOUNT_UNBLOCKED_ERROR("accountUnblockedError"),
