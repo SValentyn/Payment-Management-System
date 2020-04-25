@@ -12,6 +12,7 @@ public enum ServerResponse {
     ADD_USER_SUCCESS("addUserSuccess"),
     ADD_USER_ERROR("addUserError"),
     UNABLE_GET_USER_ID("unableGetUserId"),
+    UNABLE_GET_USER_BY_USER_ID("unableGetUserByUserId"),
     ACCOUNT_ATTACHED_SUCCESS("accountAttachedSuccess"),
     MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR("manyAccountWithThisCurrencyError"),
     ACCOUNT_ATTACHED_ERROR("accountAttachError"),

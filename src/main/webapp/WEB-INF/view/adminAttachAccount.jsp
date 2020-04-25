@@ -47,6 +47,18 @@
         </div>
     </c:if>
 
+    <!-- Alert unableGetUserByUserId -->
+    <c:if test="${response eq 'unableGetUserByUserId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertUnableGetUserByUserIdError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert manyAccountWithThisCurrencyError -->
     <c:if test="${response eq 'manyAccountWithThisCurrencyError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
@@ -103,89 +115,86 @@
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="" role="form" method="POST">
-                                            <input type="hidden" name="command" value="attachAccount"/>
+                                        <c:choose>
+                                            <c:when test="${response ne 'unableGetUserId' &&
+                                                            response ne 'unableGetUserByUserId'}">
 
-                                            <!-- User bio -->
-                                            <div>
-                                                <label class="for-form-label">
-                                                    ${user_rank}
-                                                </label>
-                                                <input id="bio" name="bio" class="form-control"
-                                                       type="text" style="height: 46px; margin-top: 0;"
-                                                       readonly="readonly"
-                                                       data-toggle="tooltip-right-hover" title="${tooltipUserBio}"
-                                                       value="${bioValue}"/>
-                                                <label for="bio" class="default-label"></label>
-                                            </div>
+                                                <form action="" role="form" method="POST">
+                                                    <input type="hidden" name="command" value="attachAccount"/>
 
-                                            <!-- Account Number -->
-                                            <div>
-                                                <label class="for-form-label">
-                                                    ${numberNewAccount}
-                                                </label>
-                                                <div class="form-group" style="display: flex; margin-bottom: 0;">
-                                                    <input id="number" name="number" class="form-control"
-                                                           type="text" readonly="readonly" maxlength="20"
-                                                           style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
-                                                           value="${numberValue}"/>
-                                                    <img id="repeat" src="resources/images/repeat.png"
-                                                         alt="" class="glyphicon icon-repeat">
-                                                </div>
-                                                <label for="number" class="default-label">
-                                                    <span id="valid-msg-accountNumber" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                    </span>
-                                                    <span id="error-msg-accountNumber" class="error-msg invisible">
-                                                        ${numberError}
-                                                    </span>
-                                                </label>
-                                            </div>
+                                                    <!-- User bio -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                                ${user_rank}
+                                                        </label>
+                                                        <input id="bio" name="bio" class="form-control"
+                                                               type="text" readonly="readonly"
+                                                               style="height: 46px; margin-top: 0;"
+                                                               data-toggle="tooltip-right-hover"
+                                                               title="${tooltipUserBio}"
+                                                               value="${bioValue}"/>
+                                                        <label for="bio" class="default-label"></label>
+                                                    </div>
 
-                                            <!-- Currency -->
-                                            <input id="currency" name="currency" type="hidden"/>
+                                                    <!-- Account Number -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                                ${numberNewAccount}
+                                                        </label>
+                                                        <div class="form-group"
+                                                             style="display: flex; margin-bottom: 0;">
+                                                            <input id="number" name="number" class="form-control"
+                                                                   type="text" readonly="readonly" maxlength="20"
+                                                                   style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
+                                                                   value="${numberValue}"/>
+                                                            <img id="repeat" src="resources/images/repeat.png"
+                                                                 alt="" class="glyphicon icon-repeat">
+                                                        </div>
+                                                        <label for="number" class="default-label">
+                                                            <span id="valid-msg-accountNumber"
+                                                                  class="valid-msg invisible">
+                                                                    ${correct}<img src="resources/images/correct.png"
+                                                                                   alt="">
+                                                            </span>
+                                                            <span id="error-msg-accountNumber"
+                                                                  class="error-msg invisible">
+                                                                    ${numberError}
+                                                            </span>
+                                                        </label>
+                                                    </div>
 
-                                            <!-- Select Currency -->
-                                            <div>
-                                                <label class="for-form-label">
-                                                    ${accountCurrency}
-                                                </label>
-                                                <div class="bfh-selectbox bfh-currencies"
-                                                     data-currency="USD" data-flags="true">
-                                                </div>
-                                                <label for="currency" class="default-label">
-                                                    <span id="valid-msg-currency" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
-                                                    </span>
-                                                    <span id="error-msg-currency" class="error-msg invisible">
-                                                        ${currencyError}
-                                                    </span>
-                                                </label>
-                                            </div>
+                                                    <!-- Currency -->
+                                                    <input id="currency" name="currency" type="hidden"/>
 
-                                            <!-- Submit -->
-                                            <c:choose>
-                                                <c:when test="${response ne 'unableGetUserId'}">
+                                                    <!-- Select Currency -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                                ${accountCurrency}
+                                                        </label>
+                                                        <div class="bfh-selectbox bfh-currencies"
+                                                             data-currency="USD" data-flags="true">
+                                                        </div>
+                                                        <label for="currency" class="default-label">
+                                                            <span id="valid-msg-currency" class="valid-msg invisible">
+                                                                ${correct}<img src="resources/images/correct.png"
+                                                                               alt="">
+                                                            </span>
+                                                            <span id="error-msg-currency" class="error-msg invisible">
+                                                                    ${currencyError}
+                                                            </span>
+                                                        </label>
+                                                    </div>
+
+                                                    <!-- Submit -->
                                                     <div class="action" style="padding: 20px 0 10px 0">
                                                         <button id="submit" type="submit"
                                                                 class="btn btn-primary signup">
                                                                 ${attachAccountButton}
                                                         </button>
                                                     </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <div class="action" style="padding: 20px 0 10px 0">
-                                                        <button type="submit" class="btn btn-primary signup disabled">
-                                                                ${attachAccountButton}
-                                                        </button>
-                                                    </div>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </form>
+                                                </form>
 
-                                        <!-- "Show all accounts" Button and "Return to User Profile" Button -->
-                                        <c:choose>
-                                            <c:when test="${response ne 'unableGetUserId'}">
+                                                <!-- Show all Accounts -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="showUserAccounts">
@@ -197,6 +206,7 @@
                                                     </form>
                                                 </div>
 
+                                                <!-- Return to User Profile -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="showUser">
@@ -209,10 +219,60 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
+
+                                                <form action="/" role="form" method="POST">
+                                                    <input type="hidden" name="command" value="attachAccount"/>
+
+                                                    <!-- User bio -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                                ${user_rank}
+                                                        </label>
+                                                        <input name="bio" class="form-control"
+                                                               type="text" readonly="readonly"
+                                                               style="height: 46px; margin-top: 0;"/>
+                                                        <label for="bio" class="default-label"></label>
+                                                    </div>
+
+                                                    <!-- Account Number -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                                ${numberNewAccount}
+                                                        </label>
+                                                        <div class="form-group"
+                                                             style="display: flex; margin-bottom: 0;">
+                                                            <input name="number" class="form-control"
+                                                                   type="text" readonly="readonly"
+                                                                   style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"/>
+                                                            <img src="resources/images/repeat.png" alt=""
+                                                                 class="glyphicon icon-repeat">
+                                                        </div>
+                                                        <label for="number" class="default-label"></label>
+                                                    </div>
+
+                                                    <!-- Select Currency -->
+                                                    <div>
+                                                        <label class="for-form-label">
+                                                                ${accountCurrency}
+                                                        </label>
+                                                        <div class="bfh-selectbox bfh-currencies"
+                                                             data-currency="USD" data-flags="true">
+                                                        </div>
+                                                        <label for="currency" class="default-label"></label>
+                                                    </div>
+
+                                                    <!-- Submit -->
+                                                    <div class="action" style="padding: 20px 0 10px 0">
+                                                        <button type="submit" class="btn btn-primary signup disabled">
+                                                                ${attachAccountButton}
+                                                        </button>
+                                                    </div>
+                                                </form>
+
+                                                <!-- Show all Accounts -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="showUserAccounts">
-                                                        <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default disabled">
                                                                 ${showAllAccountsButton}
@@ -220,10 +280,10 @@
                                                     </form>
                                                 </div>
 
+                                                <!-- Return to User Profile -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="showUser">
-                                                        <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default disabled">
                                                                 ${returnToUserProfile}

@@ -917,8 +917,9 @@ div[class="message-block"] .title-label {
 .icon-repeat {
     min-height: 36px !important;
     min-width: 36px !important;
-    max-height: 36px;
-    max-width: 36px;
+    max-height: 36px !important;
+    max-width: 36px !important;
+    top: 3px;
 }
 
 .icon-repeat:hover {
