@@ -56,13 +56,13 @@
                 <fmt:message key="admin.user_payments.formHeader" var="formHeader"/>
                 <fmt:message key="admin.page.success" var="success"/>
                 <fmt:message key="admin.page.failed" var="failed"/>
-                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
                 <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
+                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -77,161 +77,173 @@
                                                     ${formHeader}
                                                 </h4>
 
-                                                <c:choose>
-                                                    <c:when test="${response ne 'unableGetUserId' && response ne 'showUserPaymentsError'}">
-                                                        <div class="row">
-                                                            <div class="col-lg-3 col-xl-3">
-                                                                <div>
-                                                                    <form action="/" method="GET" role="form">
-                                                                        <input type="hidden" name="command"
-                                                                               value="showUser">
-                                                                        <input type="hidden" name="userId"
-                                                                               value="${userId}">
-                                                                        <div class="action" style="text-align: unset;">
-                                                                            <button id="submit" type="submit"
-                                                                                    class="btn btn-primary signup btn-default"
-                                                                                    style="width: 100%;">
-                                                                                    ${returnToUserProfile}
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                                                <!-- Return to Users -->
+                                                <c:if test="${response eq 'unableGetUserId'}">
+                                                    <div class="message-block">
+                                                        <label class="title-label">
+                                                            <a href="/" class="float-left">
+                                                                <span class="forward-left-link-img">←</span>
+                                                                    ${returnToUsers}
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                </c:if>
 
-                                                                <div style="text-align: center; margin: 20px 0 30px 0;">
-                                                                    <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
-                                                                            ${searchCriteria}:
-                                                                    </label>
-                                                                    <form action="/" method="GET" role="form">
-                                                                        <input type="hidden" name="command"
-                                                                               value="searchAccounts">
-                                                                        <div class="action" style="text-align: unset;">
-                                                                            <button id="search" type="submit"
-                                                                                    class="btn btn-primary signup">
-                                                                                    ${searchButton}
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                                                <!-- Return to User -->
+                                                <c:if test="${ response eq 'showUserPaymentsError'}">
+                                                    <div class="message-block">
+                                                        <label class="title-label">
+                                                            <a href="?command=showUser&userId=${userId}"
+                                                               class="float-left">
+                                                                <span class="forward-left-link-img">←</span>
+                                                                    ${returnToUserProfile}
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                </c:if>
+
+                                                <c:if test="${response ne 'unableGetUserId' &&
+                                                              response ne 'showUserPaymentsError'}">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-xl-3">
+                                                            <div>
+                                                                <form action="/" method="GET" role="form">
+                                                                    <input type="hidden" name="command"
+                                                                           value="showUser">
+                                                                    <input type="hidden" name="userId"
+                                                                           value="${userId}">
+                                                                    <div class="action" style="text-align: unset;">
+                                                                        <button id="submit" type="submit"
+                                                                                class="btn btn-primary signup btn-default"
+                                                                                style="width: 100%;">
+                                                                                ${returnToUserProfile}
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
 
-                                                            <div class="col-lg-9 col-xl-9">
-                                                                <div class="col-xl-12">
-                                                                    <c:choose>
-                                                                        <c:when test="${!paymentsEmpty}">
-                                                                            <div class="card-container">
-                                                                                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
-                                                                                    <c:forEach items="${payments}"
-                                                                                               var="payment">
-                                                                                        <div class="col mb-4">
-                                                                                            <div class="card bg-light">
-                                                                                                <div class="card-header">
-                                                                                                    <small class="text-muted float-left">
-                                                                                                            ${payment.date}
-                                                                                                    </small>
-                                                                                                    <c:choose>
-                                                                                                        <c:when test="${payment.condition}">
-                                                                                                            <small class="text-success float-right">
-                                                                                                                    ${success}
-                                                                                                            </small>
-                                                                                                        </c:when>
-                                                                                                        <c:otherwise>
-                                                                                                            <small class="text-danger float-right">
-                                                                                                                    ${failed}
-                                                                                                            </small>
-                                                                                                        </c:otherwise>
-                                                                                                    </c:choose>
-                                                                                                </div>
-                                                                                                <div class="card-body"
-                                                                                                     style="padding: 0.75rem 1.25rem;">
+                                                            <div style="text-align: center; margin: 20px 0 30px 0;">
+                                                                <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
+                                                                        ${searchCriteria}:
+                                                                </label>
+                                                                <form action="/" method="GET" role="form">
+                                                                    <input type="hidden" name="command"
+                                                                           value="searchAccounts">
+                                                                    <div class="action" style="text-align: unset;">
+                                                                        <button id="search" type="submit"
+                                                                                class="btn btn-primary signup">
+                                                                                ${searchButton}
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
 
-                                                                                                    <!-- Outgoing and Incoming Payments -->
-                                                                                                    <c:choose>
-                                                                                                        <c:when test="${payment.isOutgoing}">
+                                                        <div class="col-lg-9 col-xl-9">
+                                                            <div class="col-xl-12">
+                                                                <c:choose>
+                                                                    <c:when test="${!paymentsEmpty}">
+                                                                        <div class="card-container">
+                                                                            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
+                                                                                <c:forEach items="${payments}"
+                                                                                           var="payment">
+                                                                                    <div class="col mb-4">
+                                                                                        <div class="card bg-light">
+                                                                                            <div class="card-header">
+                                                                                                <small class="text-muted float-left">
+                                                                                                        ${payment.date}
+                                                                                                </small>
+                                                                                                <c:choose>
+                                                                                                    <c:when test="${payment.condition}">
+                                                                                                        <small class="text-success float-right">
+                                                                                                                ${success}
+                                                                                                        </small>
+                                                                                                    </c:when>
+                                                                                                    <c:otherwise>
+                                                                                                        <small class="text-danger float-right">
+                                                                                                                ${failed}
+                                                                                                        </small>
+                                                                                                    </c:otherwise>
+                                                                                                </c:choose>
+                                                                                            </div>
+                                                                                            <div class="card-body"
+                                                                                                 style="padding: 0.75rem 1.25rem;">
 
-                                                                                                            <!-- Sender and Recipient -->
-                                                                                                            <p class="card-title text-muted">
-                                                                                                                    ${payment.senderNumber}
-                                                                                                                <span class="forward-right-link-img">→</span>
-                                                                                                                    ${payment.recipientNumber}
-                                                                                                            </p>
+                                                                                                <!-- Outgoing and Incoming Payments -->
+                                                                                                <c:choose>
+                                                                                                    <c:when test="${payment.isOutgoing}">
 
-                                                                                                            <!-- Sent Funds -->
-                                                                                                            <p class="card-title text-muted">
-                                                                                                                    ${sentFunds}: ${payment.senderAmount} ${payment.senderCurrency}
-                                                                                                            </p>
+                                                                                                        <!-- Sender and Recipient -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${payment.senderNumber}
+                                                                                                            <span class="forward-right-link-img">→</span>
+                                                                                                                ${payment.recipientNumber}
+                                                                                                        </p>
 
-                                                                                                            <!-- New balance -->
-                                                                                                            <p class="card-title text-muted">
-                                                                                                                    ${remained}: ${payment.newBalance} ${payment.senderCurrency}
+                                                                                                        <!-- Sent Funds -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${sentFunds}: ${payment.senderAmount} ${payment.senderCurrency}
+                                                                                                        </p>
 
-                                                                                                                <!-- Show Payment Info -->
-                                                                                                                <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
-                                                                                                                   style="float: right">
-                                                                                                                    <img src="resources/images/info.png"
-                                                                                                                         alt="">
-                                                                                                                </a>
-                                                                                                            </p>
-                                                                                                        </c:when>
-                                                                                                        <c:otherwise>
+                                                                                                        <!-- New balance -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${remained}: ${payment.newBalance} ${payment.senderCurrency}
 
-                                                                                                            <!-- Sender and Recipient -->
-                                                                                                            <p class="card-title text-muted">
-                                                                                                                    ${payment.recipientNumber}
-                                                                                                                <span class="forward-left-link-img">←</span>
-                                                                                                                    ${payment.senderNumber}
-                                                                                                            </p>
+                                                                                                            <!-- Show Payment Info -->
+                                                                                                            <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
+                                                                                                               style="float: right">
+                                                                                                                <img src="resources/images/info.png"
+                                                                                                                     alt="">
+                                                                                                            </a>
+                                                                                                        </p>
+                                                                                                    </c:when>
+                                                                                                    <c:otherwise>
 
-                                                                                                            <!-- Received Funds -->
-                                                                                                            <p class="card-title text-muted">
-                                                                                                                    ${receivedFunds}: ${payment.recipientAmount} ${payment.recipientCurrency}
-                                                                                                            </p>
+                                                                                                        <!-- Sender and Recipient -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${payment.recipientNumber}
+                                                                                                            <span class="forward-left-link-img">←</span>
+                                                                                                                ${payment.senderNumber}
+                                                                                                        </p>
 
-                                                                                                            <!-- New balance -->
-                                                                                                            <p class="card-title text-muted">
-                                                                                                                    ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
+                                                                                                        <!-- Received Funds -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${receivedFunds}: ${payment.recipientAmount} ${payment.recipientCurrency}
+                                                                                                        </p>
 
-                                                                                                                <!-- Show Payment Info -->
-                                                                                                                <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
-                                                                                                                   style="float: right">
-                                                                                                                    <img src="resources/images/info.png"
-                                                                                                                         alt="">
-                                                                                                                </a>
-                                                                                                            </p>
-                                                                                                        </c:otherwise>
-                                                                                                    </c:choose>
-                                                                                                </div>
+                                                                                                        <!-- New balance -->
+                                                                                                        <p class="card-title text-muted">
+                                                                                                                ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
+
+                                                                                                            <!-- Show Payment Info -->
+                                                                                                            <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
+                                                                                                               style="float: right">
+                                                                                                                <img src="resources/images/info.png"
+                                                                                                                     alt="">
+                                                                                                            </a>
+                                                                                                        </p>
+                                                                                                    </c:otherwise>
+                                                                                                </c:choose>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </c:forEach>
-                                                                                </div>
+                                                                                    </div>
+                                                                                </c:forEach>
                                                                             </div>
-                                                                        </c:when>
-                                                                        <c:otherwise>
+                                                                        </div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
                                                                             <span class="title-label">
                                                                                 <label>
                                                                                     <fmt:message
                                                                                             key="admin.user.paymentsEmpty"/>
                                                                                 </label>
                                                                             </span>
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </div>
                                                         </div>
-                                                    </c:when>
-                                                    <c:otherwise>
-
-                                                        <!-- Return to Users -->
-                                                        <div class="message-block">
-                                                            <label class="title-label">
-                                                                <a href="/" class="float-left">
-                                                                    <span class="forward-left-link-img">←</span>
-                                                                        ${returnToUsers}
-                                                                </a>
-                                                            </label>
-                                                        </div>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                    </div>
+                                                </c:if>
                                             </div>
                                         </div>
                                     </div>

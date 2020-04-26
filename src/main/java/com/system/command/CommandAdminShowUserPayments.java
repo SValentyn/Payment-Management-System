@@ -32,22 +32,26 @@ public class CommandAdminShowUserPayments implements ICommand {
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!Validator.checkUserId(userIdParam)) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
-                return pathRedirect;
-            }
-
-            // Validation
-            if (!Validator.checkUserIsAdmin(userIdParam)) {
-                request.setAttribute("response", ServerResponse.SHOW_USER_PAYMENTS_ERROR.getResponse());
+            if (!validation(request, userIdParam)) {
                 return pathRedirect;
             }
 
             // Set Attributes
-            setRequestAttributes(request, Integer.parseInt(userIdParam));
+            setRequestAttributes(request, Integer.valueOf(userIdParam));
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String userIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
