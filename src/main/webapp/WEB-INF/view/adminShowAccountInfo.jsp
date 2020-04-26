@@ -91,8 +91,9 @@
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
                     <form action="/" role="form" method="POST">
                         <input type="hidden" name="command" value="detachCard">
+                        <input type="hidden" name="userId" value="${viewableUser.userId}">
                         <input type="hidden" name="accountId" value="${viewableAccount.accountId}">
-                        <input type="hidden" name="cardNumber" id="cardNumber"/>
+                        <input type="hidden" name="cardId" id="cardId">
                         <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
@@ -135,30 +136,6 @@
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertUnableGetAccountByUserIdError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unableGetCardId -->
-    <c:if test="${response eq 'unableGetCardId'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnableGetCardIdError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unableGetCard -->
-    <c:if test="${response eq 'unableGetCard'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnableGetCardError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -231,6 +208,30 @@
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertAccountDeletedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unableGetCardId -->
+    <c:if test="${response eq 'unableGetCardId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetCardIdError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unableGetCard -->
+    <c:if test="${response eq 'unableGetCard'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetCardError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -692,7 +693,7 @@
                                                                                             <p class="card-title text-muted">
                                                                                                     ${card.number}<br/>
                                                                                                     ${validity}: ${card.validity}
-                                                                                                <a href="#detachCardModal?cardNumber=${card.number}"
+                                                                                                <a href="#detachCardModal?cardId=${card.cardId}&cardNumber=${card.number}"
                                                                                                    onclick="showDetachCardModal()"
                                                                                                    class="float-right">
                                                                                                     <img src="resources/images/detach-card-link.png"
