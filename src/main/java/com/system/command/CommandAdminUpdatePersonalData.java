@@ -29,6 +29,9 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_DATA);
 
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
+
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
 
@@ -49,7 +52,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
 
             // Check
             if (user == null) {
-                request.getSession().setAttribute("response", ServerResponse.DATA_UPDATED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.DATA_UPDATED_ERROR);
                 return pathRedirect;
             }
 
@@ -60,32 +63,9 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            // Check
-            if (!checkPassword(user, password)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.PASSWORD_NOT_MATCH_ERROR);
+            // Validation
+            if (!validation(request, user, name, surname, phone, email, password)) {
                 return pathRedirect;
-            }
-
-            // Validation name and surname
-            if (!validation(name, surname)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.INVALID_DATA);
-                return pathRedirect;
-            }
-
-            // Validation if the phone has been changed
-            if (!user.getPhone().equals(phone)) {
-                if (!Validator.checkPhone(phone)) {
-                    setSessionAttributes(request, name, surname, phone, email, ServerResponse.PHONE_EXIST_ERROR);
-                    return pathRedirect;
-                }
-            }
-
-            // Validation if the email has been changed
-            if (!user.getEmail().equals(email)) {
-                if (!Validator.checkEmail(email)) {
-                    setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
-                    return pathRedirect;
-                }
             }
 
             // Set new user properties
@@ -98,24 +78,61 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             // Action
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
-                request.getSession().setAttribute("response", ServerResponse.DATA_UPDATED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.DATA_UPDATED_ERROR);
             } else {
-                request.getSession().setAttribute("response", ServerResponse.DATA_UPDATED_SUCCESS.getResponse());
+                setSessionAttributes(request, ServerResponse.DATA_UPDATED_SUCCESS);
             }
         }
 
         return pathRedirect;
     }
 
+    private boolean validation(HttpServletRequest request, User user, String name, String surname, String phone, String email, String password) throws SQLException {
+
+        // Validation password
+        if (!checkPassword(user, password)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.PASSWORD_NOT_MATCH_ERROR);
+            return false;
+        }
+
+        // Validation name
+        if (!Validator.checkName(name)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.INVALID_DATA);
+            return false;
+        }
+
+        // Validation surname
+        if (!Validator.checkSurname(surname)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.INVALID_DATA);
+            return false;
+        }
+
+        // Validation if the phone has been changed
+        if (!user.getPhone().equals(phone)) {
+            if (!Validator.checkPhone(phone)) {
+                setSessionAttributes(request, name, surname, phone, email, ServerResponse.PHONE_EXIST_ERROR);
+                return false;
+            }
+        }
+
+        // Validation if the email has been changed
+        if (!user.getEmail().equals(email)) {
+            if (!Validator.checkEmail(email)) {
+                setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return true, if the password is not NULL and equal to the current user password
+     */
     private boolean checkPassword(User user, String password) throws SQLException {
         if (!Validator.checkPassword(password)) return false;
         String correctPassword = UserService.getInstance().findUserById(user.getUserId()).getPassword();
         return correctPassword.equals(encryptor.encode(password));
-    }
-
-    private boolean validation(String name, String surname) {
-        return Validator.checkName(name) &&
-                Validator.checkSurname(surname);
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
@@ -126,12 +143,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User user) {
-        request.setAttribute("nameValue", user.getName());
-        request.setAttribute("surnameValue", user.getSurname());
-        request.setAttribute("phoneValue", user.getPhone());
-        request.setAttribute("emailValue", user.getEmail());
-
+    private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         String name = (String) session.getAttribute("name");
@@ -165,11 +177,22 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         }
     }
 
+    private void setRequestAttributes(HttpServletRequest request, User user) {
+        request.setAttribute("nameValue", user.getName());
+        request.setAttribute("surnameValue", user.getSurname());
+        request.setAttribute("phoneValue", user.getPhone());
+        request.setAttribute("emailValue", user.getEmail());
+    }
+
     private void setSessionAttributes(HttpServletRequest request, String name, String surname, String phone, String email, ServerResponse serverResponse) {
         request.getSession().setAttribute("name", name);
         request.getSession().setAttribute("surname", surname);
         request.getSession().setAttribute("phone", phone);
         request.getSession().setAttribute("email", email);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
