@@ -47,6 +47,7 @@ public enum ServerResponse {
     CARD_DETACHED_SUCCESS("cardDetachedSuccess"),
     CARD_DETACHED_ERROR("cardDetachedError"),
     UNABLE_GET_PAYMENT_ID("unableGetPaymentId"),
+    UNABLE_GET_PAYMENT_BY_USER_ID("unableGetPaymentByUserId"),
     SHOW_PAYMENT_ERROR("showPaymentError"),
     SHOW_LETTERS_ERROR("showLettersError"),
     UNABLE_GET_LETTER_ID("unableGetLetterId"),

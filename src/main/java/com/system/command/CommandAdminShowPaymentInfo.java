@@ -38,31 +38,7 @@ public class CommandAdminShowPaymentInfo implements ICommand {
             String paymentIdParam = request.getParameter("paymentId");
 
             // Validation
-            if (!Validator.checkUserId(userIdParam)) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
-                return pathRedirect;
-            }
-
-            // Validation
-            if (!Validator.checkPaymentId(paymentIdParam)) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_PAYMENT_ID.getResponse());
-                return pathRedirect;
-            }
-
-            // Data
-            Integer userId = Integer.valueOf(userIdParam);
-            Integer paymentId = Integer.valueOf(paymentIdParam);
-
-            // Data
-            List<Payment> paymentsByUserId = PaymentService.getInstance().findAllPaymentsByUserId(userId);
-            List<Integer> paymentIds = new ArrayList<>();
-            for (Payment aPayment : paymentsByUserId) {
-                paymentIds.add(aPayment.getPaymentId());
-            }
-
-            // Check
-            if (!paymentIds.contains(paymentId)) {
-                request.setAttribute("response", ServerResponse.SHOW_PAYMENT_ERROR.getResponse());
+            if (!validation(request, userIdParam, paymentIdParam)) {
                 return pathRedirect;
             }
 
@@ -73,7 +49,7 @@ public class CommandAdminShowPaymentInfo implements ICommand {
 
             // Check
             if (senderUser == null) {
-                request.setAttribute("response", ServerResponse.SHOW_PAYMENT_ERROR.getResponse());
+                setRequestAttributes(request, ServerResponse.SHOW_PAYMENT_ERROR);
                 return pathRedirect;
             }
 
@@ -81,14 +57,50 @@ public class CommandAdminShowPaymentInfo implements ICommand {
             if (payment.getRecipientNumber().length() == 20) {
                 Account recipientAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getRecipientNumber());
                 User recipientUser = UserService.getInstance().findUserById(recipientAccount.getUserId());
-                setRequestAttributes(request, userId, payment, senderUser, recipientUser, true);
+                setRequestAttributes(request, payment, senderUser, recipientUser, true);
             } else {
                 // [Obtaining cardholder data]
-                setRequestAttributes(request, userId, payment, senderUser, null, false);
+                setRequestAttributes(request, payment, senderUser, null, false);
             }
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String userIdParam, String paymentIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
+            return false;
+        } else {
+            request.setAttribute("userId", userIdParam);
+        }
+
+        // Validation paymentId
+        if (!Validator.checkPaymentId(paymentIdParam)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_PAYMENT_ID);
+            return false;
+        }
+
+        // Data
+        Integer userId = Integer.valueOf(userIdParam);
+        Integer paymentId = Integer.valueOf(paymentIdParam);
+
+        // Data
+        List<Payment> paymentsByUserId = PaymentService.getInstance().findAllPaymentsByUserId(userId);
+        List<Integer> paymentIds = new ArrayList<>();
+        for (Payment aPayment : paymentsByUserId) {
+            paymentIds.add(aPayment.getPaymentId());
+        }
+
+        // Checking that the payment belongs to the user
+        if (!paymentIds.contains(paymentId)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_PAYMENT_BY_USER_ID);
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
@@ -100,12 +112,15 @@ public class CommandAdminShowPaymentInfo implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer userId, Payment payment, User senderUser, User recipientUser, boolean recipientIsAccount) {
-        request.setAttribute("userId", userId);
+    private void setRequestAttributes(HttpServletRequest request, Payment payment, User senderUser, User recipientUser, boolean recipientIsAccount) {
         request.setAttribute("payment", payment);
         request.setAttribute("senderUser", senderUser);
         request.setAttribute("recipientUser", recipientUser);
         request.setAttribute("recipientIsAccount", recipientIsAccount);
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.setAttribute("response", serverResponse.getResponse());
     }
 
 }
