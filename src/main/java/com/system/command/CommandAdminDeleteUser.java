@@ -36,46 +36,56 @@ public class CommandAdminDeleteUser implements ICommand {
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!Validator.checkUserId(userIdParam)) {
+            if (!validation(request, userIdParam)) {
                 return pathRedirect;
-            }
-
-            pathRedirect += "&userId=" + userIdParam;
-
-            // Validation
-            if (!Validator.checkUserIsAdmin(userIdParam)) {
-                request.getSession().setAttribute("response", ServerResponse.USER_DELETED_ERROR.getResponse());
-                return pathRedirect;
-            }
-
-            // Data
-            Integer userId = Integer.valueOf(userIdParam);
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
-
-            // Check
-            for (Account account : accounts) {
-                BigDecimal balance = account.getBalance();
-                if (balance.compareTo(BigDecimal.ZERO) != 0) {
-                    request.getSession().setAttribute("response", ServerResponse.USER_HAS_FUNDS_ERROR.getResponse());
-                    return pathRedirect;
-                }
             }
 
             // Action
-            int status = UserService.getInstance().deleteUserById(userId);
+            int status = UserService.getInstance().deleteUserById(Integer.valueOf(userIdParam));
             if (status == 0) {
-                request.getSession().setAttribute("response", ServerResponse.USER_DELETED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.USER_DELETED_ERROR);
             } else {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
-                request.getSession().setAttribute("response", ServerResponse.USER_DELETED_SUCCESS.getResponse());
+                setSessionAttributes(request, ServerResponse.USER_DELETED_SUCCESS);
             }
         }
 
         return pathRedirect;
     }
 
+    private boolean validation(HttpServletRequest request, String userIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
+            return false;
+        }
+
+        // Change redirect path
+        pathRedirect += "&userId=" + userIdParam;
+
+        // Data
+        Integer userId = Integer.valueOf(userIdParam);
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
+
+        // Checking that there are no funds left in the user’s accounts
+        for (Account account : accounts) {
+            BigDecimal balance = account.getBalance();
+            if (balance.compareTo(BigDecimal.ZERO) != 0) {
+                setSessionAttributes(request, ServerResponse.USER_HAS_FUNDS_ERROR);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private void clearRequestAttributes(HttpServletRequest request) {
         request.setAttribute("response", "");
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }
