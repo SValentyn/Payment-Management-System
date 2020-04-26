@@ -23,18 +23,6 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert Success -->
-    <c:if test="${response eq 'letterProcessedSuccess'}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertLetterProcessedSuccess"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <!-- Alert unableGetLetterId -->
     <c:if test="${response eq 'unableGetLetterId'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
@@ -59,11 +47,21 @@
         </div>
     </c:if>
 
-    <!-- Alert letterProcessedError -->
-    <c:if test="${response eq 'letterProcessedError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
+    <!-- Alert letterWasProcessed -->
+    <c:if test="${response eq 'letterWasProcessed'}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p><fmt:message key="admin.page.alertLetterWasProcessedWarning"/></p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert Success -->
+    <c:if test="${response eq 'letterProcessedSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertLetterProcessedError"/>
+                <fmt:message key="admin.page.alertLetterProcessedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -71,10 +69,12 @@
         </div>
     </c:if>
 
-    <!-- Alert letterWasProcessed -->
-    <c:if test="${response eq 'letterWasProcessed'}">
-        <div id="alert" class="alert alert-warning fade show" role="alert">
-            <p><fmt:message key="admin.page.alertLetterWasProcessedWarning"/></p>
+    <!-- Alert letterProcessedError -->
+    <c:if test="${response eq 'letterProcessedError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertLetterProcessedError"/>
+            </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
