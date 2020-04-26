@@ -23,11 +23,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert Success -->
-    <c:if test="${response eq 'dataUpdatedSuccess'}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertUserDataUpdatedSuccess"/>
+    <!-- Alert unableGetUserId -->
+    <c:if test="${response eq 'unableGetUserId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetUserIdError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -35,11 +35,11 @@
         </div>
     </c:if>
 
-    <!-- Alert unableGetUserId -->
-    <c:if test="${response eq 'unableGetUserId'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnableGetUserIdError"/>
+    <!-- Alert Success -->
+    <c:if test="${response eq 'dataUpdatedSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertUserDataUpdatedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -121,6 +121,7 @@
                                         <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
                                         <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                                         <fmt:message key="registration.correct" var="correct"/>
+                                        <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
                                         <fmt:message key="admin.attachAccount.returnToUserProfile"
                                                      var="returnToUserProfile"/>
 
@@ -128,109 +129,103 @@
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="/" role="form" method="POST">
-                                            <input type="hidden" name="command" value="updateUserData">
-
-                                            <!-- User Id -->
-                                            <input id="userId" name="userId" type="hidden" value="${userId}"/>
-
-                                            <!-- Name -->
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <input id="name" name="name" class="form-control"
-                                                           type="text" data-toggle="tooltip-left"
-                                                           data-title="${tooltipOnlyLetters}"
-                                                           maxlength="24" placeholder="${name}*"
-                                                           value="${nameValue}"/>
-                                                    <label for="name" class="default-label">
-                                                        <span id="valid-msg-name" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                        </span>
-                                                        <span id="error-msg-name" class="error-msg invisible">
-                                                            ${nameError}
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                                <!-- Surname -->
-                                                <div class="col-md-6">
-                                                    <input id="surname" name="surname" class="form-control"
-                                                           type="text" data-toggle="tooltip"
-                                                           data-title="${tooltipOnlyLetters}"
-                                                           maxlength="32" placeholder="${surname}*"
-                                                           value="${surnameValue}"/>
-                                                    <label for="surname" class="default-label">
-                                                        <span id="valid-msg-surname" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                        </span>
-                                                        <span id="error-msg-surname" class="error-msg invisible">
-                                                            ${surnameError}
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <!-- Phone -->
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-9" style="margin-top: 8px">
-                                                    <input id="phone" name="phone" type="tel" class="form-control"
-                                                           data-toggle="tooltip" data-title="${tooltipPhone}"
-                                                           onkeypress="onlyNumbers()"
-                                                           value="${phoneValue}"/>
-                                                    <label for="phone" class="default-label">
-                                                        <span id="valid-msg-phone" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                        </span>
-                                                        <span id="error-msg-phone"
-                                                              class="error-msg invisible">${loginError}
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <!-- Email -->
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-9">
-                                                    <input id="email" name="email" class="form-control"
-                                                           type="email" data-toggle="tooltip"
-                                                           data-title="${tooltipEmail}"
-                                                           maxlength="45" placeholder="${email}"
-                                                           value="${emailValue}"/>
-                                                    <label for="email" class="default-label">
-                                                        <span id="valid-msg-email" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                        </span>
-                                                        <span id="error-msg-email" class="error-msg invisible">
-                                                            ${emailError}
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <!-- Submit -->
-                                            <c:choose>
-                                                <c:when test="${response ne 'unableGetUserId'}">
-                                                    <div class="action" style="padding: 25px 0 10px 0">
-                                                        <button id="submit" type="submit" class="btn btn-primary signup"
-                                                                style="width: 56%;">
-                                                                ${updateDataButton}
-                                                        </button>
-                                                    </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <div class="action" style="padding: 25px 0 10px 0">
-                                                        <button type="submit" class="btn btn-primary signup disabled"
-                                                                style="width: 56%;">
-                                                                ${updateDataButton}
-                                                        </button>
-                                                    </div>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </form>
-
-                                        <!-- Return to User Profile -->
                                         <c:choose>
                                             <c:when test="${response ne 'unableGetUserId'}">
+                                                <form action="/" role="form" method="POST">
+                                                    <input type="hidden" name="command" value="updateUserData">
+
+                                                    <!-- User Id -->
+                                                    <input id="userId" name="userId" type="hidden" value="${userId}"/>
+
+                                                    <!-- Name -->
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <input id="name" name="name" class="form-control"
+                                                                   type="text" data-toggle="tooltip-left"
+                                                                   data-title="${tooltipOnlyLetters}"
+                                                                   maxlength="24" placeholder="${name}*"
+                                                                   value="${nameValue}"/>
+                                                            <label for="name" class="default-label">
+                                                                <span id="valid-msg-name" class="valid-msg invisible">
+                                                                    ${correct}
+                                                                    <img src="resources/images/correct.png" alt="">
+                                                                </span>
+                                                                <span id="error-msg-name" class="error-msg invisible">
+                                                                        ${nameError}
+                                                                </span>
+                                                            </label>
+                                                        </div>
+
+                                                        <!-- Surname -->
+                                                        <div class="col-md-6">
+                                                            <input id="surname" name="surname" class="form-control"
+                                                                   type="text" data-toggle="tooltip"
+                                                                   data-title="${tooltipOnlyLetters}"
+                                                                   maxlength="32" placeholder="${surname}*"
+                                                                   value="${surnameValue}"/>
+                                                            <label for="surname" class="default-label">
+                                                                <span id="valid-msg-surname"
+                                                                      class="valid-msg invisible">
+                                                                    ${correct}
+                                                                    <img src="resources/images/correct.png" alt="">
+                                                                </span>
+                                                                <span id="error-msg-surname"
+                                                                      class="error-msg invisible">
+                                                                        ${surnameError}
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Phone -->
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-9" style="margin-top: 8px">
+                                                            <input id="phone" name="phone" type="tel"
+                                                                   class="form-control"
+                                                                   data-toggle="tooltip" data-title="${tooltipPhone}"
+                                                                   onkeypress="onlyNumbers()"
+                                                                   value="${phoneValue}"/>
+                                                            <label for="phone" class="default-label">
+                                                                <span id="valid-msg-phone" class="valid-msg invisible">
+                                                                    ${correct}
+                                                                    <img src="resources/images/correct.png" alt="">
+                                                                </span>
+                                                                <span id="error-msg-phone" class="error-msg invisible">
+                                                                        ${loginError}
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Email -->
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-9">
+                                                            <input id="email" name="email" class="form-control"
+                                                                   type="email" data-toggle="tooltip"
+                                                                   data-title="${tooltipEmail}"
+                                                                   maxlength="45" placeholder="${email}"
+                                                                   value="${emailValue}"/>
+                                                            <label for="email" class="default-label">
+                                                                <span id="valid-msg-email" class="valid-msg invisible">
+                                                                    ${correct}
+                                                                    <img src="resources/images/correct.png" alt="">
+                                                                </span>
+                                                                <span id="error-msg-email" class="error-msg invisible">
+                                                                        ${emailError}
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="action" style="padding: 25px 0 10px 0">
+                                                        <button id="submit" type="submit"
+                                                                class="btn btn-primary signup"
+                                                                style="width: 56%;">
+                                                                ${updateDataButton}
+                                                        </button>
+                                                    </div>
+                                                </form>
+
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="showUser">
@@ -243,16 +238,15 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="action back-btn">
-                                                    <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="showUser">
-                                                        <input type="hidden" name="userId" value="${userId}">
-                                                        <button type="submit"
-                                                                class="btn btn-primary signup btn-default disabled"
-                                                                style="width: 56%;">
-                                                                ${returnToUserProfile}
-                                                        </button>
-                                                    </form>
+
+                                                <!-- Return to Users -->
+                                                <div class="message-block">
+                                                    <label class="title-label">
+                                                        <a href="/" class="float-left">
+                                                            <span class="forward-left-link-img">←</span>
+                                                                ${returnToUsers}
+                                                        </a>
+                                                    </label>
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>
