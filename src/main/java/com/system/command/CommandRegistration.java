@@ -26,7 +26,7 @@ public class CommandRegistration implements ICommand {
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
 
-            // Set Attributes
+            // Set attributes obtained from the session
             setRequestAttributes(request);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
@@ -41,41 +41,55 @@ public class CommandRegistration implements ICommand {
             String passwordConfirmation = request.getParameter("passwordConfirmation");
 
             // Validation
-            if (!validation(name, surname, password, passwordConfirmation)) {
-                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.INVALID_DATA);
+            if (!validation(request, name, surname, phone, email, password, passwordConfirmation)) {
                 return pathRedirect;
             }
 
-            // Validation phone
-            if (!Validator.checkPhone(phone)) {
-                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.PHONE_EXIST_ERROR);
-                return pathRedirect;
-            }
-
-            // Validation email
-            if (!Validator.checkEmail(email)) {
-                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.EMAIL_EXIST_ERROR);
-                return pathRedirect;
-            }
-
-            // Create
+            // Action (register user)
             int status = UserService.getInstance().registerUser(name, surname, phone, email, password);
             if (status == 0) {
                 setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.REGISTRATION_ERROR);
             } else {
-                request.getSession().setAttribute("response", ServerResponse.REGISTRATION_SUCCESS.getResponse());
+                setSessionAttributes(request, ServerResponse.REGISTRATION_SUCCESS);
             }
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(String name, String surname, String password, String passwordConfirmation) {
-        return Validator.checkName(name) &&
-                Validator.checkSurname(surname) &&
-                Validator.checkPassword(password) &&
-                Validator.checkPassword(passwordConfirmation) &&
-                password.equals(passwordConfirmation);
+    private boolean validation(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation) throws SQLException {
+
+        // Validation name
+        if (!Validator.checkName(name)) {
+            setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.INVALID_DATA);
+            return false;
+        }
+
+        // Validation surname
+        if (!Validator.checkSurname(surname)) {
+            setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.INVALID_DATA);
+            return false;
+        }
+
+        // Validation phone
+        if (!Validator.checkPhone(phone)) {
+            setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.PHONE_EXIST_ERROR);
+            return false;
+        }
+
+        // Validation email
+        if (!Validator.checkEmail(email)) {
+            setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.EMAIL_EXIST_ERROR);
+            return false;
+        }
+
+        // Validation password
+        if (!Validator.checkPassword(password) || !Validator.checkPassword(passwordConfirmation) || !password.equals(passwordConfirmation)) {
+            setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.INVALID_DATA);
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
@@ -141,6 +155,10 @@ public class CommandRegistration implements ICommand {
         request.getSession().setAttribute("email", email);
         request.getSession().setAttribute("password", password);
         request.getSession().setAttribute("passwordConfirmation", passwordConfirmation);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
