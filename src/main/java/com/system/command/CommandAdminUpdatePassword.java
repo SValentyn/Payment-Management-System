@@ -29,16 +29,7 @@ public class CommandAdminUpdatePassword implements ICommand {
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PASSWORD);
 
-            // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
-
-            // Check
-            if (user == null) {
-                request.setAttribute("response", ServerResponse.PASSWORD_UPDATED_ERROR.getResponse());
-                return pathRedirect;
-            }
-
-            // Set Attributes
+            // Set attributes obtained from the session
             setRequestAttributes(request);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
@@ -49,7 +40,7 @@ public class CommandAdminUpdatePassword implements ICommand {
 
             // Check
             if (user == null) {
-                request.setAttribute("response", ServerResponse.PASSWORD_UPDATED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.PASSWORD_UPDATED_ERROR);
                 return pathRedirect;
             }
 
@@ -58,15 +49,8 @@ public class CommandAdminUpdatePassword implements ICommand {
             String newPassword = request.getParameter("newPassword");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
 
-            // Check
-            if (!checkOldPassword(user, oldPassword)) {
-                setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.OLD_PASSWORD_ERROR);
-                return pathRedirect;
-            }
-
             // Validation
-            if (!validation(newPassword, passwordConfirmation)) {
-                setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.NEW_PASSWORD_ERROR);
+            if (!validation(request, user, oldPassword, newPassword, passwordConfirmation)) {
                 return pathRedirect;
             }
 
@@ -78,23 +62,37 @@ public class CommandAdminUpdatePassword implements ICommand {
             if (status == 0) {
                 setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.PASSWORD_UPDATED_ERROR);
             } else {
-                request.getSession().setAttribute("response", ServerResponse.PASSWORD_UPDATED_SUCCESS.getResponse());
+                setSessionAttributes(request, ServerResponse.PASSWORD_UPDATED_SUCCESS);
             }
         }
 
         return pathRedirect;
     }
 
+    private boolean validation(HttpServletRequest request, User user, String oldPassword, String newPassword, String passwordConfirmation) throws SQLException {
+
+        // Validation old password
+        if (!checkOldPassword(user, oldPassword)) {
+            setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.OLD_PASSWORD_ERROR);
+            return false;
+        }
+
+        // Validation new password
+        if (!Validator.checkPassword(newPassword) || !Validator.checkPassword(passwordConfirmation) || !newPassword.equals(passwordConfirmation)) {
+            setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.NEW_PASSWORD_ERROR);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return true, if the old password is not NULL and equal to the current user password
+     */
     private boolean checkOldPassword(User user, String oldPassword) throws SQLException {
         if (!Validator.checkPassword(oldPassword)) return false;
         String correctPassword = UserService.getInstance().findUserById(user.getUserId()).getPassword();
         return correctPassword.equals(encryptor.encode(oldPassword));
-    }
-
-    private boolean validation(String newPassword, String passwordConfirmation) {
-        return Validator.checkPassword(newPassword) &&
-                Validator.checkPassword(passwordConfirmation) &&
-                newPassword.equals(passwordConfirmation);
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
@@ -136,6 +134,10 @@ public class CommandAdminUpdatePassword implements ICommand {
         request.getSession().setAttribute("oldPassword", oldPassword);
         request.getSession().setAttribute("newPassword", newPassword);
         request.getSession().setAttribute("passwordConfirmation", passwordConfirmation);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
