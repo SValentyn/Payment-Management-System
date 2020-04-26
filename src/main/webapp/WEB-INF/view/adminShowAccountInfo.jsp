@@ -142,6 +142,30 @@
         </div>
     </c:if>
 
+    <!-- Alert unableGetCard -->
+    <c:if test="${response eq 'unableGetCard'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetCardError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unableGetCardByUserId -->
+    <c:if test="${response eq 'unableGetCardByUserId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetCardByUserIdError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert showAccountError -->
     <c:if test="${response eq 'showAccountError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
@@ -331,8 +355,7 @@
                                         </h4>
 
                                         <!-- Return to Users -->
-                                        <c:if test="${response eq 'unableGetUserId' ||
-                                                      response eq 'unableGetAccountByUserId'}">
+                                        <c:if test="${response eq 'unableGetUserId'}">
                                             <div class="message-block">
                                                 <label class="title-label">
                                                     <a href="/" class="float-left">
@@ -345,6 +368,7 @@
 
                                         <!-- Return to User -->
                                         <c:if test="${response eq 'unableGetAccountId' ||
+                                                      response eq 'unableGetAccountByUserId' ||
                                                       response eq 'showAccountError' ||
                                                       response eq 'accountDeletedSuccess'}">
                                             <div class="message-block">
@@ -479,6 +503,8 @@
                                                                               id="form-unblockAccount" role="form">
                                                                             <input type="hidden" name="command"
                                                                                    value="unblockAccount">
+                                                                            <input type="hidden" name="userId"
+                                                                                   value="${viewableUser.userId}">
                                                                             <input type="hidden" name="accountId"
                                                                                    value="${viewableAccount.accountId}">
                                                                         </form>
@@ -496,6 +522,8 @@
                                                                               id="form-blockAccount" role="form">
                                                                             <input type="hidden" name="command"
                                                                                    value="blockAccount">
+                                                                            <input type="hidden" name="userId"
+                                                                                   value="${viewableUser.userId}">
                                                                             <input type="hidden" name="accountId"
                                                                                    value="${viewableAccount.accountId}">
                                                                         </form>
@@ -672,14 +700,14 @@
                                                                                                 </a>
                                                                                                 <c:choose>
                                                                                                     <c:when test="${card.isActive}">
-                                                                                                        <a href="?command=blockCard&accountId=${viewableAccount.accountId}&cardNumber=${card.number}"
+                                                                                                        <a href="?command=blockCard&userId=${viewableUser.userId}&cardNumber=${card.number}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/locked-link.png"
                                                                                                                  alt="${blockCard}">
                                                                                                         </a>
                                                                                                     </c:when>
                                                                                                     <c:otherwise>
-                                                                                                        <a href="?command=unblockCard&accountId=${viewableAccount.accountId}&cardNumber=${card.number}"
+                                                                                                        <a href="?command=unblockCard&userId=${viewableUser.userId}&cardNumber=${card.number}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/unlocked-link.png"
                                                                                                                  alt="${unblockCard}">
