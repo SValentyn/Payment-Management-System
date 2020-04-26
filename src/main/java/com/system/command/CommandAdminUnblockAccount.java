@@ -37,22 +37,18 @@ public class CommandAdminUnblockAccount implements ICommand {
             // Action
             int status = AccountService.getInstance().unblockAccount(Integer.valueOf(accountIdParam));
             if (status == 0) {
-                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_UNBLOCKED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.ACCOUNT_UNBLOCKED_ERROR);
             }
         }
 
         return pathRedirect;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("response", "");
-    }
-
     private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         }
 
@@ -61,7 +57,8 @@ public class CommandAdminUnblockAccount implements ICommand {
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_CARD);
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_ID);
             return false;
         }
 
@@ -73,13 +70,21 @@ public class CommandAdminUnblockAccount implements ICommand {
         Integer accountId = Integer.valueOf(accountIdParam);
         Account account = AccountService.getInstance().findAccountByAccountId(accountId);
 
-        // Check that the userId by account matches the received
+        // Checking that the account belongs to the user
         if (!account.getUserId().equals(userId)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }
 
         return true;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("response", "");
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }

@@ -30,7 +30,7 @@ public class CommandAdminShowUser implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER);
 
-            // Set Attributes
+            // Set attributes obtained from the session
             setRequestAttributes(request);
 
             // Data
@@ -38,7 +38,7 @@ public class CommandAdminShowUser implements ICommand {
 
             // Validation
             if (!Validator.checkUserId(userIdParam)) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+                setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
                 return pathRedirect;
             }
 
@@ -52,7 +52,7 @@ public class CommandAdminShowUser implements ICommand {
             } else if (user.getRole().getId() == 2) {
                 setRequestAttributes(request, userId, user, true);
             } else {
-                request.setAttribute("response", ServerResponse.SHOW_USER_ERROR.getResponse());
+                setRequestAttributes(request, ServerResponse.SHOW_USER_ERROR);
             }
         }
 
@@ -88,6 +88,10 @@ public class CommandAdminShowUser implements ICommand {
         request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
         request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userId));
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.setAttribute("response", serverResponse.getResponse());
     }
 
 }

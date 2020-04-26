@@ -24,7 +24,7 @@ public class CommandRecoveryPassword implements ICommand {
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
 
-            // Set Attributes
+            // Set attributes obtained from the session
             setRequestAttributes(request);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {

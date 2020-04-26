@@ -157,10 +157,11 @@
                                     <!-- Password -->
                                     <div>
                                         <div class="password-input">
-                                            <input type="password" id="password" name="password" class="form-control"
-                                                   style="margin-top: 10px;"
+                                            <input type="password" id="password" name="password"
+                                                   class="form-control" style="margin-top: 10px;"
                                                    placeholder="${password}">
-                                            <a href="#" class="password-control" onfocus="this.blur()"
+                                            <a href="#" class="password-control"
+                                               onfocus="this.blur()"
                                                onclick="return show_hide_password(this);"></a>
                                         </div>
                                         <label for="password" class="default-label">

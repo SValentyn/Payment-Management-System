@@ -62,7 +62,7 @@
     <c:if test="${response eq 'registrationSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert" style="margin-top: 22px;">
             <p><strong><fmt:message key="registration.success"/>!</strong>
-                <fmt:message key="registration.alertAccountCreated"/>
+                <fmt:message key="registration.alertRegistrationSuccess"/>
                 <a href="/" class="alert-link"><fmt:message key="registration.logging"/></a>
                 <fmt:message key="registration.intoYourAccount"/>
             </p>

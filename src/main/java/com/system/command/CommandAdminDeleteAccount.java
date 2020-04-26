@@ -50,15 +50,11 @@ public class CommandAdminDeleteAccount implements ICommand {
         return pathRedirect;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("response", "");
-    }
-
     private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         }
 
@@ -67,7 +63,7 @@ public class CommandAdminDeleteAccount implements ICommand {
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_ID);
             return false;
         }
 
@@ -81,12 +77,15 @@ public class CommandAdminDeleteAccount implements ICommand {
 
         // Check that the userId by account matches the received
         if (!account.getUserId().equals(userId)) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }
 
         return true;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("response", "");
     }
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {

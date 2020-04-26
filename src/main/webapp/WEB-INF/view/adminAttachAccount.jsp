@@ -50,7 +50,7 @@
     <!-- Alert unableGetUserByUserId -->
     <c:if test="${response eq 'unableGetUserByUserId'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertUnableGetUserByUserIdError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

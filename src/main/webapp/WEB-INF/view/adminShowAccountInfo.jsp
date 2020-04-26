@@ -387,6 +387,7 @@
                                                       response ne 'unableGetAccountByUserId' &&
                                                       response ne 'showAccountError' &&
                                                       response ne 'accountDeletedSuccess'}">
+
                                             <jsp:useBean id="viewableAccount" scope="request"
                                                          type="com.system.entity.Account"/>
                                             <jsp:useBean id="viewableUser" scope="request"

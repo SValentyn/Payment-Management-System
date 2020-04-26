@@ -42,9 +42,9 @@ public class CommandAdminUnblockCard implements ICommand {
             // Action
             int status = BankCardService.getInstance().unblockBankCard(Integer.valueOf(cardIdParam));
             if (status == 0) {
-                request.getSession().setAttribute("response", ServerResponse.CARD_UNBLOCKED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.CARD_UNBLOCKED_ERROR);
             } else {
-                request.getSession().setAttribute("response", ServerResponse.CARD_UNBLOCKED_SUCCESS.getResponse());
+                setSessionAttributes(request, ServerResponse.CARD_UNBLOCKED_SUCCESS);
             }
         }
 
@@ -55,7 +55,7 @@ public class CommandAdminUnblockCard implements ICommand {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         }
 
@@ -64,7 +64,7 @@ public class CommandAdminUnblockCard implements ICommand {
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_ID);
             return false;
         }
 
@@ -73,7 +73,7 @@ public class CommandAdminUnblockCard implements ICommand {
 
         // Validation cardId
         if (!Validator.checkCardId(cardIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_CARD_ID);
             return false;
         }
 
@@ -83,9 +83,9 @@ public class CommandAdminUnblockCard implements ICommand {
         Integer cardId = Integer.valueOf(cardIdParam);
         Account account = AccountService.getInstance().findAccountByAccountId(accountId);
 
-        // Check that the userId by account matches the received
+        // Checking that the account belongs to the user
         if (!account.getUserId().equals(userId)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }
 
@@ -96,9 +96,9 @@ public class CommandAdminUnblockCard implements ICommand {
             cardIds.add(aCard.getCardId());
         }
 
-        // Check that the card belongs to the user account
+        // Checking that the card belongs to the user account
         if (!cardIds.contains(cardId)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_CARD);
             return false;
         }
 
@@ -107,6 +107,10 @@ public class CommandAdminUnblockCard implements ICommand {
 
     private void clearRequestAttributes(HttpServletRequest request) {
         request.setAttribute("response", "");
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }

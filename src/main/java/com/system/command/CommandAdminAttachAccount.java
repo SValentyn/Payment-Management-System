@@ -58,9 +58,9 @@ public class CommandAdminAttachAccount implements ICommand {
             // Action
             int status = AccountService.getInstance().createAccount(Integer.valueOf(userIdParam), number, currency);
             if (status == 0) {
-                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.ACCOUNT_ATTACHED_ERROR);
             } else {
-                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_SUCCESS.getResponse());
+                setSessionAttributes(request, ServerResponse.ACCOUNT_ATTACHED_SUCCESS);
             }
         }
 
@@ -71,7 +71,7 @@ public class CommandAdminAttachAccount implements ICommand {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         }
 
@@ -82,7 +82,7 @@ public class CommandAdminAttachAccount implements ICommand {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         }
 
@@ -91,13 +91,13 @@ public class CommandAdminAttachAccount implements ICommand {
 
         // Validation number
         if (!Validator.checkAccountNumber(number)) {
-            request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_ERROR.getResponse());
+            setSessionAttributes(request, ServerResponse.ACCOUNT_ATTACHED_ERROR);
             return false;
         }
 
         // Validation currency
         if (!Validator.checkCurrency(currency)) {
-            request.getSession().setAttribute("response", ServerResponse.ACCOUNT_ATTACHED_ERROR.getResponse());
+            setSessionAttributes(request, ServerResponse.ACCOUNT_ATTACHED_ERROR);
             return false;
         }
 
@@ -108,7 +108,7 @@ public class CommandAdminAttachAccount implements ICommand {
         }
 
         if (numberOfAccounts == 3) {
-            request.getSession().setAttribute("response", ServerResponse.MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR.getResponse());
+            setSessionAttributes(request, ServerResponse.MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR);
             return false;
         }
 
@@ -142,6 +142,10 @@ public class CommandAdminAttachAccount implements ICommand {
         } else {
             request.setAttribute("response", ServerResponse.UNABLE_GET_USER_BY_USER_ID.getResponse());
         }
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }

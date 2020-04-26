@@ -37,22 +37,18 @@ public class CommandAdminBlockAccount implements ICommand {
             // Action
             int status = AccountService.getInstance().blockAccount(Integer.valueOf(accountIdParam));
             if (status == 0) {
-                request.getSession().setAttribute("response", ServerResponse.ACCOUNT_BLOCKED_ERROR.getResponse());
+                setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_ERROR);
             }
         }
 
         return pathRedirect;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("response", "");
-    }
-
     private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         }
 
@@ -61,7 +57,7 @@ public class CommandAdminBlockAccount implements ICommand {
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_ID);
             return false;
         }
 
@@ -75,11 +71,19 @@ public class CommandAdminBlockAccount implements ICommand {
 
         // Check that the userId by account matches the received
         if (!account.getUserId().equals(userId)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }
 
         return true;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("response", "");
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }

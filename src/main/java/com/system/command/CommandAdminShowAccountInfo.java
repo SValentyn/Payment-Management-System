@@ -48,10 +48,50 @@ public class CommandAdminShowAccountInfo implements ICommand {
             }
 
             // Set attributes
-            setRequestAttributes(request, Integer.valueOf(userIdParam), Integer.valueOf(accountIdParam));
+            setRequestAttributes(request, userIdParam, accountIdParam);
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
+            return false;
+        } else {
+            request.setAttribute("userId", userIdParam);
+        }
+
+        // Return from the command if the account unable get by userId
+        if (request.getAttribute("response").equals(ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse())) {
+            return false;
+        }
+
+        // Return from the command if the account was successfully deleted
+        if (request.getAttribute("response").equals(ServerResponse.ACCOUNT_DELETED_SUCCESS.getResponse())) {
+            return false;
+        }
+
+        // Validation
+        if (!Validator.checkAccountId(accountIdParam)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_ID);
+            return false;
+        }
+
+        // Data
+        Integer userId = Integer.valueOf(userIdParam);
+        Integer accountId = Integer.valueOf(accountIdParam);
+        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+
+        // Checking that the userId by account matches the received
+        if (!account.getUserId().equals(userId)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
@@ -65,46 +105,6 @@ public class CommandAdminShowAccountInfo implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
-
-        // Return from the command if the account unable get by userId
-        if (request.getAttribute("response") == "unableGetAccountByUserId") {
-            return false;
-        }
-
-        // Validation userId
-        if (!Validator.checkUserId(userIdParam)) {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
-            return false;
-        } else {
-            request.setAttribute("userId", userIdParam);
-        }
-
-        // Return from the command if the account was successfully deleted
-        if (request.getAttribute("response") == "accountDeletedSuccess") {
-            return false;
-        }
-
-        // Validation
-        if (!Validator.checkAccountId(accountIdParam)) {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
-            return false;
-        }
-
-        // Data
-        Integer userId = Integer.valueOf(userIdParam);
-        Integer accountId = Integer.valueOf(accountIdParam);
-        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
-
-        // Check that the userId by account matches the received
-        if (!account.getUserId().equals(userId)) {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
-            return false;
-        }
-
-        return true;
-    }
-
     private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
@@ -115,7 +115,9 @@ public class CommandAdminShowAccountInfo implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer userId, Integer accountId) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
+        Integer userId = Integer.valueOf(userIdParam);
+        Integer accountId = Integer.valueOf(accountIdParam);
         Account viewableAccount = AccountService.getInstance().findAccountByAccountId(accountId);
         User viewableUser = UserService.getInstance().findUserById(userId);
         List<Payment> payments = PaymentService.getInstance().findAllPaymentsByAccountId(accountId);
@@ -130,8 +132,12 @@ public class CommandAdminShowAccountInfo implements ICommand {
             request.setAttribute("cardsEmpty", cards.isEmpty());
             request.setAttribute("cards", cards);
         } else {
-            request.setAttribute("response", ServerResponse.SHOW_ACCOUNT_ERROR.getResponse());
+            setRequestAttributes(request, ServerResponse.SHOW_ACCOUNT_ERROR);
         }
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.setAttribute("response", serverResponse.getResponse());
     }
 
 }
