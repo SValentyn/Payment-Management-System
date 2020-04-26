@@ -1,9 +1,11 @@
 package com.system.command;
 
+import com.system.entity.Account;
 import com.system.entity.BankCard;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.AccountService;
 import com.system.service.BankCardService;
 import com.system.utils.Validator;
 
@@ -29,18 +31,16 @@ public class CommandAdminBlockCard implements ICommand {
 
             // Data
             String userIdParam = request.getParameter("userId");
-            String cardNumber = request.getParameter("cardNumber");
+            String accountIdParam = request.getParameter("accountId");
+            String cardIdParam = request.getParameter("cardId");
 
             // Validation
-            if (!validation(request, userIdParam, cardNumber)) {
+            if (!validation(request, userIdParam, accountIdParam, cardIdParam)) {
                 return pathRedirect;
             }
 
-            // Data
-            BankCard card = BankCardService.getInstance().findCardByCardNumber(cardNumber);
-
             // Action
-            int status = BankCardService.getInstance().blockBankCard(card.getCardId());
+            int status = BankCardService.getInstance().blockBankCard(Integer.valueOf(cardIdParam));
             if (status == 0) {
                 request.getSession().setAttribute("response", ServerResponse.CARD_BLOCKED_ERROR.getResponse());
             } else {
@@ -51,7 +51,7 @@ public class CommandAdminBlockCard implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String cardNumber) throws SQLException {
+    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam, String cardIdParam) throws SQLException {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -62,31 +62,42 @@ public class CommandAdminBlockCard implements ICommand {
         // Change redirect path
         pathRedirect += "&userId=" + userIdParam;
 
-        // Validation card number
-        if (!Validator.checkCardNumber(cardNumber)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD.getResponse());
+        // Validation accountId
+        if (!Validator.checkAccountId(accountIdParam)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
+            return false;
+        }
+
+        // Change redirect path
+        pathRedirect += "&accountId=" + accountIdParam;
+
+        // Validation cardId
+        if (!Validator.checkCardId(cardIdParam)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD_ID.getResponse());
             return false;
         }
 
         // Data
         Integer userId = Integer.valueOf(userIdParam);
-        List<BankCard> cardsByUserId = BankCardService.getInstance().findCardsByUserId(userId);
-        List<String> cardNumbers = new ArrayList<>();
-        for (BankCard aCard : cardsByUserId) {
-            cardNumbers.add(aCard.getNumber());
-        }
+        Integer accountId = Integer.valueOf(accountIdParam);
+        Integer cardId = Integer.valueOf(cardIdParam);
+        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
 
-        // Check
-        if (!cardNumbers.contains(cardNumber)) {
-            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD_BY_USER_ID.getResponse());
+        // Check that the userId by account matches the received
+        if (!account.getUserId().equals(userId)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
             return false;
         }
 
         // Data
-        BankCard card = BankCardService.getInstance().findCardByCardNumber(cardNumber);
+        List<BankCard> cardsByAccountId = BankCardService.getInstance().findCardsByAccountId(accountId);
+        List<Integer> cardIds = new ArrayList<>();
+        for (BankCard aCard : cardsByAccountId) {
+            cardIds.add(aCard.getCardId());
+        }
 
-        // Check
-        if (card == null) {
+        // Check that the card belongs to the user account
+        if (!cardIds.contains(cardId)) {
             request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD.getResponse());
             return false;
         }

@@ -142,11 +142,11 @@
         </div>
     </c:if>
 
-    <!-- Alert unableGetCard -->
-    <c:if test="${response eq 'unableGetCard'}">
+    <!-- Alert unableGetCardId -->
+    <c:if test="${response eq 'unableGetCardId'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnableGetCardError"/>
+                <fmt:message key="admin.page.alertUnableGetCardIdError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -154,11 +154,11 @@
         </div>
     </c:if>
 
-    <!-- Alert unableGetCardByUserId -->
-    <c:if test="${response eq 'unableGetCardByUserId'}">
+    <!-- Alert unableGetCard -->
+    <c:if test="${response eq 'unableGetCard'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnableGetCardByUserIdError"/>
+                <fmt:message key="admin.page.alertUnableGetCardError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -700,14 +700,14 @@
                                                                                                 </a>
                                                                                                 <c:choose>
                                                                                                     <c:when test="${card.isActive}">
-                                                                                                        <a href="?command=blockCard&userId=${viewableUser.userId}&cardNumber=${card.number}"
+                                                                                                        <a href="?command=blockCard&userId=${viewableUser.userId}&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/locked-link.png"
                                                                                                                  alt="${blockCard}">
                                                                                                         </a>
                                                                                                     </c:when>
                                                                                                     <c:otherwise>
-                                                                                                        <a href="?command=unblockCard&userId=${viewableUser.userId}&cardNumber=${card.number}"
+                                                                                                        <a href="?command=unblockCard&userId=${viewableUser.userId}&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/unlocked-link.png"
                                                                                                                  alt="${unblockCard}">

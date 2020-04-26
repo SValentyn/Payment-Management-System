@@ -1,13 +1,7 @@
 package com.system.utils;
 
-import com.system.entity.Account;
-import com.system.entity.Letter;
-import com.system.entity.Payment;
-import com.system.entity.User;
-import com.system.service.AccountService;
-import com.system.service.LetterService;
-import com.system.service.PaymentService;
-import com.system.service.UserService;
+import com.system.entity.*;
+import com.system.service.*;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -82,6 +76,21 @@ public class Validator {
         }
 
         return accountIds.contains(Integer.valueOf(accountId));
+    }
+
+    /**
+     * @return true, if the identifier is a non-negative number and is in the system
+     */
+    public static boolean checkCardId(String cardId) throws SQLException {
+        if (cardId == null || isNegative(cardId)) return false;
+
+        List<BankCard> cards = BankCardService.getInstance().findAllCards();
+        List<Integer> cardIds = new ArrayList<>();
+        for (BankCard card : cards) {
+            cardIds.add(card.getCardId());
+        }
+
+        return cardIds.contains(Integer.valueOf(cardId));
     }
 
     /**
