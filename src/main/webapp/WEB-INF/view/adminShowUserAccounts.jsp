@@ -78,25 +78,27 @@
                                                 <!-- Return to Users -->
                                                 <c:if test="${response eq 'unableGetUserId'}">
                                                     <div class="message-block">
-                                                        <label class="title-label">
+                                                        <span class="title-label forward-left-link-img">
                                                             <a href="/" class="float-left">
-                                                                <span class="forward-left-link-img">←</span>
+                                                                <img src="resources/images/return.png"
+                                                                     class="icon-return" alt="">
                                                                     ${returnToUsers}
                                                             </a>
-                                                        </label>
+                                                        </span>
                                                     </div>
                                                 </c:if>
 
                                                 <!-- Return to User -->
                                                 <c:if test="${ response eq 'showUserAccountsError'}">
                                                     <div class="message-block">
-                                                        <label class="title-label">
+                                                        <span class="title-label forward-left-link-img">
                                                             <a href="?command=showUser&userId=${userId}"
                                                                class="float-left">
-                                                                <span class="forward-left-link-img">←</span>
+                                                                <img src="resources/images/return.png"
+                                                                     class="icon-return" alt="">
                                                                     ${returnToUserProfile}
                                                             </a>
-                                                        </label>
+                                                        </span>
                                                     </div>
                                                 </c:if>
 
@@ -185,12 +187,14 @@
                                                                         </div>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <span class="title-label">
-                                                                            <label style="font-size: 22px;">
-                                                                                <fmt:message
-                                                                                        key="admin.user.accountsEmpty"/>
-                                                                            </label>
-                                                                        </span>
+                                                                        <div class="message-block">
+                                                                            <span class="title-label">
+                                                                                <label>
+                                                                                      <fmt:message
+                                                                                              key="admin.user.accountsEmpty"/>
+                                                                                </label>
+                                                                            </span>
+                                                                        </div>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </div>

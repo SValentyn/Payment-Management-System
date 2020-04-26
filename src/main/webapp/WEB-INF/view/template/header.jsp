@@ -31,12 +31,12 @@
                                      aria-labelledby="dropdownMenuLink">
                                     <div class="dropdown-item" style="display: grid;">
                                         <a href="?command=profile">
-                                            <div style="float: left;">
+                                            <div class="float-left">
                                                 <p style="margin: 0;">
                                                     <fmt:message key="header.profile"/>
                                                 </p>
                                             </div>
-                                            <div style="float: right;">
+                                            <div class="float-right">
                                                 <img src="resources/images/profile.png"
                                                      alt="<fmt:message key="header.profile"/>"
                                                      class="header-icon">
@@ -46,12 +46,12 @@
                                     <div class="dropdown-divider" style="margin: 0 1.5rem;"></div>
                                     <div class="dropdown-item" style="display: grid;">
                                         <a href="?command=logout">
-                                            <div style="float: left;">
+                                            <div class="float-left">
                                                 <p style="margin-bottom: 0.1rem;">
                                                     <fmt:message key="header.logout"/>
                                                 </p>
                                             </div>
-                                            <div style="float: right;">
+                                            <div class="float-right">
                                                 <img src="resources/images/logout.png"
                                                      alt="<fmt:message key="header.logout"/>"
                                                      class="header-icon">

@@ -241,12 +241,13 @@
 
                                                 <!-- Return to Users -->
                                                 <div class="message-block">
-                                                    <label class="title-label">
+                                                    <span class="title-label forward-left-link-img">
                                                         <a href="/" class="float-left">
-                                                            <span class="forward-left-link-img">←</span>
+                                                            <img src="resources/images/return.png" class="icon-return"
+                                                                 alt="">
                                                                 ${returnToUsers}
                                                         </a>
-                                                    </label>
+                                                    </span>
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>

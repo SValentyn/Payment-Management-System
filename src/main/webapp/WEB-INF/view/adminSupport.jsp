@@ -64,7 +64,7 @@
                                                 </h4>
 
                                                 <c:choose>
-                                                    <c:when test="${response ne 'showLettersError' && lettersEmpty != true}">
+                                                    <c:when test="${response ne 'showLettersError' && lettersEmpty == false}">
                                                         <div class="row">
                                                             <div class="col-lg-3 col-xl-3">
                                                                 <div style="text-align: center; margin: 0 0 30px 0;">
@@ -106,7 +106,7 @@
                                                                                                 <span class="forward-right-link-img"
                                                                                                       style="padding-left: 28px;">
                                                                                                     <a href="?command=showLetterInfo&letterId=${letter.letterId}"
-                                                                                                       style="float: right">
+                                                                                                       class="float-right">
                                                                                                         <img src="resources/images/forward.png"
                                                                                                              alt="${showInfo}">
                                                                                                     </a>
@@ -123,7 +123,7 @@
                                                         </div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <div class="message-block" style="padding: 0;">
+                                                        <div class="message-block">
                                                             <span class="title-label">
                                                                 <label>
                                                                     <fmt:message key="admin.support.noLetters"/>

@@ -166,11 +166,12 @@
                                             <c:when test="${response ne 'unableGetUserId' &&
                                                             response ne 'showUserError' &&
                                                             response ne 'userDeletedError'}">
+
                                                 <jsp:useBean id="viewableUser" scope="request"
                                                              type="com.system.entity.User"/>
 
                                                 <c:choose>
-                                                    <c:when test="${!userIsAdmin}">
+                                                    <c:when test="${userIsAdmin == false}">
 
                                                         <div class="row">
                                                             <div class="col-xl-12">
@@ -330,7 +331,7 @@
 
                                                                                                                     <!-- Show Payment Info -->
                                                                                                                     <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
-                                                                                                                       style="float: right">
+                                                                                                                       class="float-right">
                                                                                                                         <img src="resources/images/info.png"
                                                                                                                              alt="">
                                                                                                                     </a>
@@ -356,7 +357,7 @@
 
                                                                                                                     <!-- Show Payment Info -->
                                                                                                                     <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
-                                                                                                                       style="float: right">
+                                                                                                                       class="float-right">
                                                                                                                         <img src="resources/images/info.png"
                                                                                                                              alt="">
                                                                                                                     </a>
@@ -375,12 +376,14 @@
                                                                                 </div>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <span class="title-label">
-                                                                                    <label>
-                                                                                        <fmt:message
+                                                                                <div class="message-block">
+                                                                                    <span class="title-label">
+                                                                                        <label>
+                                                                                            <fmt:message
                                                                                                 key="admin.user.paymentsEmpty"/>
-                                                                                    </label>
-                                                                                </span>
+                                                                                        </label>
+                                                                                    </span>
+                                                                                </div>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>
@@ -444,12 +447,14 @@
                                                                                 </div>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <span class="title-label">
-                                                                                    <label>
-                                                                                        <fmt:message
-                                                                                                key="admin.user.accountsEmpty"/>
-                                                                                    </label>
-                                                                                </span>
+                                                                                <div class="message-block">
+                                                                                    <span class="title-label">
+                                                                                        <label>
+                                                                                            <fmt:message
+                                                                                                    key="admin.user.accountsEmpty"/>
+                                                                                        </label>
+                                                                                    </span>
+                                                                                </div>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>
@@ -521,12 +526,13 @@
 
                                                 <!-- Return to Users -->
                                                 <div class="message-block">
-                                                    <label class="title-label">
+                                                    <span class="title-label forward-left-link-img">
                                                         <a href="/" class="float-left">
-                                                            <span class="forward-left-link-img">←</span>
+                                                            <img src="resources/images/return.png" class="icon-return"
+                                                                 alt="">
                                                                 ${returnToUsers}
                                                         </a>
-                                                    </label>
+                                                    </span>
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>

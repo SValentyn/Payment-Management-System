@@ -153,8 +153,8 @@
                                                         <label for="number" class="default-label">
                                                             <span id="valid-msg-accountNumber"
                                                                   class="valid-msg invisible">
-                                                                    ${correct}<img src="resources/images/correct.png"
-                                                                                   alt="">
+                                                                    ${correct}
+                                                                    <img src="resources/images/correct.png" alt="">
                                                             </span>
                                                             <span id="error-msg-accountNumber"
                                                                   class="error-msg invisible">
@@ -176,8 +176,8 @@
                                                         </div>
                                                         <label for="currency" class="default-label">
                                                             <span id="valid-msg-currency" class="valid-msg invisible">
-                                                                ${correct}<img src="resources/images/correct.png"
-                                                                               alt="">
+                                                                ${correct}
+                                                                <img src="resources/images/correct.png" alt="">
                                                             </span>
                                                             <span id="error-msg-currency" class="error-msg invisible">
                                                                     ${currencyError}

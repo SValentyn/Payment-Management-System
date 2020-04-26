@@ -109,12 +109,13 @@
                                         <!-- Return to Users -->
                                         <c:if test="${response eq 'unableGetUserId'}">
                                             <div class="message-block">
-                                                <label class="title-label">
+                                                <span class="title-label forward-left-link-img">
                                                     <a href="/" class="float-left">
-                                                        <span class="forward-left-link-img">←</span>
+                                                        <img src="resources/images/return.png" class="icon-return"
+                                                             alt="">
                                                             ${returnToUsers}
                                                     </a>
-                                                </label>
+                                                </span>
                                             </div>
                                         </c:if>
 
@@ -123,12 +124,13 @@
                                                       response eq 'unableGetPaymentByUserId' ||
                                                       response eq 'showPaymentError'}">
                                             <div class="message-block">
-                                                <label class="title-label">
+                                                <span class="title-label forward-left-link-img">
                                                     <a href="?command=showUser&userId=${userId}" class="float-left">
-                                                        <span class="forward-left-link-img">←</span>
+                                                        <img src="resources/images/return.png" class="icon-return"
+                                                             alt="">
                                                             ${returnToUserProfile}
                                                     </a>
-                                                </label>
+                                                </span>
                                             </div>
                                         </c:if>
 

@@ -114,6 +114,7 @@
                                             <c:when test="${response ne 'unableGetLetterId' &&
                                                             response ne 'showLetterError' &&
                                                             response ne 'letterProcessedSuccess'}">
+
                                                 <form action="" role="form" method="POST">
                                                     <input type="hidden" name="command" value="showLetterInfo">
 
@@ -230,12 +231,13 @@
 
                                                 <!-- Return to Letters -->
                                                 <div class="message-block">
-                                                    <label class="title-label">
+                                                    <span class="title-label forward-left-link-img">
                                                         <a href="?command=support" class="float-left">
-                                                            <span class="forward-left-link-img">←</span>
+                                                            <img src="resources/images/return.png" class="icon-return"
+                                                                 alt="">
                                                                 ${returnToLetters}
                                                         </a>
-                                                    </label>
+                                                    </span>
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>

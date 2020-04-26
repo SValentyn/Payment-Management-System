@@ -218,7 +218,6 @@
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="attachAccount">
-                                                        <input type="hidden" name="userId" value="${userId}">
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default disabled"
                                                                 style="width: 54%;">

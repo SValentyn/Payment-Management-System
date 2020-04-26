@@ -358,12 +358,13 @@
                                         <!-- Return to Users -->
                                         <c:if test="${response eq 'unableGetUserId'}">
                                             <div class="message-block">
-                                                <label class="title-label">
+                                                <span class="title-label forward-left-link-img">
                                                     <a href="/" class="float-left">
-                                                        <span class="forward-left-link-img">←</span>
+                                                        <img src="resources/images/return.png" class="icon-return"
+                                                             alt="">
                                                             ${returnToUsers}
                                                     </a>
-                                                </label>
+                                                </span>
                                             </div>
                                         </c:if>
 
@@ -373,12 +374,13 @@
                                                       response eq 'showAccountError' ||
                                                       response eq 'accountDeletedSuccess'}">
                                             <div class="message-block">
-                                                <label class="title-label">
+                                                <span class="title-label forward-left-link-img">
                                                     <a href="?command=showUser&userId=${userId}" class="float-left">
-                                                        <span class="forward-left-link-img">←</span>
+                                                        <img src="resources/images/return.png" class="icon-return"
+                                                             alt="">
                                                             ${returnToUserProfile}
                                                     </a>
-                                                </label>
+                                                </span>
                                             </div>
                                         </c:if>
 
@@ -606,7 +608,7 @@
 
                                                                                                         <!-- Show Payment Info -->
                                                                                                         <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
-                                                                                                           style="float: right">
+                                                                                                           class="float-right">
                                                                                                             <img src="resources/images/info.png"
                                                                                                                  alt="">
                                                                                                         </a>
@@ -632,7 +634,7 @@
 
                                                                                                         <!-- Show Payment Info -->
                                                                                                         <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
-                                                                                                           style="float: right">
+                                                                                                           class="float-right">
                                                                                                             <img src="resources/images/info.png"
                                                                                                                  alt="">
                                                                                                         </a>
@@ -647,12 +649,14 @@
                                                                     </div>
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <span class="title-label">
-                                                                        <label>
-                                                                            <fmt:message
-                                                                                    key="admin.account_info.paymentsEmpty"/>
-                                                                        </label>
-                                                                    </span>
+                                                                    <div class="message-block">
+                                                                        <span class="title-label">
+                                                                            <label>
+                                                                                 <fmt:message
+                                                                                         key="admin.account_info.paymentsEmpty"/>
+                                                                            </label>
+                                                                        </span>
+                                                                    </div>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </div>
@@ -725,12 +729,14 @@
                                                                     </div>
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <span class="title-label">
-                                                                        <label>
-                                                                            <fmt:message
-                                                                                    key="admin.account_info.attachedCardsEmpty"/>
-                                                                        </label>
-                                                                    </span>
+                                                                    <div class="message-block">
+                                                                        <span class="title-label">
+                                                                            <label>
+                                                                               <fmt:message
+                                                                                       key="admin.account_info.attachedCardsEmpty"/>
+                                                                            </label>
+                                                                        </span>
+                                                                    </div>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </div>

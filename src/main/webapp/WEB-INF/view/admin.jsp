@@ -58,7 +58,6 @@
                 <fmt:message key="admin.users.gotoProfile" var="gotoProfile"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
-                <fmt:message key="admin.users.noUsers" var="noUsers"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -182,7 +181,7 @@
                                             <div class="message-block">
                                                 <span class="title-label">
                                                     <label>
-                                                            ${noUsers}
+                                                         <fmt:message key="admin.users.noUsers"/>
                                                     </label>
                                                 </span>
                                             </div>

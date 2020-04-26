@@ -416,11 +416,11 @@ h4, h5 {
 
 div[class="message-block"] {
     margin: 0;
-    padding: 25px 0 20px 30px;
+    padding: 0;
 }
 
 div[class="message-block"] .title-label {
-    font-size: 22px;
+    font-size: 22px !important;
     text-decoration: none;
 }
 
@@ -914,6 +914,13 @@ div[class="message-block"] .title-label {
     overflow: hidden;
 }
 
+.icon-return {
+    width: 24px !important;
+    height: 24px !important;
+    margin: 0 5px 2px 0 !important;
+    vertical-align: text-bottom;
+}
+
 .icon-repeat {
     min-height: 36px !important;
     min-width: 36px !important;
@@ -1032,10 +1039,8 @@ div[class="message-block"] .title-label {
     transform: translateX(3px);
 }
 
-a:hover .forward-left-link-img img,
-a:active .forward-left-link-img img,
-.forward-left-link-img:hover img,
-.forward-left-link-img:active img {
+.forward-left-link-img:hover,
+.forward-left-link-img:active {
     transform: translateX(-3px);
 }
 
