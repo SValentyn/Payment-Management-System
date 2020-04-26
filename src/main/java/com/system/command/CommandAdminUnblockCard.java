@@ -12,6 +12,8 @@ import com.system.utils.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandAdminUnblockCard implements ICommand {
 
@@ -28,43 +30,17 @@ public class CommandAdminUnblockCard implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
             // Data
+            String userIdParam = request.getParameter("userId");
             String accountIdParam = request.getParameter("accountId");
-            String cardNumberParam = request.getParameter("cardNumber");
+            String cardIdParam = request.getParameter("cardId");
 
             // Validation
-            if (!Validator.checkAccountId(accountIdParam)) {
-                return pathRedirect;
-            }
-
-            pathRedirect += "&accountId=" + accountIdParam;
-
-            // Validation
-            if (!Validator.checkCardNumber(cardNumberParam)) {
-                request.getSession().setAttribute("response", ServerResponse.CARD_UNBLOCKED_ERROR.getResponse());
-                return pathRedirect;
-            }
-
-            // Data
-            BankCard card = BankCardService.getInstance().findCardByCardNumber(cardNumberParam);
-
-            // Check
-            if (card == null) {
-                request.getSession().setAttribute("response", ServerResponse.CARD_UNBLOCKED_ERROR.getResponse());
-                return pathRedirect;
-            }
-
-            // Data
-            Account accountByAccountId = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
-            Account accountByCard = AccountService.getInstance().findAccountByAccountId(card.getAccountId());
-
-            // Check
-            if (!accountByAccountId.equals(accountByCard)) {
-                request.getSession().setAttribute("response", ServerResponse.CARD_UNBLOCKED_ERROR.getResponse());
+            if (!validation(request, userIdParam, accountIdParam, cardIdParam)) {
                 return pathRedirect;
             }
 
             // Action
-            int status = BankCardService.getInstance().unblockBankCard(card.getCardId());
+            int status = BankCardService.getInstance().unblockBankCard(Integer.valueOf(cardIdParam));
             if (status == 0) {
                 request.getSession().setAttribute("response", ServerResponse.CARD_UNBLOCKED_ERROR.getResponse());
             } else {
@@ -73,6 +49,60 @@ public class CommandAdminUnblockCard implements ICommand {
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam, String cardIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            return false;
+        }
+
+        // Change redirect path
+        pathRedirect += "&userId=" + userIdParam;
+
+        // Validation accountId
+        if (!Validator.checkAccountId(accountIdParam)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_ID.getResponse());
+            return false;
+        }
+
+        // Change redirect path
+        pathRedirect += "&accountId=" + accountIdParam;
+
+        // Validation cardId
+        if (!Validator.checkCardId(cardIdParam)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD_ID.getResponse());
+            return false;
+        }
+
+        // Data
+        Integer userId = Integer.valueOf(userIdParam);
+        Integer accountId = Integer.valueOf(accountIdParam);
+        Integer cardId = Integer.valueOf(cardIdParam);
+        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+
+        // Check that the userId by account matches the received
+        if (!account.getUserId().equals(userId)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID.getResponse());
+            return false;
+        }
+
+        // Data
+        List<BankCard> cardsByAccountId = BankCardService.getInstance().findCardsByAccountId(accountId);
+        List<Integer> cardIds = new ArrayList<>();
+        for (BankCard aCard : cardsByAccountId) {
+            cardIds.add(aCard.getCardId());
+        }
+
+        // Check that the card belongs to the user account
+        if (!cardIds.contains(cardId)) {
+            request.getSession().setAttribute("response", ServerResponse.UNABLE_GET_CARD.getResponse());
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
