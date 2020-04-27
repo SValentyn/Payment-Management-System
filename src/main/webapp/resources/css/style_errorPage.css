@@ -9,16 +9,15 @@
 }
 
 #error_detail_message .msg {
-    margin-bottom: 50px;
+    margin-bottom: 46px;
     font-size: 68px;
 }
 
 .back-homepage {
-    font-size: 24px;
+    font-size: 25px;
     font-weight: normal;
     text-decoration: none;
     text-transform: uppercase;
-    color: #100d37;
 }
 
 .back-homepage:hover {
@@ -31,22 +30,21 @@
 }
 
 .back-homepage img {
-    height: 30px;
-    width: 38px;
-    top: -2px;
-    margin-left: 16px;
-    opacity: 0.8;
-    border-radius: 5px;
+    height: 34px;
+    width: 36px;
+    margin: 0 0 4px 16px;
+    opacity: 0.9;
+    transform: translateY(0px);
 }
 
 .back-homepage:hover img,
 .back-homepage:active img {
-    box-shadow: 4px 4px 0 rgba(44, 55, 66, 0.2);
+    transform: translateY(-2px);
 }
 
 @media (max-width: 542px) {
     #error_detail_message .code {
-        font-size: 74px !important;;
+        font-size: 74px !important;
     }
 
     #error_detail_message .msg {
@@ -58,11 +56,16 @@
     .back-homepage {
         font-size: 20px !important;
     }
+
+    .back-homepage img {
+        height: 30px;
+        width: 32px;
+    }
 }
 
 @media (max-width: 356px) {
     #error_detail_message .code {
-        font-size: 56px !important;;
+        font-size: 56px !important;
     }
 
     #error_detail_message .msg {
@@ -73,5 +76,10 @@
 
     .back-homepage {
         font-size: 15px !important;
+    }
+
+    .back-homepage img {
+        height: 24px;
+        width: 26px;
     }
 }
