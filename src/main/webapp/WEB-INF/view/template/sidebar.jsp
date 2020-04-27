@@ -11,7 +11,7 @@
     <a href="/" class="list-group-item list-group-item-action sidebar-header list-group-item-sidebar">
         <div>
             <img src="resources/images/homepage.png"
-                 alt="" class="sidebar-icon">
+                 alt="" class="icon-sidebar">
         </div>
         <div>
             <fmt:message key="sidebar.home"/>
@@ -21,7 +21,7 @@
         <a href="?command=createAccount" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/create-account.png"
-                     alt="" class="sidebar-icon">
+                     alt="" class="icon-sidebar">
             </div>
             <div>
                 <fmt:message key="sidebar.createAccount"/>
@@ -32,7 +32,7 @@
         <a href="?command=attachCard" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/attach-card.png"
-                     alt="" class="sidebar-icon">
+                     alt="" class="icon-sidebar">
             </div>
             <div>
                 <fmt:message key="sidebar.attachCard"/>
@@ -43,7 +43,7 @@
         <a href="?command=makePayment" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/make-payment.png"
-                     alt="" class="sidebar-icon">
+                     alt="" class="icon-sidebar">
             </div>
             <div>
                 <fmt:message key="sidebar.makePayment"/>
@@ -53,7 +53,7 @@
     <c:if test="${currentUser.role.id == 1}">
         <a href="?command=support" class="list-group-item list-group-item-action list-group-item-sidebar">
             <img src="resources/images/user-support.png"
-                 alt="" class="sidebar-icon">
+                 alt="" class="icon-sidebar">
             <fmt:message key="sidebar.support"/>
         </a>
     </c:if>
@@ -61,7 +61,7 @@
         <a href="?command=addUser" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/add-user.png"
-                     alt="" class="sidebar-icon">
+                     alt="" class="icon-sidebar">
             </div>
             <div>
                 <fmt:message key="sidebar.addUser"/>
@@ -72,7 +72,7 @@
         <a href="?command=support" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/admin-support.png"
-                     alt="" class="sidebar-icon">
+                     alt="" class="icon-sidebar">
             </div>
             <div>
                 <fmt:message key="sidebar.support"/>

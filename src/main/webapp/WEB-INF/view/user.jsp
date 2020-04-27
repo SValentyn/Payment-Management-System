@@ -38,14 +38,14 @@
                             <li class="nav-item-home">
                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="false"
                                    onclick="document.getElementById('form-showAccounts').submit(); return false;">
-                                    <img src="resources/images/show-accounts.png" alt="" class="sidebar-icon">
+                                    <img src="resources/images/show-accounts.png" alt="" class="icon-sidebar">
                                     ${myAccounts}
                                 </a>
                             </li>
                             <li class="nav-item-home">
                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="false"
                                    onclick="document.getElementById('form-showPayments').submit(); return false;">
-                                    <img src="resources/images/balance.png" alt="" class="sidebar-icon">
+                                    <img src="resources/images/balance.png" alt="" class="icon-sidebar">
                                     ${myPayments}
                                 </a>
                             </li>

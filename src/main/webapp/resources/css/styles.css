@@ -203,24 +203,21 @@ body {
     background: #fff !important;
 }
 
-.header .dropdown-menu .header-icon {
+.header .dropdown-menu .icon-header {
     position: relative;
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
     top: -2px;
     margin-top: 0;
     line-height: 1;
-    opacity: 0.45;
 }
 
 .header .dropdown-menu .dropdown-item a {
     padding-left: 0 !important;
-    color: #888;
 }
 
 .header .dropdown-menu .dropdown-item a:hover {
-    color: #666 !important;
     border: 0 !important;
     background: none !important;
 }
@@ -229,7 +226,6 @@ body {
 .header .dropdown-menu .dropdown-item:active {
     border-radius: 5px !important;
 }
-
 
 .header .dropdown-menu .dropdown-item:last-child {
     border: 0;
@@ -366,6 +362,10 @@ body {
 /********************/
 
 /* STYLE OF COMPONENTS */
+
+a {
+    color: #0369c0e3;
+}
 
 a:hover, a:active {
     outline: none;
@@ -898,7 +898,7 @@ div[class="message-block"] .title-label {
     line-height: 1.0;
 }
 
-.sidebar-icon {
+.icon-sidebar {
     height: 18px;
     width: 18px;
     position: relative;
@@ -908,8 +908,8 @@ div[class="message-block"] .title-label {
     line-height: 1.0;
 }
 
-.sidebar-icon:hover,
-.sidebar-icon:active {
+.icon-sidebar:hover,
+.icon-sidebar:active {
     cursor: pointer;
     overflow: hidden;
 }

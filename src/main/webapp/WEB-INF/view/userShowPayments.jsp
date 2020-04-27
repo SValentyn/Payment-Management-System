@@ -52,7 +52,7 @@
                                 <a class="nav-link nav-link-hover" role="tab" data-toggle="tab" aria-selected="false"
                                    onclick="document.getElementById('form-showAccounts').submit(); return false;">
                                     <img src="resources/images/show-accounts.png"
-                                         alt="" class="sidebar-icon">
+                                         alt="" class="icon-sidebar">
                                     ${myAccounts}
                                 </a>
                             </li>
@@ -60,7 +60,7 @@
                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="true"
                                    onclick="document.getElementById('form-showPayments').submit(); return false;">
                                     <img src="resources/images/balance.png"
-                                         alt="" class="sidebar-icon">
+                                         alt="" class="icon-sidebar">
                                     ${myPayments}
                                 </a>
                             </li>

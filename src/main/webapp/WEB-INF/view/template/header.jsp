@@ -39,7 +39,7 @@
                                             <div class="float-right">
                                                 <img src="resources/images/profile.png"
                                                      alt="<fmt:message key="header.profile"/>"
-                                                     class="header-icon">
+                                                     class="icon-header" style="width: 20px;">
                                             </div>
                                         </a>
                                     </div>
@@ -54,7 +54,7 @@
                                             <div class="float-right">
                                                 <img src="resources/images/logout.png"
                                                      alt="<fmt:message key="header.logout"/>"
-                                                     class="header-icon">
+                                                     class="icon-header">
                                             </div>
                                         </a>
                                     </div>

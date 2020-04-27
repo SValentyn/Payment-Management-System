@@ -73,7 +73,7 @@
                                                    aria-selected="true"
                                                    onclick="document.getElementById('form-showUsers').submit(); return false;">
                                                     <img src="resources/images/all-users.png"
-                                                         alt="" class="sidebar-icon"
+                                                         alt="" class="icon-sidebar"
                                                          style="height: 21px;width: 21px;top: -1px;"/>
                                                     ${allUsers}
                                                     <span class="badge badge-pill badge-light">
