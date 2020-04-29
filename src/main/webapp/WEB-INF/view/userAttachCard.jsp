@@ -23,23 +23,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert Success -->
-    <c:if test="${attached == true}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertCardAttached"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardNumberError -->
-    <c:if test="${cardNumberError == true}">
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertCardNumberAttachError"/>
+                <fmt:message key="user.page.alertUnableGetUser"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -47,11 +35,59 @@
         </div>
     </c:if>
 
-    <!-- Alert cardAttachError -->
-    <c:if test="${cardAttachError == true}">
+    <!-- Alert Success -->
+    <c:if test="${response eq 'cardAttachedSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="user.page.success"/>!</strong>
+                <fmt:message key="user.page.alertCardAttachedSuccess"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert invalidData -->
+    <c:if test="${response eq 'invalidData'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="user.page.alertInvalidDataError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert cardAlreadyAttachedError -->
+    <c:if test="${response eq 'cardAlreadyAttachedError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertCardAlreadyAttachedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert validityExpiredError -->
+    <c:if test="${response eq 'validityExpiredError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="user.page.alertValidityExpiredError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert cardAttachedError -->
+    <c:if test="${response eq 'cardAttachedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertCardAttachError"/>
+                <fmt:message key="user.page.alertCardAttachedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -66,30 +102,31 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.attachCard.attachNewCard" var="formHeader"/>
+                <fmt:message key="user.attachCard.selectAccount" var="selectAccount"/>
+                <fmt:message key="user.attachCard.number" var="number"/>
+                <fmt:message key="user.attachCard.cvv" var="cvv"/>
+                <fmt:message key="user.attachCard.validity" var="validity"/>
+                <fmt:message key="user.attachCard.month" var="month"/>
+                <fmt:message key="user.attachCard.year" var="year"/>
+                <fmt:message key="user.attachCard.attachCard" var="attachCard"/>
+                <fmt:message key="user.attachCard.accountIdError" var="accountIdError"/>
+                <fmt:message key="user.attachCard.numberError" var="numberError"/>
+                <fmt:message key="user.attachCard.cvvError" var="cvvError"/>
+                <fmt:message key="user.attachCard.validityError" var="validityError"/>
+                <fmt:message key="user.attachCard.tooltipCardNumber" var="tooltipCardNumber"/>
+                <fmt:message key="user.attachCard.tooltipCVV" var="tooltipCVV"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row">
                         <div class="col-xl-6 offset-xl-2">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.attachCard.attachNewCard" var="attachNewCard"/>
-                                        <fmt:message key="user.attachCard.selectAccount" var="selectAccount"/>
-                                        <fmt:message key="user.attachCard.number" var="number"/>
-                                        <fmt:message key="user.attachCard.cvv" var="cvv"/>
-                                        <fmt:message key="user.attachCard.validity" var="validity"/>
-                                        <fmt:message key="user.attachCard.month" var="month"/>
-                                        <fmt:message key="user.attachCard.year" var="year"/>
-                                        <fmt:message key="user.attachCard.attachButton" var="attachButton"/>
-                                        <fmt:message key="user.attachCard.accountIdError" var="accountIdError"/>
-                                        <fmt:message key="user.attachCard.numberError" var="numberError"/>
-                                        <fmt:message key="user.attachCard.cvvError" var="cvvError"/>
-                                        <fmt:message key="user.attachCard.validityError" var="validityError"/>
-                                        <fmt:message key="user.attachCard.tooltipCardNumber" var="tooltipCardNumber"/>
-                                        <fmt:message key="user.attachCard.tooltipCVV" var="tooltipCVV"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
-                                            ${attachNewCard}
+                                            ${formHeader}
                                         </h4>
 
                                         <form action="/" role="form" method="POST">
@@ -131,7 +168,7 @@
                                             <div>
                                                 <input id="cardNumber" name="number" class="form-control" type="text"
                                                        data-toggle="tooltip" data-title="${tooltipCardNumber}"
-                                                       maxlength="19" oninput="this.value=card_space_format(this.value)"
+                                                       maxlength="19" oninput="this.value=card_format(this.value)"
                                                        placeholder="${number}*"
                                                        value="${numberValue}"/>
                                                 <label for="cardNumber" class="default-label">
@@ -209,27 +246,26 @@
                                                                 <div data-value="${yearValue}">${yearValue}</div>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        <div data-value="2017">2017</div>
-                                                        <div data-value="2018">2018</div>
-                                                        <div data-value="2019">2019</div>
                                                         <div data-value="2020">2020</div>
                                                         <div data-value="2021">2021</div>
                                                         <div data-value="2022">2022</div>
                                                         <div data-value="2023">2023</div>
                                                         <div data-value="2024">2024</div>
                                                         <div data-value="2025">2025</div>
+                                                        <div data-value="2026">2026</div>
+                                                        <div data-value="2027">2027</div>
                                                     </div>
                                                 </div>
 
                                                 <label for="expiration-date" class="default-label">
-                                                     <span id="valid-msg-validity" class="valid-msg invisible">
+                                                    <span id="valid-msg-validity" class="valid-msg invisible">
                                                         ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-validity" class="error-msg invisible">
                                                         ${validityError}
                                                     </span>
                                                     <span id="validityExpiredError" class="error-msg invisible">
-                                                        <c:if test="${validityExpiredError}">
+                                                        <c:if test="${response eq 'validityExpiredError'}">
                                                             <fmt:message key="user.attachCard.validityExpiredError"/>
 
                                                             <script>
@@ -245,7 +281,7 @@
                                             <!-- Submit -->
                                             <div class="action" style="padding: 20px 0 5px 0">
                                                 <button id="submit" type="submit" class="btn btn-primary signup">
-                                                    ${attachButton}
+                                                    ${attachCard}
                                                 </button>
                                             </div>
                                         </form>

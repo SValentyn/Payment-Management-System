@@ -25,7 +25,7 @@ function onlyNumbers() {
 /*
     Enter the card number
 */
-function card_space_format(value) {
+function card_format(value) {
     let initValue = value.replace(/\s/gi, '').replace(/[^0-9]/gi, '');
     let matches = initValue.match(/\d{4,16}/g);
     let match = matches && matches[0] || '';

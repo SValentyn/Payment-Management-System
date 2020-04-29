@@ -54,6 +54,7 @@ public class ResourceManager {
     // USER'S COMMANDS
     // ***************
     public static final String COMMAND_USER_SHOW_ACCOUNTS = "COMMAND_USER_SHOW_ACCOUNTS";
+    public static final String COMMAND_USER_ATTACH_CARD = "COMMAND_USER_ATTACH_CARD";
     public static final String COMMAND_USER_SUPPORT = "COMMAND_USER_SUPPORT";
     // ****************
     // ADMIN'S COMMANDS
