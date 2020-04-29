@@ -8,6 +8,7 @@ public enum ServerResponse {
     REGISTRATION_SUCCESS("registrationSuccess"),
     REGISTRATION_ERROR("registrationError"),
     PASSWORD_SENT("passwordSent"),
+    UNABLE_GET_USER("unableGetUser"),
     SHOW_USER_ERROR("showUserError"),
     ADD_USER_SUCCESS("addUserSuccess"),
     ADD_USER_ERROR("addUserError"),
@@ -54,7 +55,10 @@ public enum ServerResponse {
     SHOW_LETTER_ERROR("showLetterError"),
     LETTER_PROCESSED_SUCCESS("letterProcessedSuccess"),
     LETTER_WAS_PROCESSED("letterWasProcessed"),
-    LETTER_PROCESSED_ERROR("letterProcessedError");
+    LETTER_PROCESSED_ERROR("letterProcessedError"),
+    LETTER_SENT_SUCCESS("letterSentSuccess"),
+    MANY_LETTERS_SENT_ERROR("manyLettersSentError"),
+    LETTER_SENT_ERROR("letterSentError");
 
     private final String response;
 

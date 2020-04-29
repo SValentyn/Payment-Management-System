@@ -9,12 +9,16 @@ public class ResourceManager {
 
     // Configuration file name
     private final static String BUNDLE_NAME = "configuration";
-    // ALL
+    // *************************
+    // UNREGISTERED USER'S PAGES
+    // *************************
     public static final String INDEX = "INDEX";
     public static final String REGISTRATION = "REGISTRATION";
     public static final String RECOVERY = "RECOVERY";
     public static final String ERROR = "ERROR";
-    // USER
+    // ************
+    // USER'S PAGES
+    // ************
     public static final String USER = "USER";
     public static final String USER_SHOW_ACCOUNTS = "USER_SHOW_ACCOUNTS";
     public static final String USER_SHOW_PAYMENTS = "USER_SHOW_PAYMENTS";
@@ -24,7 +28,9 @@ public class ResourceManager {
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
     public static final String USER_ATTACH_CARD = "USER_ATTACH_CARD";
     public static final String USER_SUPPORT = "USER_SUPPORT";
-    // ADMIN
+    // *************
+    // ADMIN'S PAGES
+    // *************
     public static final String ADMIN = "ADMIN";
     public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_PERSONAL_DATA";
     public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
@@ -38,10 +44,20 @@ public class ResourceManager {
     public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
     public static final String ADMIN_SHOW_LETTER_INFO = "ADMIN_SHOW_LETTER_INFO";
-    // COMMAND
+    // ****************************
+    // UNREGISTERED USER'S COMMANDS
+    // ****************************
     public static final String COMMAND_INDEX = "COMMAND_INDEX";
     public static final String COMMAND_RECOVERY = "COMMAND_RECOVERY";
     public static final String COMMAND_REGISTRATION = "COMMAND_REGISTRATION";
+    // ***************
+    // USER'S COMMANDS
+    // ***************
+    public static final String COMMAND_USER_SHOW_ACCOUNTS = "COMMAND_USER_SHOW_ACCOUNTS";
+    public static final String COMMAND_USER_SUPPORT = "COMMAND_USER_SUPPORT";
+    // ****************
+    // ADMIN'S COMMANDS
+    // ****************
     public static final String COMMAND_ADMIN_UPDATE_DATA = "COMMAND_ADMIN_UPDATE_DATA";
     public static final String COMMAND_ADMIN_UPDATE_PASSWORD = "COMMAND_ADMIN_UPDATE_PASSWORD";
     public static final String COMMAND_ADMIN_ADD_USER = "COMMAND_ADMIN_ADD_USER";
