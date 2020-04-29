@@ -23,11 +23,23 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertUnableGetUser"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert Success -->
-    <c:if test="${sended == true}">
+    <c:if test="${response eq 'letterSentSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertLetterSended"/>
+                <fmt:message key="user.page.alertLetterSentSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -35,11 +47,11 @@
         </div>
     </c:if>
 
-    <!-- Alert manyLettersError -->
-    <c:if test="${manyLettersError == true}">
+    <!-- Alert manyLettersSentError -->
+    <c:if test="${response eq 'manyLettersSentError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertManyLettersError"/>
+                <fmt:message key="user.page.alertManyLettersSentError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -47,11 +59,11 @@
         </div>
     </c:if>
 
-    <!-- Alert sendLetterError -->
-    <c:if test="${sendLetterError == true}">
+    <!-- Alert letterSentError -->
+    <c:if test="${response eq 'letterSentError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertSendLetterError"/>
+                <fmt:message key="user.page.alertLetterSentError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -66,29 +78,30 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.support.formHeader" var="formHeader"/>
+                <fmt:message key="user.support.selectType" var="selectType"/>
+                <fmt:message key="user.support.description" var="description"/>
+                <fmt:message key="user.support.button.send" var="send"/>
+                <fmt:message key="user.support.option.1" var="option_1"/>
+                <fmt:message key="user.support.option.2" var="option_2"/>
+                <fmt:message key="user.support.option.3" var="option_3"/>
+                <fmt:message key="user.support.option.4" var="option_4"/>
+                <fmt:message key="user.support.option.5" var="option_5"/>
+                <fmt:message key="user.support.option.6" var="option_6"/>
+                <fmt:message key="user.support.option.7" var="option_7"/>
+                <fmt:message key="user.support.option.8" var="option_8"/>
+                <fmt:message key="user.support.option.9" var="option_9"/>
+                <fmt:message key="user.support.option.10" var="option_10"/>
+                <fmt:message key="user.support.typeQuestionError" var="typeQuestionError"/>
+                <fmt:message key="user.support.tooltipDescription" var="tooltipDescription"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
-                    <div class="row">
-                        <div class="col-lg-4 offset-lg-3">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.support.formHeader" var="formHeader"/>
-                                        <fmt:message key="user.support.selectType" var="selectType"/>
-                                        <fmt:message key="user.support.description" var="description"/>
-                                        <fmt:message key="user.support.button.send" var="send"/>
-                                        <fmt:message key="user.support.option.1" var="option_1"/>
-                                        <fmt:message key="user.support.option.2" var="option_2"/>
-                                        <fmt:message key="user.support.option.3" var="option_3"/>
-                                        <fmt:message key="user.support.option.4" var="option_4"/>
-                                        <fmt:message key="user.support.option.5" var="option_5"/>
-                                        <fmt:message key="user.support.option.6" var="option_6"/>
-                                        <fmt:message key="user.support.option.7" var="option_7"/>
-                                        <fmt:message key="user.support.option.8" var="option_8"/>
-                                        <fmt:message key="user.support.option.9" var="option_9"/>
-                                        <fmt:message key="user.support.option.10" var="option_10"/>
-                                        <fmt:message key="user.support.typeQuestionError" var="typeQuestionError"/>
-                                        <fmt:message key="user.support.tooltipDescription" var="tooltipDescription"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
                                             ${formHeader}

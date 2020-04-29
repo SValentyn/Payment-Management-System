@@ -2,9 +2,10 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.entity.User;
+import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
-import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,26 +14,60 @@ import java.util.List;
 
 public class CommandUserShowAccounts implements ICommand {
 
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
+
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        request.setAttribute("noAccounts", false);
-        request.setAttribute("showAccounts", false);
-        request.setAttribute("unblockAccountAlert", false);
-        request.setAttribute("unblockCardAlert", false);
+        clearRequestAttributes(request);
 
-        User user = (User) request.getSession().getAttribute("currentUser");
-        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+        String method = request.getMethod();
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
+            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNTS);
+        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
 
-        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
-        if (!accounts.isEmpty()) {
-            request.setAttribute("accounts", accounts);
-            request.setAttribute("showAccounts", true);
-        } else {
-            request.setAttribute("noAccounts", true);
+            // Data
+            User user = (User) request.getSession().getAttribute("currentUser");
+
+            // Check
+            if (user == null) {
+                setRequestAttributes(request, ServerResponse.UNABLE_GET_USER);
+                return pathRedirect;
+            }
+
+            // Set Attributes
+            setRequestAttributes(request, user);
         }
 
-        return ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
+        return pathRedirect;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("accountsEmpty", null);
+        request.setAttribute("accounts", null);
+        request.setAttribute("response", "");
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+
+        if (accounts != null) {
+            if (accounts.isEmpty()) {
+                request.setAttribute("accountsEmpty", true);
+            } else {
+                request.setAttribute("accountsEmpty", false);
+                request.setAttribute("accounts", accounts);
+            }
+        } else {
+            setRequestAttributes(request, ServerResponse.SHOW_USER_ACCOUNTS_ERROR);
+        }
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.setAttribute("response", serverResponse.getResponse());
     }
 
 }

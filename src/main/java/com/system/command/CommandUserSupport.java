@@ -4,70 +4,125 @@ import com.system.entity.Letter;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.LetterService;
-import com.system.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CommandUserSupport implements ICommand {
+
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
-
-        request.setAttribute("sended", false);
-        request.setAttribute("manyLettersError", false);
-        request.setAttribute("sendLetterError", false);
-
-        User user = (User) request.getSession().getAttribute("currentUser");
-        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+        clearRequestAttributes(request);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return page;
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
+
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SUPPORT);
+
+            // Data
+            User user = (User) request.getSession().getAttribute("currentUser");
+
+            // Check
+            if (user == null) {
+                setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+                return pathRedirect;
+            }
 
             // Data
             String typeQuestion = request.getParameter("typeQuestion");
             String description = request.getParameter("description");
 
-            // Data
-            List<Letter> lettersByUserId = LetterService.getInstance().findLettersByUserId(user.getUserId());
-
-            // Check
-            int count = 0;
-            for (Letter letter : lettersByUserId) {
-                if (!letter.getIsProcessed()) count++;
+            // Validation
+            if (!validation(request, user, typeQuestion, description)) {
+                return pathRedirect;
             }
 
-            if (count == 4) {
-                setRequestAttributes(request, typeQuestion, description);
-                request.setAttribute("manyLettersError", true);
-                return page;
-            }
-
-            // Create
+            // Action
             int status = LetterService.getInstance().addNewLetter(user.getUserId(), typeQuestion, description);
             if (status == 0) {
-                setRequestAttributes(request, typeQuestion, description);
-                request.setAttribute("sendLetterError", true);
+                setSessionAttributes(request, typeQuestion, description, ServerResponse.LETTER_SENT_ERROR);
             } else {
-                request.setAttribute("sended", true);
+                setSessionAttributes(request, ServerResponse.LETTER_SENT_SUCCESS);
             }
         }
 
-        return page;
+        return pathRedirect;
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String typeQuestion, String description) {
-        request.setAttribute("typeQuestionValue", typeQuestion);
-        request.setAttribute("descriptionValue", description);
+    private boolean validation(HttpServletRequest request, User user, String typeQuestion, String description) throws SQLException {
+
+        // Validation type question
+        if (typeQuestion == null || typeQuestion.equals("")) {
+            setSessionAttributes(request, ServerResponse.LETTER_SENT_ERROR);
+            return false;
+        }
+
+        // Data
+        int numberOfNotProcessedLetters = 0;
+        for (Letter letter : LetterService.getInstance().findLettersByUserId(user.getUserId())) {
+            if (!letter.getIsProcessed()) numberOfNotProcessedLetters++;
+        }
+
+        // Checking that the user has sent in support of more than 3 letters that have not yet been processed
+        if (numberOfNotProcessedLetters == 4) {
+            setSessionAttributes(request, typeQuestion, description, ServerResponse.MANY_LETTERS_SENT_ERROR);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("typeQuestionValue", null);
+        request.setAttribute("descriptionValue", null);
+        request.setAttribute("response", "");
+    }
+
+    private void setRequestAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String typeQuestion = (String) session.getAttribute("typeQuestion");
+        if (typeQuestion != null) {
+            request.setAttribute("typeQuestionValue", typeQuestion);
+            session.removeAttribute("typeQuestion");
+        }
+
+        String description = (String) session.getAttribute("description");
+        if (description != null) {
+            request.setAttribute("descriptionValue", description);
+            session.removeAttribute("description");
+        }
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, String typeQuestion, String description, ServerResponse serverResponse) {
+        request.getSession().setAttribute("typeQuestion", typeQuestion);
+        request.getSession().setAttribute("description", description);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }
