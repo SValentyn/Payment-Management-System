@@ -36,7 +36,7 @@ public class SessionFilter implements Filter {
             LOGGER.info("Server response --> null");
         }
 
-        // Set totalUsers and numberOfLetters
+        // Set session attributes
         User user = (User) session.getAttribute("currentUser");
         if (user != null) {
             try {
@@ -47,6 +47,7 @@ public class SessionFilter implements Filter {
                 } else if (role.equals(Role.ROLE_CLIENT)) {
                     // [Perhaps session variables for the user will be added]
                 }
+                session.setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
             } catch (SQLException e) {
                 LOGGER.error("Failed to get information from the database. Check connection. Exception:" + e.getMessage());
             }

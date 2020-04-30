@@ -20,10 +20,10 @@ public class ResourceManager {
     // USER'S PAGES
     // ************
     public static final String USER = "USER";
+    public static final String USER_UPDATE_DATA = "USER_UPDATE_PERSONAL_DATA";
+    public static final String USER_UPDATE_PASSWORD = "USER_UPDATE_PASSWORD";
     public static final String USER_SHOW_ACCOUNTS = "USER_SHOW_ACCOUNTS";
     public static final String USER_SHOW_PAYMENTS = "USER_SHOW_PAYMENTS";
-    public static final String USER_UPDATE_DATA = "USER_UPDATE_DATA";
-    public static final String USER_UPDATE_PASSWORD = "USER_UPDATE_PASSWORD";
     public static final String USER_CREATE_ACCOUNT = "USER_CREATE_ACCOUNT";
     public static final String USER_ATTACH_CARD = "USER_ATTACH_CARD";
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
@@ -53,6 +53,7 @@ public class ResourceManager {
     // ***************
     // USER'S COMMANDS
     // ***************
+    public static final String COMMAND_USER_UPDATE_DATA = "COMMAND_USER_UPDATE_PERSONAL_DATA";
     public static final String COMMAND_USER_SHOW_ACCOUNTS = "COMMAND_USER_SHOW_ACCOUNTS";
     public static final String COMMAND_USER_CREATE_ACCOUNT = "COMMAND_USER_CREATE_ACCOUNT";
     public static final String COMMAND_USER_ATTACH_CARD = "COMMAND_USER_ATTACH_CARD";
@@ -60,7 +61,7 @@ public class ResourceManager {
     // ****************
     // ADMIN'S COMMANDS
     // ****************
-    public static final String COMMAND_ADMIN_UPDATE_DATA = "COMMAND_ADMIN_UPDATE_DATA";
+    public static final String COMMAND_ADMIN_UPDATE_DATA = "COMMAND_ADMIN_UPDATE_PERSONAL_DATA";
     public static final String COMMAND_ADMIN_UPDATE_PASSWORD = "COMMAND_ADMIN_UPDATE_PASSWORD";
     public static final String COMMAND_ADMIN_ADD_USER = "COMMAND_ADMIN_ADD_USER";
     public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";

@@ -1,4 +1,4 @@
-// Elements on userUpdateData.jsp page to check
+// Elements on userUpdatePersonalData.jsp page to check
 let name = document.querySelector("#name");
 let surname = document.querySelector("#surname");
 let phone = document.querySelector("#phone");
@@ -275,7 +275,7 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
+    if (phone.value.trim() === "" || !iti.isValidNumber() || phone.classList.contains("error-input")) {
         event.preventDefault();
         notValidPhone();
         return false;

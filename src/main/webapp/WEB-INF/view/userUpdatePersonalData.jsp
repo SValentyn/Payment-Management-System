@@ -57,11 +57,47 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertUnableGetUser"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert Success -->
-    <c:if test="${updated == true}">
+    <c:if test="${response eq 'dataUpdatedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertDataUpdated"/>
+                <fmt:message key="user.page.alertDataUpdatedSuccess"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert passwordNotMatchError -->
+    <c:if test="${response eq 'passwordNotMatchError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertPasswordNotMatchError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert invalidData -->
+    <c:if test="${response eq 'invalidData'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertInvalidDataError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -70,7 +106,7 @@
     </c:if>
 
     <!-- Alert phoneExistError -->
-    <c:if test="${phoneExistError == true}">
+    <c:if test="${response eq 'phoneExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertPhoneExistError"/>
@@ -81,11 +117,23 @@
         </div>
     </c:if>
 
-    <!-- Alert updateDataError -->
-    <c:if test="${updateDataError == true}">
+    <!-- Alert emailExistError -->
+    <c:if test="${response eq 'emailExistError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertEmailExistError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert dataUpdatedError -->
+    <c:if test="${response eq 'dataUpdatedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertUpdateDataError"/>
+                <fmt:message key="user.page.alertDataUpdatedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -94,7 +142,7 @@
     </c:if>
 
     <!-- Alert userHasFundsError -->
-    <c:if test="${userHasFundsError == true}">
+    <c:if test="${response eq 'userHasFundsError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertUserHasFundsError"/>
@@ -108,11 +156,11 @@
         </div>
     </c:if>
 
-    <!-- Alert deleteProfileError -->
-    <c:if test="${deleteProfileError == true}">
+    <!-- Alert profileDeletedError -->
+    <c:if test="${response eq 'profileDeletedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertDeleteProfileError"/>
+                <fmt:message key="user.page.alertProfileDeletedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -127,30 +175,30 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.updateData.formHeader" var="formHeader"/>
+                <fmt:message key="registration.name" var="name"/>
+                <fmt:message key="registration.surname" var="surname"/>
+                <fmt:message key="registration.email" var="email"/>
+                <fmt:message key="user.updateData.password" var="password"/>
+                <fmt:message key="user.updateData.updateData" var="updateData"/>
+                <fmt:message key="user.updateData.changePassword" var="changePassword"/>
+                <fmt:message key="registration.nameError" var="nameError"/>
+                <fmt:message key="registration.surnameError" var="surnameError"/>
+                <fmt:message key="registration.phoneError" var="loginError"/>
+                <fmt:message key="registration.emailError" var="emailError"/>
+                <fmt:message key="registration.passwordError" var="passwordError"/>
+                <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
+                <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.updateData.formHeader" var="formHeader"/>
-                                        <fmt:message key="registration.name" var="name"/>
-                                        <fmt:message key="registration.surname" var="surname"/>
-                                        <fmt:message key="registration.email" var="email"/>
-                                        <fmt:message key="user.updateData.password" var="password"/>
-                                        <fmt:message key="user.updateData.updateDataButton" var="updateDataButton"/>
-                                        <fmt:message key="user.updateData.changePasswordButton"
-                                                     var="changePasswordButton"/>
-                                        <fmt:message key="registration.nameError" var="nameError"/>
-                                        <fmt:message key="registration.surnameError" var="surnameError"/>
-                                        <fmt:message key="registration.phoneError" var="loginError"/>
-                                        <fmt:message key="registration.emailError" var="emailError"/>
-                                        <fmt:message key="registration.passwordError" var="passwordError"/>
-                                        <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                                        <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
-                                        <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                                        <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
                                             ${formHeader}
@@ -182,7 +230,7 @@
                                                     <input id="surname" name="surname" class="form-control"
                                                            type="text" data-toggle="tooltip"
                                                            data-title="${tooltipOnlyLetters}"
-                                                           maxlength="24" placeholder="${surname}*"
+                                                           maxlength="32" placeholder="${surname}*"
                                                            value="${surnameValue}"/>
                                                     <label for="surname" class="default-label">
                                                         <span id="valid-msg-surname" class="valid-msg invisible">
@@ -252,26 +300,15 @@
                                                         <span id="error-msg-password" class="error-msg invisible">
                                                             ${passwordError}
                                                         </span>
-                                                        <span id="passwordNotMatchError">
-                                                            <c:if test="${passwordNotMatchError}">
-                                                                <fmt:message key="user.updateData.passwordError"/>
-
-                                                                <script>
-                                                                    document.querySelector("#passwordNotMatchError").classList.remove("invisible");
-                                                                    document.querySelector("#valid-msg-password").classList.add("invisible");
-                                                                    document.querySelector("#error-msg-password").classList.add("invisible");
-                                                                </script>
-                                                            </c:if>
-                                                        </span>
                                                     </label>
                                                 </div>
                                             </div>
 
                                             <!-- Submit -->
                                             <div class="action" style="padding: 25px 0 10px 0">
-                                                <button id="submit" type="submit"
-                                                        class="btn btn-primary signup" style="width: 56%;">
-                                                    ${updateDataButton}
+                                                <button id="submit" type="submit" class="btn btn-primary signup"
+                                                        style="width: 56%;">
+                                                    ${updateData}
                                                 </button>
                                             </div>
                                         </form>
@@ -279,9 +316,9 @@
                                         <!-- Change Password Button -->
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="updatePassword">
+                                                <input type="hidden" name="command" value="updatePassword"/>
                                                 <input type="submit" class="btn btn-default signup" style="width: 56%;"
-                                                       value="${changePasswordButton}">
+                                                       value="${changePassword}"/>
                                             </form>
                                         </div>
 
@@ -305,6 +342,6 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/validator_userUpdateData.js"></script>
-<script src="resources/js/modalWindow_userUpdateData.js"></script>
+<script src="resources/js/validator_userUpdatePersonalData.js"></script>
+<script src="resources/js/modalWindow_userUpdatePersonalData.js"></script>
 </html>
