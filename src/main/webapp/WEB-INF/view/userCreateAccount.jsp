@@ -24,11 +24,23 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertUnableGetUser"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert Success -->
-    <c:if test="${created == true}">
+    <c:if test="${response eq 'accountCreatedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertAccountCreated"/>
+                <fmt:message key="user.page.alertAccountCreatedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -37,7 +49,7 @@
     </c:if>
 
     <!-- Alert manyAccountWithThisCurrencyError -->
-    <c:if test="${manyAccountWithThisCurrencyError == true}">
+    <c:if test="${response eq 'manyAccountWithThisCurrencyError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.manyAccountWithThisCurrencyError"/>
@@ -48,11 +60,11 @@
         </div>
     </c:if>
 
-    <!-- Alert createAccountError -->
-    <c:if test="${createAccountError == true}">
+    <!-- Alert accountCreatedError -->
+    <c:if test="${response eq 'accountCreatedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertCreateAccountError"/>
+                <fmt:message key="user.page.alertAccountCreatedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -67,23 +79,23 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.createAccount.createNewAccount" var="formHeader"/>
+                <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
+                <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
+                <fmt:message key="user.createAccount.createAccount" var="createAccount"/>
+                <fmt:message key="user.createAccount.numberError" var="numberError"/>
+                <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row">
-                        <div class="col-xl-4 offset-xl-3">
+                        <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.createAccount.createNewAccount" var="createNewAccount"/>
-                                        <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                        <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
-                                        <fmt:message key="user.createAccount.createAccountButton"
-                                                     var="createAccountButton"/>
-                                        <fmt:message key="user.createAccount.numberError" var="numberError"/>
-                                        <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
-                                            ${createNewAccount}
+                                            ${formHeader}
                                         </h4>
 
                                         <form action="" role="form" method="POST">
@@ -147,7 +159,7 @@
                                             <!-- Submit -->
                                             <div class="action" style="padding: 40px 0 10px 0">
                                                 <button id="submit" type="submit" class="btn btn-primary signup">
-                                                    ${createAccountButton}
+                                                    ${createAccount}
                                                 </button>
                                             </div>
                                         </form>
