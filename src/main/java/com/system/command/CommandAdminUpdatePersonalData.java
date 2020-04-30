@@ -29,20 +29,15 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_DATA);
 
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
-
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
 
-            // Check
+            // Check and set attributes
             if (user == null) {
-                request.setAttribute("response", ServerResponse.DATA_UPDATED_ERROR.getResponse());
-                return pathRedirect;
+                request.setAttribute("response", ServerResponse.UNABLE_GET_USER.getResponse());
+            } else {
+                setRequestAttributes(request, user);
             }
-
-            // Set Attributes
-            setRequestAttributes(request, user);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_UPDATE_DATA);
@@ -52,7 +47,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
 
             // Check
             if (user == null) {
-                setSessionAttributes(request, ServerResponse.DATA_UPDATED_ERROR);
+                setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
                 return pathRedirect;
             }
 
@@ -75,7 +70,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             user.setEmail(email);
             user.setPassword(encryptor.encode(password));
 
-            // Action
+            // Action (update data)
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_ERROR);
@@ -143,7 +138,12 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request) {
+    private void setRequestAttributes(HttpServletRequest request, User user) {
+        request.setAttribute("nameValue", user.getName());
+        request.setAttribute("surnameValue", user.getSurname());
+        request.setAttribute("phoneValue", user.getPhone());
+        request.setAttribute("emailValue", user.getEmail());
+
         HttpSession session = request.getSession();
 
         String name = (String) session.getAttribute("name");
@@ -175,13 +175,6 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             request.setAttribute("response", response);
             session.removeAttribute("response");
         }
-    }
-
-    private void setRequestAttributes(HttpServletRequest request, User user) {
-        request.setAttribute("nameValue", user.getName());
-        request.setAttribute("surnameValue", user.getSurname());
-        request.setAttribute("phoneValue", user.getPhone());
-        request.setAttribute("emailValue", user.getEmail());
     }
 
     private void setSessionAttributes(HttpServletRequest request, String name, String surname, String phone, String email, ServerResponse serverResponse) {

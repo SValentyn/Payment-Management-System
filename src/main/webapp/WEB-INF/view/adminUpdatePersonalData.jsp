@@ -23,6 +23,18 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertUnableGetUser"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert Success -->
     <c:if test="${response eq 'dataUpdatedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
@@ -50,7 +62,7 @@
     <!-- Alert invalidData -->
     <c:if test="${response eq 'invalidData'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="registration.failed"/>!</strong>
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertInvalidDataError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -74,7 +86,7 @@
     <!-- Alert emailExistError -->
     <c:if test="${response eq 'emailExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="registration.failed"/>!</strong>
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertEmailExistError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -102,30 +114,30 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.updateData.formHeader" var="formHeader"/>
+                <fmt:message key="registration.name" var="name"/>
+                <fmt:message key="registration.surname" var="surname"/>
+                <fmt:message key="registration.email" var="email"/>
+                <fmt:message key="user.updateData.password" var="password"/>
+                <fmt:message key="user.updateData.updateData" var="updateDataButton"/>
+                <fmt:message key="user.updateData.changePassword" var="changePasswordButton"/>
+                <fmt:message key="registration.nameError" var="nameError"/>
+                <fmt:message key="registration.surnameError" var="surnameError"/>
+                <fmt:message key="registration.phoneError" var="loginError"/>
+                <fmt:message key="registration.emailError" var="emailError"/>
+                <fmt:message key="registration.passwordError" var="passwordError"/>
+                <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
+                <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.updateData.formHeader" var="formHeader"/>
-                                        <fmt:message key="registration.name" var="name"/>
-                                        <fmt:message key="registration.surname" var="surname"/>
-                                        <fmt:message key="registration.email" var="email"/>
-                                        <fmt:message key="user.updateData.password" var="password"/>
-                                        <fmt:message key="user.updateData.updateDataButton" var="updateDataButton"/>
-                                        <fmt:message key="user.updateData.changePasswordButton"
-                                                     var="changePasswordButton"/>
-                                        <fmt:message key="registration.nameError" var="nameError"/>
-                                        <fmt:message key="registration.surnameError" var="surnameError"/>
-                                        <fmt:message key="registration.phoneError" var="loginError"/>
-                                        <fmt:message key="registration.emailError" var="emailError"/>
-                                        <fmt:message key="registration.passwordError" var="passwordError"/>
-                                        <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                                        <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
-                                        <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                                        <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
                                             ${formHeader}
