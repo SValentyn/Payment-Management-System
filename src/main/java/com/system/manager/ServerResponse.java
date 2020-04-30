@@ -30,6 +30,7 @@ public enum ServerResponse {
     PASSWORD_UPDATED_ERROR("passwordUpdatedError"),
     USER_DELETED_SUCCESS("userDeletedSuccess"),
     USER_HAS_FUNDS_ERROR("userHasFundsError"),
+    PROFILE_DELETED_ERROR("profileDeletedError"),
     USER_DELETED_ERROR("userDeletedError"),
     SHOW_USER_PAYMENTS_ERROR("showUserPaymentsError"),
     SHOW_USER_ACCOUNTS_ERROR("showUserAccountsError"),
