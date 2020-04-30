@@ -18,55 +18,13 @@
     <link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
-
-<!-- Modal window -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">
-                    <fmt:message key="user.card.modalHeader"/>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <fmt:message key="user.card.modalBody"/>
-                <br>
-                <div style="display: flex; margin-top: 20px;">
-                    <label for="cardNumberText" class="modal-label">
-                        <fmt:message key="user.card.modalCardLabel"/>
-                    </label>
-                    <input id="cardNumberText" class="form-control modal-form-control"
-                           type="text" readonly="readonly"/>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" data-dismiss="modal">
-                        <fmt:message key="user.page.closeButton"/>
-                    </button>
-                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
-                        <input type="hidden" name="command" value="detachCard">
-                        <input type="hidden" name="cardNumber" id="cardNumber"/>
-
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
-                            <fmt:message key="user.page.confirmButton"/>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert noAccounts -->
-    <c:if test="${noAccounts == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+    <!-- Alert accountsEmpty -->
+    <c:if test="${accountsEmpty == true}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p>
                 <fmt:message key="user.page.youNotHaveAccount"/>
                 <a href="?command=createAccount" class="alert-link"><fmt:message key="user.page.create"/></a>
                 <fmt:message key="user.page.itNow"/>
@@ -77,59 +35,11 @@
         </div>
     </c:if>
 
-    <!-- Alert blockAccountError -->
-    <c:if test="${blockAccountError == true}">
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertBlockAccountError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unblockAccountAlert -->
-    <c:if test="${unblockAccountAlert == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><fmt:message key="user.page.alertUnblockAccountError"/>
-                <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert blockCardError -->
-    <c:if test="${blockCardError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertBlockCardError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unblockCardAlert -->
-    <c:if test="${unblockCardAlert == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><fmt:message key="user.page.alertUnblockCardError"/>
-                <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert detachCardError -->
-    <c:if test="${detachCardError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertDetachCardError"/>
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertUnableGetUser"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -146,6 +56,16 @@
             <div class="col-lg-10">
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
+                <fmt:message key="user.account.allAccounts" var="allAccounts"/>
+                <fmt:message key="user.account.number" var="number"/>
+                <fmt:message key="user.account.balance" var="balance"/>
+                <fmt:message key="user.account.status" var="status"/>
+                <fmt:message key="user.account.action" var="action"/>
+                <fmt:message key="user.account.status.active" var="statusActive"/>
+                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account.button.block" var="block"/>
+                <fmt:message key="user.account.button.unblock" var="unblock"/>
+                <fmt:message key="user.account.button.showInfo" var="showInfo"/>
 
                 <div class="card shadow-none">
                     <div class="card-header">
@@ -178,20 +98,10 @@
 
                     <div class="card-body">
                         <c:choose>
-                            <c:when test="${showAccounts}">
+                            <c:when test="${accountsEmpty == false}">
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <fmt:message key="user.account.allAccounts" var="allAccounts"/>
-                                            <fmt:message key="user.account.number" var="number"/>
-                                            <fmt:message key="user.account.balance" var="balance"/>
-                                            <fmt:message key="user.account.status" var="status"/>
-                                            <fmt:message key="user.account.action" var="action"/>
-                                            <fmt:message key="user.account.status.active" var="statusActive"/>
-                                            <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
-                                            <fmt:message key="user.account.button.block" var="block"/>
-                                            <fmt:message key="user.account.button.unblock" var="unblock"/>
-                                            <fmt:message key="user.account.button.showInfo" var="showInfo"/>
 
                                                 ${allAccounts}
 
@@ -235,62 +145,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <fmt:message key="user.card.allcards" var="allcards"/>
-                                            <fmt:message key="user.card.number" var="cardNumber"/>
-                                            <fmt:message key="user.card.cvv" var="cvv"/>
-                                            <fmt:message key="user.card.date" var="date"/>
-                                            <fmt:message key="user.card.detachCard" var="detachCard"/>
-                                            <fmt:message key="user.card.detach" var="detach"/>
-
-                                                ${allcards}
-
-                                                ${cardNumber}
-                                                ${date}
-                                                ${status}
-                                                ${action}
-                                                ${detachCard}
-
-                                            <c:forEach items="${cards}" var="card">
-                                                ${card.number}
-                                                ${card.validity}
-                                                <c:choose>
-                                                    <c:when test="${card.isActive}">
-                                                        ${statusActive}
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        ${statusBlocked}
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <c:choose>
-                                                    <c:when test="${card.isActive}">
-                                                        <a href="?command=blockCard&cardNumber=${card.number}">
-                                                                ${block}
-                                                            <img src="resources/images/locked-link.png"
-                                                                 alt="" class="icon">
-                                                        </a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a href="?command=unblockCard&cardNumber=${card.number}">
-                                                                ${unblock}
-                                                            <img src="resources/images/unlocked-link.png"
-                                                                 alt="" class="icon">
-                                                        </a>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <a href="#smallModal?cardNumber=${card.number}"
-                                                   onclick="showModal()">
-                                                        ${detach}
-                                                </a>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
                             </c:when>
-
                             <c:otherwise>
+
+
+
 
                             </c:otherwise>
                         </c:choose>

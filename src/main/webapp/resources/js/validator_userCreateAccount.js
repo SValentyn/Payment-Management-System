@@ -8,8 +8,8 @@ let submitBtn = document.querySelector("#submit");
 
 /* It starts immediately after the page loads */
 window.addEventListener("load", function () {
-    document.querySelector("#numberExistError").classList.add("invisible");
     repeat.click();
+    currency.value = $(bfh_selectbox_class).val();
     validationAccountNumber();
     validationCurrency();
 });

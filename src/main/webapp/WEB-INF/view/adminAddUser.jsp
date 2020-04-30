@@ -78,27 +78,28 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="admin.addUser.addNewUser" var="addNewUser"/>
+                <fmt:message key="registration.name" var="name"/>
+                <fmt:message key="registration.surname" var="surname"/>
+                <fmt:message key="registration.email" var="email"/>
+                <fmt:message key="admin.addUser.passwordGenerated" var="passwordGenerated"/>
+                <fmt:message key="admin.addUser.addUserButton" var="addUserButton"/>
+                <fmt:message key="admin.addUser.attachAccount" var="attachAccount"/>
+                <fmt:message key="admin.addUser.nameError" var="nameError"/>
+                <fmt:message key="admin.addUser.surnameError" var="surnameError"/>
+                <fmt:message key="registration.phoneError" var="loginError"/>
+                <fmt:message key="registration.emailError" var="emailError"/>
+                <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="admin.addUser.addNewUser" var="addNewUser"/>
-                                        <fmt:message key="registration.name" var="name"/>
-                                        <fmt:message key="registration.surname" var="surname"/>
-                                        <fmt:message key="registration.email" var="email"/>
-                                        <fmt:message key="admin.addUser.passwordGenerated" var="passwordGenerated"/>
-                                        <fmt:message key="admin.addUser.addUserButton" var="addUserButton"/>
-                                        <fmt:message key="admin.addUser.attachAccount" var="attachAccount"/>
-                                        <fmt:message key="admin.addUser.nameError" var="nameError"/>
-                                        <fmt:message key="admin.addUser.surnameError" var="surnameError"/>
-                                        <fmt:message key="registration.phoneError" var="loginError"/>
-                                        <fmt:message key="registration.emailError" var="emailError"/>
-                                        <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                                        <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
-                                        <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
                                             ${addNewUser}

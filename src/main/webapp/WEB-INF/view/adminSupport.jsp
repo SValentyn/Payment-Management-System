@@ -42,7 +42,6 @@
 
             <div class="col-lg-10">
                 <fmt:message key="admin.support.allLetters" var="formHeader"/>
-                <fmt:message key="admin.support.status" var="status"/>
                 <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
                 <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
                 <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>

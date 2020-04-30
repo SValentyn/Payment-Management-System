@@ -244,32 +244,30 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>
+                <fmt:message key="user.makepayment.fromAccount" var="from"/>
+                <fmt:message key="user.makepayment.recipientsAccount" var="recipientsAccount"/>
+                <fmt:message key="user.makepayment.recipientsCard" var="recipientsCard"/>
+                <fmt:message key="user.makepayment.numberAccount" var="numberAccount"/>
+                <fmt:message key="user.makepayment.numberCard" var="numberCard"/>
+                <fmt:message key="user.makepayment.amount" var="amount"/>
+                <fmt:message key="user.makepayment.appointment" var="appointment"/>
+                <fmt:message key="user.makepayment.makePaymentButton" var="makePaymentButton"/>
+                <fmt:message key="user.makepayment.accountIdError" var="accountIdError"/>
+                <fmt:message key="user.makepayment.numberAccountError" var="numberAccountError"/>
+                <fmt:message key="user.makepayment.numberCardError" var="numberCardError"/>
+                <fmt:message key="user.makepayment.amountError" var="amountError"/>
+                <fmt:message key="user.makepayment.tooltipAccountNumber" var="tooltipAccountNumber"/>
+                <fmt:message key="user.makepayment.tooltipCardNumber" var="tooltipCardNumber"/>
+                <fmt:message key="user.makepayment.tooltipAmountFunds" var="tooltipAmountFunds"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>
-                                        <fmt:message key="user.makepayment.fromAccount" var="from"/>
-                                        <fmt:message key="user.makepayment.recipientsAccount" var="recipientsAccount"/>
-                                        <fmt:message key="user.makepayment.recipientsCard" var="recipientsCard"/>
-                                        <fmt:message key="user.makepayment.numberAccount" var="numberAccount"/>
-                                        <fmt:message key="user.makepayment.numberCard" var="numberCard"/>
-                                        <fmt:message key="user.makepayment.amount" var="amount"/>
-                                        <fmt:message key="user.makepayment.appointment" var="appointment"/>
-                                        <fmt:message key="user.makepayment.makePaymentButton" var="makePaymentButton"/>
-                                        <fmt:message key="user.makepayment.accountIdError" var="accountIdError"/>
-                                        <fmt:message key="user.makepayment.numberAccountError"
-                                                     var="numberAccountError"/>
-                                        <fmt:message key="user.makepayment.numberCardError" var="numberCardError"/>
-                                        <fmt:message key="user.makepayment.amountError" var="amountError"/>
-                                        <fmt:message key="user.makepayment.tooltipAccountNumber"
-                                                     var="tooltipAccountNumber"/>
-                                        <fmt:message key="user.makepayment.tooltipCardNumber" var="tooltipCardNumber"/>
-                                        <fmt:message key="user.makepayment.tooltipAmountFunds"
-                                                     var="tooltipAmountFunds"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
                                             ${createNewPayment}
@@ -367,7 +365,7 @@
                                                                    data-toggle="tooltip"
                                                                    data-title="${tooltipCardNumber}"
                                                                    maxlength="19"
-                                                                   oninput="this.value=card_space_format(this.value)"
+                                                                   oninput="this.value=card_format(this.value)"
                                                                    placeholder="${numberCard}*"
                                                                    value="${cardNumberValue}"/>
                                                         </div>

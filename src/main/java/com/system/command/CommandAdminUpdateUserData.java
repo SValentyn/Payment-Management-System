@@ -33,8 +33,7 @@ public class CommandAdminUpdateUserData implements ICommand {
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            if (!validation(request, userIdParam)) {
                 return pathRedirect;
             }
 
@@ -75,6 +74,17 @@ public class CommandAdminUpdateUserData implements ICommand {
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String userIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            return false;
+        }
+
+        return true;
     }
 
     private boolean validation(HttpServletRequest request, String userIdParam, String name, String surname, String phone, String email) throws SQLException {

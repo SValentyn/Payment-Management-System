@@ -86,26 +86,26 @@ public class CommandUserUpdatePersonalData implements ICommand {
 
         // Validation password
         if (!checkPassword(user, password)) {
-            setSessionAttributes(request, name, surname, phone, email, ServerResponse.PASSWORD_NOT_MATCH_ERROR);
+            setSessionAttributes(request, name, surname, phone, email, password, ServerResponse.PASSWORD_NOT_MATCH_ERROR);
             return false;
         }
 
         // Validation name
         if (!Validator.checkName(name)) {
-            setSessionAttributes(request, name, surname, phone, email, ServerResponse.INVALID_DATA);
+            setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.INVALID_DATA);
             return false;
         }
 
         // Validation surname
         if (!Validator.checkSurname(surname)) {
-            setSessionAttributes(request, name, surname, phone, email, ServerResponse.INVALID_DATA);
+            setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.INVALID_DATA);
             return false;
         }
 
         // Validation if the phone has been changed
         if (!user.getPhone().equals(phone)) {
             if (!Validator.checkPhone(phone)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.PHONE_EXIST_ERROR);
+                setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.PHONE_EXIST_ERROR);
                 return false;
             }
         }
@@ -113,7 +113,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
         // Validation if the email has been changed
         if (!user.getEmail().equals(email)) {
             if (!Validator.checkEmail(email)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
+                setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.EMAIL_EXIST_ERROR);
                 return false;
             }
         }
@@ -170,6 +170,12 @@ public class CommandUserUpdatePersonalData implements ICommand {
             session.removeAttribute("email");
         }
 
+        String password = (String) session.getAttribute("password");
+        if (password != null) {
+            request.setAttribute("passwordValue", password);
+            session.removeAttribute("password");
+        }
+
         String response = (String) session.getAttribute("response");
         if (response != null) {
             request.setAttribute("response", response);
@@ -177,11 +183,12 @@ public class CommandUserUpdatePersonalData implements ICommand {
         }
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String name, String surname, String phone, String email, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, String name, String surname, String phone, String email, String password, ServerResponse serverResponse) {
         request.getSession().setAttribute("name", name);
         request.getSession().setAttribute("surname", surname);
         request.getSession().setAttribute("phone", phone);
         request.getSession().setAttribute("email", email);
+        request.getSession().setAttribute("password", password);
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

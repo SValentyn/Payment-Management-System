@@ -90,26 +90,24 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="admin.attachAccount.formHeader" var="formHeader"/>
+                <fmt:message key="admin.attachAccount.user_bio" var="user_rank"/>
+                <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
+                <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
+                <fmt:message key="admin.attachAccount.attachAccount" var="attachAccount"/>
+                <fmt:message key="admin.attachAccount.showAllAccounts" var="showAllAccounts"/>
+                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="user.createAccount.numberError" var="numberError"/>
+                <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
+                <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row">
                         <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="admin.attachAccount.formHeader" var="formHeader"/>
-                                        <fmt:message key="admin.attachAccount.user_bio" var="user_rank"/>
-                                        <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                                        <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
-                                        <fmt:message key="admin.attachAccount.attachAccountButton"
-                                                     var="attachAccountButton"/>
-                                        <fmt:message key="admin.attachAccount.showAllAccountsButton"
-                                                     var="showAllAccountsButton"/>
-                                        <fmt:message key="admin.attachAccount.returnToUserProfile"
-                                                     var="returnToUserProfile"/>
-                                        <fmt:message key="user.createAccount.numberError" var="numberError"/>
-                                        <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
-                                        <fmt:message key="admin.attachAccount.tooltipUserBio" var="tooltipUserBio"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4 style="margin-bottom: 15px;">
                                             ${formHeader}
@@ -119,7 +117,7 @@
                                             <c:when test="${response ne 'unableGetUserId' &&
                                                             response ne 'unableGetUserByUserId'}">
 
-                                                <form action="" role="form" method="POST">
+                                                <form action="" method="POST" role="form">
                                                     <input type="hidden" name="command" value="attachAccount"/>
 
                                                     <!-- User bio -->
@@ -154,7 +152,7 @@
                                                             <span id="valid-msg-accountNumber"
                                                                   class="valid-msg invisible">
                                                                     ${correct}
-                                                                    <img src="resources/images/correct.png" alt="">
+                                                                <img src="resources/images/correct.png" alt=""/>
                                                             </span>
                                                             <span id="error-msg-accountNumber"
                                                                   class="error-msg invisible">
@@ -176,8 +174,8 @@
                                                         </div>
                                                         <label for="currency" class="default-label">
                                                             <span id="valid-msg-currency" class="valid-msg invisible">
-                                                                ${correct}
-                                                                <img src="resources/images/correct.png" alt="">
+                                                                    ${correct}
+                                                                <img src="resources/images/correct.png" alt=""/>
                                                             </span>
                                                             <span id="error-msg-currency" class="error-msg invisible">
                                                                     ${currencyError}
@@ -189,19 +187,19 @@
                                                     <div class="action" style="padding: 20px 0 10px 0">
                                                         <button id="submit" type="submit"
                                                                 class="btn btn-primary signup">
-                                                                ${attachAccountButton}
+                                                                ${attachAccount}
                                                         </button>
                                                     </div>
                                                 </form>
 
-                                                <!-- Show all Accounts -->
+                                                <!-- Show User Accounts -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="showUserAccounts">
-                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <input type="hidden" name="command" value="showUserAccounts"/>
+                                                        <input type="hidden" name="userId" value="${userId}"/>
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default">
-                                                                ${showAllAccountsButton}
+                                                                ${showAllAccounts}
                                                         </button>
                                                     </form>
                                                 </div>
@@ -209,8 +207,8 @@
                                                 <!-- Return to User Profile -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="showUser">
-                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <input type="hidden" name="command" value="showUser"/>
+                                                        <input type="hidden" name="userId" value="${userId}"/>
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default">
                                                                 ${returnToUserProfile}
@@ -220,7 +218,7 @@
                                             </c:when>
                                             <c:otherwise>
 
-                                                <form action="/" role="form" method="POST">
+                                                <form action="/" method="POST" role="form">
                                                     <input type="hidden" name="command" value="attachAccount"/>
 
                                                     <!-- User bio -->
@@ -264,18 +262,18 @@
                                                     <!-- Submit -->
                                                     <div class="action" style="padding: 20px 0 10px 0">
                                                         <button type="submit" class="btn btn-primary signup disabled">
-                                                                ${attachAccountButton}
+                                                                ${attachAccount}
                                                         </button>
                                                     </div>
                                                 </form>
 
-                                                <!-- Show all Accounts -->
+                                                <!-- Show User Accounts -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="showUserAccounts">
+                                                        <input type="hidden" name="command" value="showUserAccounts"/>
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default disabled">
-                                                                ${showAllAccountsButton}
+                                                                ${showAllAccounts}
                                                         </button>
                                                     </form>
                                                 </div>
@@ -283,7 +281,7 @@
                                                 <!-- Return to User Profile -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="showUser">
+                                                        <input type="hidden" name="command" value="showUser"/>
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default disabled">
                                                                 ${returnToUserProfile}
@@ -305,9 +303,4 @@
 </div>
 </body>
 <script src="resources/js/validator_adminAttachAccount.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#currency').val($('.bfh-selectbox').val());
-    });
-</script>
 </html>

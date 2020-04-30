@@ -98,7 +98,7 @@
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="" role="form" method="POST">
+                                        <form action="" method="POST" role="form">
                                             <input type="hidden" name="command" value="createAccount"/>
 
                                             <!-- Account Number -->
@@ -116,21 +116,10 @@
                                                 </div>
                                                 <label for="number" class="default-label">
                                                     <span id="valid-msg-accountNumber" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-accountNumber" class="error-msg invisible">
                                                         ${numberError}
-                                                    </span>
-                                                    <span id="numberExistError" class="error-msg invisible">
-                                                        <c:if test="${numberExistError}">
-                                                            <fmt:message key="user.createAccount.numberExistError"/>
-
-                                                            <script>
-                                                                document.querySelector("#numberExistError").classList.remove("invisible");
-                                                                document.querySelector("#valid-msg-accountNumber").classList.add("invisible");
-                                                                document.querySelector("#error-msg-accountNumber").classList.add("invisible");
-                                                            </script>
-                                                        </c:if>
                                                     </span>
                                                 </label>
                                             </div>
@@ -176,9 +165,4 @@
 </div>
 </body>
 <script src="resources/js/validator_userCreateAccount.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#currency').val($('.bfh-selectbox').val());
-    });
-</script>
 </html>

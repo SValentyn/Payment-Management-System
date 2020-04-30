@@ -10,7 +10,8 @@ let selectbox_year = $('.bfh-selectbox-year');
 let submitBtn = document.querySelector("#submit");
 
 
-window.onload = function () {
+/* It starts immediately after the page loads */
+window.addEventListener("load", function () {
     let matches = number.value.match(/\d{4,16}/g);
     let match = matches && matches[0] || '';
     let parts = [];
@@ -19,11 +20,11 @@ window.onload = function () {
         parts.push(match.substring(i, i + 4));
     }
 
-    number.value =  parts.join(' ');
+    number.value = parts.join(' ');
     $(selectbox_account_id).val(accountId.value);
     $(selectbox_month).val(month.value);
     $(selectbox_year).val(year.value);
-}
+});
 
 
 /* Checks Account Id */

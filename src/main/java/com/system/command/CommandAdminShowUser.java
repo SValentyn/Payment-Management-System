@@ -46,7 +46,7 @@ public class CommandAdminShowUser implements ICommand {
             Integer userId = Integer.valueOf(userIdParam);
             User user = UserService.getInstance().findUserById(userId);
 
-            // Check and Set Attributes
+            // Check and set Attributes
             if (user.getRole().getId() == 1) {
                 setRequestAttributes(request, userId, user, false);
             } else if (user.getRole().getId() == 2) {

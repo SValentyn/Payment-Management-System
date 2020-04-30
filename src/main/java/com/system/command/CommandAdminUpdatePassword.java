@@ -40,7 +40,7 @@ public class CommandAdminUpdatePassword implements ICommand {
 
             // Check
             if (user == null) {
-                setSessionAttributes(request, ServerResponse.PASSWORD_UPDATED_ERROR);
+                setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
                 return pathRedirect;
             }
 

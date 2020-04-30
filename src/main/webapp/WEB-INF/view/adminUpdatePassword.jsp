@@ -22,11 +22,23 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertUnableGetUser"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert Success -->
     <c:if test="${response eq 'passwordUpdatedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
-                <fmt:message key="admin.page.alertPasswordUpdated"/>
+                <fmt:message key="admin.page.alertPasswordUpdatedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -77,33 +89,30 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.changePassword.formHeader" var="formHeader"/>
+                <fmt:message key="user.changePassword.newPassword" var="newPassword"/>
+                <fmt:message key="registration.confirmation" var="confirmation"/>
+                <fmt:message key="user.changePassword.oldPassword" var="oldPassword"/>
+                <fmt:message key="user.updateData.changePassword" var="changePassword"/>
+                <fmt:message key="registration.passwordError" var="passwordError"/>
+                <fmt:message key="registration.passwordConfirmationError" var="passwordConfirmationError"/>
+                <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
+                <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
+                <fmt:message key="user.changePassword.tooltipOldPassword" var="tooltipOldPassword"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.changePassword.formHeader" var="formHeader"/>
-                                        <fmt:message key="user.changePassword.newPassword" var="newPassword"/>
-                                        <fmt:message key="registration.confirmation" var="confirmation"/>
-                                        <fmt:message key="user.changePassword.oldPassword" var="oldPassword"/>
-                                        <fmt:message key="user.updateData.changePasswordButton"
-                                                     var="changePasswordButton"/>
-                                        <fmt:message key="registration.passwordError" var="passwordError"/>
-                                        <fmt:message key="registration.passwordConfirmationError"
-                                                     var="passwordConfirmationError"/>
-                                        <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
-                                        <fmt:message key="registration.tooltipPasswordConfirmation"
-                                                     var="tooltipPasswordConfirmation"/>
-                                        <fmt:message key="user.changePassword.tooltipOldPassword"
-                                                     var="tooltipOldPassword"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="" role="form" method="POST">
+                                        <form action="" method="POST" role="form">
                                             <input type="hidden" name="command" value="updatePassword">
 
                                             <!-- Old Password -->
@@ -144,7 +153,7 @@
                                                 </div>
                                                 <label for="newPassword" class="default-label">
                                                     <span id="valid-msg-newPassword" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-newPassword" class="error-msg invisible">
                                                         ${passwordError}
@@ -181,7 +190,7 @@
                                             <!-- Submit -->
                                             <div class="action" style="padding: 25px 0 5px 0">
                                                 <button id="submit" type="submit" class="btn btn-primary signup">
-                                                    ${changePasswordButton}
+                                                    ${changePassword}
                                                 </button>
                                             </div>
                                         </form>

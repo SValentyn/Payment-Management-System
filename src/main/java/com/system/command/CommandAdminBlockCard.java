@@ -83,7 +83,7 @@ public class CommandAdminBlockCard implements ICommand {
         Integer cardId = Integer.valueOf(cardIdParam);
         Account account = AccountService.getInstance().findAccountByAccountId(accountId);
 
-        // Check that the userId by account matches the received
+        // Checking that the account belongs to the user
         if (!account.getUserId().equals(userId)) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;

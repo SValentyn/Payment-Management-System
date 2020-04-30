@@ -297,7 +297,7 @@ function validationPasswordConfirmation() {
 }
 
 /* Check passwords for match */
-var matching = function () {
+function matching () {
     if (passwordConfirmation.value.trim() === "") {
         notValidPasswordConfirmation();
     } else {
@@ -307,7 +307,7 @@ var matching = function () {
             notValidPasswordConfirmation();
         }
     }
-};
+}
 
 
 /* Checks for at least one error on the page */
@@ -325,7 +325,7 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (phone.value.trim() === "" || phone.classList.contains("error-input")) {
+    if (phone.value.trim() === "" || !iti.isValidNumber() || phone.classList.contains("error-input")) {
         event.preventDefault();
         notValidPhone();
         return false;

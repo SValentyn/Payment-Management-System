@@ -885,7 +885,7 @@ div[class="message-block"] .title-label {
     left: 0;
     bottom: 0;
     margin-top: 20px;
-    z-index: 2;
+    z-index: 10;
     align-self: center;
     line-height: 25px;
     font-size: 14px;

@@ -69,8 +69,7 @@
                                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center"
                                             role="tablist">
                                             <li class="nav-item-active" style="color: #2981cc;">
-                                                <a class="nav-link" role="tab" data-toggle="tab"
-                                                   aria-selected="true"
+                                                <a class="nav-link" role="tab" data-toggle="tab" aria-selected="true"
                                                    onclick="document.getElementById('form-showUsers').submit(); return false;">
                                                     <img src="resources/images/all-users.png"
                                                          alt="" class="icon-sidebar"
@@ -80,11 +79,10 @@
                                                         ${totalUsers}
                                                     </span>
                                                 </a>
+                                                <form action="/" method="GET" id="form-showUsers" role="form"></form>
                                             </li>
                                         </ul>
                                     </div>
-
-                                    <form action="" method="GET" id="form-showUsers" role="form"></form>
 
                                     <c:choose>
                                         <c:when test="${totalUsers != null && totalUsers != 0}">

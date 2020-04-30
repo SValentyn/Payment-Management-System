@@ -124,31 +124,30 @@
         <div class="page-content container-fluid">
             <div class="row justify-content-center">
                 <div class="col-xl-6">
+                    <fmt:message key="registration.formHeader" var="registration"/>
+                    <fmt:message key="registration.name" var="name"/>
+                    <fmt:message key="registration.surname" var="surname"/>
+                    <fmt:message key="registration.email" var="email"/>
+                    <fmt:message key="registration.password" var="password"/>
+                    <fmt:message key="registration.confirmation" var="confirmation"/>
+                    <fmt:message key="registration.nameError" var="nameError"/>
+                    <fmt:message key="registration.surnameError" var="surnameError"/>
+                    <fmt:message key="registration.phoneError" var="loginError"/>
+                    <fmt:message key="registration.emailError" var="emailError"/>
+                    <fmt:message key="registration.passwordError" var="passwordError"/>
+                    <fmt:message key="registration.passwordConfirmationError" var="passwordConfirmationError"/>
+                    <fmt:message key="registration.signupButton" var="signupButton"/>
+                    <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                    <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                    <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
+                    <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
+                    <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
+                    <fmt:message key="registration.correct" var="correct"/>
+
                     <div class="row">
                         <div class="login-wrapper" style="top: 22px;">
                             <div class="box">
                                 <div class="content-wrap">
-                                    <fmt:message key="registration.formHeader" var="registration"/>
-                                    <fmt:message key="registration.name" var="name"/>
-                                    <fmt:message key="registration.surname" var="surname"/>
-                                    <fmt:message key="registration.email" var="email"/>
-                                    <fmt:message key="registration.password" var="password"/>
-                                    <fmt:message key="registration.confirmation" var="confirmation"/>
-                                    <fmt:message key="registration.nameError" var="nameError"/>
-                                    <fmt:message key="registration.surnameError" var="surnameError"/>
-                                    <fmt:message key="registration.phoneError" var="loginError"/>
-                                    <fmt:message key="registration.emailError" var="emailError"/>
-                                    <fmt:message key="registration.passwordError" var="passwordError"/>
-                                    <fmt:message key="registration.passwordConfirmationError"
-                                                 var="passwordConfirmationError"/>
-                                    <fmt:message key="registration.signupButton" var="signupButton"/>
-                                    <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                                    <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
-                                    <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                                    <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
-                                    <fmt:message key="registration.tooltipPasswordConfirmation"
-                                                 var="tooltipPasswordConfirmation"/>
-                                    <fmt:message key="registration.correct" var="correct"/>
 
                                     <h4>
                                         ${registration}

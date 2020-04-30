@@ -98,15 +98,16 @@
         <div class="page-content container-fluid">
             <div class="row justify-content-center">
                 <div class="col-md-3">
+                    <fmt:message key="login.signin" var="signin"/>
+                    <fmt:message key="login.password" var="password"/>
+                    <fmt:message key="login.submit" var="submit"/>
+                    <fmt:message key="login.loginError" var="loginError"/>
+                    <fmt:message key="login.passwordError" var="passwordError"/>
+                    <fmt:message key="login.correct" var="correct"/>
+
                     <div class="login-wrapper" style="top: 30px;">
                         <div class="box" style="max-width: 75%;">
                             <div class="content-wrap">
-                                <fmt:message key="login.signin" var="signin"/>
-                                <fmt:message key="login.password" var="password"/>
-                                <fmt:message key="login.submit" var="submit"/>
-                                <fmt:message key="login.loginError" var="loginError"/>
-                                <fmt:message key="login.passwordError" var="passwordError"/>
-                                <fmt:message key="login.correct" var="correct"/>
 
                                 <h4 style="margin-bottom: 20px;">
                                     ${signin}<br>
@@ -116,7 +117,7 @@
                                     Status: <abbr style="color: red">Beta</abbr>
                                 </h4>
 
-                                <div class="form-group group-btn" style="height: 60px;">
+                                <div class="form-group group-btn" style="height: 60px; margin-bottom: 24px;">
                                     <form action="/" role="form" method="POST" style="width: 100%; align-self: center;">
                                         <input type="hidden" name="command" value="login">
                                         <input type="hidden" name="full_phone" value="+34645364524">

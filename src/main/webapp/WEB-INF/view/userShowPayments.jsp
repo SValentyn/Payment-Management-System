@@ -44,6 +44,15 @@
             <div class="col-lg-10">
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
+                <fmt:message key="user.payment.allpayments" var="allpayments"/>
+                <fmt:message key="user.payments.recipient'sAccount" var="receiverCard"/>
+                <fmt:message key="user.payments.sum" var="payment_sum"/>
+                <fmt:message key="user.payments.date" var="payment_date"/>
+                <fmt:message key="user.payments.appointment" var="payment_appointment"/>
+                <fmt:message key="user.payments.success" var="payment_success"/>
+                <fmt:message key="user.payments.error" var="payment_error"/>
+                <fmt:message key="user.payments.repeat" var="repeat"/>
+                <fmt:message key="user.payments.repeatPayment" var="payment_repeat"/>
 
                 <div class="card shadow-none">
                     <div class="card-header">
@@ -77,16 +86,6 @@
 
                     <div class="card-body">
                         <div class="col-md-12 panel-warning">
-                            <fmt:message key="user.payment.allpayments" var="allpayments"/>
-                            <fmt:message key="user.payments.recipient'sAccount" var="receiverCard"/>
-                            <fmt:message key="user.payments.sum" var="payment_sum"/>
-                            <fmt:message key="user.payments.date" var="payment_date"/>
-                            <fmt:message key="user.payments.appointment" var="payment_appointment"/>
-                            <fmt:message key="user.payments.success" var="payment_success"/>
-                            <fmt:message key="user.payments.error" var="payment_error"/>
-                            <fmt:message key="user.payments.repeat" var="repeat"/>
-                            <fmt:message key="user.payments.repeatPayment" var="payment_repeat"/>
-
                             <div class="sidebar-header panel-heading">
                                 <div class="panel-title ">
                                     ${allpayments}

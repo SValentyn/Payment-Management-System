@@ -86,15 +86,16 @@
         <div class="page-content container-fluid">
             <div class="row justify-content-center">
                 <div class="col-md-3">
+                    <fmt:message key="recovery.formHeader" var="formHeader"/>
+                    <fmt:message key="recovery.recoveryButton" var="recoveryButton"/>
+                    <fmt:message key="recovery.backButton" var="backButton"/>
+                    <fmt:message key="login.loginError" var="loginError"/>
+                    <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                    <fmt:message key="login.correct" var="correct"/>
+
                     <div class="login-wrapper" style="top: 30px;">
                         <div class="box" style="max-width: 85%;">
                             <div class="content-wrap">
-                                <fmt:message key="recovery.formHeader" var="formHeader"/>
-                                <fmt:message key="recovery.recoveryButton" var="recoveryButton"/>
-                                <fmt:message key="recovery.backButton" var="backButton"/>
-                                <fmt:message key="login.loginError" var="loginError"/>
-                                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
-                                <fmt:message key="login.correct" var="correct"/>
 
                                 <h4>
                                     ${formHeader}

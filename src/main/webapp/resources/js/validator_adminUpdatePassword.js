@@ -141,7 +141,7 @@ function validationPasswordConfirmation() {
 
 
 /* Check passwords for match */
-var matching = function () {
+function matching () {
     if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6) {
         notValidPasswordConfirmation();
     } else {
@@ -151,7 +151,7 @@ var matching = function () {
             notValidPasswordConfirmation();
         }
     }
-};
+}
 
 
 /* Checks for at least one error on the page */

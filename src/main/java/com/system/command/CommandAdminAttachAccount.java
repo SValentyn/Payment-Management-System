@@ -71,7 +71,7 @@ public class CommandAdminAttachAccount implements ICommand {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
+            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
             return false;
         }
 
@@ -101,12 +101,13 @@ public class CommandAdminAttachAccount implements ICommand {
             return false;
         }
 
-        // Checking that a user cannot have more than 3 accounts with a certain currency
+        // Data
         int numberOfAccounts = 0;
         for (Account account : AccountService.getInstance().findAllAccountsByUserId(Integer.valueOf(userIdParam))) {
             if (account.getCurrency().equals(currency)) numberOfAccounts++;
         }
 
+        // Checking that a user cannot have more than 3 accounts with a certain currency
         if (numberOfAccounts == 3) {
             setSessionAttributes(request, ServerResponse.MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR);
             return false;
