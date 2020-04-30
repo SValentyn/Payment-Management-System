@@ -22,11 +22,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert Success -->
-    <c:if test="${updated == true}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertPasswordUpdated"/>
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
+                <fmt:message key="admin.page.alertUnableGetUser"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -34,11 +34,47 @@
         </div>
     </c:if>
 
-    <!-- Alert passwordUpdateError -->
-    <c:if test="${passwordUpdateError == true}">
+    <!-- Alert Success -->
+    <c:if test="${response eq 'passwordUpdatedSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="user.page.success"/>!</strong>
+                <fmt:message key="user.page.alertPasswordUpdatedSuccess"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert oldPasswordError -->
+    <c:if test="${response eq 'oldPasswordError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertOldPasswordNotMatch"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert newPasswordError -->
+    <c:if test="${response eq 'newPasswordError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertNewPasswordNotConfirmed"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert passwordUpdatedError -->
+    <c:if test="${response eq 'passwordUpdatedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertPasswordUpdateError"/>
+                <fmt:message key="user.page.alertPasswordUpdatedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -53,42 +89,62 @@
             </div>
 
             <div class="col-lg-10">
+                <fmt:message key="user.changePassword.formHeader" var="formHeader"/>
+                <fmt:message key="user.changePassword.newPassword" var="newPassword"/>
+                <fmt:message key="registration.confirmation" var="confirmation"/>
+                <fmt:message key="user.changePassword.oldPassword" var="oldPassword"/>
+                <fmt:message key="user.updateData.changePassword" var="changePassword"/>
+                <fmt:message key="registration.passwordError" var="passwordError"/>
+                <fmt:message key="registration.passwordConfirmationError" var="passwordConfirmationError"/>
+                <fmt:message key="user.changePassword.oldPasswordError" var="oldPasswordError"/>
+                <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
+                <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
+                <fmt:message key="user.changePassword.tooltipOldPassword" var="tooltipOldPassword"/>
+                <fmt:message key="registration.correct" var="correct"/>
+
                 <div class="page-content container-fluid">
-                    <div class="row">
-                        <div class="col-lg-4 offset-lg-3">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
-                                        <fmt:message key="user.changePassword.formHeader" var="formHeader"/>
-                                        <fmt:message key="user.changePassword.newPassword" var="newPassword"/>
-                                        <fmt:message key="registration.confirmation" var="confirmation"/>
-                                        <fmt:message key="user.changePassword.oldPassword" var="oldPassword"/>
-                                        <fmt:message key="user.updateData.changePasswordButton"
-                                                     var="changePasswordButton"/>
-                                        <fmt:message key="registration.passwordError" var="passwordError"/>
-                                        <fmt:message key="registration.passwordConfirmationError"
-                                                     var="passwordConfirmationError"/>
-                                        <fmt:message key="user.changePassword.oldPasswordError" var="oldPasswordError"/>
-                                        <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
-                                        <fmt:message key="registration.tooltipPasswordConfirmation"
-                                                     var="tooltipPasswordConfirmation"/>
-                                        <fmt:message key="user.changePassword.tooltipOldPassword"
-                                                     var="tooltipOldPassword"/>
-                                        <fmt:message key="registration.correct" var="correct"/>
 
                                         <h4>
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="" role="form" method="POST">
+                                        <form action="" method="POST" role="form">
                                             <input type="hidden" name="command" value="updatePassword">
+
+                                            <!-- Old Password -->
+                                            <div>
+                                                <div class="password-input">
+                                                    <input id="oldPassword" name="oldPassword"
+                                                           type="password" class="form-control"
+                                                           style="height: 40px; margin: 8px 0 0 0;"
+                                                           data-toggle="tooltip" data-title="${tooltipOldPassword}"
+                                                           placeholder="${oldPassword}*"
+                                                           value="${oldPasswordValue}"/>
+                                                    <a href="#" class="password-control" style="top: 9px;"
+                                                       onfocus="this.blur()"
+                                                       onclick="return show_hide_oldPassword(this);"></a>
+                                                </div>
+                                                <label for="oldPassword" class="default-label">
+                                                    <span id="valid-msg-oldPassword" class="valid-msg invisible">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                    </span>
+                                                    <span id="error-msg-oldPassword" class="error-msg invisible">
+                                                        ${passwordError}
+                                                    </span>
+                                                </label>
+                                            </div>
 
                                             <!-- New Password -->
                                             <div>
                                                 <div class="password-input">
                                                     <input id="newPassword" name="newPassword"
                                                            type="password" class="form-control"
-                                                           style="height: 40px; margin: 0;"
+                                                           style="height: 40px; margin: 8px 0 0 0;"
                                                            data-toggle="tooltip" data-title="${tooltipNewPassword}"
                                                            placeholder="${newPassword}*"
                                                            value="${newPasswordValue}"/>
@@ -132,46 +188,10 @@
                                                 </label>
                                             </div>
 
-                                            <!-- Old Password -->
-                                            <div>
-                                                <div class="password-input">
-                                                    <input id="oldPassword" name="oldPassword"
-                                                           type="password" class="form-control"
-                                                           style="height: 40px; margin: 8px 0 0 0;"
-                                                           data-toggle="tooltip" data-title="${tooltipOldPassword}"
-                                                           placeholder="${oldPassword}*"
-                                                           value="${oldPasswordValue}"/>
-                                                    <a href="#" class="password-control" style="top: 9px;"
-                                                       onfocus="this.blur()"
-                                                       onclick="return show_hide_oldPassword(this);"></a>
-                                                </div>
-                                                <label for="oldPassword" class="default-label">
-                                                    <span id="valid-msg-oldPassword"
-                                                          class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                    </span>
-                                                    <span id="error-msg-oldPassword"
-                                                          class="error-msg invisible">
-                                                        ${passwordError}
-                                                    </span>
-                                                    <span id="passwordNotMatchError">
-                                                        <c:if test="${passwordNotMatchError}">
-                                                            ${oldPasswordError}
-
-                                                            <script>
-                                                                document.querySelector("#passwordNotMatchError").classList.remove("invisible");
-                                                                document.querySelector("#valid-msg-oldPassword").classList.add("invisible");
-                                                                document.querySelector("#error-msg-oldPassword").classList.add("invisible");
-                                                            </script>
-                                                        </c:if>
-                                                     </span>
-                                                </label>
-                                            </div>
-
                                             <!-- Submit -->
                                             <div class="action" style="padding: 25px 0 5px 0">
                                                 <button id="submit" type="submit" class="btn btn-primary signup">
-                                                    ${changePasswordButton}
+                                                    ${changePassword}
                                                 </button>
                                             </div>
                                         </form>
