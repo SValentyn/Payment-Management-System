@@ -1,5 +1,5 @@
 /*
-    Disabling paste
+    Disabling paste in fields: passwordConfirmation and CVV
  */
 $(document).ready(function () {
     $('#passwordConfirmation').on("paste", function (e) {
@@ -40,4 +40,27 @@ function card_format(value) {
     } else {
         return value;
     }
+}
+
+/*
+    The function adjusts the format of the card input field
+ */
+function correct_card_format(cardNumber) {
+    let matches = cardNumber.value.match(/\d{4,16}/g);
+    let match = matches && matches[0] || '';
+    let parts = [];
+
+    for (let i = 0, length = match.length; i < length; i += 4) {
+        parts.push(match.substring(i, i + 4));
+    }
+
+    cardNumber.value = parts.join(' ');
+}
+
+/*
+    Enter the amount of funds
+*/
+function inputAmount(value) {
+    let regExps = [/^\D+/, /[^.,\d]+/g, /[.,]+/, /(\d+\.\d{2}).*$/];
+    return value.replace(regExps[0], '').replace(regExps[1], '').replace(regExps[2], '.').replace(regExps[3], '$1');
 }
