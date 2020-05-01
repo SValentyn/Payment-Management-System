@@ -202,6 +202,24 @@ public class Validator {
     }
 
     /**
+     * @return true, if the account number is not NULL and is 20 digits, and also if it is in the system
+     */
+    public static boolean checkRecipientAccountNumber(String number) throws SQLException {
+        if (number == null) return false;
+        Pattern p = Pattern.compile("\\d{20}");
+        Matcher m = p.matcher(number);
+        if (!m.matches()) return false;
+
+        List<Account> accounts = AccountService.getInstance().findAllAccounts();
+        List<String> accountNumbers = new ArrayList<>();
+        for (Account account : accounts) {
+            accountNumbers.add(account.getNumber());
+        }
+
+        return accountNumbers.contains(number);
+    }
+
+    /**
      * @return true, if the currency is not NULL and is 3 letters
      */
     public static boolean checkCurrency(String currency) {
