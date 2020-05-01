@@ -58,6 +58,7 @@ public class ResourceManager {
     public static final String COMMAND_USER_SHOW_ACCOUNTS = "COMMAND_USER_SHOW_ACCOUNTS";
     public static final String COMMAND_USER_CREATE_ACCOUNT = "COMMAND_USER_CREATE_ACCOUNT";
     public static final String COMMAND_USER_ATTACH_CARD = "COMMAND_USER_ATTACH_CARD";
+    public static final String COMMAND_USER_MAKE_PAYMENT = "COMMAND_USER_MAKE_PAYMENT";
     public static final String COMMAND_USER_SUPPORT = "COMMAND_USER_SUPPORT";
     // ****************
     // ADMIN'S COMMANDS

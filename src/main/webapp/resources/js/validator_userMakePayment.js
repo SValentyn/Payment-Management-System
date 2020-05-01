@@ -1,5 +1,6 @@
 // Elements on userMakePayment.jsp page to check
 let bfh_selectbox = $('.bfh-selectbox');
+let isRepeatCommand = document.querySelector('#isRepeatCommand');
 let accountId = document.querySelector("#accountId");
 let numberByAccountId = document.querySelector("#numberByAccountId");
 let accountNumber = document.querySelector("#accountNumber");
@@ -7,7 +8,12 @@ let cardNumber = document.querySelector("#cardNumber");
 let amount = document.querySelector("#amount");
 let appointment = document.querySelector("#appointment");
 let submitBtn = document.querySelector("#submit");
-let isRepeatCommand = document.querySelector('#isRepeatCommand');
+
+
+/* It starts immediately after the page loads */
+window.addEventListener("load", function () {
+    correct_card_format(cardNumber);
+});
 
 
 /* Checks Account Id */
@@ -182,7 +188,8 @@ amount.addEventListener('change', validationAmount);
 function validationAmount() {
     resetAmount();
 
-    if (amount.value.trim() === null || amount.value.trim() === "") {
+    if (amount.value.trim() === null || amount.value.trim() === "" || amount.value.trim() === "0" ||
+        amount.value.trim() === "0.0" || amount.value.trim() === "0." || amount.value.trim() === "0.00") {
         notValidAmount();
     } else {
         validAmount();
@@ -192,11 +199,6 @@ function validationAmount() {
             }
         }
     }
-}
-
-function inputAmount(value) {
-    let regExps = [/^\D+/, /[^.,\d]+/g, /[.,]+/, /(\d+\.\d{2}).*$/];
-    return value.replace(regExps[0], '').replace(regExps[1], '').replace(regExps[2], '.').replace(regExps[3], '$1');
 }
 
 
@@ -215,23 +217,25 @@ submitBtn.addEventListener('click', function (event) {
             notValidCardNumber();
             return false;
         }
-    }
-
-    if (on_off === 'on') {
+    } else if (on_off === 'on') {
         if (accountNumber.value.trim() === "" || accountNumber.value.trim().length < 20 || accountNumber.classList.contains("error-input")) {
             event.preventDefault();
             notValidAccountNumber();
             return false;
         }
+    } else {
+        event.preventDefault();
+        notValidAccountNumber();
+        notValidCardNumber();
+        return false;
     }
 
-    if (amount.value.trim() === "" || amount.classList.contains("error-input")) {
+    if (amount.value.trim() === "" || document.querySelector(".ui-spinner").classList.contains("error-input") ||
+        amount.value.trim() === "0" || amount.value.trim() === "0.0" || amount.value.trim() === "0." || amount.value.trim() === "0.00") {
         event.preventDefault();
         notValidAmount();
         return false;
     }
-
-    cardNumber.value = cardNumber.value.replace(/\s+/g, "");
 
     /*
         CN - card number
@@ -247,7 +251,7 @@ submitBtn.addEventListener('click', function (event) {
         document.querySelector("#amountParam-CN").value = amount.value;
         document.querySelector("#appointmentParam-CN").value = appointment.value;
 
-        $('#smallModal-CN').modal('show');
+        showModal_CN();
     } else if (on_off === 'on') {
         document.querySelector("#numberByAccountIdModal-AN").value = numberByAccountId.value;
         document.querySelector("#accountNumberModal-AN").value = accountNumber.value;
@@ -258,13 +262,6 @@ submitBtn.addEventListener('click', function (event) {
         document.querySelector("#amountParam-AN").value = amount.value;
         document.querySelector("#appointmentParam-AN").value = appointment.value;
 
-        $('#smallModal-AN').modal('show');
-    }
-});
-
-document.addEventListener('keyup', function (e) {
-    if (e.keyCode === 27) {
-        $('#smallModal-AN').modal('hide');
-        $('#smallModal-CN').modal('hide');
+        showModal_AN();
     }
 });

@@ -63,8 +63,9 @@
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
+                    <form action="" role="form" method="POST">
                         <input type="hidden" name="command" value="makePayment">
+                        <input type="hidden" name="caseValue" value="on"/>
                         <input type="hidden" name="accountId" id="accountIdParam-AN"/>
                         <input type="hidden" name="accountNumber" id="accountNumberParam-AN"/>
                         <input type="hidden" name="amount" id="amountParam-AN"/>
@@ -121,14 +122,16 @@
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
+                    <form action="" role="form" method="POST">
                         <input type="hidden" name="command" value="makePayment">
+                        <input type="hidden" name="caseValue" value="off"/>
                         <input type="hidden" name="accountId" id="accountIdParam-CN"/>
                         <input type="hidden" name="cardNumber" id="cardNumberParam-CN"/>
                         <input type="hidden" name="amount" id="amountParam-CN"/>
                         <input type="hidden" name="appointment" id="appointmentParam-CN"/>
 
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                        <button type="submit" id="submitBtn-CN" class="btn btn-primary confirmButton"
+                                onfocus="this.blur()">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -141,35 +144,35 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
+    <!-- Alert unableGetUser -->
+    <c:if test="${response eq 'unableGetUser'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertUnableGetUser"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert invalidData -->
+    <c:if test="${response eq 'invalidData'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="registration.failed"/>!</strong>
+                <fmt:message key="user.page.alertInvalidDataError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert Success -->
-    <c:if test="${created == true}">
+    <c:if test="${response eq 'paymentCompletedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertPaymentCompleted"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert paymentError -->
-    <c:if test="${paymentError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertPaymentError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert paymentToYourAccountError -->
-    <c:if test="${paymentToYourAccountError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertPaymentToYourAccountError"/>
+                <fmt:message key="user.page.alertPaymentCompletedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -178,7 +181,7 @@
     </c:if>
 
     <!-- Alert recipientAccountNotExistError -->
-    <c:if test="${recipientAccountNotExistError == true}">
+    <c:if test="${response eq 'recipientAccountNotExistError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertRecipientAccountNotExistError"/>
@@ -189,8 +192,20 @@
         </div>
     </c:if>
 
+    <!-- Alert paymentToYourAccountError -->
+    <c:if test="${response eq 'paymentToYourAccountError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+                <fmt:message key="user.page.alertPaymentToYourAccountError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert senderAccountBlockedError -->
-    <c:if test="${senderAccountBlockedError == true}">
+    <c:if test="${response eq 'senderAccountBlockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertSenderAccountBlockedError"/>
@@ -202,7 +217,7 @@
     </c:if>
 
     <!-- Alert recipientAccountBlockedError -->
-    <c:if test="${recipientAccountBlockedError == true}">
+    <c:if test="${response eq 'recipientAccountBlockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertRecipientAccountBlockedError"/>
@@ -214,7 +229,7 @@
     </c:if>
 
     <!-- Alert recipientCardNotExistOrBlockedError -->
-    <c:if test="${recipientCardNotExistOrBlockedError == true}">
+    <c:if test="${response eq 'recipientCardNotExistOrBlockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertRecipientCardNotExistOrBlockedError"/>
@@ -226,7 +241,7 @@
     </c:if>
 
     <!-- Alert insufficientFundsError -->
-    <c:if test="${insufficientFundsError == true}">
+    <c:if test="${response eq 'insufficientFundsError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertInsufficientFundsError"/>
@@ -244,7 +259,7 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="user.makepayment.createNewPayment" var="createNewPayment"/>
+                <fmt:message key="user.makepayment.createNewPayment" var="formHeader"/>
                 <fmt:message key="user.makepayment.fromAccount" var="from"/>
                 <fmt:message key="user.makepayment.recipientsAccount" var="recipientsAccount"/>
                 <fmt:message key="user.makepayment.recipientsCard" var="recipientsCard"/>
@@ -270,10 +285,10 @@
                                     <div class="content-wrap">
 
                                         <h4>
-                                            ${createNewPayment}
+                                            ${formHeader}
                                         </h4>
 
-                                        <form action="/" role="form" method="POST">
+                                        <form action="/" method="POST" role="form">
                                             <input type="hidden" name="command" value="makePayment">
 
                                             <!-- A variable that allows you to determine which command was invoked -->
@@ -310,7 +325,7 @@
                                                 </div>
                                                 <label for="accountId" class="default-label">
                                                     <span id="valid-msg-accountId" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-accountId" class="error-msg invisible">
                                                         ${accountIdError}
@@ -324,6 +339,7 @@
                                             <!-- Switch -->
                                             <input id="switcher" class="toggle-btn" type="checkbox"/>
                                             <label for="switcher" class="toggle-btn-label"></label>
+
                                             <div class="form-row">
 
                                                 <!-- Account Number -->
@@ -331,20 +347,19 @@
                                                     <span class="switcher-case-1">${recipientsAccount}</span>
 
                                                     <div style="margin-top: 4px;">
-                                                        <div>
-                                                            <input id="accountNumber" name="accountNumber"
-                                                                   class="form-control" style="margin-top: 0;"
-                                                                   type="text"
-                                                                   data-toggle="tooltip-left"
-                                                                   data-title="${tooltipAccountNumber}"
-                                                                   maxlength="20" onkeypress="onlyNumbers();"
-                                                                   placeholder="${numberAccount}*"
-                                                                   value="${accountNumberValue}"/>
-                                                        </div>
+                                                        <input id="accountNumber" name="accountNumber" type="text"
+                                                               class="form-control" style="margin-top: 0;"
+                                                               data-toggle="tooltip-left"
+                                                               data-title="${tooltipAccountNumber}"
+                                                               maxlength="20" onkeypress="onlyNumbers();"
+                                                               placeholder="${numberAccount}*"
+                                                               value="${accountNumberValue}"/>
                                                         <label for="accountNumber" class="default-label">
-                                                        <span id="valid-msg-accountNumber" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                        </span>
+                                                            <span id="valid-msg-accountNumber"
+                                                                  class="valid-msg invisible">
+                                                                ${correct}
+                                                                <img src="resources/images/correct.png" alt="">
+                                                            </span>
                                                             <span id="error-msg-accountNumber"
                                                                   class="error-msg invisible">
                                                                 ${numberAccountError}
@@ -358,21 +373,19 @@
                                                     <span class="switcher-case-2">${recipientsCard}</span>
 
                                                     <div style="margin-top: 4px;">
-                                                        <div>
-                                                            <input id="cardNumber" name="cardNumber"
-                                                                   class="form-control" style="margin-top: 0;"
-                                                                   type="text"
-                                                                   data-toggle="tooltip"
-                                                                   data-title="${tooltipCardNumber}"
-                                                                   maxlength="19"
-                                                                   oninput="this.value=card_format(this.value)"
-                                                                   placeholder="${numberCard}*"
-                                                                   value="${cardNumberValue}"/>
-                                                        </div>
+                                                        <input id="cardNumber" name="cardNumber" type="text"
+                                                               class="form-control" style="margin-top: 0;"
+                                                               data-toggle="tooltip"
+                                                               data-title="${tooltipCardNumber}"
+                                                               maxlength="19"
+                                                               oninput="this.value=card_format(this.value)"
+                                                               placeholder="${numberCard}*"
+                                                               value="${cardNumberValue}"/>
                                                         <label for="cardNumber" class="default-label">
-                                                        <span id="valid-msg-cardNumber" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
-                                                        </span>
+                                                            <span id="valid-msg-cardNumber" class="valid-msg invisible">
+                                                                ${correct}
+                                                                <img src="resources/images/correct.png" alt="">
+                                                            </span>
                                                             <span id="error-msg-cardNumber" class="error-msg invisible">
                                                                 ${numberCardError}
                                                             </span>
@@ -383,17 +396,15 @@
 
                                             <!-- Amount Funds -->
                                             <div style="margin-top: 4px;">
-                                                <div>
-                                                    <label for="amount" class="for-form-label">
-                                                        ${amount}
-                                                    </label>
-                                                    <input id="amount" name="amount" placeholder="0.00"
-                                                           oninput="this.value=inputAmount(this.value)"
-                                                           value="${amountValue}"/>
-                                                </div>
+                                                <label for="amount" class="for-form-label">
+                                                    ${amount}
+                                                </label>
+                                                <input id="amount" name="amount" placeholder="0.00"
+                                                       oninput="this.value=inputAmount(this.value)"
+                                                       value="${amountValue}"/>
                                                 <label for="amount" class="default-label">
                                                     <span id="valid-msg-amount" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt="">
                                                     </span>
                                                     <span id="error-msg-amount" class="error-msg invisible">
                                                         ${amountError}
@@ -435,6 +446,7 @@
 </div>
 </body>
 <script src="resources/js/validator_userMakePayment.js"></script>
+<script src="resources/js/modalWindow_userMakePayment.js"></script>
 <script>
     $(function () {
         $('#amount').spinner({
@@ -452,9 +464,10 @@
     let accountNumberInput = document.querySelector("#accountNumber");
     let cardNumberInput = document.querySelector("#cardNumber");
 
-    window.onload = function () {
+    /* It starts immediately after the page loads */
+    window.addEventListener("load", function () {
         on_off = document.querySelector("#case").value;
-        console.log(on_off);
+        console.log("load: " + on_off);
 
         if (on_off === 'off') {
             off();
@@ -475,7 +488,7 @@
                 validationAccountNumber();
             }
         }
-    };
+    });
 
     document.querySelector(".toggle-btn-label").addEventListener('click', function () {
         clear();
@@ -485,6 +498,8 @@
         } else if (on_off === 'on') {
             on();
         }
+
+        console.log(on_off);
     });
 
     function clear() {

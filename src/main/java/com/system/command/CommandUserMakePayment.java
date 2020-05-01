@@ -4,13 +4,14 @@ import com.system.entity.Account;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
+import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
 import com.system.service.PaymentService;
-import com.system.service.UserService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,146 +19,258 @@ import java.util.List;
 
 public class CommandUserMakePayment implements ICommand {
 
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String page = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
-
-        request.setAttribute("created", false);
-        request.setAttribute("paymentError", false);
-        request.setAttribute("paymentToYourAccountError", false);
-        request.setAttribute("recipientAccountNotExistError", false);
-        request.setAttribute("senderAccountBlockedError", false);
-        request.setAttribute("recipientAccountBlockedError", false);
-        request.setAttribute("recipientCardNotExistOrBlockedError", false);
-        request.setAttribute("insufficientFundsError", false);
-        request.setAttribute("isRepeatCommandValue", "0");
-        request.setAttribute("caseValue", "off");
-
-        User user = (User) request.getSession().getAttribute("currentUser");
-
-        if (user == null) {
-            request.setAttribute("paymentError", true);
-            return page;
-        }
-
-        // Set Attributes
-        request.getSession().setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+        clearRequestAttributes(request);
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return page;
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
             // Data
-            String accountId = request.getParameter("accountId");
+            User user = (User) request.getSession().getAttribute("currentUser");
+
+            // Check and set attributes
+            if (user == null) {
+                request.setAttribute("response", ServerResponse.UNABLE_GET_USER.getResponse());
+            } else {
+                setRequestAttributes(request, user);
+            }
+
+        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_MAKE_PAYMENT);
+
+            // Data
+            User user = (User) request.getSession().getAttribute("currentUser");
+            String caseValue = request.getParameter("caseValue");
+            String accountIdParam = request.getParameter("accountId");
             String recipientAccountNumber = request.getParameter("accountNumber");
             String recipientCardNumber = request.getParameter("cardNumber");
             String amount = request.getParameter("amount");
             String appointment = request.getParameter("appointment");
+
+            // Validation
+            if (!validation(request, user, caseValue, accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment)) {
+                return pathRedirect;
+            }
+
+            // [There will be a currency conversion module]
+            // stub:
             BigDecimal exchangeRate = new BigDecimal("1.0");
 
-            // Check
-            if (!validation(accountId, recipientAccountNumber, recipientCardNumber, amount)) {
-                setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                request.setAttribute("paymentError", true);
-                return page;
+            // Action (forming payment)
+            if (caseValue.equals("on")) {
+                int status = PaymentService.getInstance().makePaymentOnAccount(Integer.valueOf(accountIdParam), recipientAccountNumber, new BigDecimal(amount), exchangeRate, appointment);
+                if (status == -1) {
+                    setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.SENDER_ACCOUNT_BLOCKED_ERROR);
+                } else if (status == -2) {
+                    setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.RECIPIENT_ACCOUNT_BLOCKED_ERROR);
+                } else if (status == -3) {
+                    setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INSUFFICIENT_FUNDS_ERROR);
+                } else {
+                    setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
+                }
+            } else if (caseValue.equals("off")) {
+                int status = PaymentService.getInstance().makePaymentOnCard(Integer.valueOf(accountIdParam), recipientCardNumber, new BigDecimal(amount), appointment);
+                if (status == -1) {
+                    setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.SENDER_ACCOUNT_BLOCKED_ERROR);
+                } else if (status == -2) {
+                    setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.RECIPIENT_CARD_NOT_EXIST_OR_BLOCKED_ERROR);
+                    request.setAttribute("", true);
+                } else if (status == -3) {
+                    setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INSUFFICIENT_FUNDS_ERROR);
+                } else {
+                    setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
+                }
+            }
+        }
+
+        return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, User user, String caseValue, String accountIdParam, String recipientAccountNumber, String recipientCardNumber, String amount, String appointment) throws SQLException {
+
+        // Check
+        if (user == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+            return false;
+        }
+
+        // Validation recipient number
+        if (caseValue.equals("on")) {
+
+            // Validation accountId
+            if (!Validator.checkAccountId(accountIdParam)) {
+                setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+                return false;
             }
 
             // Data
-            Integer accountIdInt = Integer.valueOf(accountId);
-            List<Account> accounts = AccountService.getInstance().findAllAccounts();
+            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
             List<Integer> accountIds = new ArrayList<>();
             for (Account account : accounts) {
                 accountIds.add(account.getAccountId());
             }
 
-            // Check
-            if (!accountIds.contains(accountIdInt)) {
-                request.setAttribute("paymentError", true);
-                return page;
+            // Checking that the account belongs to the user
+            if (!accountIds.contains(Integer.valueOf(accountIdParam))) {
+                setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+                return false;
             }
 
-            // Check
-            if (recipientAccountNumber != null) {
-                Account senderAccount = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountId));
-                if (senderAccount.getNumber().equals(recipientAccountNumber)) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("paymentToYourAccountError", true);
-                    return page;
-                }
-
-                List<Account> allAccounts = AccountService.getInstance().findAllAccounts();
-                List<String> allNumbersAccounts = new ArrayList<>();
-                for (Account account : allAccounts) {
-                    allNumbersAccounts.add(account.getNumber());
-                }
-
-                if (!allNumbersAccounts.contains(recipientAccountNumber)) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("recipientAccountNotExistError", true);
-                    return page;
-                }
-
-                // [There will be a currency conversion module]
-                // stub:
-                exchangeRate = new BigDecimal("1.0");
+            // Validation recipient account number
+            if (!Validator.checkRecipientAccountNumber(recipientAccountNumber)) {
+                setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.RECIPIENT_ACCOUNT_NOT_EXIST_ERROR);
+                return false;
             }
 
-            // Forming Payment
-            if (recipientAccountNumber != null) {
-                request.setAttribute("caseValue", "off");
-
-                int status = PaymentService.getInstance().makePaymentOnAccount(Integer.valueOf(accountId), recipientAccountNumber, new BigDecimal(amount), exchangeRate, appointment);
-                if (status == -1) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("senderAccountBlockedError", true);
-                } else if (status == -2) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("recipientAccountBlockedError", true);
-                } else if (status == -3) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("insufficientFundsError", true);
-                } else {
-                    request.setAttribute("created", true);
-                }
-            } else {
-                request.setAttribute("caseValue", "on");
-
-                int status = PaymentService.getInstance().makePaymentOnCard(Integer.valueOf(accountId), recipientCardNumber, new BigDecimal(amount), appointment);
-                if (status == -1) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("senderAccountBlockedError", true);
-                } else if (status == -2) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("recipientCardNotExistOrBlockedError", true);
-                } else if (status == -3) {
-                    setRequestAttributes(request, accountId, recipientAccountNumber, recipientCardNumber, amount, appointment);
-                    request.setAttribute("insufficientFundsError", true);
-                } else {
-                    request.setAttribute("created", true);
-                }
+            // Checking that the user is making a payment to the account from which he pays
+            Account senderAccount = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+            if (senderAccount.getNumber().equals(recipientAccountNumber)) {
+                setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.PAYMENT_TO_YOUR_ACCOUNT_ERROR);
+                return false;
             }
+
+            // Validation amount
+            if (!Validator.checkAmount(amount)) {
+                setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+                return false;
+            }
+        } else if (caseValue.equals("off")) {
+
+            // Validation accountId
+            if (!Validator.checkAccountId(accountIdParam)) {
+                setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+                return false;
+            }
+
+            // Data
+            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+            List<Integer> accountIds = new ArrayList<>();
+            for (Account account : accounts) {
+                accountIds.add(account.getAccountId());
+            }
+
+            // Checking that the account belongs to the user
+            if (!accountIds.contains(Integer.valueOf(accountIdParam))) {
+                setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+                return false;
+            }
+
+            // Validation recipient card number
+            if (!Validator.checkCardNumber(recipientCardNumber)) {
+                setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+                return false;
+            }
+
+            // [There will be a check of the possibility of making a payment to the specified card]
+
+            // Validation amount
+            if (!Validator.checkAmount(amount)) {
+                setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+                return false;
+            }
+        } else {
+            setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
+            return false;
         }
 
-        return page;
+        return true;
     }
 
-    private boolean validation(String accountId, String accountNumber, String cardNumber, String amount) throws SQLException {
-        return Validator.checkAccountId(accountId) &&
-                Validator.checkAccountNumber(accountNumber) &&
-                Validator.checkCardNumber(cardNumber) &&
-                Validator.checkAmount(amount);
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("accounts", null);
+        request.setAttribute("isRepeatCommandValue", null);
+        request.setAttribute("caseValue", null);
+        request.setAttribute("accountIdValue", null);
+        request.setAttribute("numberByAccountIdValue", null);
+        request.setAttribute("accountNumberValue", null);
+        request.setAttribute("cardNumberValue", null);
+        request.setAttribute("amountValue", null);
+        request.setAttribute("appointmentValue", null);
+        request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String accountId, String accountNumber, String cardNumber, String amount, String appointment) throws SQLException {
-        request.setAttribute("accountIdValue", accountId);
-        request.setAttribute("numberByAccountIdValue", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
-        request.setAttribute("accountNumberValue", accountNumber);
-        request.setAttribute("cardNumberValue", cardNumber);
-        request.setAttribute("amountValue", amount);
-        request.setAttribute("appointmentValue", appointment);
+    private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+        request.setAttribute("isRepeatCommandValue", "0");
+        request.setAttribute("caseValue", "off");
+
+        HttpSession session = request.getSession();
+
+        String isRepeatCommandValue = (String) session.getAttribute("isRepeatCommandValue");
+        if (isRepeatCommandValue != null) {
+            request.setAttribute("isRepeatCommandValue", isRepeatCommandValue);
+            session.removeAttribute("isRepeatCommandValue");
+        }
+
+        String caseValue = (String) session.getAttribute("caseValue");
+        if (caseValue != null) {
+            request.setAttribute("caseValue", caseValue);
+            session.removeAttribute("caseValue");
+        }
+
+        String accountId = (String) session.getAttribute("accountId");
+        if (accountId != null) {
+            request.setAttribute("accountIdValue", accountId);
+            session.removeAttribute("accountId");
+        }
+
+        String numberByAccountId = (String) session.getAttribute("numberByAccountId");
+        if (numberByAccountId != null) {
+            request.setAttribute("numberByAccountIdValue", numberByAccountId);
+            session.removeAttribute("numberByAccountId");
+        }
+
+        String accountNumber = (String) session.getAttribute("accountNumber");
+        if (accountNumber != null) {
+            request.setAttribute("accountNumberValue", accountNumber);
+            session.removeAttribute("accountNumber");
+        }
+
+        String cardNumber = (String) session.getAttribute("cardNumber");
+        if (cardNumber != null) {
+            request.setAttribute("cardNumberValue", cardNumber);
+            session.removeAttribute("cardNumber");
+        }
+
+        String amount = (String) session.getAttribute("amount");
+        if (amount != null) {
+            request.setAttribute("amountValue", amount);
+            session.removeAttribute("amount");
+        }
+
+        String appointment = (String) session.getAttribute("appointment");
+        if (appointment != null) {
+            request.setAttribute("appointmentValue", appointment);
+            session.removeAttribute("appointment");
+        }
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, String caseValue, String accountId,
+                                      String accountNumber, String cardNumber, String amount, String appointment, ServerResponse serverResponse) throws SQLException {
+        request.getSession().setAttribute("caseValue", caseValue);
+        request.getSession().setAttribute("accountId", accountId);
+        request.getSession().setAttribute("numberByAccountId", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
+        request.getSession().setAttribute("accountNumber", accountNumber);
+        request.getSession().setAttribute("cardNumber", cardNumber);
+        request.getSession().setAttribute("amount", amount);
+        request.getSession().setAttribute("appointment", appointment);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
 }
