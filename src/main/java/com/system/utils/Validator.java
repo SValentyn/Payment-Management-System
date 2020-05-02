@@ -3,6 +3,7 @@ package com.system.utils;
 import com.system.entity.*;
 import com.system.service.*;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -273,10 +274,17 @@ public class Validator {
     }
 
     /**
-     * @return true, if the amount of funds is a non-negative integer number
+     * @return true, if the amount of funds is a non-negative double number
      */
     public static boolean checkAmount(String amount) {
-        return !isNegative(amount);
+        try {
+            if (new BigDecimal(amount).doubleValue() > 0.0) {
+                return true;
+            }
+        } catch (NumberFormatException | NullPointerException e) {
+            return true;
+        }
+        return false;
     }
 
     /**

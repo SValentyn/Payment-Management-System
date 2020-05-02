@@ -28,8 +28,8 @@ public class UserService {
     private static final String USER = "client";
 
     private static UserService instance = null;
-    private UserDao userDao = DaoFactory.createUserDao();
-    private PasswordEncryptor encryptor = new PasswordEncryptor();
+    private final UserDao userDao = DaoFactory.createUserDao();
+    private final PasswordEncryptor encryptor = new PasswordEncryptor();
 
     private UserService() throws SQLException {
     }

@@ -54,6 +54,7 @@ public enum ServerResponse {
     CARD_ATTACHED_ERROR("cardAttachedError"),
     CARD_DETACHED_SUCCESS("cardDetachedSuccess"),
     CARD_DETACHED_ERROR("cardDetachedError"),
+    UNABLE_GET_PAYMENT("unableGetPayment"),
     UNABLE_GET_PAYMENT_ID("unableGetPaymentId"),
     UNABLE_GET_PAYMENT_BY_USER_ID("unableGetPaymentByUserId"),
     SHOW_PAYMENT_ERROR("showPaymentError"),

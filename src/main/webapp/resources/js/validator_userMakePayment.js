@@ -12,6 +12,7 @@ let submitBtn = document.querySelector("#submit");
 
 /* It starts immediately after the page loads */
 window.addEventListener("load", function () {
+    $(bfh_selectbox).val(accountId.value);
     correct_card_format(cardNumber);
 });
 

@@ -156,6 +156,30 @@
         </div>
     </c:if>
 
+    <!-- Alert unableGetPaymentId -->
+    <c:if test="${response eq 'unableGetPaymentId'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="admin.page.alertUnableGetPaymentIdError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert unableGetPayment -->
+    <c:if test="${response eq 'unableGetPayment'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="user.page.alertUnableGetPayment"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert invalidData -->
     <c:if test="${response eq 'invalidData'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
