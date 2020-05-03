@@ -7,7 +7,7 @@ let submitBtn = document.querySelector("#submit");
 
 
 /* It starts immediately after the page loads */
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
     validationName();
     validationSurname();
     validationPhone();
@@ -15,30 +15,30 @@ window.addEventListener("load", function () {
 });
 
 
-/* Checks name */
+/* Name validation */
 let validMsgName = document.querySelector("#valid-msg-name"),
     errorMsgName = document.querySelector("#error-msg-name");
 
-let resetName = function () {
+function resetName() {
     validMsgName.classList.add("invisible");
     errorMsgName.classList.add("invisible");
     name.classList.remove("valid-input");
     name.classList.remove("error-input");
-};
+}
 
-let validName = function () {
+function validName() {
     validMsgName.classList.remove("invisible");
     errorMsgName.classList.add("invisible");
     name.classList.add("valid-input");
     name.classList.remove("error-input");
-};
+}
 
-let notValidName = function () {
+function notValidName() {
     validMsgName.classList.add("invisible");
     errorMsgName.classList.remove("invisible");
     name.classList.remove("valid-input");
     name.classList.add("error-input");
-};
+}
 
 name.addEventListener('click', resetName);
 name.addEventListener('blur', validationName);
@@ -60,30 +60,30 @@ function validationName() {
 }
 
 
-/* Checks surname */
+/* Surname validation */
 let validMsgSurname = document.querySelector("#valid-msg-surname"),
     errorMsgSurname = document.querySelector("#error-msg-surname");
 
-let resetSurname = function () {
+function resetSurname() {
     validMsgSurname.classList.add("invisible");
     errorMsgSurname.classList.add("invisible");
     surname.classList.remove("valid-input");
     surname.classList.remove("error-input");
-};
+}
 
-let validSurname = function () {
+function validSurname() {
     validMsgSurname.classList.remove("invisible");
     errorMsgSurname.classList.add("invisible");
     surname.classList.add("valid-input");
     surname.classList.remove("error-input");
-};
+}
 
-let notValidSurname = function () {
+function notValidSurname() {
     validMsgSurname.classList.add("invisible");
     errorMsgSurname.classList.remove("invisible");
     surname.classList.remove("valid-input");
     surname.classList.add("error-input");
-};
+}
 
 surname.addEventListener('click', resetSurname);
 surname.addEventListener('blur', validationSurname);
@@ -121,30 +121,30 @@ let iti = window.intlTelInput(phone, {
 });
 
 
-/* Checks phone number */
+/* Phone number validation */
 let validMsgPhone = document.querySelector("#valid-msg-phone"),
     errorMsgPhone = document.querySelector("#error-msg-phone");
 
-let resetPhone = function () {
+function resetPhone() {
     validMsgPhone.classList.add("invisible");
     errorMsgPhone.classList.add("invisible");
     phone.classList.remove("valid-input");
     phone.classList.remove("error-input");
-};
+}
 
-let validPhone = function () {
+function validPhone() {
     validMsgPhone.classList.remove("invisible");
     errorMsgPhone.classList.add("invisible");
     phone.classList.add("valid-input");
     phone.classList.remove("error-input");
-};
+}
 
-let notValidPhone = function () {
+function notValidPhone() {
     validMsgPhone.classList.add("invisible");
     errorMsgPhone.classList.remove("invisible");
     phone.classList.remove("valid-input");
     phone.classList.add("error-input");
-};
+}
 
 phone.addEventListener('click', resetPhone);
 phone.addEventListener('blur', validationPhone);
@@ -166,30 +166,30 @@ function validationPhone() {
 }
 
 
-/* Checks email */
+/* Email validation */
 let validMsgEmail = document.querySelector("#valid-msg-email"),
     errorMsgEmail = document.querySelector("#error-msg-email");
 
-let resetEmail = function () {
+function resetEmail() {
     validMsgEmail.classList.add("invisible");
     errorMsgEmail.classList.add("invisible");
     email.classList.remove("valid-input");
     email.classList.remove("error-input");
-};
+}
 
-let validEmail = function () {
+function validEmail() {
     validMsgEmail.classList.remove("invisible");
     errorMsgEmail.classList.add("invisible");
     email.classList.add("valid-input");
     email.classList.remove("error-input");
-};
+}
 
-let notValidEmail = function () {
+function notValidEmail() {
     validMsgEmail.classList.add("invisible");
     errorMsgEmail.classList.remove("invisible");
     email.classList.remove("valid-input");
     email.classList.add("error-input");
-};
+}
 
 email.addEventListener('click', resetEmail);
 email.addEventListener('blur', validationEmail);
@@ -210,27 +210,31 @@ function validationEmail() {
 }
 
 
-/* Checks for at least one error on the page */
-submitBtn.addEventListener('click', function (event) {
+/* Checks for errors on the page */
+submitBtn.addEventListener('click', (event) => {
 
-    if (name.value.trim() === "" || name.classList.contains("error-input")) {
+    validationName();
+    if (name.classList.contains("error-input")) {
         event.preventDefault();
         notValidName();
         return false;
     }
 
-    if (surname.value.trim() === "" || surname.classList.contains("error-input")) {
+    validationSurname();
+    if (surname.classList.contains("error-input")) {
         event.preventDefault();
         notValidSurname();
         return false;
     }
 
-    if (phone.value.trim() === "" || !iti.isValidNumber() || phone.classList.contains("error-input")) {
+    validationPhone();
+    if (phone.classList.contains("error-input")) {
         event.preventDefault();
         notValidPhone();
         return false;
     }
 
+    validationEmail();
     if (email.classList.contains("error-input")) {
         event.preventDefault();
         notValidEmail();

@@ -1,6 +1,6 @@
 // Elements on userMakePayment.jsp page to check
-let bfh_selectbox = $('.bfh-selectbox');
 let isRepeatCommand = document.querySelector('#isRepeatCommand');
+let bfh_selectbox = $('.bfh-selectbox');
 let accountId = document.querySelector("#accountId");
 let numberByAccountId = document.querySelector("#numberByAccountId");
 let accountNumber = document.querySelector("#accountNumber");
@@ -11,42 +11,38 @@ let submitBtn = document.querySelector("#submit");
 
 
 /* It starts immediately after the page loads */
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
+    cardNumber.value = correct_card_format(cardNumber);
     $(bfh_selectbox).val(accountId.value);
-    correct_card_format(cardNumber);
 });
 
 
-/* Checks Account Id */
+/* AccountId validation */
 let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
-let resetAccountId = function () {
+function resetAccountId() {
     validMsgAccountId.classList.add("invisible");
     errorMsgAccountId.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let validAccountId = function () {
+function validAccountId() {
     validMsgAccountId.classList.remove("invisible");
     errorMsgAccountId.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let notValidAccountId = function () {
+function notValidAccountId() {
     validMsgAccountId.classList.add("invisible");
     errorMsgAccountId.classList.remove("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("error-input");
-};
+}
 
-accountId.addEventListener('change', validationAccountId);
-
-bfh_selectbox.on('hide.bfhselectbox', function () {
-    validationAccountId();
-});
+bfh_selectbox.on('hide.bfhselectbox', () => validationAccountId());
 
 function validationAccountId() {
     resetAccountId();
@@ -70,30 +66,30 @@ function validationAccountId() {
 }
 
 
-/* Checks Account Number */
+/* Account number validation */
 let validMsgAccountNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgAccountNumber = document.querySelector("#error-msg-accountNumber");
 
-let resetAccountNumber = function () {
+function resetAccountNumber() {
     validMsgAccountNumber.classList.add("invisible");
     errorMsgAccountNumber.classList.add("invisible");
     accountNumber.classList.remove("valid-input");
     accountNumber.classList.remove("error-input");
-};
+}
 
-let validAccountNumber = function () {
+function validAccountNumber() {
     validMsgAccountNumber.classList.remove("invisible");
     errorMsgAccountNumber.classList.add("invisible");
     accountNumber.classList.add("valid-input");
     accountNumber.classList.remove("error-input");
-};
+}
 
-let notValidAccountNumber = function () {
+function notValidAccountNumber() {
     validMsgAccountNumber.classList.add("invisible");
     errorMsgAccountNumber.classList.remove("invisible");
     accountNumber.classList.remove("valid-input");
     accountNumber.classList.add("error-input");
-};
+}
 
 accountNumber.addEventListener('click', resetAccountNumber);
 accountNumber.addEventListener('blur', validationAccountNumber);
@@ -113,30 +109,30 @@ function validationAccountNumber() {
 }
 
 
-/* Checks Card Number */
+/* Card number validation */
 let validMsgCardNumber = document.querySelector("#valid-msg-cardNumber"),
     errorMsgCardNumber = document.querySelector("#error-msg-cardNumber");
 
-let resetCardNumber = function () {
+function resetCardNumber() {
     validMsgCardNumber.classList.add("invisible");
     errorMsgCardNumber.classList.add("invisible");
     cardNumber.classList.remove("valid-input");
     cardNumber.classList.remove("error-input");
-};
+}
 
-let validCardNumber = function () {
+function validCardNumber() {
     validMsgCardNumber.classList.remove("invisible");
     errorMsgCardNumber.classList.add("invisible");
     cardNumber.classList.add("valid-input");
     cardNumber.classList.remove("error-input");
-};
+}
 
-let notValidCardNumber = function () {
+function notValidCardNumber() {
     validMsgCardNumber.classList.add("invisible");
     errorMsgCardNumber.classList.remove("invisible");
     cardNumber.classList.remove("valid-input");
     cardNumber.classList.add("error-input");
-};
+}
 
 cardNumber.addEventListener('click', resetCardNumber);
 cardNumber.addEventListener('blur', validationCardNumber);
@@ -156,30 +152,30 @@ function validationCardNumber() {
 }
 
 
-/* Checks Amount */
+/* Amount validation */
 let validMsgAmount = document.querySelector("#valid-msg-amount"),
     errorMsgAmount = document.querySelector("#error-msg-amount");
 
-let resetAmount = function () {
+function resetAmount() {
     validMsgAmount.classList.add("invisible");
     errorMsgAmount.classList.add("invisible");
     document.querySelector(".ui-spinner").classList.remove("valid-input");
     document.querySelector(".ui-spinner").classList.remove("error-input");
-};
+}
 
-let validAmount = function () {
+function validAmount() {
     validMsgAmount.classList.remove("invisible");
     errorMsgAmount.classList.add("invisible");
     document.querySelector(".ui-spinner").classList.add("valid-input");
     document.querySelector(".ui-spinner").classList.remove("error-input");
-};
+}
 
-let notValidAmount = function () {
+function notValidAmount() {
     validMsgAmount.classList.add("invisible");
     errorMsgAmount.classList.remove("invisible");
     document.querySelector(".ui-spinner").classList.remove("valid-input");
     document.querySelector(".ui-spinner").classList.add("error-input");
-};
+}
 
 amount.addEventListener('click', resetAmount);
 amount.addEventListener('blur', validationAmount);
@@ -189,8 +185,7 @@ amount.addEventListener('change', validationAmount);
 function validationAmount() {
     resetAmount();
 
-    if (amount.value.trim() === null || amount.value.trim() === "" || amount.value.trim() === "0" ||
-        amount.value.trim() === "0.0" || amount.value.trim() === "0." || amount.value.trim() === "0.00") {
+    if (amount.value.trim() === null || amount.value.trim() === "" || amount.value <= 0.0) {
         notValidAmount();
     } else {
         validAmount();
@@ -204,22 +199,25 @@ function validationAmount() {
 
 
 /* Checks errors on the page and displays a modal window, if everything is in order */
-submitBtn.addEventListener('click', function (event) {
+submitBtn.addEventListener('click', (event) => {
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
+    validationAccountId();
+    if (document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;
     }
 
     if (on_off === 'off') {
-        if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 19 || cardNumber.classList.contains("error-input")) {
+        validationCardNumber();
+        if (cardNumber.classList.contains("error-input")) {
             event.preventDefault();
             notValidCardNumber();
             return false;
         }
     } else if (on_off === 'on') {
-        if (accountNumber.value.trim() === "" || accountNumber.value.trim().length < 20 || accountNumber.classList.contains("error-input")) {
+        validationAccountNumber();
+        if (accountNumber.classList.contains("error-input")) {
             event.preventDefault();
             notValidAccountNumber();
             return false;
@@ -231,8 +229,8 @@ submitBtn.addEventListener('click', function (event) {
         return false;
     }
 
-    if (amount.value.trim() === "" || document.querySelector(".ui-spinner").classList.contains("error-input") ||
-        amount.value.trim() === "0" || amount.value.trim() === "0.0" || amount.value.trim() === "0." || amount.value.trim() === "0.00") {
+    validationAmount();
+    if (document.querySelector(".ui-spinner").classList.contains("error-input")) {
         event.preventDefault();
         notValidAmount();
         return false;
@@ -265,4 +263,5 @@ submitBtn.addEventListener('click', function (event) {
 
         showModal_AN();
     }
+
 });

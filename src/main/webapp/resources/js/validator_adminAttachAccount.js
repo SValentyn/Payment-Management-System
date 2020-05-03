@@ -1,19 +1,21 @@
 // Elements on adminAttachAccount.jsp page to check
 let number = document.querySelector("#number");
 let repeat = document.querySelector("#repeat");
-let currency = document.querySelector("#currency");
 let bfh_selectbox_class = $('.bfh-selectbox');
+let currency = document.querySelector("#currency");
 let submitBtn = document.querySelector("#submit");
 
 
 /* It starts immediately after the page loads */
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
     repeat.click();
     currency.value = $(bfh_selectbox_class).val();
     validationAccountNumber();
     validationCurrency();
 });
 
+
+repeat.addEventListener('click', () => number.value = randomAccountNumber());
 
 /* Generate random numeric string */
 function randomAccountNumber() {
@@ -28,35 +30,31 @@ function randomAccountNumber() {
     return result;
 }
 
-repeat.addEventListener('click', function (event) {
-    number.value = randomAccountNumber();
-});
 
-
-/* Checks Account Number */
+/* Account number validation */
 let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgNumber = document.querySelector("#error-msg-accountNumber");
 
-let resetAccountNumber = function () {
+function resetAccountNumber() {
     validMsgNumber.classList.add("invisible");
     errorMsgNumber.classList.add("invisible");
     number.classList.remove("valid-input");
     number.classList.remove("error-input");
-};
+}
 
-let validAccountNumber = function () {
+function validAccountNumber() {
     validMsgNumber.classList.remove("invisible");
     errorMsgNumber.classList.add("invisible");
     number.classList.add("valid-input");
     number.classList.remove("error-input");
-};
+}
 
-let notValidAccountNumber = function () {
+function notValidAccountNumber() {
     validMsgNumber.classList.add("invisible");
     errorMsgNumber.classList.remove("invisible");
     number.classList.remove("valid-input");
     number.classList.add("error-input");
-};
+}
 
 number.addEventListener('click', resetAccountNumber);
 number.addEventListener('blur', validationAccountNumber);
@@ -76,43 +74,38 @@ function validationAccountNumber() {
 }
 
 
-/* Checks Currency */
+/* Currency validation */
 let validMsgCurrency = document.querySelector("#valid-msg-currency"),
     errorMsgCurrency = document.querySelector("#error-msg-currency");
 
-let resetCurrency = function () {
+function resetCurrency() {
     validMsgCurrency.classList.add("invisible");
     errorMsgCurrency.classList.add("invisible");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let validCurrency = function () {
+function validCurrency() {
     validMsgCurrency.classList.remove("invisible");
     errorMsgCurrency.classList.add("invisible");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let notValidCurrency = function () {
+function notValidCurrency() {
     validMsgCurrency.classList.add("invisible");
     errorMsgCurrency.classList.remove("invisible");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.add("error-input");
-};
+}
 
-currency.addEventListener('click', resetCurrency);
-currency.addEventListener('blur', validationCurrency);
-
-bfh_selectbox_class.on('hide.bfhselectbox', function () {
-    validationCurrency();
-});
+bfh_selectbox_class.on('hide.bfhselectbox', () => validationCurrency());
 
 function validationCurrency() {
     resetCurrency();
 
     currency.value = $(bfh_selectbox_class).val();
-    if (currency.value.trim() === null || currency.value.trim() === "") {
+    if (currency.value.trim() === null || currency.value.trim() === "" || currency.value.trim().length < 3) {
         notValidCurrency();
     } else {
         validCurrency();
@@ -120,16 +113,18 @@ function validationCurrency() {
 }
 
 
-/* Checks for at least one error on the page */
-submitBtn.addEventListener('click', function (event) {
+/* Checks for errors on the page */
+submitBtn.addEventListener('click', (event) => {
 
-    if (number.value.trim() === null || number.value.trim() === "" || number.value.trim().length < 20 || number.classList.contains("error-input")) {
+    validationAccountNumber();
+    if (number.classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountNumber();
         return false;
     }
 
-    if (currency.value.trim() === null || currency.value.trim() === "" || currency.classList.contains("error-input")) {
+    validationCurrency();
+    if (document.querySelector(".bfh-currencies .bfh-selectbox-toggle").classList.contains("error-input")) {
         event.preventDefault();
         notValidCurrency();
         return false;

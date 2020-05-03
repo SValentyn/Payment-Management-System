@@ -1,65 +1,50 @@
 // Elements on userAttachCard.jsp page to check
-let accountId = document.querySelector("#accountId");
 let selectbox_account_id = $('.selectbox-account-id');
-let number = document.querySelector("#cardNumber");
+let accountId = document.querySelector("#accountId");
+let cardNumber = document.querySelector("#cardNumber");
 let CVV = document.querySelector("#CVV");
-let month = document.querySelector("#month");
-let year = document.querySelector("#year");
 let selectbox_month = $('.bfh-selectbox-month');
 let selectbox_year = $('.bfh-selectbox-year');
+let month = document.querySelector("#month");
+let year = document.querySelector("#year");
 let submitBtn = document.querySelector("#submit");
 
 
 /* It starts immediately after the page loads */
-window.addEventListener("load", function () {
-    let matches = number.value.match(/\d{4,16}/g);
-    let match = matches && matches[0] || '';
-    let parts = [];
-
-    for (let i = 0, length = match.length; i < length; i += 4) {
-        parts.push(match.substring(i, i + 4));
-    }
-
-    number.value = parts.join(' ');
+window.addEventListener("load", () => {
+    cardNumber.value = correct_card_format(cardNumber);
     $(selectbox_account_id).val(accountId.value);
     $(selectbox_month).val(month.value);
     $(selectbox_year).val(year.value);
 });
 
 
-/* Checks Account Id */
+/* AccountId validation */
 let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
-let resetAccountId = function () {
+function resetAccountId() {
     validMsgAccountId.classList.add("invisible");
     errorMsgAccountId.classList.add("invisible");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let validAccountId = function () {
+function validAccountId() {
     validMsgAccountId.classList.remove("invisible");
     errorMsgAccountId.classList.add("invisible");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("error-input");
-    accountId.classList.add("valid-input");
-    accountId.classList.remove("error-input");
-};
+}
 
-let notValidAccountId = function () {
+function notValidAccountId() {
     validMsgAccountId.classList.add("invisible");
     errorMsgAccountId.classList.remove("invisible");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.add("error-input");
-};
+}
 
-accountId.addEventListener('click', resetAccountId);
-accountId.addEventListener('blur', validationAccountId);
-
-selectbox_account_id.on('hide.bfhselectbox', function () {
-    validationAccountId();
-});
+selectbox_account_id.on('hide.bfhselectbox', () => validationAccountId());
 
 function validationAccountId() {
     resetAccountId();
@@ -73,73 +58,73 @@ function validationAccountId() {
 }
 
 
-/* Checks cardNumber */
-let validMsgNumber = document.querySelector("#valid-msg-cardNumber"),
-    errorMsgNumber = document.querySelector("#error-msg-cardNumber");
+/* Card number validation */
+let validMsgCardNumber = document.querySelector("#valid-msg-cardNumber"),
+    errorMsgCardNumber = document.querySelector("#error-msg-cardNumber");
 
-let resetNumber = function () {
-    validMsgNumber.classList.add("invisible");
-    errorMsgNumber.classList.add("invisible");
-    number.classList.remove("valid-input");
-    number.classList.remove("error-input");
-};
+function resetCardNumber() {
+    validMsgCardNumber.classList.add("invisible");
+    errorMsgCardNumber.classList.add("invisible");
+    cardNumber.classList.remove("valid-input");
+    cardNumber.classList.remove("error-input");
+}
 
-let validNumber = function () {
-    validMsgNumber.classList.remove("invisible");
-    errorMsgNumber.classList.add("invisible");
-    number.classList.add("valid-input");
-    number.classList.remove("error-input");
-};
+function validCardNumber() {
+    validMsgCardNumber.classList.remove("invisible");
+    errorMsgCardNumber.classList.add("invisible");
+    cardNumber.classList.add("valid-input");
+    cardNumber.classList.remove("error-input");
+}
 
-let notValidNumber = function () {
-    validMsgNumber.classList.add("invisible");
-    errorMsgNumber.classList.remove("invisible");
-    number.classList.remove("valid-input");
-    number.classList.add("error-input");
-};
+function notValidCardNumber() {
+    validMsgCardNumber.classList.add("invisible");
+    errorMsgCardNumber.classList.remove("invisible");
+    cardNumber.classList.remove("valid-input");
+    cardNumber.classList.add("error-input");
+}
 
-number.addEventListener('click', resetNumber);
-number.addEventListener('blur', validationNumber);
-number.addEventListener('keyup', validationNumber);
-number.addEventListener('change', validationNumber);
+cardNumber.addEventListener('click', resetCardNumber);
+cardNumber.addEventListener('blur', validationCardNumber);
+cardNumber.addEventListener('keyup', validationCardNumber);
+cardNumber.addEventListener('change', validationCardNumber);
 
-function validationNumber() {
-    resetNumber();
+function validationCardNumber() {
+    resetCardNumber();
 
-    if (number.value.trim() === "" || number.value.trim().length < 19) {
-        notValidNumber();
-    } else if (number.value.match(/[^0-9 ]/g) != null) {
-        notValidNumber();
+    if (cardNumber.value.trim() === "" || cardNumber.value.trim().length < 19) {
+        notValidCardNumber();
+    } else if (cardNumber.value.match(/[^0-9 ]/g) != null) {
+        notValidCardNumber();
     } else {
-        validNumber();
+        validCardNumber();
     }
 }
 
 
-/* Checks CVV */
+/* CVV validation */
 let validMsgCVV = document.querySelector("#valid-msg-cvv"),
     errorMsgCVV = document.querySelector("#error-msg-cvv");
 
-let resetCVV = function () {
+function resetCVV() {
     validMsgCVV.classList.add("invisible");
     errorMsgCVV.classList.add("invisible");
     CVV.classList.remove("valid-input");
     CVV.classList.remove("error-input");
-};
+}
 
-let validCVV = function () {
+function validCVV() {
     validMsgCVV.classList.remove("invisible");
     errorMsgCVV.classList.add("invisible");
     CVV.classList.add("valid-input");
     CVV.classList.remove("error-input");
-};
+}
 
-let notValidCVV = function () {
+function notValidCVV() {
     validMsgCVV.classList.add("invisible");
     errorMsgCVV.classList.remove("invisible");
     CVV.classList.remove("valid-input");
     CVV.classList.add("error-input");
-};
+}
 
 CVV.addEventListener('click', resetCVV);
 CVV.addEventListener('blur', validationCVV);
@@ -159,11 +144,11 @@ function validationCVV() {
 }
 
 
-/* Checks month and year */
+/* Month and year validation */
 let validMsgValidity = document.querySelector("#valid-msg-validity"),
     errorMsgValidity = document.querySelector("#error-msg-validity");
 
-let resetValidity = function () {
+function resetValidity() {
     document.querySelector("#validityExpiredError").classList.add("invisible");
     validMsgValidity.classList.add("invisible");
     errorMsgValidity.classList.add("invisible");
@@ -171,41 +156,31 @@ let resetValidity = function () {
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("error-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let validValidity = function () {
+function validValidity() {
     validMsgValidity.classList.remove("invisible");
     errorMsgValidity.classList.add("invisible");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("error-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let notValidValidity = function () {
+function notValidValidity() {
     validMsgValidity.classList.add("invisible");
     errorMsgValidity.classList.remove("invisible");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.add("error-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("error-input");
-};
+}
 
-selectbox_month.on('show.bfhselectbox', function () {
-    resetValidity();
-});
+selectbox_month.on('show.bfhselectbox', () => resetValidity());
+selectbox_year.on('show.bfhselectbox', () => resetValidity());
 
-selectbox_year.on('show.bfhselectbox', function () {
-    resetValidity();
-});
-
-selectbox_month.on('hide.bfhselectbox', function () {
-    validationMonth();
-});
-
-selectbox_year.on('hide.bfhselectbox', function () {
-    validationYear();
-});
+selectbox_month.on('hide.bfhselectbox', () => validationMonth());
+selectbox_year.on('hide.bfhselectbox', () => validationYear());
 
 function validationMonth() {
     resetValidity();
@@ -232,34 +207,37 @@ function validationYear() {
 }
 
 
-/* Checks for at least one error on the page */
-submitBtn.addEventListener('click', function (event) {
+/* Checks for errors on the page */
+submitBtn.addEventListener('click', (event) => {
 
-    if (accountId.value.trim() === null || accountId.value.trim() === "" || accountId.classList.contains("error-input")) {
+    validationAccountId();
+    if (document.querySelector(".selectbox-account-id .bfh-selectbox-toggle").classList.contains("error-input")) {
         event.preventDefault();
         notValidAccountId();
         return false;
     }
 
-    if (number.value.trim() === "" || number.value.trim().length < 19 || number.classList.contains("error-input")) {
+    validationCardNumber();
+    if (cardNumber.classList.contains("error-input")) {
         event.preventDefault();
-        notValidNumber();
+        notValidCardNumber();
         return false;
     }
 
-    if (CVV.value.trim() === "" || CVV.value.trim().length < 3 || CVV.classList.contains("error-input")) {
+    validationCVV();
+    if (CVV.classList.contains("error-input")) {
         event.preventDefault();
         notValidCVV();
         return false;
     }
 
-    if (month.value.trim() === null || month.value.trim() === "" || month.classList.contains("error-input") ||
-        year.value.trim() === null || year.value.trim() === "" || year.classList.contains("error-input")) {
+    validationMonth();
+    validationYear();
+    if (document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.contains("error-input") ||
+        document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.contains("error-input")) {
         event.preventDefault();
         notValidValidity();
         return false;
     }
-
-    number.value = number.value.replace(/\s+/g, "");
 
 });

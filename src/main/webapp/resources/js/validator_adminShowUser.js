@@ -2,6 +2,7 @@
 let phone = document.querySelector("#phone");
 let phone_admin = document.querySelector("#phone_admin");
 
+
 /* Configuring the phone number input field.
  * "token" must be obtained on the api website */
 let iti;

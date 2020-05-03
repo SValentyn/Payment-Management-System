@@ -1,42 +1,46 @@
 // Elements on userSupport.jsp page to check
-let typeQuestion = document.querySelector("#typeQuestion");
 let bfh_selectbox_class = $('.bfh-selectbox');
+let typeQuestion = document.querySelector("#typeQuestion");
 let submitBtn = document.querySelector("#submit");
 
 
-/* Checks TypeQuestion */
+/* It starts immediately after the page loads */
+window.addEventListener("load", () => {
+    $(bfh_selectbox_class).val(typeQuestion.value);
+});
+
+
+/* Type question validation */
 let validMsgTypeQuestion = document.querySelector("#valid-msg-typeQuestion"),
     errorMsgTypeQuestion = document.querySelector("#error-msg-typeQuestion");
 
-let resetTypeQuestion = function () {
+function resetTypeQuestion() {
     validMsgTypeQuestion.classList.add("invisible");
     errorMsgTypeQuestion.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let validTypeQuestion = function () {
+function validTypeQuestion() {
     validMsgTypeQuestion.classList.remove("invisible");
     errorMsgTypeQuestion.classList.add("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("error-input");
-};
+}
 
-let notValidTypeQuestion = function () {
+function notValidTypeQuestion() {
     validMsgTypeQuestion.classList.add("invisible");
     errorMsgTypeQuestion.classList.remove("invisible");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.remove("valid-input");
     document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.add("error-input");
-};
+}
+
+bfh_selectbox_class.on('hide.bfhselectbox', () => validationTypeQuestion());
 
 typeQuestion.addEventListener('click', resetTypeQuestion);
 typeQuestion.addEventListener('blur', validationTypeQuestion);
 typeQuestion.addEventListener('keyup', validationTypeQuestion);
 typeQuestion.addEventListener('change', validationTypeQuestion);
-
-bfh_selectbox_class.on('hide.bfhselectbox', function () {
-    validationTypeQuestion();
-});
 
 function validationTypeQuestion() {
     resetTypeQuestion();
@@ -50,10 +54,11 @@ function validationTypeQuestion() {
 }
 
 
-/* Checks for at least one error on the page */
-submitBtn.addEventListener('click', function (event) {
+/* Checks for errors on the page */
+submitBtn.addEventListener('click', (event) => {
 
-    if (typeQuestion.value.trim() === null || typeQuestion.value.trim() === "" || typeQuestion.classList.contains("error-input")) {
+    validationTypeQuestion();
+    if (document.querySelector(".bfh-selectbox .bfh-selectbox-toggle").classList.contains("error-input")) {
         event.preventDefault();
         notValidTypeQuestion();
         return false;
