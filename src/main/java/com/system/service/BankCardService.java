@@ -22,7 +22,7 @@ public class BankCardService {
     private static final Logger LOGGER = LogManager.getLogger(BankCardService.class);
 
     private static BankCardService instance = null;
-    private BankCardDao bankCardDao = DaoFactory.createBankCardDao();
+    private final BankCardDao bankCardDao = DaoFactory.createBankCardDao();
 
     private BankCardService() throws SQLException {
     }
@@ -35,9 +35,9 @@ public class BankCardService {
     }
 
     /**
-     * Adds new card to the user account
+     * Adds new bank card to the user account
      */
-    public int addNewCard(String accountId, String number, String CVV, String month, String year) {
+    public int addNewBankCard(Integer accountId, String number, String CVV, String month, String year) {
         int status = 0;
         if (accountId != null && number != null && CVV != null && month != null && year != null) {
             SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
@@ -50,7 +50,7 @@ public class BankCardService {
             }
 
             BankCard bankCard = new BankCard();
-            bankCard.setAccountId(Integer.parseInt(accountId));
+            bankCard.setAccountId(accountId);
             bankCard.setNumber(number);
             bankCard.setCVV(CVV);
             bankCard.setValidity(formatter.format(date));

@@ -48,20 +48,23 @@ public class CommandUserAttachCard implements ICommand {
 
             // Data
             String accountIdParam = request.getParameter("accountId");
-            String number = request.getParameter("number");
+            String cardNumber = request.getParameter("number");
             String CVV = request.getParameter("CVV");
             String month = request.getParameter("month");
             String year = request.getParameter("year");
 
             // Validation
-            if (!validation(request, accountIdParam, number, CVV, month, year)) {
+            if (!validation(request, accountIdParam, cardNumber, CVV, month, year)) {
                 return pathRedirect;
             }
 
+            // Data
+            cardNumber = cardNumber.replaceAll(" ", "");
+
             // Action (attach card)
-            int status = BankCardService.getInstance().addNewCard(accountIdParam, number, CVV, month, year);
+            int status = BankCardService.getInstance().addNewBankCard(Integer.valueOf(accountIdParam), cardNumber, CVV, month, year);
             if (status == 0) {
-                setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.CARD_ATTACHED_ERROR);
+                setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.CARD_ATTACHED_ERROR);
             } else {
                 setSessionAttributes(request, ServerResponse.CARD_ATTACHED_SUCCESS);
             }
@@ -70,54 +73,60 @@ public class CommandUserAttachCard implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String accountIdParam, String number, String CVV, String month, String year) throws SQLException {
+    private boolean validation(HttpServletRequest request, String accountIdParam, String cardNumber, String CVV, String month, String year) throws SQLException {
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
-            setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.INVALID_DATA);
+            setSessionAttributes(request, cardNumber, CVV, month, year, ServerResponse.INVALID_DATA);
             return false;
         }
 
         // Data
         User user = (User) request.getSession().getAttribute("currentUser");
-        Integer accountId = Integer.valueOf(accountIdParam);
-        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+        Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Check
         if (user == null) {
-            setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.UNABLE_GET_USER);
+            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.UNABLE_GET_USER);
             return false;
         }
 
         // Checking that the account belongs to the user
-        if (!account.getUserId().equals(user.getUserId())) {
-            setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.INVALID_DATA);
+        if (account == null || !account.getUserId().equals(user.getUserId())) {
+            setSessionAttributes(request, cardNumber, CVV, month, year, ServerResponse.INVALID_DATA);
             return false;
         }
 
         // Validation card number
-        if (!Validator.checkCardNumber(number)) {
-            setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.INVALID_DATA);
+        if (!Validator.checkCardNumber(cardNumber)) {
+            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.INVALID_DATA);
             return false;
         }
 
-        // Validation cvv
+        // Validation CVV
         if (!Validator.checkCVV(CVV)) {
-            setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.INVALID_DATA);
+            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.INVALID_DATA);
+            return false;
+        }
+
+        // Validation expiry date
+        if (!Validator.checkDate(month, year)) {
+            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.INVALID_DATA);
             return false;
         }
 
         // Validation expiry date
         if (Validator.checkValidity(month, year)) {
-            setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.VALIDITY_EXPIRED_ERROR);
+            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.VALIDITY_EXPIRED_ERROR);
             return false;
         }
 
         // Checking that a card with this number has not yet been attached to the account
-        List<BankCard> cardsByAccountId = BankCardService.getInstance().findCardsByAccountId(accountId);
+        cardNumber = cardNumber.replaceAll(" ", "");
+        List<BankCard> cardsByAccountId = BankCardService.getInstance().findCardsByAccountId(Integer.valueOf(accountIdParam));
         for (BankCard card : cardsByAccountId) {
-            if (card.getNumber().equals(number)) {
-                setSessionAttributes(request, accountIdParam, number, CVV, month, year, ServerResponse.CARD_ALREADY_ATTACHED_ERROR);
+            if (card.getNumber().equals(cardNumber)) {
+                setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.CARD_ALREADY_ATTACHED_ERROR);
                 return false;
             }
         }
@@ -181,10 +190,20 @@ public class CommandUserAttachCard implements ICommand {
         }
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String accountId, String number, String CVV, String month, String year, ServerResponse serverResponse) throws SQLException {
+    private void setSessionAttributes(HttpServletRequest request, String cardNumber, String CVV,
+                                      String month, String year, ServerResponse serverResponse) {
+        request.getSession().setAttribute("number", cardNumber);
+        request.getSession().setAttribute("cvv", CVV);
+        request.getSession().setAttribute("month", month);
+        request.getSession().setAttribute("year", year);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, String accountId, String cardNumber, String CVV,
+                                      String month, String year, ServerResponse serverResponse) throws SQLException {
         request.getSession().setAttribute("accountId", accountId);
         request.getSession().setAttribute("numberByAccountId", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
-        request.getSession().setAttribute("number", number);
+        request.getSession().setAttribute("number", cardNumber);
         request.getSession().setAttribute("cvv", CVV);
         request.getSession().setAttribute("month", month);
         request.getSession().setAttribute("year", year);
