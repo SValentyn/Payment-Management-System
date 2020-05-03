@@ -44,9 +44,7 @@ public class Validator {
         if (!checkUserId(userId)) return false;
 
         User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
-        if (user.getRole().getRolename().equals("admin")) return false;
-
-        return true;
+        return !user.getRole().getRolename().equals("admin");
     }
 
     /**
@@ -241,6 +239,7 @@ public class Validator {
      */
     public static boolean checkCardNumber(String number) {
         if (number == null) return false;
+        number = number.replaceAll(" ", "");
         Pattern p = Pattern.compile("\\d{16}");
         Matcher m = p.matcher(number);
         return m.matches();
@@ -254,6 +253,13 @@ public class Validator {
         Pattern p = Pattern.compile("\\d{3}");
         Matcher m = p.matcher(CVV);
         return m.matches();
+    }
+
+    /**
+     * @return true, if the obtained values of the month and year are not negative
+     */
+    public static boolean checkDate(String month, String year) {
+        return month != null && !isNegative(month) && year != null && !isNegative(year);
     }
 
     /**
@@ -278,13 +284,13 @@ public class Validator {
      */
     public static boolean checkAmount(String amount) {
         try {
-            if (new BigDecimal(amount).doubleValue() > 0.0) {
-                return true;
+            if (new BigDecimal(amount).doubleValue() <= 0.00) {
+                return false;
             }
         } catch (NumberFormatException | NullPointerException e) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
