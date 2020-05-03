@@ -52,7 +52,7 @@
                          </c:if>
                     </span>
                     <a href="/" class="back-homepage">
-                        ${goBackHome}<img src="resources/images/back-home.png" alt="" class="icon">
+                        ${goBackHome}<img src="resources/images/back-home.png" class="icon" alt=""/>
                     </a>
                 </div>
             </div>

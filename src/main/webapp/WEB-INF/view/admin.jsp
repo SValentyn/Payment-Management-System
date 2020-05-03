@@ -16,6 +16,7 @@
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet" href="resources/css/style_admin.css">
 </head>
 <body>
 <div class="main">
@@ -63,7 +64,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="login-wrapper">
-                                <div class="box" style="padding: 0; border: none; border-radius: 6px;">
+                                <div class="box">
 
                                     <div class="card-header shadow-none">
                                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center"
@@ -72,8 +73,7 @@
                                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="true"
                                                    onclick="document.getElementById('form-showUsers').submit(); return false;">
                                                     <img src="resources/images/all-users.png"
-                                                         alt="" class="icon-sidebar"
-                                                         style="height: 21px;width: 21px;top: -1px;"/>
+                                                         class="icon-sidebar" alt=""/>
                                                     ${allUsers}
                                                     <span class="badge badge-pill badge-light">
                                                         ${totalUsers}
@@ -89,14 +89,14 @@
                                             <div class="card-body" style="margin-top: 25px;">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-xl-3">
-                                                        <div style="text-align: center; margin: 0 0 30px 0;">
-                                                            <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
+                                                        <div class="search-block">
+                                                            <label>
                                                                     ${searchCriteria}:
                                                             </label>
                                                             <form action="/" method="GET" role="form">
                                                                 <input type="hidden" name="command"
-                                                                       value="searchUsers">
-                                                                <div class="action" style="text-align: unset;">
+                                                                       value="searchUsers"/>
+                                                                <div class="action">
                                                                     <button id="search" type="submit"
                                                                             class="btn btn-primary signup">
                                                                             ${searchButton}
@@ -106,7 +106,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-9 col-xl-9" style="padding: 0 30px 0 0;">
+                                                    <div class="col-lg-9 col-xl-9">
                                                         <div class="col-xl-12">
                                                             <div class="card-container">
                                                                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3">
@@ -129,8 +129,7 @@
                                                                                                 <a href="?command=showUser&userId=${user.userId}">
                                                                                                     ${gotoProfile}
                                                                                                     <img src="resources/images/forward.png"
-                                                                                                         style="width: 14px; height: 14px;"
-                                                                                                         alt="">
+                                                                                                         alt=""/>
                                                                                                 </a>
                                                                                             </span>
                                                                                         </div>
@@ -145,7 +144,7 @@
                                                                                                     ${user.name} ${user.surname}
                                                                                                 <img src="resources/images/shield-white.png"
                                                                                                      style="width: 14px; height: 14px; margin: 0 0 3px 0; cursor: text;"
-                                                                                                     alt="">
+                                                                                                     alt=""/>
                                                                                             </h5>
                                                                                             <small>
                                                                                                     ${admin_rank}
@@ -157,8 +156,7 @@
                                                                                                    class="text-white">
                                                                                                     ${gotoProfile}
                                                                                                     <img src="resources/images/forward-white.png"
-                                                                                                         style="width: 14px; height: 14px;"
-                                                                                                         alt="">
+                                                                                                         alt=""/>
                                                                                                 </a>
                                                                                             </span>
                                                                                         </div>

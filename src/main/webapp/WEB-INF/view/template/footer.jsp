@@ -10,11 +10,11 @@
 <div class="footer">
     <div class="container-fluid">
         <div class="social">
-            <a href="https://github.com/SValentyn/Payment-Management-System" onfocus="this.blur()">
+            <a href="https://github.com/SValentyn/Payment-Management-System" onfocus="this.blur();">
                 <img id="github-icon" data-toggle="tooltip-top"
                      src="resources/images/GitHub-Mark-32px-white.ico"
                      title="<fmt:message key="footer.github"/>"
-                     alt="<fmt:message key="footer.github"/>">
+                     alt="<fmt:message key="footer.github"/>"/>
             </a>
         </div>
         <span class="copyright">
@@ -38,7 +38,7 @@
 <script src="resources/js/utils.js"></script>
 <script src="resources/js/visibility.js"></script>
 <script src="resources/js/input.js"></script>
-<script src="resources/js/alert.js"></script>
-<script src="resources/js/tooltip.js"></script>
 <script src="resources/js/counter.js"></script>
 <script src="resources/js/dynamicDateTime.js"></script>
+<script src="resources/js/alert.js"></script>
+<script src="resources/js/tooltip.js"></script>

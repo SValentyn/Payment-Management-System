@@ -12,8 +12,8 @@ function show_hide_password(target) {
     return false;
 }
 
-function show_hide_passwordConfirmation(target) {
-    let input = document.getElementById('passwordConfirmation');
+function show_hide_oldPassword(target) {
+    let input = document.getElementById('oldPassword');
 
     if (input.getAttribute('type') === 'password') {
         target.classList.add('view');
@@ -40,8 +40,8 @@ function show_hide_newPassword(target) {
     return false;
 }
 
-function show_hide_oldPassword(target) {
-    let input = document.getElementById('oldPassword');
+function show_hide_passwordConfirmation(target) {
+    let input = document.getElementById('passwordConfirmation');
 
     if (input.getAttribute('type') === 'password') {
         target.classList.add('view');

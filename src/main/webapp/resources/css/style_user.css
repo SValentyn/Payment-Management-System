@@ -1,3 +1,12 @@
+.login-wrapper .box {
+    padding: 0;
+}
+
+.login-wrapper .box .card .shadow-none {
+    border: none;
+    border-radius: 6px;
+}
+
 .col-md-12,
 .col-md-6,
 .col-md-6 .row {
@@ -54,6 +63,11 @@
 
 .col-md-4 h5 {
     font-size: 16px !important;
+}
+
+.message-block span {
+    padding-bottom: 20px;
+    font-size: 22px;
 }
 
 @media (max-width: 1342px) {

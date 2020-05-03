@@ -42,32 +42,32 @@
                 <div class="page-content container-fluid">
                     <div class="col-xl-12">
                         <div class="login-wrapper">
-                            <div class="box" style="padding: 0;">
+                            <div class="box">
 
-                                <div class="card shadow-none" style="border: none; border-radius: 6px;">
+                                <div class="card shadow-none">
                                     <div class="card-header">
                                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center"
                                             role="tablist">
                                             <li class="nav-item-home">
                                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="false"
                                                    onclick="document.getElementById('form-showAccounts').submit(); return false;">
-                                                    <img src="resources/images/show-accounts.png" alt=""
-                                                         class="icon-sidebar"/>
+                                                    <img src="resources/images/show-accounts.png"
+                                                         class="icon-sidebar" alt=""/>
                                                     ${myAccounts}
                                                 </a>
                                                 <form action="/" method="GET" id="form-showAccounts" role="form">
-                                                    <input type="hidden" name="command" value="showAccounts">
+                                                    <input type="hidden" name="command" value="showAccounts"/>
                                                 </form>
                                             </li>
                                             <li class="nav-item-home">
                                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="false"
                                                    onclick="document.getElementById('form-showPayments').submit(); return false;">
-                                                    <img src="resources/images/balance.png" alt=""
-                                                         class="icon-sidebar"/>
+                                                    <img src="resources/images/balance.png"
+                                                         class="icon-sidebar" alt=""/>
                                                     ${myPayments}
                                                 </a>
                                                 <form action="/" method="GET" id="form-showPayments" role="form">
-                                                    <input type="hidden" name="command" value="showPayments">
+                                                    <input type="hidden" name="command" value="showPayments"/>
                                                 </form>
                                             </li>
                                         </ul>
@@ -78,8 +78,7 @@
                                             <jsp:useBean id="accounts" scope="request" type="java.util.List"/>
 
                                             <div class="card-body card-container">
-                                                <div id="carouselAccounts" class="carousel slide"
-                                                     data-ride="carousel">
+                                                <div id="carouselAccounts" class="carousel slide" data-ride="carousel">
 
                                                     <ol class="carousel-indicators">
                                                         <c:forEach items="${accounts}" varStatus="loop">
@@ -147,7 +146,7 @@
                                                                                                      <a href="?command=showAccountSettings&accountId=${account.accountId}"
                                                                                                         class="float-right">
                                                                                                         <img src="resources/images/settings.png"
-                                                                                                             alt="">
+                                                                                                             alt=""/>
                                                                                                         <h5>${settings}</h5>
                                                                                                      </a>
                                                                                                 </span>
@@ -159,7 +158,7 @@
                                                                                                      <a href="?command=showAccountCards&accountId=${account.accountId}"
                                                                                                         class="float-right">
                                                                                                         <img src="resources/images/credit-cards.png"
-                                                                                                             alt="">
+                                                                                                             alt=""/>
                                                                                                         <h5>${attachedCards}</h5>
                                                                                                      </a>
                                                                                                 </span>
@@ -171,7 +170,7 @@
                                                                                                     <a href="?command=showAccountPayments&accountId=${account.accountId}"
                                                                                                        class="float-right">
                                                                                                         <img src="resources/images/payments.png"
-                                                                                                             alt="">
+                                                                                                             alt=""/>
                                                                                                         <h5>${paymentArchive}</h5>
                                                                                                     </a>
                                                                                                 </span>
@@ -226,7 +225,7 @@
                                                                                                      <a href="?command=showAccountSettings&accountId=${account.accountId}"
                                                                                                         class="float-right">
                                                                                                         <img src="resources/images/settings.png"
-                                                                                                             alt="">
+                                                                                                             alt=""/>
                                                                                                         <h5>${settings}</h5>
                                                                                                      </a>
                                                                                                 </span>
@@ -238,7 +237,7 @@
                                                                                                      <a href="?command=showAccountCards&accountId=${account.accountId}"
                                                                                                         class="float-right">
                                                                                                         <img src="resources/images/credit-cards.png"
-                                                                                                             alt="">
+                                                                                                             alt=""/>
                                                                                                         <h5>${attachedCards}</h5>
                                                                                                      </a>
                                                                                                 </span>
@@ -250,7 +249,7 @@
                                                                                                     <a href="?command=showAccountPayments&accountId=${account.accountId}"
                                                                                                        class="float-right">
                                                                                                         <img src="resources/images/payments.png"
-                                                                                                             alt="">
+                                                                                                             alt=""/>
                                                                                                         <h5>${paymentArchive}</h5>
                                                                                                     </a>
                                                                                                 </span>
@@ -284,7 +283,7 @@
                                         <c:otherwise>
                                             <div class="card-body" style="min-height: 325px; padding: 35px;">
                                                 <div class="message-block">
-                                                    <span style="padding-bottom: 20px;font-size: 22px;">
+                                                    <span>
                                                         <label>
                                                             <fmt:message key="user.page.accountsEmpty"/>
                                                             <a href="?command=createAccount" class="alert-link">
@@ -296,7 +295,7 @@
                                                     </span>
                                                     <div class="w-100" style="height:172px;">
                                                         <img src="resources/images/profit.png" alt=""
-                                                             style="width: 172px;height: 172px;position: absolute;bottom: 35px;right: 25px;">
+                                                             style="width: 172px;height: 172px;position: absolute;bottom: 35px;right: 25px;"/>
                                                     </div>
                                                 </div>
                                             </div>

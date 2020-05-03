@@ -66,13 +66,13 @@
                                                     <c:when test="${response ne 'showLettersError' && lettersEmpty == false}">
                                                         <div class="row">
                                                             <div class="col-lg-3 col-xl-3">
-                                                                <div style="text-align: center; margin: 0 0 30px 0;">
-                                                                    <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
+                                                                <div class="search-block">
+                                                                    <label>
                                                                             ${searchCriteria}:
                                                                     </label>
                                                                     <form action="/" method="GET" role="form">
                                                                         <input type="hidden" name="command"
-                                                                               value="searchLetters">
+                                                                               value="searchLetters"/>
                                                                         <div class="action" style="text-align: unset;">
                                                                             <button id="search" type="submit"
                                                                                     class="btn btn-primary signup">
@@ -107,7 +107,7 @@
                                                                                                     <a href="?command=showLetterInfo&letterId=${letter.letterId}"
                                                                                                        class="float-right">
                                                                                                         <img src="resources/images/forward.png"
-                                                                                                             alt="${showInfo}">
+                                                                                                             alt="${showInfo}"/>
                                                                                                     </a>
                                                                                                 </span>
                                                                                             </p>

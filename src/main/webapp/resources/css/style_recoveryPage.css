@@ -1,7 +1,23 @@
+.navbar-nav .nav-item {
+    margin-left: 10%;
+}
+
 .login-bg {
     min-height: 100vh;
 }
 
+.login-wrapper {
+    top: 30px;
+}
+
+.login-wrapper .box {
+    max-width: 85%;
+}
+
 .footer {
     margin-top: 0;
+}
+
+.alert {
+    margin-top: 22px;
 }

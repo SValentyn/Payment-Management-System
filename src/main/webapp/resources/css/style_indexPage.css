@@ -1,9 +1,38 @@
+.navbar-nav .nav-item {
+    margin-left: 10%;
+}
+
 .login-bg {
     min-height: 100vh;
 }
 
+.login-wrapper {
+    top: 30px;
+}
+
+.login-wrapper .box {
+    max-width: 75%;
+}
+
+.content-wrap h4 {
+    margin-bottom: 20px !important;
+}
+
+.beta-user {
+    width: 100%;
+    align-self: center;
+}
+
+#submit {
+    font-size: 18px;
+}
+
 .footer {
     margin-top: 0;
+}
+
+.alert {
+    margin-top: 22px;
 }
 
 @media (max-width: 960px) {

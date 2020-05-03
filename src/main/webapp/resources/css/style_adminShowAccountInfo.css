@@ -6,6 +6,10 @@
     width: 88% !important;
 }
 
+.content-wrap h4 {
+    margin-bottom: 20px;
+}
+
 .form-control {
     height: 46px !important;
     margin-top: 0 !important;
@@ -35,7 +39,7 @@ span[class="title-label"] label {
 }
 
 @media (max-width: 412px) {
-    h4 {
+    .content-wrap h4 {
         font-size: 18px !important;
     }
 
@@ -53,7 +57,7 @@ span[class="title-label"] label {
 }
 
 @media (max-width: 354px) {
-    h4 {
+    .content-wrap h4 {
         font-size: 16px !important;
     }
 

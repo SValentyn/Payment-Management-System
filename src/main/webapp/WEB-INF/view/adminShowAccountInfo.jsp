@@ -22,7 +22,7 @@
 <body>
 
 <!-- Modal window (deleteAccountModal) -->
-<div id="deleteAccountModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="deleteAccountModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,11 +47,11 @@
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
-                        <input type="hidden" name="command" value="deleteAccount">
-                        <input type="hidden" name="userId" value="${viewableUser.userId}">
-                        <input type="hidden" name="accountId" value="${viewableAccount.accountId}">
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                    <form action="/" method="POST" role="form">
+                        <input type="hidden" name="command" value="deleteAccount"/>
+                        <input type="hidden" name="userId" value="${viewableUser.userId}"/>
+                        <input type="hidden" name="accountId" value="${viewableAccount.accountId}"/>
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur();">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -62,7 +62,7 @@
 </div>
 
 <!-- Modal window (detachCardModal) -->
-<div id="detachCardModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="detachCardModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,16 +85,16 @@
             <div class="modal-footer">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur()">
+                            data-dismiss="modal" onfocus="this.blur();">
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
-                        <input type="hidden" name="command" value="detachCard">
-                        <input type="hidden" name="userId" value="${viewableUser.userId}">
-                        <input type="hidden" name="accountId" value="${viewableAccount.accountId}">
-                        <input type="hidden" name="cardId" id="cardId">
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                    <form action="/" method="POST" role="form">
+                        <input type="hidden" name="command" value="detachCard"/>
+                        <input type="hidden" name="userId" value="${viewableUser.userId}"/>
+                        <input type="hidden" name="accountId" value="${viewableAccount.accountId}"/>
+                        <input type="hidden" name="cardId" id="cardId"/>
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur();">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -351,7 +351,7 @@
                                 <div class="box">
                                     <div class="content-wrap">
 
-                                        <h4 style="margin-bottom: 20px;">
+                                        <h4>
                                             ${formHeader}
                                         </h4>
 
@@ -360,8 +360,8 @@
                                             <div class="message-block">
                                                 <span class="title-label forward-left-link-img">
                                                     <a href="/" class="float-left">
-                                                        <img src="resources/images/return.png" class="icon-return"
-                                                             alt="">
+                                                        <img src="resources/images/return.png"
+                                                             class="icon-return" alt=""/>
                                                             ${returnToUsers}
                                                     </a>
                                                 </span>
@@ -376,8 +376,8 @@
                                             <div class="message-block">
                                                 <span class="title-label forward-left-link-img">
                                                     <a href="?command=showUser&userId=${userId}" class="float-left">
-                                                        <img src="resources/images/return.png" class="icon-return"
-                                                             alt="">
+                                                        <img src="resources/images/return.png"
+                                                             class="icon-return" alt=""/>
                                                             ${returnToUserProfile}
                                                     </a>
                                                 </span>
@@ -428,11 +428,11 @@
                                                                        style="margin-top: 5px;">
                                                                         ${accountNumber}:
                                                                 </label>
-                                                                <input id="number" name="number" type="text"
-                                                                       class="form-control" readonly="readonly"
+                                                                <input id="number" name="number"
+                                                                       type="text" class="form-control"
+                                                                       readonly="readonly"
                                                                        value="${viewableAccount.number}"/>
-                                                                <label for="number"
-                                                                       class="default-label"></label>
+                                                                <label for="number" class="default-label"></label>
                                                             </div>
 
                                                             <!-- Account Owner -->
@@ -452,9 +452,10 @@
                                                                         ${accountBalance}:
                                                                 </label>
                                                                 <div style="display: flex; margin-bottom: 25px;">
-                                                                    <input id="balance" name="balance" type="text"
-                                                                           class="form-control" readonly="readonly"
+                                                                    <input id="balance" name="balance"
+                                                                           type="text" class="form-control"
                                                                            style="min-width: 49%; margin-right: 1%;"
+                                                                           readonly="readonly"
                                                                            value="${viewableAccount.balance}"/>
                                                                     <div id="currency"
                                                                          class="bfh-selectbox bfh-currencies"
@@ -476,22 +477,22 @@
                                                                    id="list-unblockAccount-list" role="tab"
                                                                    href="?command=showUser&userId=${viewableUser.userId}"
                                                                    aria-controls="unblockAccount">
-                                                                        ${accountOwner} <span
-                                                                        class="forward-right-link-img">→</span>
+                                                                        ${accountOwner}
+                                                                    <span class="forward-right-link-img">→</span>
                                                                 </a>
                                                                 <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                    id="list-payments-list" data-toggle="list"
                                                                    href="#list-payments" role="tab"
                                                                    aria-controls="showPayments">
-                                                                        ${showPayments} <span
-                                                                        class="forward-right-link-img">→</span>
+                                                                        ${showPayments}
+                                                                    <span class="forward-right-link-img">→</span>
                                                                 </a>
                                                                 <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                    id="list-attachedCards-list" data-toggle="list"
                                                                    href="#list-attachedCards" role="tab"
                                                                    aria-controls="showAttachedCards">
-                                                                        ${showAttachedCards} <span
-                                                                        class="forward-right-link-img">→</span>
+                                                                        ${showAttachedCards}
+                                                                    <span class="forward-right-link-img">→</span>
                                                                 </a>
                                                                 <c:choose>
                                                                     <c:when test="${viewableAccount.isBlocked}">
@@ -500,17 +501,17 @@
                                                                            href="?command=unblockAccount"
                                                                            onclick="document.getElementById('form-unblockAccount').submit(); return false;"
                                                                            aria-controls="unblockAccount">
-                                                                                ${unblockAccount} <span
-                                                                                class="forward-right-link-img">→</span>
+                                                                                ${unblockAccount}
+                                                                            <span class="forward-right-link-img">→</span>
                                                                         </a>
                                                                         <form action="/" method="POST"
                                                                               id="form-unblockAccount" role="form">
                                                                             <input type="hidden" name="command"
-                                                                                   value="unblockAccount">
+                                                                                   value="unblockAccount"/>
                                                                             <input type="hidden" name="userId"
-                                                                                   value="${viewableUser.userId}">
+                                                                                   value="${viewableUser.userId}"/>
                                                                             <input type="hidden" name="accountId"
-                                                                                   value="${viewableAccount.accountId}">
+                                                                                   value="${viewableAccount.accountId}"/>
                                                                         </form>
                                                                     </c:when>
                                                                     <c:otherwise>
@@ -519,27 +520,27 @@
                                                                            href="?command=blockAccount"
                                                                            onclick="document.getElementById('form-blockAccount').submit(); return false;"
                                                                            aria-controls="blockAccount">
-                                                                                ${blockAccount} <span
-                                                                                class="forward-right-link-img">→</span>
+                                                                                ${blockAccount}
+                                                                            <span class="forward-right-link-img">→</span>
                                                                         </a>
                                                                         <form action="/" method="POST"
                                                                               id="form-blockAccount" role="form">
                                                                             <input type="hidden" name="command"
-                                                                                   value="blockAccount">
+                                                                                   value="blockAccount"/>
                                                                             <input type="hidden" name="userId"
-                                                                                   value="${viewableUser.userId}">
+                                                                                   value="${viewableUser.userId}"/>
                                                                             <input type="hidden" name="accountId"
-                                                                                   value="${viewableAccount.accountId}">
+                                                                                   value="${viewableAccount.accountId}"/>
                                                                         </form>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                                 <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                    id="list-deleteAccount-list" role="tab"
                                                                    href="#deleteAccountModal?accountNumber=${viewableAccount.number}"
-                                                                   onclick="showDeleteAccountModal()"
+                                                                   onclick="showDeleteAccountModal();"
                                                                    aria-controls="deleteAccount">
-                                                                        ${deleteAccount} <span
-                                                                        class="forward-right-link-img">→</span>
+                                                                        ${deleteAccount}
+                                                                    <span class="forward-right-link-img">→</span>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -559,7 +560,8 @@
 
                                                             <c:choose>
                                                                 <c:when test="${!paymentsEmpty}">
-                                                                    <div class="card-container" style="width: 75%;">
+                                                                    <div class="card-container"
+                                                                         style="width: 75% !important;">
                                                                         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
 
                                                                             <c:forEach items="${payments}"
@@ -610,7 +612,7 @@
                                                                                                         <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/info.png"
-                                                                                                                 alt="">
+                                                                                                                 alt=""/>
                                                                                                         </a>
                                                                                                     </p>
                                                                                                 </c:when>
@@ -636,7 +638,7 @@
                                                                                                         <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/info.png"
-                                                                                                                 alt="">
+                                                                                                                 alt=""/>
                                                                                                         </a>
                                                                                                     </p>
                                                                                                 </c:otherwise>
@@ -699,24 +701,24 @@
                                                                                                     ${card.number}<br/>
                                                                                                     ${validity}: ${card.validity}
                                                                                                 <a href="#detachCardModal?cardId=${card.cardId}&cardNumber=${card.number}"
-                                                                                                   onclick="showDetachCardModal()"
+                                                                                                   onclick="showDetachCardModal();"
                                                                                                    class="float-right">
                                                                                                     <img src="resources/images/detach-card-link.png"
-                                                                                                         alt="${detachCard}">
+                                                                                                         alt="${detachCard}"/>
                                                                                                 </a>
                                                                                                 <c:choose>
                                                                                                     <c:when test="${card.isActive}">
                                                                                                         <a href="?command=blockCard&userId=${viewableUser.userId}&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/locked-link.png"
-                                                                                                                 alt="${blockCard}">
+                                                                                                                 alt="${blockCard}"/>
                                                                                                         </a>
                                                                                                     </c:when>
                                                                                                     <c:otherwise>
                                                                                                         <a href="?command=unblockCard&userId=${viewableUser.userId}&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/unlocked-link.png"
-                                                                                                                 alt="${unblockCard}">
+                                                                                                                 alt="${unblockCard}"/>
                                                                                                         </a>
                                                                                                     </c:otherwise>
                                                                                                 </c:choose>

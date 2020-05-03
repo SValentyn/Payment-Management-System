@@ -115,11 +115,11 @@
                                                             response ne 'showLetterError' &&
                                                             response ne 'letterProcessedSuccess'}">
 
-                                                <form action="" role="form" method="POST">
-                                                    <input type="hidden" name="command" value="showLetterInfo">
+                                                <form action="" method="POST" role="form">
+                                                    <input type="hidden" name="command" value="showLetterInfo"/>
 
                                                     <!-- Letter Id -->
-                                                    <input id="letterId" name="letterId" type="hidden"
+                                                    <input type="hidden" id="letterId" name="letterId"
                                                            value="${letterId}"/>
 
                                                     <div class="form-row">
@@ -130,9 +130,10 @@
                                                                 <label class="for-form-label">
                                                                         ${user_bio}:
                                                                 </label>
-                                                                <input id="bio" name="bio" type="text"
-                                                                       class="form-control"
-                                                                       style="margin-top: 0;" readonly="readonly"
+                                                                <input id="bio" name="bio"
+                                                                       type="text" class="form-control"
+                                                                       style="margin-top: 0;"
+                                                                       readonly="readonly"
                                                                        value="${bioValue}"/>
                                                                 <label for="bio" class="default-label"></label>
                                                             </div>
@@ -142,8 +143,9 @@
                                                                 <label class="for-form-label">
                                                                         ${user_phone}:
                                                                 </label>
-                                                                <input id="phone" name="phone" type="tel"
-                                                                       class="form-control" readonly="readonly"
+                                                                <input id="phone" name="phone"
+                                                                       type="tel" class="form-control"
+                                                                       readonly="readonly"
                                                                        value="${phoneValue}"/>
                                                                 <label for="phone" class="default-label"></label>
                                                             </div>
@@ -153,8 +155,9 @@
                                                                 <label class="for-form-label">
                                                                         ${user_email}:
                                                                 </label>
-                                                                <input id="email" name="email" type="email"
-                                                                       class="form-control" style="margin-top: 0;"
+                                                                <input id="email" name="email"
+                                                                       type="email" class="form-control"
+                                                                       style="margin-top: 0;"
                                                                        readonly="readonly"
                                                                        value="${emailValue}"/>
                                                                 <label for="email" class="default-label"></label>
@@ -218,7 +221,7 @@
                                                 <!-- Return to Letters -->
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="support">
+                                                        <input type="hidden" name="command" value="support"/>
                                                         <button type="submit"
                                                                 class="btn btn-primary signup btn-default"
                                                                 style="width: 62%;">
@@ -233,8 +236,8 @@
                                                 <div class="message-block">
                                                     <span class="title-label forward-left-link-img">
                                                         <a href="?command=support" class="float-left">
-                                                            <img src="resources/images/return.png" class="icon-return"
-                                                                 alt="">
+                                                            <img src="resources/images/return.png"
+                                                                 class="icon-return" alt=""/>
                                                                 ${returnToLetters}
                                                         </a>
                                                     </span>

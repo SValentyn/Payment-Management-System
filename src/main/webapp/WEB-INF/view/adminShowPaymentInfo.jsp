@@ -102,7 +102,7 @@
                                 <div class="box">
                                     <div class="content-wrap">
 
-                                        <h4 style="margin-bottom: 15px;">
+                                        <h4>
                                             ${formHeader}
                                         </h4>
 
@@ -111,8 +111,8 @@
                                             <div class="message-block">
                                                 <span class="title-label forward-left-link-img">
                                                     <a href="/" class="float-left">
-                                                        <img src="resources/images/return.png" class="icon-return"
-                                                             alt="">
+                                                        <img src="resources/images/return.png"
+                                                             class="icon-return" alt=""/>
                                                             ${returnToUsers}
                                                     </a>
                                                 </span>
@@ -126,8 +126,8 @@
                                             <div class="message-block">
                                                 <span class="title-label forward-left-link-img">
                                                     <a href="?command=showUser&userId=${userId}" class="float-left">
-                                                        <img src="resources/images/return.png" class="icon-return"
-                                                             alt="">
+                                                        <img src="resources/images/return.png"
+                                                             class="icon-return" alt=""/>
                                                             ${returnToUserProfile}
                                                     </a>
                                                 </span>
@@ -146,8 +146,7 @@
 
                                             <div class="col-xl-12">
                                                 <div class="row justify-content-center">
-                                                    <div class="col-md-12 detail"
-                                                         style="margin-bottom: 15px; font-size: 18px; text-align: right;">
+                                                    <div class="col-md-12 detail">
 
                                                         <!-- Date and Time  -->
                                                         <span>${payment.date}</span><br/>
@@ -175,10 +174,10 @@
                                                                     ${senderAccountNumber}:
                                                             </label>
                                                             <input id="senderAccount" name="senderAccount"
-                                                                   type="text" class="form-control" readonly="readonly"
+                                                                   type="text" class="form-control"
+                                                                   readonly="readonly"
                                                                    value="${payment.senderNumber}"/>
-                                                            <label for="senderAccount"
-                                                                   class="default-label"></label>
+                                                            <label for="senderAccount" class="default-label"></label>
                                                         </div>
 
                                                         <!-- Sender Account Owner -->
@@ -187,15 +186,17 @@
                                                                     ${accountOwner}:
                                                             </label>
                                                             <input id="senderAccountOwner" name="senderAccountOwner"
-                                                                   type="text" class="form-control" readonly="readonly"
+                                                                   type="text" class="form-control"
+                                                                   readonly="readonly"
                                                                    value="${senderUser.name} ${senderUser.surname}"/>
-                                                            <label for="senderAccountOwner"
-                                                                   class="default-label"></label>
+                                                            <label for="senderAccountOwner" class="default-label">
+                                                            </label>
                                                         </div>
                                                     </div>
 
                                                     <c:choose>
                                                         <c:when test="${recipientIsAccount == true}">
+
                                                             <jsp:useBean id="recipientUser" scope="request"
                                                                          type="com.system.entity.User"/>
 
@@ -206,12 +207,12 @@
                                                                     <label class="for-form-label">
                                                                             ${recipientAccountNumber}:
                                                                     </label>
-                                                                    <input id="recipientAccount"
-                                                                           name="senderAccount" type="text"
-                                                                           class="form-control" readonly="readonly"
+                                                                    <input id="recipientAccount" name="senderAccount"
+                                                                           type="text" class="form-control"
+                                                                           readonly="readonly"
                                                                            value="${payment.recipientNumber}"/>
-                                                                    <label for="recipientAccount"
-                                                                           class="default-label"></label>
+                                                                    <label for="recipientAccount" class="default-label">
+                                                                    </label>
                                                                 </div>
 
                                                                 <!-- Recipient Account Owner -->
@@ -220,8 +221,9 @@
                                                                             ${accountOwner}:
                                                                     </label>
                                                                     <input id="recipientAccountOwner"
-                                                                           name="recipientAccountOwner" type="text"
-                                                                           class="form-control" readonly="readonly"
+                                                                           name="recipientAccountOwner"
+                                                                           type="text" class="form-control"
+                                                                           readonly="readonly"
                                                                            value="${recipientUser.name} ${recipientUser.surname}"/>
                                                                     <label for="recipientAccountOwner"
                                                                            class="default-label"></label>
@@ -294,8 +296,8 @@
                                                                            type="text" class="form-control"
                                                                            readonly="readonly"
                                                                            value="${payment.recipientNumber}"/>
-                                                                    <label for="recipientCard"
-                                                                           class="default-label"></label>
+                                                                    <label for="recipientCard" class="default-label">
+                                                                    </label>
                                                                 </div>
 
                                                                 <!-- Recipient Card Owner -->
@@ -304,8 +306,9 @@
                                                                             ${cardOwner}:
                                                                     </label>
                                                                     <input id="recipientCardOwner"
-                                                                           name="recipientCardOwner" type="text"
-                                                                           class="form-control" readonly="readonly"
+                                                                           name="recipientCardOwner"
+                                                                           type="text" class="form-control"
+                                                                           readonly="readonly"
                                                                            value="–"/>
                                                                     <label for="recipientCardOwner"
                                                                            class="default-label"></label>
@@ -351,6 +354,7 @@
                                                 </div>
                                             </div>
                                         </c:if>
+
                                     </div>
                                 </div>
                             </div>

@@ -29,8 +29,8 @@
             <div class="row">
                 <div class="col-auto mr-auto">
                     <div class="logo">
-                        <a href="/" onfocus="this.blur()">
-                            <img src="resources/images/logo-white.png" alt="Logotype"/>
+                        <a href="/" onfocus="this.blur();">
+                            <img src="resources/images/logo-white.png" alt="Logo"/>
                         </a>
                         <h1>Payment Management System</h1>
                     </div>
@@ -39,11 +39,11 @@
                     <nav class="navbar navbar-expand-lg">
                         <div class="collapse navbar-collapse show" role="navigation">
                             <div class="navbar-nav">
-                                <div class="nav-item" style="margin-left: 10%;">
+                                <div class="nav-item">
                                     <form class="language-form">
                                         <select id="language" name="language"
-                                                onchange="submit()"
-                                                onfocus="this.blur()">
+                                                onchange="submit();"
+                                                onfocus="this.blur();">
                                             <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
                                             <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
                                             <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
@@ -60,7 +60,7 @@
 
     <!-- Alert loginNotExist -->
     <c:if test="${response eq 'loginNotExist'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="login.failed"/></strong>
                 <fmt:message key="login.alertLoginNotExistError"/>
             </p>
@@ -72,7 +72,7 @@
 
     <!-- Alert invalidData -->
     <c:if test="${response eq 'invalidData'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="login.failed"/></strong>
                 <fmt:message key="login.alertInvalidLoginDataError"/>
             </p>
@@ -84,7 +84,7 @@
 
     <!-- Alert authenticationError -->
     <c:if test="${response eq 'authenticationError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="login.failed"/></strong>
                 <fmt:message key="login.alertAuthenticationError"/>
             </p>
@@ -105,32 +105,32 @@
                     <fmt:message key="login.passwordError" var="passwordError"/>
                     <fmt:message key="login.correct" var="correct"/>
 
-                    <div class="login-wrapper" style="top: 30px;">
-                        <div class="box" style="max-width: 75%;">
+                    <div class="login-wrapper">
+                        <div class="box">
                             <div class="content-wrap">
 
-                                <h4 style="margin-bottom: 20px;">
+                                <h4>
                                     ${signin}<br>
                                     Payment Management System
                                 </h4>
-                                <h4 style="margin-bottom: 20px">
+                                <h4>
                                     Status: <abbr style="color: red">Beta</abbr>
                                 </h4>
 
                                 <div class="form-group group-btn" style="height: 60px; margin-bottom: 24px;">
-                                    <form action="/" role="form" method="POST" style="width: 100%; align-self: center;">
-                                        <input type="hidden" name="command" value="login">
-                                        <input type="hidden" name="full_phone" value="+34645364524">
-                                        <input type="hidden" name="password" value="000000">
+                                    <form action="/" method="POST" role="form" class="beta-user">
+                                        <input type="hidden" name="command" value="login"/>
+                                        <input type="hidden" name="full_phone" value="+34645364524"/>
+                                        <input type="hidden" name="password" value="000000"/>
                                         <button type="submit" class="btn btn-primary signup btn-default">
                                             Beta-User
                                         </button>
                                     </form>
 
-                                    <form action="/" role="form" method="POST" style="width: 100%; align-self: center;">
-                                        <input type="hidden" name="command" value="login">
-                                        <input type="hidden" name="full_phone" value="+393524594551">
-                                        <input type="hidden" name="password" value="111111">
+                                    <form action="/" method="POST" role="form" class="beta-user">
+                                        <input type="hidden" name="command" value="login"/>
+                                        <input type="hidden" name="full_phone" value="+393524594551"/>
+                                        <input type="hidden" name="password" value="111111"/>
                                         <button type="submit" class="btn btn-primary signup btn-default">
                                             Beta-Admin
                                         </button>
@@ -143,11 +143,11 @@
                                     <!-- Login -->
                                     <div>
                                         <input id="login" name="login" type="tel" class="form-control"
-                                               onkeypress="onlyNumbers()"
+                                               onkeypress="onlyNumbers();"
                                                value="${loginValue}"/>
                                         <label for="login" class="default-label">
                                             <span id="valid-msg-login" class="valid-msg invisible">
-                                                ${correct}<img src="resources/images/correct.png" alt="">
+                                                ${correct}<img src="resources/images/correct.png" alt=""/>
                                             </span>
                                             <span id="error-msg-login" class="error-msg invisible">
                                                 ${loginError}
@@ -156,29 +156,26 @@
                                     </div>
 
                                     <!-- Password -->
-                                    <div>
-                                        <div class="password-input">
-                                            <input type="password" id="password" name="password"
-                                                   class="form-control" style="margin-top: 10px;"
-                                                   placeholder="${password}">
-                                            <a href="#" class="password-control"
-                                               onfocus="this.blur()"
-                                               onclick="return show_hide_password(this);"></a>
-                                        </div>
-                                        <label for="password" class="default-label">
-                                            <span id="valid-msg-password" class="valid-msg invisible">
-                                                ${correct}<img src="resources/images/correct.png" alt="">
-                                            </span>
-                                            <span id="error-msg-password" class="error-msg invisible">
-                                                ${passwordError}
-                                            </span>
-                                        </label>
+                                    <div class="password-input">
+                                        <input id="password" name="password" type="password"
+                                               class="form-control" style="margin-top: 10px;"
+                                               placeholder="${password}"/>
+                                        <a href="#" class="password-control"
+                                           onfocus="this.blur();"
+                                           onclick="return show_hide_password(this);"></a>
                                     </div>
+                                    <label for="password" class="default-label">
+                                        <span id="valid-msg-password" class="valid-msg invisible">
+                                            ${correct}<img src="resources/images/correct.png" alt=""/>
+                                        </span>
+                                        <span id="error-msg-password" class="error-msg invisible">
+                                            ${passwordError}
+                                        </span>
+                                    </label>
 
                                     <!-- Submit -->
                                     <div class="action" style="padding: 20px 0 0 0;">
-                                        <button id="submit" type="submit" class="btn btn-primary signup"
-                                                style="font-size: 18px;">
+                                        <button id="submit" type="submit" class="btn btn-primary signup">
                                             ${submit}
                                         </button>
                                     </div>
@@ -191,14 +188,14 @@
                             <p style="margin-bottom: 6px;">
                                 <fmt:message key="login.forgotPassword"/>
                             </p>
-                            <a href="?command=recovery" onfocus="this.blur()">
+                            <a href="?command=recovery" onfocus="this.blur();">
                                 <fmt:message key="login.recovery"/>
                             </a>
                             <br>
                             <p style="margin-bottom: 8px;">
                                 <fmt:message key="login.dontHaveAccount"/>
                             </p>
-                            <a href="?command=registration" onfocus="this.blur()">
+                            <a href="?command=registration" onfocus="this.blur();">
                                 <fmt:message key="login.signup"/>
                             </a>
                         </div>

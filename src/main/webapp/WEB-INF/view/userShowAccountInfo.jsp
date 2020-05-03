@@ -20,7 +20,7 @@
 <body>
 
 <!-- Modal window -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,10 +46,10 @@
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
-                        <input type="hidden" name="command" value="detachCard">
+                    <form action="/" method="POST" role="form">
+                        <input type="hidden" name="command" value="detachCard"/>
                         <input type="hidden" name="cardId" id="cardId"/>
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur();">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -186,19 +186,19 @@
                 <a href="?command=blockCard&cardNumber=${card.number}">
                         ${block}
                     <img src="resources/images/locked-link.png"
-                         alt="" class="icon">
+                         class="icon" alt=""/>
                 </a>
             </c:when>
             <c:otherwise>
                 <a href="?command=unblockCard&cardNumber=${card.number}">
                         ${unblock}
                     <img src="resources/images/unlocked-link.png"
-                         alt="" class="icon">
+                         class="icon" alt=""/>
                 </a>
             </c:otherwise>
         </c:choose>
         <a href="#smallModal?cardNumber=${card.number}"
-           onclick="showModal()">
+           onclick="showModal();">
                 ${detach}
         </a>
     </c:forEach>

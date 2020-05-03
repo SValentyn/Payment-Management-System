@@ -74,7 +74,7 @@
                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="true"
                                    onclick="document.getElementById('form-showAccounts').submit(); return false;">
                                     <img src="resources/images/show-accounts.png"
-                                         alt="" class="icon-sidebar">
+                                         class="icon-sidebar" alt=""/>
                                     ${myAccounts}
                                 </a>
                             </li>
@@ -82,18 +82,18 @@
                                 <a class="nav-link nav-link-hover" role="tab" data-toggle="tab" aria-selected="false"
                                    onclick="document.getElementById('form-showPayments').submit(); return false;">
                                     <img src="resources/images/balance.png"
-                                         alt="" class="icon-sidebar">
+                                         class="icon-sidebar" alt=""/>
                                     ${myPayments}
                                 </a>
                             </li>
                         </ul>
                     </div>
 
-                    <form action="/" role="form" method="GET" id="form-showAccounts">
-                        <input type="hidden" name="command" value="showAccounts">
+                    <form action="" method="GET" role="form" id="form-showAccounts">
+                        <input type="hidden" name="command" value="showAccounts"/>
                     </form>
-                    <form action="/" role="form" method="GET" id="form-showPayments">
-                        <input type="hidden" name="command" value="showPayments">
+                    <form action="" method="GET" role="form" id="form-showPayments">
+                        <input type="hidden" name="command" value="showPayments"/>
                     </form>
 
                     <div class="card-body">
@@ -127,14 +127,14 @@
                                                         <a href="?command=unblockAccount&accountId=${account.accountId}">
                                                                 ${unblock}
                                                             <img src="resources/images/unlocked-link.png"
-                                                                 alt="" class="icon">
+                                                                 class="icon" alt=""/>
                                                         </a>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <a href="?command=blockAccount&accountId=${account.accountId}">
                                                                 ${block}
                                                             <img src="resources/images/locked-link.png"
-                                                                 alt="" class="icon">
+                                                                 class="icon" alt=""/>
                                                         </a>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -147,8 +147,6 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-
-
 
 
                             </c:otherwise>

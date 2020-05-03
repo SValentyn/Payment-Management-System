@@ -129,11 +129,11 @@
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="/" role="form" method="POST">
-                                            <input type="hidden" name="command" value="attachCard">
+                                        <form action="/" method="POST" role="form">
+                                            <input type="hidden" name="command" value="attachCard"/>
 
                                             <!-- AccountId -->
-                                            <input id="accountId" name="accountId" type="hidden"
+                                            <input type="hidden" id="accountId" name="accountId"
                                                    value="${accountIdValue}"/>
 
                                             <!-- Select AccountId -->
@@ -156,7 +156,7 @@
                                                 </div>
                                                 <label for="accountId" class="default-label">
                                                     <span id="valid-msg-accountId" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-accountId" class="error-msg invisible">
                                                         ${accountIdError}
@@ -166,14 +166,15 @@
 
                                             <!-- Number -->
                                             <div>
-                                                <input id="cardNumber" name="number" class="form-control" type="text"
-                                                       data-toggle="tooltip" data-title="${tooltipCardNumber}"
-                                                       maxlength="19" oninput="this.value=card_format(this.value)"
+                                                <input id="cardNumber" name="number" type="text" class="form-control"
+                                                       data-toggle="tooltip"
+                                                       data-title="${tooltipCardNumber}"
+                                                       maxlength="19" oninput="this.value=card_format(this.value);"
                                                        placeholder="${number}*"
                                                        value="${numberValue}"/>
                                                 <label for="cardNumber" class="default-label">
                                                     <span id="valid-msg-cardNumber" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-cardNumber" class="error-msg invisible">
                                                         ${numberError}
@@ -183,14 +184,15 @@
 
                                             <!-- CVV -->
                                             <div>
-                                                <input id="CVV" name="CVV" class="form-control" type="text"
-                                                       data-toggle="tooltip" data-title="${tooltipCVV}"
-                                                       maxlength="3" onkeypress="onlyNumbers()"
+                                                <input id="CVV" name="CVV" type="text" class="form-control"
+                                                       data-toggle="tooltip"
+                                                       data-title="${tooltipCVV}"
+                                                       maxlength="3" onkeypress="onlyNumbers();"
                                                        placeholder="${cvv}*"
                                                        value="${cvvValue}"/>
                                                 <label for="CVV" class="default-label">
                                                     <span id="valid-msg-cvv" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-cvv" class="error-msg invisible">
                                                         ${cvvError}
@@ -199,10 +201,10 @@
                                             </div>
 
                                             <!-- Month -->
-                                            <input id="month" name="month" type="hidden" value="${monthValue}"/>
+                                            <input type="hidden" id="month" name="month" value="${monthValue}"/>
 
                                             <!-- Year -->
-                                            <input id="year" name="year" type="hidden" value="${yearValue}"/>
+                                            <input type="hidden" id="year" name="year" value="${yearValue}"/>
 
                                             <!-- Select Month and Year -->
                                             <div>
@@ -259,7 +261,7 @@
 
                                                 <label for="expiration-date" class="default-label">
                                                     <span id="valid-msg-validity" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-validity" class="error-msg invisible">
                                                         ${validityError}

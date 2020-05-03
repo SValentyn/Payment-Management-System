@@ -131,24 +131,25 @@
 
                                         <c:choose>
                                             <c:when test="${response ne 'unableGetUserId'}">
-                                                <form action="/" role="form" method="POST">
-                                                    <input type="hidden" name="command" value="updateUserData">
+                                                <form action="" method="POST" role="form">
+                                                    <input type="hidden" name="command" value="updateUserData"/>
 
                                                     <!-- User Id -->
-                                                    <input id="userId" name="userId" type="hidden" value="${userId}"/>
+                                                    <input type="hidden" id="userId" name="userId" value="${userId}"/>
 
                                                     <!-- Name -->
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <input id="name" name="name" class="form-control"
-                                                                   type="text" data-toggle="tooltip-left"
+                                                            <input id="name" name="name"
+                                                                   type="text" class="form-control"
+                                                                   data-toggle="tooltip-left"
                                                                    data-title="${tooltipOnlyLetters}"
                                                                    maxlength="24" placeholder="${name}*"
                                                                    value="${nameValue}"/>
                                                             <label for="name" class="default-label">
                                                                 <span id="valid-msg-name" class="valid-msg invisible">
                                                                     ${correct}
-                                                                    <img src="resources/images/correct.png" alt="">
+                                                                    <img src="resources/images/correct.png" alt=""/>
                                                                 </span>
                                                                 <span id="error-msg-name" class="error-msg invisible">
                                                                         ${nameError}
@@ -158,8 +159,9 @@
 
                                                         <!-- Surname -->
                                                         <div class="col-md-6">
-                                                            <input id="surname" name="surname" class="form-control"
-                                                                   type="text" data-toggle="tooltip"
+                                                            <input id="surname" name="surname"
+                                                                   type="text" class="form-control"
+                                                                   data-toggle="tooltip"
                                                                    data-title="${tooltipOnlyLetters}"
                                                                    maxlength="32" placeholder="${surname}*"
                                                                    value="${surnameValue}"/>
@@ -167,7 +169,7 @@
                                                                 <span id="valid-msg-surname"
                                                                       class="valid-msg invisible">
                                                                     ${correct}
-                                                                    <img src="resources/images/correct.png" alt="">
+                                                                    <img src="resources/images/correct.png" alt=""/>
                                                                 </span>
                                                                 <span id="error-msg-surname"
                                                                       class="error-msg invisible">
@@ -180,15 +182,15 @@
                                                     <!-- Phone -->
                                                     <div class="row justify-content-center">
                                                         <div class="col-md-9" style="margin-top: 8px">
-                                                            <input id="phone" name="phone" type="tel"
-                                                                   class="form-control"
+                                                            <input id="phone" name="phone"
+                                                                   type="tel" class="form-control"
                                                                    data-toggle="tooltip" data-title="${tooltipPhone}"
-                                                                   onkeypress="onlyNumbers()"
+                                                                   onkeypress="onlyNumbers();"
                                                                    value="${phoneValue}"/>
                                                             <label for="phone" class="default-label">
                                                                 <span id="valid-msg-phone" class="valid-msg invisible">
                                                                     ${correct}
-                                                                    <img src="resources/images/correct.png" alt="">
+                                                                    <img src="resources/images/correct.png" alt=""/>
                                                                 </span>
                                                                 <span id="error-msg-phone" class="error-msg invisible">
                                                                         ${loginError}
@@ -200,15 +202,16 @@
                                                     <!-- Email -->
                                                     <div class="row justify-content-center">
                                                         <div class="col-md-9">
-                                                            <input id="email" name="email" class="form-control"
-                                                                   type="email" data-toggle="tooltip"
+                                                            <input id="email" name="email"
+                                                                   type="email" class="form-control"
+                                                                   data-toggle="tooltip"
                                                                    data-title="${tooltipEmail}"
                                                                    maxlength="45" placeholder="${email}"
                                                                    value="${emailValue}"/>
                                                             <label for="email" class="default-label">
                                                                 <span id="valid-msg-email" class="valid-msg invisible">
                                                                     ${correct}
-                                                                    <img src="resources/images/correct.png" alt="">
+                                                                    <img src="resources/images/correct.png" alt=""/>
                                                                 </span>
                                                                 <span id="error-msg-email" class="error-msg invisible">
                                                                         ${emailError}
@@ -218,8 +221,7 @@
                                                     </div>
 
                                                     <div class="action" style="padding: 25px 0 10px 0">
-                                                        <button id="submit" type="submit"
-                                                                class="btn btn-primary signup"
+                                                        <button id="submit" type="submit" class="btn btn-primary signup"
                                                                 style="width: 56%;">
                                                                 ${updateDataButton}
                                                         </button>
@@ -228,8 +230,8 @@
 
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
-                                                        <input type="hidden" name="command" value="showUser">
-                                                        <input type="hidden" name="userId" value="${userId}">
+                                                        <input type="hidden" name="command" value="showUser"/>
+                                                        <input type="hidden" name="userId" value="${userId}"/>
                                                         <button type="submit" class="btn btn-primary signup btn-default"
                                                                 style="width: 56%;">
                                                                 ${returnToUserProfile}
@@ -243,8 +245,8 @@
                                                 <div class="message-block">
                                                     <span class="title-label forward-left-link-img">
                                                         <a href="/" class="float-left">
-                                                            <img src="resources/images/return.png" class="icon-return"
-                                                                 alt="">
+                                                            <img src="resources/images/return.png"
+                                                                 class="icon-return" alt=""/>
                                                                 ${returnToUsers}
                                                         </a>
                                                     </span>

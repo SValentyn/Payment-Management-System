@@ -29,7 +29,7 @@
 <body>
 
 <!-- Modal window (Delete User) -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,10 +55,10 @@
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" role="form" method="POST">
-                        <input type="hidden" name="command" value="deleteUser">
-                        <input type="hidden" name="userId" value="${userId}">
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                    <form action="/" method="POST" role="form">
+                        <input type="hidden" name="command" value="deleteUser"/>
+                        <input type="hidden" name="userId" value="${userId}"/>
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur();">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -192,8 +192,8 @@
                                                                                    class="form-control"
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.name} ${viewableUser.surname}"/>
-                                                                            <label for="bio"
-                                                                                   class="default-label"></label>
+                                                                            <label for="bio" class="default-label">
+                                                                            </label>
                                                                         </div>
 
                                                                         <!-- User Phone -->
@@ -205,8 +205,8 @@
                                                                                    class="form-control"
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.phone}"/>
-                                                                            <label for="phone"
-                                                                                   class="default-label"></label>
+                                                                            <label for="phone" class="default-label">
+                                                                            </label>
                                                                         </div>
 
                                                                         <!-- User Email -->
@@ -218,8 +218,8 @@
                                                                                    class="form-control"
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.email}"/>
-                                                                            <label for="email"
-                                                                                   class="default-label"></label>
+                                                                            <label for="email" class="default-label">
+                                                                            </label>
                                                                         </div>
                                                                     </div>
 
@@ -231,38 +231,38 @@
                                                                                id="list-payments-list" role="tab"
                                                                                data-toggle="list" href="#list-payments"
                                                                                aria-controls="payments">
-                                                                                    ${showPayments} <span
-                                                                                    class="forward-right-link-img">→</span>
+                                                                                    ${showPayments}
+                                                                                <span class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-accounts-list" role="tab"
                                                                                data-toggle="list" href="#list-accounts"
                                                                                aria-controls="accounts">
-                                                                                    ${showAccounts} <span
-                                                                                    class="forward-right-link-img">→</span>
+                                                                                    ${showAccounts}
+                                                                                <span class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-attachAccount-list"
                                                                                href="?command=attachAccount&userId=${viewableUser.userId}"
                                                                                role="tab" aria-controls="attachAccount">
-                                                                                    ${attachAccount} <span
-                                                                                    class="forward-right-link-img">→</span>
+                                                                                    ${attachAccount}
+                                                                                <span class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-updateData-list"
                                                                                href="?command=updateUserData&userId=${viewableUser.userId}"
                                                                                role="tab" aria-controls="updateData">
-                                                                                    ${updateData} <span
-                                                                                    class="forward-right-link-img">→</span>
+                                                                                    ${updateData}
+                                                                                <span class="forward-right-link-img">→</span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                                style="margin-top: 1px;"
                                                                                id="list-deleteUser-list"
-                                                                               onclick="showModal()"
+                                                                               onclick="showModal();"
                                                                                href="#smallModal?name=${viewableUser.name}&surname=${viewableUser.surname}"
                                                                                role="tab" aria-controls="deleteUser">
-                                                                                    ${deleteUser} <span
-                                                                                    class="forward-right-link-img">→</span>
+                                                                                    ${deleteUser}
+                                                                                <span class="forward-right-link-img">→</span>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -283,7 +283,7 @@
                                                                         <c:choose>
                                                                             <c:when test="${!paymentsEmpty}">
                                                                                 <div class="card-container"
-                                                                                     style="width: 75%;">
+                                                                                     style="width: 75% !important;">
                                                                                     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
                                                                                         <c:forEach items="${payments}"
                                                                                                    var="payment">
@@ -333,7 +333,7 @@
                                                                                                                     <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                        class="float-right">
                                                                                                                         <img src="resources/images/info.png"
-                                                                                                                             alt="">
+                                                                                                                             alt=""/>
                                                                                                                     </a>
                                                                                                                 </p>
                                                                                                             </c:when>
@@ -359,7 +359,7 @@
                                                                                                                     <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                        class="float-right">
                                                                                                                         <img src="resources/images/info.png"
-                                                                                                                             alt="">
+                                                                                                                             alt=""/>
                                                                                                                     </a>
                                                                                                                 </p>
                                                                                                             </c:otherwise>
@@ -380,7 +380,7 @@
                                                                                     <span class="title-label">
                                                                                         <label>
                                                                                             <fmt:message
-                                                                                                key="admin.user.paymentsEmpty"/>
+                                                                                                    key="admin.user.paymentsEmpty"/>
                                                                                         </label>
                                                                                     </span>
                                                                                 </div>
@@ -432,7 +432,7 @@
                                                                                                             <a href="?command=showAccountInfo&userId=${viewableUser.userId}&accountId=${account.accountId}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/info.png"
-                                                                                                                     alt="">
+                                                                                                                     alt=""/>
                                                                                                             </a>
                                                                                                         </p>
                                                                                                     </div>
@@ -528,8 +528,8 @@
                                                 <div class="message-block">
                                                     <span class="title-label forward-left-link-img">
                                                         <a href="/" class="float-left">
-                                                            <img src="resources/images/return.png" class="icon-return"
-                                                                 alt="">
+                                                            <img src="resources/images/return.png"
+                                                                 class="icon-return" alt=""/>
                                                                 ${returnToUsers}
                                                         </a>
                                                     </span>

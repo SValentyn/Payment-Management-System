@@ -595,8 +595,9 @@ div[class="message-block"] .title-label {
 .bfh-selectbox-month.open > .bfh-selectbox-options,
 .bfh-selectbox-year.open > .bfh-selectbox-options {
     min-width: 100%;
+    max-width: 100%;
     width: auto;
-    z-index: 3;
+    z-index: 12;
     padding: 0;
 }
 
@@ -613,9 +614,10 @@ div[class="message-block"] .title-label {
 }
 
 .login-wrapper .box form .textarea-parent textarea {
-    height: 75px;
+    min-width: 100%;
     min-height: 54px;
     max-height: 180px;
+    height: 75px;
     overflow-x: hidden;
     overflow-y: scroll;
     outline: none;

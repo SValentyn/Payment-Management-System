@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.changePassword.title"/></title>
+    <title><fmt:message key="user.updatePassword.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -89,16 +89,16 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="user.changePassword.formHeader" var="formHeader"/>
-                <fmt:message key="user.changePassword.newPassword" var="newPassword"/>
+                <fmt:message key="user.updatePassword.formHeader" var="formHeader"/>
+                <fmt:message key="user.updatePassword.newPassword" var="newPassword"/>
                 <fmt:message key="registration.confirmation" var="confirmation"/>
-                <fmt:message key="user.changePassword.oldPassword" var="oldPassword"/>
+                <fmt:message key="user.updatePassword.oldPassword" var="oldPassword"/>
                 <fmt:message key="user.updateData.changePassword" var="changePassword"/>
                 <fmt:message key="registration.passwordError" var="passwordError"/>
                 <fmt:message key="registration.passwordConfirmationError" var="passwordConfirmationError"/>
                 <fmt:message key="registration.tooltipPassword" var="tooltipNewPassword"/>
                 <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>
-                <fmt:message key="user.changePassword.tooltipOldPassword" var="tooltipOldPassword"/>
+                <fmt:message key="user.updatePassword.tooltipOldPassword" var="tooltipOldPassword"/>
                 <fmt:message key="registration.correct" var="correct"/>
 
                 <div class="page-content container-fluid">
@@ -113,7 +113,7 @@
                                         </h4>
 
                                         <form action="" method="POST" role="form">
-                                            <input type="hidden" name="command" value="updatePassword">
+                                            <input type="hidden" name="command" value="updatePassword"/>
 
                                             <!-- Old Password -->
                                             <div>
@@ -121,16 +121,17 @@
                                                     <input id="oldPassword" name="oldPassword"
                                                            type="password" class="form-control"
                                                            style="height: 40px; margin: 8px 0 0 0;"
-                                                           data-toggle="tooltip" data-title="${tooltipOldPassword}"
+                                                           data-toggle="tooltip"
+                                                           data-title="${tooltipOldPassword}"
                                                            placeholder="${oldPassword}*"
                                                            value="${oldPasswordValue}"/>
                                                     <a href="#" class="password-control" style="top: 9px;"
-                                                       onfocus="this.blur()"
+                                                       onfocus="this.blur();"
                                                        onclick="return show_hide_oldPassword(this);"></a>
                                                 </div>
                                                 <label for="oldPassword" class="default-label">
                                                     <span id="valid-msg-oldPassword" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-oldPassword" class="error-msg invisible">
                                                         ${passwordError}
@@ -144,16 +145,17 @@
                                                     <input id="newPassword" name="newPassword"
                                                            type="password" class="form-control"
                                                            style="height: 40px; margin: 8px 0 0 0;"
-                                                           data-toggle="tooltip" data-title="${tooltipNewPassword}"
+                                                           data-toggle="tooltip"
+                                                           data-title="${tooltipNewPassword}"
                                                            placeholder="${newPassword}*"
                                                            value="${newPasswordValue}"/>
                                                     <a href="#" class="password-control" style="top: 9px;"
-                                                       onfocus="this.blur()"
+                                                       onfocus="this.blur();"
                                                        onclick="return show_hide_newPassword(this);"></a>
                                                 </div>
                                                 <label for="newPassword" class="default-label">
                                                     <span id="valid-msg-newPassword" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-newPassword" class="error-msg invisible">
                                                         ${passwordError}
@@ -172,13 +174,13 @@
                                                            placeholder="${confirmation}*"
                                                            value="${passwordConfirmationValue}"/>
                                                     <a href="#" class="password-control" style="top: 9px;"
-                                                       onfocus="this.blur()"
+                                                       onfocus="this.blur();"
                                                        onclick="return show_hide_passwordConfirmation(this);"></a>
                                                 </div>
                                                 <label for="passwordConfirmation" class="default-label">
                                                     <span id="valid-msg-passwordConfirmation"
                                                           class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-passwordConfirmation"
                                                           class="error-msg invisible">

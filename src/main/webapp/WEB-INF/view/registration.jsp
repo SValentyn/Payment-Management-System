@@ -29,8 +29,8 @@
             <div class="row">
                 <div class="col-auto mr-auto">
                     <div class="logo">
-                        <a href="/" onfocus="this.blur()">
-                            <img src="resources/images/logo-white.png" alt="Logotype"/>
+                        <a href="/" onfocus="this.blur();">
+                            <img src="resources/images/logo-white.png" alt="Logo"/>
                         </a>
                         <h1>Payment Management System</h1>
                     </div>
@@ -39,11 +39,11 @@
                     <nav class="navbar navbar-expand-lg">
                         <div class="collapse navbar-collapse show" role="navigation">
                             <div class="navbar-nav">
-                                <div class="nav-item" style="margin-left: 10%;">
+                                <div class="nav-item">
                                     <form class="language-form">
                                         <select id="language" name="language"
-                                                onchange="submit()"
-                                                onfocus="this.blur()">
+                                                onchange="submit();"
+                                                onfocus="this.blur();">
                                             <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
                                             <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
                                             <option value="ua" ${language == 'ua' ? 'selected' : ''}>UA</option>
@@ -58,9 +58,9 @@
         </div>
     </div>
 
-    <!-- Alert registrationSuccess -->
+    <!-- Alert Success -->
     <c:if test="${response eq 'registrationSuccess'}">
-        <div id="alert" class="alert alert-success fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="registration.success"/>!</strong>
                 <fmt:message key="registration.alertRegistrationSuccess"/>
                 <a href="/" class="alert-link"><fmt:message key="registration.logging"/></a>
@@ -74,7 +74,7 @@
 
     <!-- Alert invalidData -->
     <c:if test="${response eq 'invalidData'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertIncorrectRegistrationDataError"/>
             </p>
@@ -86,7 +86,7 @@
 
     <!-- Alert phoneExistError -->
     <c:if test="${response eq 'phoneExistError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertPhoneExistError"/>
             </p>
@@ -98,7 +98,7 @@
 
     <!-- Alert emailExistError -->
     <c:if test="${response eq 'emailExistError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertEmailExistError"/>
             </p>
@@ -110,7 +110,7 @@
 
     <!-- Alert registrationError -->
     <c:if test="${response eq 'registrationError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert" style="margin-top: 22px;">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="registration.failed"/>!</strong>
                 <fmt:message key="registration.alertRegistrationError"/>
             </p>
@@ -145,7 +145,7 @@
                     <fmt:message key="registration.correct" var="correct"/>
 
                     <div class="row">
-                        <div class="login-wrapper" style="top: 22px;">
+                        <div class="login-wrapper">
                             <div class="box">
                                 <div class="content-wrap">
 
@@ -153,14 +153,14 @@
                                         ${registration}
                                     </h4>
 
-                                    <form action="" role="form" method="POST">
-                                        <input type="hidden" name="command" value="registration">
+                                    <form action="" method="POST" role="form">
+                                        <input type="hidden" name="command" value="registration"/>
 
                                         <!-- Name -->
                                         <div class="form-row">
                                             <div class="col-md-6">
-                                                <input id="name" name="name" class="form-control"
-                                                       type="text" data-toggle="tooltip-left"
+                                                <input id="name" name="name" type="text" class="form-control"
+                                                       data-toggle="tooltip-left"
                                                        data-title="${tooltipOnlyLetters}"
                                                        maxlength="24" placeholder="${name}*"
                                                        value="${nameValue}"/>
@@ -176,14 +176,14 @@
 
                                             <!-- Surname -->
                                             <div class="col-md-6">
-                                                <input id="surname" name="surname" class="form-control"
-                                                       type="text" data-toggle="tooltip"
+                                                <input id="surname" name="surname" type="text" class="form-control"
+                                                       data-toggle="tooltip"
                                                        data-title="${tooltipOnlyLetters}"
                                                        maxlength="32" placeholder="${surname}*"
                                                        value="${surnameValue}"/>
                                                 <label for="surname" class="default-label">
                                                     <span id="valid-msg-surname" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-surname" class="error-msg invisible">
                                                         ${surnameError}
@@ -196,12 +196,13 @@
                                         <div class="form-row">
                                             <div class="col-md-6" style="margin-top: 8px">
                                                 <input id="phone" name="phone" type="tel" class="form-control"
-                                                       data-toggle="tooltip-left" data-title="${tooltipPhone}"
-                                                       onkeypress="onlyNumbers()"
+                                                       data-toggle="tooltip-left"
+                                                       data-title="${tooltipPhone}"
+                                                       onkeypress="onlyNumbers();"
                                                        value="${phoneValue}"/>
                                                 <label for="phone" class="default-label">
                                                     <span id="valid-msg-phone" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-phone" class="error-msg invisible">
                                                         ${loginError}
@@ -211,13 +212,14 @@
 
                                             <!-- Email -->
                                             <div class="col-md-6">
-                                                <input id="email" name="email" class="form-control"
-                                                       type="email" data-toggle="tooltip" data-title="${tooltipEmail}"
+                                                <input id="email" name="email" type="email" class="form-control"
+                                                       data-toggle="tooltip"
+                                                       data-title="${tooltipEmail}"
                                                        maxlength="45" placeholder="${email}"
                                                        value="${emailValue}"/>
                                                 <label for="email" class="default-label">
                                                     <span id="valid-msg-email" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-email" class="error-msg invisible">
                                                         ${emailError}
@@ -230,18 +232,19 @@
                                         <div class="row justify-content-center" style="margin-top: 20px;">
                                             <div class="col-md-6">
                                                 <div class="password-input">
-                                                    <input id="password" name="password" type="password"
-                                                           class="form-control"
-                                                           data-toggle="tooltip" data-title="${tooltipPassword}"
+                                                    <input id="password" name="password"
+                                                           type="password" class="form-control"
+                                                           data-toggle="tooltip"
+                                                           data-title="${tooltipPassword}"
                                                            placeholder="${password}*"
                                                            value="${passwordValue}"/>
-                                                    <a href="#" class="password-control" style="top: 7px;"
-                                                       onfocus="this.blur()"
+                                                    <a href="#" class="password-control"
+                                                       onfocus="this.blur();"
                                                        onclick="return show_hide_password(this);"></a>
                                                 </div>
                                                 <label for="password" class="default-label">
                                                     <span id="valid-msg-password" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-password" class="error-msg invisible">
                                                         ${passwordError}</span>
@@ -259,14 +262,14 @@
                                                            data-title="${tooltipPasswordConfirmation}"
                                                            placeholder="${confirmation}*"
                                                            value="${passwordConfirmationValue}"/>
-                                                    <a href="#" class="password-control" style="top: 7px;"
-                                                       onfocus="this.blur()"
+                                                    <a href="#" class="password-control"
+                                                       onfocus="this.blur();"
                                                        onclick="return show_hide_passwordConfirmation(this);"></a>
                                                 </div>
                                                 <label for="passwordConfirmation" class="default-label">
                                                     <span id="valid-msg-passwordConfirmation"
                                                           class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-passwordConfirmation"
                                                           class="error-msg invisible">
@@ -278,19 +281,20 @@
 
                                         <!-- Submit -->
                                         <div class="action" style="padding: 25px 0 0 0;">
-                                            <button id="submit" type="submit" class="btn btn-primary signup"
-                                                    style="width: 44%;">
+                                            <button id="submit" type="submit" class="btn btn-primary signup">
                                                 ${signupButton}
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+
+                            <!-- Block of Questions -->
                             <div class="block-questions">
                                 <p>
                                     <fmt:message key="registration.haveAccountAlready"/>
                                 </p>
-                                <a href="/" onfocus="this.blur()">
+                                <a href="/" onfocus="this.blur();">
                                     <fmt:message key="registration.login"/>
                                 </a>
                             </div>

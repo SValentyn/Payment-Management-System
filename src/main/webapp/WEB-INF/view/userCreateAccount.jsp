@@ -107,16 +107,16 @@
                                                     ${numberNewAccount}
                                                 </label>
                                                 <div class="form-group">
-                                                    <input id="number" name="number" class="form-control"
-                                                           type="text" readonly="readonly" maxlength="20"
+                                                    <input id="number" name="number" type="text" class="form-control"
                                                            style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
+                                                           readonly="readonly" maxlength="20"
                                                            value="${numberValue}"/>
                                                     <img id="repeat" src="resources/images/repeat.png"
-                                                         alt="" class="glyphicon icon-repeat">
+                                                         alt="" class="glyphicon icon-repeat"/>
                                                 </div>
                                                 <label for="number" class="default-label">
                                                     <span id="valid-msg-accountNumber" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-accountNumber" class="error-msg invisible">
                                                         ${numberError}
@@ -125,7 +125,7 @@
                                             </div>
 
                                             <!-- Currency -->
-                                            <input id="currency" name="currency" type="hidden"/>
+                                            <input type="hidden" id="currency" name="currency"/>
 
                                             <!-- Select Currency -->
                                             <div style="margin-top: 16px;">
@@ -137,7 +137,7 @@
                                                 </div>
                                                 <label for="currency" class="default-label">
                                                     <span id="valid-msg-currency" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-currency" class="error-msg invisible">
                                                         ${currencyError}

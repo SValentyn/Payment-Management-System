@@ -107,11 +107,11 @@
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="/" role="form" method="POST">
-                                            <input type="hidden" name="command" value="support">
+                                        <form action="" method="POST" role="form">
+                                            <input type="hidden" name="command" value="support"/>
 
                                             <!-- Type Question -->
-                                            <input id="typeQuestion" name="typeQuestion" type="hidden"
+                                            <input type="hidden" id="typeQuestion" name="typeQuestion"
                                                    value="${typeQuestionValue}"/>
 
                                             <!-- Select Type Question -->
@@ -141,7 +141,7 @@
                                                 </div>
                                                 <label for="typeQuestion" class="default-label">
                                                     <span id="valid-msg-typeQuestion" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-typeQuestion" class="error-msg invisible">
                                                         ${typeQuestionError}
@@ -150,14 +150,13 @@
                                             </div>
 
                                             <!-- Description -->
-                                            <div class="textarea-parent"
-                                                 data-toggle="tooltip" data-title="${tooltipDescription}">
+                                            <div class="textarea-parent" data-toggle="tooltip"
+                                                 data-title="${tooltipDescription}">
                                                 <label class="for-form-label">
                                                     ${description}
                                                 </label>
                                                 <div>
-                                                    <textarea id="description" name="description"
-                                                              class="form-control"
+                                                    <textarea id="description" name="description" class="form-control"
                                                     >${descriptionValue}</textarea>
                                                     <div class="counter">
                                                         <span id="counter"></span>

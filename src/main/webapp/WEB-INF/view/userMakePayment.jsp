@@ -23,7 +23,7 @@
 <body>
 
 <!-- Modal window (when sending to an account) -->
-<div id="smallModal-AN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="smallModal-AN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -63,15 +63,14 @@
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="" role="form" method="POST">
-                        <input type="hidden" name="command" value="makePayment">
+                    <form action="/" method="POST" role="form">
+                        <input type="hidden" name="command" value="makePayment"/>
                         <input type="hidden" name="caseValue" value="on"/>
                         <input type="hidden" name="accountId" id="accountIdParam-AN"/>
                         <input type="hidden" name="accountNumber" id="accountNumberParam-AN"/>
                         <input type="hidden" name="amount" id="amountParam-AN"/>
                         <input type="hidden" name="appointment" id="appointmentParam-AN"/>
-
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur()">
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur();">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -82,7 +81,7 @@
 </div>
 
 <!-- Modal window (when sending to a bank card) -->
-<div id="smallModal-CN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur()">
+<div id="smallModal-CN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -122,16 +121,15 @@
                         <fmt:message key="user.page.closeButton"/>
                     </button>
                     <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="" role="form" method="POST">
+                    <form action="/" method="POST" role="form">
                         <input type="hidden" name="command" value="makePayment">
                         <input type="hidden" name="caseValue" value="off"/>
                         <input type="hidden" name="accountId" id="accountIdParam-CN"/>
                         <input type="hidden" name="cardNumber" id="cardNumberParam-CN"/>
                         <input type="hidden" name="amount" id="amountParam-CN"/>
                         <input type="hidden" name="appointment" id="appointmentParam-CN"/>
-
                         <button type="submit" id="submitBtn-CN" class="btn btn-primary confirmButton"
-                                onfocus="this.blur()">
+                                onfocus="this.blur();">
                             <fmt:message key="user.page.confirmButton"/>
                         </button>
                     </form>
@@ -313,18 +311,18 @@
                                         </h4>
 
                                         <form action="/" method="POST" role="form">
-                                            <input type="hidden" name="command" value="makePayment">
+                                            <input type="hidden" name="command" value="makePayment"/>
 
                                             <!-- A variable that allows you to determine which command was invoked -->
-                                            <input id="isRepeatCommand" name="isRepeatCommand" type="hidden"
+                                            <input type="hidden" id="isRepeatCommand" name="isRepeatCommand"
                                                    value="${isRepeatCommandValue}"/>
 
                                             <!-- AccountId -->
-                                            <input id="accountId" name="accountId" type="hidden"
+                                            <input type="hidden" id="accountId" name="accountId"
                                                    value="${accountIdValue}"/>
 
                                             <!-- Number by AccountId -->
-                                            <input id="numberByAccountId" name="numberByAccountId" type="hidden"
+                                            <input type="hidden" id="numberByAccountId" name="numberByAccountId"
                                                    value="${numberByAccountIdValue}"/>
 
                                             <!-- Select AccountId -->
@@ -349,7 +347,7 @@
                                                 </div>
                                                 <label for="accountId" class="default-label">
                                                     <span id="valid-msg-accountId" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt="">
+                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
                                                     </span>
                                                     <span id="error-msg-accountId" class="error-msg invisible">
                                                         ${accountIdError}
@@ -358,7 +356,7 @@
                                             </div>
 
                                             <!-- Switch position -->
-                                            <input id="case" name="case" type="hidden" value="${caseValue}"/>
+                                            <input type="hidden" id="case" name="case" value="${caseValue}"/>
 
                                             <!-- Switch -->
                                             <input id="switcher" class="toggle-btn" type="checkbox"/>
@@ -424,7 +422,7 @@
                                                     ${amount}
                                                 </label>
                                                 <input id="amount" name="amount" placeholder="0.00"
-                                                       oninput="this.value=inputAmount(this.value)"
+                                                       oninput="this.value=inputAmount(this.value);"
                                                        value="${amountValue}"/>
                                                 <label for="amount" class="default-label">
                                                     <span id="valid-msg-amount" class="valid-msg invisible">

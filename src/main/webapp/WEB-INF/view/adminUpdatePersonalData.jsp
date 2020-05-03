@@ -143,20 +143,20 @@
                                             ${formHeader}
                                         </h4>
 
-                                        <form action="" role="form" method="POST">
-                                            <input type="hidden" name="command" value="profile">
+                                        <form action="" method="POST" role="form">
+                                            <input type="hidden" name="command" value="profile"/>
 
                                             <!-- Name -->
                                             <div class="form-row">
                                                 <div class="col-md-6">
-                                                    <input id="name" name="name" class="form-control"
-                                                           type="text" data-toggle="tooltip-left"
+                                                    <input id="name" name="name" type="text" class="form-control"
+                                                           data-toggle="tooltip-left"
                                                            data-title="${tooltipOnlyLetters}"
                                                            maxlength="24" placeholder="${name}*"
                                                            value="${nameValue}"/>
                                                     <label for="name" class="default-label">
                                                         <span id="valid-msg-name" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                            ${correct}<img src="resources/images/correct.png" alt=""/>
                                                         </span>
                                                         <span id="error-msg-name" class="error-msg invisible">
                                                             ${nameError}
@@ -166,14 +166,14 @@
 
                                                 <!-- Surname -->
                                                 <div class="col-md-6">
-                                                    <input id="surname" name="surname" class="form-control"
-                                                           type="text" data-toggle="tooltip"
+                                                    <input id="surname" name="surname" type="text" class="form-control"
+                                                           data-toggle="tooltip"
                                                            data-title="${tooltipOnlyLetters}"
                                                            maxlength="32" placeholder="${surname}*"
                                                            value="${surnameValue}"/>
                                                     <label for="surname" class="default-label">
                                                         <span id="valid-msg-surname" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                            ${correct}<img src="resources/images/correct.png" alt=""/>
                                                         </span>
                                                         <span id="error-msg-surname" class="error-msg invisible">
                                                             ${surnameError}
@@ -186,15 +186,16 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-md-9" style="margin-top: 8px">
                                                     <input id="phone" name="phone" type="tel" class="form-control"
-                                                           data-toggle="tooltip" data-title="${tooltipPhone}"
-                                                           onkeypress="onlyNumbers()"
+                                                           data-toggle="tooltip"
+                                                           data-title="${tooltipPhone}"
+                                                           onkeypress="onlyNumbers();"
                                                            value="${phoneValue}"/>
                                                     <label for="phone" class="default-label">
                                                         <span id="valid-msg-phone" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                            ${correct}<img src="resources/images/correct.png" alt=""/>
                                                         </span>
-                                                        <span id="error-msg-phone"
-                                                              class="error-msg invisible">${loginError}
+                                                        <span id="error-msg-phone" class="error-msg invisible">
+                                                            ${loginError}
                                                         </span>
                                                     </label>
                                                 </div>
@@ -203,14 +204,14 @@
                                             <!-- Email -->
                                             <div class="row justify-content-center">
                                                 <div class="col-md-9">
-                                                    <input id="email" name="email" class="form-control"
-                                                           type="email" data-toggle="tooltip"
+                                                    <input id="email" name="email" type="email" class="form-control"
+                                                           data-toggle="tooltip"
                                                            data-title="${tooltipEmail}"
                                                            maxlength="45" placeholder="${email}"
                                                            value="${emailValue}"/>
                                                     <label for="email" class="default-label">
                                                         <span id="valid-msg-email" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                            ${correct}<img src="resources/images/correct.png" alt=""/>
                                                         </span>
                                                         <span id="error-msg-email" class="error-msg invisible">
                                                             ${emailError}
@@ -225,15 +226,16 @@
                                                     <div class="password-input">
                                                         <input id="password" name="password" type="password"
                                                                class="form-control"
-                                                               data-toggle="tooltip" data-title="${tooltipPassword}"
+                                                               data-toggle="tooltip"
+                                                               data-title="${tooltipPassword}"
                                                                placeholder="${password}*"/>
-                                                        <a href="#" class="password-control" style="top: 8px;"
-                                                           onfocus="this.blur()"
+                                                        <a href="#" class="password-control"
+                                                           onfocus="this.blur();"
                                                            onclick="return show_hide_password(this);"></a>
                                                     </div>
                                                     <label for="password" class="default-label">
                                                         <span id="valid-msg-password" class="valid-msg invisible">
-                                                            ${correct}<img src="resources/images/correct.png" alt="">
+                                                            ${correct}<img src="resources/images/correct.png" alt=""/>
                                                         </span>
                                                         <span id="error-msg-password" class="error-msg invisible">
                                                             ${passwordError}
@@ -254,7 +256,7 @@
                                         <!-- Change Password Button -->
                                         <div class="action back-btn">
                                             <form action="/" method="GET" role="form">
-                                                <input type="hidden" name="command" value="updatePassword">
+                                                <input type="hidden" name="command" value="updatePassword"/>
                                                 <button type="submit" class="btn btn-primary signup btn-default"
                                                         style="width: 56%;">
                                                     ${changePasswordButton}

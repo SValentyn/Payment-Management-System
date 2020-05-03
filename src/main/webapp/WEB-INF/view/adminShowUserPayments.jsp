@@ -83,7 +83,7 @@
                                                         <span class="title-label forward-left-link-img">
                                                             <a href="/" class="float-left">
                                                                 <img src="resources/images/return.png"
-                                                                     class="icon-return" alt="">
+                                                                     class="icon-return" alt=""/>
                                                                     ${returnToUsers}
                                                             </a>
                                                         </span>
@@ -97,7 +97,7 @@
                                                             <a href="?command=showUser&userId=${userId}"
                                                                class="float-left">
                                                                 <img src="resources/images/return.png"
-                                                                     class="icon-return" alt="">
+                                                                     class="icon-return" alt=""/>
                                                                     ${returnToUserProfile}
                                                             </a>
                                                         </span>
@@ -111,9 +111,9 @@
                                                             <div>
                                                                 <form action="/" method="GET" role="form">
                                                                     <input type="hidden" name="command"
-                                                                           value="showUser">
+                                                                           value="showUser"/>
                                                                     <input type="hidden" name="userId"
-                                                                           value="${userId}">
+                                                                           value="${userId}"/>
                                                                     <div class="action" style="text-align: unset;">
                                                                         <button id="submit" type="submit"
                                                                                 class="btn btn-primary signup btn-default"
@@ -130,7 +130,7 @@
                                                                 </label>
                                                                 <form action="/" method="GET" role="form">
                                                                     <input type="hidden" name="command"
-                                                                           value="searchAccounts">
+                                                                           value="searchAccounts"/>
                                                                     <div class="action" style="text-align: unset;">
                                                                         <button id="search" type="submit"
                                                                                 class="btn btn-primary signup">
@@ -195,7 +195,7 @@
                                                                                                             <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/info.png"
-                                                                                                                     alt="">
+                                                                                                                     alt=""/>
                                                                                                             </a>
                                                                                                         </p>
                                                                                                     </c:when>
@@ -221,7 +221,7 @@
                                                                                                             <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/info.png"
-                                                                                                                     alt="">
+                                                                                                                     alt=""/>
                                                                                                             </a>
                                                                                                         </p>
                                                                                                     </c:otherwise>
@@ -234,7 +234,8 @@
                                                                         </div>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <div class="message-block">
+                                                                        <div class="message-block"
+                                                                             style="padding-left: 20px;">
                                                                             <span class="title-label">
                                                                                 <label>
                                                                                       <fmt:message

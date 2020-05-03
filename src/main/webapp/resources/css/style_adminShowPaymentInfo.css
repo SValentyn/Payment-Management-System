@@ -1,3 +1,13 @@
+.content-wrap h4 {
+    margin-bottom: 15px;
+}
+
+.detail {
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: right;
+}
+
 .form-control {
     height: 46px !important;
     margin-top: 0 !important;
@@ -14,7 +24,7 @@
 }
 
 @media (max-width: 412px) {
-    h4 {
+    .content-wrap h4 {
         font-size: 16px !important;
     }
 
@@ -32,7 +42,7 @@
 }
 
 @media (max-width: 354px) {
-    h4 {
+    .content-wrap h4 {
         font-size: 14px !important;
     }
 

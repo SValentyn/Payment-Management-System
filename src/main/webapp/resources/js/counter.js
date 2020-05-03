@@ -1,65 +1,69 @@
-// For textarea "appointment"
-$(window).ready(function () {
-    let maxLength = 100;
+// For textarea "appointment" and textarea "description"
+window.addEventListener("load", function () {
+    let appointment = document.querySelector("#appointment");
+    let description = document.querySelector("#description");
 
-    $("#appointment").focus(function () {
-        let revText = this.value.length;
+    if (appointment != null) {
+        let maxLength = 100;
 
-        let count = (maxLength - revText);
-        if (count <= 0) {
-            $("#counter").html('0');
-        } else {
-            $("#counter").html(count);
-        }
-    });
+        appointment.addEventListener('focus', function () {
+            let revText = this.value.length;
+            let count = (maxLength - revText);
 
-    $("#appointment").keyup(function () {
-        let revText = this.value.length;
+            if (count <= 0) {
+                $("#counter").html('0');
+            } else {
+                $("#counter").html(count);
+            }
+        });
 
-        if (revText > 0) {
-            $("#counter").html(revText);
-        }
+        appointment.addEventListener('keyup', function () {
+            let revText = this.value.length;
 
-        if (this.value.length > maxLength) {
-            this.value = this.value.substr(0, maxLength);
-        }
+            if (revText > 0) {
+                $("#counter").html(revText);
+            }
 
-        let count = (maxLength - revText);
-        if (count <= 0) {
-            $("#counter").html('0');
-        } else {
-            $("#counter").html(count);
-        }
-    });
-});
+            if (this.value.length > maxLength) {
+                this.value = this.value.substr(0, maxLength);
+            }
 
-// For textarea "description"
-$(window).ready(function () {
-    let maxLength = 200;
+            let count = (maxLength - revText);
+            if (count <= 0) {
+                $("#counter").html('0');
+            } else {
+                $("#counter").html(count);
+            }
+        });
+    }
 
-    $("#description").focus(function () {
-        let revText = this.value.length;
+    if (description != null) {
+        let maxLength = 200;
 
-        let count = (maxLength - revText);
-        if (count <= 0) {
-            $("#counter").html('0');
-        } else {
-            $("#counter").html(count);
-        }
-    });
+        description.addEventListener('focus', function () {
+            let revText = this.value.length;
+            let count = (maxLength - revText);
 
-    $("#description").keyup(function () {
-        let revText = this.value.length;
+            if (count <= 0) {
+                $("#counter").html('0');
+            } else {
+                $("#counter").html(count);
+            }
+        });
 
-        if (this.value.length > maxLength) {
-            this.value = this.value.substr(0, maxLength);
-        }
+        description.addEventListener('keyup', function () {
+            let revText = this.value.length;
 
-        let count = (maxLength - revText);
-        if (count <= 0) {
-            $("#counter").html('0');
-        } else {
-            $("#counter").html(count);
-        }
-    });
+            if (this.value.length > maxLength) {
+                this.value = this.value.substr(0, maxLength);
+            }
+
+            let count = (maxLength - revText);
+            if (count <= 0) {
+                $("#counter").html('0');
+            } else {
+                $("#counter").html(count);
+            }
+        });
+    }
 });

@@ -109,7 +109,7 @@
                                 <div class="box">
                                     <div class="content-wrap">
 
-                                        <h4 style="margin-bottom: 15px;">
+                                        <h4>
                                             ${formHeader}
                                         </h4>
 
@@ -125,11 +125,12 @@
                                                         <label class="for-form-label">
                                                                 ${user_rank}
                                                         </label>
-                                                        <input id="bio" name="bio" class="form-control"
-                                                               type="text" readonly="readonly"
+                                                        <input id="bio" name="bio"
+                                                               type="text" class="form-control"
                                                                style="height: 46px; margin-top: 0;"
                                                                data-toggle="tooltip-right-hover"
-                                                               title="${tooltipUserBio}"
+                                                               data-title="${tooltipUserBio}"
+                                                               readonly="readonly"
                                                                value="${bioValue}"/>
                                                         <label for="bio" class="default-label"></label>
                                                     </div>
@@ -141,12 +142,13 @@
                                                         </label>
                                                         <div class="form-group"
                                                              style="display: flex; margin-bottom: 0;">
-                                                            <input id="number" name="number" class="form-control"
-                                                                   type="text" readonly="readonly" maxlength="20"
+                                                            <input id="number" name="number"
+                                                                   type="text" class="form-control"
                                                                    style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
+                                                                   maxlength="20" readonly="readonly"
                                                                    value="${numberValue}"/>
                                                             <img id="repeat" src="resources/images/repeat.png"
-                                                                 alt="" class="glyphicon icon-repeat">
+                                                                 class="glyphicon icon-repeat" alt=""/>
                                                         </div>
                                                         <label for="number" class="default-label">
                                                             <span id="valid-msg-accountNumber"
@@ -162,7 +164,7 @@
                                                     </div>
 
                                                     <!-- Currency -->
-                                                    <input id="currency" name="currency" type="hidden"/>
+                                                    <input type="hidden" id="currency" name="currency"/>
 
                                                     <!-- Select Currency -->
                                                     <div>
@@ -218,7 +220,7 @@
                                             </c:when>
                                             <c:otherwise>
 
-                                                <form action="/" method="POST" role="form">
+                                                <form action="" method="POST" role="form">
                                                     <input type="hidden" name="command" value="attachAccount"/>
 
                                                     <!-- User bio -->
@@ -226,9 +228,9 @@
                                                         <label class="for-form-label">
                                                                 ${user_rank}
                                                         </label>
-                                                        <input name="bio" class="form-control"
-                                                               type="text" readonly="readonly"
-                                                               style="height: 46px; margin-top: 0;"/>
+                                                        <input name="bio" type="text" class="form-control"
+                                                               style="height: 46px; margin-top: 0;"
+                                                               readonly="readonly"/>
                                                         <label for="bio" class="default-label"></label>
                                                     </div>
 
@@ -239,11 +241,11 @@
                                                         </label>
                                                         <div class="form-group"
                                                              style="display: flex; margin-bottom: 0;">
-                                                            <input name="number" class="form-control"
-                                                                   type="text" readonly="readonly"
-                                                                   style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"/>
-                                                            <img src="resources/images/repeat.png" alt=""
-                                                                 class="glyphicon icon-repeat">
+                                                            <input name="number" type="text" class="form-control"
+                                                                   style="height: 46px; margin: 0 10px 0 0; text-align: center; font-size: 18px;"
+                                                                   readonly="readonly"/>
+                                                            <img src="resources/images/repeat.png"
+                                                                 class="glyphicon icon-repeat" alt=""/>
                                                         </div>
                                                         <label for="number" class="default-label"></label>
                                                     </div>
