@@ -22,7 +22,7 @@ public class LetterService {
     private static final Logger LOGGER = LogManager.getLogger(LetterService.class);
 
     private static LetterService instance = null;
-    private LetterDao letterDao = DaoFactory.createLetterDao();
+    private final LetterDao letterDao = DaoFactory.createLetterDao();
 
     private LetterService() throws SQLException {
     }

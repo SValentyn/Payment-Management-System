@@ -95,7 +95,7 @@ public class CommandAdminAddUser implements ICommand {
     private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Integer userId = (Integer) session.getAttribute("userId");
+        String userId = (String) session.getAttribute("userId");
         if (userId != null) {
             request.setAttribute("userId", userId);
             session.removeAttribute("userId");
@@ -141,7 +141,7 @@ public class CommandAdminAddUser implements ICommand {
     }
 
     private void setSessionAttributes(HttpServletRequest request, Integer userId, ServerResponse serverResponse) {
-        request.getSession().setAttribute("userId", userId);
+        request.getSession().setAttribute("userId", String.valueOf(userId));
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

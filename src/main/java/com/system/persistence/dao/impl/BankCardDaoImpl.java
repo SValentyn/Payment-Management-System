@@ -32,7 +32,7 @@ public class BankCardDaoImpl implements BankCardDao {
     private static final String FIND_ALL_CARDS = "SELECT * FROM bank_cards";
 
     private static BankCardDaoImpl instance = null;
-    private QueryExecutor executor = QueryExecutor.getInstance();
+    private final QueryExecutor executor = QueryExecutor.getInstance();
 
     private BankCardDaoImpl() throws SQLException {
     }

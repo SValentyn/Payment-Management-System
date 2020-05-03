@@ -39,12 +39,10 @@ public class CommandRecoveryPassword implements ICommand {
                 return pathRedirect;
             }
 
-            /*
-                [There should be an implementation of sending a message with a password to the user]
-             */
+            // [There should be an implementation of sending a message with a password to the user]
 
             // Set Attributes
-            setSessionAttributes(request, null, ServerResponse.PASSWORD_SENT);
+            setSessionAttributes(request, ServerResponse.PASSWORD_SENT);
         }
 
         return pathRedirect;
@@ -73,6 +71,10 @@ public class CommandRecoveryPassword implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, String login, ServerResponse serverResponse) {
         request.getSession().setAttribute("login", login);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

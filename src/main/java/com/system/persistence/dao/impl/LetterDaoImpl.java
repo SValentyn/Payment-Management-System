@@ -31,7 +31,7 @@ public class LetterDaoImpl implements LetterDao {
     private static final String FIND_ALL_LETTERS = "SELECT * FROM letters";
 
     private static LetterDaoImpl instance = null;
-    private QueryExecutor executor = QueryExecutor.getInstance();
+    private final QueryExecutor executor = QueryExecutor.getInstance();
 
     private LetterDaoImpl() throws SQLException {
     }

@@ -25,8 +25,8 @@ public class PaymentService {
     private static final Logger LOGGER = LogManager.getLogger(PaymentService.class);
 
     private static PaymentService instance = null;
-    private AccountDao accountDao = DaoFactory.createAccountDao();
-    private PaymentDao paymentDao = DaoFactory.createPaymentDao();
+    private final AccountDao accountDao = DaoFactory.createAccountDao();
+    private final PaymentDao paymentDao = DaoFactory.createPaymentDao();
 
     private PaymentService() throws SQLException {
     }

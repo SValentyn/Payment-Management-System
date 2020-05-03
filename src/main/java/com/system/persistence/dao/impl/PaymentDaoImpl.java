@@ -31,7 +31,7 @@ public class PaymentDaoImpl implements PaymentDao {
     private static final String FIND_ALL_PAYMENTS = "SELECT * FROM payments";
 
     private static PaymentDaoImpl instance = null;
-    private QueryExecutor executor = QueryExecutor.getInstance();
+    private final QueryExecutor executor = QueryExecutor.getInstance();
 
     private PaymentDaoImpl() throws SQLException {
     }

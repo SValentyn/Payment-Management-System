@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_ALL = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id";
 
     private static UserDaoImpl instance = null;
-    private QueryExecutor executor = QueryExecutor.getInstance();
+    private final QueryExecutor executor = QueryExecutor.getInstance();
 
     private UserDaoImpl() throws SQLException {
     }

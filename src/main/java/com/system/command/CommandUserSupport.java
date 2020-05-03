@@ -36,14 +36,6 @@ public class CommandUserSupport implements ICommand {
 
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
-
-            // Check
-            if (user == null) {
-                setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
-                return pathRedirect;
-            }
-
-            // Data
             String typeQuestion = request.getParameter("typeQuestion");
             String description = request.getParameter("description");
 
@@ -65,6 +57,12 @@ public class CommandUserSupport implements ICommand {
     }
 
     private boolean validation(HttpServletRequest request, User user, String typeQuestion, String description) throws SQLException {
+
+        // Check
+        if (user == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+            return false;
+        }
 
         // Validation type question
         if (typeQuestion == null || typeQuestion.equals("")) {

@@ -10,7 +10,7 @@ public enum HTTPMethod {
     PUT("PUT"),
     DELETE("DELETE");
 
-    private String method;
+    private final String method;
 
     HTTPMethod(String method) {
         this.method = method;

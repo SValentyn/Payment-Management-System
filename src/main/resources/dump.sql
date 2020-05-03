@@ -1,3 +1,13 @@
+# Database for site: ha9pcps6k1m1y674
+
+DROP DATABASE IF EXISTS pms_db;
+
+CREATE DATABASE pms_db
+    CHARACTER SET utf8
+    COLLATE utf8_general_ci;
+
+USE pms_db;
+
 SET NAMES utf8;
 SET CHARSET utf8;
 SET CHARACTER SET utf8;
@@ -11,16 +21,6 @@ SET character_set_server = utf8;
 SHOW VARIABLES LIKE 'auto_inc%';
 SHOW VARIABLES LIKE '%character%';
 SHOW VARIABLES LIKE '%collation%';
-
-# ha9pcps6k1m1y674
-
-DROP DATABASE IF EXISTS pms_db;
-
-CREATE DATABASE pms_db
-    CHARACTER SET utf8
-    COLLATE utf8_general_ci;
-
-USE pms_db;
 
 DROP TABLE IF EXISTS letters;
 

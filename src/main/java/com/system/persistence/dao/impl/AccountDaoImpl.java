@@ -31,7 +31,7 @@ public class AccountDaoImpl implements AccountDao {
     private static final String FIND_ALL_ACCOUNTS = "SELECT * FROM accounts WHERE is_deleted = 0";
 
     private static AccountDaoImpl instance = null;
-    private QueryExecutor executor = QueryExecutor.getInstance();
+    private final QueryExecutor executor = QueryExecutor.getInstance();
 
     private AccountDaoImpl() throws SQLException {
     }

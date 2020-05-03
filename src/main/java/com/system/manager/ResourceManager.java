@@ -7,8 +7,6 @@ import java.util.ResourceBundle;
  */
 public class ResourceManager {
 
-    // Configuration file name
-    private final static String BUNDLE_NAME = "configuration";
     // *************************
     // UNREGISTERED USER'S PAGES
     // *************************
@@ -75,6 +73,9 @@ public class ResourceManager {
     public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
     public static final String COMMAND_ADMIN_SUPPORT = "COMMAND_ADMIN_SUPPORT";
     public static final String COMMAND_ADMIN_SHOW_LETTER_INFO = "COMMAND_ADMIN_SHOW_LETTER_INFO";
+
+    // Configuration file name
+    private final static String BUNDLE_NAME = "configuration";
 
     private static ResourceManager instance;
     private ResourceBundle resourceBundle;

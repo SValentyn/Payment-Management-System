@@ -21,7 +21,7 @@ public class AccountService {
     private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
 
     private static AccountService instance = null;
-    private AccountDao accountDao = DaoFactory.createAccountDao();
+    private final AccountDao accountDao = DaoFactory.createAccountDao();
 
     private AccountService() throws SQLException {
     }
