@@ -1,10 +1,11 @@
 .login-wrapper .box {
     padding: 0;
-}
-
-.login-wrapper .box .card .shadow-none {
     border: none;
     border-radius: 6px;
+}
+
+.login-wrapper .box .card-header .nav-link img {
+    margin-right: 6px;
 }
 
 .col-md-12,

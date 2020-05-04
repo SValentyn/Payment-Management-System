@@ -264,6 +264,7 @@ body {
 /* STYLE OF NAVIGATION BAR */
 
 .nav-tabs li {
+    color: #0369c0e3;
     border-top-left-radius: .55rem;
     border-top-right-radius: .55rem;
 }
@@ -461,6 +462,17 @@ h4, h5 {
     text-decoration: none;
     color: #000;
     border-bottom-color: #000;
+}
+
+div[class="search-block"] {
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+
+div[class="search-block"] label {
+    margin-bottom: 30px;
+    font-size: 16px;
+    text-transform: uppercase;
 }
 
 div[class="message-block"] {
