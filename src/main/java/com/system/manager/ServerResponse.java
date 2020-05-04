@@ -40,6 +40,7 @@ public enum ServerResponse {
     UNABLE_GET_CARD("unableGetCard"),
     SHOW_ACCOUNT_ERROR("showAccountError"),
     ACCOUNT_BLOCKED_ERROR("accountBlockedError"),
+    ACCOUNT_BLOCKED_SUCCESS("accountBlockedSuccess"),
     ACCOUNT_UNBLOCKED_ERROR("accountUnblockedError"),
     ACCOUNT_DELETED_SUCCESS("accountDeletedSuccess"),
     ACCOUNT_HAS_FUNDS_ERROR("accountHasFundsError"),

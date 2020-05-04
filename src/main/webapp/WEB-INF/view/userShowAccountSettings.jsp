@@ -57,7 +57,7 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert unableGetUser -->
+    <!-- Alert unableGetUser or showAccountError -->
     <c:if test="${response eq 'unableGetUser' || response eq 'showAccountError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
