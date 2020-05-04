@@ -16,27 +16,14 @@
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet" href="resources/css/style_userShowAccounts.css">
 </head>
 <body>
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert accountsEmpty -->
-    <c:if test="${accountsEmpty == true}">
-        <div id="alert" class="alert alert-warning fade show" role="alert">
-            <p>
-                <fmt:message key="user.page.youNotHaveAccount"/>
-                <a href="?command=createAccount" class="alert-link"><fmt:message key="user.page.create"/></a>
-                <fmt:message key="user.page.itNow"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unableGetUser -->
-    <c:if test="${response eq 'unableGetUser'}">
+    <!-- Alert unableGetUser and showUserAccountsError -->
+    <c:if test="${response eq 'unableGetUser' || response eq 'showUserAccountsError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertUnableGetUser"/>
@@ -56,101 +43,147 @@
             <div class="col-lg-10">
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
-                <fmt:message key="user.account.allAccounts" var="allAccounts"/>
-                <fmt:message key="user.account.number" var="number"/>
                 <fmt:message key="user.account.balance" var="balance"/>
-                <fmt:message key="user.account.status" var="status"/>
-                <fmt:message key="user.account.action" var="action"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
-                <fmt:message key="user.account.button.block" var="block"/>
-                <fmt:message key="user.account.button.unblock" var="unblock"/>
                 <fmt:message key="user.account.button.showInfo" var="showInfo"/>
+                <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
+                <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
-                <div class="card shadow-none">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs justify-content-lg-center" role="tablist">
-                            <li class="nav-item-active">
-                                <a class="nav-link" role="tab" data-toggle="tab" aria-selected="true"
-                                   onclick="document.getElementById('form-showAccounts').submit(); return false;">
-                                    <img src="resources/images/show-accounts.png"
-                                         class="icon-sidebar" alt=""/>
-                                    ${myAccounts}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-hover" role="tab" data-toggle="tab" aria-selected="false"
-                                   onclick="document.getElementById('form-showPayments').submit(); return false;">
-                                    <img src="resources/images/balance.png"
-                                         class="icon-sidebar" alt=""/>
-                                    ${myPayments}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="page-content container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="login-wrapper">
+                                <div class="box">
 
-                    <form action="" method="GET" role="form" id="form-showAccounts">
-                        <input type="hidden" name="command" value="showAccounts"/>
-                    </form>
-                    <form action="" method="GET" role="form" id="form-showPayments">
-                        <input type="hidden" name="command" value="showPayments"/>
-                    </form>
-
-                    <div class="card-body">
-                        <c:choose>
-                            <c:when test="${accountsEmpty == false}">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-
-                                                ${allAccounts}
-
-                                                ${number}
-                                                ${balance}
-                                                ${status}
-                                                ${action}
-                                                ${showInfo}
-
-                                            <c:forEach items="${accounts}" var="account">
-                                                ${account.number}
-                                                ${account.balance}
-                                                <c:choose>
-                                                    <c:when test="${account.isBlocked}">
-                                                        ${statusBlocked}
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        ${statusActive}
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <c:choose>
-                                                    <c:when test="${account.isBlocked}">
-                                                        <a href="?command=unblockAccount&accountId=${account.accountId}">
-                                                                ${unblock}
-                                                            <img src="resources/images/unlocked-link.png"
-                                                                 class="icon" alt=""/>
-                                                        </a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a href="?command=blockAccount&accountId=${account.accountId}">
-                                                                ${block}
-                                                            <img src="resources/images/locked-link.png"
-                                                                 class="icon" alt=""/>
-                                                        </a>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <a href="?command=showAccountInfo&accountId=${account.accountId}">
-                                                        ${showInfo}
+                                    <div class="card-header">
+                                        <ul class="nav nav-tabs card-header-tabs justify-content-lg-center"
+                                            role="tablist">
+                                            <li class="nav-item-active">
+                                                <a class="nav-link" role="tab" data-toggle="tab"
+                                                   aria-selected="true"
+                                                   onclick="document.getElementById('form-showAccounts').submit(); return false;">
+                                                    <img src="resources/images/show-accounts.png" class="icon-sidebar"
+                                                         style="width: 20px; height: 20px;" alt=""/>
+                                                    ${myAccounts}
                                                 </a>
-                                            </c:forEach>
-                                        </div>
+                                                <form action="" method="GET" role="form" id="form-showAccounts">
+                                                    <input type="hidden" name="command" value="showAccounts"/>
+                                                </form>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link nav-link-hover" role="tab" data-toggle="tab"
+                                                   aria-selected="false"
+                                                   onclick="document.getElementById('form-showPayments').submit(); return false;">
+                                                    <img src="resources/images/show-payments.png"
+                                                         class="icon-sidebar" style="height: 17px" alt=""/>
+                                                    ${myPayments}
+                                                </a>
+                                                <form action="" method="GET" role="form" id="form-showPayments">
+                                                    <input type="hidden" name="command" value="showPayments"/>
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </div>
+
+                                    <c:choose>
+                                        <c:when test="${response ne 'unableGetUser' &&
+                                                        response ne 'showUserAccountsError' &&
+                                                        accountsEmpty == false}">
+
+                                            <div class="card-body" style="padding: 55px 40px 25px 40px;">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-xl-3">
+                                                        <div class="search-block">
+                                                            <label>
+                                                                    ${searchCriteria}:
+                                                            </label>
+                                                            <form action="/" method="GET" role="form">
+                                                                <input type="hidden" name="command"
+                                                                       value="searchAccounts"/>
+                                                                <div class="action" style="text-align: unset;">
+                                                                    <button id="search" type="submit"
+                                                                            class="btn btn-primary signup">
+                                                                            ${searchButton}
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-9 col-xl-9">
+                                                        <div class="col-xl-12">
+                                                            <div class="form-row">
+                                                                <div class="card-container"
+                                                                     style="width: 100% !important;">
+                                                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-2 row-cols-xl-2">
+
+                                                                        <c:forEach items="${accounts}" var="account">
+                                                                            <div class="col mb-4">
+                                                                                <div class="card bg-light">
+                                                                                    <div class="card-header">
+                                                                                        <c:choose>
+                                                                                            <c:when test="${account.isBlocked}">
+                                                                                                <small class="text-danger float-right">
+                                                                                                        ${statusBlocked}
+                                                                                                </small>
+                                                                                            </c:when>
+                                                                                            <c:otherwise>
+                                                                                                <small class="text-success float-right">
+                                                                                                        ${statusActive}
+                                                                                                </small>
+                                                                                            </c:otherwise>
+                                                                                        </c:choose>
+                                                                                    </div>
+                                                                                    <div class="card-body"
+                                                                                         style="padding: 0.75rem 1.25rem;">
+                                                                                        <p class="card-title text-muted">
+                                                                                                ${account.number}<br/>
+                                                                                                ${balance}: ${account.balance} ${account.currency}
+
+                                                                                            <!-- Show Account Info -->
+                                                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}"
+                                                                                               class="float-right">
+                                                                                                <img src="resources/images/info.png"
+                                                                                                     alt="${showInfo}"/>
+                                                                                            </a>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="card-body" style="min-height: 325px; padding: 35px;">
+                                                <div class="message-block">
+                                                    <span>
+                                                        <label>
+                                                            <fmt:message key="user.page.accountsEmpty"/>
+                                                            <a href="?command=createAccount" class="alert-link">
+                                                                <fmt:message key="user.page.create"/>
+                                                            </a>
+                                                            <fmt:message
+                                                                    key="user.page.acceptPaymentsFromAllOverTheWorld"/>
+                                                        </label>
+                                                    </span>
+                                                    <div class="w-100" style="height:172px;">
+                                                        <img src="resources/images/profit_2.png" alt=""
+                                                             style="width: 172px; height: 172px; position: absolute; bottom: 35px; right: 55px;"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
-                            </c:when>
-                            <c:otherwise>
-
-
-                            </c:otherwise>
-                        </c:choose>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

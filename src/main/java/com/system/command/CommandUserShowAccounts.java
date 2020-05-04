@@ -17,7 +17,6 @@ public class CommandUserShowAccounts implements ICommand {
     // Default path
     private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
 
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
