@@ -1,0 +1,65 @@
+.login-wrapper .box .content-wrap {
+    width: 92%;
+}
+
+.login-wrapper .box {
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+}
+
+.login-wrapper .box .card-header .nav-link img {
+    margin-right: 6px;
+}
+
+.card-container {
+    width: 100%;
+    margin: 0;
+}
+
+.message-block span {
+    padding-bottom: 20px;
+    font-size: 22px;
+}
+
+@media (max-width: 439px) {
+    .card-container {
+        font-size: 90%;
+    }
+
+    .card-body .card-title a {
+        padding-top: 8px;
+    }
+
+    .message-block span {
+        font-size: 16px !important;
+    }
+
+    .message-block div {
+        height: 132px !important;
+    }
+
+    .message-block div img {
+        width: 132px !important;
+        height: 132px !important;
+    }
+}
+
+@media (max-width: 389px) {
+    .card-container {
+        font-size: 80%;
+    }
+
+    .message-block span {
+        padding: 0;
+    }
+
+    .message-block div {
+        height: 108px !important;
+    }
+
+    .message-block div img {
+        width: 108px !important;
+        height: 108px !important;
+    }
+}

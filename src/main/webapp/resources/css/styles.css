@@ -1078,18 +1078,19 @@ div[class="message-block"] .title-label {
     cursor: pointer;
     outline: none;
     text-decoration: none;
-    transition: .2s;
+    transition: .3s;
     transform: translateY(0);
 }
 
 .forward-right-link-img,
 .forward-left-link-img {
     display: inline-block;
-    cursor: pointer;
-    outline: none;
+    padding: 0 2px 0;
     font-size: 15px;
     text-decoration: none;
-    transition: .2s;
+    cursor: pointer;
+    outline: none;
+    transition: .3s;
     transform: translateX(0);
 }
 
