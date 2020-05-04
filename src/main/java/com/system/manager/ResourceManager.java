@@ -22,6 +22,7 @@ public class ResourceManager {
     public static final String USER_UPDATE_PASSWORD = "USER_UPDATE_PASSWORD";
     public static final String USER_SHOW_ACCOUNTS = "USER_SHOW_ACCOUNTS";
     public static final String USER_SHOW_PAYMENTS = "USER_SHOW_PAYMENTS";
+    public static final String USER_SHOW_ACCOUNT_SETTINGS = "USER_SHOW_ACCOUNT_SETTINGS";
     public static final String USER_CREATE_ACCOUNT = "USER_CREATE_ACCOUNT";
     public static final String USER_ATTACH_CARD = "USER_ATTACH_CARD";
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
@@ -55,6 +56,7 @@ public class ResourceManager {
     public static final String COMMAND_USER_UPDATE_PASSWORD = "COMMAND_USER_UPDATE_PASSWORD";
     public static final String COMMAND_USER_SHOW_ACCOUNTS = "COMMAND_USER_SHOW_ACCOUNTS";
     public static final String COMMAND_USER_SHOW_PAYMENTS = "COMMAND_USER_SHOW_PAYMENTS";
+    public static final String COMMAND_USER_SHOW_ACCOUNT_SETTINGS = "COMMAND_USER_SHOW_ACCOUNT_SETTINGS";
     public static final String COMMAND_USER_CREATE_ACCOUNT = "COMMAND_USER_CREATE_ACCOUNT";
     public static final String COMMAND_USER_ATTACH_CARD = "COMMAND_USER_ATTACH_CARD";
     public static final String COMMAND_USER_MAKE_PAYMENT = "COMMAND_USER_MAKE_PAYMENT";

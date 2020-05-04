@@ -44,17 +44,19 @@ public class ControllerHelper {
         userCommands.put("profile", new CommandUserUpdatePersonalData());
         userCommands.put("deleteProfile", new CommandUserDeleteProfile());
         userCommands.put("updatePassword", new CommandUserUpdatePassword());
-        userCommands.put("showAccounts", new CommandUserShowAccounts());
-        userCommands.put("showPayments", new CommandUserShowPayments());
         userCommands.put("createAccount", new CommandUserCreateAccount());
-        userCommands.put("attachCard", new CommandUserAttachCard());
-        userCommands.put("detachCard", new CommandUserDetachCard());
-        userCommands.put("blockAccount", new CommandUserBlockAccount());
-        userCommands.put("blockCard", new CommandUserBlockCard());
-        userCommands.put("unblockAccount", new CommandUserUnblockAccount());
-        userCommands.put("unblockCard", new CommandUserUnblockCard());
         userCommands.put("makePayment", new CommandUserMakePayment());
         userCommands.put("repeatPayment", new CommandUserRepeatPayment());
+        userCommands.put("showAccounts", new CommandUserShowAccounts());
+        userCommands.put("showPayments", new CommandUserShowPayments());
+        userCommands.put("showAccountSettings", new CommandUserShowAccountSettings());
+        userCommands.put("blockAccount", new CommandUserBlockAccount());
+        userCommands.put("unblockAccount", new CommandUserUnblockAccount());
+        userCommands.put("deleteAccount", new CommandUserDeleteAccount());
+        userCommands.put("blockCard", new CommandUserBlockCard());
+        userCommands.put("unblockCard", new CommandUserUnblockCard());
+        userCommands.put("attachCard", new CommandUserAttachCard());
+        userCommands.put("detachCard", new CommandUserDetachCard());
         userCommands.put("support", new CommandUserSupport());
 
         // Admin commands
