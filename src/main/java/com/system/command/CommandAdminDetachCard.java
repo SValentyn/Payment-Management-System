@@ -39,7 +39,7 @@ public class CommandAdminDetachCard implements ICommand {
                 return pathRedirect;
             }
 
-            // Action
+            // Action (detach card)
             int status = BankCardService.getInstance().deleteCardById(Integer.valueOf(cardIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.CARD_DETACHED_ERROR);
@@ -68,6 +68,21 @@ public class CommandAdminDetachCard implements ICommand {
             return false;
         }
 
+        // Data
+        Integer accountId = Integer.valueOf(accountIdParam);
+        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+        List<BankCard> cardsByAccountId = BankCardService.getInstance().findCardsByAccountId(accountId);
+        List<Integer> cardIds = new ArrayList<>();
+        for (BankCard aCard : cardsByAccountId) {
+            cardIds.add(aCard.getCardId());
+        }
+
+        // Checking that the account belongs to the user
+        if (!account.getUserId().equals(Integer.valueOf(userIdParam))) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
+            return false;
+        }
+
         // Change redirect path
         pathRedirect += "&accountId=" + accountIdParam;
 
@@ -77,27 +92,8 @@ public class CommandAdminDetachCard implements ICommand {
             return false;
         }
 
-        // Data
-        Integer userId = Integer.valueOf(userIdParam);
-        Integer accountId = Integer.valueOf(accountIdParam);
-        Integer cardId = Integer.valueOf(cardIdParam);
-        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
-
-        // Checking that the account belongs to the user
-        if (!account.getUserId().equals(userId)) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
-            return false;
-        }
-
-        // Data
-        List<BankCard> cardsByAccountId = BankCardService.getInstance().findCardsByAccountId(accountId);
-        List<Integer> cardIds = new ArrayList<>();
-        for (BankCard aCard : cardsByAccountId) {
-            cardIds.add(aCard.getCardId());
-        }
-
         // Checking that the card belongs to the user account
-        if (!cardIds.contains(cardId)) {
+        if (!cardIds.contains(Integer.valueOf(cardIdParam))) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_CARD);
             return false;
         }

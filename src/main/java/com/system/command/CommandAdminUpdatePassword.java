@@ -37,14 +37,6 @@ public class CommandAdminUpdatePassword implements ICommand {
 
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
-
-            // Check
-            if (user == null) {
-                setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
-                return pathRedirect;
-            }
-
-            // Data
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
@@ -57,7 +49,7 @@ public class CommandAdminUpdatePassword implements ICommand {
             // Set new password
             user.setPassword(encryptor.encode(newPassword));
 
-            // Action
+            // Action (update data)
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.PASSWORD_UPDATED_ERROR);
@@ -70,6 +62,12 @@ public class CommandAdminUpdatePassword implements ICommand {
     }
 
     private boolean validation(HttpServletRequest request, User user, String oldPassword, String newPassword, String passwordConfirmation) throws SQLException {
+
+        // Check
+        if (user == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+            return false;
+        }
 
         // Validation old password
         if (!checkOldPassword(user, oldPassword)) {

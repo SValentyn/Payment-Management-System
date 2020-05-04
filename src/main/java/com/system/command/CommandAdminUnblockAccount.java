@@ -34,7 +34,7 @@ public class CommandAdminUnblockAccount implements ICommand {
                 return pathRedirect;
             }
 
-            // Action
+            // Action (unblock account)
             int status = AccountService.getInstance().unblockAccount(Integer.valueOf(accountIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.ACCOUNT_UNBLOCKED_ERROR);
@@ -62,9 +62,6 @@ public class CommandAdminUnblockAccount implements ICommand {
             return false;
         }
 
-        // Change redirect path
-        pathRedirect += "&accountId=" + accountIdParam;
-
         // Data
         Integer userId = Integer.valueOf(userIdParam);
         Integer accountId = Integer.valueOf(accountIdParam);
@@ -75,6 +72,9 @@ public class CommandAdminUnblockAccount implements ICommand {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }
+
+        // Change redirect path
+        pathRedirect += "&accountId=" + accountIdParam;
 
         return true;
     }

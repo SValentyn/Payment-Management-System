@@ -32,7 +32,7 @@
 }
 
 .alert {
-    margin-top: 22px;
+    margin-top: 22px !important;
 }
 
 @media (max-width: 960px) {

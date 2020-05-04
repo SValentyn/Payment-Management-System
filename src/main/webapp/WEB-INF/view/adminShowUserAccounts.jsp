@@ -54,13 +54,14 @@
 
             <div class="col-lg-10">
                 <fmt:message key="admin.user_accounts.formHeader" var="formHeader"/>
+                <fmt:message key="user.account.balance" var="balance"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
-                <fmt:message key="user.account.balance" var="balance"/>
-                <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
-                <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
+                <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
                 <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
+                <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -122,8 +123,8 @@
                                                                 </form>
                                                             </div>
 
-                                                            <div style="text-align: center; margin: 20px 0 30px 0;">
-                                                                <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
+                                                            <div class="search-block">
+                                                                <label>
                                                                         ${searchCriteria}:
                                                                 </label>
                                                                 <form action="/" method="GET" role="form">
@@ -175,7 +176,7 @@
                                                                                                         <a href="?command=showAccountInfo&userId=${userId}&accountId=${account.accountId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/info.png"
-                                                                                                                 alt=""/>
+                                                                                                                 alt="${showInfo}"/>
                                                                                                         </a>
                                                                                                     </p>
                                                                                                 </div>

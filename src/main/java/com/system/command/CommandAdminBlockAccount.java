@@ -34,7 +34,7 @@ public class CommandAdminBlockAccount implements ICommand {
                 return pathRedirect;
             }
 
-            // Action
+            // Action (block account)
             int status = AccountService.getInstance().blockAccount(Integer.valueOf(accountIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_ERROR);
@@ -61,9 +61,6 @@ public class CommandAdminBlockAccount implements ICommand {
             return false;
         }
 
-        // Change redirect path
-        pathRedirect += "&accountId=" + accountIdParam;
-
         // Data
         Integer userId = Integer.valueOf(userIdParam);
         Integer accountId = Integer.valueOf(accountIdParam);
@@ -74,6 +71,9 @@ public class CommandAdminBlockAccount implements ICommand {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }
+
+        // Change redirect path
+        pathRedirect += "&accountId=" + accountIdParam;
 
         return true;
     }

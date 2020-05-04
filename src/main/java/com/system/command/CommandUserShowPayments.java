@@ -1,14 +1,11 @@
 package com.system.command;
 
-import com.system.entity.Account;
 import com.system.entity.Payment;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
-import com.system.service.AccountService;
 import com.system.service.PaymentService;
-import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -67,9 +67,6 @@ public class CommandAdminDeleteAccount implements ICommand {
             return false;
         }
 
-        // Change redirect path
-        pathRedirect += "&accountId=" + accountIdParam;
-
         // Data
         Integer userId = Integer.valueOf(userIdParam);
         Integer accountId = Integer.valueOf(accountIdParam);
@@ -80,6 +77,9 @@ public class CommandAdminDeleteAccount implements ICommand {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }
+
+        // Change redirect path
+        pathRedirect += "&accountId=" + accountIdParam;
 
         return true;
     }

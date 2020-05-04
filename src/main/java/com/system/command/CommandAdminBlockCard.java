@@ -39,7 +39,7 @@ public class CommandAdminBlockCard implements ICommand {
                 return pathRedirect;
             }
 
-            // Action
+            // Action (block card)
             int status = BankCardService.getInstance().blockBankCard(Integer.valueOf(cardIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.CARD_BLOCKED_ERROR);
@@ -96,7 +96,7 @@ public class CommandAdminBlockCard implements ICommand {
             cardIds.add(aCard.getCardId());
         }
 
-        // Check that the card belongs to the user account
+        // Checking that the card belongs to the user account
         if (!cardIds.contains(cardId)) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_CARD);
             return false;

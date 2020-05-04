@@ -38,7 +38,7 @@ public class CommandUserUnblockAccount implements ICommand {
             // Change redirect path
             pathRedirect += "&accountId=" + accountIdParam;
 
-            // Action (block account)
+            // Action (unblock account)
             int status = AccountService.getInstance().unblockAccount(Integer.valueOf(accountIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.ACCOUNT_UNBLOCKED_ERROR);

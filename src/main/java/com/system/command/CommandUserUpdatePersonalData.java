@@ -33,10 +33,10 @@ public class CommandUserUpdatePersonalData implements ICommand {
             User user = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user == null) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER.getResponse());
-            } else {
+            if (user != null) {
                 setRequestAttributes(request, user);
+            } else {
+                request.setAttribute("response", ServerResponse.UNABLE_GET_USER.getResponse());
             }
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
@@ -44,14 +44,6 @@ public class CommandUserUpdatePersonalData implements ICommand {
 
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
-
-            // Check
-            if (user == null) {
-                setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
-                return pathRedirect;
-            }
-
-            // Data
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone");  // set in the validator file (hiddenInput: "full_phone")
@@ -83,6 +75,12 @@ public class CommandUserUpdatePersonalData implements ICommand {
     }
 
     private boolean validation(HttpServletRequest request, User user, String name, String surname, String phone, String email, String password) throws SQLException {
+
+        // Check
+        if (user == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+            return false;
+        }
 
         // Validation password
         if (!checkPassword(user, password)) {

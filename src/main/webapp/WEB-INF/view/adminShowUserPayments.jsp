@@ -56,13 +56,14 @@
                 <fmt:message key="admin.user_payments.formHeader" var="formHeader"/>
                 <fmt:message key="admin.page.success" var="success"/>
                 <fmt:message key="admin.page.failed" var="failed"/>
-                <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
-                <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
                 <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
+                <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
                 <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
+                <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">
@@ -124,8 +125,8 @@
                                                                 </form>
                                                             </div>
 
-                                                            <div style="text-align: center; margin: 20px 0 30px 0;">
-                                                                <label style="margin-bottom: 30px; font-size: 16px; text-transform: uppercase;">
+                                                            <div class="search-block">
+                                                                <label>
                                                                         ${searchCriteria}:
                                                                 </label>
                                                                 <form action="/" method="GET" role="form">
@@ -195,7 +196,7 @@
                                                                                                             <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/info.png"
-                                                                                                                     alt=""/>
+                                                                                                                     alt="${showInfo}"/>
                                                                                                             </a>
                                                                                                         </p>
                                                                                                     </c:when>
@@ -221,7 +222,7 @@
                                                                                                             <a href="?command=showPaymentInfo&userId=${userId}&paymentId=${payment.paymentId}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/info.png"
-                                                                                                                     alt=""/>
+                                                                                                                     alt="${showInfo}"/>
                                                                                                             </a>
                                                                                                         </p>
                                                                                                     </c:otherwise>

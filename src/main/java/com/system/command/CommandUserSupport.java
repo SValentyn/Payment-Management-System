@@ -44,7 +44,7 @@ public class CommandUserSupport implements ICommand {
                 return pathRedirect;
             }
 
-            // Action
+            // Action (send letter)
             int status = LetterService.getInstance().addNewLetter(user.getUserId(), typeQuestion, description);
             if (status == 0) {
                 setSessionAttributes(request, typeQuestion, description, ServerResponse.LETTER_SENT_ERROR);

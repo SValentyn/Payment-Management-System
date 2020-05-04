@@ -149,6 +149,7 @@
                 <fmt:message key="admin.account_info.balance" var="balance"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user.userAccounts" var="userAccounts"/>
                 <fmt:message key="admin.page.success" var="success"/>
                 <fmt:message key="admin.page.failed" var="failed"/>
@@ -359,7 +360,7 @@
                                                                                                                     <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                                        class="float-right">
                                                                                                                         <img src="resources/images/info.png"
-                                                                                                                             alt=""/>
+                                                                                                                             alt="${showInfo}"/>
                                                                                                                     </a>
                                                                                                                 </p>
                                                                                                             </c:otherwise>
@@ -432,7 +433,7 @@
                                                                                                             <a href="?command=showAccountInfo&userId=${viewableUser.userId}&accountId=${account.accountId}"
                                                                                                                class="float-right">
                                                                                                                 <img src="resources/images/info.png"
-                                                                                                                     alt=""/>
+                                                                                                                     alt="${showInfo}"/>
                                                                                                             </a>
                                                                                                         </p>
                                                                                                     </div>

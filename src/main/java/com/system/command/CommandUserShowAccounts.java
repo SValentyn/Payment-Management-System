@@ -31,14 +31,12 @@ public class CommandUserShowAccounts implements ICommand {
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
 
-            // Check
-            if (user == null) {
+            // Check and set attributes
+            if (user != null) {
+                setRequestAttributes(request, user);
+            } else {
                 setRequestAttributes(request, ServerResponse.UNABLE_GET_USER);
-                return pathRedirect;
             }
-
-            // Set Attributes
-            setRequestAttributes(request, user);
         }
 
         return pathRedirect;

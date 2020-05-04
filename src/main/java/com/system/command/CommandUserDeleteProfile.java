@@ -37,7 +37,7 @@ public class CommandUserDeleteProfile implements ICommand {
                 return pathRedirect;
             }
 
-            // Action (delete user)
+            // Action (delete profile)
             int status = UserService.getInstance().deleteUserById(user.getUserId());
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.PROFILE_DELETED_ERROR);

@@ -81,12 +81,10 @@ public class CommandAdminShowAccountInfo implements ICommand {
         }
 
         // Data
-        Integer userId = Integer.valueOf(userIdParam);
-        Integer accountId = Integer.valueOf(accountIdParam);
-        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+        Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Checking that the userId by account matches the received
-        if (!account.getUserId().equals(userId)) {
+        if (!account.getUserId().equals(Integer.valueOf(userIdParam))) {
             setRequestAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }

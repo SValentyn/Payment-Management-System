@@ -62,35 +62,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert blockAccountError -->
-    <c:if test="${blockAccountError == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertBlockAccountError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert unblockAccountAlert -->
-    <c:if test="${unblockAccountAlert == true}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><fmt:message key="user.page.alertUnblockAccountError"/>
-                <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <!-- Alert blockCardError -->
     <c:if test="${blockCardError == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertBlockCardError"/>
+                <fmt:message key="user.page.alertCardBlockedError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -101,7 +77,7 @@
     <!-- Alert unblockCardAlert -->
     <c:if test="${unblockCardAlert == true}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><fmt:message key="user.page.alertUnblockCardError"/>
+            <p><fmt:message key="user.page.alertCardUnblockedError"/>
                 <a href="?command=support" class="alert-link"><fmt:message key="user.page.technicalSupport"/></a>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -130,13 +106,13 @@
     <fmt:message key="user.card.detach" var="detach"/>
     <fmt:message key="user.account.allAccounts" var="allAccounts"/>
     <fmt:message key="user.account.number" var="number"/>
-    <fmt:message key="user.account.button.showInfo" var="showInfo"/>
+    <fmt:message key="user.page.showInfo" var="showInfo"/>
     <fmt:message key="user.account.status" var="loop"/>
     <fmt:message key="user.account.status.active" var="statusActive"/>
     <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
     <fmt:message key="user.account.action" var="action"/>
-    <fmt:message key="user.account.button.block" var="block"/>
-    <fmt:message key="user.account.button.unblock" var="unblock"/>
+    <fmt:message key="user.account.block" var="block"/>
+    <fmt:message key="user.account.unblock" var="unblock"/>
 
     <c:forEach items="${accounts}" var="account">
 

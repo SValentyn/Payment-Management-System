@@ -55,14 +55,6 @@ public class CommandAdminAddUser implements ICommand {
         return pathRedirect;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("nameValue", null);
-        request.setAttribute("surnameValue", null);
-        request.setAttribute("phoneValue", null);
-        request.setAttribute("emailValue", null);
-        request.setAttribute("response", "");
-    }
-
     private boolean validation(HttpServletRequest request, String name, String surname, String phone, String email) throws SQLException {
 
         // Validation name
@@ -90,6 +82,15 @@ public class CommandAdminAddUser implements ICommand {
         }
 
         return true;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("userId", null);
+        request.setAttribute("nameValue", null);
+        request.setAttribute("surnameValue", null);
+        request.setAttribute("phoneValue", null);
+        request.setAttribute("emailValue", null);
+        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {

@@ -37,26 +37,35 @@ public class CommandAdminShowUser implements ICommand {
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!Validator.checkUserId(userIdParam)) {
-                setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
+            if (!validation(request, userIdParam)) {
                 return pathRedirect;
             }
 
             // Data
-            Integer userId = Integer.valueOf(userIdParam);
-            User user = UserService.getInstance().findUserById(userId);
+            User user = UserService.getInstance().findUserById(Integer.valueOf(userIdParam));
 
-            // Check and set Attributes
+            // Check and set attributes
             if (user.getRole().getId() == 1) {
-                setRequestAttributes(request, userId, user, false);
+                setRequestAttributes(request, user, false);
             } else if (user.getRole().getId() == 2) {
-                setRequestAttributes(request, userId, user, true);
+                setRequestAttributes(request, user, true);
             } else {
                 setRequestAttributes(request, ServerResponse.SHOW_USER_ERROR);
             }
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String userIdParam) throws SQLException {
+
+        // Validation userId
+        if (!Validator.checkUserId(userIdParam)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
@@ -80,7 +89,8 @@ public class CommandAdminShowUser implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer userId, User user, Boolean userIsAdmin) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, User user, Boolean userIsAdmin) throws SQLException {
+        Integer userId = user.getUserId();
         request.setAttribute("userId", userId);
         request.setAttribute("viewableUser", user);
         request.setAttribute("userIsAdmin", userIsAdmin);

@@ -53,7 +53,7 @@ public class CommandAdminShowPaymentInfo implements ICommand {
                 return pathRedirect;
             }
 
-            // Set Attributes
+            // Set attributes
             if (payment.getRecipientNumber().length() == 20) {
                 Account recipientAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getRecipientNumber());
                 User recipientUser = UserService.getInstance().findUserById(recipientAccount.getUserId());
@@ -84,18 +84,14 @@ public class CommandAdminShowPaymentInfo implements ICommand {
         }
 
         // Data
-        Integer userId = Integer.valueOf(userIdParam);
-        Integer paymentId = Integer.valueOf(paymentIdParam);
-
-        // Data
-        List<Payment> paymentsByUserId = PaymentService.getInstance().findAllPaymentsByUserId(userId);
+        List<Payment> paymentsByUserId = PaymentService.getInstance().findAllPaymentsByUserId(Integer.valueOf(userIdParam));
         List<Integer> paymentIds = new ArrayList<>();
         for (Payment aPayment : paymentsByUserId) {
             paymentIds.add(aPayment.getPaymentId());
         }
 
         // Checking that the payment belongs to the user
-        if (!paymentIds.contains(paymentId)) {
+        if (!paymentIds.contains(Integer.valueOf(paymentIdParam))) {
             setRequestAttributes(request, ServerResponse.UNABLE_GET_PAYMENT_BY_USER_ID);
             return false;
         }

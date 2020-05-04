@@ -27,9 +27,7 @@ public class CommandAdminDeleteUser implements ICommand {
         clearRequestAttributes(request);
 
         String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name()) || method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER);
 
             // Data
@@ -40,7 +38,7 @@ public class CommandAdminDeleteUser implements ICommand {
                 return pathRedirect;
             }
 
-            // Action
+            // Action (delete user)
             int status = UserService.getInstance().deleteUserById(Integer.valueOf(userIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.USER_DELETED_ERROR);

@@ -46,7 +46,7 @@
                 <fmt:message key="user.account.balance" var="balance"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
-                <fmt:message key="user.account.button.showInfo" var="showInfo"/>
+                <fmt:message key="user.page.settings" var="settings"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
@@ -91,7 +91,7 @@
                                                         response ne 'showUserAccountsError' &&
                                                         accountsEmpty == false}">
 
-                                            <div class="card-body" style="padding: 55px 40px 25px 40px;">
+                                            <div class="card-body" style="padding: 45px 40px 20px 40px;">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-xl-3">
                                                         <div class="search-block">
@@ -114,8 +114,7 @@
                                                     <div class="col-lg-9 col-xl-9">
                                                         <div class="col-xl-12">
                                                             <div class="form-row">
-                                                                <div class="card-container"
-                                                                     style="width: 100% !important;">
+                                                                <div class="card-container">
                                                                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-2 row-cols-xl-2">
 
                                                                         <c:forEach items="${accounts}" var="account">
@@ -142,10 +141,10 @@
                                                                                                 ${balance}: ${account.balance} ${account.currency}
 
                                                                                             <!-- Show Account Info -->
-                                                                                            <a href="?command=showAccountInfo&accountId=${account.accountId}"
+                                                                                            <a href="?command=showAccountSettings&accountId=${account.accountId}"
                                                                                                class="float-right">
                                                                                                 <img src="resources/images/info.png"
-                                                                                                     alt="${showInfo}"/>
+                                                                                                     alt="${settings}"/>
                                                                                             </a>
                                                                                         </p>
                                                                                     </div>

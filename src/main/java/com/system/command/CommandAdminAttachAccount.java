@@ -55,7 +55,7 @@ public class CommandAdminAttachAccount implements ICommand {
                 return pathRedirect;
             }
 
-            // Action
+            // Action (create account)
             int status = AccountService.getInstance().createAccount(Integer.valueOf(userIdParam), number, currency);
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.ACCOUNT_ATTACHED_ERROR);
@@ -71,7 +71,7 @@ public class CommandAdminAttachAccount implements ICommand {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         }
 
@@ -141,8 +141,12 @@ public class CommandAdminAttachAccount implements ICommand {
             request.setAttribute("userId", userId);
             request.setAttribute("bioValue", user.getName() + " " + user.getSurname());
         } else {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_BY_USER_ID.getResponse());
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_BY_USER_ID);
         }
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.setAttribute("response", serverResponse.getResponse());
     }
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {

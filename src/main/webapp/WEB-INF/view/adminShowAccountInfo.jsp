@@ -335,6 +335,7 @@
                 <fmt:message key="admin.account_info.allAttachedCards" var="allAttachedCards"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.account_info.validity" var="validity"/>
                 <fmt:message key="admin.account_info.blockCard" var="blockCard"/>
                 <fmt:message key="admin.account_info.unblockCard" var="unblockCard"/>
@@ -612,7 +613,7 @@
                                                                                                         <a href="?command=showPaymentInfo&userId=${viewableUser.userId}&paymentId=${payment.paymentId}"
                                                                                                            class="float-right">
                                                                                                             <img src="resources/images/info.png"
-                                                                                                                 alt=""/>
+                                                                                                                 alt="${showInfo}"/>
                                                                                                         </a>
                                                                                                     </p>
                                                                                                 </c:when>

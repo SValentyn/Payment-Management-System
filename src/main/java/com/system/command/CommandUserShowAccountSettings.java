@@ -61,7 +61,7 @@ public class CommandUserShowAccountSettings implements ICommand {
             return false;
         }
 
-        // Validation
+        // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
             setRequestAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_ID);
             return false;
