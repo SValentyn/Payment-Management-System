@@ -50,6 +50,7 @@ public class ControllerHelper {
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showPayments", new CommandUserShowPayments());
         userCommands.put("showAccountSettings", new CommandUserShowAccountSettings());
+        userCommands.put("showAccountCards", new CommandUserShowAccountCards());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
         userCommands.put("unblockAccount", new CommandUserUnblockAccount());
         userCommands.put("deleteAccount", new CommandUserDeleteAccount());
