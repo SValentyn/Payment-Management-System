@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.page.title"/></title>
+    <title><fmt:message key="user.payments.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -22,11 +22,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert unableGetUser and showUserPaymentsError -->
-    <c:if test="${response eq 'unableGetUser' || response eq 'showUserPaymentsError'}">
+    <!-- Alert unableGetData and showUserPaymentsError -->
+    <c:if test="${response eq 'unableGetData' || response eq 'showUserPaymentsError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertUnableGetUser"/>
+                <fmt:message key="user.page.alertUnableGetData"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -90,7 +90,7 @@
                                     </div>
 
                                     <c:choose>
-                                        <c:when test="${response ne 'unableGetUser' &&
+                                        <c:when test="${response ne 'unableGetData' &&
                                                         response ne 'showUserPaymentsError' &&
                                                         paymentsEmpty == false}">
 
@@ -169,6 +169,7 @@
                                                                                                     <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
                                                                                                        class="float-right">
                                                                                                         <img src="resources/images/info.png"
+                                                                                                             style="margin-left: 7px;"
                                                                                                              alt="${showInfo}"/>
                                                                                                     </a>
 

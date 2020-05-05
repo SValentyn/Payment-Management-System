@@ -36,7 +36,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
             if (user != null) {
                 setRequestAttributes(request, user);
             } else {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER.getResponse());
+                request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
             }
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
@@ -78,7 +78,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
 
         // Check
         if (user == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
 

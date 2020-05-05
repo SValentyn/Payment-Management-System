@@ -35,25 +35,16 @@ public class CommandUserCreateAccount implements ICommand {
 
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
-
-            // Check
-            if (user == null) {
-                setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
-                return pathRedirect;
-            }
-
-            // Data
-            Integer userId = user.getUserId();
             String number = request.getParameter("number");
             String currency = request.getParameter("currency");
 
             // Validation
-            if (!validation(request, userId, number, currency)) {
+            if (!validation(request, user, number, currency)) {
                 return pathRedirect;
             }
 
             // Action (create account)
-            int status = AccountService.getInstance().createAccount(userId, number, currency);
+            int status = AccountService.getInstance().createAccount(user.getUserId(), number, currency);
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_ERROR);
             } else {
@@ -64,9 +55,15 @@ public class CommandUserCreateAccount implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, Integer userId, String number, String currency) throws SQLException {
+    private boolean validation(HttpServletRequest request, User user, String number, String currency) throws SQLException {
 
-        // Validation number
+        // Check
+        if (user == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
+
+        // Validation account number
         if (!Validator.checkAccountNumber(number)) {
             setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_ERROR);
             return false;
@@ -80,7 +77,7 @@ public class CommandUserCreateAccount implements ICommand {
 
         // Data
         int numberOfAccounts = 0;
-        for (Account account : AccountService.getInstance().findAllAccountsByUserId(userId)) {
+        for (Account account : AccountService.getInstance().findAllAccountsByUserId(user.getUserId())) {
             if (account.getCurrency().equals(currency)) numberOfAccounts++;
         }
 

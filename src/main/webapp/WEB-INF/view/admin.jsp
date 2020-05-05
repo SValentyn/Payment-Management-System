@@ -22,7 +22,7 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert noUsers -->
+    <!-- Alert noUsersError -->
     <c:if test="${totalUsers == null || totalUsers == 0}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
@@ -174,12 +174,18 @@
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="message-block">
-                                                <span class="title-label">
-                                                    <label>
-                                                         <fmt:message key="admin.users.noUsers"/>
-                                                    </label>
-                                                </span>
+                                            <div class="card-body" style="min-height: 280px; padding: 35px;">
+                                                <div class="message-block">
+                                                    <span>
+                                                        <label>
+                                                             <fmt:message key="admin.users.noUsers"/>
+                                                        </label>
+                                                    </span>
+                                                    <div class="w-100" style="height:172px;">
+                                                        <img src="resources/images/error.png" alt=""
+                                                             style="width: 172px; height: 172px; position: absolute; bottom: 35px; right: 55px;"/>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>

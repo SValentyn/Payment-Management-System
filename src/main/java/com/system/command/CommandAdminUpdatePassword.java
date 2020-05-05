@@ -65,7 +65,7 @@ public class CommandAdminUpdatePassword implements ICommand {
 
         // Check
         if (user == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
 

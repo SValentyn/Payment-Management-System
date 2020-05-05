@@ -99,6 +99,12 @@ public class CommandUserShowAccountCards implements ICommand {
         List<BankCard> cards = BankCardService.getInstance().findCardsByAccountId(accountId);
 
         if (cards != null) {
+
+            // formatting card numbers
+            for (BankCard card : cards) {
+                card.setNumber(card.getNumber().replaceAll("(.{4})", "$1 "));
+            }
+
             request.setAttribute("viewableAccount", viewableAccount);
             request.setAttribute("cardsEmpty", cards.isEmpty());
             request.setAttribute("cards", cards);

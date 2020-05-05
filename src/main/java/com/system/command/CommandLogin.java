@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class CommandLogin implements ICommand {
 
     // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -32,18 +32,11 @@ public class CommandLogin implements ICommand {
             String password = request.getParameter("password");
 
             // Validation
-            if (!Validator.checkLogin(login)) {
-                setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
+            if (!validation(request, login, password)) {
                 return pathRedirect;
             }
 
-            // Validation
-            if (!Validator.checkPassword(password)) {
-                setSessionAttributes(request, login, ServerResponse.INVALID_DATA);
-                return pathRedirect;
-            }
-
-            // Authentication
+            // Action (authentication)
             User user = UserService.getInstance().loginUser(login, password);
             if (user != null) {
                 request.getSession().setAttribute("currentUser", user);
@@ -53,6 +46,23 @@ public class CommandLogin implements ICommand {
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String login, String password) throws SQLException {
+
+        // Validation login
+        if (!Validator.checkLogin(login)) {
+            setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
+            return false;
+        }
+
+        // Validation password
+        if (!Validator.checkPassword(password)) {
+            setSessionAttributes(request, login, ServerResponse.INVALID_DATA);
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {

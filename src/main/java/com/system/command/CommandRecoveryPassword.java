@@ -34,18 +34,28 @@ public class CommandRecoveryPassword implements ICommand {
             String login = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
 
             // Validation
-            if (!Validator.checkLogin(login)) {
-                setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
+            if (!validation(request, login)) {
                 return pathRedirect;
             }
 
             // [There should be an implementation of sending a message with a password to the user]
 
-            // Set Attributes
+            // Set attributes
             setSessionAttributes(request, ServerResponse.PASSWORD_SENT);
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, String login) throws SQLException {
+
+        // Validation
+        if (!Validator.checkLogin(login)) {
+            setSessionAttributes(request, login, ServerResponse.LOGIN_NOT_EXIST);
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {

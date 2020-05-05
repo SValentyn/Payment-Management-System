@@ -8,14 +8,16 @@
 <fmt:setBundle basename="message"/>
 
 <div class="list-group list-group-flush sidebar" role="tablist">
-    <a href="/" class="list-group-item list-group-item-action sidebar-header list-group-item-sidebar">
-        <div>
-            <img src="resources/images/homepage.png" class="icon-sidebar" alt=""/>
-        </div>
-        <div>
-            <fmt:message key="sidebar.home"/>
-        </div>
-    </a>
+    <c:if test="${currentUser.role.id == 1}">
+        <a href="/" class="list-group-item list-group-item-action sidebar-header list-group-item-sidebar">
+            <div>
+                <img src="resources/images/homepage-user.png" class="icon-sidebar" alt=""/>
+            </div>
+            <div>
+                <fmt:message key="sidebar.home"/>
+            </div>
+        </a>
+    </c:if>
     <c:if test="${currentUser.role.id == 1}">
         <a href="?command=createAccount" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
@@ -53,6 +55,16 @@
             </div>
             <div>
                 <fmt:message key="sidebar.support"/>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${currentUser.role.id == 2}">
+        <a href="/" class="list-group-item list-group-item-action sidebar-header list-group-item-sidebar">
+            <div>
+                <img src="resources/images/homepage-admin.png" class="icon-sidebar" alt=""/>
+            </div>
+            <div>
+                <fmt:message key="sidebar.home"/>
             </div>
         </a>
     </c:if>

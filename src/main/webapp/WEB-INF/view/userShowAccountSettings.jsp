@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.page.title"/></title>
+    <title><fmt:message key="user.account.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -57,11 +57,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert unableGetUser or showAccountError -->
-    <c:if test="${response eq 'unableGetUser' || response eq 'showAccountError'}">
+    <!-- Alerts unableGetData and showAccountError -->
+    <c:if test="${response eq 'unableGetData' || response eq 'showAccountError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertUnableGetUser"/>
+                <fmt:message key="user.page.alertUnableGetData"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -73,7 +73,7 @@
     <c:if test="${response eq 'unableGetAccountId'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="admin.page.alertUnableGetAccountIdError"/>
+                <fmt:message key="user.page.alertUnableGetAccountIdError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -175,7 +175,6 @@
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
                 <fmt:message key="user.page.settings" var="settings"/>
-                <fmt:message key="admin.account_info.showAttachedCards" var="showAttachedCards"/>
                 <fmt:message key="user.page.showAttachedCards" var="showAttachedCards"/>
                 <fmt:message key="user.page.showPaymentArchive" var="showPaymentArchive"/>
                 <fmt:message key="admin.account_info.accountStatus" var="accountStatus"/>
@@ -227,10 +226,10 @@
                                             </ul>
                                         </div>
 
-                                        <div class="card-body" style="padding: 45px 50px 40px 50px;">
+                                        <div class="card-body card-body-main">
 
-                                            <!-- Return to User -->
-                                            <c:if test="${response eq 'unableGetUser' ||
+                                            <!-- Return to Accounts -->
+                                            <c:if test="${response eq 'unableGetData' ||
                                                           response eq 'unableGetAccountId' ||
                                                           response eq 'showAccountError' ||
                                                           response eq 'accountDeletedSuccess'}">
@@ -245,7 +244,7 @@
                                                 </div>
                                             </c:if>
 
-                                            <c:if test="${response ne 'unableGetUser' &&
+                                            <c:if test="${response ne 'unableGetData' &&
                                                           response ne 'unableGetAccountId' &&
                                                           response ne 'showAccountError' &&
                                                           response ne 'accountDeletedSuccess'}">
@@ -320,7 +319,6 @@
                                                                  style="align-self: center;">
 
                                                                 <div class="list-group" id="list-tab" role="tablist">
-
                                                                     <div class="options">
 
                                                                         <!-- Show Account Cards -->

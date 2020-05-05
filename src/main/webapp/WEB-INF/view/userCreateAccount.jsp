@@ -24,11 +24,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert unableGetUser -->
-    <c:if test="${response eq 'unableGetUser'}">
+    <!-- Alert unableGetData -->
+    <c:if test="${response eq 'unableGetData'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertUnableGetUser"/>
+                <fmt:message key="user.page.alertUnableGetData"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

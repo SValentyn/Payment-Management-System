@@ -48,7 +48,7 @@ public class CommandAdminSupport implements ICommand {
                 }
             }
 
-            // Set Attributes
+            // Set attributes
             if (notProcessedLetters.isEmpty()) {
                 setRequestAttributes(request, null, true);
             } else {

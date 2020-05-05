@@ -37,7 +37,7 @@ public class CommandAdminUpdateUserData implements ICommand {
                 return pathRedirect;
             }
 
-            // Set Attributes
+            // Set attributes
             setRequestAttributes(request, userIdParam);
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
@@ -64,7 +64,7 @@ public class CommandAdminUpdateUserData implements ICommand {
             user.setPhone(phone);
             user.setEmail(email);
 
-            // Action
+            // Action (update data)
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.DATA_UPDATED_ERROR);

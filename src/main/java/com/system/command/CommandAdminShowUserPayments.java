@@ -36,7 +36,7 @@ public class CommandAdminShowUserPayments implements ICommand {
                 return pathRedirect;
             }
 
-            // Set Attributes
+            // Set attributes
             setRequestAttributes(request, Integer.valueOf(userIdParam));
         }
 

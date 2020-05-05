@@ -52,7 +52,7 @@ public class CommandUserShowAccountSettings implements ICommand {
 
         // Check
         if (user == null) {
-            setRequestAttributes(request, ServerResponse.UNABLE_GET_USER);
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
 
@@ -96,7 +96,6 @@ public class CommandUserShowAccountSettings implements ICommand {
 
     private void setRequestAttributes(HttpServletRequest request, Integer accountId) throws SQLException {
         Account viewableAccount = AccountService.getInstance().findAccountByAccountId(accountId);
-
         if (viewableAccount != null) {
             request.setAttribute("viewableAccount", viewableAccount);
         } else {

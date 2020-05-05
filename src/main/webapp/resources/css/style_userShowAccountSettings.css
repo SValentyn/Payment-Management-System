@@ -16,6 +16,10 @@
     width: 100% !important;
 }
 
+.card-body-main {
+    padding: 45px 50px 40px 50px;
+}
+
 .form-control {
     height: 46px !important;
     margin-top: 0 !important;

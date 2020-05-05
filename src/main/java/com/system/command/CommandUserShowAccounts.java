@@ -35,7 +35,7 @@ public class CommandUserShowAccounts implements ICommand {
             if (user != null) {
                 setRequestAttributes(request, user);
             } else {
-                setRequestAttributes(request, ServerResponse.UNABLE_GET_USER);
+                setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
             }
         }
 
@@ -50,7 +50,6 @@ public class CommandUserShowAccounts implements ICommand {
 
     private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
         List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
-
         if (accounts != null) {
             if (accounts.isEmpty()) {
                 request.setAttribute("accountsEmpty", true);

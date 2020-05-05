@@ -23,8 +23,8 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert unableGetUser -->
-    <c:if test="${response eq 'unableGetUser'}">
+    <!-- Alert unableGetData -->
+    <c:if test="${response eq 'unableGetData'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertUnableGetUser"/>

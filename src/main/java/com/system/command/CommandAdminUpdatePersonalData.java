@@ -33,10 +33,10 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             User user = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user == null) {
+            if (user != null) {
                 setRequestAttributes(request, user);
             } else {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER.getResponse());
+                request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
             }
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
@@ -78,7 +78,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
 
         // Check
         if (user == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_USER);
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
 

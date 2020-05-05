@@ -31,14 +31,12 @@ public class CommandUserShowPayments implements ICommand {
             // Data
             User user = (User) request.getSession().getAttribute("currentUser");
 
-            // Check
-            if (user == null) {
-                setRequestAttributes(request, ServerResponse.UNABLE_GET_USER);
-                return pathRedirect;
+            // Check and set attributes
+            if (user != null) {
+                setRequestAttributes(request, user);
+            } else {
+                setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
             }
-
-            // Set Attributes
-            setRequestAttributes(request, user);
         }
 
         return pathRedirect;
@@ -52,7 +50,6 @@ public class CommandUserShowPayments implements ICommand {
 
     private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
         List<Payment> payments = PaymentService.getInstance().findAllPaymentsByUserId(user.getUserId());
-
         if (payments != null) {
             if (payments.isEmpty()) {
                 request.setAttribute("paymentsEmpty", true);

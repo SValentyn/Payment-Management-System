@@ -3,7 +3,7 @@ package com.system.manager;
 import java.util.ResourceBundle;
 
 /**
- * Resource manager for dealing with pages path
+ * Resource manager for dealing with redirect paths
  */
 public class ResourceManager {
 

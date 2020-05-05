@@ -37,16 +37,17 @@ public class CommandUserAttachCard implements ICommand {
             User user = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user == null) {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_USER.getResponse());
-            } else {
+            if (user != null) {
                 request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+            } else {
+                request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
             }
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_ATTACH_CARD);
 
             // Data
+            User user = (User) request.getSession().getAttribute("currentUser");
             String accountIdParam = request.getParameter("accountId");
             String cardNumber = request.getParameter("number");
             String CVV = request.getParameter("CVV");
@@ -54,7 +55,7 @@ public class CommandUserAttachCard implements ICommand {
             String year = request.getParameter("year");
 
             // Validation
-            if (!validation(request, accountIdParam, cardNumber, CVV, month, year)) {
+            if (!validation(request, user, accountIdParam, cardNumber, CVV, month, year)) {
                 return pathRedirect;
             }
 
@@ -73,7 +74,13 @@ public class CommandUserAttachCard implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String accountIdParam, String cardNumber, String CVV, String month, String year) throws SQLException {
+    private boolean validation(HttpServletRequest request, User user, String accountIdParam, String cardNumber, String CVV, String month, String year) throws SQLException {
+
+        // Check
+        if (user == null) {
+            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
@@ -82,14 +89,7 @@ public class CommandUserAttachCard implements ICommand {
         }
 
         // Data
-        User user = (User) request.getSession().getAttribute("currentUser");
         Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
-
-        // Check
-        if (user == null) {
-            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.UNABLE_GET_USER);
-            return false;
-        }
 
         // Checking that the account belongs to the user
         if (account == null || !account.getUserId().equals(user.getUserId())) {

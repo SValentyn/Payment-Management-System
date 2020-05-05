@@ -429,7 +429,7 @@
                                                             <c:choose>
                                                                 <c:when test="${viewableAccount.isBlocked}">
                                                                     <label class="for-form-label text-center"
-                                                                           style="font-size: 18px;">
+                                                                           style="margin-top:10px; font-size: 18px;">
                                                                             ${accountStatus}:
                                                                         <span class="text-danger">
                                                                                 ${statusBlocked}
@@ -438,7 +438,7 @@
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <label class="for-form-label text-center"
-                                                                           style="font-size: 18px;">
+                                                                           style="margin-top:10px; font-size: 18px;">
                                                                             ${accountStatus}:
                                                                         <span class="text-success">
                                                                                 ${statusActive}

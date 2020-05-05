@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.page.title"/></title>
+    <title><fmt:message key="user.accounts.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -22,11 +22,11 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert unableGetUser and showUserAccountsError -->
-    <c:if test="${response eq 'unableGetUser' || response eq 'showUserAccountsError'}">
+    <!-- Alerts unableGetData and showUserAccountsError -->
+    <c:if test="${response eq 'unableGetData' || response eq 'showUserAccountsError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
-                <fmt:message key="user.page.alertUnableGetUser"/>
+                <fmt:message key="user.page.alertUnableGetData"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -87,7 +87,7 @@
                                     </div>
 
                                     <c:choose>
-                                        <c:when test="${response ne 'unableGetUser' &&
+                                        <c:when test="${response ne 'unableGetData' &&
                                                         response ne 'showUserAccountsError' &&
                                                         accountsEmpty == false}">
 

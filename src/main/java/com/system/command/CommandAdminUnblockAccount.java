@@ -65,12 +65,10 @@ public class CommandAdminUnblockAccount implements ICommand {
         }
 
         // Data
-        Integer userId = Integer.valueOf(userIdParam);
-        Integer accountId = Integer.valueOf(accountIdParam);
-        Account account = AccountService.getInstance().findAccountByAccountId(accountId);
+        Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Checking that the account belongs to the user
-        if (!account.getUserId().equals(userId)) {
+        if (!account.getUserId().equals(Integer.valueOf(userIdParam))) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_ACCOUNT_BY_USER_ID);
             return false;
         }

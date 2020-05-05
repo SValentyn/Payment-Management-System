@@ -52,6 +52,10 @@
     font-size: 16px !important;
 }
 
+.message-block {
+    padding-top: 20px !important;
+}
+
 span[class="title-label"] label {
     font-size: 22px !important;
 }
