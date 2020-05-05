@@ -69,11 +69,11 @@ span[class="title-label"] label {
         font-size: 12px !important;
     }
 
-    span[class="title-label"] label {
-        font-size: 14px !important;
-    }
-
     .card-container {
         font-size: 65%;
+    }
+
+    span[class="title-label"] label {
+        font-size: 14px !important;
     }
 }

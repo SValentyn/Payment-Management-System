@@ -60,6 +60,7 @@ public enum ServerResponse {
     UNABLE_GET_PAYMENT("unableGetPayment"),
     UNABLE_GET_PAYMENT_ID("unableGetPaymentId"),
     UNABLE_GET_PAYMENT_BY_USER_ID("unableGetPaymentByUserId"),
+    UNABLE_GET_PAYMENTS("unableGetPayments"),
     SHOW_PAYMENT_ERROR("showPaymentError"),
     PAYMENT_COMPLETED_SUCCESS("paymentCompletedSuccess"),
     RECIPIENT_ACCOUNT_NOT_EXIST_ERROR("recipientAccountNotExistError"),

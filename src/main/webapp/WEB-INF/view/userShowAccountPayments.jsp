@@ -10,64 +10,21 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.attached_cards.title"/></title>
+    <title><fmt:message key="user.account_payments.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <link rel="stylesheet" href="resources/css/style_userShowAccountCards.css">
+    <link rel="stylesheet" href="resources/css/style_userShowAccountPayments.css">
 </head>
 <body>
-
-<!-- Modal window (detachCardModal) -->
-<div id="detachCardModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <fmt:message key="user.card.modalHeader"/>
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
-                <fmt:message key="user.card.modalBody"/>
-                <br>
-                <div style="display: flex; margin-top: 20px;">
-                    <label for="cardNumberText" class="modal-label">
-                        <fmt:message key="user.card.modalCardLabel"/>
-                    </label>
-                    <input id="cardNumberText" class="form-control modal-form-control"
-                           type="text" readonly="readonly"/>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default closeButton" style="border-radius: 5px;"
-                            data-dismiss="modal" onfocus="this.blur();">
-                        <fmt:message key="user.page.closeButton"/>
-                    </button>
-                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
-                    <form action="/" method="POST" role="form">
-                        <input type="hidden" name="command" value="detachCard"/>
-                        <input type="hidden" name="accountId" value="${viewableAccount.accountId}"/>
-                        <input type="hidden" name="cardId" id="cardId"/>
-                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur();">
-                            <fmt:message key="user.page.confirmButton"/>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alerts unableGetData and showAccountError and unableGetCards -->
-    <c:if test="${response eq 'unableGetData' || response eq 'showAccountError' || response eq 'unableGetCards'}">
+    <!-- Alerts unableGetData and showAccountError and unableGetPayments -->
+    <c:if test="${response eq 'unableGetData' || response eq 'showAccountError' || response eq 'unableGetPayments'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertUnableGetData"/>
@@ -90,90 +47,6 @@
         </div>
     </c:if>
 
-    <!-- Alert unableGetCardId -->
-    <c:if test="${response eq 'unableGetCardId'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertUnableGetCardIdError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardBlockedSuccess -->
-    <c:if test="${response eq 'cardBlockedSuccess'}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertCardBlockedSuccess"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardBlockedError -->
-    <c:if test="${response eq 'cardBlockedError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertCardBlockedError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardUnblockedSuccess -->
-    <c:if test="${response eq 'cardUnblockedSuccess'}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertCardUnblockedSuccess"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardUnblockedError -->
-    <c:if test="${response eq 'cardUnblockedError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertCardUnblockedError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardDetachedSuccess -->
-    <c:if test="${response eq 'cardDetachedSuccess'}">
-        <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="user.page.success"/>!</strong>
-                <fmt:message key="user.page.alertCardDetachedSuccess"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
-    <!-- Alert cardDetachedError -->
-    <c:if test="${response eq 'cardDetachedError'}">
-        <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
-                <fmt:message key="user.page.alertCardDetachedError"/>
-            </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
-
     <div class="page-content">
         <div class="row">
             <div class="col-lg-2">
@@ -184,17 +57,20 @@
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
                 <fmt:message key="user.page.settings" var="settings"/>
-                <fmt:message key="user.page.showPaymentArchive" var="showPaymentArchive"/>
+                <fmt:message key="user.page.showAttachedCards" var="showAttachedCards"/>
                 <fmt:message key="admin.account_info.accountStatus" var="accountStatus"/>
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
                 <fmt:message key="admin.account_info.accountNumber" var="accountNumber"/>
                 <fmt:message key="admin.account_info.accountBalance" var="accountBalance"/>
-                <fmt:message key="admin.account_info.allAttachedCards" var="allAttachedCards"/>
-                <fmt:message key="admin.account_info.validity" var="validity"/>
-                <fmt:message key="admin.account_info.blockCard" var="blockCard"/>
-                <fmt:message key="admin.account_info.unblockCard" var="unblockCard"/>
-                <fmt:message key="admin.account_info.detachCard" var="detachCard"/>
+                <fmt:message key="user.account_payments.allPaymentsMade" var="allPaymentsMade"/>
+                <fmt:message key="user.page.success" var="success"/>
+                <fmt:message key="user.page.failed" var="failed"/>
+                <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
+                <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
+                <fmt:message key="admin.payment_info.remained" var="remained"/>
+                <fmt:message key="user.page.showInfo" var="showInfo"/>
+                <fmt:message key="user.payments.repeat" var="repeat"/>
                 <fmt:message key="user.account.returnToAllAccounts" var="returnToAllAccounts"/>
 
                 <div class="page-content container-fluid">
@@ -242,7 +118,7 @@
                                             <c:if test="${response eq 'unableGetData' ||
                                                           response eq 'unableGetAccountId' ||
                                                           response eq 'showAccountError' ||
-                                                          response eq 'unableGetCards'}">
+                                                          response eq 'unableGetPayments'}">
                                                 <div class="message-block">
                                                     <span class="title-label forward-left-link-img">
                                                         <a href="?command=showAccounts" class="float-left">
@@ -254,10 +130,10 @@
                                                 </div>
                                             </c:if>
 
-                                            <c:if test="${response ne 'unableGetData' &&
+                                            <c:if test="${response ne 'unableGetUserId' &&
                                                           response ne 'unableGetAccountId' &&
                                                           response ne 'showAccountError' &&
-                                                          response ne 'unableGetCards'}">
+                                                          response ne 'unableGetPayments'}">
 
                                                 <jsp:useBean id="viewableAccount" scope="request"
                                                              type="com.system.entity.Account"/>
@@ -331,7 +207,7 @@
                                                                 <div class="list-group">
                                                                     <div class="options">
 
-                                                                        <!-- Show Account Settings -->
+                                                                        <!-- Show Account Info -->
                                                                         <div class="col-md-6">
                                                                             <span class="forward-top-link-img">
                                                                                 <a href="?command=showAccountSettings&accountId=${viewableAccount.accountId}"
@@ -343,14 +219,14 @@
                                                                             </span>
                                                                         </div>
 
-                                                                        <!-- Show Account Payments -->
+                                                                        <!-- Show Account Cards -->
                                                                         <div class="col-md-6">
                                                                             <span class="forward-top-link-img">
-                                                                                <a href="?command=showAccountPayments&accountId=${viewableAccount.accountId}"
+                                                                                <a href="?command=showAccountCards&accountId=${viewableAccount.accountId}"
                                                                                    class="float-right">
-                                                                                    <img src="resources/images/payments.png"
+                                                                                    <img src="resources/images/credit-cards.png"
                                                                                          alt=""/>
-                                                                                    <h5>${showPaymentArchive}</h5>
+                                                                                    <h5>${showAttachedCards}</h5>
                                                                                 </a>
                                                                             </span>
                                                                         </div>
@@ -363,61 +239,104 @@
                                                     <div class="col-xl-12">
 
                                                         <c:choose>
-                                                            <c:when test="${cardsEmpty == false}">
+                                                            <c:when test="${paymentsEmpty == false}">
 
                                                                 <h4 style="margin-top: 10px;">
-                                                                        ${allAttachedCards}
+                                                                        ${allPaymentsMade}
                                                                 </h4>
 
-                                                                <div class="card-container"
-                                                                     style="width: 100% !important;">
-                                                                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2">
-                                                                        <c:forEach items="${cards}" var="card">
+                                                                <div class="card-container">
+                                                                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
+
+                                                                        <c:forEach items="${payments}"
+                                                                                   var="payment">
                                                                             <div class="col mb-4">
                                                                                 <div class="card bg-light">
                                                                                     <div class="card-header">
+                                                                                        <small class="text-muted float-left">
+                                                                                                ${payment.date}
+                                                                                        </small>
                                                                                         <c:choose>
-                                                                                            <c:when test="${card.isActive}">
+                                                                                            <c:when test="${payment.condition}">
                                                                                                 <small class="text-success float-right">
-                                                                                                        ${statusActive}
+                                                                                                        ${success}
                                                                                                 </small>
                                                                                             </c:when>
                                                                                             <c:otherwise>
                                                                                                 <small class="text-danger float-right">
-                                                                                                        ${statusBlocked}
+                                                                                                        ${failed}
                                                                                                 </small>
                                                                                             </c:otherwise>
                                                                                         </c:choose>
                                                                                     </div>
                                                                                     <div class="card-body"
                                                                                          style="padding: 0.75rem 1.25rem;">
-                                                                                        <p class="card-title text-muted">
-                                                                                                ${card.number}<br/>
-                                                                                                ${validity}: ${card.validity}
-                                                                                            <a href="#detachCardModal?cardId=${card.cardId}&cardNumber=${card.number}"
-                                                                                               onclick="showDetachCardModal();"
-                                                                                               class="float-right">
-                                                                                                <img src="resources/images/detach-card.png"
-                                                                                                     style="margin-left: 7px;"
-                                                                                                     alt="${detachCard}"/>
-                                                                                            </a>
-                                                                                            <c:choose>
-                                                                                                <c:when test="${card.isActive}">
-                                                                                                    <a href="?command=blockCard&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
+
+                                                                                        <!-- Outgoing and Incoming Payments -->
+                                                                                        <c:choose>
+                                                                                            <c:when test="${payment.isOutgoing}">
+
+                                                                                                <!-- Sender and Recipient -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${payment.senderNumber}
+                                                                                                    <span class="forward-right-link-img">→</span>
+                                                                                                        ${payment.recipientNumber}
+                                                                                                </p>
+
+                                                                                                <!-- Sent Funds -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${sentFunds}: ${payment.senderAmount} ${payment.senderCurrency}
+                                                                                                </p>
+
+                                                                                                <!-- New balance -->
+                                                                                                <p class="card-title text-muted new-balance">
+                                                                                                    <span>
+                                                                                                        ${remained}: ${payment.newBalance} ${payment.senderCurrency}
+                                                                                                    </span>
+
+                                                                                                    <!-- Show Payment Info -->
+                                                                                                    <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
                                                                                                        class="float-right">
-                                                                                                        <img src="resources/images/block.png"
-                                                                                                             alt="${blockCard}"/>
+                                                                                                        <img src="resources/images/info.png"
+                                                                                                             style="margin-left: 7px;"
+                                                                                                             alt="${showInfo}"/>
                                                                                                     </a>
-                                                                                                </c:when>
-                                                                                                <c:otherwise>
-                                                                                                    <a href="?command=unblockCard&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
+
+                                                                                                    <!-- Repeat Payment -->
+                                                                                                    <a href="?command=repeatPayment&paymentId=${payment.paymentId}"
                                                                                                        class="float-right">
-                                                                                                        <img src="resources/images/unblock.png"
-                                                                                                             alt="${unblockCard}"/>
+                                                                                                        <img src="resources/images/repeat-payment.png"
+                                                                                                             alt="${repeat}"/>
                                                                                                     </a>
-                                                                                                </c:otherwise>
-                                                                                            </c:choose>
-                                                                                        </p>
+                                                                                                </p>
+                                                                                            </c:when>
+                                                                                            <c:otherwise>
+
+                                                                                                <!-- Sender and Recipient -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${payment.recipientNumber}
+                                                                                                    <span class="forward-left-link-img">←</span>
+                                                                                                        ${payment.senderNumber}
+                                                                                                </p>
+
+                                                                                                <!-- Received Funds -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${receivedFunds}: ${payment.recipientAmount} ${payment.recipientCurrency}
+                                                                                                </p>
+
+                                                                                                <!-- New balance -->
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
+
+                                                                                                    <!-- Show Payment Info -->
+                                                                                                    <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
+                                                                                                       class="float-right">
+                                                                                                        <img src="resources/images/info.png"
+                                                                                                             alt=""/>
+                                                                                                    </a>
+                                                                                                </p>
+                                                                                            </c:otherwise>
+                                                                                        </c:choose>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -430,7 +349,7 @@
                                                                     <span class="title-label">
                                                                         <label>
                                                                            <fmt:message
-                                                                                   key="admin.account_info.attachedCardsEmpty"/>
+                                                                                   key="user.account_payments.paymentsEmpty"/>
                                                                         </label>
                                                                     </span>
                                                                 </div>
@@ -452,5 +371,4 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/modalWindow_userShowAccountCards.js"></script>
 </html>
