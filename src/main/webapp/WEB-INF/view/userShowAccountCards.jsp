@@ -397,7 +397,8 @@
                                                                                             <a href="#detachCardModal?cardId=${card.cardId}&cardNumber=${card.number}"
                                                                                                onclick="showDetachCardModal();"
                                                                                                class="float-right">
-                                                                                                <img src="resources/images/detach-card-link.png"
+                                                                                                <img src="resources/images/detach-card.png"
+                                                                                                     style="margin-left: 7px;"
                                                                                                      alt="${detachCard}"/>
                                                                                             </a>
                                                                                             <c:choose>
