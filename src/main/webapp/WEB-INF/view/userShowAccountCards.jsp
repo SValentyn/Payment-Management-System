@@ -404,14 +404,14 @@
                                                                                                 <c:when test="${card.isActive}">
                                                                                                     <a href="?command=blockCard&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                        class="float-right">
-                                                                                                        <img src="resources/images/locked-link.png"
+                                                                                                        <img src="resources/images/block.png"
                                                                                                              alt="${blockCard}"/>
                                                                                                     </a>
                                                                                                 </c:when>
                                                                                                 <c:otherwise>
                                                                                                     <a href="?command=unblockCard&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                        class="float-right">
-                                                                                                        <img src="resources/images/unlocked-link.png"
+                                                                                                        <img src="resources/images/unblock.png"
                                                                                                              alt="${unblockCard}"/>
                                                                                                     </a>
                                                                                                 </c:otherwise>
