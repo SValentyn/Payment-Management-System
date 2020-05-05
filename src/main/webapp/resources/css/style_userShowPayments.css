@@ -2,6 +2,10 @@
     width: 92%;
 }
 
+.card-body-main {
+    padding: 45px 40px 20px 40px;
+}
+
 .login-wrapper .box {
     padding: 0;
     border: none;
@@ -23,12 +27,20 @@
 }
 
 @media (max-width: 439px) {
+    .card-body-main {
+        padding: 45px 20px 20px 20px;
+    }
+
     .card-container {
         font-size: 90%;
     }
 
     .card-body .card-title a {
         padding-top: 8px;
+    }
+
+    .new-balance span {
+        margin-right: 40%;
     }
 
     .message-block span {
@@ -48,6 +60,10 @@
 @media (max-width: 389px) {
     .card-container {
         font-size: 80%;
+    }
+
+    .new-balance span {
+        margin-right: 33%;
     }
 
     .message-block span {

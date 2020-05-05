@@ -7,12 +7,24 @@
 }
 
 .content-wrap h4 {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
 }
 
 .form-control {
     height: 46px !important;
     margin-top: 0 !important;
+}
+
+.list-group-item .forward-right-link-img {
+    width: 100%;
+    font-size: 0.919rem;
+}
+
+.list-group-item .forward-right-link-img img {
+    width: 14px;
+    height: 14px;
+    float: right;
+    margin: 4px 0 0 0;
 }
 
 .bfh-currencies .bfh-selectbox-toggle {

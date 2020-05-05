@@ -1078,7 +1078,7 @@ div[class="message-block"] .title-label {
     cursor: pointer;
     outline: none;
     text-decoration: none;
-    transition: .3s;
+    transition: .35s;
     transform: translateY(0);
 }
 
@@ -1090,7 +1090,7 @@ div[class="message-block"] .title-label {
     text-decoration: none;
     cursor: pointer;
     outline: none;
-    transition: .3s;
+    transition: .35s;
     transform: translateX(0);
 }
 
@@ -1115,12 +1115,12 @@ div[class="message-block"] .title-label {
 .list-group-item:active,
 .list-group-item:hover .forward-right-link-img,
 .list-group-item:active .forward-right-link-img img {
-    transform: translateX(3px);
+    transform: translateX(0.163rem);
 }
 
 .forward-left-link-img:hover,
 .forward-left-link-img:active {
-    transform: translateX(-3px);
+    transform: translateX(-0.163rem);
 }
 
 .iti {

@@ -227,7 +227,7 @@
                                             </ul>
                                         </div>
 
-                                        <div class="card-body" style="padding: 45px 50px 30px 50px;">
+                                        <div class="card-body" style="padding: 45px 50px 40px 50px;">
 
                                             <!-- Return to User -->
                                             <c:if test="${response eq 'unableGetUser' ||
@@ -262,7 +262,7 @@
                                                                 <c:choose>
                                                                     <c:when test="${viewableAccount.isBlocked}">
                                                                         <label class="for-form-label text-center"
-                                                                               style="font-size: 18px;">
+                                                                               style="margin-top:10px; font-size: 18px;">
                                                                                 ${accountStatus}:
                                                                             <span class="text-danger">
                                                                                     ${statusBlocked}
@@ -271,7 +271,7 @@
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <label class="for-form-label text-center"
-                                                                               style="font-size: 18px;">
+                                                                               style="margin-top:10px; font-size: 18px;">
                                                                                 ${accountStatus}:
                                                                             <span class="text-success">
                                                                                     ${statusActive}
@@ -355,8 +355,11 @@
                                                                                href="?command=unblockAccount"
                                                                                onclick="document.getElementById('form-unblockAccount').submit(); return false;"
                                                                                aria-controls="unblockAccount">
+                                                                                <span class="forward-right-link-img">
                                                                                     ${unblockAccount}
-                                                                                <span class="forward-right-link-img">→</span>
+                                                                                    <img src="resources/images/forward-white.png"
+                                                                                         alt=""/>
+                                                                                </span>
                                                                             </a>
                                                                             <form action="/" method="POST"
                                                                                   id="form-unblockAccount" role="form">
@@ -372,8 +375,11 @@
                                                                                href="?command=blockAccount"
                                                                                onclick="document.getElementById('form-blockAccount').submit(); return false;"
                                                                                aria-controls="blockAccount">
+                                                                                <span class="forward-right-link-img">
                                                                                     ${blockAccount}
-                                                                                <span class="forward-right-link-img">→</span>
+                                                                                    <img src="resources/images/forward-white.png"
+                                                                                         alt=""/>
+                                                                                </span>
                                                                             </a>
                                                                             <form action="/" method="POST"
                                                                                   id="form-blockAccount" role="form">
@@ -389,8 +395,11 @@
                                                                        href="#deleteAccountModal"
                                                                        onclick="showDeleteAccountModal();"
                                                                        aria-controls="deleteAccount">
+                                                                        <span class="forward-right-link-img">
                                                                             ${deleteAccount}
-                                                                        <span class="forward-right-link-img">→</span>
+                                                                            <img src="resources/images/forward-white.png"
+                                                                                 alt=""/>
+                                                                        </span>
                                                                     </a>
                                                                 </div>
                                                             </div>

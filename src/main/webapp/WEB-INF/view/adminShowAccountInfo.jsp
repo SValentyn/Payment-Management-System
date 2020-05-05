@@ -426,7 +426,7 @@
                                                             <!-- Account Number -->
                                                             <div>
                                                                 <label class="for-form-label"
-                                                                       style="margin-top: 5px;">
+                                                                       style="margin-top: 8px;">
                                                                         ${accountNumber}:
                                                                 </label>
                                                                 <input id="number" name="number"
@@ -478,22 +478,31 @@
                                                                    id="list-unblockAccount-list" role="tab"
                                                                    href="?command=showUser&userId=${viewableUser.userId}"
                                                                    aria-controls="unblockAccount">
-                                                                        ${accountOwner}
-                                                                    <span class="forward-right-link-img">→</span>
+                                                                    <span class="forward-right-link-img">
+                                                                         ${accountOwner}
+                                                                        <img src="resources/images/forward-white.png"
+                                                                             alt=""/>
+                                                                    </span>
                                                                 </a>
                                                                 <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                    id="list-payments-list" data-toggle="list"
                                                                    href="#list-payments" role="tab"
                                                                    aria-controls="showPayments">
-                                                                        ${showPayments}
-                                                                    <span class="forward-right-link-img">→</span>
+                                                                    <span class="forward-right-link-img">
+                                                                         ${showPayments}
+                                                                        <img src="resources/images/forward-white.png"
+                                                                             alt=""/>
+                                                                    </span>
                                                                 </a>
                                                                 <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                    id="list-attachedCards-list" data-toggle="list"
                                                                    href="#list-attachedCards" role="tab"
                                                                    aria-controls="showAttachedCards">
-                                                                        ${showAttachedCards}
-                                                                    <span class="forward-right-link-img">→</span>
+                                                                    <span class="forward-right-link-img">
+                                                                         ${showAttachedCards}
+                                                                        <img src="resources/images/forward-white.png"
+                                                                             alt=""/>
+                                                                    </span>
                                                                 </a>
                                                                 <c:choose>
                                                                     <c:when test="${viewableAccount.isBlocked}">
@@ -502,8 +511,11 @@
                                                                            href="?command=unblockAccount"
                                                                            onclick="document.getElementById('form-unblockAccount').submit(); return false;"
                                                                            aria-controls="unblockAccount">
-                                                                                ${unblockAccount}
-                                                                            <span class="forward-right-link-img">→</span>
+                                                                            <span class="forward-right-link-img">
+                                                                                 ${unblockAccount}
+                                                                                <img src="resources/images/forward-white.png"
+                                                                                     alt=""/>
+                                                                            </span>
                                                                         </a>
                                                                         <form action="/" method="POST"
                                                                               id="form-unblockAccount" role="form">
@@ -521,8 +533,11 @@
                                                                            href="?command=blockAccount"
                                                                            onclick="document.getElementById('form-blockAccount').submit(); return false;"
                                                                            aria-controls="blockAccount">
-                                                                                ${blockAccount}
-                                                                            <span class="forward-right-link-img">→</span>
+                                                                            <span class="forward-right-link-img">
+                                                                                 ${blockAccount}
+                                                                                <img src="resources/images/forward-white.png"
+                                                                                     alt=""/>
+                                                                            </span>
                                                                         </a>
                                                                         <form action="/" method="POST"
                                                                               id="form-blockAccount" role="form">
@@ -540,8 +555,11 @@
                                                                    href="#deleteAccountModal?accountNumber=${viewableAccount.number}"
                                                                    onclick="showDeleteAccountModal();"
                                                                    aria-controls="deleteAccount">
-                                                                        ${deleteAccount}
-                                                                    <span class="forward-right-link-img">→</span>
+                                                                    <span class="forward-right-link-img">
+                                                                         ${deleteAccount}
+                                                                        <img src="resources/images/forward-white.png"
+                                                                             alt=""/>
+                                                                    </span>
                                                                 </a>
                                                             </div>
                                                         </div>

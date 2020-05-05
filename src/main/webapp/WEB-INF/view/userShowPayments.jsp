@@ -94,7 +94,7 @@
                                                         response ne 'showUserPaymentsError' &&
                                                         paymentsEmpty == false}">
 
-                                            <div class="card-body" style="padding: 45px 40px 20px 40px;">
+                                            <div class="card-body card-body-main">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-xl-3">
                                                         <div class="search-block">
@@ -160,11 +160,10 @@
                                                                                                 </p>
 
                                                                                                 <!-- New balance -->
-                                                                                                <p class="card-title text-muted">
+                                                                                                <p class="card-title text-muted new-balance">
+                                                                                                    <span>
                                                                                                         ${remained}: ${payment.newBalance} ${payment.senderCurrency}
-                                                                                                </p>
-
-                                                                                                <p class="card-title text-muted">
+                                                                                                    </span>
 
                                                                                                     <!-- Show Payment Info -->
                                                                                                     <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
@@ -197,10 +196,9 @@
 
                                                                                                 <!-- New balance -->
                                                                                                 <p class="card-title text-muted">
+                                                                                                     <span>
                                                                                                         ${remained}: ${payment.newBalance} ${payment.recipientCurrency}
-                                                                                                </p>
-
-                                                                                                <p class="card-title text-muted">
+                                                                                                     </span>
 
                                                                                                     <!-- Show Payment Info -->
                                                                                                     <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
