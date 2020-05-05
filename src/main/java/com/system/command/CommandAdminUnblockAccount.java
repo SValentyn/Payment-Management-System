@@ -38,6 +38,8 @@ public class CommandAdminUnblockAccount implements ICommand {
             int status = AccountService.getInstance().unblockAccount(Integer.valueOf(accountIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.ACCOUNT_UNBLOCKED_ERROR);
+            } else {
+                setSessionAttributes(request, ServerResponse.ACCOUNT_UNBLOCKED_SUCCESS);
             }
         }
 

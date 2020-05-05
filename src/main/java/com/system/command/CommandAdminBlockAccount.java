@@ -38,6 +38,8 @@ public class CommandAdminBlockAccount implements ICommand {
             int status = AccountService.getInstance().blockAccount(Integer.valueOf(accountIdParam));
             if (status == 0) {
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_ERROR);
+            } else {
+                setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_SUCCESS);
             }
         }
 

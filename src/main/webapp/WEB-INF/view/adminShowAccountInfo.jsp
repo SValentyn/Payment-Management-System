@@ -155,11 +155,35 @@
         </div>
     </c:if>
 
+    <!-- Alert accountBlockedSuccess -->
+    <c:if test="${response eq 'accountBlockedSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertAccountBlockedSuccess"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <!-- Alert accountBlockedError -->
     <c:if test="${response eq 'accountBlockedError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="admin.page.alertAccountBlockedError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert accountUnblockedSuccess -->
+    <c:if test="${response eq 'accountUnblockedSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
+                <fmt:message key="admin.page.alertAccountUnblockedSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
