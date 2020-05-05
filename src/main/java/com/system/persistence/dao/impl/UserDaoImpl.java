@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_USER = "INSERT INTO users (name, surname, phone, email, password, date_registration, role_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_USER = "INSERT INTO users (name, surname, phone, email, password, registration_date, role_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_USER = "UPDATE users SET name = ?, surname = ?, phone = ?, email = ?, password = ? WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE user_id = ?";
     private static final String FIND_BY_ID = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.user_id = ?";
@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao {
                 entity.getPhone(),
                 entity.getEmail(),
                 entity.getPassword(),
-                entity.getDateRegistration(),
+                entity.getRegistrationDate(),
                 entity.getRole().getId()
         };
         return executor.executeStatement(CREATE_USER, args);
@@ -154,7 +154,7 @@ public class UserDaoImpl implements UserDao {
             user.setPhone(rs.getString("phone"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
-            user.setDateRegistration(rs.getString("date_registration"));
+            user.setRegistrationDate(rs.getString("registration_date"));
             Role role = new Role();
             role.setId(rs.getInt("role_id"));
             role.setRolename(rs.getString("title"));

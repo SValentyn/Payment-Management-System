@@ -12,7 +12,7 @@ public class User implements Serializable {
     private String phone;
     private String email;
     private String password;
-    private String dateRegistration;
+    private String registrationDate;
     private Role role;
 
     public User() {
@@ -66,12 +66,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getDateRegistration() {
-        return dateRegistration;
+    public String getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setDateRegistration(String dateRegistration) {
-        this.dateRegistration = dateRegistration;
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public Role getRole() {
@@ -92,7 +92,7 @@ public class User implements Serializable {
         result = prime * result + ((phone == null) ? 0 : phone.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((dateRegistration == null) ? 0 : dateRegistration.hashCode());
+        result = prime * result + ((registrationDate == null) ? 0 : registrationDate.hashCode());
         return result;
     }
 
@@ -136,10 +136,10 @@ public class User implements Serializable {
         } else if (!password.equals(other.password))
             return false;
 
-        if (dateRegistration == null) {
-            if (other.dateRegistration != null)
+        if (registrationDate == null) {
+            if (other.registrationDate != null)
                 return false;
-        } else if (!dateRegistration.equals(other.dateRegistration))
+        } else if (!registrationDate.equals(other.registrationDate))
             return false;
 
         return userId.equals(other.userId);
@@ -153,7 +153,7 @@ public class User implements Serializable {
                 ", phone=" + phone +
                 ", email=" + email +
                 ", password=" + password +
-                ", dateRegistration=" + dateRegistration +
+                ", registrationDate=" + registrationDate +
                 ", role=" + role + "]";
     }
 

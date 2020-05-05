@@ -79,7 +79,7 @@ public class UserService {
             user.setEmail(email);
             user.setPassword(encryptor.encode(password));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            user.setDateRegistration(formatter.format(new Date()));
+            user.setRegistrationDate(formatter.format(new Date()));
             Role role = new Role();
             role.setRolename(Role.ROLE_CLIENT);
             user.setRole(role);
@@ -106,7 +106,7 @@ public class UserService {
             user.setEmail(email);
             user.setPassword(encryptor.encode(generatePassword(8)));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            user.setDateRegistration(formatter.format(new Date()));
+            user.setRegistrationDate(formatter.format(new Date()));
             Role role = new Role();
             role.setRolename(Role.ROLE_CLIENT);
             user.setRole(role);

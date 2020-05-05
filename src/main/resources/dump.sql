@@ -43,14 +43,14 @@ CREATE TABLE users
     phone             VARCHAR(255) NOT NULL,
     email             VARCHAR(255),
     password          VARCHAR(255) NOT NULL,
-    date_registration VARCHAR(255) NOT NULL,
+    registration_date VARCHAR(255) NOT NULL,
     role_id           INT(11)      NOT NULL,
     PRIMARY KEY (user_id)
 ) ENGINE = InnoDB
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 
-INSERT INTO users (user_id, name, surname, phone, email, password, date_registration, role_id)
+INSERT INTO users (user_id, name, surname, phone, email, password, registration_date, role_id)
 VALUES
 # admin (pass: 111111)
 (1, 'Cristoforo', 'Colombo', '+393524594551',

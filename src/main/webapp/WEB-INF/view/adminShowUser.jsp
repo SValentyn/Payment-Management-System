@@ -133,6 +133,7 @@
                 <fmt:message key="admin.user.userProfile" var="userProfile"/>
                 <fmt:message key="admin.users.admin" var="admin_rank"/>
                 <fmt:message key="admin.users.user" var="user_rank"/>
+                <fmt:message key="admin.user.registrationDate" var="registrationDate"/>
                 <fmt:message key="admin.user.email" var="email"/>
                 <fmt:message key="admin.user.phone" var="phone"/>
                 <fmt:message key="admin.user.showPayments" var="showPayments"/>
@@ -222,39 +223,67 @@
                                                                             <label for="email" class="default-label">
                                                                             </label>
                                                                         </div>
+
+                                                                        <!-- Registration Date -->
+                                                                        <div>
+                                                                            <label class="for-form-label">
+                                                                                    ${registrationDate}:
+                                                                            </label>
+                                                                            <input id="registrationDate"
+                                                                                   name="registrationDate"
+                                                                                   type="text" class="form-control"
+                                                                                   readonly="readonly"
+                                                                                   value="${viewableUser.registrationDate}"/>
+                                                                            <label for="registrationDate"
+                                                                                   class="default-label">
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
 
                                                                     <div class="col-md-4 col-lg-4 col-xl-4 offset-md-1"
                                                                          style="align-self: center;">
                                                                         <div class="list-group" id="list-tab"
                                                                              role="tablist">
+
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-payments-list" role="tab"
                                                                                data-toggle="list" href="#list-payments"
                                                                                aria-controls="payments">
-                                                                                    ${showPayments}
-                                                                                <span class="forward-right-link-img">→</span>
+                                                                                <span class="forward-right-link-img">
+                                                                                     ${showPayments}
+                                                                                    <img src="resources/images/forward-white.png"
+                                                                                         alt=""/>
+                                                                                </span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-accounts-list" role="tab"
                                                                                data-toggle="list" href="#list-accounts"
                                                                                aria-controls="accounts">
-                                                                                    ${showAccounts}
-                                                                                <span class="forward-right-link-img">→</span>
+                                                                                <span class="forward-right-link-img">
+                                                                                     ${showAccounts}
+                                                                                    <img src="resources/images/forward-white.png"
+                                                                                         alt=""/>
+                                                                                </span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-attachAccount-list"
                                                                                href="?command=attachAccount&userId=${viewableUser.userId}"
                                                                                role="tab" aria-controls="attachAccount">
-                                                                                    ${attachAccount}
-                                                                                <span class="forward-right-link-img">→</span>
+                                                                                <span class="forward-right-link-img">
+                                                                                     ${attachAccount}
+                                                                                    <img src="resources/images/forward-white.png"
+                                                                                         alt=""/>
+                                                                                </span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-primary"
                                                                                id="list-updateData-list"
                                                                                href="?command=updateUserData&userId=${viewableUser.userId}"
                                                                                role="tab" aria-controls="updateData">
-                                                                                    ${updateData}
-                                                                                <span class="forward-right-link-img">→</span>
+                                                                                <span class="forward-right-link-img">
+                                                                                     ${updateData}
+                                                                                    <img src="resources/images/forward-white.png"
+                                                                                         alt=""/>
+                                                                                </span>
                                                                             </a>
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                                style="margin-top: 1px;"
@@ -262,8 +291,11 @@
                                                                                onclick="showModal();"
                                                                                href="#smallModal?name=${viewableUser.name}&surname=${viewableUser.surname}"
                                                                                role="tab" aria-controls="deleteUser">
-                                                                                    ${deleteUser}
-                                                                                <span class="forward-right-link-img">→</span>
+                                                                                <span class="forward-right-link-img">
+                                                                                     ${deleteUser}
+                                                                                    <img src="resources/images/forward-white.png"
+                                                                                         alt=""/>
+                                                                                </span>
                                                                             </a>
                                                                         </div>
                                                                     </div>
