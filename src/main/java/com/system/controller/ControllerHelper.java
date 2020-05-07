@@ -33,7 +33,7 @@ public class ControllerHelper {
 
     private ControllerHelper() {
 
-        // Commands for the Unknown
+        // Commands for the unregistered users
         commands.put("/", new CommandIndex());
         commands.put("login", new CommandLogin());
         commands.put("registration", new CommandRegistration());
@@ -44,42 +44,43 @@ public class ControllerHelper {
         userCommands.put("profile", new CommandUserUpdatePersonalData());
         userCommands.put("deleteProfile", new CommandUserDeleteProfile());
         userCommands.put("updatePassword", new CommandUserUpdatePassword());
-        userCommands.put("createAccount", new CommandUserCreateAccount());
-        userCommands.put("makePayment", new CommandUserMakePayment());
-        userCommands.put("repeatPayment", new CommandUserRepeatPayment());
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showPayments", new CommandUserShowPayments());
         userCommands.put("showAccountSettings", new CommandUserShowAccountSettings());
         userCommands.put("showAccountCards", new CommandUserShowAccountCards());
         userCommands.put("showAccountPayments", new CommandUserShowAccountPayments());
+        userCommands.put("showPaymentInfo", new CommandUserShowPaymentInfo());
         userCommands.put("blockAccount", new CommandUserBlockAccount());
         userCommands.put("unblockAccount", new CommandUserUnblockAccount());
         userCommands.put("deleteAccount", new CommandUserDeleteAccount());
         userCommands.put("blockCard", new CommandUserBlockCard());
         userCommands.put("unblockCard", new CommandUserUnblockCard());
-        userCommands.put("attachCard", new CommandUserAttachCard());
         userCommands.put("detachCard", new CommandUserDetachCard());
+        userCommands.put("createAccount", new CommandUserCreateAccount());
+        userCommands.put("attachCard", new CommandUserAttachCard());
+        userCommands.put("makePayment", new CommandUserMakePayment());
+        userCommands.put("repeatPayment", new CommandUserRepeatPayment());
         userCommands.put("support", new CommandUserSupport());
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());
         adminCommands.put("profile", new CommandAdminUpdatePersonalData());
         adminCommands.put("updatePassword", new CommandAdminUpdatePassword());
-        adminCommands.put("addUser", new CommandAdminAddUser());
         adminCommands.put("showUser", new CommandAdminShowUser());
-        adminCommands.put("showUserPayments", new CommandAdminShowUserPayments());
-        adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
         adminCommands.put("updateUserData", new CommandAdminUpdateUserData());
         adminCommands.put("deleteUser", new CommandAdminDeleteUser());
-        adminCommands.put("showPaymentInfo", new CommandAdminShowPaymentInfo());
+        adminCommands.put("showUserAccounts", new CommandAdminShowUserAccounts());
+        adminCommands.put("showUserPayments", new CommandAdminShowUserPayments());
         adminCommands.put("showAccountInfo", new CommandAdminShowAccountInfo());
+        adminCommands.put("showPaymentInfo", new CommandAdminShowPaymentInfo());
         adminCommands.put("attachAccount", new CommandAdminAttachAccount());
+        adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());
         adminCommands.put("blockAccount", new CommandAdminBlockAccount());
         adminCommands.put("unblockAccount", new CommandAdminUnblockAccount());
-        adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());
         adminCommands.put("blockCard", new CommandAdminBlockCard());
         adminCommands.put("unblockCard", new CommandAdminUnblockCard());
         adminCommands.put("detachCard", new CommandAdminDetachCard());
+        adminCommands.put("addUser", new CommandAdminAddUser());
         adminCommands.put("support", new CommandAdminSupport());
         adminCommands.put("showLetterInfo", new CommandAdminShowLetterInfo());
     }

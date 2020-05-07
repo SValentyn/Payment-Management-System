@@ -1,5 +1,32 @@
+.page-content {
+    min-height: 100vh;
+}
+
+.login-wrapper .box {
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+}
+
+.login-wrapper .box .card-header .nav-link img {
+    margin-right: 6px;
+}
+
+.content-wrap {
+    width: 100% !important;
+}
+
 .content-wrap h4 {
     margin-bottom: 15px !important;
+}
+
+.card-body-main {
+    padding: 45px 50px 40px 50px;
+}
+
+.form-control {
+    height: 46px !important;
+    margin-top: 0 !important;
 }
 
 .detail {
@@ -8,9 +35,14 @@
     text-align: right;
 }
 
-.form-control {
-    height: 46px !important;
-    margin-top: 0 !important;
+span[class="title-label"] label {
+    font-size: 22px !important;
+}
+
+@media (max-width: 744px) {
+    span[class="title-label"] label {
+        font-size: 18px !important;
+    }
 }
 
 @media (max-width: 470px) {
@@ -25,7 +57,7 @@
 
 @media (max-width: 412px) {
     .content-wrap h4 {
-        font-size: 16px !important;
+        font-size: 18px !important;
     }
 
     .form-control {
@@ -43,7 +75,7 @@
 
 @media (max-width: 354px) {
     .content-wrap h4 {
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
 
     .form-control {

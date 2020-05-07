@@ -25,6 +25,7 @@ public class ResourceManager {
     public static final String USER_SHOW_ACCOUNT_SETTINGS = "USER_SHOW_ACCOUNT_SETTINGS";
     public static final String USER_SHOW_ACCOUNT_CARDS = "USER_SHOW_ACCOUNT_CARDS";
     public static final String USER_SHOW_ACCOUNT_PAYMENTS = "USER_SHOW_ACCOUNT_PAYMENTS";
+    public static final String USER_SHOW_PAYMENT_INFO = "USER_SHOW_PAYMENT_INFO";
     public static final String USER_CREATE_ACCOUNT = "USER_CREATE_ACCOUNT";
     public static final String USER_ATTACH_CARD = "USER_ATTACH_CARD";
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
@@ -35,14 +36,14 @@ public class ResourceManager {
     public static final String ADMIN = "ADMIN";
     public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_PERSONAL_DATA";
     public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
-    public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
-    public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
     public static final String ADMIN_SHOW_USER = "ADMIN_SHOW_USER";
+    public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_SHOW_USER_PAYMENTS = "ADMIN_SHOW_USER_PAYMENTS";
     public static final String ADMIN_SHOW_PAYMENT_INFO = "ADMIN_SHOW_PAYMENT_INFO";
     public static final String ADMIN_SHOW_USER_ACCOUNTS = "ADMIN_SHOW_USER_ACCOUNTS";
     public static final String ADMIN_SHOW_ACCOUNT_INFO = "ADMIN_SHOW_ACCOUNT_INFO";
-    public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
+    public static final String ADMIN_ADD_USER = "ADMIN_ADD_USER";
+    public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
     public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
     public static final String ADMIN_SHOW_LETTER_INFO = "ADMIN_SHOW_LETTER_INFO";
     // ****************************
@@ -61,6 +62,7 @@ public class ResourceManager {
     public static final String COMMAND_USER_SHOW_ACCOUNT_SETTINGS = "COMMAND_USER_SHOW_ACCOUNT_SETTINGS";
     public static final String COMMAND_USER_SHOW_ACCOUNT_CARDS = "COMMAND_USER_SHOW_ACCOUNT_CARDS";
     public static final String COMMAND_USER_SHOW_ACCOUNT_PAYMENTS = "COMMAND_USER_SHOW_ACCOUNT_PAYMENTS";
+    public static final String COMMAND_USER_SHOW_PAYMENT_INFO = "COMMAND_USER_SHOW_PAYMENT_INFO";
     public static final String COMMAND_USER_CREATE_ACCOUNT = "COMMAND_USER_CREATE_ACCOUNT";
     public static final String COMMAND_USER_ATTACH_CARD = "COMMAND_USER_ATTACH_CARD";
     public static final String COMMAND_USER_MAKE_PAYMENT = "COMMAND_USER_MAKE_PAYMENT";
@@ -70,14 +72,14 @@ public class ResourceManager {
     // ****************
     public static final String COMMAND_ADMIN_UPDATE_DATA = "COMMAND_ADMIN_UPDATE_PERSONAL_DATA";
     public static final String COMMAND_ADMIN_UPDATE_PASSWORD = "COMMAND_ADMIN_UPDATE_PASSWORD";
-    public static final String COMMAND_ADMIN_ADD_USER = "COMMAND_ADMIN_ADD_USER";
-    public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";
     public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";
+    public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
     public static final String COMMAND_ADMIN_SHOW_USER_PAYMENTS = "COMMAND_ADMIN_SHOW_USER_PAYMENTS";
     public static final String COMMAND_ADMIN_SHOW_PAYMENT_INFO = "COMMAND_ADMIN_SHOW_PAYMENT_INFO";
     public static final String COMMAND_ADMIN_SHOW_USER_ACCOUNTS = "COMMAND_ADMIN_SHOW_USER_ACCOUNTS";
     public static final String COMMAND_ADMIN_SHOW_ACCOUNT_INFO = "COMMAND_ADMIN_SHOW_ACCOUNT_INFO";
-    public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
+    public static final String COMMAND_ADMIN_ADD_USER = "COMMAND_ADMIN_ADD_USER";
+    public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";
     public static final String COMMAND_ADMIN_SUPPORT = "COMMAND_ADMIN_SUPPORT";
     public static final String COMMAND_ADMIN_SHOW_LETTER_INFO = "COMMAND_ADMIN_SHOW_LETTER_INFO";
 
