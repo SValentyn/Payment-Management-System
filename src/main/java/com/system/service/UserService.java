@@ -157,13 +157,6 @@ public class UserService {
     }
 
     /**
-     * Finds user by phone number and checks if user is registered already
-     */
-    private User findUserByPhoneNumber(String phone) {
-        return userDao.findUserByPhoneNumber(phone);
-    }
-
-    /**
      * Finds user entity by userId
      */
     public User findUserById(Integer userId) {
@@ -171,10 +164,24 @@ public class UserService {
     }
 
     /**
+     * Finds user by phone number and checks if user is registered already
+     */
+    private User findUserByPhoneNumber(String phone) {
+        return userDao.findUserByPhoneNumber(phone);
+    }
+
+    /**
      * Finds all users
      */
     public List<User> findAllUsers() {
         return userDao.findAllUsers();
+    }
+
+    /**
+     * Searches all users by criteria
+     */
+    public List<User> searchByCriteria(String name, String surname, String phone, String email) {
+        return userDao.searchByCriteria(name, surname, phone, email);
     }
 
 }

@@ -41,7 +41,10 @@ public class CommandIndex implements ICommand {
                 String role = user.getRole().getRolename();
                 if (role.equals(Role.ROLE_ADMIN)) {
                     pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
-                    request.setAttribute("users", UserService.getInstance().findAllUsers());
+
+                    if (request.getAttribute("users") == null) {
+                        request.setAttribute("users", UserService.getInstance().findAllUsers());
+                    }
                 } else if (role.equals(Role.ROLE_CLIENT)) {
                     pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER);
 
@@ -72,6 +75,42 @@ public class CommandIndex implements ICommand {
         if (login != null) {
             request.setAttribute("loginValue", login);
             session.removeAttribute("login");
+        }
+
+        List<User> users = (List<User>) session.getAttribute("users");
+        if (users != null) {
+            request.setAttribute("users", users);
+            session.removeAttribute("users");
+        }
+
+        String numberOfUsers = (String) session.getAttribute("numberOfUsers");
+        if (numberOfUsers != null) {
+            request.setAttribute("numberOfUsers", numberOfUsers);
+            session.removeAttribute("numberOfUsers");
+        }
+
+        String name = (String) session.getAttribute("name");
+        if (name != null) {
+            request.setAttribute("nameValue", name);
+            session.removeAttribute("name");
+        }
+
+        String surname = (String) session.getAttribute("surname");
+        if (surname != null) {
+            request.setAttribute("surnameValue", surname);
+            session.removeAttribute("surname");
+        }
+
+        String phone = (String) session.getAttribute("phone");
+        if (phone != null) {
+            request.setAttribute("phoneValue", phone);
+            session.removeAttribute("phone");
+        }
+
+        String email = (String) session.getAttribute("email");
+        if (email != null) {
+            request.setAttribute("emailValue", email);
+            session.removeAttribute("email");
         }
 
         String response = (String) session.getAttribute("response");

@@ -46,4 +46,9 @@ public interface UserDao {
      */
     List<User> findAllUsers();
 
+    /**
+     * Searches all users by criteria
+     */
+    List<User> searchByCriteria(String name, String surname, String phone, String email);
+
 }

@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="stylesheet" href="resources/css/style_admin.css">
 </head>
@@ -34,11 +35,49 @@
         </div>
     </c:if>
 
-    <!-- Alert Success -->
+    <!-- Alert userDeletedSuccess -->
     <c:if test="${response eq 'userDeletedSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="admin.page.alertUserDeletedSuccess"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchUsersSuccess -->
+    <c:if test="${response eq 'searchUsersSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchUsersSuccess"/>
+                    ${numberOfUsers}
+                <fmt:message key="admin.users.users"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchUsersSuccess -->
+    <c:if test="${response eq 'searchUsersWarning'}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchUsersWarning"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchUsersError -->
+    <c:if test="${response eq 'searchUsersError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertSearchUsersError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -57,6 +96,12 @@
                 <fmt:message key="admin.users.user" var="user_rank"/>
                 <fmt:message key="admin.users.admin" var="admin_rank"/>
                 <fmt:message key="admin.users.gotoProfile" var="gotoProfile"/>
+                <fmt:message key="registration.name" var="name"/>
+                <fmt:message key="registration.surname" var="surname"/>
+                <fmt:message key="registration.email" var="email"/>
+                <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
@@ -87,16 +132,64 @@
                                     <c:choose>
                                         <c:when test="${totalUsers != null && totalUsers != 0}">
                                             <div class="card-body" style="margin-top: 25px;">
-                                                <div class="row">
+                                                <div class="row" style="padding: 0 20px 0 35px !important;">
                                                     <div class="col-lg-3 col-xl-3">
                                                         <div class="search-block">
                                                             <label>
                                                                     ${searchCriteria}:
                                                             </label>
-                                                            <form action="/" method="GET" role="form">
+                                                            <form action="/" method="POST" role="form">
                                                                 <input type="hidden" name="command"
                                                                        value="searchUsers"/>
-                                                                <div class="action">
+
+                                                                <div>
+                                                                    <input id="name" name="name" type="text"
+                                                                           class="form-control"
+                                                                           data-toggle="tooltip-left"
+                                                                           data-title="${tooltipOnlyLetters}"
+                                                                           maxlength="24" placeholder="${name}"
+                                                                           value="${nameValue}"/>
+                                                                    <label for="name"
+                                                                           class="default-label">&nbsp;</label>
+                                                                </div>
+
+                                                                <!-- Surname -->
+                                                                <div>
+                                                                    <input id="surname" name="surname" type="text"
+                                                                           class="form-control"
+                                                                           data-toggle="tooltip-left"
+                                                                           data-title="${tooltipOnlyLetters}"
+                                                                           maxlength="32" placeholder="${surname}"
+                                                                           value="${surnameValue}"/>
+                                                                    <label for="surname"
+                                                                           class="default-label">&nbsp;</label>
+                                                                </div>
+
+                                                                <!-- Phone -->
+                                                                <div style="margin-top: 8px">
+                                                                    <input id="phone" name="phone" type="text"
+                                                                           class="form-control"
+                                                                           data-toggle="tooltip-left"
+                                                                           data-title="${tooltipPhone}"
+                                                                           onkeypress="onlyNumbers();"
+                                                                           value="${phoneValue}"/>
+                                                                    <label for="phone"
+                                                                           class="default-label">&nbsp;</label>
+                                                                </div>
+
+                                                                <!-- Email -->
+                                                                <div>
+                                                                    <input id="email" name="email" type="text"
+                                                                           class="form-control"
+                                                                           data-toggle="tooltip-left"
+                                                                           data-title="${tooltipEmail}"
+                                                                           maxlength="45" placeholder="${email}"
+                                                                           value="${emailValue}"/>
+                                                                    <label for="email"
+                                                                           class="default-label">&nbsp;</label>
+                                                                </div>
+
+                                                                <div class="action" style="padding: 15px 0 0 0">
                                                                     <button id="search" type="submit"
                                                                             class="btn btn-primary signup">
                                                                             ${searchButton}
@@ -200,4 +293,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script src="resources/js/validator_admin.js"></script>
 </html>

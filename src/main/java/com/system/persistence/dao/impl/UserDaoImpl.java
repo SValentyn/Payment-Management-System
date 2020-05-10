@@ -31,6 +31,8 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_BY_LOGIN_PASSWORD = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ? AND users.password = ?";
     private static final String FIND_BY_PHONE = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ?";
     private static final String FIND_ALL = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id";
+    private static final String SEARCH_BY_CRITERIA = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id " +
+            "WHERE role_id = 1 AND name LIKE CONCAT(?,'%') AND surname LIKE CONCAT(?,'%') AND phone LIKE CONCAT(?,'%') AND email LIKE CONCAT(?,'%') ORDER BY registration_date DESC";
 
     private static UserDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
@@ -128,12 +130,30 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findAllUsers() {
-        User user;
         List<User> users = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_ALL);
             while (rs.next()) {
-                user = createEntity(rs);
+                User user = createEntity(rs);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> searchByCriteria(String name, String surname, String phone, String email) {
+        name = StringEscapeUtils.escapeJava(name);
+        surname = StringEscapeUtils.escapeJava(surname);
+        email = StringEscapeUtils.escapeJava(email);
+
+        List<User> users = new ArrayList<>();
+        try {
+            ResultSet rs = executor.getResultSet(SEARCH_BY_CRITERIA, name, surname, phone, email);
+            while (rs.next()) {
+                User user = createEntity(rs);
                 users.add(user);
             }
         } catch (SQLException e) {
