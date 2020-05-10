@@ -146,10 +146,13 @@ function validationCVV() {
 
 /* Month and year validation */
 let validMsgValidity = document.querySelector("#valid-msg-validity"),
-    errorMsgValidity = document.querySelector("#error-msg-validity");
+    errorMsgValidity = document.querySelector("#error-msg-validity"),
+    errorMsgValidityExpired = document.querySelector("#error-msg-validityExpired"),
+    errorMsgValidityExpiredError = document.querySelector("#error-msg-validityExpiredError");
 
 function resetValidity() {
-    document.querySelector("#validityExpiredError").classList.add("invisible");
+    errorMsgValidityExpired.classList.add("invisible");
+    errorMsgValidityExpiredError.classList.add("invisible");
     validMsgValidity.classList.add("invisible");
     errorMsgValidity.classList.add("invisible");
     document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("valid-input");
@@ -176,11 +179,22 @@ function notValidValidity() {
     document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("error-input");
 }
 
-selectbox_month.on('show.bfhselectbox', () => resetValidity());
-selectbox_year.on('show.bfhselectbox', () => resetValidity());
+function validityExpired() {
+    errorMsgValidityExpired.classList.remove("invisible");
+    errorMsgValidityExpiredError.classList.add("invisible");
+    validMsgValidity.classList.add("invisible");
+    errorMsgValidity.classList.add("invisible");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.add("error-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.remove("valid-input");
+    document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.add("error-input");
+}
 
 selectbox_month.on('hide.bfhselectbox', () => validationMonth());
 selectbox_year.on('hide.bfhselectbox', () => validationYear());
+
+selectbox_month.on('show.bfhselectbox', () => resetValidity());
+selectbox_year.on('show.bfhselectbox', () => resetValidity());
 
 function validationMonth() {
     resetValidity();
@@ -190,7 +204,11 @@ function validationMonth() {
         year.value.trim() === null || year.value.trim() === "") {
         notValidValidity();
     } else {
-        validValidity();
+        if (validationDate(year.value, month.value)) {
+            validValidity();
+        } else {
+            validityExpired();
+        }
     }
 }
 
@@ -202,7 +220,25 @@ function validationYear() {
         year.value.trim() === null || year.value.trim() === "") {
         notValidValidity();
     } else {
-        validValidity();
+        if (validationDate(year.value, month.value)) {
+            validValidity();
+        } else {
+            validityExpired();
+        }
+    }
+}
+
+function validationDate(year, month) {
+    let date = new Date();
+    let current_month = date.getMonth();
+    let current_year = date.getFullYear();
+
+    if (year > current_year) {
+        return true;
+    } else if (year == current_year) {
+        return month - 1 > current_month;
+    } else {
+        return false;
     }
 }
 
@@ -236,7 +272,6 @@ submitBtn.addEventListener('click', (event) => {
     if (document.querySelector(".bfh-selectbox-month .bfh-selectbox-toggle").classList.contains("error-input") ||
         document.querySelector(".bfh-selectbox-year .bfh-selectbox-toggle").classList.contains("error-input")) {
         event.preventDefault();
-        notValidValidity();
         return false;
     }
 

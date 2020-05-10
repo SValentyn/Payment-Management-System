@@ -114,6 +114,7 @@
                 <fmt:message key="user.attachCard.numberError" var="numberError"/>
                 <fmt:message key="user.attachCard.cvvError" var="cvvError"/>
                 <fmt:message key="user.attachCard.validityError" var="validityError"/>
+                <fmt:message key="user.attachCard.validityExpiredError" var="validityExpiredError"/>
                 <fmt:message key="user.attachCard.tooltipCardNumber" var="tooltipCardNumber"/>
                 <fmt:message key="user.attachCard.tooltipCVV" var="tooltipCVV"/>
                 <fmt:message key="registration.correct" var="correct"/>
@@ -266,12 +267,17 @@
                                                     <span id="error-msg-validity" class="error-msg invisible">
                                                         ${validityError}
                                                     </span>
-                                                    <span id="validityExpiredError" class="error-msg invisible">
-                                                        <c:if test="${response eq 'validityExpiredError'}">
-                                                            <fmt:message key="user.attachCard.validityExpiredError"/>
+                                                    <span id="error-msg-validityExpired" class="error-msg invisible">
+                                                        ${validityExpiredError}
+                                                    </span>
+                                                    <span id="error-msg-validityExpiredError"
+                                                          class="error-msg invisible">
+                                                        ${validityExpiredError}
 
+                                                        <c:if test="${response eq 'validityExpiredError'}">
                                                             <script>
-                                                                document.querySelector("#validityExpiredError").classList.remove("invisible");
+                                                                document.querySelector("#error-msg-validityExpiredError").classList.remove("invisible");
+                                                                document.querySelector("#error-msg-validityExpired").classList.add("invisible");
                                                                 document.querySelector("#valid-msg-validity").classList.add("invisible");
                                                                 document.querySelector("#error-msg-validity").classList.add("invisible");
                                                             </script>

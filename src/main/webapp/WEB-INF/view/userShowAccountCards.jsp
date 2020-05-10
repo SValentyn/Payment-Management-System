@@ -27,16 +27,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="user.card.modalHeader"/>
+                    <fmt:message key="user.attached_cards.modalHeader"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <fmt:message key="user.card.modalBody"/>
+                <fmt:message key="user.attached_cards.modalBody"/>
                 <br>
                 <div style="display: flex; margin-top: 20px;">
                     <label for="cardNumberText" class="modal-label">
-                        <fmt:message key="user.card.modalCardLabel"/>
+                        <fmt:message key="user.attached_cards.modalCardLabel"/>
                     </label>
                     <input id="cardNumberText" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
@@ -194,7 +194,7 @@
                 <fmt:message key="admin.account_info.validity" var="validity"/>
                 <fmt:message key="admin.account_info.blockCard" var="blockCard"/>
                 <fmt:message key="admin.account_info.unblockCard" var="unblockCard"/>
-                <fmt:message key="admin.account_info.detachCard" var="detachCard"/>
+                <fmt:message key="user.attached_cards.detach" var="detach"/>
                 <fmt:message key="user.account.returnToAllAccounts" var="returnToAllAccounts"/>
 
                 <div class="page-content container-fluid">
@@ -399,7 +399,7 @@
                                                                                                class="float-right">
                                                                                                 <img src="resources/images/detach-card.png"
                                                                                                      style="margin-left: 7px;"
-                                                                                                     alt="${detachCard}"/>
+                                                                                                     alt="${detach}"/>
                                                                                             </a>
                                                                                             <c:choose>
                                                                                                 <c:when test="${card.isActive}">

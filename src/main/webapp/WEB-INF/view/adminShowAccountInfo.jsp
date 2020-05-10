@@ -67,7 +67,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="user.card.modalHeader"/>
+                    <fmt:message key="user.attached_cards.modalHeader"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
@@ -76,7 +76,7 @@
                 <br>
                 <div style="display: flex; margin-top: 20px;">
                     <label for="cardNumberText" class="modal-label">
-                        <fmt:message key="user.card.modalCardLabel"/>
+                        <fmt:message key="user.attached_cards.modalCardLabel"/>
                     </label>
                     <input id="cardNumberText" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
