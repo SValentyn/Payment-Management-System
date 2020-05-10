@@ -122,6 +122,12 @@ public class CommandAdminShowAccountInfo implements ICommand {
         List<BankCard> cards = BankCardService.getInstance().findCardsByAccountId(accountId);
 
         if (viewableUser != null && payments != null && cards != null) {
+
+            // formatting card numbers
+            for (BankCard card : cards) {
+                card.setNumber(card.getNumber().replaceAll("(.{4})", "$1 "));
+            }
+
             request.setAttribute("userId", userId);
             request.setAttribute("viewableUser", viewableUser);
             request.setAttribute("viewableAccount", viewableAccount);

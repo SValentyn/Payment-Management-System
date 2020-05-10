@@ -746,21 +746,22 @@
                                                                                                 <a href="#detachCardModal?cardId=${card.cardId}&cardNumber=${card.number}"
                                                                                                    onclick="showDetachCardModal();"
                                                                                                    class="float-right">
-                                                                                                    <img src="resources/images/detach-card-link.png"
-                                                                                                         alt="${detachCard}"/>
+                                                                                                    <img src="resources/images/detach-card.png"
+                                                                                                         style="margin-left: 7px;"
+                                                                                                         alt="${detach}"/>
                                                                                                 </a>
                                                                                                 <c:choose>
                                                                                                     <c:when test="${card.isActive}">
                                                                                                         <a href="?command=blockCard&userId=${viewableUser.userId}&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                            class="float-right">
-                                                                                                            <img src="resources/images/locked-link.png"
+                                                                                                            <img src="resources/images/block.png"
                                                                                                                  alt="${blockCard}"/>
                                                                                                         </a>
                                                                                                     </c:when>
                                                                                                     <c:otherwise>
                                                                                                         <a href="?command=unblockCard&userId=${viewableUser.userId}&accountId=${viewableAccount.accountId}&cardId=${card.cardId}"
                                                                                                            class="float-right">
-                                                                                                            <img src="resources/images/unlocked-link.png"
+                                                                                                            <img src="resources/images/unblock.png"
                                                                                                                  alt="${unblockCard}"/>
                                                                                                         </a>
                                                                                                     </c:otherwise>
