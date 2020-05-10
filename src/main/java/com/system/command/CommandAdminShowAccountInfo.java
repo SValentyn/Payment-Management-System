@@ -124,6 +124,16 @@ public class CommandAdminShowAccountInfo implements ICommand {
         if (viewableUser != null && payments != null && cards != null) {
 
             // formatting card numbers
+            for (Payment payment : payments) {
+                if (payment.getSenderNumber().length() == 16) {
+                    payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
+                }
+                if (payment.getRecipientNumber().length() == 16) {
+                    payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
+                }
+            }
+
+            // formatting card numbers
             for (BankCard card : cards) {
                 card.setNumber(card.getNumber().replaceAll("(.{4})", "$1 "));
             }

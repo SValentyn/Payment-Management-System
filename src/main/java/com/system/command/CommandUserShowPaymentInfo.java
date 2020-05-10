@@ -106,6 +106,16 @@ public class CommandUserShowPaymentInfo implements ICommand {
     }
 
     private void setRequestAttributes(HttpServletRequest request, Payment payment, User senderUser, User recipientUser, boolean recipientIsAccount) {
+
+        // formatting card numbers
+        if (payment.getSenderNumber().length() == 16) {
+            payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
+        }
+
+        if (payment.getRecipientNumber().length() == 16) {
+            payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
+        }
+
         request.setAttribute("payment", payment);
         request.setAttribute("senderUser", senderUser);
         request.setAttribute("recipientUser", recipientUser);

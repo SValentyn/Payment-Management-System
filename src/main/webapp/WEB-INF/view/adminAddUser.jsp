@@ -189,7 +189,7 @@
                                                            type="password" class="form-control"
                                                            readonly="readonly" disabled="disabled"
                                                            placeholder="${passwordGenerated}"/>
-                                                    <label for="password" class="default-label"></label>
+                                                    <label for="password" class="default-label">&nbsp;</label>
                                                 </div>
                                             </div>
 

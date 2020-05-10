@@ -150,7 +150,7 @@
                                                                                                 <!-- Sender and Recipient -->
                                                                                                 <p class="card-title text-muted">
                                                                                                         ${payment.senderNumber}
-                                                                                                    <span class="forward-right-link-img">→</span>
+                                                                                                    <span class="forward-right-link-img">&Longrightarrow;</span>
                                                                                                         ${payment.recipientNumber}
                                                                                                 </p>
 
@@ -186,7 +186,7 @@
                                                                                                 <!-- Sender and Recipient -->
                                                                                                 <p class="card-title text-muted">
                                                                                                         ${payment.recipientNumber}
-                                                                                                    <span class="forward-left-link-img">←</span>
+                                                                                                    <span class="forward-left-link-img">&Longleftarrow;</span>
                                                                                                         ${payment.senderNumber}
                                                                                                 </p>
 

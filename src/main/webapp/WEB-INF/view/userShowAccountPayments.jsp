@@ -175,7 +175,8 @@
                                                                            type="text" class="form-control"
                                                                            readonly="readonly"
                                                                            value="${viewableAccount.number}"/>
-                                                                    <label for="number" class="default-label"></label>
+                                                                    <label for="number"
+                                                                           class="default-label">&nbsp;</label>
                                                                 </div>
 
                                                                 <!-- Account Balance and Currency -->
@@ -195,8 +196,8 @@
                                                                              data-currency="${viewableAccount.currency}"
                                                                              data-flags="true">
                                                                         </div>
-                                                                        <label for="balance" class="default-label">
-                                                                        </label>
+                                                                        <label for="balance"
+                                                                               class="default-label">&nbsp;</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -279,7 +280,7 @@
                                                                                                 <!-- Sender and Recipient -->
                                                                                                 <p class="card-title text-muted">
                                                                                                         ${payment.senderNumber}
-                                                                                                    <span class="forward-right-link-img">→</span>
+                                                                                                    <span class="forward-right-link-img">&Longrightarrow;</span>
                                                                                                         ${payment.recipientNumber}
                                                                                                 </p>
 
@@ -315,7 +316,7 @@
                                                                                                 <!-- Sender and Recipient -->
                                                                                                 <p class="card-title text-muted">
                                                                                                         ${payment.recipientNumber}
-                                                                                                    <span class="forward-left-link-img">←</span>
+                                                                                                    <span class="forward-left-link-img">&Longleftarrow;</span>
                                                                                                         ${payment.senderNumber}
                                                                                                 </p>
 
@@ -332,7 +333,7 @@
                                                                                                     <a href="?command=showPaymentInfo&paymentId=${payment.paymentId}"
                                                                                                        class="float-right">
                                                                                                         <img src="resources/images/info.png"
-                                                                                                             alt=""/>
+                                                                                                             alt="${showInfo}"/>
                                                                                                     </a>
                                                                                                 </p>
                                                                                             </c:otherwise>

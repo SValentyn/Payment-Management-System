@@ -195,6 +195,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.name} ${viewableUser.surname}"/>
                                                                             <label for="bio" class="default-label">
+                                                                                &nbsp;
                                                                             </label>
                                                                         </div>
 
@@ -208,6 +209,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.phone}"/>
                                                                             <label for="phone" class="default-label">
+                                                                                &nbsp;
                                                                             </label>
                                                                         </div>
 
@@ -221,6 +223,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.email}"/>
                                                                             <label for="email" class="default-label">
+                                                                                &nbsp;
                                                                             </label>
                                                                         </div>
 
@@ -235,8 +238,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.registrationDate}"/>
                                                                             <label for="registrationDate"
-                                                                                   class="default-label">
-                                                                            </label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
                                                                     </div>
 
@@ -349,7 +351,7 @@
                                                                                                                 <!-- Sender and Recipient -->
                                                                                                                 <p class="card-title text-muted">
                                                                                                                         ${payment.senderNumber}
-                                                                                                                    <span class="forward-right-link-img">→</span>
+                                                                                                                    <span class="forward-right-link-img">&Longrightarrow;</span>
                                                                                                                         ${payment.recipientNumber}
                                                                                                                 </p>
 
@@ -375,7 +377,7 @@
                                                                                                                 <!-- Sender and Recipient -->
                                                                                                                 <p class="card-title text-muted">
                                                                                                                         ${payment.recipientNumber}
-                                                                                                                    <span class="forward-left-link-img">←</span>
+                                                                                                                    <span class="forward-left-link-img">&Longleftarrow;</span>
                                                                                                                         ${payment.senderNumber}
                                                                                                                 </p>
 
@@ -516,7 +518,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.name} ${viewableUser.surname}"/>
                                                                             <label for="bio_admin"
-                                                                                   class="default-label"></label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
 
                                                                         <!-- Admin Phone -->
@@ -529,7 +531,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.phone}"/>
                                                                             <label for="phone_admin"
-                                                                                   class="default-label"></label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
 
                                                                         <!-- Admin Email -->
@@ -542,7 +544,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${viewableUser.email}"/>
                                                                             <label for="email_admin"
-                                                                                   class="default-label"></label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>

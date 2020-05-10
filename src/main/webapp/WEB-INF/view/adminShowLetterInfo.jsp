@@ -130,12 +130,11 @@
                                                                 <label class="for-form-label">
                                                                         ${user_bio}:
                                                                 </label>
-                                                                <input id="bio" name="bio"
-                                                                       type="text" class="form-control"
-                                                                       style="margin-top: 0;"
+                                                                <input id="bio" name="bio" type="text"
+                                                                       class="form-control" style="margin-top: 0;"
                                                                        readonly="readonly"
                                                                        value="${bioValue}"/>
-                                                                <label for="bio" class="default-label"></label>
+                                                                <label for="bio" class="default-label">&nbsp;</label>
                                                             </div>
 
                                                             <!-- Phone -->
@@ -143,11 +142,11 @@
                                                                 <label class="for-form-label">
                                                                         ${user_phone}:
                                                                 </label>
-                                                                <input id="phone" name="phone"
-                                                                       type="tel" class="form-control"
+                                                                <input id="phone" name="phone" type="tel"
+                                                                       class="form-control"
                                                                        readonly="readonly"
                                                                        value="${phoneValue}"/>
-                                                                <label for="phone" class="default-label"></label>
+                                                                <label for="phone" class="default-label">&nbsp;</label>
                                                             </div>
 
                                                             <!-- Email -->
@@ -155,12 +154,11 @@
                                                                 <label class="for-form-label">
                                                                         ${user_email}:
                                                                 </label>
-                                                                <input id="email" name="email"
-                                                                       type="email" class="form-control"
-                                                                       style="margin-top: 0;"
+                                                                <input id="email" name="email" type="email"
+                                                                       class="form-control" style="margin-top: 0;"
                                                                        readonly="readonly"
                                                                        value="${emailValue}"/>
-                                                                <label for="email" class="default-label"></label>
+                                                                <label for="email" class="default-label">&nbsp;</label>
                                                             </div>
                                                         </div>
 
@@ -175,7 +173,8 @@
                                                                        class="form-control" style="margin-top: 0;"
                                                                        readonly="readonly"
                                                                        value="${typeQuestionValue}"/>
-                                                                <label for="typeQuestion" class="default-label"></label>
+                                                                <label for="typeQuestion" class="default-label">
+                                                                    &nbsp;</label>
                                                             </div>
 
                                                             <!-- Description -->
@@ -190,7 +189,8 @@
                                                                               readonly="readonly"
                                                                     >${descriptionValue}</textarea>
                                                                 </div>
-                                                                <label for="description" class="default-label"></label>
+                                                                <label for="description" class="default-label">
+                                                                    &nbsp;</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -208,7 +208,7 @@
                                                         </c:when>
                                                         <c:otherwise>
                                                             <div class="action" style="padding: 25px 0 10px 0">
-                                                                <button id="" type="submit"
+                                                                <button type="submit"
                                                                         class="btn btn-primary signup disabled"
                                                                         disabled="disabled" style="width: 62%;">
                                                                         ${processedButton}

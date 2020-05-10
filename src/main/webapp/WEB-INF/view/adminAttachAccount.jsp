@@ -132,7 +132,7 @@
                                                                data-title="${tooltipUserBio}"
                                                                readonly="readonly"
                                                                value="${bioValue}"/>
-                                                        <label for="bio" class="default-label"></label>
+                                                        <label for="bio" class="default-label">&nbsp;</label>
                                                     </div>
 
                                                     <!-- Account Number -->
@@ -231,7 +231,7 @@
                                                         <input name="bio" type="text" class="form-control"
                                                                style="height: 46px; margin-top: 0;"
                                                                readonly="readonly"/>
-                                                        <label for="bio" class="default-label"></label>
+                                                        <label for="bio" class="default-label">&nbsp;</label>
                                                     </div>
 
                                                     <!-- Account Number -->
@@ -247,7 +247,7 @@
                                                             <img src="resources/images/repeat.png"
                                                                  class="glyphicon icon-repeat" alt=""/>
                                                         </div>
-                                                        <label for="number" class="default-label"></label>
+                                                        <label for="number" class="default-label">&nbsp;</label>
                                                     </div>
 
                                                     <!-- Select Currency -->
@@ -258,7 +258,7 @@
                                                         <div class="bfh-selectbox bfh-currencies"
                                                              data-currency="USD" data-flags="true">
                                                         </div>
-                                                        <label for="currency" class="default-label"></label>
+                                                        <label for="currency" class="default-label">&nbsp;</label>
                                                     </div>
 
                                                     <!-- Submit -->

@@ -1,5 +1,7 @@
 package com.system.command;
 
+import com.system.entity.Account;
+import com.system.entity.Payment;
 import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CommandAdminShowUser implements ICommand {
 
@@ -91,13 +94,31 @@ public class CommandAdminShowUser implements ICommand {
 
     private void setRequestAttributes(HttpServletRequest request, User user, Boolean userIsAdmin) throws SQLException {
         Integer userId = user.getUserId();
-        request.setAttribute("userId", userId);
-        request.setAttribute("viewableUser", user);
-        request.setAttribute("userIsAdmin", userIsAdmin);
-        request.setAttribute("paymentsEmpty", PaymentService.getInstance().findLastPaymentsByUserId(userId).isEmpty());
-        request.setAttribute("accountsEmpty", AccountService.getInstance().findAllAccountsByUserId(userId).isEmpty());
-        request.setAttribute("payments", PaymentService.getInstance().findLastPaymentsByUserId(userId));
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(userId));
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
+        List<Payment> payments = PaymentService.getInstance().findLastPaymentsByUserId(userId);
+
+        if (accounts != null && payments != null) {
+
+            // formatting card numbers
+            for (Payment payment : payments) {
+                if (payment.getSenderNumber().length() == 16) {
+                    payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
+                }
+                if (payment.getRecipientNumber().length() == 16) {
+                    payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
+                }
+            }
+
+            request.setAttribute("userId", userId);
+            request.setAttribute("viewableUser", user);
+            request.setAttribute("userIsAdmin", userIsAdmin);
+            request.setAttribute("accountsEmpty", accounts.isEmpty());
+            request.setAttribute("accounts", accounts);
+            request.setAttribute("paymentsEmpty", payments.isEmpty());
+            request.setAttribute("payments", payments);
+        } else {
+            setRequestAttributes(request, ServerResponse.SHOW_USER_ERROR);
+        }
     }
 
     private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {

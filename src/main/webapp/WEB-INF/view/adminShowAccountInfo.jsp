@@ -376,7 +376,7 @@
                                 <div class="box">
                                     <div class="content-wrap">
 
-                                        <h4>
+                                        <h4 style="margin-bottom: 15px;">
                                             ${formHeader}
                                         </h4>
 
@@ -457,7 +457,7 @@
                                                                        type="text" class="form-control"
                                                                        readonly="readonly"
                                                                        value="${viewableAccount.number}"/>
-                                                                <label for="number" class="default-label"></label>
+                                                                <label for="number" class="default-label">&nbsp;</label>
                                                             </div>
 
                                                             <!-- Account Owner -->
@@ -468,7 +468,7 @@
                                                                 <input id="owner" name="owner" type="text"
                                                                        class="form-control" readonly="readonly"
                                                                        value="${viewableUser.name} ${viewableUser.surname}"/>
-                                                                <label for="owner" class="default-label"></label>
+                                                                <label for="owner" class="default-label">&nbsp;</label>
                                                             </div>
 
                                                             <!-- Account Balance and Currency -->
@@ -489,7 +489,7 @@
                                                                          data-flags="true">
                                                                     </div>
                                                                     <label for="balance"
-                                                                           class="default-label"></label>
+                                                                           class="default-label">&nbsp;</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -638,7 +638,7 @@
                                                                                                     <!-- Sender and Recipient -->
                                                                                                     <p class="card-title text-muted">
                                                                                                             ${payment.senderNumber}
-                                                                                                        <span class="forward-right-link-img">→</span>
+                                                                                                        <span class="forward-right-link-img">&Longrightarrow;</span>
                                                                                                             ${payment.recipientNumber}
                                                                                                     </p>
 
@@ -664,7 +664,7 @@
                                                                                                     <!-- Sender and Recipient -->
                                                                                                     <p class="card-title text-muted">
                                                                                                             ${payment.recipientNumber}
-                                                                                                        <span class="forward-left-link-img">←</span>
+                                                                                                        <span class="forward-left-link-img">&Longleftarrow;</span>
                                                                                                             ${payment.senderNumber}
                                                                                                     </p>
 

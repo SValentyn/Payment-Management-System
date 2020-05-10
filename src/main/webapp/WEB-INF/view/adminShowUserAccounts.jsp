@@ -116,7 +116,7 @@
                                                                     <div class="action" style="text-align: unset;">
                                                                         <button id="submit" type="submit"
                                                                                 class="btn btn-primary signup btn-default"
-                                                                                style="width: 100%;">
+                                                                                style="width: 100%; margin-bottom: 30px;">
                                                                                 ${returnToUserProfile}
                                                                         </button>
                                                                     </div>

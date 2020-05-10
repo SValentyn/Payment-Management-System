@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet" href="resources/css/style_userSupport.css">
     <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
 </head>
 <body>

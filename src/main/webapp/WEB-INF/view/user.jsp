@@ -97,9 +97,7 @@
 
                                                 <div class="col-md-12 h-100">
                                                     <div class="carousel-inner h-100">
-                                                        <c:forEach items="${accounts}" var="account"
-                                                                   varStatus="loop">
-
+                                                        <c:forEach items="${accounts}" var="account" varStatus="loop">
                                                             <c:choose>
                                                                 <c:when test="${loop.first == true}">
                                                                     <div class="carousel-item active h-100">

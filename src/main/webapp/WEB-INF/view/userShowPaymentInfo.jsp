@@ -187,8 +187,8 @@
                                                                            type="text" class="form-control"
                                                                            readonly="readonly"
                                                                            value="${payment.senderNumber}"/>
-                                                                    <label for="senderAccount" class="default-label">
-                                                                    </label>
+                                                                    <label for="senderAccount"
+                                                                           class="default-label">&nbsp;</label>
                                                                 </div>
 
                                                                 <!-- Sender Account Owner -->
@@ -202,8 +202,7 @@
                                                                            readonly="readonly"
                                                                            value="${senderUser.name} ${senderUser.surname}"/>
                                                                     <label for="senderAccountOwner"
-                                                                           class="default-label">
-                                                                    </label>
+                                                                           class="default-label">&nbsp;</label>
                                                                 </div>
                                                             </div>
 
@@ -226,8 +225,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${payment.recipientNumber}"/>
                                                                             <label for="recipientAccount"
-                                                                                   class="default-label">
-                                                                            </label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
 
                                                                         <!-- Recipient Account Owner -->
@@ -241,7 +239,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${recipientUser.name} ${recipientUser.surname}"/>
                                                                             <label for="recipientAccountOwner"
-                                                                                   class="default-label"></label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
                                                                     </div>
 
@@ -313,8 +311,7 @@
                                                                                    readonly="readonly"
                                                                                    value="${payment.recipientNumber}"/>
                                                                             <label for="recipientCard"
-                                                                                   class="default-label">
-                                                                            </label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
 
                                                                         <!-- Recipient Card Owner -->
@@ -328,7 +325,7 @@
                                                                                    readonly="readonly"
                                                                                    value="–"/>
                                                                             <label for="recipientCardOwner"
-                                                                                   class="default-label"></label>
+                                                                                   class="default-label">&nbsp;</label>
                                                                         </div>
                                                                     </div>
 

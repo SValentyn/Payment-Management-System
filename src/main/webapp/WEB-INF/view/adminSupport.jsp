@@ -89,30 +89,29 @@
                                                                         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
                                                                             <c:forEach items="${letters}" var="letter">
                                                                                 <div class="col mb-4">
-                                                                                    <div class="card bg-light">
-                                                                                        <div class="card-body"
-                                                                                             style="padding: 0.75rem 1.25rem;">
-                                                                                            <p class="card-title text-muted">
-                                                                                                <span>
-                                                                                                    #${letter.letterId}
-                                                                                                </span>
-                                                                                                <span style="padding-left: 28px;">
-                                                                                                        ${letter.date}
-                                                                                                </span>
-                                                                                                <span class="type-question">
-                                                                                                        ${letter.typeQuestion}
-                                                                                                </span>
-                                                                                                <span class="forward-right-link-img"
-                                                                                                      style="padding-left: 28px;">
-                                                                                                    <a href="?command=showLetterInfo&letterId=${letter.letterId}"
-                                                                                                       class="float-right">
+                                                                                    <a href="?command=showLetterInfo&letterId=${letter.letterId}">
+                                                                                        <div class="card bg-light">
+                                                                                            <div class="card-body"
+                                                                                                 style="padding: 0.75rem 1.25rem;">
+                                                                                                <p class="card-title text-muted">
+                                                                                                    <span>
+                                                                                                        #${letter.letterId}
+                                                                                                    </span>
+                                                                                                    <span style="padding-left: 28px;">
+                                                                                                            ${letter.date}
+                                                                                                    </span>
+                                                                                                    <span class="type-question">
+                                                                                                            ${letter.typeQuestion}
+                                                                                                    </span>
+                                                                                                    <span class="float-right"
+                                                                                                          style="padding-left: 28px;">
                                                                                                         <img src="resources/images/forward.png"
-                                                                                                             alt="${showInfo}"/>
-                                                                                                    </a>
-                                                                                                </span>
-                                                                                            </p>
+                                                                                                             alt=""/>
+                                                                                                    </span>
+                                                                                                </p>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </a>
                                                                                 </div>
                                                                             </c:forEach>
                                                                         </div>

@@ -289,7 +289,8 @@
                                                                            type="text" class="form-control"
                                                                            readonly="readonly"
                                                                            value="${viewableAccount.number}"/>
-                                                                    <label for="number" class="default-label"></label>
+                                                                    <label for="number"
+                                                                           class="default-label">&nbsp;</label>
                                                                 </div>
 
                                                                 <!-- Account Balance and Currency -->
@@ -309,8 +310,8 @@
                                                                              data-currency="${viewableAccount.currency}"
                                                                              data-flags="true">
                                                                         </div>
-                                                                        <label for="balance" class="default-label">
-                                                                        </label>
+                                                                        <label for="balance"
+                                                                               class="default-label">&nbsp;</label>
                                                                     </div>
                                                                 </div>
                                                             </div>

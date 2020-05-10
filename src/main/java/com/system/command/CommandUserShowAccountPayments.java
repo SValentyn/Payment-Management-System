@@ -99,6 +99,17 @@ public class CommandUserShowAccountPayments implements ICommand {
         List<Payment> payments = PaymentService.getInstance().findAllPaymentsByAccountId(viewableAccount.getAccountId());
 
         if (payments != null) {
+
+            // formatting card numbers
+            for (Payment payment : payments) {
+                if (payment.getSenderNumber().length() == 16) {
+                    payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
+                }
+                if (payment.getRecipientNumber().length() == 16) {
+                    payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
+                }
+            }
+
             request.setAttribute("viewableAccount", viewableAccount);
             request.setAttribute("paymentsEmpty", payments.isEmpty());
             request.setAttribute("payments", payments);

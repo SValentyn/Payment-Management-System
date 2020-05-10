@@ -2,6 +2,10 @@
     margin-left: 10%;
 }
 
+.content-wrap h4 {
+    margin-bottom: 40px !important;
+}
+
 .login-bg {
     min-height: 100vh;
 }

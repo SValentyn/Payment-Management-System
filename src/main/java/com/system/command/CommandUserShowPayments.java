@@ -51,12 +51,19 @@ public class CommandUserShowPayments implements ICommand {
     private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
         List<Payment> payments = PaymentService.getInstance().findAllPaymentsByUserId(user.getUserId());
         if (payments != null) {
-            if (payments.isEmpty()) {
-                request.setAttribute("paymentsEmpty", true);
-            } else {
-                request.setAttribute("paymentsEmpty", false);
-                request.setAttribute("payments", payments);
+
+            // formatting card numbers
+            for (Payment payment : payments) {
+                if (payment.getSenderNumber().length() == 16) {
+                    payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
+                }
+                if (payment.getRecipientNumber().length() == 16) {
+                    payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
+                }
             }
+
+            request.setAttribute("paymentsEmpty", payments.isEmpty());
+            request.setAttribute("payments", payments);
         } else {
             setRequestAttributes(request, ServerResponse.SHOW_USER_PAYMENTS_ERROR);
         }

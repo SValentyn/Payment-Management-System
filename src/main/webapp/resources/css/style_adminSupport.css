@@ -11,8 +11,13 @@
     margin: 0;
 }
 
-.forward-right-link-img {
+.card img {
     float: right;
+    margin: 2px 0 0 0;
+}
+
+.card:hover img, .card:active img {
+    transform: translateX(0.163rem);
 }
 
 .type-question {

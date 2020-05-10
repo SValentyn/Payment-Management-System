@@ -1,0 +1,25 @@
+@media (max-width: 562px) {
+    .content-wrap h4 {
+        font-size: 18px !important;
+    }
+
+    .bfh-selectbox .bfh-selectbox-options ul li > a {
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 514px) {
+    .content-wrap h4 {
+        font-size: 16px !important;
+    }
+
+    .bfh-selectbox .bfh-selectbox-options ul li > a {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 462px) {
+    .bfh-selectbox .bfh-selectbox-options ul li > a {
+        white-space: normal !important;
+    }
+}
