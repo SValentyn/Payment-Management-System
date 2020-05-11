@@ -46,4 +46,9 @@ public interface AccountDao {
      */
     List<Account> findAllAccounts();
 
+    /**
+     * Searches all accounts by criteria
+     */
+    List<Account> searchByCriteria(Integer userId, String number, String min_value, String max_value, String currency);
+
 }

@@ -155,4 +155,11 @@ public class AccountService {
         return accountDao.findAllAccounts();
     }
 
+    /**
+     * Searches all accounts by criteria
+     */
+    public List<Account> searchByCriteria(Integer userId, String number, String min_value, String max_value, String currency) {
+        return accountDao.searchByCriteria(userId, number, min_value, max_value, currency);
+    }
+
 }

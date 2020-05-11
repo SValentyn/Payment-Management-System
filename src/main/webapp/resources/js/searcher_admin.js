@@ -1,4 +1,4 @@
-// Elements on adminAddUser.jsp page to check
+// Elements on admin.jsp page to search
 let name = document.querySelector("#name");
 let surname = document.querySelector("#surname");
 let phone = document.querySelector("#phone");
@@ -22,6 +22,10 @@ let iti = window.intlTelInput(phone, {
 
 
 searchBtn.addEventListener('click', (event) => {
+    name.value = name.value.trim();
+    surname.value = surname.value.trim();
+    phone.value = phone.value.trim();
+
     if (name.value.trim() === "" && surname.value.trim() === "" && phone.value.trim() === "") {
         event.preventDefault();
         return false;

@@ -27,8 +27,9 @@ public class AccountDaoImpl implements AccountDao {
     private static final String DELETE_ACCOUNT = "UPDATE accounts SET is_blocked = 1, is_deleted = 1 WHERE account_id = ?";
     private static final String FIND_ACCOUNT_BY_ID = "SELECT * FROM accounts WHERE account_id = ? AND is_deleted = 0";
     private static final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM accounts WHERE number = ? AND is_deleted = 0";
-    private static final String FIND_ALL_USER_ACCOUNTS = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0";
+    private static final String FIND_ALL_ACCOUNTS_BY_USER_ID = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0";
     private static final String FIND_ALL_ACCOUNTS = "SELECT * FROM accounts WHERE is_deleted = 0";
+    private static final String SEARCH_BY_CRITERIA = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0 AND number LIKE CONCAT(?, '%') AND balance >= ? AND balance <= ? AND currency LIKE ? ORDER BY account_id DESC";
 
     private static AccountDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
@@ -102,7 +103,7 @@ public class AccountDaoImpl implements AccountDao {
     public List<Account> findAllAccountsByUserId(Integer userId) {
         List<Account> accounts = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_USER_ACCOUNTS, userId);
+            ResultSet rs = executor.getResultSet(FIND_ALL_ACCOUNTS_BY_USER_ID, userId);
             while (rs.next()) {
                 accounts.add(createEntity(rs));
             }
@@ -117,6 +118,20 @@ public class AccountDaoImpl implements AccountDao {
         List<Account> accounts = new ArrayList<>();
         try {
             ResultSet rs = executor.getResultSet(FIND_ALL_ACCOUNTS);
+            while (rs.next()) {
+                accounts.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return accounts;
+    }
+
+    @Override
+    public List<Account> searchByCriteria(Integer userId, String number, String min_value, String max_value, String currency) {
+        List<Account> accounts = new ArrayList<>();
+        try {
+            ResultSet rs = executor.getResultSet(SEARCH_BY_CRITERIA, userId, number, min_value, max_value, currency);
             while (rs.next()) {
                 accounts.add(createEntity(rs));
             }

@@ -26,4 +26,11 @@ $(document).ready(function () {
         trigger: 'hover',
         delay: {show: 0, hide: 0}
     });
+
+    $('[data-toggle="tooltip-left-hover"]').tooltip({
+        container: 'body',
+        placement: 'left',
+        trigger: 'hover',
+        delay: {show: 0, hide: 0}
+    });
 });
