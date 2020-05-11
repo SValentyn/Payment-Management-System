@@ -133,152 +133,164 @@
                                         </ul>
                                     </div>
 
-                                    <c:if test="${totalUsers == null || totalUsers == 0}">
-                                        <div class="card-body" style="min-height: 280px; padding: 35px;">
-                                            <div class="message-block">
-                                                <span>
-                                                    <label>
-                                                         <fmt:message key="admin.users.noUsers"/>
-                                                    </label>
-                                                </span>
-                                                <div class="w-100" style="height:172px;">
-                                                    <img src="resources/images/error.png" alt=""
-                                                         style="width: 172px; height: 172px; position: absolute; bottom: 35px; right: 55px;"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:if>
-
                                     <c:choose>
-                                        <c:when test="${response ne 'unableGetData' &&
-                                                        accountsEmpty == false}">
+                                        <c:when test="${totalUsers != null && totalUsers != 0}">
 
-                                            <div class="card-body" style="padding: 42px 40px 20px 40px;">
-                                                <div class="row" style="padding: 0 0 0 10px;">
-                                                    <div class="col-lg-3 col-xl-3">
-                                                        <div class="search-block">
-                                                            <label>
-                                                                    ${searchCriteria}:
-                                                            </label>
-                                                            <form action="/" method="POST" role="form">
-                                                                <input type="hidden" name="command"
-                                                                       value="searchAccounts"/>
+                                            <c:choose>
+                                                <c:when test="${response ne 'unableGetData' &&
+                                                                accountsEmpty == false}">
 
-                                                                <!-- Account Number -->
-                                                                <div>
-                                                                    <input id="number" name="number" type="text"
-                                                                           class="form-control"
-                                                                           data-toggle="tooltip-left"
-                                                                           data-title="${tooltipOnlyLetters}"
-                                                                           maxlength="20"
-                                                                           onkeypress="onlyNumbers();"
-                                                                           placeholder="${numberAccount}"
-                                                                           value="${numberValue}"/>
-                                                                </div>
+                                                    <div class="card-body" style="padding: 42px 40px 20px 40px;">
+                                                        <div class="row" style="padding: 0 0 0 10px;">
+                                                            <div class="col-lg-3 col-xl-3">
+                                                                <div class="search-block">
+                                                                    <label>
+                                                                            ${searchCriteria}:
+                                                                    </label>
+                                                                    <form action="/" method="POST" role="form">
+                                                                        <input type="hidden" name="command"
+                                                                               value="searchAccounts"/>
 
-                                                                <!-- Min value Balance -->
-                                                                <input type="hidden" id="min-value" name="min-value"
-                                                                       value="${minValue}"/>
+                                                                        <!-- Account Number -->
+                                                                        <div>
+                                                                            <input id="number" name="number" type="text"
+                                                                                   class="form-control"
+                                                                                   data-toggle="tooltip-left"
+                                                                                   data-title="${tooltipOnlyLetters}"
+                                                                                   maxlength="20"
+                                                                                   onkeypress="onlyNumbers();"
+                                                                                   placeholder="${numberAccount}"
+                                                                                   value="${numberValue}"/>
+                                                                        </div>
 
-                                                                <!-- Max value Balance -->
-                                                                <input type="hidden" id="max-value" name="max-value"
-                                                                       value="${maxValue}"/>
+                                                                        <!-- Min value Balance -->
+                                                                        <input type="hidden" id="min-value"
+                                                                               name="min-value"
+                                                                               value="${minValue}"/>
 
-                                                                <!-- Balance Range -->
-                                                                <div>
-                                                                    <input id="amount" type="text"
-                                                                           class="for-form-label"
-                                                                           readonly="readonly"/>
-                                                                    <div id="slider-range"
-                                                                         data-toggle="tooltip-left"
-                                                                         data-title="${balanceRange}"></div>
-                                                                    <label for="slider-range"
-                                                                           class="default-label">&nbsp;</label>
-                                                                </div>
+                                                                        <!-- Max value Balance -->
+                                                                        <input type="hidden" id="max-value"
+                                                                               name="max-value"
+                                                                               value="${maxValue}"/>
 
-                                                                <!-- Currency -->
-                                                                <input type="hidden" id="currency" name="currency"
-                                                                       value="${currencyValue}"/>
+                                                                        <!-- Balance Range -->
+                                                                        <div>
+                                                                            <input id="amount" type="text"
+                                                                                   class="for-form-label"
+                                                                                   readonly="readonly"/>
+                                                                            <div id="slider-range"
+                                                                                 data-toggle="tooltip-left"
+                                                                                 data-title="${balanceRange}"></div>
+                                                                            <label for="slider-range"
+                                                                                   class="default-label">&nbsp;</label>
+                                                                        </div>
 
-                                                                <!-- Select Currency -->
-                                                                <div>
-                                                                    <div class="bfh-selectbox bfh-currencies"
-                                                                         data-flags="true" data-currency="">
-                                                                    </div>
-                                                                    <label class="default-label">&nbsp;</label>
-                                                                </div>
+                                                                        <!-- Currency -->
+                                                                        <input type="hidden" id="currency"
+                                                                               name="currency"
+                                                                               value="${currencyValue}"/>
 
-                                                                <div class="action" style="padding: 10px 0 0 0;">
-                                                                    <button id="search" type="submit"
-                                                                            class="btn btn-primary signup">
-                                                                            ${searchButton}
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-9 col-xl-9">
-                                                        <div class="col-xl-12">
-                                                            <div class="form-row">
-                                                                <div class="card-container">
-                                                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-2 row-cols-xl-2">
-
-                                                                        <c:forEach items="${accounts}" var="account">
-                                                                            <div class="col mb-4">
-                                                                                <div class="card bg-light">
-                                                                                    <div class="card-header">
-                                                                                        <c:choose>
-                                                                                            <c:when test="${account.isBlocked}">
-                                                                                                <small class="text-danger float-right">
-                                                                                                        ${statusBlocked}
-                                                                                                </small>
-                                                                                            </c:when>
-                                                                                            <c:otherwise>
-                                                                                                <small class="text-success float-right">
-                                                                                                        ${statusActive}
-                                                                                                </small>
-                                                                                            </c:otherwise>
-                                                                                        </c:choose>
-                                                                                    </div>
-                                                                                    <div class="card-body"
-                                                                                         style="padding: 0.75rem 1.25rem;">
-                                                                                        <p class="card-title text-muted">
-                                                                                                ${account.number}<br/>
-                                                                                                ${balance}: ${account.balance} ${account.currency}
-
-                                                                                            <!-- Show Account Info -->
-                                                                                            <a href="?command=showAccountInfo&userId=${account.userId}&accountId=${account.accountId}"
-                                                                                               class="float-right">
-                                                                                                <img src="resources/images/info.png"
-                                                                                                     alt="${showInfo}"/>
-                                                                                            </a>
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
+                                                                        <!-- Select Currency -->
+                                                                        <div>
+                                                                            <div class="bfh-selectbox bfh-currencies"
+                                                                                 data-flags="true" data-currency="">
                                                                             </div>
-                                                                        </c:forEach>
+                                                                            <label class="default-label">&nbsp;</label>
+                                                                        </div>
 
+                                                                        <div class="action"
+                                                                             style="padding: 10px 0 0 0;">
+                                                                            <button id="search" type="submit"
+                                                                                    class="btn btn-primary signup">
+                                                                                    ${searchButton}
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-9 col-xl-9">
+                                                                <div class="col-xl-12">
+                                                                    <div class="form-row">
+                                                                        <div class="card-container"
+                                                                             style="width: 100% !important;">
+                                                                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-2 row-cols-xl-3">
+
+                                                                                <c:forEach items="${accounts}"
+                                                                                           var="account">
+                                                                                    <div class="col mb-4">
+                                                                                        <div class="card bg-light">
+                                                                                            <div class="card-header">
+                                                                                                <c:choose>
+                                                                                                    <c:when test="${account.isBlocked}">
+                                                                                                        <small class="text-danger float-right">
+                                                                                                                ${statusBlocked}
+                                                                                                        </small>
+                                                                                                    </c:when>
+                                                                                                    <c:otherwise>
+                                                                                                        <small class="text-success float-right">
+                                                                                                                ${statusActive}
+                                                                                                        </small>
+                                                                                                    </c:otherwise>
+                                                                                                </c:choose>
+                                                                                            </div>
+                                                                                            <div class="card-body"
+                                                                                                 style="padding: 0.75rem 1.25rem;">
+                                                                                                <p class="card-title text-muted">
+                                                                                                        ${account.number}<br/>
+                                                                                                        ${balance}: ${account.balance} ${account.currency}
+
+                                                                                                    <!-- Show Account Info -->
+                                                                                                    <a href="?command=showAccountInfo&userId=${account.userId}&accountId=${account.accountId}"
+                                                                                                       class="float-right">
+                                                                                                        <img src="resources/images/info.png"
+                                                                                                             alt="${showInfo}"/>
+                                                                                                    </a>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </c:forEach>
+
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="card-body" style="padding: 35px;">
+                                                        <div class="message-block">
+                                                            <span class="title-label">
+                                                                <label>
+                                                                     <fmt:message key="admin.page.accountsEmpty"/>
+                                                                </label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="card-body" style="padding: 35px;">
+                                            <div class="card-body" style="min-height: 280px; padding: 35px;">
                                                 <div class="message-block">
-                                                    <span class="title-label">
+                                                    <span>
                                                         <label>
-                                                             <fmt:message key="admin.page.accountsEmpty"/>
+                                                             <fmt:message key="admin.users.noUsers"/>
                                                         </label>
                                                     </span>
+                                                    <div class="w-100" style="height:172px;">
+                                                        <img src="resources/images/error.png" alt=""
+                                                             style="width: 172px; height: 172px; position: absolute; bottom: 35px; right: 55px;"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
+
                                 </div>
                             </div>
                         </div>
