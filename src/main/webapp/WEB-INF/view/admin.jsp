@@ -53,7 +53,7 @@
             <p>
                 <fmt:message key="admin.page.alertSearchUsersSuccess"/>
                     ${numberOfUsers}
-                <fmt:message key="admin.users.users"/>
+                <fmt:message key="admin.users.users"/>.
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -92,7 +92,8 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="admin.users.allUsers" var="allUsers"/>
+                <fmt:message key="admin.page.allUsers" var="allUsers"/>
+                <fmt:message key="admin.page.allAccounts" var="allAccounts"/>
                 <fmt:message key="admin.users.user" var="user_rank"/>
                 <fmt:message key="admin.users.admin" var="admin_rank"/>
                 <fmt:message key="admin.users.gotoProfile" var="gotoProfile"/>
@@ -111,14 +112,15 @@
                             <div class="login-wrapper">
                                 <div class="box">
 
-                                    <div class="card-header shadow-none">
+                                    <div class="card-header">
                                         <ul class="nav nav-tabs card-header-tabs justify-content-lg-center"
                                             role="tablist">
-                                            <li class="nav-item-active" style="color: #2981cc;">
+                                            <li class="nav-item-active">
                                                 <a class="nav-link" role="tab" data-toggle="tab" aria-selected="true"
                                                    onclick="document.getElementById('form-showUsers').submit(); return false;">
                                                     <img src="resources/images/all-users.png"
-                                                         class="icon-sidebar" alt=""/>
+                                                         class="icon-sidebar"
+                                                         style="width: 21px; height: 21px; top: -1px;" alt=""/>
                                                     ${allUsers}
                                                     <span class="badge badge-pill badge-light">
                                                         ${totalUsers}
@@ -126,13 +128,28 @@
                                                 </a>
                                                 <form action="/" method="GET" id="form-showUsers" role="form"></form>
                                             </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link nav-link-hover" role="tab" data-toggle="tab"
+                                                   aria-selected="false"
+                                                   onclick="document.getElementById('form-showAccounts').submit(); return false;">
+                                                    <img src="resources/images/show-accounts.png" class="icon-sidebar"
+                                                         style="width: 20px; height: 20px;" alt=""/>
+                                                    ${allAccounts}
+                                                    <span class="badge badge-pill badge-light">
+                                                        ${totalAccounts}
+                                                    </span>
+                                                </a>
+                                                <form action="/" method="GET" role="form" id="form-showAccounts">
+                                                    <input type="hidden" name="command" value="showAccounts"/>
+                                                </form>
+                                            </li>
                                         </ul>
                                     </div>
 
                                     <c:choose>
                                         <c:when test="${totalUsers != null && totalUsers != 0}">
                                             <div class="card-body" style="margin-top: 25px;">
-                                                <div class="row" style="padding: 0 20px 0 35px !important;">
+                                                <div class="row" style="padding: 0 20px 0 35px;">
                                                     <div class="col-lg-3 col-xl-3">
                                                         <div class="search-block">
                                                             <label>
@@ -293,5 +310,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
-<script src="resources/js/validator_admin.js"></script>
+<script src="resources/js/searcher_admin.js"></script>
 </html>

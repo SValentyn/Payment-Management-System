@@ -2,6 +2,7 @@ package com.system.filter;
 
 import com.system.entity.Role;
 import com.system.entity.User;
+import com.system.service.AccountService;
 import com.system.service.LetterService;
 import com.system.service.UserService;
 import org.apache.log4j.Logger;
@@ -43,11 +44,12 @@ public class SessionFilter implements Filter {
                 String role = user.getRole().getRolename();
                 if (role.equals(Role.ROLE_ADMIN)) {
                     session.setAttribute("totalUsers", UserService.getInstance().findAllUsers().size());
+                    session.setAttribute("totalAccounts", AccountService.getInstance().findAllAccounts().size());
                     session.setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
                 } else if (role.equals(Role.ROLE_CLIENT)) {
                     // [Perhaps session variables for the user will be added]
                 }
-                session.setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
+//                session.setAttribute("currentUser", UserService.getInstance().findUserById(user.getUserId()));
             } catch (SQLException e) {
                 LOGGER.error("Failed to get information from the database. Check connection. Exception:" + e.getMessage());
             }

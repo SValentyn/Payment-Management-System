@@ -36,6 +36,7 @@ public class ResourceManager {
     public static final String ADMIN = "ADMIN";
     public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_PERSONAL_DATA";
     public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
+    public static final String ADMIN_SHOW_ACCOUNTS = "ADMIN_SHOW_ACCOUNTS";
     public static final String ADMIN_SHOW_USER = "ADMIN_SHOW_USER";
     public static final String ADMIN_UPDATE_USER_DATA = "ADMIN_UPDATE_USER_DATA";
     public static final String ADMIN_SHOW_USER_PAYMENTS = "ADMIN_SHOW_USER_PAYMENTS";
@@ -72,6 +73,7 @@ public class ResourceManager {
     // ****************
     public static final String COMMAND_ADMIN_UPDATE_DATA = "COMMAND_ADMIN_UPDATE_PERSONAL_DATA";
     public static final String COMMAND_ADMIN_UPDATE_PASSWORD = "COMMAND_ADMIN_UPDATE_PASSWORD";
+    public static final String COMMAND_ADMIN_SHOW_ACCOUNTS = "COMMAND_ADMIN_SHOW_ACCOUNTS";
     public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";
     public static final String COMMAND_ADMIN_UPDATE_USER_DATA = "COMMAND_ADMIN_UPDATE_USER_DATA";
     public static final String COMMAND_ADMIN_SHOW_USER_PAYMENTS = "COMMAND_ADMIN_SHOW_USER_PAYMENTS";

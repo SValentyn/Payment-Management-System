@@ -4,16 +4,6 @@
     border-radius: 6px;
 }
 
-.login-wrapper .box .card-header .nav-link img {
-    width: 21px;
-    height: 21px;
-    top: -1px;
-}
-
-.card-body .action {
-    text-align: unset;
-}
-
 .card-body .col-lg-9 .card .card-footer img {
     width: 14px;
     height: 14px;

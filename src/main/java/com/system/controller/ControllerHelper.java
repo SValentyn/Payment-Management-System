@@ -68,6 +68,7 @@ public class ControllerHelper {
         adminCommands.put("profile", new CommandAdminUpdatePersonalData());
         adminCommands.put("updatePassword", new CommandAdminUpdatePassword());
         adminCommands.put("searchUsers", new CommandAdminSearchUsers());
+        adminCommands.put("showAccounts", new CommandAdminShowAccounts());
         adminCommands.put("showUser", new CommandAdminShowUser());
         adminCommands.put("updateUserData", new CommandAdminUpdateUserData());
         adminCommands.put("deleteUser", new CommandAdminDeleteUser());
