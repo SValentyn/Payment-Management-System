@@ -46,6 +46,7 @@ public class ControllerHelper {
         userCommands.put("updatePassword", new CommandUserUpdatePassword());
         userCommands.put("showAccounts", new CommandUserShowAccounts());
         userCommands.put("showPayments", new CommandUserShowPayments());
+        userCommands.put("searchAccounts", new CommandUserSearchAccounts());
         userCommands.put("showAccountSettings", new CommandUserShowAccountSettings());
         userCommands.put("showAccountCards", new CommandUserShowAccountCards());
         userCommands.put("showAccountPayments", new CommandUserShowAccountPayments());

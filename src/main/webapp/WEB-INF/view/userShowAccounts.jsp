@@ -14,7 +14,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="stylesheet" href="resources/css/style_userShowAccounts.css">
 </head>
@@ -27,6 +29,44 @@
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertUnableGetData"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchAccountsSuccess -->
+    <c:if test="${response eq 'searchAccountsSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchAccountsSuccess"/>
+                    ${numberOfAccounts}
+                <fmt:message key="admin.user_accounts.accounts"/>.
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchAccountsWarning -->
+    <c:if test="${response eq 'searchAccountsWarning'}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchAccountsWarning"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchAccountsError -->
+    <c:if test="${response eq 'searchAccountsError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="admin.page.alertSearchAccountsError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -47,6 +87,9 @@
                 <fmt:message key="user.account.status.active" var="statusActive"/>
                 <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
                 <fmt:message key="user.page.settings" var="settings"/>
+                <fmt:message key="user.createAccount.numberNewAccount" var="numberAccount"/>
+                <fmt:message key="admin.user_accounts.balanceRange" var="balanceRange"/>
+                <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
@@ -92,16 +135,61 @@
                                                         accountsEmpty == false}">
 
                                             <div class="card-body" style="padding: 45px 40px 20px 40px;">
-                                                <div class="row">
+                                                <div class="row" style="padding: 0 0 0 10px;">
                                                     <div class="col-lg-3 col-xl-3">
                                                         <div class="search-block">
                                                             <label>
                                                                     ${searchCriteria}:
                                                             </label>
-                                                            <form action="/" method="GET" role="form">
+                                                            <form action="/" method="POST" role="form">
                                                                 <input type="hidden" name="command"
                                                                        value="searchAccounts"/>
-                                                                <div class="action" style="text-align: unset;">
+
+                                                                <!-- Account Number -->
+                                                                <div>
+                                                                    <input id="number" name="number" type="text"
+                                                                           class="form-control"
+                                                                           data-toggle="tooltip-left"
+                                                                           data-title="${tooltipOnlyLetters}"
+                                                                           maxlength="20"
+                                                                           onkeypress="onlyNumbers();"
+                                                                           placeholder="${numberAccount}"
+                                                                           value="${numberValue}"/>
+                                                                </div>
+
+                                                                <!-- Min value Balance -->
+                                                                <input type="hidden" id="min-value" name="min-value"
+                                                                       value="${minValue}"/>
+
+                                                                <!-- Max value Balance -->
+                                                                <input type="hidden" id="max-value" name="max-value"
+                                                                       value="${maxValue}"/>
+
+                                                                <!-- Balance Range -->
+                                                                <div>
+                                                                    <input id="amount" type="text"
+                                                                           class="for-form-label"
+                                                                           readonly="readonly"/>
+                                                                    <div id="slider-range"
+                                                                         data-toggle="tooltip-left"
+                                                                         data-title="${balanceRange}"></div>
+                                                                    <label for="slider-range"
+                                                                           class="default-label">&nbsp;</label>
+                                                                </div>
+
+                                                                <!-- Currency -->
+                                                                <input type="hidden" id="currency" name="currency"
+                                                                       value="${currencyValue}"/>
+
+                                                                <!-- Select Currency -->
+                                                                <div>
+                                                                    <div class="bfh-selectbox bfh-currencies"
+                                                                         data-flags="true" data-currency="">
+                                                                    </div>
+                                                                    <label class="default-label">&nbsp;</label>
+                                                                </div>
+
+                                                                <div class="action" style="padding: 10px 0 0 0">
                                                                     <button id="search" type="submit"
                                                                             class="btn btn-primary signup">
                                                                             ${searchButton}
@@ -191,5 +279,6 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script src="resources/js/searcher_userShowAccounts.js"></script>
 <script src="resources/js/modalWindow_userShowAccounts.js"></script>
 </html>

@@ -8,6 +8,49 @@
     margin-right: 6px;
 }
 
+.login-wrapper .box #number {
+    text-align: left;
+    font-size: 16px;
+}
+
+.bfh-selectbox .bfh-selectbox-toggle {
+    height: 40px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.bfh-selectbox .bfh-selectbox-options ul li > a {
+    text-align: left;
+    font-size: 14px;
+}
+
+.login-wrapper .box #amount {
+    text-align: center;
+    font-weight: normal;
+    border: 0;
+}
+
+.ui-widget.ui-widget-content {
+    width: 94%;
+    margin: auto;
+}
+
+.login-wrapper .box #amount:focus {
+    box-shadow: none;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+    transition: 0s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    background: #f0f1f2;
+    border: 1px solid rgba(0, 0, 0, .125);
+    transition: 0s cubic-bezier(0.4, 0, 1, 1);
+    outline: none;
+    z-index: 1;
+}
+
 .card-container {
     width: 100%;
     margin: 0;
@@ -16,6 +59,12 @@
 .message-block span {
     padding-bottom: 20px;
     font-size: 22px;
+}
+
+@media (max-width: 992px) {
+    .tooltip {
+        visibility: hidden;
+    }
 }
 
 @media (max-width: 439px) {

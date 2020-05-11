@@ -29,7 +29,7 @@ public class AccountDaoImpl implements AccountDao {
     private static final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM accounts WHERE number = ? AND is_deleted = 0";
     private static final String FIND_ALL_ACCOUNTS_BY_USER_ID = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0";
     private static final String FIND_ALL_ACCOUNTS = "SELECT * FROM accounts WHERE is_deleted = 0";
-    private static final String SEARCH_BY_CRITERIA = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0 AND number LIKE CONCAT(?, '%') AND balance >= ? AND balance <= ? AND currency LIKE ? ORDER BY account_id DESC";
+    private static final String SEARCH_BY_CRITERIA = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0 AND number LIKE CONCAT(?, '%') AND balance >= ? AND balance <= ? AND currency LIKE CONCAT(?, '%') ORDER BY account_id ASC";
 
     private static AccountDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
