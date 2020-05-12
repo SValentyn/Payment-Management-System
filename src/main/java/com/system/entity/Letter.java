@@ -8,7 +8,7 @@ public class Letter implements Serializable {
 
     private Integer letterId;
     private Integer userId;
-    private String typeQuestion;
+    private Integer typeQuestion;
     private String description;
     private String date;
     private Boolean isProcessed;
@@ -32,11 +32,11 @@ public class Letter implements Serializable {
         this.userId = userId;
     }
 
-    public String getTypeQuestion() {
+    public Integer getTypeQuestion() {
         return typeQuestion;
     }
 
-    public void setTypeQuestion(String typeQuestion) {
+    public void setTypeQuestion(Integer typeQuestion) {
         this.typeQuestion = typeQuestion;
     }
 

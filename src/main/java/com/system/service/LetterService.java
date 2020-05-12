@@ -37,14 +37,14 @@ public class LetterService {
     /**
      * Adds new letter to the DB
      */
-    public int addNewLetter(Integer userId, String typeQuestion, String description) {
+    public int addNewLetter(Integer userId, Integer typeQuestion, String description) {
         int status = 0;
-        if (userId != null && typeQuestion != null && description != null) {
+        if (userId != null && typeQuestion != null) {
             Letter letter = new Letter();
             letter.setUserId(userId);
             letter.setTypeQuestion(typeQuestion);
             letter.setDescription(description);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             letter.setDate(formatter.format(new Date()));
             letter.setIsProcessed(false);
             status = letterDao.create(letter);

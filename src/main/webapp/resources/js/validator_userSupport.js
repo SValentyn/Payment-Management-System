@@ -4,12 +4,6 @@ let typeQuestion = document.querySelector("#typeQuestion");
 let submitBtn = document.querySelector("#submit");
 
 
-/* It starts immediately after the page loads */
-window.addEventListener("load", () => {
-    $(bfh_selectbox_class).val(typeQuestion.value);
-});
-
-
 /* Type question validation */
 let validMsgTypeQuestion = document.querySelector("#valid-msg-typeQuestion"),
     errorMsgTypeQuestion = document.querySelector("#error-msg-typeQuestion");

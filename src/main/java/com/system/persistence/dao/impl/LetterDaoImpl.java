@@ -45,7 +45,6 @@ public class LetterDaoImpl implements LetterDao {
 
     @Override
     public int create(Letter entity) {
-        entity.setTypeQuestion(StringEscapeUtils.escapeJava(entity.getTypeQuestion()));
         entity.setDescription(StringEscapeUtils.escapeJava(entity.getDescription()));
 
         Object[] args = {
@@ -122,9 +121,9 @@ public class LetterDaoImpl implements LetterDao {
         try {
             letter.setLetterId(rs.getInt("letter_id"));
             letter.setUserId(rs.getInt("user_id"));
-            letter.setTypeQuestion(StringEscapeUtils.unescapeJava(rs.getString("typeQuestion")));
+            letter.setTypeQuestion(rs.getInt("typeQuestion"));
             letter.setDescription(StringEscapeUtils.unescapeJava(rs.getString("description")));
-            letter.setDate(rs.getString("date"));
+            letter.setDate(String.valueOf(rs.getDate("date")));
             letter.setIsProcessed(rs.getBoolean("is_processed"));
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());

@@ -34,6 +34,44 @@
         </div>
     </c:if>
 
+    <!-- Alert searchLettersSuccess -->
+    <c:if test="${response eq 'searchLettersSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchLettersSuccess"/>
+                    ${numberOfAccounts}
+                <fmt:message key="admin.user_accounts.accounts"/>.
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchLettersWarning -->
+    <c:if test="${response eq 'searchLettersWarning'}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchLettersWarning"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchLettersError -->
+    <c:if test="${response eq 'searchLettersError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertSearchLettersError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-lg-2">
@@ -42,9 +80,16 @@
 
             <div class="col-lg-10">
                 <fmt:message key="admin.support.allLetters" var="formHeader"/>
-                <fmt:message key="admin.support.notProcessed" var="notProcessed"/>
-                <fmt:message key="admin.support.timeToReceive" var="timeToReceive"/>
-                <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
+                <fmt:message key="user.support.option.1" var="option_1"/>
+                <fmt:message key="user.support.option.2" var="option_2"/>
+                <fmt:message key="user.support.option.3" var="option_3"/>
+                <fmt:message key="user.support.option.4" var="option_4"/>
+                <fmt:message key="user.support.option.5" var="option_5"/>
+                <fmt:message key="user.support.option.6" var="option_6"/>
+                <fmt:message key="user.support.option.7" var="option_7"/>
+                <fmt:message key="user.support.option.8" var="option_8"/>
+                <fmt:message key="user.support.option.9" var="option_9"/>
+                <fmt:message key="user.support.option.10" var="option_10"/>
                 <fmt:message key="admin.support.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
@@ -63,17 +108,19 @@
                                                 </h4>
 
                                                 <c:choose>
-                                                    <c:when test="${response ne 'showLettersError' && lettersEmpty == false}">
+                                                    <c:when test="${response ne 'showLettersError' &&
+                                                                    lettersEmpty == false}">
                                                         <div class="row">
                                                             <div class="col-lg-3 col-xl-3">
                                                                 <div class="search-block">
                                                                     <label>
                                                                             ${searchCriteria}:
                                                                     </label>
-                                                                    <form action="/" method="GET" role="form">
+                                                                    <form action="/" method="POST" role="form">
                                                                         <input type="hidden" name="command"
                                                                                value="searchLetters"/>
-                                                                        <div class="action" style="text-align: unset;">
+
+                                                                        <div class="action">
                                                                             <button id="search" type="submit"
                                                                                     class="btn btn-primary signup">
                                                                                     ${searchButton}
@@ -101,7 +148,38 @@
                                                                                                             ${letter.date}
                                                                                                     </span>
                                                                                                     <span class="type-question">
-                                                                                                            ${letter.typeQuestion}
+                                                                                                        <c:choose>
+                                                                                                            <c:when test="${letter.typeQuestion == 1}">
+                                                                                                                ${option_1}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 2}">
+                                                                                                                ${option_2}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 3}">
+                                                                                                                ${option_3}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 4}">
+                                                                                                                ${option_4}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 5}">
+                                                                                                                ${option_5}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 6}">
+                                                                                                                ${option_6}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 7}">
+                                                                                                                ${option_7}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 8}">
+                                                                                                                ${option_8}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 9}">
+                                                                                                                ${option_9}
+                                                                                                            </c:when>
+                                                                                                            <c:when test="${letter.typeQuestion == 10}">
+                                                                                                                ${option_10}
+                                                                                                            </c:when>
+                                                                                                        </c:choose>
                                                                                                     </span>
                                                                                                     <span class="float-right"
                                                                                                           style="padding-left: 28px;">

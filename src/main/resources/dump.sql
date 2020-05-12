@@ -168,12 +168,12 @@ VALUES (1, 1, '00000000000000000000', 20.0, 'MXN', '11111000000000000000',
 -- -- --
 CREATE TABLE letters
 (
-    letter_id    INT(11)      NOT NULL AUTO_INCREMENT,
-    user_id      INT(11)      NOT NULL,
-    typeQuestion VARCHAR(255) NOT NULL,
-    description  VARCHAR(255) NOT NULL,
-    date         VARCHAR(255) NOT NULL,
-    is_processed BOOLEAN      NOT NULL,
+    letter_id    INT(11)  NOT NULL AUTO_INCREMENT,
+    user_id      INT(11)  NOT NULL,
+    typeQuestion INT(11)  NOT NULL,
+    description  VARCHAR(255),
+    date         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_processed BOOLEAN  NOT NULL DEFAULT 0,
     PRIMARY KEY (letter_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 ) ENGINE = InnoDB

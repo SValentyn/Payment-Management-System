@@ -294,6 +294,14 @@ public class Validator {
     }
 
     /**
+     * @return true, if the question type is a non-negative integer ranging from 1 to 10
+     */
+    public static boolean checkTypeQuestion(String typeQuestion) {
+        if (typeQuestion == null || isNegative(typeQuestion)) return false;
+        return Integer.parseInt(typeQuestion) >= 1 && Integer.parseInt(typeQuestion) <= 10;
+    }
+
+    /**
      * @return false, if the string is a non-negative integer number
      */
     public static boolean isNegative(String strNum) {

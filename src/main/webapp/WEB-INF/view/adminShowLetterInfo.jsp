@@ -94,6 +94,16 @@
                 <fmt:message key="admin.letter.phone" var="user_phone"/>
                 <fmt:message key="admin.letter.email" var="user_email"/>
                 <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
+                <fmt:message key="user.support.option.1" var="option_1"/>
+                <fmt:message key="user.support.option.2" var="option_2"/>
+                <fmt:message key="user.support.option.3" var="option_3"/>
+                <fmt:message key="user.support.option.4" var="option_4"/>
+                <fmt:message key="user.support.option.5" var="option_5"/>
+                <fmt:message key="user.support.option.6" var="option_6"/>
+                <fmt:message key="user.support.option.7" var="option_7"/>
+                <fmt:message key="user.support.option.8" var="option_8"/>
+                <fmt:message key="user.support.option.9" var="option_9"/>
+                <fmt:message key="user.support.option.10" var="option_10"/>
                 <fmt:message key="admin.letter.description" var="letter_description"/>
                 <fmt:message key="admin.letter.processedButton" var="processedButton"/>
                 <fmt:message key="admin.letter.returnToLetters" var="returnToLetters"/>
@@ -169,10 +179,47 @@
                                                                 <label class="for-form-label">
                                                                         ${typeQuestion}:
                                                                 </label>
+
+                                                                <c:choose>
+                                                                    <c:when test="${typeQuestionValue == 1}">
+                                                                        <c:set var="typeQuestion" value="${option_1}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 2}">
+                                                                        <c:set var="typeQuestion" value="${option_2}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 3}">
+                                                                        <c:set var="typeQuestion" value="${option_3}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 4}">
+                                                                        <c:set var="typeQuestion" value="${option_4}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 5}">
+                                                                        <c:set var="typeQuestion" value="${option_5}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 6}">
+                                                                        <c:set var="typeQuestion" value="${option_6}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 7}">
+                                                                        <c:set var="typeQuestion" value="${option_7}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 8}">
+                                                                        <c:set var="typeQuestion" value="${option_8}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 9}">
+                                                                        <c:set var="typeQuestion" value="${option_9}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${typeQuestionValue == 10}">
+                                                                        <c:set var="typeQuestion" value="${option_10}"/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <c:set var="typeQuestion" value=""/>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+
                                                                 <input id="typeQuestion" name="typeQuestion" type="text"
                                                                        class="form-control" style="margin-top: 0;"
                                                                        readonly="readonly"
-                                                                       value="${typeQuestionValue}"/>
+                                                                       value="${typeQuestion}"/>
                                                                 <label for="typeQuestion" class="default-label">
                                                                     &nbsp;</label>
                                                             </div>

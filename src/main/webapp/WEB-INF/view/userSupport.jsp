@@ -112,8 +112,7 @@
                                             <input type="hidden" name="command" value="support"/>
 
                                             <!-- Type Question -->
-                                            <input type="hidden" id="typeQuestion" name="typeQuestion"
-                                                   value="${typeQuestionValue}"/>
+                                            <input type="hidden" id="typeQuestion" name="typeQuestion"/>
 
                                             <!-- Select Type Question -->
                                             <div>
@@ -121,24 +120,17 @@
                                                     ${selectType}
                                                 </label>
                                                 <div class="bfh-selectbox">
-                                                    <c:choose>
-                                                        <c:when test="${typeQuestionValue == null}">
-                                                            <div data-value=""></div>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <div data-value="${typeQuestionValue}">${typeQuestionValue}</div>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <div data-value="${option_1}">${option_1}</div>
-                                                    <div data-value="${option_2}">${option_2}</div>
-                                                    <div data-value="${option_3}">${option_3}</div>
-                                                    <div data-value="${option_4}">${option_4}</div>
-                                                    <div data-value="${option_5}">${option_5}</div>
-                                                    <div data-value="${option_6}">${option_6}</div>
-                                                    <div data-value="${option_7}">${option_7}</div>
-                                                    <div data-value="${option_8}">${option_8}</div>
-                                                    <div data-value="${option_9}">${option_9}</div>
-                                                    <div data-value="${option_10}">${option_10}</div>
+                                                    <div data-value=""></div>
+                                                    <div data-value="1">${option_1}</div>
+                                                    <div data-value="2">${option_2}</div>
+                                                    <div data-value="3">${option_3}</div>
+                                                    <div data-value="4">${option_4}</div>
+                                                    <div data-value="5">${option_5}</div>
+                                                    <div data-value="6">${option_6}</div>
+                                                    <div data-value="7">${option_7}</div>
+                                                    <div data-value="8">${option_8}</div>
+                                                    <div data-value="9">${option_9}</div>
+                                                    <div data-value="10">${option_10}</div>
                                                 </div>
                                                 <label for="typeQuestion" class="default-label">
                                                     <span id="valid-msg-typeQuestion" class="valid-msg invisible">

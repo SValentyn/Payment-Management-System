@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.LetterService;
+import com.system.utils.Validator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -45,9 +46,9 @@ public class CommandUserSupport implements ICommand {
             }
 
             // Action (send letter)
-            int status = LetterService.getInstance().addNewLetter(user.getUserId(), typeQuestion, description);
+            int status = LetterService.getInstance().addNewLetter(user.getUserId(), Integer.valueOf(typeQuestion), description);
             if (status == 0) {
-                setSessionAttributes(request, typeQuestion, description, ServerResponse.LETTER_SENT_ERROR);
+                setSessionAttributes(request, description, ServerResponse.LETTER_SENT_ERROR);
             } else {
                 setSessionAttributes(request, ServerResponse.LETTER_SENT_SUCCESS);
             }
@@ -65,8 +66,8 @@ public class CommandUserSupport implements ICommand {
         }
 
         // Validation type question
-        if (typeQuestion == null || typeQuestion.equals("")) {
-            setSessionAttributes(request, ServerResponse.LETTER_SENT_ERROR);
+        if (!Validator.checkTypeQuestion(typeQuestion)) {
+            setSessionAttributes(request, description, ServerResponse.LETTER_SENT_ERROR);
             return false;
         }
 
@@ -78,7 +79,7 @@ public class CommandUserSupport implements ICommand {
 
         // Checking that the user has sent in support of more than 3 letters that have not yet been processed
         if (numberOfNotProcessedLetters == 4) {
-            setSessionAttributes(request, typeQuestion, description, ServerResponse.MANY_LETTERS_SENT_ERROR);
+            setSessionAttributes(request, description, ServerResponse.MANY_LETTERS_SENT_ERROR);
             return false;
         }
 
@@ -94,12 +95,6 @@ public class CommandUserSupport implements ICommand {
     private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        String typeQuestion = (String) session.getAttribute("typeQuestion");
-        if (typeQuestion != null) {
-            request.setAttribute("typeQuestionValue", typeQuestion);
-            session.removeAttribute("typeQuestion");
-        }
-
         String description = (String) session.getAttribute("description");
         if (description != null) {
             request.setAttribute("descriptionValue", description);
@@ -113,8 +108,7 @@ public class CommandUserSupport implements ICommand {
         }
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String typeQuestion, String description, ServerResponse serverResponse) {
-        request.getSession().setAttribute("typeQuestion", typeQuestion);
+    private void setSessionAttributes(HttpServletRequest request, String description, ServerResponse serverResponse) {
         request.getSession().setAttribute("description", description);
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
