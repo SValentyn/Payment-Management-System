@@ -41,4 +41,14 @@ public interface LetterDao {
      */
     List<Letter> findAllLetters();
 
+    /**
+     * Searches all letters by criteria
+     */
+    List<Letter> searchByCriteria(String typeQuestion, String startDate, String finalDate);
+
+    /**
+     * Searches all letters by criteria without value of type question
+     */
+    List<Letter> searchByCriteria(String startDate, String finalDate);
+
 }

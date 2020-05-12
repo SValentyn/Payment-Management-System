@@ -85,7 +85,7 @@
             </div>
             <div>
                 <fmt:message key="sidebar.support"/>
-                <span class="badge badge-pill badge-light">${numberOfLetters}</span>
+                <span class="badge badge-pill badge-light">${totalLetters}</span>
             </div>
         </a>
     </c:if>

@@ -2,6 +2,8 @@ package com.system.utils;
 
 import com.system.entity.*;
 import com.system.service.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -16,6 +18,8 @@ import java.util.regex.Pattern;
  * Class for validation input parameters from a form
  */
 public class Validator {
+
+    private static final Logger LOGGER = LogManager.getLogger(Validator.class);
 
     /**
      * @return true, if the login is not NULL and its length is in the range of 6 to 18 digits
@@ -267,13 +271,14 @@ public class Validator {
      */
     public static boolean checkValidity(String month, String year) {
         DateFormat parser = new SimpleDateFormat("MM/yyyy");
-        Date date = null, now = null;
+        Date date, now;
 
         try {
             date = parser.parse(month + "/" + year);
             now = new GregorianCalendar().getTime();
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: Parsing error in Validator class. " + e.getMessage());
+            return true;
         }
 
         return Objects.requireNonNull(date).before(now);
@@ -299,6 +304,32 @@ public class Validator {
     public static boolean checkTypeQuestion(String typeQuestion) {
         if (typeQuestion == null || isNegative(typeQuestion)) return false;
         return Integer.parseInt(typeQuestion) >= 1 && Integer.parseInt(typeQuestion) <= 10;
+    }
+
+    /**
+     * @return true, if the start date is less than or equal to the final date
+     */
+    public static boolean checkDateRange(String startDateParam, String finalDateParam) {
+        if (startDateParam == null || startDateParam.equals("") || finalDateParam == null || finalDateParam.equals("")) {
+            return false;
+        }
+
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date startDate, finalDate;
+
+        try {
+            startDate = format.parse(startDateParam);
+            finalDate = format.parse(finalDateParam);
+        } catch (ParseException e) {
+            LOGGER.error("Exception: Parsing error in Validator class. " + e.getMessage());
+            return false;
+        }
+
+        if (Objects.requireNonNull(startDate).equals(finalDate)) {
+            return true;
+        }
+
+        return Objects.requireNonNull(startDate).before(finalDate);
     }
 
     /**

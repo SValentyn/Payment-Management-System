@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,11 @@ public class LetterDaoImpl implements LetterDao {
     private static final String DELETE_LETTER = "DELETE FROM letters WHERE letter_id = ?";
     private static final String FIND_LETTER_BY_LETTER_ID = "SELECT * FROM letters WHERE letter_id = ?";
     private static final String FIND_LETTERS_BY_USER_ID = "SELECT * FROM letters WHERE user_id = ?";
-    private static final String FIND_ALL_LETTERS = "SELECT * FROM letters";
+    private static final String FIND_ALL_LETTERS = "SELECT * FROM letters ORDER BY date ASC";
+    private static final String SEARCH_BY_CRITERIA = "SELECT * FROM letters WHERE is_processed = 0 AND typeQuestion LIKE ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date ASC;";
+    private static final String SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP = "SELECT * FROM letters WHERE is_processed = 0 AND typeQuestion LIKE ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y') AND CURRENT_TIMESTAMP() ORDER BY date ASC;";
+    private static final String SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION = "SELECT * FROM letters WHERE is_processed = 0 AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date ASC;";
+    private static final String SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP = "SELECT * FROM letters WHERE is_processed = 0 AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y') AND CURRENT_TIMESTAMP() ORDER BY date ASC;";
 
     private static LetterDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
@@ -113,6 +119,56 @@ public class LetterDaoImpl implements LetterDao {
         return letters;
     }
 
+    @Override
+    public List<Letter> searchByCriteria(String typeQuestion, String startDate, String finalDate) {
+        List<Letter> letters = new ArrayList<>();
+        try {
+            if (startDate.equals("")) {
+                startDate = "01/01/2020 00:00:00";
+            }
+
+            ResultSet rs;
+            if (finalDate.equals("")) {
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, typeQuestion, startDate);
+            } else {
+                finalDate += "23:59:59";
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA, typeQuestion, startDate, finalDate);
+            }
+
+            while (rs.next()) {
+                letters.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return letters;
+    }
+
+    @Override
+    public List<Letter> searchByCriteria(String startDate, String finalDate) {
+        List<Letter> letters = new ArrayList<>();
+        try {
+            if (startDate.equals("")) {
+                startDate = "01/01/2020 00:00:00";
+            }
+
+            ResultSet rs;
+            if (finalDate.equals("")) {
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, startDate);
+            } else {
+                finalDate += "23:59:59";
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION, startDate, finalDate);
+            }
+
+            while (rs.next()) {
+                letters.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return letters;
+    }
+
     /**
      * Creates entity from result set
      */
@@ -123,7 +179,9 @@ public class LetterDaoImpl implements LetterDao {
             letter.setUserId(rs.getInt("user_id"));
             letter.setTypeQuestion(rs.getInt("typeQuestion"));
             letter.setDescription(StringEscapeUtils.unescapeJava(rs.getString("description")));
-            letter.setDate(String.valueOf(rs.getDate("date")));
+            Timestamp timestamp = rs.getTimestamp("date");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+            letter.setDate(formatter.format(timestamp));
             letter.setIsProcessed(rs.getBoolean("is_processed"));
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());

@@ -87,6 +87,7 @@ public class ControllerHelper {
         adminCommands.put("detachCard", new CommandAdminDetachCard());
         adminCommands.put("addUser", new CommandAdminAddUser());
         adminCommands.put("support", new CommandAdminSupport());
+        adminCommands.put("searchLetters", new CommandAdminSearchLetters());
         adminCommands.put("showLetterInfo", new CommandAdminShowLetterInfo());
     }
 

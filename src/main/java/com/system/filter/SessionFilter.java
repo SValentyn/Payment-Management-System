@@ -45,7 +45,7 @@ public class SessionFilter implements Filter {
                 if (role.equals(Role.ROLE_ADMIN)) {
                     session.setAttribute("totalUsers", UserService.getInstance().findAllUsers().size());
                     session.setAttribute("totalAccounts", AccountService.getInstance().findAllAccounts().size());
-                    session.setAttribute("numberOfLetters", LetterService.getInstance().findUnprocessedLetters().size());
+                    session.setAttribute("totalLetters", LetterService.getInstance().findUnprocessedLetters().size());
                 } else if (role.equals(Role.ROLE_CLIENT)) {
                     // [Perhaps session variables for the user will be added]
                 }

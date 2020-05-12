@@ -109,4 +109,18 @@ public class LetterService {
         return letterDao.findAllLetters();
     }
 
+    /**
+     * Searches all letters by criteria
+     */
+    public List<Letter> searchByCriteria(String typeQuestion, String startDate, String finalDate) {
+        return letterDao.searchByCriteria(typeQuestion, startDate, finalDate);
+    }
+
+    /**
+     * Searches all letters by criteria without value of type question
+     */
+    public List<Letter> searchByCriteria(String startDate, String finalDate) {
+        return letterDao.searchByCriteria(startDate, finalDate);
+    }
+
 }

@@ -14,7 +14,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-formhelpers.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="stylesheet" href="resources/css/style_adminSupport.css">
 </head>
@@ -39,8 +43,8 @@
         <div id="alert" class="alert alert-success fade show" role="alert">
             <p>
                 <fmt:message key="admin.page.alertSearchLettersSuccess"/>
-                    ${numberOfAccounts}
-                <fmt:message key="admin.user_accounts.accounts"/>.
+                    ${numberOfLetters}
+                <fmt:message key="admin.support.letters"/>.
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -90,6 +94,8 @@
                 <fmt:message key="user.support.option.8" var="option_8"/>
                 <fmt:message key="user.support.option.9" var="option_9"/>
                 <fmt:message key="user.support.option.10" var="option_10"/>
+                <fmt:message key="admin.support.startDate" var="startDate"/>
+                <fmt:message key="admin.support.finalDate" var="finalDate"/>
                 <fmt:message key="admin.support.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
@@ -120,7 +126,71 @@
                                                                         <input type="hidden" name="command"
                                                                                value="searchLetters"/>
 
-                                                                        <div class="action">
+                                                                        <!-- Type Question -->
+                                                                        <input type="hidden" id="typeQuestion"
+                                                                               name="typeQuestion"
+                                                                               value="${typeQuestionValue}"/>
+
+                                                                        <!-- Select Type Question -->
+                                                                        <div>
+                                                                            <div class="bfh-selectbox">
+                                                                                <div data-value=""></div>
+                                                                                <div data-value="1">${option_1}</div>
+                                                                                <div data-value="2">${option_2}</div>
+                                                                                <div data-value="3">${option_3}</div>
+                                                                                <div data-value="4">${option_4}</div>
+                                                                                <div data-value="5">${option_5}</div>
+                                                                                <div data-value="6">${option_6}</div>
+                                                                                <div data-value="7">${option_7}</div>
+                                                                                <div data-value="8">${option_8}</div>
+                                                                                <div data-value="9">${option_9}</div>
+                                                                                <div data-value="10">${option_10}</div>
+                                                                            </div>
+                                                                            <label for="typeQuestion"
+                                                                                   class="default-label">&nbsp;</label>
+                                                                        </div>
+
+                                                                        <!-- Min value Date -->
+                                                                        <input id="datepicker-start-date"
+                                                                               name="start-date"
+                                                                               data-toggle="tooltip-left"
+                                                                               data-title="${startDate}"
+                                                                               readonly="readonly"
+                                                                               value="${startDateValue}"/>
+                                                                        <label for="datepicker-start-date"
+                                                                               class="default-label">&nbsp;</label>
+
+                                                                        <!-- Max value Date -->
+                                                                        <input id="datepicker-final-date"
+                                                                               name="final-date"
+                                                                               data-toggle="tooltip-left"
+                                                                               data-title="${finalDate}"
+                                                                               readonly="readonly"
+                                                                               value="${finalDateValue}"/>
+                                                                        <label for="datepicker-final-date"
+                                                                               class="default-label">&nbsp;</label>
+
+                                                                        <script>
+                                                                            let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                                                                            $('#datepicker-start-date').datepicker({
+                                                                                format: 'dd/mm/yyyy',
+                                                                                minDate: '01/01/2020',
+                                                                                maxDate: today,
+                                                                                showRightIcon: true,
+                                                                                uiLibrary: 'bootstrap4'
+                                                                            });
+
+                                                                            $('#datepicker-final-date').datepicker({
+                                                                                format: 'dd/mm/yyyy',
+                                                                                minDate: '01/01/2020',
+                                                                                maxDate: today,
+                                                                                showRightIcon: true,
+                                                                                uiLibrary: 'bootstrap4'
+                                                                            });
+                                                                        </script>
+
+                                                                        <div class="action"
+                                                                             style="padding: 10px 0 0 0;">
                                                                             <button id="search" type="submit"
                                                                                     class="btn btn-primary signup">
                                                                                     ${searchButton}
@@ -130,7 +200,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-lg-9 col-xl-9">
+                                                            <div class="col-lg-9 col-xl-9" style="padding: 0 0 0 15px;">
                                                                 <div class="col-xl-12">
                                                                     <div class="card-container">
                                                                         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
@@ -222,4 +292,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script src="resources/js/searcher_adminSupport.js"></script>
 </html>

@@ -24,8 +24,48 @@
     padding-left: 28px;
 }
 
+.bfh-selectbox .bfh-selectbox-toggle {
+    height: 40px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.bfh-selectbox .bfh-selectbox-options ul li > a {
+    text-align: left;
+    font-size: 14px;
+    white-space: normal;
+}
+
+.bfh-selectbox.open > .bfh-selectbox-options {
+    z-index: 3;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    height: 40px;
+    background-color: #ffffff;
+}
+
+.gj-datepicker-bootstrap [role=right-icon] button {
+    transition: .05s ease-in-out;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show > .btn-outline-secondary.dropdown-toggle {
+    background-color: #6c757d75;
+    border-color: #6c757d75;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
 .message-block {
     margin-top: 0 !important;
+}
+
+@media (max-width: 992px) {
+    .tooltip {
+        visibility: hidden;
+    }
 }
 
 @media (max-width: 482px) {
