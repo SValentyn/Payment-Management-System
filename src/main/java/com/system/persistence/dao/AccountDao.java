@@ -49,11 +49,11 @@ public interface AccountDao {
     /**
      * Searches all accounts by criteria
      */
-    List<Account> searchByCriteria(String number, String min_value, String max_value, String currency);
+    List<Account> searchByCriteria(Integer userId, String number, String min_value, String max_value, String currency);
 
     /**
-     * Searches all accounts by criteria
+     * Searches all accounts by criteria without value of userId
      */
-    List<Account> searchByCriteria(Integer userId, String number, String min_value, String max_value, String currency);
+    List<Account> searchByCriteria(String number, String min_value, String max_value, String currency);
 
 }

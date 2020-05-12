@@ -7,6 +7,12 @@
     margin: 0;
 }
 
+@media (max-width: 992px) {
+    .tooltip {
+        visibility: hidden;
+    }
+}
+
 @media (max-width: 394px) {
     h4 {
         font-size: 18px !important;

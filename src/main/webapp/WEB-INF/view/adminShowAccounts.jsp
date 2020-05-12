@@ -24,8 +24,8 @@
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
-    <!-- Alert unableGetData and noUsersError -->
-    <c:if test="${response eq 'unableGetData' || totalUsers == null || totalUsers == 0}">
+    <!-- Alert showAccountsError and noUsersError -->
+    <c:if test="${response eq 'showAccountsError' || totalUsers == null || totalUsers == 0}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="admin.page.alertNoUsersError"/>
@@ -137,7 +137,7 @@
                                         <c:when test="${totalUsers != null && totalUsers != 0}">
 
                                             <c:choose>
-                                                <c:when test="${response ne 'unableGetData' &&
+                                                <c:when test="${response ne 'showAccountsError' &&
                                                                 accountsEmpty == false}">
 
                                                     <div class="card-body" style="padding: 42px 40px 20px 40px;">

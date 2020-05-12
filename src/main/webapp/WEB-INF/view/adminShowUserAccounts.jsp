@@ -218,7 +218,7 @@
                                                                     <!-- Select Currency -->
                                                                     <div>
                                                                         <div class="bfh-selectbox bfh-currencies"
-                                                                             data-currency="USD" data-flags="true">
+                                                                             data-currency="" data-flags="true">
                                                                         </div>
                                                                         <label class="default-label">&nbsp;</label>
                                                                     </div>

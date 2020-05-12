@@ -66,6 +66,10 @@ public class CommandAdminShowUserAccounts implements ICommand {
         request.setAttribute("userId", null);
         request.setAttribute("accountsEmpty", null);
         request.setAttribute("accounts", null);
+        request.setAttribute("numberValue", null);
+        request.setAttribute("minValue", null);
+        request.setAttribute("maxValue", null);
+        request.setAttribute("currencyValue", null);
         request.setAttribute("response", "");
     }
 
@@ -74,6 +78,7 @@ public class CommandAdminShowUserAccounts implements ICommand {
 
         List<Account> accounts = (List<Account>) session.getAttribute("accounts");
         if (accounts != null) {
+            request.setAttribute("accountsEmpty", false);
             request.setAttribute("accounts", accounts);
             session.removeAttribute("accounts");
         }

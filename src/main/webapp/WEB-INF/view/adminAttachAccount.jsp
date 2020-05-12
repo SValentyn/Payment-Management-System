@@ -123,7 +123,7 @@
                                                     <!-- User bio -->
                                                     <div>
                                                         <label class="for-form-label">
-                                                                ${user_rank}
+                                                                ${user_rank}:
                                                         </label>
                                                         <input id="bio" name="bio"
                                                                type="text" class="form-control"
@@ -138,7 +138,7 @@
                                                     <!-- Account Number -->
                                                     <div>
                                                         <label class="for-form-label">
-                                                                ${numberNewAccount}
+                                                                ${numberNewAccount}:
                                                         </label>
                                                         <div class="form-group"
                                                              style="display: flex; margin-bottom: 0;">
@@ -256,7 +256,7 @@
                                                                 ${accountCurrency}
                                                         </label>
                                                         <div class="bfh-selectbox bfh-currencies"
-                                                             data-currency="USD" data-flags="true">
+                                                             data-currency="USD" data-flags="true" data-blank="false">
                                                         </div>
                                                         <label for="currency" class="default-label">&nbsp;</label>
                                                     </div>

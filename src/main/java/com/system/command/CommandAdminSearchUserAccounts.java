@@ -32,7 +32,7 @@ public class CommandAdminSearchUserAccounts implements ICommand {
             String userIdParam = request.getParameter("userId");
             String number = request.getParameter("number");
             String min_value = request.getParameter("min-value");
-            String max_value = request.getParameter("max-value"); // set in the validator file (hiddenInput: "full_phone")
+            String max_value = request.getParameter("max-value");
             String currency = request.getParameter("currency");
 
             // Validation
@@ -51,7 +51,7 @@ public class CommandAdminSearchUserAccounts implements ICommand {
 
             // Set attributes
             if (accounts == null) {
-                setSessionAttributes(request, number, min_value, max_value, currency, ServerResponse.SEARCH_USERS_ERROR);
+                setSessionAttributes(request, number, min_value, max_value, currency, ServerResponse.SEARCH_ACCOUNTS_ERROR);
                 return pathRedirect;
             }
 
@@ -76,12 +76,6 @@ public class CommandAdminSearchUserAccounts implements ICommand {
 
         // Change redirect path
         pathRedirect += "&userId=" + userIdParam;
-
-        // Validation currency
-        if (!Validator.checkCurrency(currency)) {
-            setSessionAttributes(request, number, min_value, max_value, currency, ServerResponse.SEARCH_ACCOUNTS_ERROR);
-            return false;
-        }
 
         // Validation min and max values
         if (Validator.isNegative(min_value) || Validator.isNegative(max_value) || Integer.parseInt(min_value) > Integer.parseInt(max_value)) {

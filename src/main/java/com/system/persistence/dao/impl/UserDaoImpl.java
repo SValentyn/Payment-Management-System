@@ -134,8 +134,7 @@ public class UserDaoImpl implements UserDao {
         try {
             ResultSet rs = executor.getResultSet(FIND_ALL);
             while (rs.next()) {
-                User user = createEntity(rs);
-                users.add(user);
+                users.add(createEntity(rs));
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
@@ -153,8 +152,7 @@ public class UserDaoImpl implements UserDao {
         try {
             ResultSet rs = executor.getResultSet(SEARCH_BY_CRITERIA, name, surname, phone, email);
             while (rs.next()) {
-                User user = createEntity(rs);
-                users.add(user);
+                users.add(createEntity(rs));
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());

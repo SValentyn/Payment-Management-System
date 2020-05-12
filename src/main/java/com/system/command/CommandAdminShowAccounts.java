@@ -38,6 +38,10 @@ public class CommandAdminShowAccounts implements ICommand {
     private void clearRequestAttributes(HttpServletRequest request) {
         request.setAttribute("accountsEmpty", null);
         request.setAttribute("accounts", null);
+        request.setAttribute("numberValue", null);
+        request.setAttribute("minValue", null);
+        request.setAttribute("maxValue", null);
+        request.setAttribute("currencyValue", null);
         request.setAttribute("response", "");
     }
 
@@ -93,7 +97,7 @@ public class CommandAdminShowAccounts implements ICommand {
                 request.setAttribute("accountsEmpty", accounts.isEmpty());
                 request.setAttribute("accounts", accounts);
             } else {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+                request.setAttribute("response", ServerResponse.SHOW_ACCOUNTS_ERROR.getResponse());
             }
         }
     }

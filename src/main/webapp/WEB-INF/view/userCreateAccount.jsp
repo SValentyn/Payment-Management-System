@@ -104,7 +104,7 @@
                                             <!-- Account Number -->
                                             <div>
                                                 <label class="for-form-label">
-                                                    ${numberNewAccount}
+                                                    ${numberNewAccount}:
                                                 </label>
                                                 <div class="form-group">
                                                     <input id="number" name="number" type="text" class="form-control"
@@ -133,7 +133,7 @@
                                                     ${accountCurrency}
                                                 </label>
                                                 <div class="bfh-selectbox bfh-currencies"
-                                                     data-currency="USD" data-flags="true">
+                                                     data-currency="USD" data-flags="true" data-blank="false">
                                                 </div>
                                                 <label for="currency" class="default-label">
                                                     <span id="valid-msg-currency" class="valid-msg invisible">

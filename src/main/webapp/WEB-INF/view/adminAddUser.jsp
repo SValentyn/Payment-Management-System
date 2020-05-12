@@ -99,7 +99,7 @@
                         <div class="col-xl-6 offset-xl-2 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
-                                    <div class="content-wrap">
+                                    <div class="content-wrap" style="width: 88%;">
 
                                         <h4>
                                             ${addNewUser}

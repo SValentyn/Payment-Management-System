@@ -78,7 +78,7 @@ public class CommandUserSupport implements ICommand {
         }
 
         // Checking that the user has sent in support of more than 3 letters that have not yet been processed
-        if (numberOfNotProcessedLetters == 4) {
+        if (numberOfNotProcessedLetters >= 4) {
             setSessionAttributes(request, description, ServerResponse.MANY_LETTERS_SENT_ERROR);
             return false;
         }
