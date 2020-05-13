@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +25,23 @@ public class PaymentDaoImpl implements PaymentDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, isOutgoing, senderNumber, senderAmount, senderCurrency, recipientNumber, recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, `date`, `condition`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_PAYMENT = "INSERT INTO payments(account_id, isOutgoing, senderNumber, senderAmount, senderCurrency, recipientNumber, recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, `date`, `condition`) " +
+            "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
     private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ? ORDER BY payment_id DESC";
-    private static final String FIND_ALL_PAYMENTS_BY_USER_ID = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id WHERE accounts.user_id = ? ORDER BY payment_id DESC";
-    private static final String FIND_ALL_PAYMENTS_BY_USER_ID_LIMIT_3 = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id WHERE accounts.user_id = ? ORDER BY payment_id DESC LIMIT 3";
+    private static final String FIND_ALL_PAYMENTS_BY_USER_ID = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id " +
+            "WHERE accounts.user_id = ? ORDER BY payment_id DESC";
+    private static final String FIND_ALL_PAYMENTS_BY_USER_ID_LIMIT_3 = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id " +
+            "WHERE accounts.user_id = ? ORDER BY payment_id DESC LIMIT 3";
     private static final String FIND_ALL_PAYMENTS = "SELECT * FROM payments";
+    private static final String SEARCH_BY_CRITERIA = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id " +
+            "WHERE accounts.user_id = ? AND isOutgoing = ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date DESC;";
+    private static final String SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id " +
+            "WHERE accounts.user_id = ? AND isOutgoing = ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND CURRENT_TIMESTAMP() ORDER BY date DESC;";
+    private static final String SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id " +
+            "WHERE accounts.user_id = ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date DESC;";
+    private static final String SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP = "SELECT payments.* FROM payments INNER JOIN accounts ON payments.account_id = accounts.account_id " +
+            "WHERE accounts.user_id = ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND CURRENT_TIMESTAMP() ORDER BY date DESC;";
 
     private static PaymentDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
@@ -46,6 +59,7 @@ public class PaymentDaoImpl implements PaymentDao {
     @Override
     public int create(Payment entity) {
         entity.setAppointment(StringEscapeUtils.escapeJava(entity.getAppointment()));
+
         Object[] args = {
                 entity.getAccountId(),
                 entity.getIsOutgoing(),
@@ -134,6 +148,60 @@ public class PaymentDaoImpl implements PaymentDao {
         return payments;
     }
 
+    @Override
+    public List<Payment> searchByCriteria(Integer userId, Integer isOutgoing, String startDate, String finalDate) {
+        List<Payment> payments = new ArrayList<>();
+        try {
+            if (startDate.equals("")) {
+                startDate = "01/01/2020 00:00:00";
+            } else {
+                startDate += " 00:00:00";
+            }
+
+            ResultSet rs;
+            if (finalDate.equals("")) {
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, isOutgoing, startDate);
+            } else {
+                finalDate += " 23:59:59";
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA, userId, isOutgoing, startDate, finalDate);
+            }
+
+            while (rs.next()) {
+                payments.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return payments;
+    }
+
+    @Override
+    public List<Payment> searchByCriteria(Integer userId, String startDate, String finalDate) {
+        List<Payment> payments = new ArrayList<>();
+        try {
+            if (startDate.equals("")) {
+                startDate = "01/01/2020 00:00:00";
+            } else {
+                startDate += " 00:00:00";
+            }
+
+            ResultSet rs;
+            if (finalDate.equals("")) {
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, startDate);
+            } else {
+                finalDate += " 23:59:59";
+                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING, userId, startDate, finalDate);
+            }
+
+            while (rs.next()) {
+                payments.add(createEntity(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL exception: " + e.getMessage());
+        }
+        return payments;
+    }
+
     /**
      * Creates entity from result set
      */
@@ -152,7 +220,9 @@ public class PaymentDaoImpl implements PaymentDao {
             payment.setExchangeRate(rs.getBigDecimal("exchangeRate"));
             payment.setNewBalance(rs.getBigDecimal("newBalance"));
             payment.setAppointment(StringEscapeUtils.unescapeJava(rs.getString("appointment")));
-            payment.setDate(rs.getString("date"));
+            Timestamp timestamp = rs.getTimestamp("date");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+            payment.setDate(formatter.format(timestamp));
             payment.setCondition(rs.getBoolean("condition"));
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());

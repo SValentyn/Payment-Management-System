@@ -77,6 +77,7 @@ public class ControllerHelper {
         adminCommands.put("showUserPayments", new CommandAdminShowUserPayments());
         adminCommands.put("searchUserAccounts", new CommandAdminSearchUserAccounts());
         adminCommands.put("showAccountInfo", new CommandAdminShowAccountInfo());
+        adminCommands.put("searchUserPayments", new CommandAdminSearchUserPayments());
         adminCommands.put("showPaymentInfo", new CommandAdminShowPaymentInfo());
         adminCommands.put("attachAccount", new CommandAdminAttachAccount());
         adminCommands.put("deleteAccount", new CommandAdminDeleteAccount());

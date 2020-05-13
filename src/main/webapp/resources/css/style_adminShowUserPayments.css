@@ -7,6 +7,44 @@
     margin: 0;
 }
 
+.login-wrapper .box .group-btn {
+    margin-bottom: 6px;
+    display: block;
+}
+
+.login-wrapper .box .group-btn label{
+    font-size: 14px;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #428bca;
+    background: #428bca;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    height: 40px;
+    background-color: #ffffff;
+}
+
+.gj-datepicker-bootstrap [role=right-icon] button {
+    transition: .05s ease-in-out;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show > .btn-outline-secondary.dropdown-toggle {
+    background-color: #6c757d75;
+    border-color: #6c757d75;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 1470px) {
+    .login-wrapper .box .group-btn {
+        display: block;
+    }
+}
+
 @media (max-width: 992px) {
     .tooltip {
         visibility: hidden;

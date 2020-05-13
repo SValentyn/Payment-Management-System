@@ -41,4 +41,14 @@ public interface PaymentDao {
      */
     List<Payment> findAllPayments();
 
+    /**
+     * Searches all payments by criteria
+     */
+    List<Payment> searchByCriteria(Integer userId, Integer isOutgoing, String startDate, String finalDate);
+
+    /**
+     * Searches all payments by criteria without value of isOutgoing
+     */
+    List<Payment> searchByCriteria(Integer userId, String startDate, String finalDate);
+
 }

@@ -9,6 +9,7 @@ import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class CommandAdminShowUserPayments implements ICommand {
         } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_PAYMENTS);
 
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
+
             // Data
             String userIdParam = request.getParameter("userId");
 
@@ -37,7 +41,9 @@ public class CommandAdminShowUserPayments implements ICommand {
             }
 
             // Set attributes
-            setRequestAttributes(request, Integer.valueOf(userIdParam));
+            if (request.getAttribute("payments") == null) {
+                setRequestAttributes(request, Integer.valueOf(userIdParam));
+            }
         }
 
         return pathRedirect;
@@ -49,6 +55,8 @@ public class CommandAdminShowUserPayments implements ICommand {
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
             request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
             return false;
+        } else {
+            request.setAttribute("userId", userIdParam);
         }
 
         return true;
@@ -58,11 +66,62 @@ public class CommandAdminShowUserPayments implements ICommand {
         request.setAttribute("userId", null);
         request.setAttribute("paymentsEmpty", null);
         request.setAttribute("payments", null);
+        request.setAttribute("isIncomingValue", null);
+        request.setAttribute("isOutgoingValue", null);
+        request.setAttribute("startDateValue", null);
+        request.setAttribute("finalDateValue", null);
         request.setAttribute("response", "");
     }
 
+    private void setRequestAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        List<Payment> payments = (List<Payment>) session.getAttribute("payments");
+        if (payments != null) {
+            request.setAttribute("paymentsEmpty", false);
+            request.setAttribute("payments", payments);
+            session.removeAttribute("payments");
+        }
+
+        String numberOfPayments = (String) session.getAttribute("numberOfPayments");
+        if (numberOfPayments != null) {
+            request.setAttribute("numberOfPayments", numberOfPayments);
+            session.removeAttribute("numberOfPayments");
+        }
+
+        String isIncoming = (String) session.getAttribute("isIncoming");
+        if (isIncoming != null) {
+            request.setAttribute("isIncomingValue", isIncoming);
+            session.removeAttribute("isIncoming");
+        }
+
+        String isOutgoing = (String) session.getAttribute("isOutgoing");
+        if (isOutgoing != null) {
+            request.setAttribute("isOutgoingValue", isOutgoing);
+            session.removeAttribute("isOutgoing");
+        }
+
+        String startDate = (String) session.getAttribute("startDate");
+        if (startDate != null) {
+            request.setAttribute("startDateValue", startDate);
+            session.removeAttribute("startDate");
+        }
+
+        String finalDate = (String) session.getAttribute("finalDate");
+        if (finalDate != null) {
+            request.setAttribute("finalDateValue", finalDate);
+            session.removeAttribute("finalDate");
+        }
+
+        String response = (String) session.getAttribute("response");
+        if (response != null) {
+            request.setAttribute("response", response);
+            session.removeAttribute("response");
+        }
+    }
+
     private void setRequestAttributes(HttpServletRequest request, Integer userId) throws SQLException {
-        List<Payment> payments = PaymentService.getInstance().findLastPaymentsByUserId(userId);
+        List<Payment> payments = PaymentService.getInstance().findAllPaymentsByUserId(userId);
         if (payments != null) {
 
             // formatting card numbers
@@ -75,7 +134,6 @@ public class CommandAdminShowUserPayments implements ICommand {
                 }
             }
 
-            request.setAttribute("userId", userId);
             request.setAttribute("paymentsEmpty", payments.isEmpty());
             request.setAttribute("payments", payments);
         } else {
