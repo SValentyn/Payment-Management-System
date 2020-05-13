@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Provides service methods for PaymentDao. Layout between DAO and Command
@@ -78,7 +79,8 @@ public class PaymentService {
         payment.setRecipientCurrency(accountTo.getCurrency());
         payment.setExchangeRate(exchangeRate);
         payment.setAppointment(appointment);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         payment.setDate(formatter.format(new Date()));
 
         if (checkAvailableAmount(accountFrom, amount)) {
@@ -126,7 +128,8 @@ public class PaymentService {
         payment.setRecipientNumber(cardNumber);
         payment.setExchangeRate(new BigDecimal("1.0"));
         payment.setAppointment(appointment);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         payment.setDate(formatter.format(new Date()));
 
         if (checkAvailableAmount(accountFrom, amount)) {
@@ -228,6 +231,20 @@ public class PaymentService {
      */
     public List<Payment> findAllPayments() {
         return paymentDao.findAllPayments();
+    }
+
+    /**
+     * Searches all payments by criteria
+     */
+    public List<Payment> searchByCriteria(Integer userId, Integer isOutgoing, String startDate, String finalDate) {
+        return paymentDao.searchByCriteria(userId, isOutgoing, startDate, finalDate);
+    }
+
+    /**
+     * Searches all payments by criteria without value of isOutgoing
+     */
+    public List<Payment> searchByCriteria(Integer userId, String startDate, String finalDate) {
+        return paymentDao.searchByCriteria(userId, startDate, finalDate);
     }
 
 }

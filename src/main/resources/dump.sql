@@ -145,7 +145,7 @@ CREATE TABLE payments
     exchangeRate      DOUBLE       NOT NULL,
     newBalance        DOUBLE       NOT NULL,
     appointment       VARCHAR(255),
-    `date`            VARCHAR(255) NOT NULL,
+    date              DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `condition`       BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (payment_id),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
@@ -156,13 +156,13 @@ CREATE TABLE payments
 INSERT INTO payments (account_id, isOutgoing, senderNumber, senderAmount, senderCurrency, recipientNumber,
                       recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, date, `condition`)
 VALUES (1, 1, '00000000000000000000', 20.0, 'MXN', '11111000000000000000',
-        20.0, 'UAH', 1.0, 9480.0, '', '26/03/2020, 00:43', 1),
+        20.0, 'UAH', 1.0, 9480.0, '', '2020-03-25 00:43:00', 1),
        (2, 0, '00000000000000000000', 20.0, 'MXN', '11111000000000000000',
-        20.0, 'UAH', 1.0, 7825.0, '', '26/03/2020, 00:43', 1),
+        20.0, 'UAH', 1.0, 7825.0, '', '2020-03-25 00:43:00', 1),
        (3, 1, '11111222220000000000', 620.0, 'PLN', '11111000000000000001',
-        620.0, 'AUD', 1.0, 2410.0, '', '26/03/2020, 01:34', 1),
+        620.0, 'AUD', 1.0, 2410.0, '', '2020-03-26 01:34:00', 1),
        (5, 0, '11111222220000000000', 620.0, 'PLN', '11111000000000000001',
-        620.0, 'AUD', 1.0, 1610.0, '', '26/03/2020, 01:34', 1);
+        620.0, 'AUD', 1.0, 1610.0, '', '2020-03-26 01:34:00', 1);
 -- -- --
 
 -- -- --
