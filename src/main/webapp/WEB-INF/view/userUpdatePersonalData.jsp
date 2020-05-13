@@ -188,7 +188,7 @@
                 <fmt:message key="registration.emailError" var="emailError"/>
                 <fmt:message key="registration.passwordError" var="passwordError"/>
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                <fmt:message key="registration.tooltipOnlyDigits" var="tooltipPhone"/>
                 <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                 <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
                 <fmt:message key="registration.correct" var="correct"/>

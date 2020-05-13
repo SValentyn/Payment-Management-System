@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CommandAdminSearchAccounts implements ICommand{
+public class CommandAdminSearchAccounts implements ICommand {
 
     // Default path
     private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNTS);

@@ -112,7 +112,7 @@
                 <fmt:message key="registration.phoneError" var="loginError"/>
                 <fmt:message key="registration.emailError" var="emailError"/>
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                <fmt:message key="registration.tooltipOnlyDigits" var="tooltipPhone"/>
                 <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                 <fmt:message key="registration.correct" var="correct"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>

@@ -20,6 +20,7 @@
 }
 
 .bfh-selectbox .bfh-selectbox-options ul li > a {
+    padding-left: 14px;
     text-align: left;
     font-size: 14px;
 }

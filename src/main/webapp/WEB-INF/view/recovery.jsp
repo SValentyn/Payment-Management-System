@@ -91,7 +91,7 @@
                     <fmt:message key="recovery.backButton" var="backButton"/>
                     <fmt:message key="login.loginError" var="loginError"/>
                     <fmt:message key="login.correct" var="correct"/>
-                    <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                    <fmt:message key="registration.tooltipOnlyDigits" var="tooltipPhone"/>
 
                     <div class="login-wrapper">
                         <div class="box">

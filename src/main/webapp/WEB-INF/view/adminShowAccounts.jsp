@@ -90,6 +90,7 @@
                 <fmt:message key="user.createAccount.numberNewAccount" var="numberAccount"/>
                 <fmt:message key="admin.user_accounts.balanceRange" var="balanceRange"/>
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
+                <fmt:message key="registration.tooltipOnlyDigits" var="tooltipOnlyDigits"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
@@ -156,7 +157,7 @@
                                                                             <input id="number" name="number" type="text"
                                                                                    class="form-control"
                                                                                    data-toggle="tooltip-left"
-                                                                                   data-title="${tooltipOnlyLetters}"
+                                                                                   data-title="${tooltipOnlyDigits}"
                                                                                    maxlength="20"
                                                                                    onkeypress="onlyNumbers();"
                                                                                    placeholder="${numberAccount}"

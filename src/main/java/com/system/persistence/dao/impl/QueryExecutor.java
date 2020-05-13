@@ -28,8 +28,8 @@ public class QueryExecutor {
     private static final Logger LOGGER = LogManager.getLogger(QueryExecutor.class);
 
     private static QueryExecutor instance = null;
+    private final Connection connection = getConnection();
     private PreparedStatement preparedStatement;
-    private Connection connection = getConnection();
 
     private QueryExecutor() throws SQLException {
     }
@@ -58,7 +58,7 @@ public class QueryExecutor {
 
     /**
      * Uncomment the code below for local use (localhost) and comment out the code above (for the site)
-     *
+     * <p>
      * Getting connection from connection pool
      */
 //    private Connection getConnection() throws SQLException {

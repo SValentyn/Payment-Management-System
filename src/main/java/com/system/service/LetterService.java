@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Provides service methods for LetterDao. Layout between DAO and Command
@@ -45,6 +46,7 @@ public class LetterService {
             letter.setTypeQuestion(typeQuestion);
             letter.setDescription(description);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             letter.setDate(formatter.format(new Date()));
             letter.setIsProcessed(false);
             status = letterDao.create(letter);

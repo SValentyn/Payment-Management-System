@@ -101,7 +101,7 @@
                 <fmt:message key="registration.surname" var="surname"/>
                 <fmt:message key="registration.email" var="email"/>
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                <fmt:message key="registration.tooltipOnlyDigits" var="tooltipOnlyDigits"/>
                 <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
@@ -187,7 +187,7 @@
                                                                     <input id="phone" name="phone" type="text"
                                                                            class="form-control"
                                                                            data-toggle="tooltip-left"
-                                                                           data-title="${tooltipPhone}"
+                                                                           data-title="${tooltipOnlyDigits}"
                                                                            onkeypress="onlyNumbers();"
                                                                            value="${phoneValue}"/>
                                                                     <label for="phone"

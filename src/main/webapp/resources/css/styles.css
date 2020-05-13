@@ -1127,6 +1127,13 @@ div[class="message-block"] .title-label {
     width: 100% !important;
 }
 
+.iti__country-list {
+    max-width: 376px;
+    overflow-x: hidden;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
 .iti__flag {
     background-image: url("/resources/images/flags.png");
 }

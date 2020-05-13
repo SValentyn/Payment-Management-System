@@ -6,8 +6,6 @@ import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.LetterService;
 import com.system.utils.Validator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +13,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CommandAdminSearchLetters implements ICommand {
-
-    private static final Logger LOGGER = LogManager.getLogger(CommandAdminSearchLetters.class);
 
     // Default path
     private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
@@ -54,7 +50,6 @@ public class CommandAdminSearchLetters implements ICommand {
             // Set attributes
             if (letters == null) {
                 setSessionAttributes(request, typeQuestion, startDate, finalDate, ServerResponse.SEARCH_LETTERS_ERROR);
-                LOGGER.error("3");
                 return pathRedirect;
             }
 
@@ -83,7 +78,6 @@ public class CommandAdminSearchLetters implements ICommand {
         if (!startDate.equals("") && !finalDate.equals("")) {
             if (!Validator.checkDateRange(startDate, finalDate)) {
                 setSessionAttributes(request, typeQuestion, ServerResponse.SEARCH_LETTERS_ERROR);
-                LOGGER.error("2");
                 return false;
             }
         }

@@ -125,13 +125,15 @@ public class LetterDaoImpl implements LetterDao {
         try {
             if (startDate.equals("")) {
                 startDate = "01/01/2020 00:00:00";
+            } else {
+                startDate += " 00:00:00";
             }
 
             ResultSet rs;
             if (finalDate.equals("")) {
                 rs = executor.getResultSet(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, typeQuestion, startDate);
             } else {
-                finalDate += "23:59:59";
+                finalDate += " 23:59:59";
                 rs = executor.getResultSet(SEARCH_BY_CRITERIA, typeQuestion, startDate, finalDate);
             }
 
@@ -150,13 +152,15 @@ public class LetterDaoImpl implements LetterDao {
         try {
             if (startDate.equals("")) {
                 startDate = "01/01/2020 00:00:00";
+            } else {
+                startDate += " 00:00:00";
             }
 
             ResultSet rs;
             if (finalDate.equals("")) {
                 rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, startDate);
             } else {
-                finalDate += "23:59:59";
+                finalDate += " 23:59:59";
                 rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION, startDate, finalDate);
             }
 

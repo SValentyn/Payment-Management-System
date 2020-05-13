@@ -141,7 +141,7 @@
                     <fmt:message key="registration.passwordConfirmationError" var="passwordConfirmationError"/>
                     <fmt:message key="registration.signupButton" var="signupButton"/>
                     <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
-                    <fmt:message key="registration.tooltipPhone" var="tooltipPhone"/>
+                    <fmt:message key="registration.tooltipOnlyDigits" var="tooltipPhone"/>
                     <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                     <fmt:message key="registration.tooltipPassword" var="tooltipPassword"/>
                     <fmt:message key="registration.tooltipPasswordConfirmation" var="tooltipPasswordConfirmation"/>

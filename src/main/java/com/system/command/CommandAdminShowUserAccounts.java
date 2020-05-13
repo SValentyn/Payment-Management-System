@@ -123,7 +123,6 @@ public class CommandAdminShowUserAccounts implements ICommand {
     private void setRequestAttributes(HttpServletRequest request, Integer userId) throws SQLException {
         List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
         if (accounts != null) {
-            request.setAttribute("userId", userId);
             request.setAttribute("accountsEmpty", accounts.isEmpty());
             request.setAttribute("accounts", accounts);
         } else {
