@@ -1,5 +1,9 @@
+.content-wrap {
+    width: 93% !important;
+}
+
 .content-wrap h4 {
-    margin-bottom: 15px !important;
+    margin-bottom: 5px !important;
 }
 
 .detail {
@@ -13,9 +17,23 @@
     margin-top: 0 !important;
 }
 
+@media (max-width: 744px) {
+    .content-wrap h4 {
+        margin-top: 15px !important;
+    }
+
+    .detail {
+        font-size: 16px !important;
+    }
+
+    span[class="title-label"] label {
+        font-size: 18px !important;
+    }
+}
+
 @media (max-width: 470px) {
     .detail {
-        font-size: 90% !important;
+        margin-bottom: 0;
     }
 
     .col-md-12 a {
@@ -25,7 +43,7 @@
 
 @media (max-width: 412px) {
     .content-wrap h4 {
-        font-size: 16px !important;
+        font-size: 18px !important;
     }
 
     .form-control {

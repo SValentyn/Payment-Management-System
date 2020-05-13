@@ -17,7 +17,7 @@
 }
 
 .content-wrap h4 {
-    margin-bottom: 15px !important;
+    margin-bottom: 5px !important;
 }
 
 .card-body-main {
@@ -35,19 +35,27 @@
     text-align: right;
 }
 
-span[class="title-label"] label {
-    font-size: 22px !important;
-}
-
 @media (max-width: 744px) {
+    .content-wrap h4 {
+        margin-top: 15px !important;
+    }
+
+    .detail {
+        font-size: 16px !important;
+    }
+
     span[class="title-label"] label {
         font-size: 18px !important;
     }
 }
 
 @media (max-width: 470px) {
+    .card-body-main {
+        padding: 25px 38px 35px 38px;
+    }
+
     .detail {
-        font-size: 90% !important;
+        margin-bottom: 0;
     }
 
     .col-md-12 a {
@@ -75,7 +83,7 @@ span[class="title-label"] label {
 
 @media (max-width: 354px) {
     .content-wrap h4 {
-        font-size: 16px !important;
+        font-size: 14px !important;
     }
 
     .form-control {

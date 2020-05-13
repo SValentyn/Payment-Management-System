@@ -68,6 +68,8 @@
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
                 <fmt:message key="admin.payment_info.formHeader" var="formHeader"/>
+                <fmt:message key="admin.payment_info.outgoingPayment" var="outgoingPayment"/>
+                <fmt:message key="admin.payment_info.incomingPayment" var="incomingPayment"/>
                 <fmt:message key="admin.payment_info.senderAccountNumber" var="senderAccountNumber"/>
                 <fmt:message key="admin.payment_info.recipientAccountNumber" var="recipientAccountNumber"/>
                 <fmt:message key="admin.payment_info.recipientCardNumber" var="recipientCardNumber"/>
@@ -157,6 +159,16 @@
                                                     <div class="col-xl-12">
                                                         <div class="row justify-content-center">
                                                             <div class="col-md-12 detail">
+
+                                                                <!-- Type of Payment -->
+                                                                <c:choose>
+                                                                    <c:when test="${payment.isOutgoing}">
+                                                                        <span>${outgoingPayment}</span><br/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span>${incomingPayment}</span><br/>
+                                                                    </c:otherwise>
+                                                                </c:choose>
 
                                                                 <!-- Date and Time  -->
                                                                 <span>${payment.date}</span><br/>

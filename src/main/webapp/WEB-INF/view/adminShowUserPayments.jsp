@@ -104,7 +104,7 @@
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user_payments.incomingPayments" var="incomingPayments"/>
                 <fmt:message key="admin.user_payments.outgoingPayments" var="outgoingPayments"/>
-                <fmt:message key="admin.user_payments.tooltipTypeOfPayment" var="typeOfPayment"/>
+                <fmt:message key="admin.user_payments.tooltipTypeOfPayment" var="tooltipTypeOfPayment"/>
                 <fmt:message key="admin.support.tooltipStartDate" var="tooltipStartDate"/>
                 <fmt:message key="admin.support.tooltipFinalDate" var="tooltipFinalDate"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
@@ -196,7 +196,7 @@
                                                                     <!-- Choice of payment type -->
                                                                     <div class="group-btn"
                                                                          data-toggle="tooltip-left-hover"
-                                                                         data-title="${typeOfPayment}">
+                                                                         data-title="${tooltipTypeOfPayment}">
                                                                         <label for="checkbox-isIncoming">
                                                                                 ${incomingPayments}
                                                                             <input id="checkbox-isIncoming"
