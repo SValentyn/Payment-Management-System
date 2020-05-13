@@ -195,12 +195,20 @@ body {
 }
 
 .header .dropdown-menu {
-    width: 70%;
-    min-width: 175px;
-    max-width: 205px;
+    min-width: 200px;
+    max-width: 230px;
     position: absolute;
+    white-space: nowrap;
     border-radius: 5px !important;
     background: #fff !important;
+}
+
+.header .dropdown-menu .dropdown-item {
+    padding: 0.65rem 1.1rem;
+}
+
+.header .dropdown-menu .dropdown-divider {
+    margin: 0 1.1rem;
 }
 
 .header .dropdown-menu .icon-header {
@@ -1132,7 +1140,9 @@ div[class="message-block"] .title-label {
 }
 
 .iti__country-list {
-    max-width: 376px;
+    width: auto;
+    min-width: 220px;
+    max-width: 380px;
     overflow-x: hidden;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;

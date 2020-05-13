@@ -63,6 +63,7 @@ public class ControllerHelper {
         userCommands.put("makePayment", new CommandUserMakePayment());
         userCommands.put("repeatPayment", new CommandUserRepeatPayment());
         userCommands.put("support", new CommandUserSupport());
+        userCommands.put("showActionLog", new CommandUserShowActionLog());
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());

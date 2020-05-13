@@ -180,3 +180,17 @@ CREATE TABLE letters
   CHARACTER SET utf8
   DEFAULT COLLATE 'utf8_general_ci';
 -- -- --
+
+-- -- --
+CREATE TABLE action_log
+(
+    log_entry_id INT(11)      NOT NULL AUTO_INCREMENT,
+    user_id      INT(11)      NOT NULL,
+    description  VARCHAR(255) NOT NULL,
+    date         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (log_entry_id),
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+) ENGINE = InnoDB
+  CHARACTER SET utf8
+  DEFAULT COLLATE 'utf8_general_ci';
+-- -- --

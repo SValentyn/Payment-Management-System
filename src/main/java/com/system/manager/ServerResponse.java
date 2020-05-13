@@ -90,7 +90,11 @@ public enum ServerResponse {
     LETTER_PROCESSED_ERROR("letterProcessedError"),
     LETTER_SENT_SUCCESS("letterSentSuccess"),
     MANY_LETTERS_SENT_ERROR("manyLettersSentError"),
-    LETTER_SENT_ERROR("letterSentError");
+    LETTER_SENT_ERROR("letterSentError"),
+    SHOW_ACTION_LOG_ERROR("showActionLogError"),
+    SEARCH_LOG_ENTRIES_SUCCESS("searchLettersSuccess"),
+    SEARCH_LOG_ENTRIES_WARNING("searchLettersWarning"),
+    SEARCH_LOG_ENTRIES_ERROR("searchLettersError");
 
     private final String response;
 

@@ -30,6 +30,7 @@ public class ResourceManager {
     public static final String USER_ATTACH_CARD = "USER_ATTACH_CARD";
     public static final String USER_MAKE_PAYMENT = "USER_MAKE_PAYMENT";
     public static final String USER_SUPPORT = "USER_SUPPORT";
+    public static final String USER_SHOW_ACTION_LOG = "USER_SHOW_ACTION_LOG";
     // *************
     // ADMIN'S PAGES
     // *************
@@ -68,6 +69,7 @@ public class ResourceManager {
     public static final String COMMAND_USER_ATTACH_CARD = "COMMAND_USER_ATTACH_CARD";
     public static final String COMMAND_USER_MAKE_PAYMENT = "COMMAND_USER_MAKE_PAYMENT";
     public static final String COMMAND_USER_SUPPORT = "COMMAND_USER_SUPPORT";
+    public static final String COMMAND_USER_SHOW_ACTION_LOG = "COMMAND_USER_SHOW_ACTION_LOG";
     // ****************
     // ADMIN'S COMMANDS
     // ****************

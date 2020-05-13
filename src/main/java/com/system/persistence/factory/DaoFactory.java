@@ -47,4 +47,11 @@ public class DaoFactory {
         return LetterDaoImpl.getInstance();
     }
 
+    /**
+     * @return ActionLogDao
+     */
+    public static ActionLogDao createActionLogDao() throws SQLException {
+        return ActionLogDaoImpl.getInstance();
+    }
+
 }

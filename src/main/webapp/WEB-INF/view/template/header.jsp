@@ -37,11 +37,29 @@
                                             </div>
                                             <div class="float-right">
                                                 <img src="resources/images/profile.png" class="icon-header"
-                                                     style="width: 20px;" alt="<fmt:message key="header.profile"/>"/>
+                                                     style="width: 20px;" alt=""/>
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="dropdown-divider" style="margin: 0 1.5rem;"></div>
+
+                                    <div class="dropdown-divider"></div>
+
+                                    <div class="dropdown-item" style="display: grid;">
+                                        <a href="?command=showActionLog">
+                                            <div class="float-left">
+                                                <p style="margin-bottom: 0.1rem;">
+                                                    <fmt:message key="header.actionLog"/>
+                                                </p>
+                                            </div>
+                                            <div class="float-right">
+                                                <img src="resources/images/action_log.png" class="icon-header"
+                                                     style="width: 18px; height: 19px; margin-right: 2px;" alt=""/>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="dropdown-divider"></div>
+
                                     <div class="dropdown-item" style="display: grid;">
                                         <a href="?command=logout">
                                             <div class="float-left">
@@ -50,8 +68,7 @@
                                                 </p>
                                             </div>
                                             <div class="float-right">
-                                                <img src="resources/images/logout.png" class="icon-header"
-                                                     alt="<fmt:message key="header.logout"/>"/>
+                                                <img src="resources/images/logout.png" class="icon-header" alt=""/>
                                             </div>
                                         </a>
                                     </div>
