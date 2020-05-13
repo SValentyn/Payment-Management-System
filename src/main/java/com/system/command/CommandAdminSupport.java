@@ -118,8 +118,12 @@ public class CommandAdminSupport implements ICommand {
     }
 
     private void setRequestAttributes(HttpServletRequest request, List<Letter> letters) {
-        request.setAttribute("letters", letters);
-        request.setAttribute("lettersEmpty", letters.isEmpty());
+        if (letters != null) {
+            request.setAttribute("lettersEmpty", false);
+            request.setAttribute("letters", letters);
+        } else {
+            request.setAttribute("lettersEmpty", true);
+        }
     }
 
 }
