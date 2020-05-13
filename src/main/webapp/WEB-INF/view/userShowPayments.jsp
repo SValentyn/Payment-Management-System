@@ -14,7 +14,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"/>
+    <script type="text/javascript" src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"></script>
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="stylesheet" href="resources/css/style_userShowPayments.css">
 </head>
@@ -27,6 +31,44 @@
         <div id="alert" class="alert alert-danger fade show" role="alert">
             <p><strong><fmt:message key="user.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertUnableGetData"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchPaymentsSuccess -->
+    <c:if test="${response eq 'searchPaymentsSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchPaymentsSuccess"/>
+                    ${numberOfPayments}
+                <fmt:message key="admin.user_payments.payments"/>.
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchPaymentsWarning -->
+    <c:if test="${response eq 'searchPaymentsWarning'}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p>
+                <fmt:message key="admin.page.alertSearchPaymentsWarning"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchPaymentsError -->
+    <c:if test="${response eq 'searchPaymentsError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
+                <fmt:message key="admin.page.alertSearchPaymentsError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -49,6 +91,10 @@
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
+                <fmt:message key="admin.user_payments.incomingPayments" var="incomingPayments"/>
+                <fmt:message key="admin.user_payments.outgoingPayments" var="outgoingPayments"/>
+                <fmt:message key="admin.support.startDate" var="startDate"/>
+                <fmt:message key="admin.support.finalDate" var="finalDate"/>
                 <fmt:message key="user.payments.repeat" var="repeat"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
@@ -101,10 +147,70 @@
                                                             <label>
                                                                     ${searchCriteria}:
                                                             </label>
-                                                            <form action="/" method="GET" role="form">
+                                                            <form action="/" method="POST" role="form">
                                                                 <input type="hidden" name="command"
-                                                                       value="searchAccounts"/>
-                                                                <div class="action" style="text-align: unset;">
+                                                                       value="searchPayments"/>
+
+                                                                <input type="hidden" id="isIncoming" name="isIncoming"
+                                                                       value="${isIncomingValue}"/>
+
+                                                                <input type="hidden" id="isOutgoing" name="isOutgoing"
+                                                                       value="${isOutgoingValue}"/>
+
+                                                                <!-- Choice of payment type -->
+                                                                <div class="group-btn">
+                                                                    <label for="checkbox-isIncoming">
+                                                                            ${incomingPayments}
+                                                                        <input id="checkbox-isIncoming"
+                                                                               type="checkbox"
+                                                                               onfocus="this.blur();"/>
+                                                                    </label>
+                                                                    <label for="checkbox-isOutgoing">
+                                                                            ${outgoingPayments}
+                                                                        <input id="checkbox-isOutgoing"
+                                                                               type="checkbox"
+                                                                               onfocus="this.blur();"/>
+                                                                    </label>
+                                                                </div>
+
+                                                                <!-- Min value Date -->
+                                                                <input id="datepicker-start-date" name="start-date"
+                                                                       data-toggle="tooltip-left"
+                                                                       data-title="${startDate}"
+                                                                       readonly="readonly"
+                                                                       value="${startDateValue}"/>
+                                                                <label for="datepicker-start-date"
+                                                                       class="default-label">&nbsp;</label>
+
+                                                                <!-- Max value Date -->
+                                                                <input id="datepicker-final-date" name="final-date"
+                                                                       data-toggle="tooltip-left"
+                                                                       data-title="${finalDate}"
+                                                                       readonly="readonly"
+                                                                       value="${finalDateValue}"/>
+                                                                <label for="datepicker-final-date"
+                                                                       class="default-label">&nbsp;</label>
+
+                                                                <script>
+                                                                    let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                                                                    $('#datepicker-start-date').datepicker({
+                                                                        format: 'dd/mm/yyyy',
+                                                                        minDate: '01/01/2020',
+                                                                        maxDate: today,
+                                                                        showRightIcon: true,
+                                                                        uiLibrary: 'bootstrap4'
+                                                                    });
+
+                                                                    $('#datepicker-final-date').datepicker({
+                                                                        format: 'dd/mm/yyyy',
+                                                                        minDate: '01/01/2020',
+                                                                        maxDate: today,
+                                                                        showRightIcon: true,
+                                                                        uiLibrary: 'bootstrap4'
+                                                                    });
+                                                                </script>
+
+                                                                <div class="action" style="padding: 10px 0 0 0;">
                                                                     <button id="search" type="submit"
                                                                             class="btn btn-primary signup">
                                                                             ${searchButton}
@@ -249,4 +355,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script src="resources/js/searcher_userShowPayments.js"></script>
 </html>

@@ -21,9 +21,59 @@
     margin: 0;
 }
 
+.login-wrapper .box .group-btn {
+    margin-bottom: 6px;
+    display: block;
+}
+
+.login-wrapper .box .group-btn label {
+    font-size: 14px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    background: #ffffff;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+    background: #ffffff;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #428bca;
+    background: #428bca;
+}
+
+.ui-visual-focus {
+    box-shadow: none;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    height: 40px;
+    background-color: #ffffff;
+}
+
+.gj-datepicker-bootstrap [role=right-icon] button {
+    transition: .05s ease-in-out;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show > .btn-outline-secondary.dropdown-toggle {
+    background-color: #6c757d75;
+    border-color: #6c757d75;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
 .message-block span {
     padding-bottom: 20px;
     font-size: 22px;
+}
+
+@media (max-width: 992px) {
+    .tooltip {
+        visibility: hidden;
+    }
 }
 
 @media (max-width: 439px) {

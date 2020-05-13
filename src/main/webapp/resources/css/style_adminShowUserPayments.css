@@ -12,13 +12,25 @@
     display: block;
 }
 
-.login-wrapper .box .group-btn label{
+.login-wrapper .box .group-btn label {
     font-size: 14px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    background: #ffffff;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+    background: #ffffff;
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
     border: 1px solid #428bca;
     background: #428bca;
+}
+
+.ui-visual-focus {
+    box-shadow: none;
 }
 
 .form-control:disabled, .form-control[readonly] {
@@ -37,12 +49,6 @@
 
 .btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus {
     box-shadow: none;
-}
-
-@media (max-width: 1470px) {
-    .login-wrapper .box .group-btn {
-        display: block;
-    }
 }
 
 @media (max-width: 992px) {
