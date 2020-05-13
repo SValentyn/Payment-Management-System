@@ -8,11 +8,14 @@
 }
 
 .login-wrapper .box .group-btn {
-    margin-bottom: 6px;
+    margin-bottom: 26px;
     display: block;
 }
 
 .login-wrapper .box .group-btn label {
+    width: 49%;
+    padding: 8px;
+    margin: 0;
     font-size: 14px;
 }
 
@@ -49,6 +52,14 @@
 
 .btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus {
     box-shadow: none;
+}
+
+@media (max-width: 1474px) {
+    .login-wrapper .box .group-btn label {
+        min-width: 100px;
+        width: auto;
+        margin: 2px;
+    }
 }
 
 @media (max-width: 992px) {

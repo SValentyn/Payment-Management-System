@@ -22,11 +22,14 @@
 }
 
 .login-wrapper .box .group-btn {
-    margin-bottom: 6px;
+    margin-bottom: 26px;
     display: block;
 }
 
 .login-wrapper .box .group-btn label {
+    width: 49%;
+    padding: 8px;
+    margin: 0;
     font-size: 14px;
 }
 
@@ -68,6 +71,14 @@
 .message-block span {
     padding-bottom: 20px;
     font-size: 22px;
+}
+
+@media (max-width: 1474px) {
+    .login-wrapper .box .group-btn label {
+        min-width: 100px;
+        width: auto;
+        margin: 2px;
+    }
 }
 
 @media (max-width: 992px) {

@@ -93,7 +93,7 @@
                 <fmt:message key="admin.letter.user_bio" var="user_bio"/>
                 <fmt:message key="admin.letter.phone" var="user_phone"/>
                 <fmt:message key="admin.letter.email" var="user_email"/>
-                <fmt:message key="admin.support.typeQuestion" var="typeQuestion"/>
+                <fmt:message key="admin.support.tooltipTypeOfQuestion" var="typeQuestion"/>
                 <fmt:message key="user.support.option.1" var="option_1"/>
                 <fmt:message key="user.support.option.2" var="option_2"/>
                 <fmt:message key="user.support.option.3" var="option_3"/>

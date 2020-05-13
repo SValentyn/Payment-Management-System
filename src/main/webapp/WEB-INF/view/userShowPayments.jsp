@@ -93,8 +93,9 @@
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user_payments.incomingPayments" var="incomingPayments"/>
                 <fmt:message key="admin.user_payments.outgoingPayments" var="outgoingPayments"/>
-                <fmt:message key="admin.support.startDate" var="startDate"/>
-                <fmt:message key="admin.support.finalDate" var="finalDate"/>
+                <fmt:message key="admin.user_payments.tooltipTypeOfPayment" var="typeOfPayment"/>
+                <fmt:message key="admin.support.tooltipStartDate" var="tooltipStartDate"/>
+                <fmt:message key="admin.support.tooltipFinalDate" var="tooltipFinalDate"/>
                 <fmt:message key="user.payments.repeat" var="repeat"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
@@ -158,7 +159,9 @@
                                                                        value="${isOutgoingValue}"/>
 
                                                                 <!-- Choice of payment type -->
-                                                                <div class="group-btn">
+                                                                <div class="group-btn"
+                                                                     data-toggle="tooltip-left-hover"
+                                                                     data-title="${typeOfPayment}">
                                                                     <label for="checkbox-isIncoming">
                                                                             ${incomingPayments}
                                                                         <input id="checkbox-isIncoming"
@@ -176,7 +179,7 @@
                                                                 <!-- Min value Date -->
                                                                 <input id="datepicker-start-date" name="start-date"
                                                                        data-toggle="tooltip-left"
-                                                                       data-title="${startDate}"
+                                                                       data-title="${tooltipStartDate}"
                                                                        readonly="readonly"
                                                                        value="${startDateValue}"/>
                                                                 <label for="datepicker-start-date"
@@ -185,7 +188,7 @@
                                                                 <!-- Max value Date -->
                                                                 <input id="datepicker-final-date" name="final-date"
                                                                        data-toggle="tooltip-left"
-                                                                       data-title="${finalDate}"
+                                                                       data-title="${tooltipFinalDate}"
                                                                        readonly="readonly"
                                                                        value="${finalDateValue}"/>
                                                                 <label for="datepicker-final-date"

@@ -94,8 +94,8 @@
                 <fmt:message key="user.support.option.8" var="option_8"/>
                 <fmt:message key="user.support.option.9" var="option_9"/>
                 <fmt:message key="user.support.option.10" var="option_10"/>
-                <fmt:message key="admin.support.startDate" var="startDate"/>
-                <fmt:message key="admin.support.finalDate" var="finalDate"/>
+                <fmt:message key="admin.support.tooltipStartDate" var="startDate"/>
+                <fmt:message key="admin.support.tooltipFinalDate" var="finalDate"/>
                 <fmt:message key="admin.support.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
