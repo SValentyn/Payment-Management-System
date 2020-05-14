@@ -1,0 +1,64 @@
+.login-wrapper .box .content-wrap {
+    width: 92%;
+}
+
+.card-body-main {
+    padding: 30px 0;
+}
+
+.login-wrapper .box {
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+}
+
+table {
+    margin: 0 !important;
+    border-collapse: initial;
+}
+
+.table .thead-light th {
+    text-align: center;
+}
+
+.table .thead-light th {
+    font-size: 13px;
+}
+
+.table-sm td, .table-sm th {
+    font-size: 82%;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    height: 40px;
+    background-color: #ffffff;
+}
+
+.gj-datepicker-bootstrap [role=right-icon] button {
+    transition: .05s ease-in-out;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show > .btn-outline-secondary.dropdown-toggle {
+    background-color: #6c757d75;
+    border-color: #6c757d75;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 992px) {
+    .tooltip {
+        visibility: hidden;
+    }
+}
+
+@media (max-width: 439px) {
+    .card-container {
+        font-size: 90%;
+    }
+
+    .message-block span {
+        font-size: 16px !important;
+    }
+}

@@ -48,6 +48,7 @@ public class ResourceManager {
     public static final String ADMIN_ATTACH_ACCOUNT = "ADMIN_ATTACH_ACCOUNT";
     public static final String ADMIN_SUPPORT = "ADMIN_SUPPORT";
     public static final String ADMIN_SHOW_LETTER_INFO = "ADMIN_SHOW_LETTER_INFO";
+    public static final String ADMIN_SHOW_ACTION_LOG = "ADMIN_SHOW_ACTION_LOG";
     // ****************************
     // UNREGISTERED USER'S COMMANDS
     // ****************************
@@ -86,6 +87,7 @@ public class ResourceManager {
     public static final String COMMAND_ADMIN_ATTACH_ACCOUNT = "COMMAND_ADMIN_ATTACH_ACCOUNT";
     public static final String COMMAND_ADMIN_SUPPORT = "COMMAND_ADMIN_SUPPORT";
     public static final String COMMAND_ADMIN_SHOW_LETTER_INFO = "COMMAND_ADMIN_SHOW_LETTER_INFO";
+    public static final String COMMAND_ADMIN_SHOW_ACTION_LOG = "COMMAND_ADMIN_SHOW_ACTION_LOG";
 
     // Configuration file name
     private final static String BUNDLE_NAME = "configuration";

@@ -93,6 +93,8 @@ public class ControllerHelper {
         adminCommands.put("support", new CommandAdminSupport());
         adminCommands.put("searchLetters", new CommandAdminSearchLetters());
         adminCommands.put("showLetterInfo", new CommandAdminShowLetterInfo());
+        adminCommands.put("showActionLog", new CommandAdminShowActionLog());
+        adminCommands.put("searchLogEntries", new CommandAdminSearchLogEntries());
     }
 
     public static ControllerHelper getInstance() {
