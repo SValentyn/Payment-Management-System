@@ -109,6 +109,8 @@
                 <fmt:message key="user.log.actionLog" var="formHeader"/>
                 <fmt:message key="user.log.date" var="date"/>
                 <fmt:message key="user.log.action" var="action"/>
+                <fmt:message key="admin.support.tooltipStartDate" var="startDate"/>
+                <fmt:message key="admin.support.tooltipFinalDate" var="finalDate"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
@@ -136,6 +138,45 @@
                                                             <form action="/" method="POST" role="form">
                                                                 <input type="hidden" name="command"
                                                                        value="searchLogEntries"/>
+
+                                                                <!-- Min value Date -->
+                                                                <input id="datepicker-start-date"
+                                                                       name="start-date"
+                                                                       data-toggle="tooltip-left"
+                                                                       data-title="${startDate}"
+                                                                       readonly="readonly"
+                                                                       value="${startDateValue}"/>
+                                                                <label for="datepicker-start-date"
+                                                                       class="default-label">&nbsp;</label>
+
+                                                                <!-- Max value Date -->
+                                                                <input id="datepicker-final-date"
+                                                                       name="final-date"
+                                                                       data-toggle="tooltip-left"
+                                                                       data-title="${finalDate}"
+                                                                       readonly="readonly"
+                                                                       value="${finalDateValue}"/>
+                                                                <label for="datepicker-final-date"
+                                                                       class="default-label">&nbsp;</label>
+
+                                                                <script>
+                                                                    let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                                                                    $('#datepicker-start-date').datepicker({
+                                                                        format: 'dd/mm/yyyy',
+                                                                        minDate: '01/01/2020',
+                                                                        maxDate: today,
+                                                                        showRightIcon: true,
+                                                                        uiLibrary: 'bootstrap4'
+                                                                    });
+
+                                                                    $('#datepicker-final-date').datepicker({
+                                                                        format: 'dd/mm/yyyy',
+                                                                        minDate: '01/01/2020',
+                                                                        maxDate: today,
+                                                                        showRightIcon: true,
+                                                                        uiLibrary: 'bootstrap4'
+                                                                    });
+                                                                </script>
 
                                                                 <div class="action" style="padding: 10px 0 0 0;">
                                                                     <button id="search" type="submit"

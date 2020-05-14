@@ -25,16 +25,34 @@ public class LetterDaoImpl implements LetterDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_LETTER = "INSERT INTO letters(user_id, typeQuestion, description, date, is_processed) VALUES(?, ?, ?, ?, ?)";
+    private static final String CREATE_LETTER =
+            "INSERT INTO letters(user_id, typeQuestion, description, date, is_processed) " +
+                    "VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_LETTER = "UPDATE letters SET is_processed = ? WHERE letter_id = ?";
     private static final String DELETE_LETTER = "DELETE FROM letters WHERE letter_id = ?";
     private static final String FIND_LETTER_BY_LETTER_ID = "SELECT * FROM letters WHERE letter_id = ?";
     private static final String FIND_LETTERS_BY_USER_ID = "SELECT * FROM letters WHERE user_id = ?";
     private static final String FIND_ALL_LETTERS = "SELECT * FROM letters ORDER BY date ASC";
-    private static final String SEARCH_BY_CRITERIA = "SELECT * FROM letters WHERE is_processed = 0 AND typeQuestion LIKE ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date ASC;";
-    private static final String SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP = "SELECT * FROM letters WHERE is_processed = 0 AND typeQuestion LIKE ? AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y') AND CURRENT_TIMESTAMP() ORDER BY date ASC;";
-    private static final String SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION = "SELECT * FROM letters WHERE is_processed = 0 AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date ASC;";
-    private static final String SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP = "SELECT * FROM letters WHERE is_processed = 0 AND date BETWEEN STR_TO_DATE(?, '%d/%m/%Y') AND CURRENT_TIMESTAMP() ORDER BY date ASC;";
+    private static final String SEARCH_BY_CRITERIA =
+            "SELECT * FROM letters " +
+                    "WHERE is_processed = 0 AND typeQuestion LIKE ? AND date BETWEEN " +
+                    "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND " +
+                    "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date ASC;";
+    private static final String SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP =
+            "SELECT * FROM letters " +
+                    "WHERE is_processed = 0 AND typeQuestion LIKE ? AND date BETWEEN " +
+                    "STR_TO_DATE(?, '%d/%m/%Y') AND " +
+                    "CURRENT_TIMESTAMP() ORDER BY date ASC;";
+    private static final String SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION =
+            "SELECT * FROM letters " +
+                    "WHERE is_processed = 0 AND date BETWEEN " +
+                    "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND " +
+                    "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date ASC;";
+    private static final String SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP =
+            "SELECT * FROM letters " +
+                    "WHERE is_processed = 0 AND date BETWEEN " +
+                    "STR_TO_DATE(?, '%d/%m/%Y') AND " +
+                    "CURRENT_TIMESTAMP() ORDER BY date ASC;";
 
     private static LetterDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
