@@ -14,7 +14,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"/>
+    <script type="text/javascript" src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"></script>
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="stylesheet" href="resources/css/style_adminShowActionLog.css">
 </head>
@@ -58,6 +61,44 @@
         </div>
     </c:if>
 
+    <!-- Alert searchLogEntriesSuccess -->
+    <c:if test="${response eq 'searchLogEntriesSuccess'}">
+        <div id="alert" class="alert alert-success fade show" role="alert">
+            <p>
+                <fmt:message key="user.page.alertSearchLogEntriesSuccess"/>
+                    ${numberOfLogEntries}
+                <fmt:message key="user.log.logEntries"/>.
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchLogEntriesWarning -->
+    <c:if test="${response eq 'searchLogEntriesWarning'}">
+        <div id="alert" class="alert alert-warning fade show" role="alert">
+            <p>
+                <fmt:message key="user.page.alertSearchLogEntriesWarning"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
+    <!-- Alert searchLogEntriesError -->
+    <c:if test="${response eq 'searchLogEntriesError'}">
+        <div id="alert" class="alert alert-danger fade show" role="alert">
+            <p><strong><fmt:message key="user.page.failed"/></strong>
+                <fmt:message key="user.page.alertSearchLogEntriesError"/>
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="page-content">
         <div class="row">
             <div class="col-lg-2">
@@ -68,6 +109,8 @@
                 <fmt:message key="user.log.actionLog" var="formHeader"/>
                 <fmt:message key="user.log.date" var="date"/>
                 <fmt:message key="user.log.action" var="action"/>
+                <fmt:message key="admin.support.tooltipStartDate" var="startDate"/>
+                <fmt:message key="admin.support.tooltipFinalDate" var="finalDate"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
@@ -95,6 +138,45 @@
                                                             <form action="/" method="POST" role="form">
                                                                 <input type="hidden" name="command"
                                                                        value="searchLogEntries"/>
+
+                                                                <!-- Min value Date -->
+                                                                <input id="datepicker-start-date"
+                                                                       name="start-date"
+                                                                       data-toggle="tooltip-left"
+                                                                       data-title="${startDate}"
+                                                                       readonly="readonly"
+                                                                       value="${startDateValue}"/>
+                                                                <label for="datepicker-start-date"
+                                                                       class="default-label">&nbsp;</label>
+
+                                                                <!-- Max value Date -->
+                                                                <input id="datepicker-final-date"
+                                                                       name="final-date"
+                                                                       data-toggle="tooltip-left"
+                                                                       data-title="${finalDate}"
+                                                                       readonly="readonly"
+                                                                       value="${finalDateValue}"/>
+                                                                <label for="datepicker-final-date"
+                                                                       class="default-label">&nbsp;</label>
+
+                                                                <script>
+                                                                    let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                                                                    $('#datepicker-start-date').datepicker({
+                                                                        format: 'dd/mm/yyyy',
+                                                                        minDate: '01/01/2020',
+                                                                        maxDate: today,
+                                                                        showRightIcon: true,
+                                                                        uiLibrary: 'bootstrap4'
+                                                                    });
+
+                                                                    $('#datepicker-final-date').datepicker({
+                                                                        format: 'dd/mm/yyyy',
+                                                                        minDate: '01/01/2020',
+                                                                        maxDate: today,
+                                                                        showRightIcon: true,
+                                                                        uiLibrary: 'bootstrap4'
+                                                                    });
+                                                                </script>
 
                                                                 <div class="action" style="padding: 10px 0 0 0;">
                                                                     <button id="search" type="submit"
@@ -141,4 +223,5 @@
     <jsp:include page="template/footer.jsp"/>
 </div>
 </body>
+<script src="resources/js/searcher_adminShowActionLog.js"></script>
 </html>

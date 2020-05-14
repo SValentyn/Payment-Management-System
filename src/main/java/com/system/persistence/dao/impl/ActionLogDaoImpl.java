@@ -25,12 +25,21 @@ public class ActionLogDaoImpl implements ActionLogDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_LOG_ENTRY = "INSERT INTO action_log(user_id, description, date) VALUES(?, ?, ?)";
+    private static final String CREATE_LOG_ENTRY =
+            "INSERT INTO action_log(user_id, description, date) " +
+                    "VALUES(?, ?, ?)";
     private static final String CLEAR_ACTION_LOG = "DELETE FROM action_log WHERE user_id = ?";
     private static final String FIND_LOG_ENTRY_BY_ID = "SELECT * FROM action_log WHERE log_entry_id = ? ORDER BY date DESC";
     private static final String FIND_LOG_ENTRIES_BY_USER_ID = "SELECT * FROM action_log WHERE user_id = ? ORDER BY date DESC";
-    private static final String SEARCH_BY_CRITERIA = "";
-    private static final String SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP = "";
+    private static final String SEARCH_BY_CRITERIA =
+            "SELECT * FROM action_log WHERE user_id = ? AND date BETWEEN " +
+                    "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND " +
+                    "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date DESC;";
+    private static final String SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP =
+            "SELECT * FROM action_log " +
+                    "WHERE user_id = ? AND date BETWEEN " +
+                    "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND " +
+                    "CURRENT_TIMESTAMP() ORDER BY date DESC;";
 
     private static ActionLogDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
