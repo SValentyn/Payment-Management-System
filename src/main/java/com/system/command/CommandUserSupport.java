@@ -37,21 +37,21 @@ public class CommandUserSupport implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SUPPORT);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String typeQuestion = request.getParameter("typeQuestion");
             String description = request.getParameter("description");
 
             // Validation
-            if (!validation(request, user, typeQuestion, description)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "Unsuccessful attempt to send a letter to Support");
+            if (!validation(request, currentUser, typeQuestion, description)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "Unsuccessful attempt to send a letter to Support");
                 return pathRedirect;
             }
 
             // Action (send letter)
-            int status = LetterService.getInstance().addNewLetter(user.getUserId(), Integer.valueOf(typeQuestion), description);
+            int status = LetterService.getInstance().addNewLetter(currentUser.getUserId(), Integer.valueOf(typeQuestion), description);
             if (status == 0) {
-                logging(user.getUserId(), "Unsuccessful attempt to send a letter to Support");
+                logging(currentUser.getUserId(), "Unsuccessful attempt to send a letter to Support");
                 setSessionAttributes(request, description, ServerResponse.LETTER_SENT_ERROR);
             } else {
                 setSessionAttributes(request, ServerResponse.LETTER_SENT_SUCCESS);
@@ -61,10 +61,10 @@ public class CommandUserSupport implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String typeQuestion, String description) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String typeQuestion, String description) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -77,7 +77,7 @@ public class CommandUserSupport implements ICommand {
 
         // Data
         int numberOfNotProcessedLetters = 0;
-        for (Letter letter : LetterService.getInstance().findLettersByUserId(user.getUserId())) {
+        for (Letter letter : LetterService.getInstance().findLettersByUserId(currentUser.getUserId())) {
             if (!letter.getIsProcessed()) numberOfNotProcessedLetters++;
         }
 

@@ -17,9 +17,13 @@
 }
 
 .card-container {
-    height: 325px;
+    height: 450px;
     min-height: 325px;
     padding: 30px 60px;
+}
+
+.carousel {
+    height: 67%;
 }
 
 .carousel-item .carousel-caption {
@@ -98,9 +102,12 @@
 }
 
 @media (max-width: 768px) {
-    .card-container {
-        height: 450px;
-        min-height: 450px;
+    .carousel {
+        height: 85%;
+    }
+
+    .carousel-caption .card {
+        height: 112% !important;
     }
 
     .carousel-item .carousel-caption {
@@ -144,9 +151,12 @@
 }
 
 @media (max-width: 508px) {
-    .card-container {
-        height: 390px;
-        min-height: 390px;
+    .carousel {
+        height: 74%;
+    }
+
+    .carousel-caption .card {
+        height: 114% !important;
     }
 
     .carousel-item .carousel-caption {
@@ -163,7 +173,7 @@
     }
 
     .col-md-6 .options {
-        margin: 36px 0 0 0;
+        margin: 40px 0 0 0;
     }
 
     .col-md-6 .options img {
@@ -174,9 +184,15 @@
 
 @media (max-width: 439px) {
     .card-container {
-        height: 340px;
-        min-height: 340px;
         padding: 0;
+    }
+
+    .carousel {
+        box-shadow: none;
+    }
+
+    .carousel-caption .card {
+        height: 96% !important;
     }
 
     .carousel-item .carousel-caption {
@@ -208,10 +224,8 @@
 }
 
 @media (max-width: 389px) {
-    .card-container {
-        height: 340px;
-        min-height: 340px;
-        padding: 0;
+    .carousel-caption .card {
+        height: 104% !important;
     }
 
     .carousel-control-prev, .carousel-control-next {
@@ -245,6 +259,18 @@
 }
 
 @media (max-width: 358px) {
+    .carousel {
+        height: 64%;
+    }
+
+    .carousel-caption .card {
+        height: 114% !important;
+    }
+
+    .col-md-6 .options {
+        margin: 38px 0 0 0;
+    }
+
     .card-body .card-title {
         font-size: 13px !important;
     }

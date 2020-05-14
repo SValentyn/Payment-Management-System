@@ -36,11 +36,11 @@ public class CommandUserShowAccountCards implements ICommand {
             setRequestAttributes(request);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String accountIdParam = request.getParameter("accountId");
 
             // Validation
-            if (!validation(request, user, accountIdParam)) {
+            if (!validation(request, currentUser, accountIdParam)) {
                 return pathRedirect;
             }
 
@@ -51,10 +51,10 @@ public class CommandUserShowAccountCards implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String accountIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -69,7 +69,7 @@ public class CommandUserShowAccountCards implements ICommand {
         Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Checking that the account belongs to the user
-        if (!account.getUserId().equals(user.getUserId())) {
+        if (!account.getUserId().equals(currentUser.getUserId())) {
             setRequestAttributes(request, ServerResponse.SHOW_ACCOUNT_ERROR);
             return false;
         }

@@ -30,17 +30,17 @@ public class CommandUserSearchLogEntries implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACTION_LOG);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String startDate = request.getParameter("start-date");
             String finalDate = request.getParameter("final-date");
 
             // Validation
-            if (!validation(request, user, startDate, finalDate)) {
+            if (!validation(request, currentUser, startDate, finalDate)) {
                 return pathRedirect;
             }
 
             // Action (search letters)
-            List<LogEntry> logEntries = ActionLogService.getInstance().searchByCriteria(user.getUserId(), startDate, finalDate);
+            List<LogEntry> logEntries = ActionLogService.getInstance().searchByCriteria(currentUser.getUserId(), startDate, finalDate);
 
             // Set attributes
             if (logEntries == null) {
@@ -59,10 +59,10 @@ public class CommandUserSearchLogEntries implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String startDate, String finalDate) {
+    private boolean validation(HttpServletRequest request, User currentUser, String startDate, String finalDate) {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }

@@ -37,28 +37,28 @@ public class CommandUserUpdatePassword implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_UPDATE_PASSWORD);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
 
             // Validation
-            if (!validation(request, user, oldPassword, newPassword, passwordConfirmation)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to change password");
+            if (!validation(request, currentUser, oldPassword, newPassword, passwordConfirmation)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to change password");
                 return pathRedirect;
             }
 
             // Set new password
-            user.setPassword(encryptor.encode(newPassword));
+            currentUser.setPassword(encryptor.encode(newPassword));
 
             // Action (update data)
-            int status = UserService.getInstance().updateUser(user);
+            int status = UserService.getInstance().updateUser(currentUser);
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to change password");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to change password");
                 setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.PASSWORD_UPDATED_ERROR);
             } else {
-                logging(user.getUserId(), "UPDATED: Data has been updated successfully");
+                logging(currentUser.getUserId(), "UPDATED: Data has been updated successfully");
                 setSessionAttributes(request, ServerResponse.PASSWORD_UPDATED_SUCCESS);
             }
         }
@@ -66,16 +66,16 @@ public class CommandUserUpdatePassword implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String oldPassword, String newPassword, String passwordConfirmation) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String oldPassword, String newPassword, String passwordConfirmation) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
 
         // Validation old password
-        if (!checkOldPassword(user, oldPassword)) {
+        if (!checkOldPassword(currentUser, oldPassword)) {
             setSessionAttributes(request, oldPassword, newPassword, passwordConfirmation, ServerResponse.OLD_PASSWORD_ERROR);
             return false;
         }
@@ -92,9 +92,9 @@ public class CommandUserUpdatePassword implements ICommand {
     /**
      * @return true, if the old password is not NULL and equal to the current user password
      */
-    private boolean checkOldPassword(User user, String oldPassword) throws SQLException {
+    private boolean checkOldPassword(User currentUser, String oldPassword) throws SQLException {
         if (!Validator.checkPassword(oldPassword)) return false;
-        String correctPassword = UserService.getInstance().findUserById(user.getUserId()).getPassword();
+        String correctPassword = UserService.getInstance().findUserById(currentUser.getUserId()).getPassword();
         return correctPassword.equals(encryptor.encode(oldPassword));
     }
 

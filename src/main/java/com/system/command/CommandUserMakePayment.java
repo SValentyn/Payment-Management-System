@@ -33,11 +33,11 @@ public class CommandUserMakePayment implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
-                setRequestAttributes(request, user);
+            if (currentUser != null) {
+                setRequestAttributes(request, currentUser);
             } else {
                 request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
             }
@@ -46,7 +46,7 @@ public class CommandUserMakePayment implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_MAKE_PAYMENT);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String caseValue = request.getParameter("caseValue");
             String accountIdParam = request.getParameter("accountId");
             String recipientAccountNumber = request.getParameter("accountNumber");
@@ -55,9 +55,9 @@ public class CommandUserMakePayment implements ICommand {
             String appointment = request.getParameter("appointment");
 
             // Validation
-            if (!validation(request, user, caseValue, accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+            if (!validation(request, currentUser, caseValue, accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                 return pathRedirect;
             }
 
@@ -75,31 +75,31 @@ public class CommandUserMakePayment implements ICommand {
             if (caseValue.equals("on")) {
                 int status = PaymentService.getInstance().makePaymentOnAccount(senderAccount.getAccountId(), recipientAccountNumber, new BigDecimal(amount), exchangeRate, appointment);
                 if (status == -1) {
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.SENDER_ACCOUNT_BLOCKED_ERROR);
                 } else if (status == -2) {
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.RECIPIENT_ACCOUNT_BLOCKED_ERROR);
                 } else if (status == -3) {
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INSUFFICIENT_FUNDS_ERROR);
                 } else {
-                    logging(user.getUserId(), "PAYMENT_COMPLETED: The payment was made from account [" + senderAccount.getNumber() + "] to account [" + recipientAccountNumber + "]");
+                    logging(currentUser.getUserId(), "PAYMENT_COMPLETED: The payment was made from account [" + senderAccount.getNumber() + "] to account [" + recipientAccountNumber + "]");
                     setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
                 }
             } else if (caseValue.equals("off")) {
                 int status = PaymentService.getInstance().makePaymentOnCard(Integer.valueOf(accountIdParam), recipientCardNumber, new BigDecimal(amount), appointment);
                 if (status == -1) {
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.SENDER_ACCOUNT_BLOCKED_ERROR);
                 } else if (status == -2) {
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.RECIPIENT_CARD_NOT_EXIST_OR_BLOCKED_ERROR);
                 } else if (status == -3) {
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INSUFFICIENT_FUNDS_ERROR);
                 } else {
-                    logging(user.getUserId(), "PAYMENT_COMPLETED: The payment was made from account [" + senderAccount.getNumber() + "] to card [" + recipientCardNumber + "]");
+                    logging(currentUser.getUserId(), "PAYMENT_COMPLETED: The payment was made from account [" + senderAccount.getNumber() + "] to card [" + recipientCardNumber + "]");
                     setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
                 }
             }
@@ -108,10 +108,10 @@ public class CommandUserMakePayment implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String caseValue, String accountIdParam, String recipientAccountNumber, String recipientCardNumber, String amount, String appointment) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String caseValue, String accountIdParam, String recipientAccountNumber, String recipientCardNumber, String amount, String appointment) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -133,7 +133,7 @@ public class CommandUserMakePayment implements ICommand {
 
             // Data
             Integer accountId = Integer.valueOf(accountIdParam);
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
             List<Integer> accountIds = new ArrayList<>();
             for (Account account : accounts) {
                 accountIds.add(account.getAccountId());
@@ -173,7 +173,7 @@ public class CommandUserMakePayment implements ICommand {
 
             // Data
             Integer accountId = Integer.valueOf(accountIdParam);
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
             List<Integer> accountIds = new ArrayList<>();
             for (Account account : accounts) {
                 accountIds.add(account.getAccountId());
@@ -216,8 +216,8 @@ public class CommandUserMakePayment implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
-        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+    private void setRequestAttributes(HttpServletRequest request, User currentUser) throws SQLException {
+        request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId()));
         request.setAttribute("isRepeatCommandValue", "0");
         request.setAttribute("caseValue", "off");
 

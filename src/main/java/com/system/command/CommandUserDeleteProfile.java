@@ -31,19 +31,19 @@ public class CommandUserDeleteProfile implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_UPDATE_DATA);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Validation
-            if (!validation(request, user)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
+            if (!validation(request, currentUser)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
                 return pathRedirect;
             }
 
             // Action (delete profile)
-            int status = UserService.getInstance().deleteUserById(user.getUserId());
+            int status = UserService.getInstance().deleteUserById(currentUser.getUserId());
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
                 setSessionAttributes(request, ServerResponse.PROFILE_DELETED_ERROR);
             } else {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
@@ -54,16 +54,16 @@ public class CommandUserDeleteProfile implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
 
         // Checking that there are no funds left in the user’s accounts
-        for (Account account : AccountService.getInstance().findAllAccountsByUserId(user.getUserId())) {
+        for (Account account : AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId())) {
             BigDecimal balance = account.getBalance();
             if (balance.compareTo(BigDecimal.ZERO) != 0) {
                 setSessionAttributes(request, ServerResponse.USER_HAS_FUNDS_ERROR);

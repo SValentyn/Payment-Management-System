@@ -35,11 +35,11 @@ public class CommandUserAttachCard implements ICommand {
             setRequestAttributes(request);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
-                request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(user.getUserId()));
+            if (currentUser != null) {
+                request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId()));
             } else {
                 request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
             }
@@ -48,7 +48,7 @@ public class CommandUserAttachCard implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_ATTACH_CARD);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String accountIdParam = request.getParameter("accountId");
             String cardNumber = request.getParameter("number");
             String CVV = request.getParameter("CVV");
@@ -56,9 +56,9 @@ public class CommandUserAttachCard implements ICommand {
             String year = request.getParameter("year");
 
             // Validation
-            if (!validation(request, user, accountIdParam, cardNumber, CVV, month, year)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
+            if (!validation(request, currentUser, accountIdParam, cardNumber, CVV, month, year)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
                 return pathRedirect;
             }
 
@@ -68,10 +68,10 @@ public class CommandUserAttachCard implements ICommand {
             // Action (attach card)
             int status = BankCardService.getInstance().addNewBankCard(Integer.valueOf(accountIdParam), cardNumber, CVV, month, year);
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
                 setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.CARD_ATTACHED_ERROR);
             } else {
-                logging(user.getUserId(), "ATTACHED: Card [" + cardNumber + "]");
+                logging(currentUser.getUserId(), "ATTACHED: Card [" + cardNumber + "]");
                 setSessionAttributes(request, ServerResponse.CARD_ATTACHED_SUCCESS);
             }
         }
@@ -79,10 +79,10 @@ public class CommandUserAttachCard implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String accountIdParam, String cardNumber, String CVV, String month, String year) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam, String cardNumber, String CVV, String month, String year) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -97,7 +97,7 @@ public class CommandUserAttachCard implements ICommand {
         Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Checking that the account belongs to the user
-        if (account == null || !account.getUserId().equals(user.getUserId())) {
+        if (account == null || !account.getUserId().equals(currentUser.getUserId())) {
             setSessionAttributes(request, cardNumber, CVV, month, year, ServerResponse.INVALID_DATA);
             return false;
         }

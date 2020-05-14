@@ -33,12 +33,12 @@ public class CommandUserShowAccounts implements ICommand {
             setRequestAttributes(request);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
+            if (currentUser != null) {
                 if (request.getAttribute("accounts") == null) {
-                    setRequestAttributes(request, user);
+                    setRequestAttributes(request, currentUser);
                 }
             } else {
                 setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
@@ -101,8 +101,8 @@ public class CommandUserShowAccounts implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
-        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+    private void setRequestAttributes(HttpServletRequest request, User currentUser) throws SQLException {
+        List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
         if (accounts != null) {
             request.setAttribute("accountsEmpty", accounts.isEmpty());
             request.setAttribute("accounts", accounts);

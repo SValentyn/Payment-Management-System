@@ -30,14 +30,14 @@ public class CommandUserSearchAccounts implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNTS);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String number = request.getParameter("number");
             String min_value = request.getParameter("min-value");
             String max_value = request.getParameter("max-value");
             String currency = request.getParameter("currency");
 
             // Validation
-            if (!validation(request, user, number, min_value, max_value, currency)) {
+            if (!validation(request, currentUser, number, min_value, max_value, currency)) {
                 return pathRedirect;
             }
 
@@ -45,9 +45,9 @@ public class CommandUserSearchAccounts implements ICommand {
 
             // Action (determine the upper limit of the value of balances and search)
             if (max_value.equals("10000")) {
-                accounts = AccountService.getInstance().searchByCriteria(user.getUserId(), number, min_value, String.valueOf(Integer.MAX_VALUE), currency);
+                accounts = AccountService.getInstance().searchByCriteria(currentUser.getUserId(), number, min_value, String.valueOf(Integer.MAX_VALUE), currency);
             } else {
-                accounts = AccountService.getInstance().searchByCriteria(user.getUserId(), number, min_value, max_value, currency);
+                accounts = AccountService.getInstance().searchByCriteria(currentUser.getUserId(), number, min_value, max_value, currency);
             }
 
             // Set attributes
@@ -67,10 +67,10 @@ public class CommandUserSearchAccounts implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String number, String min_value, String max_value, String currency) {
+    private boolean validation(HttpServletRequest request, User currentUser, String number, String min_value, String max_value, String currency) {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }

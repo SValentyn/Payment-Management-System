@@ -38,10 +38,10 @@ public class SessionFilter implements Filter {
         }
 
         // Set session attributes
-        User user = (User) session.getAttribute("currentUser");
-        if (user != null) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser != null) {
             try {
-                String role = user.getRole().getRolename();
+                String role = currentUser.getRole().getRolename();
                 if (role.equals(Role.ROLE_ADMIN)) {
                     session.setAttribute("totalUsers", UserService.getInstance().findAllUsers().size());
                     session.setAttribute("totalAccounts", AccountService.getInstance().findAllAccounts().size());

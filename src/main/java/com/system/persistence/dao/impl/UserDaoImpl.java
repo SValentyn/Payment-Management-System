@@ -24,15 +24,31 @@ public class UserDaoImpl implements UserDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_USER = "INSERT INTO users (name, surname, phone, email, password, registration_date, role_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_USER =
+            "INSERT INTO users (name, surname, phone, email, password, registration_date, role_id) " +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_USER = "UPDATE users SET name = ?, surname = ?, phone = ?, email = ?, password = ? WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE user_id = ?";
-    private static final String FIND_BY_ID = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.user_id = ?";
-    private static final String FIND_BY_LOGIN_PASSWORD = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ? AND users.password = ?";
-    private static final String FIND_BY_PHONE = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id WHERE users.phone = ?";
-    private static final String FIND_ALL = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id";
-    private static final String SEARCH_BY_CRITERIA = "SELECT users.*, roles.title FROM users JOIN roles ON users.role_id = roles.id " +
-            "WHERE role_id = 1 AND name LIKE CONCAT(?,'%') AND surname LIKE CONCAT(?,'%') AND phone LIKE CONCAT(?,'%') AND email LIKE CONCAT(?,'%') ORDER BY registration_date DESC";
+    private static final String FIND_BY_ID =
+            "SELECT users.*, roles.title FROM users " +
+                    "JOIN roles ON users.role_id = roles.id " +
+                    "WHERE users.user_id = ?";
+    private static final String FIND_BY_LOGIN_PASSWORD =
+            "SELECT users.*, roles.title FROM users " +
+                    "JOIN roles ON users.role_id = roles.id " +
+                    "WHERE users.phone = ? AND users.password = ?";
+    private static final String FIND_BY_PHONE =
+            "SELECT users.*, roles.title FROM users " +
+                    "JOIN roles ON users.role_id = roles.id " +
+                    "WHERE users.phone = ?";
+    private static final String FIND_ALL =
+            "SELECT users.*, roles.title FROM users " +
+                    "JOIN roles ON users.role_id = roles.id";
+    private static final String SEARCH_BY_CRITERIA =
+            "SELECT users.*, roles.title FROM users " +
+                    "JOIN roles ON users.role_id = roles.id " +
+                    "WHERE role_id = 1 AND name LIKE CONCAT(?,'%') AND surname LIKE CONCAT(?,'%') AND " +
+                    "phone LIKE CONCAT(?,'%') AND email LIKE CONCAT(?,'%') ORDER BY registration_date DESC";
 
     private static UserDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();

@@ -22,15 +22,25 @@ public class AccountDaoImpl implements AccountDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_ACCOUNT = "INSERT INTO accounts(user_id, number, balance, currency, is_blocked, is_deleted) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_ACCOUNT =
+            "INSERT INTO accounts(user_id, number, balance, currency, is_blocked, is_deleted) " +
+                    "VALUES(?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_ACCOUNT = "UPDATE accounts SET balance = ?, is_blocked = ? WHERE account_id = ?";
     private static final String DELETE_ACCOUNT = "UPDATE accounts SET is_blocked = 1, is_deleted = 1 WHERE account_id = ?";
     private static final String FIND_ACCOUNT_BY_ID = "SELECT * FROM accounts WHERE account_id = ? AND is_deleted = 0";
     private static final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM accounts WHERE number = ? AND is_deleted = 0";
     private static final String FIND_ALL_ACCOUNTS_BY_USER_ID = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0";
     private static final String FIND_ALL_ACCOUNTS = "SELECT * FROM accounts WHERE is_deleted = 0";
-    private static final String SEARCH_BY_CRITERIA_AND_USER_ID = "SELECT * FROM accounts WHERE user_id = ? AND is_deleted = 0 AND number LIKE CONCAT(?, '%') AND balance >= ? AND balance <= ? AND currency LIKE CONCAT(?, '%') ORDER BY account_id ASC";
-    private static final String SEARCH_BY_CRITERIA = "SELECT * FROM accounts WHERE is_deleted = 0 AND number LIKE CONCAT(?, '%') AND balance >= ? AND balance <= ? AND currency LIKE CONCAT(?, '%') ORDER BY account_id ASC";
+    private static final String SEARCH_BY_CRITERIA =
+            "SELECT * FROM accounts " +
+                    "WHERE is_deleted = 0 AND number LIKE CONCAT(?, '%') AND " +
+                    "balance >= ? AND balance <= ? AND " +
+                    "currency LIKE CONCAT(?, '%') ORDER BY account_id ASC";
+    private static final String SEARCH_BY_CRITERIA_AND_USER_ID =
+            "SELECT * FROM accounts " +
+                    "WHERE user_id = ? AND is_deleted = 0 AND " +
+                    "number LIKE CONCAT(?, '%') AND balance >= ? AND balance <= ? AND " +
+                    "currency LIKE CONCAT(?, '%') ORDER BY account_id ASC";
 
     private static AccountDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();

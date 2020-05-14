@@ -77,7 +77,7 @@ public class LetterService {
     }
 
     /**
-     * Finds all letter by letter id
+     * Finds letter by letter id
      */
     public Letter findLetterByLetterId(Integer letterId) {
         return letterDao.findLetterByLetterId(letterId);

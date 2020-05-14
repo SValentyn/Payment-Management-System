@@ -4,6 +4,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.ActionLogService;
 import com.system.service.UserService;
 import com.system.utils.Validator;
 
@@ -39,6 +40,7 @@ public class CommandLogin implements ICommand {
             // Action (authentication)
             User user = UserService.getInstance().loginUser(login, password);
             if (user != null) {
+                ActionLogService.getInstance().addNewLogEntry(user.getUserId(), "SESSION_STARTED");
                 request.getSession().setAttribute("currentUser", user);
             } else {
                 setSessionAttributes(request, login, ServerResponse.AUTHENTICATION_ERROR);

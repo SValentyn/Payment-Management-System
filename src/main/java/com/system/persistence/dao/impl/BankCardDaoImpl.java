@@ -22,13 +22,18 @@ public class BankCardDaoImpl implements BankCardDao {
     /**
      * SQL queries
      */
-    private static final String CREATE_CARD = "INSERT INTO bank_cards(account_id, number, cvv, validity, is_active) VALUES(?, ?, ?, ?, ?)";
+    private static final String CREATE_CARD =
+            "INSERT INTO bank_cards(account_id, number, cvv, validity, is_active) " +
+                    "VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_CARD = "UPDATE bank_cards SET is_active = ? WHERE card_id = ?";
     private static final String DELETE_CARD = "DELETE FROM bank_cards WHERE card_id = ?";
     private static final String FIND_CARD_BY_CARD_ID = "SELECT * FROM bank_cards WHERE card_id = ?";
     private static final String FIND_CARD_BY_NUMBER = "SELECT * FROM bank_cards WHERE number = ?";
     private static final String FIND_CARDS_BY_ACCOUNT_ID = "SELECT * FROM bank_cards WHERE account_id = ?";
-    private static final String FIND_CARDS_BY_USER_ID = "SELECT bank_cards.* FROM bank_cards INNER JOIN accounts ON bank_cards.account_id = accounts.account_id WHERE accounts.user_id = ?";
+    private static final String FIND_CARDS_BY_USER_ID =
+            "SELECT bank_cards.* FROM bank_cards " +
+                    "INNER JOIN accounts ON bank_cards.account_id = accounts.account_id " +
+                    "WHERE accounts.user_id = ?";
     private static final String FIND_ALL_CARDS = "SELECT * FROM bank_cards";
 
     private static BankCardDaoImpl instance = null;

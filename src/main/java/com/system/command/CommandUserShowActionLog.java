@@ -33,12 +33,12 @@ public class CommandUserShowActionLog implements ICommand {
             setRequestAttributes(request);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
+            if (currentUser != null) {
                 if (request.getAttribute("logEntries") == null) {
-                    setRequestAttributes(request, user);
+                    setRequestAttributes(request, currentUser);
                 }
             } else {
                 setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
@@ -49,7 +49,6 @@ public class CommandUserShowActionLog implements ICommand {
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("logEntriesEmpty", null);
         request.setAttribute("logEntries", null);
         request.setAttribute("startDateValue", null);
         request.setAttribute("finalDateValue", null);
@@ -61,7 +60,6 @@ public class CommandUserShowActionLog implements ICommand {
 
         List<LogEntry> logEntries = (List<LogEntry>) session.getAttribute("logEntries");
         if (logEntries != null) {
-            request.setAttribute("logEntriesEmpty", false);
             request.setAttribute("logEntries", logEntries);
             session.removeAttribute("logEntries");
         }
@@ -91,10 +89,9 @@ public class CommandUserShowActionLog implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
-        List<LogEntry> logEntries = ActionLogService.getInstance().findLogEntriesByUserId(user.getUserId());
+    private void setRequestAttributes(HttpServletRequest request, User currentUser) throws SQLException {
+        List<LogEntry> logEntries = ActionLogService.getInstance().findLogEntriesByUserId(currentUser.getUserId());
         if (logEntries != null) {
-            request.setAttribute("logEntriesEmpty", logEntries.isEmpty());
             request.setAttribute("logEntries", logEntries);
         } else {
             setRequestAttributes(request, ServerResponse.SHOW_ACTION_LOG_ERROR);

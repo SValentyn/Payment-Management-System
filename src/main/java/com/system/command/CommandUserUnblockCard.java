@@ -32,14 +32,14 @@ public class CommandUserUnblockCard implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNT_CARDS);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String accountIdParam = request.getParameter("accountId");
             String cardIdParam = request.getParameter("cardId");
 
             // Validation
-            if (!validation(request, user, accountIdParam, cardIdParam)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to unblock the card");
+            if (!validation(request, currentUser, accountIdParam, cardIdParam)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to unblock the card");
                 return pathRedirect;
             }
 
@@ -49,10 +49,10 @@ public class CommandUserUnblockCard implements ICommand {
             // Action (unblock card)
             int status = BankCardService.getInstance().unblockBankCard(card.getCardId());
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to unblock card [" + card.getNumber() + "]");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to unblock card [" + card.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_UNBLOCKED_ERROR);
             } else {
-                logging(user.getUserId(), "UNBLOCKED: Card [" + card.getNumber() + "]");
+                logging(currentUser.getUserId(), "UNBLOCKED: Card [" + card.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_UNBLOCKED_SUCCESS);
             }
         }
@@ -60,10 +60,10 @@ public class CommandUserUnblockCard implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String accountIdParam, String cardIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam, String cardIdParam) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -78,7 +78,7 @@ public class CommandUserUnblockCard implements ICommand {
         Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Checking that the account belongs to the user
-        if (!account.getUserId().equals(user.getUserId())) {
+        if (!account.getUserId().equals(currentUser.getUserId())) {
             setSessionAttributes(request, ServerResponse.SHOW_ACCOUNT_ERROR);
             return false;
         }

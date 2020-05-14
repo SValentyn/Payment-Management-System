@@ -34,11 +34,11 @@ public class CommandUserShowPaymentInfo implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_PAYMENT_INFO);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String paymentIdParam = request.getParameter("paymentId");
 
             // Validation
-            if (!validation(request, user, paymentIdParam)) {
+            if (!validation(request, currentUser, paymentIdParam)) {
                 return pathRedirect;
             }
 
@@ -67,10 +67,10 @@ public class CommandUserShowPaymentInfo implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String paymentIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String paymentIdParam) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -82,7 +82,7 @@ public class CommandUserShowPaymentInfo implements ICommand {
         }
 
         // Data
-        List<Payment> paymentsByUserId = PaymentService.getInstance().findAllPaymentsByUserId(user.getUserId());
+        List<Payment> paymentsByUserId = PaymentService.getInstance().findAllPaymentsByUserId(currentUser.getUserId());
         List<Integer> paymentIds = new ArrayList<>();
         for (Payment payment : paymentsByUserId) {
             paymentIds.add(payment.getPaymentId());

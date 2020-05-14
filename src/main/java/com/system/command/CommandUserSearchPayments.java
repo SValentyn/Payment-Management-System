@@ -30,14 +30,14 @@ public class CommandUserSearchPayments implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_PAYMENTS);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String isIncoming = request.getParameter("isIncoming");
             String isOutgoing = request.getParameter("isOutgoing");
             String startDate = request.getParameter("start-date");
             String finalDate = request.getParameter("final-date");
 
             // Validation
-            if (!validation(request, user, isIncoming, isOutgoing, startDate, finalDate)) {
+            if (!validation(request, currentUser, isIncoming, isOutgoing, startDate, finalDate)) {
                 return pathRedirect;
             }
 
@@ -45,19 +45,19 @@ public class CommandUserSearchPayments implements ICommand {
 
             // Action (search payments)
             if (isIncoming.equals("0") && isOutgoing.equals("0")) {
-                payments = PaymentService.getInstance().searchByCriteria(user.getUserId(), startDate, finalDate);
+                payments = PaymentService.getInstance().searchByCriteria(currentUser.getUserId(), startDate, finalDate);
             }
 
             if (isIncoming.equals("1") && isOutgoing.equals("1")) {
-                payments = PaymentService.getInstance().searchByCriteria(user.getUserId(), startDate, finalDate);
+                payments = PaymentService.getInstance().searchByCriteria(currentUser.getUserId(), startDate, finalDate);
             }
 
             if (isIncoming.equals("1") && isOutgoing.equals("0")) {
-                payments = PaymentService.getInstance().searchByCriteria(user.getUserId(), 0, startDate, finalDate);
+                payments = PaymentService.getInstance().searchByCriteria(currentUser.getUserId(), 0, startDate, finalDate);
             }
 
             if (isIncoming.equals("0") && isOutgoing.equals("1")) {
-                payments = PaymentService.getInstance().searchByCriteria(user.getUserId(), 1, startDate, finalDate);
+                payments = PaymentService.getInstance().searchByCriteria(currentUser.getUserId(), 1, startDate, finalDate);
             }
 
             // Set attributes
@@ -77,10 +77,10 @@ public class CommandUserSearchPayments implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String isIncoming, String isOutgoing, String startDate, String finalDate) {
+    private boolean validation(HttpServletRequest request, User currentUser, String isIncoming, String isOutgoing, String startDate, String finalDate) {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }

@@ -28,13 +28,13 @@ public class CommandUserDeleteAccount implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNT_SETTINGS);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String accountIdParam = request.getParameter("accountId");
 
             // Validation
-            if (!validation(request, user, accountIdParam)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete an account");
+            if (!validation(request, currentUser, accountIdParam)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to delete an account");
                 return pathRedirect;
             }
 
@@ -47,14 +47,14 @@ public class CommandUserDeleteAccount implements ICommand {
             // Action (delete account)
             int status = AccountService.getInstance().deleteAccountByAccountId(account.getAccountId());
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete an account [" + account.getNumber() + "]");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to delete an account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_DELETED_ERROR);
             } else if (status == -1) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete account [" + account.getNumber() + "]");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to delete account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_HAS_FUNDS_ERROR);
             } else {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNT_SETTINGS);
-                logging(user.getUserId(), "DELETED: Account [" + account.getNumber() + "]");
+                logging(currentUser.getUserId(), "DELETED: Account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_DELETED_SUCCESS);
             }
         }
@@ -62,10 +62,10 @@ public class CommandUserDeleteAccount implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String accountIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -80,7 +80,7 @@ public class CommandUserDeleteAccount implements ICommand {
         Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Checking that the account belongs to the user
-        if (!account.getUserId().equals(user.getUserId())) {
+        if (!account.getUserId().equals(currentUser.getUserId())) {
             setSessionAttributes(request, ServerResponse.SHOW_ACCOUNT_ERROR);
             return false;
         }

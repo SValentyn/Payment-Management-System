@@ -33,12 +33,12 @@ public class CommandUserShowPayments implements ICommand {
             setRequestAttributes(request);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
+            if (currentUser != null) {
                 if (request.getAttribute("payments") == null) {
-                    setRequestAttributes(request, user);
+                    setRequestAttributes(request, currentUser);
                 }
             } else {
                 setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
@@ -105,8 +105,8 @@ public class CommandUserShowPayments implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
-        List<Payment> payments = PaymentService.getInstance().findAllPaymentsByUserId(user.getUserId());
+    private void setRequestAttributes(HttpServletRequest request, User currentUser) throws SQLException {
+        List<Payment> payments = PaymentService.getInstance().findAllPaymentsByUserId(currentUser.getUserId());
         if (payments != null) {
 
             // formatting card numbers

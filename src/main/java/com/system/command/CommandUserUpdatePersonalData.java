@@ -31,11 +31,11 @@ public class CommandUserUpdatePersonalData implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_DATA);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
-                setRequestAttributes(request, user);
+            if (currentUser != null) {
+                setRequestAttributes(request, currentUser);
             } else {
                 request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
             }
@@ -44,7 +44,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_UPDATE_DATA);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone");  // set in the validator file (hiddenInput: "full_phone")
@@ -52,26 +52,26 @@ public class CommandUserUpdatePersonalData implements ICommand {
             String password = request.getParameter("password");
 
             // Validation
-            if (!validation(request, user, name, surname, phone, email, password)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to update data");
+            if (!validation(request, currentUser, name, surname, phone, email, password)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update personal data");
                 return pathRedirect;
             }
 
             // Set new user properties
-            user.setName(name);
-            user.setSurname(surname);
-            user.setPhone(phone);
-            user.setEmail(email);
-            user.setPassword(encryptor.encode(password));
+            currentUser.setName(name);
+            currentUser.setSurname(surname);
+            currentUser.setPhone(phone);
+            currentUser.setEmail(email);
+            currentUser.setPassword(encryptor.encode(password));
 
             // Action (update data)
-            int status = UserService.getInstance().updateUser(user);
+            int status = UserService.getInstance().updateUser(currentUser);
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to update data");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update personal data");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_ERROR);
             } else {
-                logging(user.getUserId(), "UPDATED: Unsuccessful attempt to update data");
+                logging(currentUser.getUserId(), "UPDATED: Unsuccessful attempt to update personal data");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_SUCCESS);
             }
         }
@@ -79,16 +79,16 @@ public class CommandUserUpdatePersonalData implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String name, String surname, String phone, String email, String password) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String name, String surname, String phone, String email, String password) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
 
         // Validation password
-        if (!checkPassword(user, password)) {
+        if (!checkPassword(currentUser, password)) {
             setSessionAttributes(request, name, surname, phone, email, password, ServerResponse.PASSWORD_NOT_MATCH_ERROR);
             return false;
         }
@@ -106,7 +106,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
         }
 
         // Validation if the phone has been changed
-        if (!user.getPhone().equals(phone)) {
+        if (!currentUser.getPhone().equals(phone)) {
             if (!Validator.checkPhone(phone)) {
                 setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.PHONE_EXIST_ERROR);
                 return false;
@@ -114,7 +114,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
         }
 
         // Validation if the email has been changed
-        if (!user.getEmail().equals(email)) {
+        if (!currentUser.getEmail().equals(email)) {
             if (!Validator.checkEmail(email)) {
                 setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.EMAIL_EXIST_ERROR);
                 return false;
@@ -127,9 +127,9 @@ public class CommandUserUpdatePersonalData implements ICommand {
     /**
      * @return true, if the password is not NULL and equal to the current user password
      */
-    private boolean checkPassword(User user, String password) throws SQLException {
+    private boolean checkPassword(User currentUser, String password) throws SQLException {
         if (!Validator.checkPassword(password)) return false;
-        String correctPassword = UserService.getInstance().findUserById(user.getUserId()).getPassword();
+        String correctPassword = UserService.getInstance().findUserById(currentUser.getUserId()).getPassword();
         return correctPassword.equals(encryptor.encode(password));
     }
 
@@ -141,11 +141,11 @@ public class CommandUserUpdatePersonalData implements ICommand {
         request.setAttribute("response", "");
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User user) {
-        request.setAttribute("nameValue", user.getName());
-        request.setAttribute("surnameValue", user.getSurname());
-        request.setAttribute("phoneValue", user.getPhone());
-        request.setAttribute("emailValue", user.getEmail());
+    private void setRequestAttributes(HttpServletRequest request, User currentUser) {
+        request.setAttribute("nameValue", currentUser.getName());
+        request.setAttribute("surnameValue", currentUser.getSurname());
+        request.setAttribute("phoneValue", currentUser.getPhone());
+        request.setAttribute("emailValue", currentUser.getEmail());
 
         HttpSession session = request.getSession();
 

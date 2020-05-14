@@ -35,24 +35,24 @@ public class CommandUserCreateAccount implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_CREATE_ACCOUNT);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String number = request.getParameter("number");
             String currency = request.getParameter("currency");
 
             // Validation
-            if (!validation(request, user, number, currency)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
+            if (!validation(request, currentUser, number, currency)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
                 return pathRedirect;
             }
 
             // Action (create account)
-            int status = AccountService.getInstance().createAccount(user.getUserId(), number, currency);
+            int status = AccountService.getInstance().createAccount(currentUser.getUserId(), number, currency);
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_ERROR);
             } else {
-                logging(user.getUserId(), "CREATED: Account [" + number + ", " + currency + "]");
+                logging(currentUser.getUserId(), "CREATED: Account [" + number + ", " + currency + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_SUCCESS);
             }
         }
@@ -60,10 +60,10 @@ public class CommandUserCreateAccount implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String number, String currency) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String number, String currency) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -82,7 +82,7 @@ public class CommandUserCreateAccount implements ICommand {
 
         // Data
         int numberOfAccounts = 0;
-        for (Account account : AccountService.getInstance().findAllAccountsByUserId(user.getUserId())) {
+        for (Account account : AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId())) {
             if (account.getCurrency().equals(currency)) numberOfAccounts++;
         }
 

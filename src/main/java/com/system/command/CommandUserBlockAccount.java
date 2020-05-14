@@ -28,13 +28,13 @@ public class CommandUserBlockAccount implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNT_SETTINGS);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String accountIdParam = request.getParameter("accountId");
 
             // Validation
-            if (!validation(request, user, accountIdParam)) {
-                if (user.getUserId() != null)
-                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to block the account");
+            if (!validation(request, currentUser, accountIdParam)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to block the account");
                 return pathRedirect;
             }
 
@@ -47,10 +47,10 @@ public class CommandUserBlockAccount implements ICommand {
             // Action (block account)
             int status = AccountService.getInstance().blockAccount(account.getAccountId());
             if (status == 0) {
-                logging(user.getUserId(), "ERROR: Unsuccessful attempt to block account [" + account.getNumber() + "]");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to block account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_ERROR);
             } else {
-                logging(user.getUserId(), "BLOCKED: Account [" + account.getNumber() + "]");
+                logging(currentUser.getUserId(), "BLOCKED: Account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_SUCCESS);
             }
         }
@@ -58,10 +58,10 @@ public class CommandUserBlockAccount implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String accountIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam) throws SQLException {
 
         // Check
-        if (user == null) {
+        if (currentUser == null) {
             setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
             return false;
         }
@@ -76,7 +76,7 @@ public class CommandUserBlockAccount implements ICommand {
         Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
 
         // Checking that the account belongs to the user
-        if (!account.getUserId().equals(user.getUserId())) {
+        if (!account.getUserId().equals(currentUser.getUserId())) {
             setSessionAttributes(request, ServerResponse.SHOW_ACCOUNT_ERROR);
             return false;
         }
