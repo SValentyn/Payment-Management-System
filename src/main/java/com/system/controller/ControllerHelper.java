@@ -65,6 +65,7 @@ public class ControllerHelper {
         userCommands.put("support", new CommandUserSupport());
         userCommands.put("showActionLog", new CommandUserShowActionLog());
         userCommands.put("searchLogEntries", new CommandUserSearchLogEntries());
+        userCommands.put("clearActionLog", new CommandUserClearActionLog());
 
         // Admin commands
         adminCommands.put("logout", new CommandLogout());

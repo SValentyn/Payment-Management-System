@@ -80,7 +80,6 @@ public class PaymentService {
         payment.setExchangeRate(exchangeRate);
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         payment.setDate(formatter.format(new Date()));
 
         if (checkAvailableAmount(accountFrom, amount)) {
@@ -129,7 +128,6 @@ public class PaymentService {
         payment.setExchangeRate(new BigDecimal("1.0"));
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         payment.setDate(formatter.format(new Date()));
 
         if (checkAvailableAmount(accountFrom, amount)) {

@@ -94,7 +94,9 @@ public enum ServerResponse {
     SHOW_ACTION_LOG_ERROR("showActionLogError"),
     SEARCH_LOG_ENTRIES_SUCCESS("searchLogEntriesSuccess"),
     SEARCH_LOG_ENTRIES_WARNING("searchLogEntriesWarning"),
-    SEARCH_LOG_ENTRIES_ERROR("searchLogEntriesError");
+    SEARCH_LOG_ENTRIES_ERROR("searchLogEntriesError"),
+    CLEAR_ACTION_LOG_SUCCESS("clearActionLogSuccess"),
+    CLEAR_ACTION_LOG_ERROR("clearActionLogError");
 
     private final String response;
 
