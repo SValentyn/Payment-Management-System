@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class CommandUserClearActionLog implements ICommand {
+public class CommandAdminClearActionLog implements ICommand {
 
     // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACTION_LOG);
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACTION_LOG);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -22,7 +22,7 @@ public class CommandUserClearActionLog implements ICommand {
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name()) || request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACTION_LOG);
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACTION_LOG);
 
             // Data
             User currentUser = (User) request.getSession().getAttribute("currentUser");

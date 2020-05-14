@@ -96,6 +96,7 @@ public class ControllerHelper {
         adminCommands.put("showLetterInfo", new CommandAdminShowLetterInfo());
         adminCommands.put("showActionLog", new CommandAdminShowActionLog());
         adminCommands.put("searchLogEntries", new CommandAdminSearchLogEntries());
+        adminCommands.put("clearActionLog", new CommandAdminClearActionLog());
     }
 
     public static ControllerHelper getInstance() {

@@ -22,13 +22,45 @@
     <link rel="stylesheet" href="resources/css/style_adminShowActionLog.css">
 </head>
 <body>
+
+<!-- Modal window  -->
+<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <fmt:message key="user.log.modalHeader"/>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="user.log.modalBody"/>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default closeButton" data-dismiss="modal">
+                        <fmt:message key="user.page.closeButton"/>
+                    </button>
+                    <div style="margin-left: 10px; border-left: 1px solid #e5e5e5;"></div>
+                    <form action="/" method="POST" role="form">
+                        <input type="hidden" name="command" value="clearActionLog"/>
+                        <button type="submit" class="btn btn-primary confirmButton" onfocus="this.blur();">
+                            <fmt:message key="user.page.confirmButton"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <jsp:include page="template/header.jsp"/>
 
     <!-- Alert unableGetData and showActionLogError -->
     <c:if test="${response eq 'unableGetData' || response eq 'showActionLogError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/>!</strong>
+            <p><strong><fmt:message key="admin.page.failed"/>!</strong>
                 <fmt:message key="user.page.alertUnableGetData"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -40,7 +72,7 @@
     <!-- Alert Success -->
     <c:if test="${response eq 'clearActionLogSuccess'}">
         <div id="alert" class="alert alert-success fade show" role="alert">
-            <p><strong><fmt:message key="user.page.success"/>!</strong>
+            <p><strong><fmt:message key="admin.page.success"/>!</strong>
                 <fmt:message key="user.page.alertClearActionLogSuccess"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -52,7 +84,7 @@
     <!-- Alert clearActionLogError -->
     <c:if test="${response eq 'clearActionLogError'}">
         <div id="alert" class="alert alert-danger fade show" role="alert">
-            <p><strong><fmt:message key="user.page.failed"/></strong>
+            <p><strong><fmt:message key="admin.page.failed"/></strong>
                 <fmt:message key="user.page.alertClearActionLogError"/>
             </p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -111,6 +143,8 @@
                 <fmt:message key="user.log.action" var="action"/>
                 <fmt:message key="admin.support.tooltipStartDate" var="startDate"/>
                 <fmt:message key="admin.support.tooltipFinalDate" var="finalDate"/>
+                <fmt:message key="user.log.wantClearActionLog" var="wantClearActionLog"/>
+                <fmt:message key="user.log.clear" var="clear"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 
@@ -178,13 +212,24 @@
                                                                     });
                                                                 </script>
 
-                                                                <div class="action" style="padding: 10px 0 0 0;">
+                                                                <div class="action" style="padding: 8px 0 12px 0;">
                                                                     <button id="search" type="submit"
                                                                             class="btn btn-primary signup">
                                                                             ${searchButton}
                                                                     </button>
                                                                 </div>
                                                             </form>
+
+                                                            <div class="block-questions" style="margin-top: 0;">
+                                                                <p style="margin-bottom: 0; line-height: 1.35;">
+                                                                        ${wantClearActionLog}
+                                                                    <a href="#smallModal"
+                                                                       onclick="showModal();"
+                                                                       onfocus="this.blur();">
+                                                                            ${clear}
+                                                                    </a>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -224,4 +269,5 @@
 </div>
 </body>
 <script src="resources/js/searcher_adminShowActionLog.js"></script>
+<script src="resources/js/modalWindow_adminShowActionLog.js"></script>
 </html>
