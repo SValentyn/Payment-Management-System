@@ -37,10 +37,11 @@ public class CommandAdminShowUser implements ICommand {
             setRequestAttributes(request);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!validation(request, userIdParam)) {
+            if (!validation(request, currentUser, userIdParam)) {
                 return pathRedirect;
             }
 
@@ -60,7 +61,13 @@ public class CommandAdminShowUser implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {

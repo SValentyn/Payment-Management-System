@@ -1,10 +1,12 @@
 package com.system.command;
 
 import com.system.entity.Account;
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,19 +28,27 @@ public class CommandAdminBlockAccount implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
             String accountIdParam = request.getParameter("accountId");
 
             // Validation
-            if (!validation(request, userIdParam, accountIdParam)) {
+            if (!validation(request, currentUser, userIdParam, accountIdParam)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to block account");
                 return pathRedirect;
             }
 
+            // Data
+            Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+
             // Action (block account)
-            int status = AccountService.getInstance().blockAccount(Integer.valueOf(accountIdParam));
+            int status = AccountService.getInstance().blockAccount(account.getAccountId());
             if (status == 0) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to block account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_ERROR);
             } else {
+                logging(currentUser.getUserId(), "BLOCKED: Account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_SUCCESS);
             }
         }
@@ -46,7 +56,13 @@ public class CommandAdminBlockAccount implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String accountIdParam) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {
@@ -86,6 +102,10 @@ public class CommandAdminBlockAccount implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

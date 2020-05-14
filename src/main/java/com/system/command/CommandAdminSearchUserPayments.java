@@ -1,6 +1,7 @@
 package com.system.command;
 
 import com.system.entity.Payment;
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
@@ -29,6 +30,7 @@ public class CommandAdminSearchUserPayments implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER_PAYMENTS);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
             String isIncoming = request.getParameter("isIncoming");
             String isOutgoing = request.getParameter("isOutgoing");
@@ -36,7 +38,7 @@ public class CommandAdminSearchUserPayments implements ICommand {
             String finalDate = request.getParameter("final-date");
 
             // Validation
-            if (!validation(request, userIdParam, isIncoming, isOutgoing, startDate, finalDate)) {
+            if (!validation(request, currentUser, userIdParam, isIncoming, isOutgoing, startDate, finalDate)) {
                 return pathRedirect;
             }
 
@@ -77,7 +79,13 @@ public class CommandAdminSearchUserPayments implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String isIncoming, String isOutgoing, String startDate, String finalDate) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String isIncoming, String isOutgoing, String startDate, String finalDate) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {

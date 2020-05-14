@@ -2,11 +2,14 @@ package com.system.command;
 
 import com.system.entity.Account;
 import com.system.entity.BankCard;
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.service.BankCardService;
+import com.system.service.UserService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,20 +33,28 @@ public class CommandAdminDetachCard implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
             String accountIdParam = request.getParameter("accountId");
             String cardIdParam = request.getParameter("cardId");
 
             // Validation
-            if (!validation(request, userIdParam, accountIdParam, cardIdParam)) {
+            if (!validation(request, currentUser, userIdParam, accountIdParam, cardIdParam)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to detach a card");
                 return pathRedirect;
             }
 
+            // Data
+            User user = UserService.getInstance().findUserById(Integer.valueOf(userIdParam));
+
             // Action (detach card)
-            int status = BankCardService.getInstance().deleteCardById(Integer.valueOf(cardIdParam));
+            int status = BankCardService.getInstance().deleteCardById(user.getUserId());
             if (status == 0) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to detach a card. User [" + user.getName() + " " + user.getSurname() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_DETACHED_ERROR);
             } else {
+                logging(currentUser.getUserId(), "DETACHED: Card was successfully detached. User [" + user.getName() + " " + user.getSurname() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_DETACHED_SUCCESS);
             }
         }
@@ -51,7 +62,13 @@ public class CommandAdminDetachCard implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam, String cardIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String accountIdParam, String cardIdParam) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -107,6 +124,10 @@ public class CommandAdminDetachCard implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

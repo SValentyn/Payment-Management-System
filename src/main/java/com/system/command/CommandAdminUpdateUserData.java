@@ -4,6 +4,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.ActionLogService;
 import com.system.service.UserService;
 import com.system.utils.Validator;
 
@@ -44,6 +45,7 @@ public class CommandAdminUpdateUserData implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_UPDATE_USER_DATA);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
@@ -51,7 +53,9 @@ public class CommandAdminUpdateUserData implements ICommand {
             String email = request.getParameter("email");
 
             // Validation
-            if (!validation(request, userIdParam, name, surname, phone, email)) {
+            if (!validation(request, currentUser, userIdParam, name, surname, phone, email)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update user data");
                 return pathRedirect;
             }
 
@@ -67,8 +71,10 @@ public class CommandAdminUpdateUserData implements ICommand {
             // Action (update data)
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update user data. User [" + user.getName() + " " + user.getSurname() + "]");
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.DATA_UPDATED_ERROR);
             } else {
+                logging(currentUser.getUserId(), "UPDATED: User data has been updated successfully. User [" + user.getName() + " " + user.getSurname() + "]");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_SUCCESS);
             }
         }
@@ -87,7 +93,13 @@ public class CommandAdminUpdateUserData implements ICommand {
         return true;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String name, String surname, String phone, String email) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String name, String surname, String phone, String email) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -200,6 +212,10 @@ public class CommandAdminUpdateUserData implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

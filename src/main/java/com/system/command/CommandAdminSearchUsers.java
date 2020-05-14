@@ -28,10 +28,16 @@ public class CommandAdminSearchUsers implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = request.getParameter("email");
+
+            // Validation
+            if (!validation(request, currentUser)) {
+                return pathRedirect;
+            }
 
             // Action (search users)
             List<User> users = UserService.getInstance().searchByCriteria(name, surname, phone, email);
@@ -48,6 +54,17 @@ public class CommandAdminSearchUsers implements ICommand {
         }
 
         return pathRedirect;
+    }
+
+    private boolean validation(HttpServletRequest request, User currentUser) {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
+
+        return true;
     }
 
     private void clearRequestAttributes(HttpServletRequest request) {
@@ -74,6 +91,10 @@ public class CommandAdminSearchUsers implements ICommand {
         request.getSession().setAttribute("surname", surname);
         request.getSession().setAttribute("phone", phone);
         request.getSession().setAttribute("email", email);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

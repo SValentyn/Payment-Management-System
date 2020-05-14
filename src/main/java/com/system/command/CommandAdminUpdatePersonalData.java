@@ -4,6 +4,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.ActionLogService;
 import com.system.service.UserService;
 import com.system.utils.PasswordEncryptor;
 import com.system.utils.Validator;
@@ -43,7 +44,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_UPDATE_DATA);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
@@ -51,22 +52,26 @@ public class CommandAdminUpdatePersonalData implements ICommand {
             String password = request.getParameter("password");
 
             // Validation
-            if (!validation(request, user, name, surname, phone, email, password)) {
+            if (!validation(request, currentUser, name, surname, phone, email, password)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update personal data");
                 return pathRedirect;
             }
 
             // Set new user properties
-            user.setName(name);
-            user.setSurname(surname);
-            user.setPhone(phone);
-            user.setEmail(email);
-            user.setPassword(encryptor.encode(password));
+            currentUser.setName(name);
+            currentUser.setSurname(surname);
+            currentUser.setPhone(phone);
+            currentUser.setEmail(email);
+            currentUser.setPassword(encryptor.encode(password));
 
             // Action (update data)
-            int status = UserService.getInstance().updateUser(user);
+            int status = UserService.getInstance().updateUser(currentUser);
             if (status == 0) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update personal data");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_ERROR);
             } else {
+                logging(currentUser.getUserId(), "UPDATED: Unsuccessful attempt to update personal data");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_SUCCESS);
             }
         }
@@ -192,6 +197,10 @@ public class CommandAdminUpdatePersonalData implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

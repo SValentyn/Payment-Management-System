@@ -1,6 +1,7 @@
 package com.system.command;
 
 import com.system.entity.Payment;
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
@@ -33,10 +34,11 @@ public class CommandAdminShowUserPayments implements ICommand {
             setRequestAttributes(request);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!validation(request, userIdParam)) {
+            if (!validation(request, currentUser, userIdParam)) {
                 return pathRedirect;
             }
 
@@ -49,11 +51,17 @@ public class CommandAdminShowUserPayments implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_USER_ID.getResponse());
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_USER_ID);
             return false;
         } else {
             request.setAttribute("userId", userIdParam);
@@ -139,6 +147,10 @@ public class CommandAdminShowUserPayments implements ICommand {
         } else {
             request.setAttribute("response", ServerResponse.SHOW_USER_PAYMENTS_ERROR.getResponse());
         }
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.setAttribute("response", serverResponse.getResponse());
     }
 
 }

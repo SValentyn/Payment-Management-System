@@ -5,6 +5,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.ActionLogService;
 import com.system.service.LetterService;
 import com.system.service.UserService;
 import com.system.utils.Validator;
@@ -48,19 +49,24 @@ public class CommandAdminShowLetterInfo implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_LETTER_INFO);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String letterIdParam = request.getParameter("letterId");
 
             // Validation
-            if (!validation(request, letterIdParam)) {
+            if (!validation(request, currentUser, letterIdParam)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to process the letter");
                 return pathRedirect;
             }
 
-            // Action
+            // Action (letter processing) and set attributes
             int status = LetterService.getInstance().updateLetterByLetterId(Integer.valueOf(letterIdParam));
             if (status == 0) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to process the letter");
                 setSessionAttributes(request, ServerResponse.LETTER_PROCESSED_ERROR);
             } else {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_LETTER_INFO);
+                logging(currentUser.getUserId(), "PROCESSED: Letter was successfully processed");
                 setSessionAttributes(request, ServerResponse.LETTER_PROCESSED_SUCCESS);
             }
         }
@@ -70,46 +76,49 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
     private boolean validation(HttpServletRequest request, String letterIdParam) throws SQLException {
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // The "response" can already store the value obtained from another command
+        if (request.getAttribute("response") != "") {
+            return false;
+        }
 
-            // The "response" can already store the value obtained from another command
-            if (request.getAttribute("response") != "") {
-                return false;
-            }
+        // Validation letterId
+        if (!Validator.checkLetterId(letterIdParam)) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
+            return false;
+        }
 
-            // Validation letterId
-            if (!Validator.checkLetterId(letterIdParam)) {
-                setRequestAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
-                return false;
-            }
+        // Checking that the letter has been processed
+        if (LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam)).getIsProcessed()) {
+            setRequestAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
+        }
 
-            // Data
-            Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam));
+        return true;
+    }
 
-            // Checking that the letter has been processed
-            if (letter.getIsProcessed()) {
-                setRequestAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
-            }
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+    private boolean validation(HttpServletRequest request, User currentUser, String letterIdParam) throws SQLException {
 
-            // Validation letterId
-            if (!Validator.checkLetterId(letterIdParam)) {
-                setSessionAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
-                return false;
-            }
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
-            // Change redirect path
-            pathRedirect += "&letterId=" + letterIdParam;
+        // Validation letterId
+        if (!Validator.checkLetterId(letterIdParam)) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
+            return false;
+        }
 
-            // Data
-            Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam));
+        // Change redirect path
+        pathRedirect += "&letterId=" + letterIdParam;
 
-            // Checking that the letter has been processed
-            if (letter.getIsProcessed()) {
-                setSessionAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
-                return false;
-            }
+        // Data
+        Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam));
+
+        // Checking that the letter has been processed
+        if (letter.getIsProcessed()) {
+            setSessionAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
+            return false;
         }
 
         return true;
@@ -158,6 +167,10 @@ public class CommandAdminShowLetterInfo implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

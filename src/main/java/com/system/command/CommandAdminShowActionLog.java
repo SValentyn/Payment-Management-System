@@ -33,12 +33,12 @@ public class CommandAdminShowActionLog implements ICommand {
             setRequestAttributes(request);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
+            if (currentUser != null) {
                 if (request.getAttribute("logEntries") == null) {
-                    setRequestAttributes(request, user);
+                    setRequestAttributes(request, currentUser);
                 }
             } else {
                 setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);

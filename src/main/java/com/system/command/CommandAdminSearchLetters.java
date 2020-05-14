@@ -1,6 +1,7 @@
 package com.system.command;
 
 import com.system.entity.Letter;
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
@@ -29,12 +30,13 @@ public class CommandAdminSearchLetters implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SUPPORT);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String typeQuestion = request.getParameter("typeQuestion");
             String startDate = request.getParameter("start-date");
             String finalDate = request.getParameter("final-date");
 
             // Validation
-            if (!validation(request, typeQuestion, startDate, finalDate)) {
+            if (!validation(request, currentUser, typeQuestion, startDate, finalDate)) {
                 return pathRedirect;
             }
 
@@ -64,7 +66,13 @@ public class CommandAdminSearchLetters implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String typeQuestion, String startDate, String finalDate) {
+    private boolean validation(HttpServletRequest request, User currentUser, String typeQuestion, String startDate, String finalDate) {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation type question
         if (!typeQuestion.equals("")) {
@@ -111,6 +119,10 @@ public class CommandAdminSearchLetters implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, String typeQuestion, ServerResponse serverResponse) {
         request.getSession().setAttribute("typeQuestion", typeQuestion);
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

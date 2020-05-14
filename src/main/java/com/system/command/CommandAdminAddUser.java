@@ -1,8 +1,10 @@
 package com.system.command;
 
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.ActionLogService;
 import com.system.service.UserService;
 import com.system.utils.Validator;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -33,21 +35,26 @@ public class CommandAdminAddUser implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_ADD_USER);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
 
             // Validation
-            if (!validation(request, name, surname, phone, email)) {
+            if (!validation(request, currentUser, name, surname, phone, email)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to register a new user");
                 return pathRedirect;
             }
 
             // Action (register new user)
             int userId = UserService.getInstance().registerUser(name, surname, phone, email);
             if (userId == 0) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to register a new user");
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.ADD_USER_ERROR);
             } else {
+                logging(currentUser.getUserId(), "REGISTERED: A new user has been successfully added to the system");
                 setSessionAttributes(request, userId, ServerResponse.ADD_USER_SUCCESS);
             }
         }
@@ -55,7 +62,13 @@ public class CommandAdminAddUser implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String name, String surname, String phone, String email) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String name, String surname, String phone, String email) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation name
         if (!Validator.checkName(name)) {
@@ -144,6 +157,14 @@ public class CommandAdminAddUser implements ICommand {
     private void setSessionAttributes(HttpServletRequest request, Integer userId, ServerResponse serverResponse) {
         request.getSession().setAttribute("userId", String.valueOf(userId));
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

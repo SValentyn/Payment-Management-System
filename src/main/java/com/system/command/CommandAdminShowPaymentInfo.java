@@ -34,11 +34,12 @@ public class CommandAdminShowPaymentInfo implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_PAYMENT_INFO);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
             String paymentIdParam = request.getParameter("paymentId");
 
             // Validation
-            if (!validation(request, userIdParam, paymentIdParam)) {
+            if (!validation(request, currentUser, userIdParam, paymentIdParam)) {
                 return pathRedirect;
             }
 
@@ -67,7 +68,13 @@ public class CommandAdminShowPaymentInfo implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String paymentIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String paymentIdParam) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {

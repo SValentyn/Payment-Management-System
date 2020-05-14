@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.service.UserService;
 import com.system.utils.Validator;
 
@@ -46,20 +47,28 @@ public class CommandAdminAttachAccount implements ICommand {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_ATTACH_ACCOUNT);
 
             // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String userIdParam = request.getParameter("userId");
             String number = request.getParameter("number");
             String currency = request.getParameter("currency");
 
             // Validation
-            if (!validation(request, userIdParam, number, currency)) {
+            if (!validation(request, currentUser, userIdParam, number, currency)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to attach a new account to the user");
                 return pathRedirect;
             }
 
+            // Data
+            User user = UserService.getInstance().findUserById(Integer.valueOf(userIdParam));
+
             // Action (create account)
-            int status = AccountService.getInstance().createAccount(Integer.valueOf(userIdParam), number, currency);
+            int status = AccountService.getInstance().createAccount(user.getUserId(), number, currency);
             if (status == 0) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to attach a new account to the user [" + user.getName() + " " + user.getSurname() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_ATTACHED_ERROR);
             } else {
+                logging(currentUser.getUserId(), "ATTACHED: Account [" + number + "], User [" + user.getName() + " " + user.getSurname() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_ATTACHED_SUCCESS);
             }
         }
@@ -78,7 +87,13 @@ public class CommandAdminAttachAccount implements ICommand {
         return true;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam, String number, String currency) throws SQLException {
+    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String number, String currency) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -151,6 +166,10 @@ public class CommandAdminAttachAccount implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }
