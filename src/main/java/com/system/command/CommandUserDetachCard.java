@@ -7,6 +7,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.service.BankCardService;
 import com.system.utils.Validator;
 
@@ -37,14 +38,21 @@ public class CommandUserDetachCard implements ICommand {
 
             // Validation
             if (!validation(request, user, accountIdParam, cardIdParam)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to detach card");
                 return pathRedirect;
             }
 
+            // Data
+            BankCard card = BankCardService.getInstance().findCardByCardId(Integer.valueOf(cardIdParam));
+
             // Action (detach card)
-            int status = BankCardService.getInstance().deleteCardById(Integer.valueOf(cardIdParam));
+            int status = BankCardService.getInstance().deleteCardById(card.getCardId());
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to detach card [" + card.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_DETACHED_ERROR);
             } else {
+                logging(user.getUserId(), "DETACHED: Card [" + card.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_DETACHED_SUCCESS);
             }
         }
@@ -106,6 +114,10 @@ public class CommandUserDetachCard implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

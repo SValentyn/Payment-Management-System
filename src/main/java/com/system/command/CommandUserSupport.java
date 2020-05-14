@@ -5,6 +5,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.ActionLogService;
 import com.system.service.LetterService;
 import com.system.utils.Validator;
 
@@ -42,12 +43,15 @@ public class CommandUserSupport implements ICommand {
 
             // Validation
             if (!validation(request, user, typeQuestion, description)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "Unsuccessful attempt to send a letter to Support");
                 return pathRedirect;
             }
 
             // Action (send letter)
             int status = LetterService.getInstance().addNewLetter(user.getUserId(), Integer.valueOf(typeQuestion), description);
             if (status == 0) {
+                logging(user.getUserId(), "Unsuccessful attempt to send a letter to Support");
                 setSessionAttributes(request, description, ServerResponse.LETTER_SENT_ERROR);
             } else {
                 setSessionAttributes(request, ServerResponse.LETTER_SENT_SUCCESS);
@@ -115,6 +119,10 @@ public class CommandUserSupport implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

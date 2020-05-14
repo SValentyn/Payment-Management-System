@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,17 +33,24 @@ public class CommandUserBlockAccount implements ICommand {
 
             // Validation
             if (!validation(request, user, accountIdParam)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to block the account");
                 return pathRedirect;
             }
 
             // Change redirect path
             pathRedirect += "&accountId=" + accountIdParam;
 
+            // Data
+            Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+
             // Action (block account)
-            int status = AccountService.getInstance().blockAccount(Integer.valueOf(accountIdParam));
+            int status = AccountService.getInstance().blockAccount(account.getAccountId());
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to block account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_ERROR);
             } else {
+                logging(user.getUserId(), "BLOCKED: Account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_BLOCKED_SUCCESS);
             }
         }
@@ -82,6 +90,10 @@ public class CommandUserBlockAccount implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

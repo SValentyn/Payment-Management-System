@@ -147,7 +147,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-9 col-xl-9">
+                                                    <div class="col-lg-9 col-xl-9" style="padding: 0;">
                                                         <div class="table-responsive">
                                                             <table class="table table-sm table-hover">
                                                                 <thead class="thead-light">

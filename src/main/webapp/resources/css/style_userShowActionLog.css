@@ -13,6 +13,7 @@
 }
 
 table {
+    margin: 0 !important;
     border-collapse: initial;
 }
 
@@ -25,7 +26,7 @@ table {
 }
 
 .table-sm td, .table-sm th {
-    font-size: 75%;
+    font-size: 82%;
 }
 
 .form-control:disabled, .form-control[readonly] {

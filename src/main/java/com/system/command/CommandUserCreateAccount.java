@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,14 +41,18 @@ public class CommandUserCreateAccount implements ICommand {
 
             // Validation
             if (!validation(request, user, number, currency)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
                 return pathRedirect;
             }
 
             // Action (create account)
             int status = AccountService.getInstance().createAccount(user.getUserId(), number, currency);
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_ERROR);
             } else {
+                logging(user.getUserId(), "CREATED: Account [" + number + ", " + currency + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_SUCCESS);
             }
         }
@@ -108,6 +113,10 @@ public class CommandUserCreateAccount implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

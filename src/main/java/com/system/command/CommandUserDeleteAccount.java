@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,20 +33,28 @@ public class CommandUserDeleteAccount implements ICommand {
 
             // Validation
             if (!validation(request, user, accountIdParam)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete an account");
                 return pathRedirect;
             }
 
             // Change redirect path
             pathRedirect += "&accountId=" + accountIdParam;
 
+            // Data
+            Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+
             // Action (delete account)
-            int status = AccountService.getInstance().deleteAccountByAccountId(Integer.valueOf(accountIdParam));
+            int status = AccountService.getInstance().deleteAccountByAccountId(account.getAccountId());
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete an account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_DELETED_ERROR);
             } else if (status == -1) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_HAS_FUNDS_ERROR);
             } else {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNT_SETTINGS);
+                logging(user.getUserId(), "DELETED: Account [" + account.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_DELETED_SUCCESS);
             }
         }
@@ -85,6 +94,10 @@ public class CommandUserDeleteAccount implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

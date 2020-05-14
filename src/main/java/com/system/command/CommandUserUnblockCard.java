@@ -7,6 +7,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.service.BankCardService;
 import com.system.utils.Validator;
 
@@ -37,14 +38,21 @@ public class CommandUserUnblockCard implements ICommand {
 
             // Validation
             if (!validation(request, user, accountIdParam, cardIdParam)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to unblock the card");
                 return pathRedirect;
             }
 
+            // Data
+            BankCard card = BankCardService.getInstance().findCardByCardId(Integer.valueOf(cardIdParam));
+
             // Action (unblock card)
-            int status = BankCardService.getInstance().unblockBankCard(Integer.valueOf(cardIdParam));
+            int status = BankCardService.getInstance().unblockBankCard(card.getCardId());
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to unblock card [" + card.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_UNBLOCKED_ERROR);
             } else {
+                logging(user.getUserId(), "UNBLOCKED: Card [" + card.getNumber() + "]");
                 setSessionAttributes(request, ServerResponse.CARD_UNBLOCKED_SUCCESS);
             }
         }
@@ -106,6 +114,10 @@ public class CommandUserUnblockCard implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

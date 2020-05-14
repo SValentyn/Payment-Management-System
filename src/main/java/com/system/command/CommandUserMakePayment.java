@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.service.PaymentService;
 import com.system.utils.Validator;
 
@@ -55,10 +56,13 @@ public class CommandUserMakePayment implements ICommand {
 
             // Validation
             if (!validation(request, user, caseValue, accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                 return pathRedirect;
             }
 
             // Data
+            Account senderAccount = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
             if (recipientCardNumber != null) {
                 recipientCardNumber = recipientCardNumber.replaceAll(" ", "");
             }
@@ -69,26 +73,33 @@ public class CommandUserMakePayment implements ICommand {
 
             // Action (forming payment)
             if (caseValue.equals("on")) {
-                int status = PaymentService.getInstance().makePaymentOnAccount(Integer.valueOf(accountIdParam), recipientAccountNumber, new BigDecimal(amount), exchangeRate, appointment);
+                int status = PaymentService.getInstance().makePaymentOnAccount(senderAccount.getAccountId(), recipientAccountNumber, new BigDecimal(amount), exchangeRate, appointment);
                 if (status == -1) {
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.SENDER_ACCOUNT_BLOCKED_ERROR);
                 } else if (status == -2) {
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.RECIPIENT_ACCOUNT_BLOCKED_ERROR);
                 } else if (status == -3) {
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INSUFFICIENT_FUNDS_ERROR);
                 } else {
+                    logging(user.getUserId(), "PAYMENT_COMPLETED: The payment was made from account [" + senderAccount.getNumber() + "] to account [" + recipientAccountNumber + "]");
                     setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
                 }
             } else if (caseValue.equals("off")) {
                 int status = PaymentService.getInstance().makePaymentOnCard(Integer.valueOf(accountIdParam), recipientCardNumber, new BigDecimal(amount), appointment);
                 if (status == -1) {
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.SENDER_ACCOUNT_BLOCKED_ERROR);
                 } else if (status == -2) {
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.RECIPIENT_CARD_NOT_EXIST_OR_BLOCKED_ERROR);
-                    request.setAttribute("", true);
                 } else if (status == -3) {
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                     setSessionAttributes(request, "on", accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment, ServerResponse.INSUFFICIENT_FUNDS_ERROR);
                 } else {
+                    logging(user.getUserId(), "PAYMENT_COMPLETED: The payment was made from account [" + senderAccount.getNumber() + "] to card [" + recipientCardNumber + "]");
                     setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
                 }
             }
@@ -291,6 +302,10 @@ public class CommandUserMakePayment implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

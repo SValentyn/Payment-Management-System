@@ -7,6 +7,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.service.BankCardService;
 import com.system.utils.Validator;
 
@@ -56,6 +57,8 @@ public class CommandUserAttachCard implements ICommand {
 
             // Validation
             if (!validation(request, user, accountIdParam, cardNumber, CVV, month, year)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
                 return pathRedirect;
             }
 
@@ -65,8 +68,10 @@ public class CommandUserAttachCard implements ICommand {
             // Action (attach card)
             int status = BankCardService.getInstance().addNewBankCard(Integer.valueOf(accountIdParam), cardNumber, CVV, month, year);
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
                 setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.CARD_ATTACHED_ERROR);
             } else {
+                logging(user.getUserId(), "ATTACHED: Card [" + cardNumber + "]");
                 setSessionAttributes(request, ServerResponse.CARD_ATTACHED_SUCCESS);
             }
         }
@@ -212,6 +217,10 @@ public class CommandUserAttachCard implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

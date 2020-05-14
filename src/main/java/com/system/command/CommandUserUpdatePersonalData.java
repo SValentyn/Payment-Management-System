@@ -4,6 +4,7 @@ import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
+import com.system.service.ActionLogService;
 import com.system.service.UserService;
 import com.system.utils.PasswordEncryptor;
 import com.system.utils.Validator;
@@ -52,6 +53,8 @@ public class CommandUserUpdatePersonalData implements ICommand {
 
             // Validation
             if (!validation(request, user, name, surname, phone, email, password)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to update data");
                 return pathRedirect;
             }
 
@@ -65,8 +68,10 @@ public class CommandUserUpdatePersonalData implements ICommand {
             // Action (update data)
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to update data");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_ERROR);
             } else {
+                logging(user.getUserId(), "UPDATED: Unsuccessful attempt to update data");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_SUCCESS);
             }
         }
@@ -192,6 +197,10 @@ public class CommandUserUpdatePersonalData implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }

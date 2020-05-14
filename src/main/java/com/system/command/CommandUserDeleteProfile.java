@@ -6,6 +6,7 @@ import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
 import com.system.service.AccountService;
+import com.system.service.ActionLogService;
 import com.system.service.UserService;
 
 import javax.servlet.ServletException;
@@ -34,12 +35,15 @@ public class CommandUserDeleteProfile implements ICommand {
 
             // Validation
             if (!validation(request, user)) {
+                if (user.getUserId() != null)
+                    logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
                 return pathRedirect;
             }
 
             // Action (delete profile)
             int status = UserService.getInstance().deleteUserById(user.getUserId());
             if (status == 0) {
+                logging(user.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
                 setSessionAttributes(request, ServerResponse.PROFILE_DELETED_ERROR);
             } else {
                 pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
@@ -76,6 +80,10 @@ public class CommandUserDeleteProfile implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
+        ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
 }
