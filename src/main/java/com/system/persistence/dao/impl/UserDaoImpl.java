@@ -27,21 +27,23 @@ public class UserDaoImpl implements UserDao {
     private static final String CREATE_USER =
             "INSERT INTO users (name, surname, phone, email, password, registration_date, role_id) " +
                     "VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_USER = "UPDATE users SET name = ?, surname = ?, phone = ?, email = ?, password = ? WHERE user_id = ?";
+    private static final String UPDATE_USER =
+            "UPDATE users SET name = ?, surname = ?, phone = ?, email = ?, password = ? " +
+                    "WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE user_id = ?";
-    private static final String FIND_BY_ID =
+    private static final String FIND_USER_BY_ID =
             "SELECT users.*, roles.title FROM users " +
                     "INNER JOIN roles ON users.role_id = roles.id " +
                     "WHERE users.user_id = ?";
-    private static final String FIND_BY_LOGIN_PASSWORD =
+    private static final String FIND_USER_BY_LOGIN_PASSWORD =
             "SELECT users.*, roles.title FROM users " +
                     "INNER JOIN roles ON users.role_id = roles.id " +
                     "WHERE users.phone = ? AND users.password = ?";
-    private static final String FIND_BY_PHONE =
+    private static final String FIND_USER_BY_PHONE =
             "SELECT users.*, roles.title FROM users " +
                     "INNER JOIN roles ON users.role_id = roles.id " +
                     "WHERE users.phone = ?";
-    private static final String FIND_ALL =
+    private static final String FIND_ALL_USERS =
             "SELECT users.*, roles.title FROM users " +
                     "INNER JOIN roles ON users.role_id = roles.id";
     private static final String SEARCH_BY_CRITERIA =
@@ -105,7 +107,7 @@ public class UserDaoImpl implements UserDao {
     public User findUserByUserId(Integer userId) {
         User user = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_BY_ID, userId);
+            ResultSet rs = executor.getResultSet(FIND_USER_BY_ID, userId);
             if (rs.next()) {
                 user = createEntity(rs);
             }
@@ -120,7 +122,7 @@ public class UserDaoImpl implements UserDao {
         User user = null;
         if (login != null && password != null) {
             try {
-                ResultSet rs = executor.getResultSet(FIND_BY_LOGIN_PASSWORD, login, password);
+                ResultSet rs = executor.getResultSet(FIND_USER_BY_LOGIN_PASSWORD, login, password);
                 if (rs.next()) {
                     user = createEntity(rs);
                 }
@@ -135,7 +137,7 @@ public class UserDaoImpl implements UserDao {
     public User findUserByPhoneNumber(String phone) {
         User user = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_BY_PHONE, phone);
+            ResultSet rs = executor.getResultSet(FIND_USER_BY_PHONE, phone);
             if (rs.next())
                 user = createEntity(rs);
         } catch (SQLException e) {
@@ -148,7 +150,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAllUsers() {
         List<User> users = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL);
+            ResultSet rs = executor.getResultSet(FIND_ALL_USERS);
             while (rs.next()) {
                 users.add(createEntity(rs));
             }

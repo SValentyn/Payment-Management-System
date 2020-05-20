@@ -126,12 +126,12 @@ public class BankCard implements Serializable {
 
     @Override
     public String toString() {
-        return "CreditCard [cardId=" + cardId +
-                ", accountId=" + accountId +
-                ", number=" + number +
-                ", CVV=" + CVV +
-                ", validity=" + validity +
-                ", isActive=" + isActive + "]";
+        return "BankCard [cardId=" + cardId + ", " +
+                "accountId=" + accountId + ", " +
+                "number=" + number + ", " +
+                "CVV=" + CVV + ", " +
+                "validity=" + validity + ", " +
+                "isActive=" + isActive + "]";
     }
 
 }

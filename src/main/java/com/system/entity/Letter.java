@@ -127,12 +127,12 @@ public class Letter implements Serializable {
 
     @Override
     public String toString() {
-        return "Letter [letterId=" + letterId +
-                ", userId=" + userId +
-                ", typeQuestion=" + typeQuestion +
-                ", description=" + description +
-                ", date=" + date +
-                ", isProcessed= " + isProcessed + "]";
+        return "Letter [letterId=" + letterId + ", " +
+                "userId=" + userId + ", " +
+                "typeQuestion=" + typeQuestion + ", " +
+                "description=" + description + ", " +
+                "date=" + date + ", " +
+                "isProcessed= " + isProcessed + "]";
     }
 
 }

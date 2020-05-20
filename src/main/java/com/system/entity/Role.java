@@ -15,6 +15,9 @@ public class Role implements Serializable {
     private Integer id;
     private String rolename;
 
+    public Role() {
+    }
+
     public Integer getId() {
         if (rolename.equals(ROLE_CLIENT)) {
             id = 1;

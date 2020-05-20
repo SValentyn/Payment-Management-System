@@ -94,6 +94,7 @@
                 <fmt:message key="user.support.option.8" var="option_8"/>
                 <fmt:message key="user.support.option.9" var="option_9"/>
                 <fmt:message key="user.support.option.10" var="option_10"/>
+                <fmt:message key="admin.support.tooltipTypeOfQuestion" var="tooltipTypeOfQuestion"/>
                 <fmt:message key="admin.support.tooltipStartDate" var="startDate"/>
                 <fmt:message key="admin.support.tooltipFinalDate" var="finalDate"/>
                 <fmt:message key="admin.support.showInfo" var="showInfo"/>
@@ -133,7 +134,9 @@
 
                                                                         <!-- Select Type Question -->
                                                                         <div>
-                                                                            <div class="bfh-selectbox">
+                                                                            <div class="bfh-selectbox"
+                                                                                 data-toggle="tooltip-left"
+                                                                                 data-title="${tooltipTypeOfQuestion}">
                                                                                 <div data-value=""></div>
                                                                                 <div data-value="1">${option_1}</div>
                                                                                 <div data-value="2">${option_2}</div>

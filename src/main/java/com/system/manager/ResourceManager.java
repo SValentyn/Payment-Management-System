@@ -18,7 +18,7 @@ public class ResourceManager {
     // USER'S PAGES
     // ************
     public static final String USER = "USER";
-    public static final String USER_UPDATE_DATA = "USER_UPDATE_PERSONAL_DATA";
+    public static final String USER_UPDATE_PERSONAL_DATA = "USER_UPDATE_PERSONAL_DATA";
     public static final String USER_UPDATE_PASSWORD = "USER_UPDATE_PASSWORD";
     public static final String USER_SHOW_ACCOUNTS = "USER_SHOW_ACCOUNTS";
     public static final String USER_SHOW_PAYMENTS = "USER_SHOW_PAYMENTS";
@@ -35,7 +35,7 @@ public class ResourceManager {
     // ADMIN'S PAGES
     // *************
     public static final String ADMIN = "ADMIN";
-    public static final String ADMIN_UPDATE_DATA = "ADMIN_UPDATE_PERSONAL_DATA";
+    public static final String ADMIN_UPDATE_PERSONAL_DATA = "ADMIN_UPDATE_PERSONAL_DATA";
     public static final String ADMIN_UPDATE_PASSWORD = "ADMIN_UPDATE_PASSWORD";
     public static final String ADMIN_SHOW_ACCOUNTS = "ADMIN_SHOW_ACCOUNTS";
     public static final String ADMIN_SHOW_USER = "ADMIN_SHOW_USER";
@@ -58,7 +58,7 @@ public class ResourceManager {
     // ***************
     // USER'S COMMANDS
     // ***************
-    public static final String COMMAND_USER_UPDATE_DATA = "COMMAND_USER_UPDATE_PERSONAL_DATA";
+    public static final String COMMAND_USER_UPDATE_PERSONAL_DATA = "COMMAND_USER_UPDATE_PERSONAL_DATA";
     public static final String COMMAND_USER_UPDATE_PASSWORD = "COMMAND_USER_UPDATE_PASSWORD";
     public static final String COMMAND_USER_SHOW_ACCOUNTS = "COMMAND_USER_SHOW_ACCOUNTS";
     public static final String COMMAND_USER_SHOW_PAYMENTS = "COMMAND_USER_SHOW_PAYMENTS";
@@ -74,7 +74,7 @@ public class ResourceManager {
     // ****************
     // ADMIN'S COMMANDS
     // ****************
-    public static final String COMMAND_ADMIN_UPDATE_DATA = "COMMAND_ADMIN_UPDATE_PERSONAL_DATA";
+    public static final String COMMAND_ADMIN_UPDATE_PERSONAL_DATA = "COMMAND_ADMIN_UPDATE_PERSONAL_DATA";
     public static final String COMMAND_ADMIN_UPDATE_PASSWORD = "COMMAND_ADMIN_UPDATE_PASSWORD";
     public static final String COMMAND_ADMIN_SHOW_ACCOUNTS = "COMMAND_ADMIN_SHOW_ACCOUNTS";
     public static final String COMMAND_ADMIN_SHOW_USER = "COMMAND_ADMIN_SHOW_USER";

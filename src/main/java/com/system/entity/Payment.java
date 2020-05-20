@@ -254,20 +254,20 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "Payment [paymentId=" + paymentId +
-                ", accountId=" + accountId +
-                ", isOutgoing=" + isOutgoing +
-                ", senderNumber=" + senderNumber +
-                ", senderAmount=" + senderAmount +
-                ", senderCurrency=" + senderCurrency +
-                ", recipientNumber=" + recipientNumber +
-                ", recipientAmount=" + recipientAmount +
-                ", recipientCurrency=" + recipientCurrency +
-                ", exchangeRate=" + exchangeRate +
-                ", newBalance=" + newBalance +
-                ", appointment=" + appointment +
-                ", date=" + date +
-                ", condition=" + condition + "]";
+        return "Payment [paymentId=" + paymentId + ", " +
+                "accountId=" + accountId + ", " +
+                "isOutgoing=" + isOutgoing + ", " +
+                "senderNumber=" + senderNumber + ", " +
+                "senderAmount=" + senderAmount + ", " +
+                "senderCurrency=" + senderCurrency + ", " +
+                "recipientNumber=" + recipientNumber + ", " +
+                "recipientAmount=" + recipientAmount + ", " +
+                "recipientCurrency=" + recipientCurrency + ", " +
+                "exchangeRate=" + exchangeRate + ", " +
+                "newBalance=" + newBalance + ", " +
+                "appointment=" + appointment + ", " +
+                "date=" + date + ", " +
+                "condition=" + condition + "]";
     }
 
 }

@@ -161,12 +161,14 @@ public class Validator {
     }
 
     /**
-     * @return true, if the email is not already in the system
+     * @return true, if the email is empty or not yet in the system
      */
     public static boolean checkEmail(String email) throws SQLException {
+        if (email == null || email.equals("")) return true;
+
         List<User> users = UserService.getInstance().findAllUsers();
         for (User user : users) {
-            if (user.getEmail().equals(email) && !email.equals("")) {
+            if (user.getEmail().equals(email)) {
                 return false;
             }
         }

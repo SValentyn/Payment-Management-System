@@ -22,11 +22,13 @@ SHOW VARIABLES LIKE 'auto_inc%';
 SHOW VARIABLES LIKE '%character%';
 SHOW VARIABLES LIKE '%collation%';
 
+DROP TABLE IF EXISTS action_log;
+
 DROP TABLE IF EXISTS letters;
 
 DROP TABLE IF EXISTS payments;
 
-DROP TABLE IF EXISTS credit_cards;
+DROP TABLE IF EXISTS bank_cards;
 
 DROP TABLE IF EXISTS accounts;
 
@@ -171,7 +173,7 @@ CREATE TABLE letters
     letter_id    INT(11)  NOT NULL AUTO_INCREMENT,
     user_id      INT(11)  NOT NULL,
     typeQuestion INT(11)  NOT NULL,
-    description  VARCHAR(255),
+    description  TEXT,
     date         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_processed BOOLEAN  NOT NULL DEFAULT 0,
     PRIMARY KEY (letter_id),

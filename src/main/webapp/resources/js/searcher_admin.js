@@ -2,6 +2,7 @@
 let name = document.querySelector("#name");
 let surname = document.querySelector("#surname");
 let phone = document.querySelector("#phone");
+let email = document.querySelector("#email");
 let searchBtn = document.querySelector("#search");
 
 
@@ -25,6 +26,7 @@ searchBtn.addEventListener('click', (event) => {
     name.value = name.value.trim();
     surname.value = surname.value.trim();
     phone.value = phone.value.trim();
+    email.value = email.value.trim();
 
     if (name.value.trim() === "" && surname.value.trim() === "" && phone.value.trim() === "") {
         event.preventDefault();

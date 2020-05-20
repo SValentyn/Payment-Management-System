@@ -19,7 +19,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
     private final PasswordEncryptor encryptor = new PasswordEncryptor();
 
     // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_DATA);
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_PERSONAL_DATA);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -28,7 +28,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_DATA);
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_PERSONAL_DATA);
 
             // Data
             User currentUser = (User) request.getSession().getAttribute("currentUser");
@@ -41,7 +41,7 @@ public class CommandUserUpdatePersonalData implements ICommand {
             }
 
         } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_UPDATE_DATA);
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_UPDATE_PERSONAL_DATA);
 
             // Data
             User currentUser = (User) request.getSession().getAttribute("currentUser");

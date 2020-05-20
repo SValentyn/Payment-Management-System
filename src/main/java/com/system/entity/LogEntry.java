@@ -9,6 +9,9 @@ public class LogEntry {
     private String description;
     private String date;
 
+    public LogEntry() {
+    }
+
     public Integer getLogEntryId() {
         return logEntryId;
     }
@@ -90,10 +93,10 @@ public class LogEntry {
 
     @Override
     public String toString() {
-        return "LogEntry [logEntryId=" + logEntryId +
-                ", userId=" + userId +
-                ", description=" + description +
-                ", date=" + date + "]";
+        return "LogEntry [logEntryId=" + logEntryId + ", " +
+                "userId=" + userId + ", " +
+                "description=" + description + ", " +
+                "date=" + date + "]";
     }
 
 }
