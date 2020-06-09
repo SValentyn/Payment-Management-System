@@ -6,14 +6,13 @@ import com.system.persistence.factory.DaoFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Provides service methods for BankCardDao. Layout between DAO and Command
+ * Provides service methods for BankCardDao. Layout between DAO and Command.
  *
  * @author Syniuk Valentyn
  */
@@ -24,10 +23,10 @@ public class BankCardService {
     private static BankCardService instance = null;
     private final BankCardDao bankCardDao = DaoFactory.createBankCardDao();
 
-    private BankCardService() throws SQLException {
+    private BankCardService() {
     }
 
-    public static synchronized BankCardService getInstance() throws SQLException {
+    public static synchronized BankCardService getInstance() {
         if (instance == null) {
             instance = new BankCardService();
         }
@@ -35,7 +34,7 @@ public class BankCardService {
     }
 
     /**
-     * Adds new bank card to the user account
+     * Adds new bank card to the account
      */
     public int addNewBankCard(Integer accountId, String number, String CVV, String month, String year) {
         int status = 0;
@@ -49,13 +48,13 @@ public class BankCardService {
                 LOGGER.error("ParseException: " + e.getMessage());
             }
 
-            BankCard bankCard = new BankCard();
-            bankCard.setAccountId(accountId);
-            bankCard.setNumber(number);
-            bankCard.setCVV(CVV);
-            bankCard.setValidity(formatter.format(date));
-            bankCard.setIsActive(true);
-            status = bankCardDao.create(bankCard);
+            BankCard card = new BankCard();
+            card.setAccountId(accountId);
+            card.setNumber(number);
+            card.setCVV(CVV);
+            card.setValidity(formatter.format(date));
+            card.setIsActive(true);
+            status = bankCardDao.create(card);
         }
         return status;
     }
@@ -66,9 +65,9 @@ public class BankCardService {
     public int blockBankCard(Integer cardId) {
         int status = 0;
         if (cardId != null) {
-            BankCard bankCard = bankCardDao.findCardByCardId(cardId);
-            bankCard.setIsActive(false);
-            status = bankCardDao.update(bankCard);
+            BankCard card = bankCardDao.findCardByCardId(cardId);
+            card.setIsActive(false);
+            status = bankCardDao.update(card);
         }
         return status;
     }
@@ -79,9 +78,9 @@ public class BankCardService {
     public int unblockBankCard(Integer cardId) {
         int status = 0;
         if (cardId != null) {
-            BankCard creditCard = bankCardDao.findCardByCardId(cardId);
-            creditCard.setIsActive(true);
-            status = bankCardDao.update(creditCard);
+            BankCard card = bankCardDao.findCardByCardId(cardId);
+            card.setIsActive(true);
+            status = bankCardDao.update(card);
         }
         return status;
     }
@@ -100,7 +99,7 @@ public class BankCardService {
     /**
      * Checks if card number not null and deletes it
      */
-    public int deleteCardByNumber(String number) {
+    public int deleteCardByCardNumber(String number) {
         int status = 0;
         if (number != null) {
             BankCard card = findCardByCardNumber(number);
@@ -138,7 +137,7 @@ public class BankCardService {
     }
 
     /**
-     * Finds all bank cards in the DB
+     * Finds all bank cards in the system
      */
     public List<BankCard> findAllCards() {
         return bankCardDao.findAllCards();

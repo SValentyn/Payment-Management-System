@@ -3,31 +3,26 @@ package com.system.service;
 import com.system.entity.LogEntry;
 import com.system.persistence.dao.ActionLogDao;
 import com.system.persistence.factory.DaoFactory;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
 /**
- * Provides service methods for ActionLogDao. Layout between DAO and Command
+ * Provides service methods for ActionLogDao. Layout between DAO and Command.
  *
  * @author Syniuk Valentyn
  */
 public class ActionLogService {
 
-    private static final Logger LOGGER = LogManager.getLogger(ActionLogService.class);
-
     private static ActionLogService instance = null;
     private final ActionLogDao actionLogDao = DaoFactory.createActionLogDao();
 
-    private ActionLogService() throws SQLException {
+    private ActionLogService() {
     }
 
-    public static synchronized ActionLogService getInstance() throws SQLException {
+    public static synchronized ActionLogService getInstance() {
         if (instance == null) {
             instance = new ActionLogService();
         }

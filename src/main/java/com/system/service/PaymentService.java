@@ -10,14 +10,13 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
 /**
- * Provides service methods for PaymentDao. Layout between DAO and Command
+ * Provides service methods for PaymentDao. Layout between DAO and Command.
  *
  * @author Syniuk Valentyn
  */
@@ -29,10 +28,10 @@ public class PaymentService {
     private final AccountDao accountDao = DaoFactory.createAccountDao();
     private final PaymentDao paymentDao = DaoFactory.createPaymentDao();
 
-    private PaymentService() throws SQLException {
+    private PaymentService() {
     }
 
-    public static synchronized PaymentService getInstance() throws SQLException {
+    public static synchronized PaymentService getInstance() {
         if (instance == null) {
             instance = new PaymentService();
         }
@@ -43,7 +42,7 @@ public class PaymentService {
      * *** The logic of making payments ***
      * The system has two types of payments: Outgoing and Incoming.
      * They are inserted into the "payments" table one by one.
-     * They have the same data, except for the fields: accountId, isOutgoing and newBalance.
+     * They have the same data, except for the fields: accountId, is_outgoing and newBalance.
      * It is made so that it is possible to correctly receive all types of payments.
      */
 
@@ -80,6 +79,7 @@ public class PaymentService {
         payment.setExchangeRate(exchangeRate);
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         payment.setDate(formatter.format(new Date()));
 
         if (checkAvailableAmount(accountFrom, amount)) {
@@ -128,6 +128,7 @@ public class PaymentService {
         payment.setExchangeRate(new BigDecimal("1.0"));
         payment.setAppointment(appointment);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         payment.setDate(formatter.format(new Date()));
 
         if (checkAvailableAmount(accountFrom, amount)) {
@@ -144,8 +145,6 @@ public class PaymentService {
     }
 
     /**
-     * Check account blocking
-     *
      * @return true, if account is blocked
      */
     private synchronized boolean checkAvailableAccount(Account account) {
@@ -153,8 +152,6 @@ public class PaymentService {
     }
 
     /**
-     * Checks the activity of the card
-     *
      * @return true, if card is active
      */
     private synchronized boolean checkAvailableCard(BankCard card) {
@@ -162,7 +159,7 @@ public class PaymentService {
     }
 
     /**
-     * Checks the availability of the amount to be debited
+     * @return true, if the account has enough funds to be debited
      */
     private synchronized boolean checkAvailableAmount(Account account, BigDecimal amount) {
         BigDecimal balance = account.getBalance();
@@ -189,8 +186,9 @@ public class PaymentService {
     private synchronized void transaction(Account accountFrom, String cardNumber, BigDecimal amount) {
         if (!accountFrom.getIsBlocked()) {
             accountFrom.setBalance(accountFrom.getBalance().subtract(amount));
-            // [Add amount on bank card]
             accountDao.update(accountFrom);
+
+            // [Add amount on bank card]
         } else {
             LOGGER.info("Trying to withdraw funds from a blocked account or or add funds to a non-existing card!");
         }

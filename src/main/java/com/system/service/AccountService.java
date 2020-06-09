@@ -4,29 +4,25 @@ import com.system.entity.Account;
 import com.system.entity.BankCard;
 import com.system.persistence.dao.AccountDao;
 import com.system.persistence.factory.DaoFactory;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Provides service methods for AccountDao. Layout between DAO and Command
+ * Provides service methods for AccountDao. Layout between DAO and Command.
  *
  * @author Syniuk Valentyn
  */
 public class AccountService {
 
-    private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
-
     private static AccountService instance = null;
     private final AccountDao accountDao = DaoFactory.createAccountDao();
 
-    private AccountService() throws SQLException {
+    private AccountService() {
     }
 
-    public static synchronized AccountService getInstance() throws SQLException {
+    public static synchronized AccountService getInstance() {
         if (instance == null) {
             instance = new AccountService();
         }
@@ -34,11 +30,11 @@ public class AccountService {
     }
 
     /**
-     * Creates new account
+     * Adds a new account
      */
-    public int createAccount(Integer userId, String number, String currency) {
+    public int addNewAccount(Integer userId, String number, String currency) {
         int status = 0;
-        if (userId != null && number != null) {
+        if (userId != null && number != null && currency != null) {
             Account account = new Account();
             account.setUserId(userId);
             account.setNumber(number);
@@ -52,7 +48,7 @@ public class AccountService {
     }
 
     /**
-     * Finds account by id and blocks it
+     * Finds account by account id and blocks it
      */
     public int blockAccount(Integer accountId) {
         int status = 0;
@@ -65,7 +61,7 @@ public class AccountService {
     }
 
     /**
-     * Finds account by id and unblock it
+     * Finds account by account id and unblock it
      */
     public int unblockAccount(Integer accountId) {
         int status = 0;
@@ -73,25 +69,6 @@ public class AccountService {
             Account account = accountDao.findAccountById(accountId);
             account.setIsBlocked(false);
             status = accountDao.update(account);
-        }
-        return status;
-    }
-
-    /**
-     * Checks if account isn't blocked and adds funds
-     */
-    public int addFunds(Integer accountId, BigDecimal funds) {
-        int status = 0;
-        if (accountId != null) {
-            Account account = accountDao.findAccountById(accountId);
-
-            // if account isn't blocked
-            if (!account.getIsBlocked()) {
-                account.setBalance(account.getBalance().add(funds));
-                status = accountDao.update(account);
-            } else {
-                LOGGER.info("Attempt to add funds to a blocked account!");
-            }
         }
         return status;
     }
@@ -121,7 +98,7 @@ public class AccountService {
     }
 
     /**
-     * Finds account by accountId
+     * Finds account by account id
      */
     public Account findAccountByAccountId(Integer accountId) {
         return accountDao.findAccountById(accountId);
@@ -135,21 +112,21 @@ public class AccountService {
     }
 
     /**
-     * Finds account number by accountId
+     * Finds account number by account id
      */
     public String findAccountNumberByAccountId(Integer accountId) {
         return findAccountByAccountId(accountId).getNumber();
     }
 
     /**
-     * Finds all accounts by userId
+     * Finds all accounts by user id
      */
     public List<Account> findAllAccountsByUserId(Integer userId) {
         return accountDao.findAllAccountsByUserId(userId);
     }
 
     /**
-     * Finds all accounts in the DB
+     * Finds all accounts in the system
      */
     public List<Account> findAllAccounts() {
         return accountDao.findAllAccounts();

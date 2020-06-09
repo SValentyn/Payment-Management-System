@@ -6,7 +6,6 @@ import com.system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 public class ControllerHelper {
@@ -15,8 +14,8 @@ public class ControllerHelper {
      * Users roles
      */
     private static final String UNKNOWN = "unknown";
+    private static final String USER = "user";
     private static final String ADMIN = "admin";
-    private static final String USER = "client";
 
     /**
      * Request parameter name for command
@@ -28,8 +27,8 @@ public class ControllerHelper {
      * Action commands for user types
      */
     HashMap<String, ICommand> commands = new HashMap<>();
-    HashMap<String, ICommand> adminCommands = new HashMap<>();
     HashMap<String, ICommand> userCommands = new HashMap<>();
+    HashMap<String, ICommand> adminCommands = new HashMap<>();
 
     private ControllerHelper() {
 
@@ -109,7 +108,7 @@ public class ControllerHelper {
     /**
      * Find command from request
      */
-    public ICommand getCommand(HttpServletRequest request) throws SQLException {
+    public ICommand getCommand(HttpServletRequest request) {
         ICommand command = null;
 
         String role = getRoleBySession(request);
@@ -117,11 +116,11 @@ public class ControllerHelper {
             case UNKNOWN:
                 command = commands.get(request.getParameter(COMMAND));
                 break;
-            case ADMIN:
-                command = adminCommands.get(request.getParameter(COMMAND));
-                break;
             case USER:
                 command = userCommands.get(request.getParameter(COMMAND));
+                break;
+            case ADMIN:
+                command = adminCommands.get(request.getParameter(COMMAND));
                 break;
         }
 
@@ -135,7 +134,7 @@ public class ControllerHelper {
     /**
      * Find role by session
      */
-    private String getRoleBySession(HttpServletRequest request) throws SQLException {
+    private String getRoleBySession(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return UNKNOWN;

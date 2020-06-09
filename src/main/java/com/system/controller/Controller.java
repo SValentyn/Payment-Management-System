@@ -68,15 +68,15 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter("command");
         LOGGER.info("Request parameter: command --> " + commandName);
 
-        // obtain command object by its name
+        // Obtain command object by its name
         ICommand command = ControllerHelper.getInstance().getCommand(request);
         LOGGER.info("Obtained command --> " + command.getName());
 
-        // execute command and get forward address
+        // Execute command and get forward address
         String pathRedirect = command.execute(request, response);
         LOGGER.info("Forward address --> " + pathRedirect);
 
-        // the choice of redirection type depends on the HTTP method
+        // The choice of redirection type depends on the HTTP method
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
             request.getRequestDispatcher(pathRedirect).forward(request, response);

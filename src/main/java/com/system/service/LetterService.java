@@ -3,10 +3,7 @@ package com.system.service;
 import com.system.entity.Letter;
 import com.system.persistence.dao.LetterDao;
 import com.system.persistence.factory.DaoFactory;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,21 +11,19 @@ import java.util.List;
 import java.util.TimeZone;
 
 /**
- * Provides service methods for LetterDao. Layout between DAO and Command
+ * Provides service methods for LetterDao. Layout between DAO and Command.
  *
  * @author Syniuk Valentyn
  */
 public class LetterService {
 
-    private static final Logger LOGGER = LogManager.getLogger(LetterService.class);
-
     private static LetterService instance = null;
     private final LetterDao letterDao = DaoFactory.createLetterDao();
 
-    private LetterService() throws SQLException {
+    private LetterService() {
     }
 
-    public static synchronized LetterService getInstance() throws SQLException {
+    public static synchronized LetterService getInstance() {
         if (instance == null) {
             instance = new LetterService();
         }
@@ -36,7 +31,7 @@ public class LetterService {
     }
 
     /**
-     * Adds new letter to the DB
+     * Adds a new letter to the DB
      */
     public int addNewLetter(Integer userId, Integer typeQuestion, String description) {
         int status = 0;
@@ -55,7 +50,7 @@ public class LetterService {
     }
 
     /**
-     * Checks if letter id not null and updates it
+     * Checks if letter id not NULL and updates it
      */
     public int updateLetterByLetterId(Integer letterId) {
         int status = 0;
@@ -70,10 +65,12 @@ public class LetterService {
     /**
      * Checks if letter id not null and deletes it
      */
-    public void deleteLetterByLetterId(Integer letterId) {
+    public int deleteLetterByLetterId(Integer letterId) {
+        int status = 0;
         if (letterId != null) {
-            letterDao.delete(letterId);
+            status = letterDao.delete(letterId);
         }
+        return status;
     }
 
     /**
@@ -91,10 +88,10 @@ public class LetterService {
     }
 
     /**
-     * Finds all unprocessed letters
+     * Finds all unprocessed letters in the system
      */
     public List<Letter> findUnprocessedLetters() {
-        List<Letter> letters = letterDao.findAllLetters();
+        List<Letter> letters = findAllLetters();
         List<Letter> unprocessedLetters = new ArrayList<>();
         for (Letter letter : letters) {
             if (!letter.getIsProcessed()) {
@@ -105,7 +102,7 @@ public class LetterService {
     }
 
     /**
-     * Finds all letters in the DB
+     * Finds all letters in the system
      */
     public List<Letter> findAllLetters() {
         return letterDao.findAllLetters();

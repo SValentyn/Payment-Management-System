@@ -5,36 +5,32 @@ import com.system.entity.User;
 import com.system.persistence.dao.UserDao;
 import com.system.persistence.factory.DaoFactory;
 import com.system.utils.PasswordEncryptor;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.TimeZone;
 
 /**
- * Provides service methods for UserDao. Layout between DAO and Command
+ * Provides service methods for UserDao. Layout between DAO and Command.
  *
  * @author Syniuk Valentyn
  */
 public class UserService {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserService.class);
-
     private static final String UNKNOWN = "unknown";
+    private static final String USER = "user";
     private static final String ADMIN = "admin";
-    private static final String USER = "client";
 
     private static UserService instance = null;
     private final UserDao userDao = DaoFactory.createUserDao();
     private final PasswordEncryptor encryptor = new PasswordEncryptor();
 
-    private UserService() throws SQLException {
+    private UserService() {
     }
 
-    public static synchronized UserService getInstance() throws SQLException {
+    public static synchronized UserService getInstance() {
         if (instance == null) {
             instance = new UserService();
         }
@@ -48,19 +44,19 @@ public class UserService {
         String role = null;
         if (user == null) {
             role = UNKNOWN;
-        } else if (user.getRole().getRolename().equalsIgnoreCase(Role.ROLE_ADMIN)) {
-            role = ADMIN;
-        } else if (user.getRole().getRolename().equalsIgnoreCase(Role.ROLE_CLIENT)) {
+        } else if (user.getRole().getRoleTitle().equalsIgnoreCase(Role.ROLE_USER)) {
             role = USER;
+        } else if (user.getRole().getRoleTitle().equalsIgnoreCase(Role.ROLE_ADMIN)) {
+            role = ADMIN;
         }
         return role;
     }
 
     /**
-     * Finds user by login and encrypted password
+     * Finds user by a login and encrypted password
      */
-    public User loginUser(String login, String password) {
-        return userDao.findUserByLoginAndPassword(login, encryptor.encode(password));
+    public User authentication(String login, String password) {
+        return userDao.findUserByPhoneAndPassword(login, encryptor.encode(password));
     }
 
     /**
@@ -79,9 +75,10 @@ public class UserService {
             user.setEmail(email);
             user.setPassword(encryptor.encode(password));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             user.setRegistrationDate(formatter.format(new Date()));
             Role role = new Role();
-            role.setRolename(Role.ROLE_CLIENT);
+            role.setRoleTitle(Role.ROLE_USER);
             user.setRole(role);
             userId = userDao.create(user);
         }
@@ -95,7 +92,7 @@ public class UserService {
      * [in the future] Sends the generated password to the phone.
      */
     public int registerUser(String name, String surname, String phone, String email) {
-        int userId;
+        int userId = 0;
 
         User user = findUserByPhoneNumber(phone);
         if (user == null) {
@@ -106,17 +103,16 @@ public class UserService {
             user.setEmail(email);
             user.setPassword(encryptor.encode(generatePassword(8)));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             user.setRegistrationDate(formatter.format(new Date()));
             Role role = new Role();
-            role.setRolename(Role.ROLE_CLIENT);
+            role.setRoleTitle(Role.ROLE_USER);
             user.setRole(role);
             userId = userDao.create(user);
 
             // ------------------------------------------------------------- //
             // There must be an API to send the password to the user's phone //
             // ------------------------------------------------------------- //
-        } else {
-            userId = 0; // if user is registered in the system or an error occurred
         }
         return userId;
     }
@@ -135,7 +131,7 @@ public class UserService {
     }
 
     /**
-     * Checks if user id not null and updates it
+     * Checks if user id not NULL and updates it
      */
     public int updateUser(User user) {
         int status = 0;
@@ -146,7 +142,7 @@ public class UserService {
     }
 
     /**
-     * Checks if user id not null and deletes it
+     * Checks if user id not NULL and deletes it
      */
     public int deleteUserById(Integer userId) {
         int status = 0;
@@ -157,7 +153,7 @@ public class UserService {
     }
 
     /**
-     * Finds user entity by userId
+     * Finds user entity by user id
      */
     public User findUserById(Integer userId) {
         return userDao.findUserByUserId(userId);
@@ -171,7 +167,7 @@ public class UserService {
     }
 
     /**
-     * Finds all users
+     * Finds all users in the system
      */
     public List<User> findAllUsers() {
         return userDao.findAllUsers();
