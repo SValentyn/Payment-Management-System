@@ -1,6 +1,7 @@
 package com.system.command;
 
 import com.system.entity.Letter;
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
@@ -17,63 +18,51 @@ import java.util.List;
 
 public class CommandAdminSupport implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
 
-        String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SUPPORT);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
 
             // Set attributes obtained from the session
             setRequestAttributes(request);
 
-            // Set attributes
+            // Check and set attributes
             if (request.getAttribute("letters") == null) {
 
                 // Only not processed letters must be displayed on the site
                 List<Letter> letters = LetterService.getInstance().findAllLetters();
-
-                // Check
-                if (letters == null) {
-                    setRequestAttributes(request, null);
-                    request.setAttribute("response", ServerResponse.SHOW_LETTERS_ERROR.getResponse());
-                    return pathRedirect;
-                }
-
-                // Data
                 List<Letter> notProcessedLetters = new ArrayList<>();
-                for (Letter letter : letters) {
-                    if (!letter.getIsProcessed()) {
-                        notProcessedLetters.add(letter);
+
+                if (letters != null) {
+                    for (Letter letter : letters) {
+                        if (!letter.getIsProcessed()) {
+                            notProcessedLetters.add(letter);
+                        }
                     }
+                } else {
+                    setRequestAttributes(request, ServerResponse.SHOW_LETTERS_ERROR);
                 }
 
                 // Set attributes
-                if (notProcessedLetters.isEmpty()) {
-                    setRequestAttributes(request, null);
-                } else {
-                    setRequestAttributes(request, notProcessedLetters);
-                }
+                setRequestAttributes(request, notProcessedLetters);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SUPPORT);
         }
 
         return pathRedirect;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("lettersEmpty", null);
-        request.setAttribute("letters", null);
-        request.setAttribute("typeQuestionValue", null);
-        request.setAttribute("startDateValue", null);
-        request.setAttribute("finalDateValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -118,12 +107,16 @@ public class CommandAdminSupport implements ICommand {
     }
 
     private void setRequestAttributes(HttpServletRequest request, List<Letter> letters) {
-        if (letters != null) {
-            request.setAttribute("lettersEmpty", false);
-            request.setAttribute("letters", letters);
-        } else {
+        if (letters.isEmpty()) {
             request.setAttribute("lettersEmpty", true);
+        } else {
+            request.setAttribute("letters", letters);
+            request.setAttribute("lettersEmpty", false);
         }
+    }
+
+    private void setRequestAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.setAttribute("response", serverResponse.getResponse());
     }
 
 }

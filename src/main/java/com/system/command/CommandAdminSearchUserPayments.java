@@ -15,22 +15,26 @@ import java.util.List;
 
 public class CommandAdminSearchUserPayments implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_PAYMENTS);
+    private String pathRedirect;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_PAYMENTS);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_PAYMENTS);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER_PAYMENTS);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String userIdParam = request.getParameter("userId");
             String isIncoming = request.getParameter("isIncoming");
             String isOutgoing = request.getParameter("isOutgoing");
@@ -38,7 +42,7 @@ public class CommandAdminSearchUserPayments implements ICommand {
             String finalDate = request.getParameter("final-date");
 
             // Validation
-            if (!validation(request, currentUser, userIdParam, isIncoming, isOutgoing, startDate, finalDate)) {
+            if (!validation(request, userIdParam, isIncoming, isOutgoing, startDate, finalDate)) {
                 return pathRedirect;
             }
 
@@ -62,30 +66,22 @@ public class CommandAdminSearchUserPayments implements ICommand {
                 payments = PaymentService.getInstance().searchByCriteria(userId, 1, startDate, finalDate);
             }
 
-            // Set attributes
+            // Check and set attributes
             if (payments == null) {
                 setSessionAttributes(request, isIncoming, isOutgoing, startDate, finalDate, ServerResponse.SEARCH_PAYMENTS_ERROR);
-                return pathRedirect;
-            }
-
-            // Set attributes
-            if (payments.size() == 0) {
-                setSessionAttributes(request, payments, isIncoming, isOutgoing, startDate, finalDate, ServerResponse.SEARCH_PAYMENTS_WARNING);
             } else {
-                setSessionAttributes(request, payments, isIncoming, isOutgoing, startDate, finalDate, ServerResponse.SEARCH_PAYMENTS_SUCCESS);
+                if (payments.isEmpty()) {
+                    setSessionAttributes(request, payments, isIncoming, isOutgoing, startDate, finalDate, ServerResponse.SEARCH_PAYMENTS_WARNING);
+                } else {
+                    setSessionAttributes(request, payments, isIncoming, isOutgoing, startDate, finalDate, ServerResponse.SEARCH_PAYMENTS_SUCCESS);
+                }
             }
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String isIncoming, String isOutgoing, String startDate, String finalDate) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String userIdParam, String isIncoming, String isOutgoing, String startDate, String finalDate) {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -119,17 +115,19 @@ public class CommandAdminSearchUserPayments implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("paymentsEmpty", null);
-        request.setAttribute("payments", null);
-        request.setAttribute("isIncomingValue", null);
-        request.setAttribute("isOutgoingValue", null);
-        request.setAttribute("startDateValue", null);
-        request.setAttribute("finalDateValue", null);
-        request.setAttribute("response", "");
-    }
+    private void setSessionAttributes(HttpServletRequest request, List<Payment> payments, String isIncoming, String isOutgoing,
+                                      String startDate, String finalDate, ServerResponse serverResponse) {
 
-    private void setSessionAttributes(HttpServletRequest request, List<Payment> payments, String isIncoming, String isOutgoing, String startDate, String finalDate, ServerResponse serverResponse) {
+        // Formatting card numbers
+        for (Payment payment : payments) {
+            if (payment.getSenderNumber().length() == 16) {
+                payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
+            }
+            if (payment.getRecipientNumber().length() == 16) {
+                payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
+            }
+        }
+
         request.getSession().setAttribute("payments", payments);
         request.getSession().setAttribute("numberOfPayments", String.valueOf(payments.size()));
         request.getSession().setAttribute("isIncoming", isIncoming);
@@ -139,7 +137,8 @@ public class CommandAdminSearchUserPayments implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String isIncoming, String isOutgoing, String startDate, String finalDate, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, String isIncoming, String isOutgoing,
+                                      String startDate, String finalDate, ServerResponse serverResponse) {
         request.getSession().setAttribute("isIncoming", isIncoming);
         request.getSession().setAttribute("isOutgoing", isOutgoing);
         request.getSession().setAttribute("startDate", startDate);

@@ -15,29 +15,31 @@ import java.util.List;
 
 public class CommandAdminSearchAccounts implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNTS);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNTS);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNTS);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNTS);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String number = request.getParameter("number");
             String min_value = request.getParameter("min-value");
             String max_value = request.getParameter("max-value");
             String currency = request.getParameter("currency");
 
             // Validation
-            if (!validation(request, currentUser, number, min_value, max_value, currency)) {
+            if (!validation(request, number, min_value, max_value, currency)) {
                 return pathRedirect;
             }
 
@@ -67,13 +69,7 @@ public class CommandAdminSearchAccounts implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String number, String min_value, String max_value, String currency) {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String number, String min_value, String max_value, String currency) {
 
         // Validation min and max values
         if (Validator.isNegative(min_value) || Validator.isNegative(max_value) || Integer.parseInt(min_value) > Integer.parseInt(max_value)) {
@@ -84,16 +80,8 @@ public class CommandAdminSearchAccounts implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("accounts", null);
-        request.setAttribute("numberValue", null);
-        request.setAttribute("minValue", null);
-        request.setAttribute("maxValue", null);
-        request.setAttribute("currencyValue", null);
-        request.setAttribute("response", "");
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, List<Account> accounts, String number, String minValue, String maxValue, String currency, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, List<Account> accounts, String number,
+                                      String minValue, String maxValue, String currency, ServerResponse serverResponse) {
         request.getSession().setAttribute("accounts", accounts);
         request.getSession().setAttribute("numberOfAccounts", String.valueOf(accounts.size()));
         request.getSession().setAttribute("number", number);
@@ -103,15 +91,12 @@ public class CommandAdminSearchAccounts implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String number, String minValue, String maxValue, String currency, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, String number,
+                                      String minValue, String maxValue, String currency, ServerResponse serverResponse) {
         request.getSession().setAttribute("number", number);
         request.getSession().setAttribute("minValue", minValue);
         request.getSession().setAttribute("maxValue", maxValue);
         request.getSession().setAttribute("currency", currency);
-        request.getSession().setAttribute("response", serverResponse.getResponse());
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

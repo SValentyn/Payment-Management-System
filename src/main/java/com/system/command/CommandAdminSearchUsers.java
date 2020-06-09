@@ -13,67 +13,45 @@ import java.util.List;
 
 public class CommandAdminSearchUsers implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = request.getParameter("email");
 
-            // Validation
-            if (!validation(request, currentUser)) {
-                return pathRedirect;
-            }
-
             // Action (search users)
             List<User> users = UserService.getInstance().searchByCriteria(name, surname, phone, email);
+
+            // Check and set attributes
             if (users == null) {
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.SEARCH_USERS_ERROR);
-                return pathRedirect;
-            }
-
-            if (users.size() == 0) {
-                setSessionAttributes(request, users, name, surname, phone, email, ServerResponse.SEARCH_USERS_WARNING);
             } else {
-                setSessionAttributes(request, users, name, surname, phone, email, ServerResponse.SEARCH_USERS_SUCCESS);
+                if (users.isEmpty()) {
+                    setSessionAttributes(request, users, name, surname, phone, email, ServerResponse.SEARCH_USERS_WARNING);
+                } else {
+                    setSessionAttributes(request, users, name, surname, phone, email, ServerResponse.SEARCH_USERS_SUCCESS);
+                }
             }
         }
 
         return pathRedirect;
-    }
-
-    private boolean validation(HttpServletRequest request, User currentUser) {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
-
-        return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("users", null);
-        request.setAttribute("nameValue", null);
-        request.setAttribute("surnameValue", null);
-        request.setAttribute("phoneValue", null);
-        request.setAttribute("emailValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setSessionAttributes(HttpServletRequest request, List<User> users, String name, String surname, String phone, String email, ServerResponse serverResponse) {
@@ -91,10 +69,6 @@ public class CommandAdminSearchUsers implements ICommand {
         request.getSession().setAttribute("surname", surname);
         request.getSession().setAttribute("phone", phone);
         request.getSession().setAttribute("email", email);
-        request.getSession().setAttribute("response", serverResponse.getResponse());
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

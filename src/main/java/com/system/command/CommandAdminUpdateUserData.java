@@ -15,37 +15,26 @@ import java.sql.SQLException;
 
 public class CommandAdminUpdateUserData implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_USER_DATA);
+    private String pathRedirect;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_USER_DATA);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_USER_DATA);
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
-
-            // Data
-            String userIdParam = request.getParameter("userId");
-
-            // Validation
-            if (!validation(request, userIdParam)) {
-                return pathRedirect;
-            }
-
-            // Set attributes
-            setRequestAttributes(request, userIdParam);
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_UPDATE_USER_DATA);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String userIdParam = request.getParameter("userId");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
@@ -53,9 +42,8 @@ public class CommandAdminUpdateUserData implements ICommand {
             String email = request.getParameter("email");
 
             // Validation
-            if (!validation(request, currentUser, userIdParam, name, surname, phone, email)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update user data");
+            if (!validation(request, userIdParam, name, surname, phone, email)) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update user data");
                 return pathRedirect;
             }
 
@@ -68,7 +56,7 @@ public class CommandAdminUpdateUserData implements ICommand {
             user.setPhone(phone);
             user.setEmail(email);
 
-            // Action (update data)
+            // Action (update user data)
             int status = UserService.getInstance().updateUser(user);
             if (status == 0) {
                 logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update user data. User [" + user.getName() + " " + user.getSurname() + "]");
@@ -77,12 +65,28 @@ public class CommandAdminUpdateUserData implements ICommand {
                 logging(currentUser.getUserId(), "UPDATED: User data has been updated successfully. User [" + user.getName() + " " + user.getSurname() + "]");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_SUCCESS);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_USER_DATA);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
+
+            // URL Data
+            String userIdParam = request.getParameter("userId");
+
+            // Validation
+            if (!validation(request, userIdParam)) {
+                return pathRedirect;
+            }
+
+            // Set attributes
+            setRequestAttributes(request, userIdParam);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String userIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, String userIdParam) {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -93,13 +97,7 @@ public class CommandAdminUpdateUserData implements ICommand {
         return true;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String name, String surname, String phone, String email) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String userIdParam, String name, String surname, String phone, String email) {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -134,7 +132,7 @@ public class CommandAdminUpdateUserData implements ICommand {
         }
 
         // Validation if the email has been changed
-        if (!user.getEmail().equals(email)) {
+        if (!email.equals("") && !user.getEmail().equals(email)) {
             if (!Validator.checkEmail(email)) {
                 setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
                 return false;
@@ -142,15 +140,6 @@ public class CommandAdminUpdateUserData implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("userId", null);
-        request.setAttribute("nameValue", null);
-        request.setAttribute("surnameValue", null);
-        request.setAttribute("phoneValue", null);
-        request.setAttribute("emailValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -187,7 +176,7 @@ public class CommandAdminUpdateUserData implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String userIdParam) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, String userIdParam) {
         Integer userId = Integer.valueOf(userIdParam);
         User user = UserService.getInstance().findUserById(userId);
 
@@ -214,7 +203,7 @@ public class CommandAdminUpdateUserData implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

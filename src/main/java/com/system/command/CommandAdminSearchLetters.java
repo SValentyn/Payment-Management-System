@@ -15,28 +15,30 @@ import java.util.List;
 
 public class CommandAdminSearchLetters implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SUPPORT);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SUPPORT);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String typeQuestion = request.getParameter("typeQuestion");
             String startDate = request.getParameter("start-date");
             String finalDate = request.getParameter("final-date");
 
             // Validation
-            if (!validation(request, currentUser, typeQuestion, startDate, finalDate)) {
+            if (!validation(request, typeQuestion, startDate, finalDate)) {
                 return pathRedirect;
             }
 
@@ -49,30 +51,22 @@ public class CommandAdminSearchLetters implements ICommand {
                 letters = LetterService.getInstance().searchByCriteria(typeQuestion, startDate, finalDate);
             }
 
-            // Set attributes
+            // Check and set attributes
             if (letters == null) {
                 setSessionAttributes(request, typeQuestion, startDate, finalDate, ServerResponse.SEARCH_LETTERS_ERROR);
-                return pathRedirect;
-            }
-
-            // Set attributes
-            if (letters.size() == 0) {
-                setSessionAttributes(request, letters, typeQuestion, startDate, finalDate, ServerResponse.SEARCH_LETTERS_WARNING);
             } else {
-                setSessionAttributes(request, letters, typeQuestion, startDate, finalDate, ServerResponse.SEARCH_LETTERS_SUCCESS);
+                if (letters.isEmpty()) {
+                    setSessionAttributes(request, letters, typeQuestion, startDate, finalDate, ServerResponse.SEARCH_LETTERS_WARNING);
+                } else {
+                    setSessionAttributes(request, letters, typeQuestion, startDate, finalDate, ServerResponse.SEARCH_LETTERS_SUCCESS);
+                }
             }
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String typeQuestion, String startDate, String finalDate) {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String typeQuestion, String startDate, String finalDate) {
 
         // Validation type question
         if (!typeQuestion.equals("")) {
@@ -93,15 +87,8 @@ public class CommandAdminSearchLetters implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("letters", null);
-        request.setAttribute("typeQuestionValue", null);
-        request.setAttribute("startDateValue", null);
-        request.setAttribute("finalDateValue", null);
-        request.setAttribute("response", "");
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, List<Letter> letters, String typeQuestion, String startDate, String finalDate, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, List<Letter> letters, String typeQuestion,
+                                      String startDate, String finalDate, ServerResponse serverResponse) {
         request.getSession().setAttribute("letters", letters);
         request.getSession().setAttribute("numberOfLetters", String.valueOf(letters.size()));
         request.getSession().setAttribute("typeQuestion", typeQuestion);
@@ -110,7 +97,8 @@ public class CommandAdminSearchLetters implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String typeQuestion, String startDate, String finalDate, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, String typeQuestion,
+                                      String startDate, String finalDate, ServerResponse serverResponse) {
         request.getSession().setAttribute("typeQuestion", typeQuestion);
         request.getSession().setAttribute("startDate", startDate);
         request.getSession().setAttribute("finalDate", finalDate);
@@ -119,10 +107,6 @@ public class CommandAdminSearchLetters implements ICommand {
 
     private void setSessionAttributes(HttpServletRequest request, String typeQuestion, ServerResponse serverResponse) {
         request.getSession().setAttribute("typeQuestion", typeQuestion);
-        request.getSession().setAttribute("response", serverResponse.getResponse());
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

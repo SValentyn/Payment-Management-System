@@ -16,48 +16,46 @@ import java.util.List;
 
 public class CommandAdminShowUserAccounts implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
 
-        String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER_ACCOUNTS);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
 
             // Set attributes obtained from the session
             setRequestAttributes(request);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // URL Data
             String userIdParam = request.getParameter("userId");
 
             // Validation
-            if (!validation(request, currentUser, userIdParam)) {
+            if (!validation(request, userIdParam)) {
                 return pathRedirect;
             }
 
-            // Set attributes
+            // Check and set attributes
             if (request.getAttribute("accounts") == null) {
                 setRequestAttributes(request, Integer.valueOf(userIdParam));
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER_ACCOUNTS);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String userIdParam) {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -68,17 +66,6 @@ public class CommandAdminShowUserAccounts implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("userId", null);
-        request.setAttribute("accountsEmpty", null);
-        request.setAttribute("accounts", null);
-        request.setAttribute("numberValue", null);
-        request.setAttribute("minValue", null);
-        request.setAttribute("maxValue", null);
-        request.setAttribute("currencyValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -128,7 +115,7 @@ public class CommandAdminShowUserAccounts implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer userId) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, Integer userId) {
         List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(userId);
         if (accounts != null) {
             request.setAttribute("accountsEmpty", accounts.isEmpty());

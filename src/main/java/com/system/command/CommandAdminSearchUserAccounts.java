@@ -15,22 +15,26 @@ import java.util.List;
 
 public class CommandAdminSearchUserAccounts implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
+    private String pathRedirect;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_USER_ACCOUNTS);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_USER_ACCOUNTS);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String userIdParam = request.getParameter("userId");
             String number = request.getParameter("number");
             String min_value = request.getParameter("min-value");
@@ -38,7 +42,7 @@ public class CommandAdminSearchUserAccounts implements ICommand {
             String currency = request.getParameter("currency");
 
             // Validation
-            if (!validation(request, currentUser, userIdParam, number, min_value, max_value, currency)) {
+            if (!validation(request, userIdParam, number, min_value, max_value, currency)) {
                 return pathRedirect;
             }
 
@@ -51,30 +55,22 @@ public class CommandAdminSearchUserAccounts implements ICommand {
                 accounts = AccountService.getInstance().searchByCriteria(Integer.valueOf(userIdParam), number, min_value, max_value, currency);
             }
 
-            // Set attributes
+            // Check and set attributes
             if (accounts == null) {
                 setSessionAttributes(request, number, min_value, max_value, currency, ServerResponse.SEARCH_ACCOUNTS_ERROR);
-                return pathRedirect;
-            }
-
-            // Set attributes
-            if (accounts.size() == 0) {
-                setSessionAttributes(request, accounts, number, min_value, max_value, currency, ServerResponse.SEARCH_ACCOUNTS_WARNING);
             } else {
-                setSessionAttributes(request, accounts, number, min_value, max_value, currency, ServerResponse.SEARCH_ACCOUNTS_SUCCESS);
+                if (accounts.isEmpty()) {
+                    setSessionAttributes(request, accounts, number, min_value, max_value, currency, ServerResponse.SEARCH_ACCOUNTS_WARNING);
+                } else {
+                    setSessionAttributes(request, accounts, number, min_value, max_value, currency, ServerResponse.SEARCH_ACCOUNTS_SUCCESS);
+                }
             }
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String number, String min_value, String max_value, String currency) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String userIdParam, String number, String min_value, String max_value, String currency) {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam) || !Validator.checkUserIsAdmin(userIdParam)) {
@@ -94,17 +90,8 @@ public class CommandAdminSearchUserAccounts implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("userId", null);
-        request.setAttribute("accounts", null);
-        request.setAttribute("numberValue", null);
-        request.setAttribute("minValue", null);
-        request.setAttribute("maxValue", null);
-        request.setAttribute("currencyValue", null);
-        request.setAttribute("response", "");
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, List<Account> accounts, String number, String minValue, String maxValue, String currency, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, List<Account> accounts, String number,
+                                      String minValue, String maxValue, String currency, ServerResponse serverResponse) {
         request.getSession().setAttribute("accounts", accounts);
         request.getSession().setAttribute("numberOfAccounts", String.valueOf(accounts.size()));
         request.getSession().setAttribute("number", number);
@@ -114,15 +101,12 @@ public class CommandAdminSearchUserAccounts implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String number, String minValue, String maxValue, String currency, ServerResponse serverResponse) {
+    private void setSessionAttributes(HttpServletRequest request, String number,
+                                      String minValue, String maxValue, String currency, ServerResponse serverResponse) {
         request.getSession().setAttribute("number", number);
         request.getSession().setAttribute("minValue", minValue);
         request.getSession().setAttribute("maxValue", maxValue);
         request.getSession().setAttribute("currency", currency);
-        request.getSession().setAttribute("response", serverResponse.getResponse());
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 

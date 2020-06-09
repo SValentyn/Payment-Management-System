@@ -19,22 +19,29 @@ import java.sql.SQLException;
 
 public class CommandAdminShowLetterInfo implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_LETTER_INFO);
+    private String pathRedirect;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_LETTER_INFO);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_LETTER_INFO);
 
             // Set attributes obtained from the session
             setRequestAttributes(request);
 
-            // Data
+            // URL Data
             String letterIdParam = request.getParameter("letterId");
 
             // Validation
@@ -45,21 +52,19 @@ public class CommandAdminShowLetterInfo implements ICommand {
             // Set attributes
             setRequestAttributes(request, letterIdParam);
 
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        } else {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_LETTER_INFO);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String letterIdParam = request.getParameter("letterId");
 
             // Validation
-            if (!validation(request, currentUser, letterIdParam)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to process the letter");
+            if (!validation(request, letterIdParam)) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to process the letter");
                 return pathRedirect;
             }
 
-            // Action (letter processing) and set attributes
+            // Action (letter processing)
             int status = LetterService.getInstance().updateLetterByLetterId(Integer.valueOf(letterIdParam));
             if (status == 0) {
                 logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to process the letter");
@@ -74,64 +79,44 @@ public class CommandAdminShowLetterInfo implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String letterIdParam) throws SQLException {
+    private boolean validation(HttpServletRequest request, String letterIdParam) {
 
-        // The "response" can already store the value obtained from another command
-        if (request.getAttribute("response") != "") {
-            return false;
-        }
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
 
-        // Validation letterId
-        if (!Validator.checkLetterId(letterIdParam)) {
-            setRequestAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
-            return false;
-        }
+            // The "response" can already store the value obtained from another command
+            if (request.getAttribute("response") != ServerResponse.EMPTY.getResponse()) {
+                return false;
+            }
 
-        // Checking that the letter has been processed
-        if (LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam)).getIsProcessed()) {
-            setRequestAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
-        }
+            // Validation letterId
+            if (!Validator.checkLetterId(letterIdParam)) {
+                setRequestAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
+                return false;
+            }
 
-        return true;
-    }
+            // Checking that the letter has been processed
+            if (LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam)).getIsProcessed()) {
+                setRequestAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
+            }
+        } else {
 
-    private boolean validation(HttpServletRequest request, User currentUser, String letterIdParam) throws SQLException {
+            // Validation letterId
+            if (!Validator.checkLetterId(letterIdParam)) {
+                setSessionAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
+                return false;
+            }
 
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+            // Change redirect path
+            pathRedirect += "&letterId=" + letterIdParam;
 
-        // Validation letterId
-        if (!Validator.checkLetterId(letterIdParam)) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_LETTER_ID);
-            return false;
-        }
-
-        // Change redirect path
-        pathRedirect += "&letterId=" + letterIdParam;
-
-        // Data
-        Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam));
-
-        // Checking that the letter has been processed
-        if (letter.getIsProcessed()) {
-            setSessionAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
-            return false;
+            // Checking that the letter has been processed
+            if (LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam)).getIsProcessed()) {
+                setSessionAttributes(request, ServerResponse.LETTER_WAS_PROCESSED);
+                return false;
+            }
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("letterId", null);
-        request.setAttribute("bioValue", null);
-        request.setAttribute("phoneValue", null);
-        request.setAttribute("emailValue", null);
-        request.setAttribute("typeQuestionValue", null);
-        request.setAttribute("descriptionValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -144,13 +129,12 @@ public class CommandAdminShowLetterInfo implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String letterIdParam) throws SQLException {
-        Integer letterId = Integer.valueOf(letterIdParam);
-        Letter letter = LetterService.getInstance().findLetterByLetterId(letterId);
+    private void setRequestAttributes(HttpServletRequest request, String letterIdParam) {
+        Letter letter = LetterService.getInstance().findLetterByLetterId(Integer.valueOf(letterIdParam));
         User user = UserService.getInstance().findUserById(letter.getUserId());
 
         if (user != null) {
-            request.setAttribute("letterId", letterId);
+            request.setAttribute("letterId", letter.getLetterId());
             request.setAttribute("bioValue", user.getName() + " " + user.getSurname());
             request.setAttribute("phoneValue", user.getPhone());
             request.setAttribute("emailValue", user.getEmail());
@@ -169,7 +153,7 @@ public class CommandAdminShowLetterInfo implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

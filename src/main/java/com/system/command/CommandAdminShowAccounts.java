@@ -1,6 +1,7 @@
 package com.system.command;
 
 import com.system.entity.Account;
+import com.system.entity.User;
 import com.system.manager.HTTPMethod;
 import com.system.manager.ResourceManager;
 import com.system.manager.ServerResponse;
@@ -14,38 +15,34 @@ import java.util.List;
 
 public class CommandAdminShowAccounts implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNTS);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNTS);
 
-        String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNTS);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNTS);
 
-            // Set attributes
+            // Set attributes obtained from the session
             setRequestAttributes(request);
+
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNTS);
         }
 
         return pathRedirect;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("accountsEmpty", null);
-        request.setAttribute("accounts", null);
-        request.setAttribute("numberValue", null);
-        request.setAttribute("minValue", null);
-        request.setAttribute("maxValue", null);
-        request.setAttribute("currencyValue", null);
-        request.setAttribute("response", "");
-    }
-
-    private void setRequestAttributes(HttpServletRequest request) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         List<Account> accounts = (List<Account>) session.getAttribute("accounts");

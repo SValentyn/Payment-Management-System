@@ -18,33 +18,24 @@ public class CommandAdminUpdatePersonalData implements ICommand {
 
     private final PasswordEncryptor encryptor = new PasswordEncryptor();
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PERSONAL_DATA);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PERSONAL_DATA);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PERSONAL_DATA);
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
-            // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
-
-            // Check and set attributes
-            if (user != null) {
-                setRequestAttributes(request, user);
-            } else {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
-            }
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_UPDATE_PERSONAL_DATA);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
@@ -53,8 +44,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
 
             // Validation
             if (!validation(request, currentUser, name, surname, phone, email, password)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update personal data");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to update personal data");
                 return pathRedirect;
             }
 
@@ -74,21 +64,20 @@ public class CommandAdminUpdatePersonalData implements ICommand {
                 logging(currentUser.getUserId(), "UPDATED: Unsuccessful attempt to update personal data");
                 setSessionAttributes(request, ServerResponse.DATA_UPDATED_SUCCESS);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_UPDATE_PERSONAL_DATA);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request, currentUser);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User user, String name, String surname, String phone, String email, String password) throws SQLException {
-
-        // Check
-        if (user == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String name, String surname, String phone, String email, String password) {
 
         // Validation password
-        if (!checkPassword(user, password)) {
+        if (!checkPassword(currentUser, password)) {
             setSessionAttributes(request, name, surname, phone, email, password, ServerResponse.PASSWORD_NOT_MATCH_ERROR);
             return false;
         }
@@ -106,7 +95,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         }
 
         // Validation if the phone has been changed
-        if (!user.getPhone().equals(phone)) {
+        if (!currentUser.getPhone().equals(phone)) {
             if (!Validator.checkPhone(phone)) {
                 setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.PHONE_EXIST_ERROR);
                 return false;
@@ -114,7 +103,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         }
 
         // Validation if the email has been changed
-        if (!user.getEmail().equals(email)) {
+        if (!email.equals("") && !currentUser.getEmail().equals(email)) {
             if (!Validator.checkEmail(email)) {
                 setSessionAttributes(request, name, surname, phone, email, null, ServerResponse.EMAIL_EXIST_ERROR);
                 return false;
@@ -127,18 +116,10 @@ public class CommandAdminUpdatePersonalData implements ICommand {
     /**
      * @return true, if the password is not NULL and equal to the current user password
      */
-    private boolean checkPassword(User user, String password) throws SQLException {
+    private boolean checkPassword(User user, String password) {
         if (!Validator.checkPassword(password)) return false;
         String correctPassword = UserService.getInstance().findUserById(user.getUserId()).getPassword();
         return correctPassword.equals(encryptor.encode(password));
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("nameValue", null);
-        request.setAttribute("surnameValue", null);
-        request.setAttribute("phoneValue", null);
-        request.setAttribute("emailValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request, User user) {
@@ -199,7 +180,7 @@ public class CommandAdminUpdatePersonalData implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

@@ -15,44 +15,35 @@ import java.util.List;
 
 public class CommandAdminShowActionLog implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACTION_LOG);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACTION_LOG);
 
-        String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACTION_LOG);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACTION_LOG);
 
             // Set attributes obtained from the session
             setRequestAttributes(request);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
-
             // Check and set attributes
-            if (currentUser != null) {
-                if (request.getAttribute("logEntries") == null) {
-                    setRequestAttributes(request, currentUser);
-                }
-            } else {
-                setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            if (request.getAttribute("logEntries") == null) {
+                setRequestAttributes(request, currentUser);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACTION_LOG);
         }
 
         return pathRedirect;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("logEntries", null);
-        request.setAttribute("startDateValue", null);
-        request.setAttribute("finalDateValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -89,7 +80,7 @@ public class CommandAdminShowActionLog implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User user) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, User user) {
         List<LogEntry> logEntries = ActionLogService.getInstance().findLogEntriesByUserId(user.getUserId());
         if (logEntries != null) {
             request.setAttribute("logEntries", logEntries);

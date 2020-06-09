@@ -12,27 +12,24 @@ import java.sql.SQLException;
 
 public class CommandAdminClearActionLog implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACTION_LOG);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACTION_LOG);
+
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name()) || request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACTION_LOG);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
-
-            // Validation
-            if (!validation(request, currentUser)) {
-                return pathRedirect;
-            }
-
-            // Action (clear action log) + set attributes
+            // Action (clear action log)
             int status = ActionLogService.getInstance().clearActionLog(currentUser.getUserId());
             if (status == 0) {
                 logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to clear the action log");
@@ -46,26 +43,11 @@ public class CommandAdminClearActionLog implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser) {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
-
-        return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("response", "");
-    }
-
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

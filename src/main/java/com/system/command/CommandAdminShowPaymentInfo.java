@@ -19,27 +19,29 @@ import java.util.List;
 
 public class CommandAdminShowPaymentInfo implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_PAYMENT_INFO);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_PAYMENT_INFO);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_PAYMENT_INFO);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_PAYMENT_INFO);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // URL Data
             String userIdParam = request.getParameter("userId");
             String paymentIdParam = request.getParameter("paymentId");
 
             // Validation
-            if (!validation(request, currentUser, userIdParam, paymentIdParam)) {
+            if (!validation(request, userIdParam, paymentIdParam)) {
                 return pathRedirect;
             }
 
@@ -63,18 +65,14 @@ public class CommandAdminShowPaymentInfo implements ICommand {
                 // [Obtaining cardholder data]
                 setRequestAttributes(request, payment, senderUser, null, false);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_PAYMENT_INFO);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String paymentIdParam) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String userIdParam, String paymentIdParam) {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {
@@ -93,8 +91,8 @@ public class CommandAdminShowPaymentInfo implements ICommand {
         // Data
         List<Payment> paymentsByUserId = PaymentService.getInstance().findAllPaymentsByUserId(Integer.valueOf(userIdParam));
         List<Integer> paymentIds = new ArrayList<>();
-        for (Payment aPayment : paymentsByUserId) {
-            paymentIds.add(aPayment.getPaymentId());
+        for (Payment payment : paymentsByUserId) {
+            paymentIds.add(payment.getPaymentId());
         }
 
         // Checking that the payment belongs to the user
@@ -106,22 +104,14 @@ public class CommandAdminShowPaymentInfo implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("userId", null);
-        request.setAttribute("payment", null);
-        request.setAttribute("senderUser", null);
-        request.setAttribute("recipientUser", null);
-        request.setAttribute("recipientIsAccount", null);
-        request.setAttribute("response", "");
-    }
-
     private void setRequestAttributes(HttpServletRequest request, Payment payment, User senderUser, User recipientUser, boolean recipientIsAccount) {
 
-        // formatting card numbers
+        // Formatting card numbers
         if (payment.getSenderNumber().length() == 16) {
             payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
         }
 
+        // Formatting card numbers
         if (payment.getRecipientNumber().length() == 16) {
             payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
         }
