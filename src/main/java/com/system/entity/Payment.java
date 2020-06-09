@@ -45,8 +45,8 @@ public class Payment implements Serializable {
         return isOutgoing;
     }
 
-    public void setIsOutgoing(Boolean outgoing) {
-        isOutgoing = outgoing;
+    public void setIsOutgoing(Boolean isOutgoing) {
+        this.isOutgoing = isOutgoing;
     }
 
     public String getSenderNumber() {
@@ -249,14 +249,13 @@ public class Payment implements Serializable {
         if (condition == null) {
             return other.condition == null;
         } else return condition.equals(other.condition);
-
     }
 
     @Override
     public String toString() {
         return "Payment [paymentId=" + paymentId + ", " +
                 "accountId=" + accountId + ", " +
-                "isOutgoing=" + isOutgoing + ", " +
+                "is_outgoing=" + isOutgoing + ", " +
                 "senderNumber=" + senderNumber + ", " +
                 "senderAmount=" + senderAmount + ", " +
                 "senderCurrency=" + senderCurrency + ", " +

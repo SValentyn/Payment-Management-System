@@ -70,8 +70,8 @@ public class Account implements Serializable {
         return isDeleted;
     }
 
-    public void setIsDeleted(Boolean deleted) {
-        isDeleted = deleted;
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     @Override
@@ -137,7 +137,6 @@ public class Account implements Serializable {
         if (isDeleted == null) {
             return other.isDeleted == null;
         } else return isDeleted.equals(other.isDeleted);
-
     }
 
     @Override
@@ -147,8 +146,8 @@ public class Account implements Serializable {
                 "number=" + number + ", " +
                 "balance=" + balance + ", " +
                 "currency=" + currency + ", " +
-                "isBlocked=" + isBlocked + ", " +
-                "isDeleted=" + isDeleted + "]";
+                "is_blocked=" + isBlocked + ", " +
+                "is_deleted=" + isDeleted + "]";
     }
 
 }

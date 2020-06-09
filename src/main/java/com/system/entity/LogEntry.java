@@ -1,6 +1,8 @@
 package com.system.entity;
 
-public class LogEntry {
+import java.io.Serializable;
+
+public class LogEntry implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

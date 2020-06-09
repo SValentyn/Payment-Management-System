@@ -154,7 +154,7 @@ public class User implements Serializable {
                 "email=" + email + ", " +
                 "password=" + password + ", " +
                 "registrationDate=" + registrationDate + ", " +
-                "role=" + role + "]";
+                "role=" + role.getRoleTitle() + "]";
     }
 
 }

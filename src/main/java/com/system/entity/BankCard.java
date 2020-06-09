@@ -121,7 +121,6 @@ public class BankCard implements Serializable {
         if (isActive == null) {
             return other.isActive == null;
         } else return isActive.equals(other.isActive);
-
     }
 
     @Override
@@ -131,7 +130,7 @@ public class BankCard implements Serializable {
                 "number=" + number + ", " +
                 "CVV=" + CVV + ", " +
                 "validity=" + validity + ", " +
-                "isActive=" + isActive + "]";
+                "is_active=" + isActive + "]";
     }
 
 }

@@ -132,7 +132,7 @@ public class Letter implements Serializable {
                 "typeQuestion=" + typeQuestion + ", " +
                 "description=" + description + ", " +
                 "date=" + date + ", " +
-                "isProcessed= " + isProcessed + "]";
+                "is_processed= " + isProcessed + "]";
     }
 
 }
