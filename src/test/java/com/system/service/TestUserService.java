@@ -28,12 +28,12 @@ public class TestUserService {
         user.setEmail("jeffbezos@gmail.com");
         user.setPassword("jeffbezos");
         role = new Role();
-        role.setId(2);
-        role.setRolename("admin");
+        role.setRoleId(2);
+        role.setRoleTitle("admin");
         user.setRole(role);
 
         when(userService.getRole(user)).thenReturn("admin");
-        when(userService.loginUser("8008098101", "jeffbezos")).thenReturn(user);
+        when(userService.authentication("8008098101", "jeffbezos")).thenReturn(user);
         when(userService.registerUser("Jeff", "Bezos", "jeffbezos", "jeffbezos@gmail.com", "8008098101")).thenReturn(user.getUserId());
     }
 
@@ -45,7 +45,7 @@ public class TestUserService {
 
     @Test
     public void testLoginUser() {
-        User checkUser = userService.loginUser(user.getPhone(), user.getPassword());
+        User checkUser = userService.authentication(user.getPhone(), user.getPassword());
         assertNotNull(checkUser);
     }
 

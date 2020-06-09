@@ -42,7 +42,7 @@ public class TestUserDao {
         when(userDao.create(user_1)).thenReturn(user_1.getUserId());
         when(userDao.findUserByUserId(1)).thenReturn(user_1);
         when(userDao.findUserByUserId(2)).thenReturn(user_2);
-        when(userDao.findUserByLoginAndPassword("8003654210", "elonmusk")).thenReturn(user_1);
+        when(userDao.findUserByPhoneAndPassword("8003654210", "elonmusk")).thenReturn(user_1);
         when(userDao.findUserByPhoneNumber("8008998686")).thenReturn(user_2);
         when(userDao.findAllUsers()).thenReturn(Arrays.asList(user_1, user_2));
     }
@@ -65,8 +65,8 @@ public class TestUserDao {
 
     @Test
     public void testFindByLoginAndPassword() {
-        User user = userDao.findUserByLoginAndPassword("8003654210", "elonmusk");
-        User wrongUser = userDao.findUserByLoginAndPassword("8003654210", "elonmusc");
+        User user = userDao.findUserByPhoneAndPassword("8003654210", "elonmusk");
+        User wrongUser = userDao.findUserByPhoneAndPassword("8003654210", "elonmusc");
         assertNull(wrongUser);
         String surname = user_1.getSurname();
         assertEquals(surname, user.getSurname());

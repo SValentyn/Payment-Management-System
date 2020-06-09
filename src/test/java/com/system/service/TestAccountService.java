@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +27,6 @@ public class TestAccountService {
         account.setIsBlocked(false);
         funds = new BigDecimal("500.00");
 
-        when(accountService.addFunds(account.getAccountId(), funds)).thenReturn(account.getAccountId());
         when(accountService.blockAccount(account.getAccountId())).thenReturn(account.getAccountId());
         when(accountService.unblockAccount(account.getAccountId())).thenReturn(account.getAccountId());
     }
@@ -45,10 +43,4 @@ public class TestAccountService {
         assertEquals(account.getAccountId(), accountId);
     }
 
-    @Test
-    public void testAddFunds() {
-        Integer accountId = accountService.addFunds(account.getAccountId(), funds);
-        assertNotNull(accountId);
-        assertEquals(accountId, account.getAccountId());
-    }
 }
