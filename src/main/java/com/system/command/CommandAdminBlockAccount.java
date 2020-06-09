@@ -15,27 +15,32 @@ import java.sql.SQLException;
 
 public class CommandAdminBlockAccount implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+    private String pathRedirect;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_SHOW_ACCOUNT_INFO);
+
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name()) || method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_SHOW_ACCOUNT_INFO);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String userIdParam = request.getParameter("userId");
             String accountIdParam = request.getParameter("accountId");
 
             // Validation
-            if (!validation(request, currentUser, userIdParam, accountIdParam)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to block account");
+            if (!validation(request, userIdParam, accountIdParam)) {
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to block account");
                 return pathRedirect;
             }
 
@@ -56,13 +61,7 @@ public class CommandAdminBlockAccount implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String userIdParam, String accountIdParam) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String userIdParam, String accountIdParam) {
 
         // Validation userId
         if (!Validator.checkUserId(userIdParam)) {
@@ -96,15 +95,11 @@ public class CommandAdminBlockAccount implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("response", "");
-    }
-
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
