@@ -6,7 +6,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,46 +14,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class for validation input parameters from a form
+ * Class for validation input parameters from forms and URLs
  */
 public class Validator {
 
     private static final Logger LOGGER = LogManager.getLogger(Validator.class);
 
     /**
-     * @return true, if the login is not NULL and its length is in the range of 6 to 18 digits
-     * and also if it in the system
+     * @return true, if the ID is a non-negative number and is in the system
      */
-    public static boolean checkLogin(String login) throws SQLException {
-        if (login == null) return false;
-        Pattern p = Pattern.compile(".{6,18}");
-        Matcher m = p.matcher(login);
-        if (!m.matches()) return false;
-
-        List<User> users = UserService.getInstance().findAllUsers();
-        List<String> userLogins = new ArrayList<>();
-        for (User user : users) {
-            userLogins.add(user.getPhone());
-        }
-
-        return userLogins.contains(login);
-    }
-
-    /**
-     * @return true, if the identifier is a non-negative number
-     * and user found by identifier is not an admin
-     */
-    public static boolean checkUserIsAdmin(String userId) throws SQLException {
-        if (!checkUserId(userId)) return false;
-
-        User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
-        return !user.getRole().getRolename().equals("admin");
-    }
-
-    /**
-     * @return true, if the identifier is a non-negative number and is in the system
-     */
-    public static boolean checkUserId(String userId) throws SQLException {
+    public static boolean checkUserId(String userId) {
         if (userId == null || isNegative(userId)) return false;
 
         List<User> users = UserService.getInstance().findAllUsers();
@@ -67,9 +36,19 @@ public class Validator {
     }
 
     /**
-     * @return true, if the identifier is a non-negative number and is in the system
+     * @return true, if the user found by ID is not an administrator
      */
-    public static boolean checkAccountId(String accountId) throws SQLException {
+    public static boolean checkUserIsAdmin(String userId) {
+        if (!checkUserId(userId)) return false;
+
+        User user = UserService.getInstance().findUserById(Integer.valueOf(userId));
+        return !user.getRole().getRoleTitle().equals("admin");
+    }
+
+    /**
+     * @return true, if the ID is a non-negative number and is in the system
+     */
+    public static boolean checkAccountId(String accountId) {
         if (accountId == null || isNegative(accountId)) return false;
 
         List<Account> accounts = AccountService.getInstance().findAllAccounts();
@@ -82,9 +61,9 @@ public class Validator {
     }
 
     /**
-     * @return true, if the identifier is a non-negative number and is in the system
+     * @return true, if the ID is a non-negative number and is in the system
      */
-    public static boolean checkCardId(String cardId) throws SQLException {
+    public static boolean checkCardId(String cardId) {
         if (cardId == null || isNegative(cardId)) return false;
 
         List<BankCard> cards = BankCardService.getInstance().findAllCards();
@@ -97,9 +76,9 @@ public class Validator {
     }
 
     /**
-     * @return true, if the identifier is a non-negative number and is in the system
+     * @return true, if the ID is a non-negative number and is in the system
      */
-    public static boolean checkPaymentId(String paymentId) throws SQLException {
+    public static boolean checkPaymentId(String paymentId) {
         if (paymentId == null || isNegative(paymentId)) return false;
 
         List<Payment> payments = PaymentService.getInstance().findAllPayments();
@@ -112,9 +91,9 @@ public class Validator {
     }
 
     /**
-     * @return true, if the identifier is a non-negative number and is in the system
+     * @return true, if the ID is a non-negative number and is in the system
      */
-    public static boolean checkLetterId(String letterId) throws SQLException {
+    public static boolean checkLetterId(String letterId) {
         if (letterId == null || isNegative(letterId)) return false;
 
         List<Letter> letters = LetterService.getInstance().findAllLetters();
@@ -127,14 +106,14 @@ public class Validator {
     }
 
     /**
-     * @return true, if the first name is not NULL or an empty string and its length is not more than 24 characters
+     * @return true, if the first name is not empty and its length is not more than 24 characters
      */
     public static boolean checkName(String name) {
         return name != null && !name.equals("") && name.length() <= 24;
     }
 
     /**
-     * @return true, if the last name is not NULL or an empty string and its length is not more than 32 characters
+     * @return true, if the last name is not empty and its length is not more than 32 characters
      */
     public static boolean checkSurname(String surname) {
         return surname != null && !surname.equals("") && surname.length() <= 32;
@@ -142,9 +121,9 @@ public class Validator {
 
     /**
      * @return true, if the phone number is not NULL and its length is in the range of 6 to 18 characters,
-     * and also if it is not already in the system
+     * and if it is not already in the system
      */
-    public static boolean checkPhone(String phone) throws SQLException {
+    public static boolean checkPhone(String phone) {
         if (phone == null) return false;
         Pattern p = Pattern.compile(".{6,18}");
         Matcher m = p.matcher(phone);
@@ -161,10 +140,10 @@ public class Validator {
     }
 
     /**
-     * @return true, if the email is empty or not yet in the system
+     * @return true, if the email is not empty and not yet in the system
      */
-    public static boolean checkEmail(String email) throws SQLException {
-        if (email == null || email.equals("")) return true;
+    public static boolean checkEmail(String email) {
+        if (email == null || email.equals("")) return false;
 
         List<User> users = UserService.getInstance().findAllUsers();
         for (User user : users) {
@@ -177,20 +156,37 @@ public class Validator {
     }
 
     /**
-     * @return true, if the password is not NULL and its length is at least 6 characters
+     * @return true, if the transmitted login (phone number) is in the system
+     */
+    public static boolean checkLogin(String login) {
+        if (login == null) return false;
+        Pattern p = Pattern.compile(".{6,18}");
+        Matcher m = p.matcher(login);
+        if (!m.matches()) return false;
+
+        List<User> users = UserService.getInstance().findAllUsers();
+        List<String> userLogins = new ArrayList<>();
+        for (User user : users) {
+            userLogins.add(user.getPhone());
+        }
+
+        return userLogins.contains(login);
+    }
+
+    /**
+     * @return true, if the password is between 6 and 255 characters
      */
     public static boolean checkPassword(String password) {
         if (password == null) return false;
-        Pattern p = Pattern.compile(".{6,}");
+        Pattern p = Pattern.compile(".{6,255}");
         Matcher m = p.matcher(password);
         return m.matches();
     }
 
     /**
-     * @return true, if the account number is not NULL and is 20 digits,
-     * and also if it is not already in the system
+     * @return true, if the account number is 20 digits, and it is not yet in the system
      */
-    public static boolean checkAccountNumber(String number) throws SQLException {
+    public static boolean checkAccountNumber(String number) {
         if (number == null) return false;
         Pattern p = Pattern.compile("\\d{20}");
         Matcher m = p.matcher(number);
@@ -207,9 +203,9 @@ public class Validator {
     }
 
     /**
-     * @return true, if the account number is not NULL and is 20 digits, and also if it is in the system
+     * @return true, if the account number is 20 digits, and it is in the system
      */
-    public static boolean checkRecipientAccountNumber(String number) throws SQLException {
+    public static boolean checkRecipientAccountNumber(String number) {
         if (number == null) return false;
         Pattern p = Pattern.compile("\\d{20}");
         Matcher m = p.matcher(number);
@@ -349,7 +345,7 @@ public class Validator {
     }
 
     /**
-     * @return true, if the string is a integer number
+     * @return true, if the string is an integer number
      */
     public static boolean isNumeric(String strNum) {
         try {
