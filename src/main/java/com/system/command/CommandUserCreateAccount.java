@@ -16,38 +16,35 @@ import java.sql.SQLException;
 
 public class CommandUserCreateAccount implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_CREATE_ACCOUNT);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String number = request.getParameter("number");
             String currency = request.getParameter("currency");
 
             // Validation
             if (!validation(request, currentUser, number, currency)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
                 return pathRedirect;
             }
 
             // Action (create account)
-            int status = AccountService.getInstance().createAccount(currentUser.getUserId(), number, currency);
+            int status = AccountService.getInstance().addNewAccount(currentUser.getUserId(), number, currency);
             if (status == 0) {
                 logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to create a new account");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_ERROR);
@@ -55,18 +52,17 @@ public class CommandUserCreateAccount implements ICommand {
                 logging(currentUser.getUserId(), "CREATED: Account [" + number + ", " + currency + "]");
                 setSessionAttributes(request, ServerResponse.ACCOUNT_CREATED_SUCCESS);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_CREATE_ACCOUNT);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String number, String currency) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String number, String currency) {
 
         // Validation account number
         if (!Validator.checkAccountNumber(number)) {
@@ -87,18 +83,12 @@ public class CommandUserCreateAccount implements ICommand {
         }
 
         // Checking that a user cannot have more than 3 accounts with a certain currency
-        if (numberOfAccounts == 3) {
+        if (numberOfAccounts >= 3) {
             setSessionAttributes(request, ServerResponse.MANY_ACCOUNT_WITH_THIS_CURRENCY_ERROR);
             return false;
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("numberValue", null);
-        request.setAttribute("currencyValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -115,7 +105,7 @@ public class CommandUserCreateAccount implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

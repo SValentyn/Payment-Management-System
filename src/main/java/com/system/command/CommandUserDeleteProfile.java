@@ -18,25 +18,26 @@ import java.sql.SQLException;
 
 public class CommandUserDeleteProfile implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_PERSONAL_DATA);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_UPDATE_PERSONAL_DATA);
+
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
         String method = request.getMethod();
         if (method.equalsIgnoreCase(HTTPMethod.GET.name()) || method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_UPDATE_PERSONAL_DATA);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
-
             // Validation
             if (!validation(request, currentUser)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to delete a profile");
                 return pathRedirect;
             }
 
@@ -54,13 +55,7 @@ public class CommandUserDeleteProfile implements ICommand {
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser) {
 
         // Checking that there are no funds left in the user’s accounts
         for (Account account : AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId())) {
@@ -74,15 +69,11 @@ public class CommandUserDeleteProfile implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("response", "");
-    }
-
     private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

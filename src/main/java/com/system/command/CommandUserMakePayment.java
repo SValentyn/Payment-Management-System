@@ -15,38 +15,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandUserMakePayment implements ICommand {
-
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
-
-            // Check and set attributes
-            if (currentUser != null) {
-                setRequestAttributes(request, currentUser);
-            } else {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
-            }
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_MAKE_PAYMENT);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String caseValue = request.getParameter("caseValue");
             String accountIdParam = request.getParameter("accountId");
             String recipientAccountNumber = request.getParameter("accountNumber");
@@ -56,8 +45,7 @@ public class CommandUserMakePayment implements ICommand {
 
             // Validation
             if (!validation(request, currentUser, caseValue, accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                 return pathRedirect;
             }
 
@@ -103,18 +91,18 @@ public class CommandUserMakePayment implements ICommand {
                     setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
                 }
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request, currentUser);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String caseValue, String accountIdParam, String recipientAccountNumber, String recipientCardNumber, String amount, String appointment) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String caseValue, String accountIdParam,
+                               String recipientAccountNumber, String recipientCardNumber, String amount, String appointment) {
 
         // Validation caseValue
         if (caseValue == null) {
@@ -122,7 +110,6 @@ public class CommandUserMakePayment implements ICommand {
             return false;
         }
 
-        // Validation recipient number
         if (caseValue.equals("on")) {
 
             // Validation accountId
@@ -131,16 +118,9 @@ public class CommandUserMakePayment implements ICommand {
                 return false;
             }
 
-            // Data
-            Integer accountId = Integer.valueOf(accountIdParam);
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
-            List<Integer> accountIds = new ArrayList<>();
-            for (Account account : accounts) {
-                accountIds.add(account.getAccountId());
-            }
-
             // Checking that the account belongs to the user
-            if (!accountIds.contains(accountId)) {
+            Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+            if (!account.getUserId().equals(currentUser.getUserId())) {
                 setSessionAttributes(request, "off", recipientAccountNumber, null, amount, appointment, ServerResponse.INVALID_DATA);
                 return false;
             }
@@ -152,8 +132,7 @@ public class CommandUserMakePayment implements ICommand {
             }
 
             // Checking that the user is making a payment to the account from which he pays
-            Account senderAccount = AccountService.getInstance().findAccountByAccountId(accountId);
-            if (senderAccount.getNumber().equals(recipientAccountNumber)) {
+            if (account.getNumber().equals(recipientAccountNumber)) {
                 setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, null, amount, appointment, ServerResponse.PAYMENT_TO_YOUR_ACCOUNT_ERROR);
                 return false;
             }
@@ -171,16 +150,9 @@ public class CommandUserMakePayment implements ICommand {
                 return false;
             }
 
-            // Data
-            Integer accountId = Integer.valueOf(accountIdParam);
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
-            List<Integer> accountIds = new ArrayList<>();
-            for (Account account : accounts) {
-                accountIds.add(account.getAccountId());
-            }
-
             // Checking that the account belongs to the user
-            if (!accountIds.contains(accountId)) {
+            Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+            if (!account.getUserId().equals(currentUser.getUserId())) {
                 setSessionAttributes(request, "on", null, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
                 return false;
             }
@@ -203,20 +175,7 @@ public class CommandUserMakePayment implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("accounts", null);
-        request.setAttribute("isRepeatCommandValue", null);
-        request.setAttribute("caseValue", null);
-        request.setAttribute("accountIdValue", null);
-        request.setAttribute("numberByAccountIdValue", null);
-        request.setAttribute("accountNumberValue", null);
-        request.setAttribute("cardNumberValue", null);
-        request.setAttribute("amountValue", null);
-        request.setAttribute("appointmentValue", null);
-        request.setAttribute("response", "");
-    }
-
-    private void setRequestAttributes(HttpServletRequest request, User currentUser) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, User currentUser) {
         request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId()));
         request.setAttribute("isRepeatCommandValue", "0");
         request.setAttribute("caseValue", "off");
@@ -289,7 +248,7 @@ public class CommandUserMakePayment implements ICommand {
     }
 
     private void setSessionAttributes(HttpServletRequest request, String caseValue, String accountId, String accountNumber, String cardNumber,
-                                      String amount, String appointment, ServerResponse serverResponse) throws SQLException {
+                                      String amount, String appointment, ServerResponse serverResponse) {
         request.getSession().setAttribute("caseValue", caseValue);
         request.getSession().setAttribute("accountId", accountId);
         request.getSession().setAttribute("numberByAccountId", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
@@ -304,7 +263,7 @@ public class CommandUserMakePayment implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

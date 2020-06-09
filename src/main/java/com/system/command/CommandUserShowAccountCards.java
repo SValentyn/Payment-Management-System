@@ -18,25 +18,27 @@ import java.util.List;
 
 public class CommandUserShowAccountCards implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNT_CARDS);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNT_CARDS);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNT_CARDS);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNT_CARDS);
 
             // Set attributes obtained from the session
             setRequestAttributes(request);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // URL Data
             String accountIdParam = request.getParameter("accountId");
 
             // Validation
@@ -46,18 +48,14 @@ public class CommandUserShowAccountCards implements ICommand {
 
             // Set attributes
             setRequestAttributes(request, Integer.valueOf(accountIdParam));
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNT_CARDS);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam) {
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
@@ -77,13 +75,6 @@ public class CommandUserShowAccountCards implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("viewableAccount", null);
-        request.setAttribute("cardsEmpty", null);
-        request.setAttribute("cards", null);
-        request.setAttribute("response", "");
-    }
-
     private void setRequestAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
@@ -94,13 +85,13 @@ public class CommandUserShowAccountCards implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, Integer accountId) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, Integer accountId) {
         Account viewableAccount = AccountService.getInstance().findAccountByAccountId(accountId);
         List<BankCard> cards = BankCardService.getInstance().findCardsByAccountId(accountId);
 
-        if (cards != null) {
+        if (viewableAccount != null && cards != null) {
 
-            // formatting card numbers
+            // Formatting card numbers
             for (BankCard card : cards) {
                 card.setNumber(card.getNumber().replaceAll("(.{4})", "$1 "));
             }

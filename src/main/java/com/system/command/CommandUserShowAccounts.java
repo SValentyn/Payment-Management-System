@@ -15,43 +15,35 @@ import java.util.List;
 
 public class CommandUserShowAccounts implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
 
-        String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNTS);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACCOUNTS);
 
             // Set attributes obtained from the session
             setRequestAttributes(request);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
-
             // Check and set attributes
-            if (currentUser != null) {
-                if (request.getAttribute("accounts") == null) {
-                    setRequestAttributes(request, currentUser);
-                }
-            } else {
-                setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            if (request.getAttribute("accounts") == null) {
+                setRequestAttributes(request, currentUser);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACCOUNTS);
         }
 
         return pathRedirect;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("accountsEmpty", null);
-        request.setAttribute("accounts", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -101,7 +93,7 @@ public class CommandUserShowAccounts implements ICommand {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, User currentUser) throws SQLException {
+    private void setRequestAttributes(HttpServletRequest request, User currentUser) {
         List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
         if (accounts != null) {
             request.setAttribute("accountsEmpty", accounts.isEmpty());

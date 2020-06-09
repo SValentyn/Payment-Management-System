@@ -20,35 +20,24 @@ import java.util.List;
 
 public class CommandUserRepeatPayment implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_MAKE_PAYMENT);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_MAKE_PAYMENT);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
-            String paymentIdParam = request.getParameter("paymentId");
-
-            // Validation
-            if (!validation(request, currentUser, paymentIdParam)) {
-                return pathRedirect;
-            }
-
-            // Set attributes
-            setSessionAttributes(request, paymentIdParam);
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_MAKE_PAYMENT);
-
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String caseValue = request.getParameter("caseValue");
             String accountIdParam = request.getParameter("accountId");
             String recipientAccountNumber = request.getParameter("accountNumber");
@@ -58,8 +47,7 @@ public class CommandUserRepeatPayment implements ICommand {
 
             // Validation
             if (!validation(request, currentUser, caseValue, accountIdParam, recipientAccountNumber, recipientCardNumber, amount, appointment)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to make a payment");
                 return pathRedirect;
             }
 
@@ -105,18 +93,25 @@ public class CommandUserRepeatPayment implements ICommand {
                     setSessionAttributes(request, ServerResponse.PAYMENT_COMPLETED_SUCCESS);
                 }
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_MAKE_PAYMENT);
+
+            // URL Data
+            String paymentIdParam = request.getParameter("paymentId");
+
+            // Validation
+            if (!validation(request, currentUser, paymentIdParam)) {
+                return pathRedirect;
+            }
+
+            // Set attributes
+            setSessionAttributes(request, paymentIdParam);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String paymentIdParam) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String paymentIdParam) {
 
         // Validation paymentId
         if (!Validator.checkPaymentId(paymentIdParam)) {
@@ -142,13 +137,8 @@ public class CommandUserRepeatPayment implements ICommand {
         return true;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String caseValue, String accountIdParam, String recipientAccountNumber, String recipientCardNumber, String amount, String appointment) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String caseValue, String accountIdParam,
+                               String recipientAccountNumber, String recipientCardNumber, String amount, String appointment) {
 
         // Validation caseValue
         if (caseValue == null) {
@@ -156,7 +146,6 @@ public class CommandUserRepeatPayment implements ICommand {
             return false;
         }
 
-        // Validation recipient number
         if (caseValue.equals("on")) {
 
             // Validation accountId
@@ -165,16 +154,9 @@ public class CommandUserRepeatPayment implements ICommand {
                 return false;
             }
 
-            // Data
-            Integer accountId = Integer.valueOf(accountIdParam);
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
-            List<Integer> accountIds = new ArrayList<>();
-            for (Account account : accounts) {
-                accountIds.add(account.getAccountId());
-            }
-
             // Checking that the account belongs to the user
-            if (!accountIds.contains(accountId)) {
+            Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+            if (!account.getUserId().equals(currentUser.getUserId())) {
                 setSessionAttributes(request, "off", recipientAccountNumber, null, amount, appointment, ServerResponse.INVALID_DATA);
                 return false;
             }
@@ -186,8 +168,7 @@ public class CommandUserRepeatPayment implements ICommand {
             }
 
             // Checking that the user is making a payment to the account from which he pays
-            Account senderAccount = AccountService.getInstance().findAccountByAccountId(accountId);
-            if (senderAccount.getNumber().equals(recipientAccountNumber)) {
+            if (account.getNumber().equals(recipientAccountNumber)) {
                 setSessionAttributes(request, "off", accountIdParam, recipientAccountNumber, null, amount, appointment, ServerResponse.PAYMENT_TO_YOUR_ACCOUNT_ERROR);
                 return false;
             }
@@ -205,16 +186,9 @@ public class CommandUserRepeatPayment implements ICommand {
                 return false;
             }
 
-            // Data
-            Integer accountId = Integer.valueOf(accountIdParam);
-            List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
-            List<Integer> accountIds = new ArrayList<>();
-            for (Account account : accounts) {
-                accountIds.add(account.getAccountId());
-            }
-
             // Checking that the account belongs to the user
-            if (!accountIds.contains(accountId)) {
+            Account account = AccountService.getInstance().findAccountByAccountId(Integer.valueOf(accountIdParam));
+            if (!account.getUserId().equals(currentUser.getUserId())) {
                 setSessionAttributes(request, "on", null, recipientCardNumber, amount, appointment, ServerResponse.INVALID_DATA);
                 return false;
             }
@@ -237,20 +211,7 @@ public class CommandUserRepeatPayment implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("accounts", null);
-        request.setAttribute("isRepeatCommandValue", null);
-        request.setAttribute("caseValue", null);
-        request.setAttribute("accountIdValue", null);
-        request.setAttribute("numberByAccountIdValue", null);
-        request.setAttribute("accountNumberValue", null);
-        request.setAttribute("cardNumberValue", null);
-        request.setAttribute("amountValue", null);
-        request.setAttribute("appointmentValue", null);
-        request.setAttribute("response", "");
-    }
-
-    private void setSessionAttributes(HttpServletRequest request, String paymentIdParam) throws SQLException {
+    private void setSessionAttributes(HttpServletRequest request, String paymentIdParam) {
         Payment payment = PaymentService.getInstance().findPaymentByPaymentId(Integer.valueOf(paymentIdParam));
         Account account = AccountService.getInstance().findAccountByAccountId(payment.getAccountId());
         String recipientNumber = payment.getRecipientNumber();
@@ -281,7 +242,7 @@ public class CommandUserRepeatPayment implements ICommand {
     }
 
     private void setSessionAttributes(HttpServletRequest request, String caseValue, String accountId, String accountNumber, String cardNumber,
-                                      String amount, String appointment, ServerResponse serverResponse) throws SQLException {
+                                      String amount, String appointment, ServerResponse serverResponse) {
         request.getSession().setAttribute("caseValue", caseValue);
         request.getSession().setAttribute("accountId", accountId);
         request.getSession().setAttribute("numberByAccountId", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
@@ -296,7 +257,7 @@ public class CommandUserRepeatPayment implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

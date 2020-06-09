@@ -18,37 +18,34 @@ import java.sql.SQLException;
 
 public class CommandUserSupport implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SUPPORT);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String typeQuestion = request.getParameter("typeQuestion");
             String description = request.getParameter("description");
 
             // Validation
             if (!validation(request, currentUser, typeQuestion, description)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "Unsuccessful attempt to send a letter to Support");
+                logging(currentUser.getUserId(), "Unsuccessful attempt to send a letter to Support");
                 return pathRedirect;
             }
 
-            // Action (send letter)
+            // Action (send a letter)
             int status = LetterService.getInstance().addNewLetter(currentUser.getUserId(), Integer.valueOf(typeQuestion), description);
             if (status == 0) {
                 logging(currentUser.getUserId(), "Unsuccessful attempt to send a letter to Support");
@@ -56,18 +53,17 @@ public class CommandUserSupport implements ICommand {
             } else {
                 setSessionAttributes(request, ServerResponse.LETTER_SENT_SUCCESS);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SUPPORT);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String typeQuestion, String description) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String typeQuestion, String description) {
 
         // Validation type question
         if (!Validator.checkTypeQuestion(typeQuestion)) {
@@ -88,12 +84,6 @@ public class CommandUserSupport implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("typeQuestionValue", null);
-        request.setAttribute("descriptionValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -121,7 +111,7 @@ public class CommandUserSupport implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

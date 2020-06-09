@@ -15,57 +15,53 @@ import java.util.List;
 
 public class CommandUserSearchLogEntries implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACTION_LOG);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACTION_LOG);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACTION_LOG);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_ACTION_LOG);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String startDate = request.getParameter("start-date");
             String finalDate = request.getParameter("final-date");
 
             // Validation
-            if (!validation(request, currentUser, startDate, finalDate)) {
+            if (!validation(request, startDate, finalDate)) {
                 return pathRedirect;
             }
 
-            // Action (search letters)
+            // Action (search log entries)
             List<LogEntry> logEntries = ActionLogService.getInstance().searchByCriteria(currentUser.getUserId(), startDate, finalDate);
 
-            // Set attributes
+            // Check and set attributes
             if (logEntries == null) {
                 setSessionAttributes(request, startDate, finalDate, ServerResponse.SEARCH_LOG_ENTRIES_ERROR);
-                return pathRedirect;
-            }
-
-            // Set attributes
-            if (logEntries.size() == 0) {
-                setSessionAttributes(request, logEntries, startDate, finalDate, ServerResponse.SEARCH_LOG_ENTRIES_WARNING);
             } else {
-                setSessionAttributes(request, logEntries, startDate, finalDate, ServerResponse.SEARCH_LOG_ENTRIES_SUCCESS);
+                if (logEntries.isEmpty()) {
+                    setSessionAttributes(request, logEntries, startDate, finalDate, ServerResponse.SEARCH_LOG_ENTRIES_WARNING);
+                } else {
+                    setSessionAttributes(request, logEntries, startDate, finalDate, ServerResponse.SEARCH_LOG_ENTRIES_SUCCESS);
+                }
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_ACTION_LOG);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String startDate, String finalDate) {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, String startDate, String finalDate) {
 
         // Validation start and final dates
         if (!startDate.equals("") && !finalDate.equals("")) {
@@ -76,14 +72,6 @@ public class CommandUserSearchLogEntries implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("letters", null);
-        request.setAttribute("typeQuestionValue", null);
-        request.setAttribute("startDateValue", null);
-        request.setAttribute("finalDateValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setSessionAttributes(HttpServletRequest request, List<LogEntry> logEntries, String startDate, String finalDate, ServerResponse serverResponse) {

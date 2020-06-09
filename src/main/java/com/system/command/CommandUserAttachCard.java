@@ -19,36 +19,24 @@ import java.util.List;
 
 public class CommandUserAttachCard implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_ATTACH_CARD);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_ATTACH_CARD);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_ATTACH_CARD);
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
+            return pathRedirect;
+        }
 
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
-
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
-
-            // Check and set attributes
-            if (currentUser != null) {
-                request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId()));
-            } else {
-                request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
-            }
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_ATTACH_CARD);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // Form Data
             String accountIdParam = request.getParameter("accountId");
             String cardNumber = request.getParameter("number");
             String CVV = request.getParameter("CVV");
@@ -57,15 +45,14 @@ public class CommandUserAttachCard implements ICommand {
 
             // Validation
             if (!validation(request, currentUser, accountIdParam, cardNumber, CVV, month, year)) {
-                if (currentUser != null)
-                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
+                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
                 return pathRedirect;
             }
 
             // Data
             cardNumber = cardNumber.replaceAll(" ", "");
 
-            // Action (attach card)
+            // Action (attach a card)
             int status = BankCardService.getInstance().addNewBankCard(Integer.valueOf(accountIdParam), cardNumber, CVV, month, year);
             if (status == 0) {
                 logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to attach a card");
@@ -74,18 +61,20 @@ public class CommandUserAttachCard implements ICommand {
                 logging(currentUser.getUserId(), "ATTACHED: Card [" + cardNumber + "]");
                 setSessionAttributes(request, ServerResponse.CARD_ATTACHED_SUCCESS);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_ATTACH_CARD);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
+
+            // Set attributes
+            request.setAttribute("accounts", AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId()));
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam, String cardNumber, String CVV, String month, String year) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setSessionAttributes(request, accountIdParam, cardNumber, CVV, month, year, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String accountIdParam, String cardNumber, String CVV, String month, String year) {
 
         // Validation accountId
         if (!Validator.checkAccountId(accountIdParam)) {
@@ -137,16 +126,6 @@ public class CommandUserAttachCard implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("accountIdValue", null);
-        request.setAttribute("numberByAccountIdValue", null);
-        request.setAttribute("numberValue", null);
-        request.setAttribute("cvvValue", null);
-        request.setAttribute("monthValue", null);
-        request.setAttribute("yearValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -205,7 +184,7 @@ public class CommandUserAttachCard implements ICommand {
     }
 
     private void setSessionAttributes(HttpServletRequest request, String accountId, String cardNumber, String CVV,
-                                      String month, String year, ServerResponse serverResponse) throws SQLException {
+                                      String month, String year, ServerResponse serverResponse) {
         request.getSession().setAttribute("accountId", accountId);
         request.getSession().setAttribute("numberByAccountId", AccountService.getInstance().findAccountNumberByAccountId(Integer.valueOf(accountId)));
         request.getSession().setAttribute("number", cardNumber);
@@ -219,7 +198,7 @@ public class CommandUserAttachCard implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) throws SQLException {
+    private void logging(Integer userId, String description) {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 

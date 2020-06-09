@@ -19,22 +19,24 @@ import java.util.List;
 
 public class CommandUserShowPaymentInfo implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_PAYMENT_INFO);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_PAYMENT_INFO);
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_PAYMENT_INFO);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return pathRedirect;
+        }
+
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER_SHOW_PAYMENT_INFO);
 
-            // Data
-            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            // URL Data
             String paymentIdParam = request.getParameter("paymentId");
 
             // Validation
@@ -47,33 +49,27 @@ public class CommandUserShowPaymentInfo implements ICommand {
             Account senderAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getSenderNumber());
             User senderUser = UserService.getInstance().findUserById(senderAccount.getUserId());
 
-            // Check
+            // Check and set attributes
             if (senderUser == null) {
                 setRequestAttributes(request, ServerResponse.SHOW_PAYMENT_ERROR);
-                return pathRedirect;
-            }
-
-            // Set attributes
-            if (payment.getRecipientNumber().length() == 20) {
-                Account recipientAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getRecipientNumber());
-                User recipientUser = UserService.getInstance().findUserById(recipientAccount.getUserId());
-                setRequestAttributes(request, payment, senderUser, recipientUser, true);
             } else {
-                // [Obtaining cardholder data]
-                setRequestAttributes(request, payment, senderUser, null, false);
+                if (payment.getRecipientNumber().length() == 20) {
+                    Account recipientAccount = AccountService.getInstance().findAccountByAccountNumber(payment.getRecipientNumber());
+                    User recipientUser = UserService.getInstance().findUserById(recipientAccount.getUserId());
+                    setRequestAttributes(request, payment, senderUser, recipientUser, true);
+                } else {
+                    // [Obtaining cardholder data]
+                    setRequestAttributes(request, payment, senderUser, null, false);
+                }
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_USER_SHOW_PAYMENT_INFO);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, User currentUser, String paymentIdParam) throws SQLException {
-
-        // Check
-        if (currentUser == null) {
-            setRequestAttributes(request, ServerResponse.UNABLE_GET_DATA);
-            return false;
-        }
+    private boolean validation(HttpServletRequest request, User currentUser, String paymentIdParam) {
 
         // Validation paymentId
         if (!Validator.checkPaymentId(paymentIdParam)) {
@@ -97,21 +93,14 @@ public class CommandUserShowPaymentInfo implements ICommand {
         return true;
     }
 
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("payment", null);
-        request.setAttribute("senderUser", null);
-        request.setAttribute("recipientUser", null);
-        request.setAttribute("recipientIsAccount", null);
-        request.setAttribute("response", "");
-    }
-
     private void setRequestAttributes(HttpServletRequest request, Payment payment, User senderUser, User recipientUser, boolean recipientIsAccount) {
 
-        // formatting card numbers
+        // Formatting card numbers
         if (payment.getSenderNumber().length() == 16) {
             payment.setSenderNumber(payment.getSenderNumber().replaceAll("(.{4})", "$1 "));
         }
 
+        // Formatting card numbers
         if (payment.getRecipientNumber().length() == 16) {
             payment.setRecipientNumber(payment.getRecipientNumber().replaceAll("(.{4})", "$1 "));
         }
