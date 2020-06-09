@@ -57,10 +57,10 @@ public class LetterDaoImpl implements LetterDao {
     private static LetterDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
 
-    private LetterDaoImpl() throws SQLException {
+    private LetterDaoImpl() {
     }
 
-    public static synchronized LetterDaoImpl getInstance() throws SQLException {
+    public static synchronized LetterDaoImpl getInstance() {
         if (instance == null) {
             instance = new LetterDaoImpl();
         }
@@ -99,7 +99,7 @@ public class LetterDaoImpl implements LetterDao {
     public Letter findLetterByLetterId(Integer letterId) {
         Letter letter = new Letter();
         try {
-            ResultSet rs = executor.getResultSet(FIND_LETTER_BY_LETTER_ID, letterId);
+            ResultSet rs = executor.executeQuery(FIND_LETTER_BY_LETTER_ID, letterId);
             while (rs.next()) {
                 letter = createEntity(rs);
             }
@@ -113,7 +113,7 @@ public class LetterDaoImpl implements LetterDao {
     public List<Letter> findLettersByUserId(Integer userId) {
         List<Letter> letters = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_LETTERS_BY_USER_ID, userId);
+            ResultSet rs = executor.executeQuery(FIND_LETTERS_BY_USER_ID, userId);
             while (rs.next()) {
                 letters.add(createEntity(rs));
             }
@@ -127,7 +127,7 @@ public class LetterDaoImpl implements LetterDao {
     public List<Letter> findAllLetters() {
         List<Letter> letters = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_LETTERS);
+            ResultSet rs = executor.executeQuery(FIND_ALL_LETTERS);
             while (rs.next()) {
                 letters.add(createEntity(rs));
             }
@@ -149,10 +149,10 @@ public class LetterDaoImpl implements LetterDao {
 
             ResultSet rs;
             if (finalDate.equals("")) {
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, typeQuestion, startDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, typeQuestion, startDate);
             } else {
                 finalDate += " 23:59:59";
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA, typeQuestion, startDate, finalDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA, typeQuestion, startDate, finalDate);
             }
 
             while (rs.next()) {
@@ -176,10 +176,10 @@ public class LetterDaoImpl implements LetterDao {
 
             ResultSet rs;
             if (finalDate.equals("")) {
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, startDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, startDate);
             } else {
                 finalDate += " 23:59:59";
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION, startDate, finalDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA_WITHOUT_TYPE_QUESTION, startDate, finalDate);
             }
 
             while (rs.next()) {

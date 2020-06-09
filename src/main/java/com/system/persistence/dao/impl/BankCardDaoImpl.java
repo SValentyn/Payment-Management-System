@@ -39,10 +39,10 @@ public class BankCardDaoImpl implements BankCardDao {
     private static BankCardDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
 
-    private BankCardDaoImpl() throws SQLException {
+    private BankCardDaoImpl() {
     }
 
-    public static synchronized BankCardDaoImpl getInstance() throws SQLException {
+    public static synchronized BankCardDaoImpl getInstance() {
         if (instance == null) {
             instance = new BankCardDaoImpl();
         }
@@ -77,90 +77,90 @@ public class BankCardDaoImpl implements BankCardDao {
 
     @Override
     public BankCard findCardByCardId(Integer cardId) {
-        BankCard creditCard = null;
+        BankCard card = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_CARD_BY_CARD_ID, cardId);
+            ResultSet rs = executor.executeQuery(FIND_CARD_BY_CARD_ID, cardId);
             if (rs.next()) {
-                creditCard = createEntity(rs);
+                card = createEntity(rs);
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }
-        return creditCard;
+        return card;
     }
 
     @Override
     public BankCard findCardByCardNumber(String number) {
-        BankCard creditCard = null;
+        BankCard card = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_CARD_BY_NUMBER, number);
+            ResultSet rs = executor.executeQuery(FIND_CARD_BY_NUMBER, number);
             if (rs.next()) {
-                creditCard = createEntity(rs);
+                card = createEntity(rs);
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }
-        return creditCard;
+        return card;
     }
 
     @Override
     public List<BankCard> findCardsByAccountId(Integer accountId) {
-        List<BankCard> creditCards = new ArrayList<>();
+        List<BankCard> cards = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_CARDS_BY_ACCOUNT_ID, accountId);
+            ResultSet rs = executor.executeQuery(FIND_CARDS_BY_ACCOUNT_ID, accountId);
             while (rs.next()) {
-                creditCards.add(createEntity(rs));
+                cards.add(createEntity(rs));
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }
-        return creditCards;
+        return cards;
     }
 
     @Override
     public List<BankCard> findCardsByUserId(Integer userId) {
-        List<BankCard> creditCards = new ArrayList<>();
+        List<BankCard> cards = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_CARDS_BY_USER_ID, userId);
+            ResultSet rs = executor.executeQuery(FIND_CARDS_BY_USER_ID, userId);
             while (rs.next()) {
-                creditCards.add(createEntity(rs));
+                cards.add(createEntity(rs));
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }
-        return creditCards;
+        return cards;
     }
 
     @Override
     public List<BankCard> findAllCards() {
-        List<BankCard> creditCards = new ArrayList<>();
+        List<BankCard> cards = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_CARDS);
+            ResultSet rs = executor.executeQuery(FIND_ALL_CARDS);
             while (rs.next()) {
-                creditCards.add(createEntity(rs));
+                cards.add(createEntity(rs));
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }
-        return creditCards;
+        return cards;
     }
 
     /**
      * Creates entity from result set
      */
     private BankCard createEntity(ResultSet rs) {
-        BankCard creditCard = new BankCard();
+        BankCard card = new BankCard();
         try {
-            creditCard.setAccountId(rs.getInt("account_id"));
-            creditCard.setCardId(rs.getInt("card_id"));
-            creditCard.setNumber(rs.getString("number"));
-            creditCard.setCVV(rs.getString("cvv"));
-            creditCard.setValidity(rs.getString("validity"));
-            creditCard.setIsActive(rs.getBoolean("is_active"));
+            card.setCardId(rs.getInt("card_id"));
+            card.setAccountId(rs.getInt("account_id"));
+            card.setNumber(rs.getString("number"));
+            card.setCVV(rs.getString("cvv"));
+            card.setValidity(rs.getString("validity"));
+            card.setIsActive(rs.getBoolean("is_active"));
         } catch (SQLException e) {
             LOGGER.error("SQL exception: " + e.getMessage());
         }
-        return creditCard;
+        return card;
     }
 
 }

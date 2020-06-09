@@ -5,7 +5,7 @@ import com.system.entity.User;
 import java.util.List;
 
 /**
- * The UserDao interface provides methods for retrieving data for User entity
+ * The interface provides methods for retrieving data for a User entity
  *
  * @author Syniuk Valentyn
  */
@@ -17,7 +17,7 @@ public interface UserDao {
     int create(User entity);
 
     /**
-     * Updates existing account
+     * Updates user data
      */
     int update(User entity);
 
@@ -32,9 +32,9 @@ public interface UserDao {
     User findUserByUserId(Integer userId);
 
     /**
-     * Retrieves user by login and password
+     * Retrieves user by phone and password
      */
-    User findUserByLoginAndPassword(String login, String password);
+    User findUserByPhoneAndPassword(String phone, String password);
 
     /**
      * Retrieves user by phone number
@@ -42,7 +42,7 @@ public interface UserDao {
     User findUserByPhoneNumber(String phone);
 
     /**
-     * Retrieves all users
+     * Retrieves all users in the system
      */
     List<User> findAllUsers();
 

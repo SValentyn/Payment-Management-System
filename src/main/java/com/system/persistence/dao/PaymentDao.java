@@ -5,14 +5,14 @@ import com.system.entity.Payment;
 import java.util.List;
 
 /**
- * The PaymentDao interface provides methods for retrieving data for Payment entity
+ * The interface provides methods for retrieving data for a Payment entity
  *
  * @author Syniuk Valentyn
  */
 public interface PaymentDao {
 
     /**
-     * Inserts new entity into DB
+     * Inserts new entity into database
      */
     int create(Payment entity);
 
@@ -37,7 +37,7 @@ public interface PaymentDao {
     List<Payment> findLastPaymentsByUserId(Integer userId);
 
     /**
-     * Retrieves all payments
+     * Retrieves all payments in the system
      */
     List<Payment> findAllPayments();
 

@@ -5,7 +5,7 @@ import com.system.entity.BankCard;
 import java.util.List;
 
 /**
- * The BankCardDao interface provides methods for retrieving data for BankCard entity
+ * The interface provides methods for retrieving data for a BankCard entity
  *
  * @author Syniuk Valentyn
  */
@@ -47,7 +47,7 @@ public interface BankCardDao {
     List<BankCard> findCardsByUserId(Integer userId);
 
     /**
-     * Retrieves all bank cards
+     * Retrieves all bank cards in the system
      */
     List<BankCard> findAllCards();
 

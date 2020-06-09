@@ -1,14 +1,10 @@
 package com.system.persistence.dao.impl;
 
-import com.mysql.jdbc.ResultSetRow;
 import com.mysql.jdbc.Statement;
 import com.system.persistence.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import javax.sql.rowset.CachedRowSet;
-import javax.sql.rowset.RowSetFactory;
-import javax.sql.rowset.RowSetProvider;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,10 +27,10 @@ public class QueryExecutor {
     private final Connection connection = getConnection();
     private PreparedStatement preparedStatement;
 
-    private QueryExecutor() throws SQLException {
+    private QueryExecutor() {
     }
 
-    public static synchronized QueryExecutor getInstance() throws SQLException {
+    public static synchronized QueryExecutor getInstance() {
         if (instance == null) {
             instance = new QueryExecutor();
         }
@@ -42,49 +38,71 @@ public class QueryExecutor {
     }
 
     /**
-     * [For use on the site]
-     * <p>
-     * Getting a connection directly from the DB
+     * This connection used on localhost.
+     * Uncomment the code below and comment on this code.
+     *
+     * @return ready connection to the DB
      */
-    private Connection getConnection() {
+//    private synchronized Connection getConnection() {
+//        try {
+//            return ConnectionPool.getDatasource().getConnection();
+//        } catch (SQLException e) {
+//            LOGGER.error("SQLException: " + e.getMessage());
+//            return null;
+//        }
+//    }
+
+    /**
+     * This connection used on hosting.
+     * Uncomment this code and comment on the code above.
+     *
+     * @return ready connection to the DB
+     */
+    private synchronized Connection getConnection() {
         try {
             return ConnectionPool.getConnection();
         } catch (URISyntaxException | SQLException e) {
             LOGGER.error("SQLException: " + e.getMessage());
-            e.printStackTrace();
             return null;
         }
     }
 
     /**
-     * Uncomment the code below for local use (localhost) and comment out the code above (for the site)
-     * <p>
-     * Getting connection from connection pool
+     * Executes SELECT queries
+     *
+     * @return result set
      */
-//    private Connection getConnection() throws SQLException {
-//        return ConnectionPool.getDatasource().getConnection();
-//    }
+    public ResultSet executeQuery(String query, Object... args) throws SQLException {
+        if (connection != null) {
+            preparedStatement = connection.prepareStatement(query);
+            setValues(preparedStatement, args);
+        }
+
+        return preparedStatement.executeQuery();
+    }
 
     /**
-     * Executes insert, update and delete queries
+     * Executes INSERT, UPDATE and DELETE queries
      *
-     * @return id or boolean result
+     * @return ID or boolean result
      */
     public int executeStatement(String query, Object... args) {
+        int result = 0;
         try {
-            preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            setValues(preparedStatement, args);
-            int result = preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            } else {
-                return result;
+            if (connection != null) {
+                preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                setValues(preparedStatement, args);
+
+                result = preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    result = resultSet.getInt(1);
+                }
             }
         } catch (SQLException e) {
             LOGGER.error("Execute statement error: " + e.getMessage());
         }
-        return 0;
+        return result;
     }
 
     /**
@@ -97,22 +115,15 @@ public class QueryExecutor {
     }
 
     /**
-     * Executes select query and returns result set
-     */
-    public ResultSet getResultSet(String query, Object... args) throws SQLException {
-        preparedStatement = connection.prepareStatement(query);
-        setValues(preparedStatement, args);
-        return preparedStatement.executeQuery();
-    }
-
-    /**
      * Close connection to pool
      */
     public void closeConnection() {
         try {
-            connection.close();
+            if (connection != null) {
+                connection.close();
+            }
         } catch (SQLException e) {
-            LOGGER.error("Error while closing connection..");
+            LOGGER.error("Error while closing connection. SQLException: " + e.getMessage());
         }
     }
 

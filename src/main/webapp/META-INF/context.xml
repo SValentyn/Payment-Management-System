@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
 
-    <!-- The JDBC data source for the deployment to the site is indicated -->
+    <!-- Specified JDBC data source for hosting deployment -->
     <Resource name="jdbc/pool"
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://azjetwv6skkeel05:rhjk8jjqxr4ef2zf@r42ii9gualwp7i1y.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/ha9pcps6k1m1y674?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;failOverReadOnly=false&amp;maxReconnects=10"
+              url="jdbc:mysql://azjetwv6skkeel05:rhjk8jjqxr4ef2zf@r42ii9gualwp7i1y.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/ha9pcps6k1m1y674?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;failOverReadOnly=false&amp;maxReconnects=10"
               username="azjetwv6skkeel05"
               password="rhjk8jjqxr4ef2zf"
               validationQuery="select now()"
@@ -15,19 +15,18 @@
               maxIdle="100">
     </Resource>
 
-    <!-- The JDBC data source for deployment locally is specified -->
-<!--    <Resource name="jdbc/pool"-->
-<!--              auth="Container"-->
-<!--              type="javax.sql.DataSource"-->
-<!--              driverClassName="com.mysql.jdbc.Driver"-->
-<!--              url="jdbc:mysql://localhost:3306/pms_db?useSSL=false&amp;useUnicode=true&amp;autoReconnect=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;failOverReadOnly=false&amp;maxReconnects=10"-->
-<!--              username="root"-->
-<!--              password="pppp"-->
-<!--              connectionTestQuery=""-->
-<!--              validationQuery="select now()"-->
-<!--              maxWaitMillis="60000"-->
-<!--              maxTotal="100"-->
-<!--              maxIdle="100">-->
-<!--    </Resource>-->
+    <!-- Specified JDBC data source for local deployment -->
+    <!--<Resource name="jdbc/pool"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/pms_db?useSSL=false&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;failOverReadOnly=false&amp;maxReconnects=10"
+              username="root"
+              password="pppp"
+              validationQuery="select now()"
+              maxWaitMillis="60000"
+              maxTotal="100"
+              maxIdle="100">
+        </Resource>-->
 
 </Context>

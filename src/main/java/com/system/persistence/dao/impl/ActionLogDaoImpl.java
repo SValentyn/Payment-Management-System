@@ -44,10 +44,10 @@ public class ActionLogDaoImpl implements ActionLogDao {
     private static ActionLogDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
 
-    private ActionLogDaoImpl() throws SQLException {
+    private ActionLogDaoImpl() {
     }
 
-    public static synchronized ActionLogDaoImpl getInstance() throws SQLException {
+    public static synchronized ActionLogDaoImpl getInstance() {
         if (instance == null) {
             instance = new ActionLogDaoImpl();
         }
@@ -75,7 +75,7 @@ public class ActionLogDaoImpl implements ActionLogDao {
     public LogEntry findLogEntryByLogEntryId(Integer logEntryId) {
         LogEntry logEntry = new LogEntry();
         try {
-            ResultSet rs = executor.getResultSet(FIND_LOG_ENTRY_BY_ID, logEntryId);
+            ResultSet rs = executor.executeQuery(FIND_LOG_ENTRY_BY_ID, logEntryId);
             while (rs.next()) {
                 logEntry = createEntity(rs);
             }
@@ -89,7 +89,7 @@ public class ActionLogDaoImpl implements ActionLogDao {
     public List<LogEntry> findLogEntriesByUserId(Integer userId) {
         List<LogEntry> logEntries = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_LOG_ENTRIES_BY_USER_ID, userId);
+            ResultSet rs = executor.executeQuery(FIND_LOG_ENTRIES_BY_USER_ID, userId);
             while (rs.next()) {
                 logEntries.add(createEntity(rs));
             }
@@ -111,10 +111,10 @@ public class ActionLogDaoImpl implements ActionLogDao {
 
             ResultSet rs;
             if (finalDate.equals("")) {
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, startDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, startDate);
             } else {
                 finalDate += " 23:59:59";
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA, userId, startDate, finalDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA, userId, startDate, finalDate);
             }
 
             while (rs.next()) {

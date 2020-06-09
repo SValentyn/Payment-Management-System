@@ -5,7 +5,7 @@ import com.system.entity.LogEntry;
 import java.util.List;
 
 /**
- * The ActionLogDao interface provides methods for retrieving log entry for LogEntry entity
+ * The interface provides methods for retrieving data for an LogEntry entity
  *
  * @author Syniuk Valentyn
  */

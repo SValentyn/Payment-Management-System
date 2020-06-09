@@ -5,7 +5,7 @@ import com.system.entity.Account;
 import java.util.List;
 
 /**
- * The AccountDao interface provides methods for retrieving data for Account entity
+ * The interface provides methods for retrieving data for an Account entity
  *
  * @author Syniuk Valentyn
  */
@@ -42,7 +42,7 @@ public interface AccountDao {
     List<Account> findAllAccountsByUserId(Integer userId);
 
     /**
-     * Returns all accounts
+     * Returns all accounts in the system
      */
     List<Account> findAllAccounts();
 

@@ -45,10 +45,10 @@ public class AccountDaoImpl implements AccountDao {
     private static AccountDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
 
-    private AccountDaoImpl() throws SQLException {
+    private AccountDaoImpl() {
     }
 
-    public static synchronized AccountDaoImpl getInstance() throws SQLException {
+    public static synchronized AccountDaoImpl getInstance() {
         if (instance == null) {
             instance = new AccountDaoImpl();
         }
@@ -86,7 +86,7 @@ public class AccountDaoImpl implements AccountDao {
     public Account findAccountById(Integer accountId) {
         Account account = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_ACCOUNT_BY_ID, accountId);
+            ResultSet rs = executor.executeQuery(FIND_ACCOUNT_BY_ID, accountId);
             if (rs.next()) {
                 account = createEntity(rs);
             }
@@ -100,7 +100,7 @@ public class AccountDaoImpl implements AccountDao {
     public Account findAccountByNumber(String number) {
         Account account = null;
         try {
-            ResultSet rs = executor.getResultSet(FIND_ACCOUNT_BY_NUMBER, number);
+            ResultSet rs = executor.executeQuery(FIND_ACCOUNT_BY_NUMBER, number);
             if (rs.next()) {
                 account = createEntity(rs);
             }
@@ -114,7 +114,7 @@ public class AccountDaoImpl implements AccountDao {
     public List<Account> findAllAccountsByUserId(Integer userId) {
         List<Account> accounts = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_ACCOUNTS_BY_USER_ID, userId);
+            ResultSet rs = executor.executeQuery(FIND_ALL_ACCOUNTS_BY_USER_ID, userId);
             while (rs.next()) {
                 accounts.add(createEntity(rs));
             }
@@ -128,7 +128,7 @@ public class AccountDaoImpl implements AccountDao {
     public List<Account> findAllAccounts() {
         List<Account> accounts = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_ACCOUNTS);
+            ResultSet rs = executor.executeQuery(FIND_ALL_ACCOUNTS);
             while (rs.next()) {
                 accounts.add(createEntity(rs));
             }
@@ -142,7 +142,7 @@ public class AccountDaoImpl implements AccountDao {
     public List<Account> searchByCriteria(Integer userId, String number, String min_value, String max_value, String currency) {
         List<Account> accounts = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(SEARCH_BY_CRITERIA_AND_USER_ID, userId, number, min_value, max_value, currency);
+            ResultSet rs = executor.executeQuery(SEARCH_BY_CRITERIA_AND_USER_ID, userId, number, min_value, max_value, currency);
             while (rs.next()) {
                 accounts.add(createEntity(rs));
             }
@@ -156,7 +156,7 @@ public class AccountDaoImpl implements AccountDao {
     public List<Account> searchByCriteria(String number, String min_value, String max_value, String currency) {
         List<Account> accounts = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(SEARCH_BY_CRITERIA, number, min_value, max_value, currency);
+            ResultSet rs = executor.executeQuery(SEARCH_BY_CRITERIA, number, min_value, max_value, currency);
             while (rs.next()) {
                 accounts.add(createEntity(rs));
             }
@@ -172,8 +172,8 @@ public class AccountDaoImpl implements AccountDao {
     private Account createEntity(ResultSet rs) {
         Account account = new Account();
         try {
-            account.setUserId(rs.getInt("user_id"));
             account.setAccountId(rs.getInt("account_id"));
+            account.setUserId(rs.getInt("user_id"));
             account.setNumber(rs.getString("number"));
             account.setBalance(rs.getBigDecimal("balance"));
             account.setCurrency(rs.getString("currency"));

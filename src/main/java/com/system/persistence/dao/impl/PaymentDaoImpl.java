@@ -26,11 +26,13 @@ public class PaymentDaoImpl implements PaymentDao {
      * SQL queries
      */
     private static final String CREATE_PAYMENT =
-            "INSERT INTO payments(account_id, isOutgoing, senderNumber, senderAmount, senderCurrency, recipientNumber, recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, `date`, `condition`) " +
+            "INSERT INTO payments(account_id, is_outgoing, senderNumber, senderAmount, senderCurrency, recipientNumber, recipientAmount, recipientCurrency, exchangeRate, newBalance, appointment, `date`, `condition`) " +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String FIND_ALL_PAYMENTS = "SELECT * FROM payments";
     private static final String FIND_PAYMENT_BY_ID = "SELECT * FROM payments WHERE payment_id = ?";
-    private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE account_id = ? ORDER BY payment_id DESC";
+    private static final String FIND_ALL_PAYMENTS_BY_ACCOUNT_ID =
+            "SELECT * FROM payments " +
+                    "WHERE account_id = ? ORDER BY payment_id DESC";
     private static final String FIND_ALL_PAYMENTS_BY_USER_ID =
             "SELECT payments.* FROM payments " +
                     "INNER JOIN accounts ON payments.account_id = accounts.account_id " +
@@ -42,13 +44,13 @@ public class PaymentDaoImpl implements PaymentDao {
     private static final String SEARCH_BY_CRITERIA =
             "SELECT payments.* FROM payments " +
                     "INNER JOIN accounts ON payments.account_id = accounts.account_id " +
-                    "WHERE accounts.user_id = ? AND isOutgoing = ? AND " +
+                    "WHERE accounts.user_id = ? AND is_outgoing = ? AND " +
                     "date BETWEEN STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND " +
                     "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s)') ORDER BY date DESC;";
     private static final String SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP =
             "SELECT payments.* FROM payments " +
                     "INNER JOIN accounts ON payments.account_id = accounts.account_id " +
-                    "WHERE accounts.user_id = ? AND isOutgoing = ? AND date BETWEEN " +
+                    "WHERE accounts.user_id = ? AND is_outgoing = ? AND date BETWEEN " +
                     "STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s') AND " +
                     "CURRENT_TIMESTAMP() ORDER BY date DESC;";
     private static final String SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING =
@@ -67,10 +69,10 @@ public class PaymentDaoImpl implements PaymentDao {
     private static PaymentDaoImpl instance = null;
     private final QueryExecutor executor = QueryExecutor.getInstance();
 
-    private PaymentDaoImpl() throws SQLException {
+    private PaymentDaoImpl() {
     }
 
-    public static synchronized PaymentDaoImpl getInstance() throws SQLException {
+    public static synchronized PaymentDaoImpl getInstance() {
         if (instance == null) {
             instance = new PaymentDaoImpl();
         }
@@ -101,9 +103,9 @@ public class PaymentDaoImpl implements PaymentDao {
 
     @Override
     public Payment findPaymentByPaymentId(Integer paymentId) {
-        Payment payment = null;
+        Payment payment = new Payment();
         try {
-            ResultSet rs = executor.getResultSet(FIND_PAYMENT_BY_ID, paymentId);
+            ResultSet rs = executor.executeQuery(FIND_PAYMENT_BY_ID, paymentId);
             if (rs.next()) {
                 payment = createEntity(rs);
             }
@@ -117,7 +119,7 @@ public class PaymentDaoImpl implements PaymentDao {
     public List<Payment> findAllPaymentsByAccountId(Integer accountId) {
         List<Payment> payments = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_PAYMENTS_BY_ACCOUNT_ID, accountId);
+            ResultSet rs = executor.executeQuery(FIND_ALL_PAYMENTS_BY_ACCOUNT_ID, accountId);
             while (rs.next()) {
                 payments.add(createEntity(rs));
             }
@@ -131,7 +133,7 @@ public class PaymentDaoImpl implements PaymentDao {
     public List<Payment> findAllPaymentsByUserId(Integer userId) {
         List<Payment> payments = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_PAYMENTS_BY_USER_ID, userId);
+            ResultSet rs = executor.executeQuery(FIND_ALL_PAYMENTS_BY_USER_ID, userId);
             while (rs.next()) {
                 payments.add(createEntity(rs));
             }
@@ -145,7 +147,7 @@ public class PaymentDaoImpl implements PaymentDao {
     public List<Payment> findLastPaymentsByUserId(Integer userId) {
         List<Payment> payments = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_PAYMENTS_BY_USER_ID_LIMIT_3, userId);
+            ResultSet rs = executor.executeQuery(FIND_ALL_PAYMENTS_BY_USER_ID_LIMIT_3, userId);
             while (rs.next()) {
                 payments.add(createEntity(rs));
             }
@@ -159,7 +161,7 @@ public class PaymentDaoImpl implements PaymentDao {
     public List<Payment> findAllPayments() {
         List<Payment> payments = new ArrayList<>();
         try {
-            ResultSet rs = executor.getResultSet(FIND_ALL_PAYMENTS);
+            ResultSet rs = executor.executeQuery(FIND_ALL_PAYMENTS);
             while (rs.next()) {
                 payments.add(createEntity(rs));
             }
@@ -181,10 +183,10 @@ public class PaymentDaoImpl implements PaymentDao {
 
             ResultSet rs;
             if (finalDate.equals("")) {
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, isOutgoing, startDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, isOutgoing, startDate);
             } else {
                 finalDate += " 23:59:59";
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA, userId, isOutgoing, startDate, finalDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA, userId, isOutgoing, startDate, finalDate);
             }
 
             while (rs.next()) {
@@ -208,10 +210,10 @@ public class PaymentDaoImpl implements PaymentDao {
 
             ResultSet rs;
             if (finalDate.equals("")) {
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, startDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING_AND_FINAL_DATE_AS_CURRENT_TIMESTAMP, userId, startDate);
             } else {
                 finalDate += " 23:59:59";
-                rs = executor.getResultSet(SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING, userId, startDate, finalDate);
+                rs = executor.executeQuery(SEARCH_BY_CRITERIA_WITHOUT_ISOUTGOING, userId, startDate, finalDate);
             }
 
             while (rs.next()) {
@@ -231,7 +233,7 @@ public class PaymentDaoImpl implements PaymentDao {
         try {
             payment.setPaymentId(rs.getInt("payment_id"));
             payment.setAccountId(rs.getInt("account_id"));
-            payment.setIsOutgoing(rs.getBoolean("isOutgoing"));
+            payment.setIsOutgoing(rs.getBoolean("is_outgoing"));
             payment.setSenderNumber(rs.getString("senderNumber"));
             payment.setSenderAmount(rs.getBigDecimal("senderAmount"));
             payment.setSenderCurrency(rs.getString("senderCurrency"));

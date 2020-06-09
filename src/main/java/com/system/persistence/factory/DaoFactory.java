@@ -3,10 +3,8 @@ package com.system.persistence.factory;
 import com.system.persistence.dao.*;
 import com.system.persistence.dao.impl.*;
 
-import java.sql.SQLException;
-
 /**
- * A class that returns new instances of data access objects (DAO)
+ * Classes that returns new instances of data access objects (DAO)
  *
  * @author Syniuk Valentyn
  */
@@ -15,42 +13,42 @@ public class DaoFactory {
     /**
      * @return UserDao
      */
-    public static UserDao createUserDao() throws SQLException {
+    public static UserDao createUserDao() {
         return UserDaoImpl.getInstance();
     }
 
     /**
      * @return AccountDao
      */
-    public static AccountDao createAccountDao() throws SQLException {
+    public static AccountDao createAccountDao() {
         return AccountDaoImpl.getInstance();
     }
 
     /**
      * @return BankCardDao
      */
-    public static BankCardDao createBankCardDao() throws SQLException {
+    public static BankCardDao createBankCardDao() {
         return BankCardDaoImpl.getInstance();
     }
 
     /**
      * @return PaymentDao
      */
-    public static PaymentDao createPaymentDao() throws SQLException {
+    public static PaymentDao createPaymentDao() {
         return PaymentDaoImpl.getInstance();
     }
 
     /**
      * @return LetterDao
      */
-    public static LetterDao createLetterDao() throws SQLException {
+    public static LetterDao createLetterDao() {
         return LetterDaoImpl.getInstance();
     }
 
     /**
      * @return ActionLogDao
      */
-    public static ActionLogDao createActionLogDao() throws SQLException {
+    public static ActionLogDao createActionLogDao() {
         return ActionLogDaoImpl.getInstance();
     }
 

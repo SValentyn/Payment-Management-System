@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * A class that provides access to the database by obtaining a Connection or Datasource
+ * Class provides access to the database by obtaining a Connection or Datasource
  *
  * @author Syniuk Valentyn
  */
@@ -28,39 +28,7 @@ public class ConnectionPool {
     }
 
     /**
-     * [For use on the site]
-     * <p>
-     * Getting parameters from file (in context.xml resource is created)
-     *
-     * @return ready connection to the DB
-     */
-    public static synchronized Connection getConnection() throws URISyntaxException, SQLException {
-        try {
-            try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-            } catch (ClassNotFoundException e) {
-                LOGGER.error("ClassNotFoundException: " + e.getMessage());
-                e.printStackTrace();
-            }
-        } catch (InstantiationException | IllegalAccessException e) {
-            LOGGER.error("Class object cannot be instantiated! Exception:" + e.getMessage());
-            e.printStackTrace();
-        }
-
-        // jdbc:mysql://azjetwv6skkeel05:rhjk8jjqxr4ef2zf@r42ii9gualwp7i1y.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/ha9pcps6k1m1y674?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
-        URI dbUri = new URI(System.getenv("JAWSDB_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
-
-        return DriverManager.getConnection(dbUrl, username, password);
-    }
-
-    /**
-     * [For local use (localhost)]
-     * <p>
-     * Getting parameters from file (in context.xml resource is created)
+     * This connection used on localhost. Gets the parameters from the context.xml file.
      *
      * @return DataSource, from which connection to DB can be gotten
      */
@@ -70,11 +38,31 @@ public class ConnectionPool {
                 Context initialContext = new InitialContext();
                 Context environmentContext = (Context) initialContext.lookup("java:comp/env");
                 datasource = (DataSource) environmentContext.lookup("jdbc/pool");
-            } catch (NamingException ex) {
-                Logger.getLogger(ConnectionPool.class.getName()).error("NamingException: " + ex.getMessage());
+            } catch (NamingException e) {
+                LOGGER.error("NamingException: " + e.getMessage());
             }
         }
         return datasource;
+    }
+
+    /**
+     * This connection used on hosting.
+     *
+     * @return ready connection to the DB
+     */
+    public static synchronized Connection getConnection() throws URISyntaxException, SQLException {
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            LOGGER.error("The driver class object could not be instantiated! Exception:" + e.getMessage());
+        }
+
+        URI uri = new URI(System.getenv("JAWSDB_URL"));
+        String username = uri.getUserInfo().split(":")[0];
+        String password = uri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:mysql://" + uri.getHost() + uri.getPath();
+
+        return DriverManager.getConnection(dbUrl, username, password);
     }
 
 }
