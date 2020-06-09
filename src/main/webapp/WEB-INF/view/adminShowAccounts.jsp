@@ -83,11 +83,11 @@
             <div class="col-lg-10">
                 <fmt:message key="admin.page.allUsers" var="allUsers"/>
                 <fmt:message key="admin.page.allAccounts" var="allAccounts"/>
-                <fmt:message key="user.account.balance" var="balance"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
-                <fmt:message key="user.createAccount.numberNewAccount" var="numberAccount"/>
+                <fmt:message key="user.account_info.balance" var="balance"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.create_account.numberNewAccount" var="numberAccount"/>
                 <fmt:message key="admin.user_accounts.balanceRange" var="balanceRange"/>
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                 <fmt:message key="registration.tooltipOnlyDigits" var="tooltipOnlyDigits"/>
@@ -159,7 +159,7 @@
                                                                                    data-toggle="tooltip-left"
                                                                                    data-title="${tooltipOnlyDigits}"
                                                                                    maxlength="20"
-                                                                                   onkeypress="onlyNumbers();"
+                                                                                   onkeypress="inputOnlyNumbers();"
                                                                                    placeholder="${numberAccount}"
                                                                                    value="${numberValue}"/>
                                                                         </div>

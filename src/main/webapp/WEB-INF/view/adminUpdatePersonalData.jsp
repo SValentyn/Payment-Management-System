@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.updateData.title"/></title>
+    <title><fmt:message key="user.update_data.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -114,13 +114,13 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="user.updateData.formHeader" var="formHeader"/>
+                <fmt:message key="user.update_data.formHeader" var="formHeader"/>
                 <fmt:message key="registration.name" var="name"/>
                 <fmt:message key="registration.surname" var="surname"/>
                 <fmt:message key="registration.email" var="email"/>
-                <fmt:message key="user.updateData.password" var="password"/>
-                <fmt:message key="user.updateData.updateData" var="updateDataButton"/>
-                <fmt:message key="user.updateData.changePassword" var="changePasswordButton"/>
+                <fmt:message key="user.update_data.password" var="password"/>
+                <fmt:message key="user.update_data.updateData" var="updateDataButton"/>
+                <fmt:message key="user.update_data.changePassword" var="changePasswordButton"/>
                 <fmt:message key="registration.nameError" var="nameError"/>
                 <fmt:message key="registration.surnameError" var="surnameError"/>
                 <fmt:message key="registration.phoneError" var="loginError"/>
@@ -129,7 +129,7 @@
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                 <fmt:message key="registration.tooltipOnlyDigits" var="tooltipPhone"/>
                 <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
-                <fmt:message key="user.updateData.tooltipPassword" var="tooltipPassword"/>
+                <fmt:message key="user.update_data.tooltipPassword" var="tooltipPassword"/>
                 <fmt:message key="registration.correct" var="correct"/>
 
                 <div class="page-content container-fluid">
@@ -146,8 +146,9 @@
                                         <form action="" method="POST" role="form">
                                             <input type="hidden" name="command" value="profile"/>
 
-                                            <!-- Name -->
                                             <div class="form-row">
+
+                                                <!-- Name -->
                                                 <div class="col-md-6">
                                                     <input id="name" name="name" type="text" class="form-control"
                                                            data-toggle="tooltip-left"
@@ -188,7 +189,7 @@
                                                     <input id="phone" name="phone" type="tel" class="form-control"
                                                            data-toggle="tooltip"
                                                            data-title="${tooltipPhone}"
-                                                           onkeypress="onlyNumbers();"
+                                                           onkeypress="inputOnlyNumbers();"
                                                            value="${phoneValue}"/>
                                                     <label for="phone" class="default-label">
                                                         <span id="valid-msg-phone" class="valid-msg invisible">
@@ -228,10 +229,11 @@
                                                                class="form-control"
                                                                data-toggle="tooltip"
                                                                data-title="${tooltipPassword}"
+                                                               minlength="6" maxlength="255"
                                                                placeholder="${password}*"/>
                                                         <a href="#" class="password-control"
                                                            onfocus="this.blur();"
-                                                           onclick="return show_hide_password(this);"></a>
+                                                           onclick="return toggle_password(this);"></a>
                                                     </div>
                                                     <label for="password" class="default-label">
                                                         <span id="valid-msg-password" class="valid-msg invisible">

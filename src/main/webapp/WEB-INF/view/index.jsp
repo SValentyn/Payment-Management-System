@@ -143,7 +143,7 @@
                                     <!-- Login -->
                                     <div>
                                         <input id="login" name="login" type="tel" class="form-control"
-                                               onkeypress="onlyNumbers();"
+                                               onkeypress="inputOnlyNumbers();"
                                                value="${loginValue}"/>
                                         <label for="login" class="default-label">
                                             <span id="valid-msg-login" class="valid-msg invisible">
@@ -159,10 +159,11 @@
                                     <div class="password-input">
                                         <input id="password" name="password" type="password"
                                                class="form-control" style="margin-top: 10px;"
+                                               minlength="6" maxlength="255"
                                                placeholder="${password}"/>
                                         <a href="#" class="password-control"
                                            onfocus="this.blur();"
-                                           onclick="return show_hide_password(this);"></a>
+                                           onclick="return toggle_password(this);"></a>
                                     </div>
                                     <label for="password" class="default-label">
                                         <span id="valid-msg-password" class="valid-msg invisible">

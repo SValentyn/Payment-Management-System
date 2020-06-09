@@ -8,7 +8,7 @@
 <fmt:setBundle basename="message"/>
 
 <div class="list-group list-group-flush sidebar" role="tablist">
-    <c:if test="${currentUser.role.id == 1}">
+    <c:if test="${currentUser.role.roleId == 1}">
         <a href="/" class="list-group-item list-group-item-action sidebar-header list-group-item-sidebar">
             <div>
                 <img src="resources/images/homepage-user.png" class="icon-sidebar" alt=""/>
@@ -18,7 +18,7 @@
             </div>
         </a>
     </c:if>
-    <c:if test="${currentUser.role.id == 1}">
+    <c:if test="${currentUser.role.roleId == 1}">
         <a href="?command=createAccount" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/create-account.png" class="icon-sidebar" alt=""/>
@@ -28,7 +28,7 @@
             </div>
         </a>
     </c:if>
-    <c:if test="${currentUser.role.id == 1}">
+    <c:if test="${currentUser.role.roleId == 1}">
         <a href="?command=attachCard" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/attach-card.png" class="icon-sidebar" alt=""/>
@@ -38,7 +38,7 @@
             </div>
         </a>
     </c:if>
-    <c:if test="${currentUser.role.id == 1}">
+    <c:if test="${currentUser.role.roleId == 1}">
         <a href="?command=makePayment" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/make-payment.png" class="icon-sidebar" alt=""/>
@@ -48,7 +48,7 @@
             </div>
         </a>
     </c:if>
-    <c:if test="${currentUser.role.id == 1}">
+    <c:if test="${currentUser.role.roleId == 1}">
         <a href="?command=support" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/user-support.png" class="icon-sidebar" alt=""/>
@@ -58,7 +58,7 @@
             </div>
         </a>
     </c:if>
-    <c:if test="${currentUser.role.id == 2}">
+    <c:if test="${currentUser.role.roleId == 2}">
         <a href="/" class="list-group-item list-group-item-action sidebar-header list-group-item-sidebar">
             <div>
                 <img src="resources/images/homepage-admin.png" class="icon-sidebar" alt=""/>
@@ -68,7 +68,7 @@
             </div>
         </a>
     </c:if>
-    <c:if test="${currentUser.role.id == 2}">
+    <c:if test="${currentUser.role.roleId == 2}">
         <a href="?command=addUser" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/add-user.png" class="icon-sidebar" alt=""/>
@@ -78,7 +78,7 @@
             </div>
         </a>
     </c:if>
-    <c:if test="${currentUser.role.id == 2}">
+    <c:if test="${currentUser.role.roleId == 2}">
         <a href="?command=support" class="list-group-item list-group-item-action list-group-item-sidebar">
             <div>
                 <img src="resources/images/admin-support.png" class="icon-sidebar" alt=""/>

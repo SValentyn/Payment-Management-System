@@ -16,56 +16,47 @@ import java.util.List;
 
 public class CommandIndex implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        // Default path
+        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
 
-        String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
-        } else if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
 
             // Set attributes obtained from the session
             setRequestAttributes(request);
 
             // Data
-            User user = (User) request.getSession().getAttribute("currentUser");
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
 
             // Check and set attributes
-            if (user != null) {
-                String role = user.getRole().getRolename();
-                if (role.equals(Role.ROLE_ADMIN)) {
-                    pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
-
-                    if (request.getAttribute("users") == null) {
-                        request.setAttribute("users", UserService.getInstance().findAllUsers());
-                    }
-                } else if (role.equals(Role.ROLE_CLIENT)) {
+            if (currentUser != null) {
+                String role = currentUser.getRole().getRoleTitle();
+                if (role.equals(Role.ROLE_USER)) {
                     pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.USER);
 
-                    List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(user.getUserId());
+                    List<Account> accounts = AccountService.getInstance().findAllAccountsByUserId(currentUser.getUserId());
                     if (accounts.isEmpty()) {
                         request.setAttribute("accountsEmpty", true);
                     } else {
                         request.setAttribute("accountsEmpty", false);
                         request.setAttribute("accounts", accounts);
                     }
+                } else if (role.equals(Role.ROLE_ADMIN)) {
+                    pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN);
+
+                    if (request.getAttribute("users") == null) {
+                        request.setAttribute("users", UserService.getInstance().findAllUsers());
+                    }
                 }
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
         }
 
         return pathRedirect;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("loginValue", null);
-        request.setAttribute("accounts", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {

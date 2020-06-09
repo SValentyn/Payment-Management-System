@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.attached_cards.title"/></title>
+    <title><fmt:message key="user.account_cards.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -21,22 +21,22 @@
 </head>
 <body>
 
-<!-- Modal window (detachCardModal) -->
+<!-- Modal window -->
 <div id="detachCardModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="user.attached_cards.modalHeader"/>
+                    <fmt:message key="user.account_cards.modalHeader"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <fmt:message key="user.attached_cards.modalBody"/>
+                <fmt:message key="user.account_cards.modalBody"/>
                 <br>
                 <div style="display: flex; margin-top: 20px;">
                     <label for="cardNumberText" class="modal-label">
-                        <fmt:message key="user.attached_cards.modalCardLabel"/>
+                        <fmt:message key="user.account_cards.modalCardLabel"/>
                     </label>
                     <input id="cardNumberText" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
@@ -186,16 +186,16 @@
                 <fmt:message key="user.page.settings" var="settings"/>
                 <fmt:message key="user.page.showPaymentArchive" var="showPaymentArchive"/>
                 <fmt:message key="admin.account_info.accountStatus" var="accountStatus"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
                 <fmt:message key="admin.account_info.accountNumber" var="accountNumber"/>
                 <fmt:message key="admin.account_info.accountBalance" var="accountBalance"/>
                 <fmt:message key="admin.account_info.allAttachedCards" var="allAttachedCards"/>
                 <fmt:message key="admin.account_info.validity" var="validity"/>
                 <fmt:message key="admin.account_info.blockCard" var="blockCard"/>
                 <fmt:message key="admin.account_info.unblockCard" var="unblockCard"/>
-                <fmt:message key="user.attached_cards.detach" var="detach"/>
-                <fmt:message key="user.account.returnToAllAccounts" var="returnToAllAccounts"/>
+                <fmt:message key="user.account_cards.detach" var="detach"/>
+                <fmt:message key="user.account_info.returnToAllAccounts" var="returnToAllAccounts"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">

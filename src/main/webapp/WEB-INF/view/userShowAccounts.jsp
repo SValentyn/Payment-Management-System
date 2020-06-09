@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.accounts.title"/></title>
+    <title><fmt:message key="user.page.myAccounts"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -83,11 +83,11 @@
             <div class="col-lg-10">
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
-                <fmt:message key="user.account.balance" var="balance"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.balance" var="balance"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
                 <fmt:message key="user.page.settings" var="settings"/>
-                <fmt:message key="user.createAccount.numberNewAccount" var="numberAccount"/>
+                <fmt:message key="user.create_account.numberNewAccount" var="numberAccount"/>
                 <fmt:message key="admin.user_accounts.balanceRange" var="balanceRange"/>
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                 <fmt:message key="registration.tooltipOnlyDigits" var="tooltipOnlyDigits"/>
@@ -153,7 +153,7 @@
                                                                            data-toggle="tooltip-left"
                                                                            data-title="${tooltipOnlyDigits}"
                                                                            maxlength="20"
-                                                                           onkeypress="onlyNumbers();"
+                                                                           onkeypress="inputOnlyNumbers();"
                                                                            placeholder="${numberAccount}"
                                                                            value="${numberValue}"/>
                                                                 </div>
@@ -281,5 +281,4 @@
 </div>
 </body>
 <script src="resources/js/searcher_userShowAccounts.js"></script>
-<script src="resources/js/modalWindow_userShowAccounts.js"></script>
 </html>

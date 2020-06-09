@@ -146,7 +146,7 @@
                                             <div class="textarea-parent" data-toggle="tooltip"
                                                  data-title="${tooltipDescription}">
                                                 <label class="for-form-label">
-                                                    ${description}
+                                                    ${description}:
                                                 </label>
                                                 <div>
                                                     <textarea id="description" name="description" class="form-control"

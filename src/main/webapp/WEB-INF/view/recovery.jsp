@@ -109,7 +109,7 @@
                                         <input id="login" name="login" type="text" class="form-control"
                                                data-toggle="tooltip"
                                                data-title="${tooltipPhone}"
-                                               onkeypress="onlyNumbers();"
+                                               onkeypress="inputOnlyNumbers();"
                                                value="${loginValue}"/>
                                         <label for="login" class="default-label">
                                             <span id="valid-msg-login" class="valid-msg invisible">

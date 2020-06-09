@@ -94,14 +94,14 @@
 
             <div class="col-lg-10">
                 <fmt:message key="admin.user_accounts.formHeader" var="formHeader"/>
-                <fmt:message key="user.account.balance" var="balance"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.balance" var="balance"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
-                <fmt:message key="user.createAccount.numberNewAccount" var="numberAccount"/>
+                <fmt:message key="user.create_account.numberNewAccount" var="numberAccount"/>
                 <fmt:message key="admin.user_accounts.balanceRange" var="balanceRange"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
-                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.attach_account.returnToUserProfile" var="returnToUserProfile"/>
                 <fmt:message key="registration.tooltipOnlyLetters" var="tooltipOnlyLetters"/>
                 <fmt:message key="registration.tooltipOnlyDigits" var="tooltipOnlyDigits"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
@@ -187,7 +187,7 @@
                                                                                data-toggle="tooltip-left"
                                                                                data-title="${tooltipOnlyDigits}"
                                                                                maxlength="20"
-                                                                               onkeypress="onlyNumbers();"
+                                                                               onkeypress="inputOnlyNumbers();"
                                                                                placeholder="${numberAccount}"
                                                                                value="${numberValue}"/>
                                                                     </div>
@@ -238,9 +238,11 @@
                                                             <div class="col-xl-12">
                                                                 <c:choose>
                                                                     <c:when test="${!accountsEmpty}">
+
                                                                         <div class="form-row">
                                                                             <div class="card-container"
                                                                                  style="width: 100% !important;">
+
                                                                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-2 row-cols-xl-2">
                                                                                     <c:forEach items="${accounts}"
                                                                                                var="account">

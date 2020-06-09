@@ -95,7 +95,7 @@
                 <fmt:message key="admin.page.failed" var="failed"/>
                 <fmt:message key="admin.user.morePayments" var="morePayments"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
-                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.attach_account.returnToUserProfile" var="returnToUserProfile"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">

@@ -28,8 +28,8 @@
 </head>
 <body>
 
-<!-- Modal window (Delete User) -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
+<!-- Modal window -->
+<div id="deleteUserModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -146,10 +146,10 @@
                 <fmt:message key="admin.payment_info.sentFunds" var="sentFunds"/>
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
-                <fmt:message key="user.account.allAccounts" var="allAccounts"/>
+                <fmt:message key="user.account_info.allAccounts" var="allAccounts"/>
                 <fmt:message key="admin.account_info.balance" var="balance"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.user.userAccounts" var="userAccounts"/>
                 <fmt:message key="admin.page.success" var="success"/>
@@ -290,8 +290,8 @@
                                                                             <a class="list-group-item list-group-item-action list-group-item-button-danger"
                                                                                style="margin-top: 1px;"
                                                                                id="list-deleteUser-list"
-                                                                               onclick="showModal();"
-                                                                               href="#smallModal?name=${viewableUser.name}&surname=${viewableUser.surname}"
+                                                                               onclick="showDeleteUserModal();"
+                                                                               href="#deleteUserModal?name=${viewableUser.name}&surname=${viewableUser.surname}"
                                                                                role="tab" aria-controls="deleteUser">
                                                                                 <span class="forward-right-link-img">
                                                                                      ${deleteUser}

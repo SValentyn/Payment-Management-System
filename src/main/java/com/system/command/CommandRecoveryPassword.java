@@ -12,25 +12,16 @@ import java.sql.SQLException;
 
 public class CommandRecoveryPassword implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        String pathRedirect;
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
-
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_RECOVERY);
 
-            // Data
+            // Form Data
             String login = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
 
             // Validation
@@ -42,12 +33,17 @@ public class CommandRecoveryPassword implements ICommand {
 
             // Set attributes
             setSessionAttributes(request, ServerResponse.PASSWORD_SENT);
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.RECOVERY);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String login) throws SQLException {
+    private boolean validation(HttpServletRequest request, String login) {
 
         // Validation
         if (!Validator.checkLogin(login)) {
@@ -56,11 +52,6 @@ public class CommandRecoveryPassword implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("loginValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {

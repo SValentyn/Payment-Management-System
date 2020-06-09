@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.account.title"/></title>
+    <title><fmt:message key="user.account_info.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -22,18 +22,18 @@
 </head>
 <body>
 
-<!-- Modal window (deleteAccountModal) -->
+<!-- Modal window -->
 <div id="deleteAccountModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="user.account.modalHeader"/>
+                    <fmt:message key="user.account_info.modalHeader"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <fmt:message key="user.account.modalBody"/><br>
+                <fmt:message key="user.account_info.modalBody"/><br>
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
@@ -177,15 +177,15 @@
                 <fmt:message key="user.page.settings" var="settings"/>
                 <fmt:message key="user.page.showAttachedCards" var="showAttachedCards"/>
                 <fmt:message key="user.page.showPaymentArchive" var="showPaymentArchive"/>
-                <fmt:message key="admin.account_info.accountStatus" var="accountStatus"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
-                <fmt:message key="admin.account_info.accountNumber" var="accountNumber"/>
+                <fmt:message key="user.account_info.status" var="accountStatus"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.accountNumber" var="accountNumber"/>
                 <fmt:message key="admin.account_info.accountBalance" var="accountBalance"/>
                 <fmt:message key="admin.account_info.blockAccount" var="blockAccount"/>
                 <fmt:message key="admin.account_info.unblockAccount" var="unblockAccount"/>
                 <fmt:message key="admin.account_info.deleteAccount" var="deleteAccount"/>
-                <fmt:message key="user.account.returnToAllAccounts" var="returnToAllAccounts"/>
+                <fmt:message key="user.account_info.returnToAllAccounts" var="returnToAllAccounts"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">

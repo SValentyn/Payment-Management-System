@@ -32,9 +32,9 @@
             <div class="col-lg-10">
                 <fmt:message key="user.page.myAccounts" var="myAccounts"/>
                 <fmt:message key="user.page.myPayments" var="myPayments"/>
-                <fmt:message key="user.account.balance" var="balance"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.balance" var="balance"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
                 <fmt:message key="user.page.settings" var="settings"/>
                 <fmt:message key="user.page.attachedCards" var="attachedCards"/>
                 <fmt:message key="user.page.paymentArchive" var="paymentArchive"/>

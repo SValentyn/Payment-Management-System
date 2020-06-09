@@ -14,25 +14,16 @@ import java.sql.SQLException;
 
 public class CommandRegistration implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        String pathRedirect;
 
-        String method = request.getMethod();
-        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
-            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
-
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
-
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_REGISTRATION);
 
-            // Data
+            // Form Data
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
@@ -52,12 +43,17 @@ public class CommandRegistration implements ICommand {
             } else {
                 setSessionAttributes(request, ServerResponse.REGISTRATION_SUCCESS);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.REGISTRATION);
+
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation) throws SQLException {
+    private boolean validation(HttpServletRequest request, String name, String surname, String phone, String email, String password, String passwordConfirmation) {
 
         // Validation name
         if (!Validator.checkName(name)) {
@@ -78,9 +74,11 @@ public class CommandRegistration implements ICommand {
         }
 
         // Validation email
-        if (!Validator.checkEmail(email)) {
-            setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.EMAIL_EXIST_ERROR);
-            return false;
+        if (!email.equals("")) {
+            if (!Validator.checkEmail(email)) {
+                setSessionAttributes(request, name, surname, phone, email, password, passwordConfirmation, ServerResponse.EMAIL_EXIST_ERROR);
+                return false;
+            }
         }
 
         // Validation password
@@ -90,16 +88,6 @@ public class CommandRegistration implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("nameValue", null);
-        request.setAttribute("surnameValue", null);
-        request.setAttribute("phoneValue", null);
-        request.setAttribute("emailValue", null);
-        request.setAttribute("passwordValue", null);
-        request.setAttribute("passwordConfirmationValue", null);
-        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {

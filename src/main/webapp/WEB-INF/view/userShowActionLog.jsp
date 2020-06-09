@@ -23,8 +23,8 @@
 </head>
 <body>
 
-<!-- Modal window  -->
-<div id="smallModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
+<!-- Modal window -->
+<div id="clearActionLogModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -223,8 +223,8 @@
                                                             <div class="block-questions" style="margin-top: 0;">
                                                                 <p style="margin-bottom: 0; line-height: 1.35;">
                                                                         ${wantClearActionLog}
-                                                                    <a href="#smallModal"
-                                                                       onclick="showModal();"
+                                                                    <a href="#clearActionLogModal"
+                                                                       onclick="showClearActionLogModal();"
                                                                        onfocus="this.blur();">
                                                                             ${clear}
                                                                     </a>

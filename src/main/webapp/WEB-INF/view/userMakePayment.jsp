@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.makepayment.title"/></title>
+    <title><fmt:message key="user.make_payment.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -23,35 +23,35 @@
 <body>
 
 <!-- Modal window (when sending to an account) -->
-<div id="smallModal-AN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
+<div id="paymentConfirmationModal-AN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="user.makepayment.modalHeader"/>
+                    <fmt:message key="user.make_payment.modalHeader"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <fmt:message key="user.makepayment.modalBody"/>
+                <fmt:message key="user.make_payment.modalBody"/>
                 <br>
                 <div style="display: flex; margin-top: 20px;">
                     <label for="numberByAccountIdModal-AN" class="modal-fixed-label">
-                        <fmt:message key="user.makepayment.modalYourNumber"/>
+                        <fmt:message key="user.make_payment.modalYourNumber"/>
                     </label>
                     <input id="numberByAccountIdModal-AN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
                     <label for="accountNumberModal-AN" class="modal-fixed-label">
-                        <fmt:message key="user.makepayment.modalRecipientAccountNumber"/>
+                        <fmt:message key="user.make_payment.modalRecipientAccountNumber"/>
                     </label>
                     <input id="accountNumberModal-AN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
                     <label for="amountModal-AN" class="modal-fixed-label">
-                        <fmt:message key="user.makepayment.modalAmountFunds"/>
+                        <fmt:message key="user.make_payment.modalAmountFunds"/>
                     </label>
                     <input id="amountModal-AN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
@@ -81,35 +81,35 @@
 </div>
 
 <!-- Modal window (when sending to a bank card) -->
-<div id="smallModal-CN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
+<div id="paymentConfirmationModal-CN" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="user.makepayment.modalHeader"/>
+                    <fmt:message key="user.make_payment.modalHeader"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <fmt:message key="user.makepayment.modalBody"/>
+                <fmt:message key="user.make_payment.modalBody"/>
                 <br>
                 <div style="display: flex; margin-top: 20px;">
                     <label for="numberByAccountIdModal-CN" class="modal-fixed-label">
-                        <fmt:message key="user.makepayment.modalYourNumber"/>
+                        <fmt:message key="user.make_payment.modalYourNumber"/>
                     </label>
                     <input id="numberByAccountIdModal-CN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
                     <label for="cardNumberModal-CN" class="modal-fixed-label">
-                        <fmt:message key="user.makepayment.modalRecipientCardNumber"/>
+                        <fmt:message key="user.make_payment.modalRecipientCardNumber"/>
                     </label>
                     <input id="cardNumberModal-CN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
                 </div>
                 <div style="display: flex; margin-top: 10px;">
                     <label for="amountModal-CN" class="modal-fixed-label">
-                        <fmt:message key="user.makepayment.modalAmountFunds"/>
+                        <fmt:message key="user.make_payment.modalAmountFunds"/>
                     </label>
                     <input id="amountModal-CN" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
@@ -281,22 +281,22 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="user.makepayment.createNewPayment" var="formHeader"/>
-                <fmt:message key="user.makepayment.fromAccount" var="from"/>
-                <fmt:message key="user.makepayment.recipientsAccount" var="recipientsAccount"/>
-                <fmt:message key="user.makepayment.recipientsCard" var="recipientsCard"/>
-                <fmt:message key="user.makepayment.numberAccount" var="numberAccount"/>
-                <fmt:message key="user.makepayment.numberCard" var="numberCard"/>
-                <fmt:message key="user.makepayment.amount" var="amount"/>
-                <fmt:message key="user.makepayment.appointment" var="appointment"/>
-                <fmt:message key="user.makepayment.makePaymentButton" var="makePaymentButton"/>
-                <fmt:message key="user.makepayment.accountIdError" var="accountIdError"/>
-                <fmt:message key="user.makepayment.numberAccountError" var="numberAccountError"/>
-                <fmt:message key="user.makepayment.numberCardError" var="numberCardError"/>
-                <fmt:message key="user.makepayment.amountError" var="amountError"/>
-                <fmt:message key="user.makepayment.tooltipAccountNumber" var="tooltipAccountNumber"/>
-                <fmt:message key="user.makepayment.tooltipCardNumber" var="tooltipCardNumber"/>
-                <fmt:message key="user.makepayment.tooltipAmountFunds" var="tooltipAmountFunds"/>
+                <fmt:message key="user.make_payment.createNewPayment" var="formHeader"/>
+                <fmt:message key="user.make_payment.fromAccount" var="fromAccount"/>
+                <fmt:message key="user.make_payment.recipientsAccount" var="recipientsAccount"/>
+                <fmt:message key="user.make_payment.recipientsCard" var="recipientsCard"/>
+                <fmt:message key="user.make_payment.numberAccount" var="numberAccount"/>
+                <fmt:message key="user.make_payment.numberCard" var="numberCard"/>
+                <fmt:message key="user.make_payment.amountFunds" var="amountFunds"/>
+                <fmt:message key="user.make_payment.appointment" var="appointment"/>
+                <fmt:message key="user.make_payment.makePaymentButton" var="makePaymentButton"/>
+                <fmt:message key="user.make_payment.accountIdError" var="accountIdError"/>
+                <fmt:message key="user.make_payment.numberAccountError" var="numberAccountError"/>
+                <fmt:message key="user.make_payment.numberCardError" var="numberCardError"/>
+                <fmt:message key="user.make_payment.amountError" var="amountError"/>
+                <fmt:message key="user.make_payment.tooltipAccountNumber" var="tooltipAccountNumber"/>
+                <fmt:message key="user.make_payment.tooltipCardNumber" var="tooltipCardNumber"/>
+                <fmt:message key="user.make_payment.tooltipAmountFunds" var="tooltipAmountFunds"/>
                 <fmt:message key="registration.correct" var="correct"/>
 
                 <div class="page-content container-fluid">
@@ -328,7 +328,7 @@
                                             <!-- Select AccountId -->
                                             <div>
                                                 <label class="for-form-label">
-                                                    ${from}
+                                                    ${fromAccount}:
                                                 </label>
                                                 <div>
                                                     <div class="bfh-selectbox">
@@ -373,7 +373,7 @@
                                                                class="form-control" style="margin-top: 0;"
                                                                data-toggle="tooltip-left"
                                                                data-title="${tooltipAccountNumber}"
-                                                               maxlength="20" onkeypress="onlyNumbers();"
+                                                               maxlength="20" onkeypress="inputOnlyNumbers();"
                                                                placeholder="${numberAccount}*"
                                                                value="${accountNumberValue}"/>
                                                         <label for="accountNumber" class="default-label">
@@ -400,7 +400,7 @@
                                                                data-toggle="tooltip"
                                                                data-title="${tooltipCardNumber}"
                                                                maxlength="19"
-                                                               oninput="this.value=card_format(this.value)"
+                                                               oninput="this.value=inputCardNumber(this.value)"
                                                                placeholder="${numberCard}*"
                                                                value="${cardNumberValue}"/>
                                                         <label for="cardNumber" class="default-label">
@@ -419,7 +419,7 @@
                                             <!-- Amount Funds -->
                                             <div style="margin-top: 4px;">
                                                 <label for="amount" class="for-form-label">
-                                                    ${amount}
+                                                    ${amountFunds}:
                                                 </label>
                                                 <input id="amount" name="amount" placeholder="0.00"
                                                        oninput="this.value=inputAmount(this.value);"
@@ -437,7 +437,7 @@
                                             <!-- Appointment -->
                                             <div class="textarea-parent">
                                                 <label for="appointment" class="for-form-label">
-                                                    ${appointment}
+                                                    ${appointment}:
                                                 </label>
                                                 <div>
                                                     <textarea id="appointment" name="appointment" class="form-control"

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="admin.updateUserData.title"/></title>
+    <title><fmt:message key="admin.update_user.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -102,11 +102,11 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="admin.updateUserData.formHeader" var="formHeader"/>
+                <fmt:message key="admin.update_user.formHeader" var="formHeader"/>
                 <fmt:message key="registration.name" var="name"/>
                 <fmt:message key="registration.surname" var="surname"/>
                 <fmt:message key="registration.email" var="email"/>
-                <fmt:message key="user.updateData.updateData" var="updateDataButton"/>
+                <fmt:message key="user.update_data.updateData" var="updateDataButton"/>
                 <fmt:message key="registration.nameError" var="nameError"/>
                 <fmt:message key="registration.surnameError" var="surnameError"/>
                 <fmt:message key="registration.phoneError" var="loginError"/>
@@ -116,7 +116,7 @@
                 <fmt:message key="registration.tooltipEmail" var="tooltipEmail"/>
                 <fmt:message key="registration.correct" var="correct"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
-                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.attach_account.returnToUserProfile" var="returnToUserProfile"/>
 
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
@@ -137,8 +137,9 @@
                                                     <!-- User Id -->
                                                     <input type="hidden" id="userId" name="userId" value="${userId}"/>
 
-                                                    <!-- Name -->
                                                     <div class="form-row">
+
+                                                        <!-- Name -->
                                                         <div class="col-md-6">
                                                             <input id="name" name="name"
                                                                    type="text" class="form-control"
@@ -185,7 +186,7 @@
                                                             <input id="phone" name="phone"
                                                                    type="tel" class="form-control"
                                                                    data-toggle="tooltip" data-title="${tooltipPhone}"
-                                                                   onkeypress="onlyNumbers();"
+                                                                   onkeypress="inputOnlyNumbers();"
                                                                    value="${phoneValue}"/>
                                                             <label for="phone" class="default-label">
                                                                 <span id="valid-msg-phone" class="valid-msg invisible">

@@ -108,7 +108,7 @@
                 <fmt:message key="admin.support.tooltipStartDate" var="tooltipStartDate"/>
                 <fmt:message key="admin.support.tooltipFinalDate" var="tooltipFinalDate"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
-                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.attach_account.returnToUserProfile" var="returnToUserProfile"/>
                 <fmt:message key="admin.user_accounts.searchCriteria" var="searchCriteria"/>
                 <fmt:message key="admin.user_accounts.searchButton" var="searchButton"/>
 

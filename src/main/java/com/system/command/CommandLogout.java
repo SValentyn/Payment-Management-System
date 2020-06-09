@@ -12,8 +12,12 @@ public class CommandLogout implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        User user = (User) request.getSession().getAttribute("currentUser");
-        ActionLogService.getInstance().addNewLogEntry(user.getUserId(), "SESSION_ENDED");
+
+        // Receiving the user from whom the request came
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser != null) {
+            ActionLogService.getInstance().addNewLogEntry(currentUser.getUserId(), "SESSION_ENDED");
+        }
 
         request.getSession().invalidate();
         return ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);

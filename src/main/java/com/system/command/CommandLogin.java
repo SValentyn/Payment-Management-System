@@ -14,21 +14,16 @@ import java.sql.SQLException;
 
 public class CommandLogin implements ICommand {
 
-    // Default path
-    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        clearRequestAttributes(request);
+        String pathRedirect;
 
-        String method = request.getMethod();
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.GET.name())) {
-            return pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
-        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
+        // Request processing depending on the HTTP method
+        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_INDEX);
 
-            // Data
+            // Form Data
             String login = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String password = request.getParameter("password");
 
@@ -38,19 +33,21 @@ public class CommandLogin implements ICommand {
             }
 
             // Action (authentication)
-            User user = UserService.getInstance().loginUser(login, password);
+            User user = UserService.getInstance().authentication(login, password);
             if (user != null) {
                 ActionLogService.getInstance().addNewLogEntry(user.getUserId(), "SESSION_STARTED");
                 request.getSession().setAttribute("currentUser", user);
             } else {
                 setSessionAttributes(request, login, ServerResponse.AUTHENTICATION_ERROR);
             }
+        } else {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.INDEX);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String login, String password) throws SQLException {
+    private boolean validation(HttpServletRequest request, String login, String password) {
 
         // Validation login
         if (!Validator.checkLogin(login)) {
@@ -65,10 +62,6 @@ public class CommandLogin implements ICommand {
         }
 
         return true;
-    }
-
-    private void clearRequestAttributes(HttpServletRequest request) {
-        request.setAttribute("response", "");
     }
 
     private void setSessionAttributes(HttpServletRequest request, String login, ServerResponse serverResponse) {

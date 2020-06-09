@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.attachCard.title"/></title>
+    <title><fmt:message key="user.attach_card.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -102,21 +102,21 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="user.attachCard.attachNewCard" var="formHeader"/>
-                <fmt:message key="user.attachCard.selectAccount" var="selectAccount"/>
-                <fmt:message key="user.attachCard.number" var="number"/>
-                <fmt:message key="user.attachCard.cvv" var="cvv"/>
-                <fmt:message key="user.attachCard.validity" var="validity"/>
-                <fmt:message key="user.attachCard.month" var="month"/>
-                <fmt:message key="user.attachCard.year" var="year"/>
-                <fmt:message key="user.attachCard.attachCard" var="attachCard"/>
-                <fmt:message key="user.attachCard.accountIdError" var="accountIdError"/>
-                <fmt:message key="user.attachCard.numberError" var="numberError"/>
-                <fmt:message key="user.attachCard.cvvError" var="cvvError"/>
-                <fmt:message key="user.attachCard.validityError" var="validityError"/>
-                <fmt:message key="user.attachCard.validityExpiredError" var="validityExpiredError"/>
-                <fmt:message key="user.attachCard.tooltipCardNumber" var="tooltipCardNumber"/>
-                <fmt:message key="user.attachCard.tooltipCVV" var="tooltipCVV"/>
+                <fmt:message key="user.attach_card.attachNewCard" var="formHeader"/>
+                <fmt:message key="user.attach_card.selectAccount" var="selectAccount"/>
+                <fmt:message key="user.attach_card.number" var="number"/>
+                <fmt:message key="user.attach_card.cvv" var="cvv"/>
+                <fmt:message key="user.attach_card.validity" var="validity"/>
+                <fmt:message key="user.attach_card.month" var="month"/>
+                <fmt:message key="user.attach_card.year" var="year"/>
+                <fmt:message key="user.attach_card.attachCard" var="attachCard"/>
+                <fmt:message key="user.attach_card.accountIdError" var="accountIdError"/>
+                <fmt:message key="user.attach_card.numberError" var="numberError"/>
+                <fmt:message key="user.attach_card.cvvError" var="cvvError"/>
+                <fmt:message key="user.attach_card.validityError" var="validityError"/>
+                <fmt:message key="user.attach_card.validityExpiredError" var="validityExpiredError"/>
+                <fmt:message key="user.attach_card.tooltipCardNumber" var="tooltipCardNumber"/>
+                <fmt:message key="user.attach_card.tooltipCVV" var="tooltipCVV"/>
                 <fmt:message key="registration.correct" var="correct"/>
 
                 <div class="page-content container-fluid">
@@ -140,7 +140,7 @@
                                             <!-- Select AccountId -->
                                             <div>
                                                 <label class="for-form-label">
-                                                    ${selectAccount}
+                                                    ${selectAccount}:
                                                 </label>
                                                 <div class="bfh-selectbox selectbox-account-id">
                                                     <c:choose>
@@ -170,7 +170,7 @@
                                                 <input id="cardNumber" name="number" type="text" class="form-control"
                                                        data-toggle="tooltip"
                                                        data-title="${tooltipCardNumber}"
-                                                       maxlength="19" oninput="this.value=card_format(this.value);"
+                                                       maxlength="19" oninput="this.value=inputCardNumber(this.value);"
                                                        placeholder="${number}*"
                                                        value="${numberValue}"/>
                                                 <label for="cardNumber" class="default-label">
@@ -188,7 +188,7 @@
                                                 <input id="CVV" name="CVV" type="text" class="form-control"
                                                        data-toggle="tooltip"
                                                        data-title="${tooltipCVV}"
-                                                       maxlength="3" onkeypress="onlyNumbers();"
+                                                       maxlength="3" onkeypress="inputOnlyNumbers();"
                                                        placeholder="${cvv}*"
                                                        value="${cvvValue}"/>
                                                 <label for="CVV" class="default-label">
@@ -212,7 +212,7 @@
                                                 <div class="form-group" id="expiration-date"
                                                      style="display: flex; align-items: center; margin: 10px 0 0 0;">
                                                     <label class="for-form-label" style="width: 50%;">
-                                                        ${validity}
+                                                        ${validity}:
                                                     </label>
 
                                                     <!-- Select Month -->

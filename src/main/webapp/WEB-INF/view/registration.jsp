@@ -159,8 +159,9 @@
                                     <form action="" method="POST" role="form">
                                         <input type="hidden" name="command" value="registration"/>
 
-                                        <!-- Name -->
                                         <div class="form-row">
+
+                                            <!-- Name -->
                                             <div class="col-md-6">
                                                 <input id="name" name="name" type="text" class="form-control"
                                                        data-toggle="tooltip-left"
@@ -195,13 +196,14 @@
                                             </div>
                                         </div>
 
-                                        <!-- Phone -->
                                         <div class="form-row">
+
+                                            <!-- Phone -->
                                             <div class="col-md-6" style="margin-top: 8px">
                                                 <input id="phone" name="phone" type="tel" class="form-control"
                                                        data-toggle="tooltip-left"
                                                        data-title="${tooltipPhone}"
-                                                       onkeypress="onlyNumbers();"
+                                                       onkeypress="inputOnlyNumbers();"
                                                        value="${phoneValue}"/>
                                                 <label for="phone" class="default-label">
                                                     <span id="valid-msg-phone" class="valid-msg invisible">
@@ -239,11 +241,12 @@
                                                            type="password" class="form-control"
                                                            data-toggle="tooltip"
                                                            data-title="${tooltipPassword}"
+                                                           minlength="6" maxlength="255"
                                                            placeholder="${password}*"
                                                            value="${passwordValue}"/>
                                                     <a href="#" class="password-control"
                                                        onfocus="this.blur();"
-                                                       onclick="return show_hide_password(this);"></a>
+                                                       onclick="return toggle_password(this);"></a>
                                                 </div>
                                                 <label for="password" class="default-label">
                                                     <span id="valid-msg-password" class="valid-msg invisible">
@@ -263,11 +266,12 @@
                                                            type="password" class="form-control"
                                                            data-toggle="tooltip"
                                                            data-title="${tooltipPasswordConfirmation}"
+                                                           minlength="6" maxlength="255"
                                                            placeholder="${confirmation}*"
                                                            value="${passwordConfirmationValue}"/>
                                                     <a href="#" class="password-control"
                                                        onfocus="this.blur();"
-                                                       onclick="return show_hide_passwordConfirmation(this);"></a>
+                                                       onclick="return toggle_passwordConfirmation(this);"></a>
                                                 </div>
                                                 <label for="passwordConfirmation" class="default-label">
                                                     <span id="valid-msg-passwordConfirmation"

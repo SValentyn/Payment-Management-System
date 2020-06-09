@@ -48,11 +48,10 @@ public class PasswordEncryptor {
 
             md5StrWithZerous.append(md5StrWithoutZerous);
 
-        } catch (NoSuchAlgorithmException e) {
-            LOGGER.error("Cannot get instance of MessageDigest: ", e);
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Cannot generate byte-code of string: ", e);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            LOGGER.error("Cannot generate byte-code of string: " + e.getMessage());
         }
+
         return md5StrWithZerous.toString();
     }
 }

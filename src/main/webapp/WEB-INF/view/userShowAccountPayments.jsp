@@ -59,8 +59,8 @@
                 <fmt:message key="user.page.settings" var="settings"/>
                 <fmt:message key="user.page.showAttachedCards" var="showAttachedCards"/>
                 <fmt:message key="admin.account_info.accountStatus" var="accountStatus"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
                 <fmt:message key="admin.account_info.accountNumber" var="accountNumber"/>
                 <fmt:message key="admin.account_info.accountBalance" var="accountBalance"/>
                 <fmt:message key="user.account_payments.allPaymentsMade" var="allPaymentsMade"/>
@@ -71,7 +71,7 @@
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="user.payments.repeat" var="repeat"/>
-                <fmt:message key="user.account.returnToAllAccounts" var="returnToAllAccounts"/>
+                <fmt:message key="user.account_info.returnToAllAccounts" var="returnToAllAccounts"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">

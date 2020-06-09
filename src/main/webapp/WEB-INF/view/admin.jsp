@@ -188,7 +188,7 @@
                                                                            class="form-control"
                                                                            data-toggle="tooltip-left"
                                                                            data-title="${tooltipOnlyDigits}"
-                                                                           onkeypress="onlyNumbers();"
+                                                                           onkeypress="inputOnlyNumbers();"
                                                                            value="${phoneValue}"/>
                                                                     <label for="phone"
                                                                            class="default-label">&nbsp;</label>
@@ -223,7 +223,7 @@
 
                                                                     <c:forEach items="${users}" var="user">
                                                                         <c:choose>
-                                                                            <c:when test="${user.role.id == 1}">
+                                                                            <c:when test="${user.role.roleId == 1}">
                                                                                 <div class="col mb-4">
                                                                                     <div class="card bg-light">
                                                                                         <div class="card-body">

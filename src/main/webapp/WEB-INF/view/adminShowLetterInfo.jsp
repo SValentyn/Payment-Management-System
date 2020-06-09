@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="admin.letter.title"/></title>
+    <title><fmt:message key="admin.letter_info.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-black.ico" type="image/x-icon">
@@ -88,11 +88,11 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="admin.letter.title" var="title"/>
-                <fmt:message key="admin.letter.letterFromUser" var="letterFromUser"/>
-                <fmt:message key="admin.letter.user_bio" var="user_bio"/>
-                <fmt:message key="admin.letter.phone" var="user_phone"/>
-                <fmt:message key="admin.letter.email" var="user_email"/>
+                <fmt:message key="admin.letter_info.title" var="title"/>
+                <fmt:message key="admin.letter_info.letterFromUser" var="letterFromUser"/>
+                <fmt:message key="admin.letter_info.user_bio" var="user_bio"/>
+                <fmt:message key="admin.letter_info.phone" var="user_phone"/>
+                <fmt:message key="admin.letter_info.email" var="user_email"/>
                 <fmt:message key="user.support.option.1" var="option_1"/>
                 <fmt:message key="user.support.option.2" var="option_2"/>
                 <fmt:message key="user.support.option.3" var="option_3"/>
@@ -104,9 +104,9 @@
                 <fmt:message key="user.support.option.9" var="option_9"/>
                 <fmt:message key="user.support.option.10" var="option_10"/>
                 <fmt:message key="admin.support.tooltipTypeOfQuestion" var="typeQuestion"/>
-                <fmt:message key="admin.letter.description" var="letter_description"/>
-                <fmt:message key="admin.letter.processedButton" var="processedButton"/>
-                <fmt:message key="admin.letter.returnToLetters" var="returnToLetters"/>
+                <fmt:message key="admin.letter_info.description" var="letter_description"/>
+                <fmt:message key="admin.letter_info.processedButton" var="processedButton"/>
+                <fmt:message key="admin.letter_info.returnToLetters" var="returnToLetters"/>
 
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
@@ -269,8 +269,7 @@
                                                 <div class="action back-btn">
                                                     <form action="/" method="GET" role="form">
                                                         <input type="hidden" name="command" value="support"/>
-                                                        <button type="submit"
-                                                                class="btn btn-primary signup btn-default"
+                                                        <button type="submit" class="btn btn-primary signup btn-default"
                                                                 style="width: 62%;">
                                                                 ${returnToLetters}
                                                         </button>

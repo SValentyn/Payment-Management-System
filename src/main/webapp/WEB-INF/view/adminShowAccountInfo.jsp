@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<!-- Modal window (deleteAccountModal) -->
+<!-- Modal window -->
 <div id="deleteAccountModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -61,13 +61,13 @@
     </div>
 </div>
 
-<!-- Modal window (detachCardModal) -->
+<!-- Modal window -->
 <div id="detachCardModal" class="modal fade" tabindex="-1" role="dialog" onfocus="this.blur();">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="user.attached_cards.modalHeader"/>
+                    <fmt:message key="user.account_cards.modalHeader"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
@@ -76,7 +76,7 @@
                 <br>
                 <div style="display: flex; margin-top: 20px;">
                     <label for="cardNumberText" class="modal-label">
-                        <fmt:message key="user.attached_cards.modalCardLabel"/>
+                        <fmt:message key="user.account_cards.modalCardLabel"/>
                     </label>
                     <input id="cardNumberText" class="form-control modal-form-control"
                            type="text" readonly="readonly"/>
@@ -357,8 +357,8 @@
                 <fmt:message key="admin.payment_info.receivedFunds" var="receivedFunds"/>
                 <fmt:message key="admin.payment_info.remained" var="remained"/>
                 <fmt:message key="admin.account_info.allAttachedCards" var="allAttachedCards"/>
-                <fmt:message key="user.account.status.active" var="statusActive"/>
-                <fmt:message key="user.account.status.blocked" var="statusBlocked"/>
+                <fmt:message key="user.account_info.status.active" var="statusActive"/>
+                <fmt:message key="user.account_info.status.blocked" var="statusBlocked"/>
                 <fmt:message key="user.page.showInfo" var="showInfo"/>
                 <fmt:message key="admin.account_info.validity" var="validity"/>
                 <fmt:message key="admin.account_info.blockCard" var="blockCard"/>
@@ -367,7 +367,7 @@
                 <fmt:message key="admin.page.success" var="success"/>
                 <fmt:message key="admin.page.failed" var="failed"/>
                 <fmt:message key="admin.user.returnToUsers" var="returnToUsers"/>
-                <fmt:message key="admin.attachAccount.returnToUserProfile" var="returnToUserProfile"/>
+                <fmt:message key="admin.attach_account.returnToUserProfile" var="returnToUserProfile"/>
 
                 <div class="page-content container-fluid">
                     <div class="row">

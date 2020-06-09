@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
-    <title><fmt:message key="user.createAccount.title"/></title>
+    <title><fmt:message key="user.create_account.title"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="shortcut icon" href="resources/images/favicon-white.ico" type="image/x-icon">
@@ -79,12 +79,12 @@
             </div>
 
             <div class="col-lg-10">
-                <fmt:message key="user.createAccount.createNewAccount" var="formHeader"/>
-                <fmt:message key="user.createAccount.numberNewAccount" var="numberNewAccount"/>
-                <fmt:message key="user.createAccount.accountCurrency" var="accountCurrency"/>
-                <fmt:message key="user.createAccount.createAccount" var="createAccount"/>
-                <fmt:message key="user.createAccount.numberError" var="numberError"/>
-                <fmt:message key="user.createAccount.currencyError" var="currencyError"/>
+                <fmt:message key="user.create_account.createNewAccount" var="formHeader"/>
+                <fmt:message key="user.create_account.numberNewAccount" var="numberNewAccount"/>
+                <fmt:message key="user.create_account.accountCurrency" var="accountCurrency"/>
+                <fmt:message key="user.create_account.createAccount" var="createAccount"/>
+                <fmt:message key="user.create_account.numberError" var="numberError"/>
+                <fmt:message key="user.create_account.currencyError" var="currencyError"/>
                 <fmt:message key="registration.correct" var="correct"/>
 
                 <div class="page-content container-fluid">
@@ -130,7 +130,7 @@
                                             <!-- Select Currency -->
                                             <div style="margin-top: 16px;">
                                                 <label class="for-form-label">
-                                                    ${accountCurrency}
+                                                    ${accountCurrency}:
                                                 </label>
                                                 <div class="bfh-selectbox bfh-currencies"
                                                      data-currency="USD" data-flags="true" data-blank="false">
