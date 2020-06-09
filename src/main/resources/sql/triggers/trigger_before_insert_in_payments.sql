@@ -11,11 +11,18 @@ BEGIN
        NEW.senderNumber IS NULL OR LENGTH(NEW.senderNumber) <> 20 OR
        NEW.senderAmount IS NULL OR NEW.senderAmount < 0.0 OR
        NEW.senderCurrency IS NULL OR LENGTH(NEW.senderCurrency) <> 3 OR
-       NEW.recipientNumber IS NULL OR
-       NEW.exchangeRate IS NULL OR
+       NEW.recipientNumber IS NULL OR LENGTH(NEW.recipientNumber) < 16 OR
+       NEW.exchangeRate IS NULL OR NEW.exchangeRate < 0.0 OR
        NEW.newBalance IS NULL OR NEW.newBalance < 0.0 OR
        NEW.date IS NULL OR NEW.date > NOW() THEN
-        SET NEW.isOutgoing = 1;
+        SET NEW.is_outgoing = 1;
+        SET NEW.senderNumber = '';
+        SET NEW.senderAmount = 0.0;
+        SET NEW.senderCurrency = '';
+        SET NEW.recipientNumber = '';
+        SET NEW.senderAmount = 0.0;
+        SET NEW.senderCurrency = '';
+        SET NEW.exchangeRate = 0.0;
         SET NEW.date = CURRENT_TIMESTAMP();
         SET NEW.`condition` = 0;
     END IF;
