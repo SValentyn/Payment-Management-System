@@ -24,9 +24,7 @@ public class EncodingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String requestEncoding = request.getCharacterEncoding();
-        if (requestEncoding == null) {
-            LOGGER.info("Filter set encoding ===> " + encoding);
+        if (request.getCharacterEncoding() == null) {
             request.setCharacterEncoding(encoding);
         }
         chain.doFilter(request, response);
@@ -34,7 +32,7 @@ public class EncodingFilter implements Filter {
 
     @Override
     public void destroy() {
-        LOGGER.info("Encoding filter destroyed ..");
+        LOGGER.info("Encoding filter destroyed...");
     }
 
 }

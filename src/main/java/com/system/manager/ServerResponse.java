@@ -2,6 +2,7 @@ package com.system.manager;
 
 public enum ServerResponse {
 
+    EMPTY(""),
     INVALID_DATA("invalidData"),
     LOGIN_NOT_EXIST("loginNotExist"),
     AUTHENTICATION_ERROR("authenticationError"),
