@@ -16,32 +16,35 @@ import java.sql.SQLException;
 
 public class CommandAdminAddUser implements ICommand {
 
+    // Default path
+    private String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        // Default path
-        String pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
+        clearRequestAttributes(request);
 
-        // Receiving the user from whom the request came
-        User currentUser = (User) request.getSession().getAttribute("currentUser");
-        if (currentUser == null) {
-            request.setAttribute("response", ServerResponse.UNABLE_GET_DATA.getResponse());
-            return pathRedirect;
-        }
+        String method = request.getMethod();
+        if (method.equalsIgnoreCase(HTTPMethod.GET.name())) {
+            pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.ADMIN_ADD_USER);
 
-        // Request processing depending on the HTTP method
-        if (request.getMethod().equalsIgnoreCase(HTTPMethod.POST.name())) {
+            // Set attributes obtained from the session
+            setRequestAttributes(request);
+
+        } else if (method.equalsIgnoreCase(HTTPMethod.POST.name())) {
             pathRedirect = ResourceManager.getInstance().getProperty(ResourceManager.COMMAND_ADMIN_ADD_USER);
 
-            // Form Data
+            // Data
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("full_phone"); // set in the validator file (hiddenInput: "full_phone")
             String email = StringEscapeUtils.escapeJava(request.getParameter("email"));
 
             // Validation
-            if (!validation(request, name, surname, phone, email)) {
-                logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to register a new user");
+            if (!validation(request, currentUser, name, surname, phone, email)) {
+                if (currentUser != null)
+                    logging(currentUser.getUserId(), "ERROR: Unsuccessful attempt to register a new user");
                 return pathRedirect;
             }
 
@@ -54,16 +57,18 @@ public class CommandAdminAddUser implements ICommand {
                 logging(currentUser.getUserId(), "REGISTERED: A new user has been successfully added to the system");
                 setSessionAttributes(request, userId, ServerResponse.ADD_USER_SUCCESS);
             }
-        } else {
-
-            // Set attributes obtained from the session
-            setRequestAttributes(request);
         }
 
         return pathRedirect;
     }
 
-    private boolean validation(HttpServletRequest request, String name, String surname, String phone, String email) {
+    private boolean validation(HttpServletRequest request, User currentUser, String name, String surname, String phone, String email) throws SQLException {
+
+        // Check
+        if (currentUser == null) {
+            setSessionAttributes(request, ServerResponse.UNABLE_GET_DATA);
+            return false;
+        }
 
         // Validation name
         if (!Validator.checkName(name)) {
@@ -71,7 +76,7 @@ public class CommandAdminAddUser implements ICommand {
             return false;
         }
 
-        // Validation surname
+        // Validation name
         if (!Validator.checkSurname(surname)) {
             setSessionAttributes(request, name, surname, phone, email, ServerResponse.ADD_USER_ERROR);
             return false;
@@ -84,14 +89,21 @@ public class CommandAdminAddUser implements ICommand {
         }
 
         // Validation email
-        if (!email.equals("")) {
-            if (!Validator.checkEmail(email)) {
-                setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
-                return false;
-            }
+        if (!Validator.checkEmail(email)) {
+            setSessionAttributes(request, name, surname, phone, email, ServerResponse.EMAIL_EXIST_ERROR);
+            return false;
         }
 
         return true;
+    }
+
+    private void clearRequestAttributes(HttpServletRequest request) {
+        request.setAttribute("userId", null);
+        request.setAttribute("nameValue", null);
+        request.setAttribute("surnameValue", null);
+        request.setAttribute("phoneValue", null);
+        request.setAttribute("emailValue", null);
+        request.setAttribute("response", "");
     }
 
     private void setRequestAttributes(HttpServletRequest request) {
@@ -147,7 +159,11 @@ public class CommandAdminAddUser implements ICommand {
         request.getSession().setAttribute("response", serverResponse.getResponse());
     }
 
-    private void logging(Integer userId, String description) {
+    private void setSessionAttributes(HttpServletRequest request, ServerResponse serverResponse) {
+        request.getSession().setAttribute("response", serverResponse.getResponse());
+    }
+
+    private void logging(Integer userId, String description) throws SQLException {
         ActionLogService.getInstance().addNewLogEntry(userId, description);
     }
 
