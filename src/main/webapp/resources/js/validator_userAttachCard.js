@@ -1,4 +1,6 @@
-// Elements on userAttachCard.jsp page to check
+/**
+ * Elements on userAttachCard.jsp page for validation
+ */
 let selectbox_account_id = $('.selectbox-account-id');
 let accountId = document.querySelector("#accountId");
 let cardNumber = document.querySelector("#cardNumber");
@@ -9,17 +11,19 @@ let month = document.querySelector("#month");
 let year = document.querySelector("#year");
 let submitBtn = document.querySelector("#submit");
 
-
-/* It starts immediately after the page loads */
+/**
+ * It starts immediately after the page loads
+ */
 window.addEventListener("load", () => {
-    cardNumber.value = correct_card_format(cardNumber);
+    cardNumber.value = adjustInputCardNumber(cardNumber);
     $(selectbox_account_id).val(accountId.value);
     $(selectbox_month).val(month.value);
     $(selectbox_year).val(year.value);
 });
 
-
-/* AccountId validation */
+/**
+ * AccountId validation
+ */
 let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
@@ -57,8 +61,9 @@ function validationAccountId() {
     }
 }
 
-
-/* Card number validation */
+/**
+ * Card number validation
+ */
 let validMsgCardNumber = document.querySelector("#valid-msg-cardNumber"),
     errorMsgCardNumber = document.querySelector("#error-msg-cardNumber");
 
@@ -100,8 +105,9 @@ function validationCardNumber() {
     }
 }
 
-
-/* CVV validation */
+/**
+ * CVV validation
+ */
 let validMsgCVV = document.querySelector("#valid-msg-cvv"),
     errorMsgCVV = document.querySelector("#error-msg-cvv");
 
@@ -143,8 +149,9 @@ function validationCVV() {
     }
 }
 
-
-/* Month and year validation */
+/**
+ * Month and year validation
+ */
 let validMsgValidity = document.querySelector("#valid-msg-validity"),
     errorMsgValidity = document.querySelector("#error-msg-validity"),
     errorMsgValidityExpired = document.querySelector("#error-msg-validityExpired"),
@@ -242,8 +249,9 @@ function validationDate(year, month) {
     }
 }
 
-
-/* Checks for errors on the page */
+/**
+ * Checks for errors on the page
+ */
 submitBtn.addEventListener('click', (event) => {
 
     validationAccountId();
@@ -274,5 +282,4 @@ submitBtn.addEventListener('click', (event) => {
         event.preventDefault();
         return false;
     }
-
 });

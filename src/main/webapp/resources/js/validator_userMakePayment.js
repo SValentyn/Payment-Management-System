@@ -1,4 +1,6 @@
-// Elements on userMakePayment.jsp page to check
+/**
+ * Elements on userMakePayment.jsp page for validation
+ */
 let isRepeatCommand = document.querySelector('#isRepeatCommand');
 let bfh_selectbox = $('.bfh-selectbox');
 let accountId = document.querySelector("#accountId");
@@ -9,15 +11,17 @@ let amount = document.querySelector("#amount");
 let appointment = document.querySelector("#appointment");
 let submitBtn = document.querySelector("#submit");
 
-
-/* It starts immediately after the page loads */
+/**
+ * It starts immediately after the page loads
+ */
 window.addEventListener("load", () => {
-    cardNumber.value = correct_card_format(cardNumber);
+    cardNumber.value = adjustInputCardNumber(cardNumber);
     $(bfh_selectbox).val(accountId.value);
 });
 
-
-/* AccountId validation */
+/**
+ * AccountId validation
+ */
 let validMsgAccountId = document.querySelector("#valid-msg-accountId"),
     errorMsgAccountId = document.querySelector("#error-msg-accountId");
 
@@ -65,8 +69,9 @@ function validationAccountId() {
     numberByAccountId.value = $(bfh_selectbox).find('span')[0].innerHTML;
 }
 
-
-/* Account number validation */
+/**
+ * Account number validation
+ */
 let validMsgAccountNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgAccountNumber = document.querySelector("#error-msg-accountNumber");
 
@@ -108,8 +113,9 @@ function validationAccountNumber() {
     }
 }
 
-
-/* Card number validation */
+/**
+ * Card number validation
+ */
 let validMsgCardNumber = document.querySelector("#valid-msg-cardNumber"),
     errorMsgCardNumber = document.querySelector("#error-msg-cardNumber");
 
@@ -151,8 +157,9 @@ function validationCardNumber() {
     }
 }
 
-
-/* Amount validation */
+/**
+ * Amount validation
+ */
 let validMsgAmount = document.querySelector("#valid-msg-amount"),
     errorMsgAmount = document.querySelector("#error-msg-amount");
 
@@ -197,8 +204,9 @@ function validationAmount() {
     }
 }
 
-
-/* Checks errors on the page and displays a modal window, if everything is in order */
+/**
+ * Checks errors on the page and displays a modal window, if everything is in order
+ */
 submitBtn.addEventListener('click', (event) => {
 
     validationAccountId();
@@ -263,5 +271,4 @@ submitBtn.addEventListener('click', (event) => {
 
         showModal_AN();
     }
-
 });

@@ -1,5 +1,7 @@
-// For textarea "appointment" and textarea "description"
-window.addEventListener("load", function () {
+/**
+ * A script for inserting a counter into text fields to limit the number of characters entered
+ */
+window.addEventListener("load", () => {
     let appointment = document.querySelector("#appointment");
     let description = document.querySelector("#description");
 

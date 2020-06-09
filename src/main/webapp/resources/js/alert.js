@@ -2,16 +2,16 @@ let alert = $("#alert");
 let language = document.getElementById("language");
 let dropdown = document.getElementById("dropdown");
 
-setTimeout(function () {
+setTimeout(() => {
     alert.alert('close');
 }, 5000);
 
-language.addEventListener('click', function () {
+language.addEventListener('click', () => {
     alert.alert('close');
 });
 
 if (dropdown !== null) {
-    dropdown.addEventListener('click', function () {
+    dropdown.addEventListener('click', () => {
         alert.alert('close');
     });
 }

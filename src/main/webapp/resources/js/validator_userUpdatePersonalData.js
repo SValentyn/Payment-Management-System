@@ -1,4 +1,6 @@
-// Elements on userUpdatePersonalData.jsp page to check
+/**
+ * Elements on userUpdatePersonalData.jsp page for validation
+ */
 let name = document.querySelector("#name");
 let surname = document.querySelector("#surname");
 let phone = document.querySelector("#phone");
@@ -6,8 +8,9 @@ let email = document.querySelector("#email");
 let password = document.querySelector("#password");
 let submitBtn = document.querySelector("#submit");
 
-
-/* It starts immediately after the page loads */
+/**
+ * It starts immediately after the page loads
+ */
 window.addEventListener("load", () => {
     validationName();
     validationSurname();
@@ -15,8 +18,26 @@ window.addEventListener("load", () => {
     validationEmail();
 });
 
+/**
+ * Configuring the phone number input field.
+ * "token" must be obtained on the API website.
+ */
+let iti = window.intlTelInput(phone, {
+    separateDialCode: true,
+    hiddenInput: "full_phone",
+    initialCountry: "auto",
+    geoIpLookup: (callback) => {
+        $.get('https://ipinfo.io', () => {
+        }, "jsonp").always((response) => {
+            let countryCode = (response && response.country) ? response.country : "";
+            callback(countryCode);
+        });
+    },
+});
 
-/* Name validation */
+/**
+ * Name validation
+ */
 let validMsgName = document.querySelector("#valid-msg-name"),
     errorMsgName = document.querySelector("#error-msg-name");
 
@@ -60,8 +81,9 @@ function validationName() {
     }
 }
 
-
-/* Surname validation */
+/**
+ * Surname validation
+ */
 let validMsgSurname = document.querySelector("#valid-msg-surname"),
     errorMsgSurname = document.querySelector("#error-msg-surname");
 
@@ -105,24 +127,9 @@ function validationSurname() {
     }
 }
 
-
-/* Configuring the phone number input field.
-* "token" must be obtained on the api website */
-let iti = window.intlTelInput(phone, {
-    separateDialCode: true,
-    hiddenInput: "full_phone",
-    initialCountry: "auto",
-    geoIpLookup: function (callback) {
-        $.get('https://ipinfo.io', function () {
-        }, "jsonp").always(function (resp) {
-            let countryCode = (resp && resp.country) ? resp.country : "";
-            callback(countryCode);
-        });
-    },
-});
-
-
-/* Phone number validation */
+/**
+ * Phone number validation
+ */
 let validMsgPhone = document.querySelector("#valid-msg-phone"),
     errorMsgPhone = document.querySelector("#error-msg-phone");
 
@@ -166,8 +173,9 @@ function validationPhone() {
     }
 }
 
-
-/* Email validation */
+/**
+ * Email validation
+ */
 let validMsgEmail = document.querySelector("#valid-msg-email"),
     errorMsgEmail = document.querySelector("#error-msg-email");
 
@@ -210,8 +218,9 @@ function validationEmail() {
     }
 }
 
-
-/* Password validation */
+/**
+ * Password validation
+ */
 let validMsgPassword = document.querySelector("#valid-msg-password"),
     errorMsgPassword = document.querySelector("#error-msg-password");
 
@@ -244,15 +253,16 @@ password.addEventListener('change', validationPassword);
 function validationPassword() {
     resetPassword();
 
-    if (password.value.trim() === "" || password.value.trim().length < 6) {
+    if (password.value.trim() === "" || password.value.trim().length < 6 || password.value.trim().length > 255) {
         notValidPassword();
     } else {
         validPassword();
     }
 }
 
-
-/* Checks for errors on the page */
+/**
+ * Checks for errors on the page
+ */
 submitBtn.addEventListener('click', (event) => {
 
     validationName();
@@ -289,5 +299,4 @@ submitBtn.addEventListener('click', (event) => {
         notValidPassword();
         return false;
     }
-
 });

@@ -1,4 +1,7 @@
-setInterval(function () {
+/**
+ * Script to display the current time
+ */
+setInterval(() => {
     document.getElementById('currentDateTime').innerHTML = getCurrentDateTime();
 }, 1000);
 
@@ -17,8 +20,6 @@ function getCurrentDateTime() {
 
 // Function to add leading zeros
 function leadingZerosFormat(value) {
-    if (value < 10) {
-        value = '0' + value;
-    }
+    if (value < 10) value = '0' + value;
     return value;
 }

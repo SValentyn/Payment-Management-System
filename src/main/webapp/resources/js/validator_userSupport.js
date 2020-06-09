@@ -1,10 +1,13 @@
-// Elements on userSupport.jsp page to check
+/**
+ * Elements on userSupport.jsp page for validation
+ */
 let bfh_selectbox_class = $('.bfh-selectbox');
 let typeQuestion = document.querySelector("#typeQuestion");
 let submitBtn = document.querySelector("#submit");
 
-
-/* Type question validation */
+/**
+ * Type question validation
+ */
 let validMsgTypeQuestion = document.querySelector("#valid-msg-typeQuestion"),
     errorMsgTypeQuestion = document.querySelector("#error-msg-typeQuestion");
 
@@ -47,8 +50,9 @@ function validationTypeQuestion() {
     }
 }
 
-
-/* Checks for errors on the page */
+/**
+ * Checks for errors on the page
+ */
 submitBtn.addEventListener('click', (event) => {
 
     validationTypeQuestion();
@@ -57,5 +61,4 @@ submitBtn.addEventListener('click', (event) => {
         notValidTypeQuestion();
         return false;
     }
-
 });

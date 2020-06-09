@@ -1,27 +1,29 @@
-let smallModal = $('#smallModal');
+/**
+ * The script to call the modal window "deleteUserModal"
+ */
+let deleteUserModal = $('#deleteUserModal');
 
-function showModal() {
-    smallModal.modal('show');
+function showDeleteUserModal() {
+    deleteUserModal.modal('show');
 }
 
-smallModal.on('shown.bs.modal', function () {
+deleteUserModal.on('shown.bs.modal', () => {
     let params = window.location.href
-        .split('smallModal')[1]
+        .split('deleteUserModal')[1]
         .replace('?', '')
         .split('&')
-        .reduce(
-            function (element, e) {
-                let param_value = e.split('=');
-                element[decodeURIComponent(param_value[0])] = decodeURIComponent(param_value[1]);
-                return element;
-            }, {}
-        );
+        .reduce((element, e) => {
+            let param_value = e.split('=');
+            element[decodeURIComponent(param_value[0])] = decodeURIComponent(param_value[1]);
+            return element;
+        }, {});
 
     $('#user_bio').val(params['name'] + " " + params['surname']);
 });
 
-document.addEventListener('keyup', function (e) {
-    if (e.keyCode === 27) {
-        smallModal.modal('hide');
+// Closing a modal window using ESC
+document.addEventListener('keyup', (event) => {
+    if (event.keyCode === 27) {
+        deleteUserModal.modal('hide');
     }
 });

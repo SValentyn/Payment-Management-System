@@ -1,11 +1,15 @@
-let smallModal = $('#smallModal');
+/**
+ * The script to call the modal window "clearActionLogModal"
+ */
+let clearActionLogModal = $('#clearActionLogModal');
 
-function showModal() {
-    smallModal.modal('show');
+function showClearActionLogModal() {
+    clearActionLogModal.modal('show');
 }
 
-document.addEventListener('keyup', function (e) {
-    if (e.keyCode === 27) {
-        smallModal.modal('hide');
+// Closing a modal window using ESC
+document.addEventListener('keyup', (event) => {
+    if (event.keyCode === 27) {
+        clearActionLogModal.modal('hide');
     }
 });

@@ -1,11 +1,13 @@
-// call modal window "deleteAccountModal"
+/**
+ * The script to call the modal window "deleteAccountModal"
+ */
 let deleteAccountModal = $('#deleteAccountModal');
 
 function showDeleteAccountModal() {
     deleteAccountModal.modal('show');
 }
 
-deleteAccountModal.on('shown.bs.modal', function () {
+deleteAccountModal.on('shown.bs.modal', () => {
     let accountNumber;
 
     if (window.location.href.split('accountNumber=').length === 1) {
@@ -19,33 +21,33 @@ deleteAccountModal.on('shown.bs.modal', function () {
     $('#accountNumberText').val(accountNumber);
 });
 
-
-// call modal window "detachCardModal"
+/**
+ * The script to call the modal window "detachCardModal"
+ */
 let detachCardModal = $('#detachCardModal');
 
 function showDetachCardModal() {
     detachCardModal.modal('show');
 }
 
-detachCardModal.on('shown.bs.modal', function () {
+detachCardModal.on('shown.bs.modal', () => {
     let params = window.location.href
         .split('detachCardModal')[1]
         .replace('?', '')
         .split('&')
-        .reduce(
-            function (element, e) {
-                let param_value = e.split('=');
-                element[decodeURIComponent(param_value[0])] = decodeURIComponent(param_value[1]);
-                return element;
-            }, {}
-        );
+        .reduce((element, e) => {
+            let param_value = e.split('=');
+            element[decodeURIComponent(param_value[0])] = decodeURIComponent(param_value[1]);
+            return element;
+        }, {});
 
     $('#cardId').val(params['cardId']);
     $('#cardNumberText').val(params['cardNumber']);
 });
 
-document.addEventListener('keyup', function (e) {
-    if (e.keyCode === 27) {
+// Closing modal windows using ESC
+document.addEventListener('keyup', (event) => {
+    if (event.keyCode === 27) {
         deleteAccountModal.modal('hide');
         detachCardModal.modal('hide');
     }

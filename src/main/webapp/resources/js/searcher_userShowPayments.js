@@ -1,4 +1,6 @@
-// Elements on userShowPayments.jsp page to search
+/**
+ * Elements on userShowPayments.jsp page to search
+ */
 let isIncoming = document.querySelector("#isIncoming");
 let isOutgoing = document.querySelector("#isOutgoing");
 let checkbox_isIncoming = $("#checkbox-isIncoming");
@@ -7,8 +9,9 @@ let start_date = document.querySelector("#datepicker-start-date");
 let final_date = document.querySelector("#datepicker-final-date");
 let searchBtn = document.querySelector("#search");
 
-
-/* It starts immediately after the page loads */
+/**
+ * It starts immediately after the page loads
+ */
 window.addEventListener("load", () => {
     checkbox_isIncoming.checkboxradio({
         icon: false
@@ -33,6 +36,9 @@ window.addEventListener("load", () => {
     }
 });
 
+/**
+ *
+ */
 checkbox_isIncoming.on('click', () => {
     if (isIncoming.value === "1") {
         isIncoming.value = "0";
@@ -46,6 +52,9 @@ checkbox_isIncoming.on('click', () => {
     }
 })
 
+/**
+ *
+ */
 checkbox_isOutgoing.on('click', () => {
     if (isOutgoing.value === "1") {
         isOutgoing.value = "0";
@@ -59,6 +68,9 @@ checkbox_isOutgoing.on('click', () => {
     }
 })
 
+/**
+ *
+ */
 searchBtn.addEventListener('click', () => {
 
 });

@@ -1,11 +1,14 @@
-// Elements on userUpdatePassword.jsp page to check
+/**
+ * Elements on userUpdatePassword.jsp page for validation
+ */
 let oldPassword = document.querySelector("#oldPassword");
 let newPassword = document.querySelector("#newPassword");
 let passwordConfirmation = document.querySelector("#passwordConfirmation");
 let submitBtn = document.querySelector("#submit");
 
-
-/* Old password validation */
+/**
+ * Old password validation
+ */
 let validMsgOldPassword = document.querySelector("#valid-msg-oldPassword"),
     errorMsgOldPassword = document.querySelector("#error-msg-oldPassword");
 
@@ -45,8 +48,9 @@ function validationOldPassword() {
     }
 }
 
-
-/* New password validation */
+/**
+ * New password validation
+ */
 let validMsgNewPassword = document.querySelector("#valid-msg-newPassword"),
     errorMsgNewPassword = document.querySelector("#error-msg-newPassword");
 
@@ -79,7 +83,7 @@ newPassword.addEventListener('change', validationNewPassword);
 function validationNewPassword() {
     resetNewPassword();
 
-    if (newPassword.value.trim() === "" || newPassword.value.trim().length < 6) {
+    if (newPassword.value.trim() === "" || newPassword.value.trim().length < 6 || password.value.trim().length > 255) {
         notValidNewPassword();
         if (passwordConfirmation.classList.contains("valid-input") ||
             passwordConfirmation.classList.contains("error-input")) {
@@ -94,8 +98,9 @@ function validationNewPassword() {
     }
 }
 
-
-/* Password confirmation */
+/**
+ * Password confirmation
+ */
 let validMsgPasswordConfirmation = document.querySelector("#valid-msg-passwordConfirmation"),
     errorMsgPasswordConfirmation = document.querySelector("#error-msg-passwordConfirmation");
 
@@ -128,7 +133,7 @@ passwordConfirmation.addEventListener('change', validationPasswordConfirmation);
 function validationPasswordConfirmation() {
     resetPasswordConfirmation();
 
-    if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6) {
+    if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6 || passwordConfirmation.value.trim().length > 255) {
         notValidPasswordConfirmation();
     } else {
         if (passwordConfirmation.value.trim() === newPassword.value.trim()) {
@@ -139,10 +144,11 @@ function validationPasswordConfirmation() {
     }
 }
 
-
-/* Check passwords for match */
+/**
+ * Check passwords for match
+ */
 function matching() {
-    if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6) {
+    if (passwordConfirmation.value.trim() === "" || passwordConfirmation.value.trim().length < 6 || passwordConfirmation.value.trim().length > 255) {
         notValidPasswordConfirmation();
     } else {
         if (passwordConfirmation.value.trim() === newPassword.value.trim()) {
@@ -153,8 +159,9 @@ function matching() {
     }
 }
 
-
-/* Checks for errors on the page */
+/**
+ * Checks for errors on the page
+ */
 submitBtn.addEventListener('click', (event) => {
 
     validationOldPassword();
@@ -177,5 +184,4 @@ submitBtn.addEventListener('click', (event) => {
         notValidPasswordConfirmation();
         return false;
     }
-
 });

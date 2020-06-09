@@ -1,4 +1,6 @@
-// Elements on adminShowAccounts.jsp page to search
+/**
+ * Elements on adminShowAccounts.jsp page to search
+ */
 let number = document.querySelector("#number");
 let bfh_selectbox_class = $('.bfh-selectbox');
 let currency = document.querySelector("#currency");
@@ -8,8 +10,9 @@ let max_value = document.querySelector("#max-value");
 let amount = document.querySelector("#amount");
 let searchBtn = document.querySelector("#search");
 
-
-/* It starts immediately after the page loads */
+/**
+ * It starts immediately after the page loads
+ */
 window.addEventListener("load", () => {
     if (currency !== undefined) {
         if (currency.value.trim().length === 3) {
@@ -58,9 +61,14 @@ window.addEventListener("load", () => {
     }
 });
 
-
+/**
+ *
+ */
 bfh_selectbox_class.on('hide.bfhselectbox', () => currency.value = $(bfh_selectbox_class).val());
 
+/**
+ *
+ */
 searchBtn.addEventListener('click', () => {
     number.value = number.value.trim();
     $(min_value).val($(slider_range).slider("values", 0));

@@ -1,12 +1,15 @@
-// Elements on adminAttachAccount.jsp page to check
+/**
+ * Elements on adminAttachAccount.jsp page for validation
+ */
 let number = document.querySelector("#number");
 let repeat = document.querySelector("#repeat");
 let bfh_selectbox_class = $('.bfh-selectbox');
 let currency = document.querySelector("#currency");
 let submitBtn = document.querySelector("#submit");
 
-
-/* It starts immediately after the page loads */
+/**
+ * It starts immediately after the page loads
+ */
 window.addEventListener("load", () => {
     repeat.click();
     currency.value = $(bfh_selectbox_class).val();
@@ -14,10 +17,14 @@ window.addEventListener("load", () => {
     validationCurrency();
 });
 
-
+/**
+ *
+ */
 repeat.addEventListener('click', () => number.value = randomAccountNumber());
 
-/* Generate random numeric string */
+/**
+ * Generate random numeric string
+ */
 function randomAccountNumber() {
     let array = '0123456789';
     let length = 20;
@@ -30,8 +37,9 @@ function randomAccountNumber() {
     return result;
 }
 
-
-/* Account number validation */
+/**
+ * Account number validation
+ */
 let validMsgNumber = document.querySelector("#valid-msg-accountNumber"),
     errorMsgNumber = document.querySelector("#error-msg-accountNumber");
 
@@ -73,8 +81,9 @@ function validationAccountNumber() {
     }
 }
 
-
-/* Currency validation */
+/**
+ * Currency validation
+ */
 let validMsgCurrency = document.querySelector("#valid-msg-currency"),
     errorMsgCurrency = document.querySelector("#error-msg-currency");
 
@@ -112,8 +121,9 @@ function validationCurrency() {
     }
 }
 
-
-/* Checks for errors on the page */
+/**
+ * Checks for errors on the page
+ */
 submitBtn.addEventListener('click', (event) => {
 
     validationAccountNumber();
@@ -129,5 +139,4 @@ submitBtn.addEventListener('click', (event) => {
         notValidCurrency();
         return false;
     }
-
 });

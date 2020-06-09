@@ -1,17 +1,21 @@
-let smallModal_AN = $('#smallModal-AN');
-let smallModal_CN = $('#smallModal-CN');
+/**
+ * The script to call the modal windows "paymentConfirmationModal-AN" and "paymentConfirmationModal-CN"
+ */
+let paymentConfirmationModal_AN = $('#paymentConfirmationModal-AN');
+let paymentConfirmationModal_CN = $('#paymentConfirmationModal-CN');
 
 function showModal_AN() {
-    smallModal_AN.modal('show');
+    paymentConfirmationModal_AN.modal('show');
 }
 
 function showModal_CN() {
-    smallModal_CN.modal('show');
+    paymentConfirmationModal_CN.modal('show');
 }
 
-document.addEventListener('keyup', function (e) {
-    if (e.keyCode === 27) {
-        smallModal_AN.modal('hide');
-        smallModal_CN.modal('hide');
+// Closing modal windows using ESC
+document.addEventListener('keyup', (event) => {
+    if (event.keyCode === 27) {
+        paymentConfirmationModal_AN.modal('hide');
+        paymentConfirmationModal_CN.modal('hide');
     }
 });
