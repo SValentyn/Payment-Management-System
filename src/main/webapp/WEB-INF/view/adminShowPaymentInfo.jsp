@@ -148,7 +148,7 @@
 
                                             <div class="col-xl-12">
                                                 <div class="row justify-content-center">
-                                                    <div class="col-md-12 detail">
+                                                    <div class="col-md-12 first-detail">
 
                                                         <!-- Type of Payment -->
                                                         <c:choose>
@@ -243,8 +243,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-12 detail"
-                                                                 style="margin-top: 15px; font-size: 18px">
+                                                            <div class="col-md-12 last-detail">
 
                                                                 <!-- Outgoing and Incoming Payments -->
                                                                 <c:choose>
@@ -328,8 +327,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-12 detail"
-                                                                 style="margin-top: 15px; font-size: 18px">
+                                                            <div class="col-md-12 last-detail">
 
                                                                 <!-- Outgoing and Incoming Payments -->
                                                                 <c:choose>

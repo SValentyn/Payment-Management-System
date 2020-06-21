@@ -195,7 +195,7 @@
 
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
-                        <div class="col-xl-6 offset-xl-2 mr-auto">
+                        <div class="col-xl-8 offset-xl-1 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
@@ -319,10 +319,12 @@
 
                                         <!-- Change Password Button -->
                                         <div class="action back-btn">
-                                            <form action="" method="GET" role="form">
+                                            <form action="/" method="GET" role="form">
                                                 <input type="hidden" name="command" value="updatePassword"/>
-                                                <input type="submit" class="btn btn-default signup" style="width: 56%;"
-                                                       value="${changePassword}"/>
+                                                <button type="submit" class="btn btn-primary signup btn-default"
+                                                        style="width: 56%;">
+                                                    ${changePassword}
+                                                </button>
                                             </form>
                                         </div>
 

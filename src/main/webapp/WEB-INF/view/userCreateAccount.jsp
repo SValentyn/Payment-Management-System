@@ -146,7 +146,7 @@
                                             </div>
 
                                             <!-- Submit -->
-                                            <div class="action" style="padding: 40px 0 10px 0">
+                                            <div class="action">
                                                 <button id="submit" type="submit" class="btn btn-primary signup">
                                                     ${createAccount}
                                                 </button>

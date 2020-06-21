@@ -1234,7 +1234,7 @@ div[class="message-block"] .title-label {
     }
 
     .row-passwords {
-        margin-top: 0;
+        margin-top: 0 !important;
     }
 }
 
@@ -1244,7 +1244,7 @@ div[class="message-block"] .title-label {
     }
 
     .header .logo h1 {
-        padding-left: 16px;
+        padding-left: 16px !important;
         font-size: 22px !important;
     }
 
@@ -1260,8 +1260,8 @@ div[class="message-block"] .title-label {
     }
 
     #alert {
-        margin: 0 10px 0 10px;
-        font-size: 15px;
+        margin: 0 10px 0 10px !important;
+        font-size: 15px !important;
     }
 
     .custom-date {
@@ -1271,17 +1271,17 @@ div[class="message-block"] .title-label {
 
 @media (max-width: 383px) {
     .col-auto {
-        padding-left: 0;
+        padding-left: 0 !important;
     }
 
     #github-icon {
         width: 28px;
         height: 28px;
-        margin: 0;
+        margin: 0 !important;
     }
 
     .footer .container-fluid .copyright {
-        font-size: 9px;
+        font-size: 9px !important;
     }
 }
 

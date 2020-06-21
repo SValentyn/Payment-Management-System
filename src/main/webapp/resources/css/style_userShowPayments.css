@@ -2,7 +2,7 @@
     width: 92%;
 }
 
-.card-body-main {
+.login-wrapper .card-body-main {
     padding: 45px 40px 20px 40px;
 }
 
@@ -77,31 +77,53 @@
     .login-wrapper .box .group-btn label {
         min-width: 100px;
         width: auto;
-        margin: 2px;
+        margin: 2px !important;
     }
 }
 
 @media (max-width: 992px) {
+    .card-body .row .col-lg-3 {
+        width: 70%;
+        margin: auto !important;
+    }
+
+    .card-body .row .action {
+        width: 72%;
+        margin: auto !important;
+    }
+
     .tooltip {
         visibility: hidden;
     }
 }
 
+@media (max-width: 512px) {
+    .card-body .row .col-lg-3 {
+        width: 100%;
+        margin: unset !important;
+        padding: 0 35px 0 35px !important;
+    }
+
+    .card-body .row .col-lg-9 {
+        padding: 0 20px !important;
+    }
+}
+
 @media (max-width: 439px) {
-    .card-body-main {
-        padding: 45px 20px 20px 20px;
+    .login-wrapper .card-body-main {
+        padding: 36px 16px 24px 16px !important;
     }
 
     .card-container {
-        font-size: 90%;
+        font-size: 90% !important;
     }
 
     .card-body .card-title a {
-        padding-top: 8px;
+        padding-top: 8px !important;
     }
 
     .new-balance span {
-        margin-right: 40%;
+        margin-right: 40% !important;
     }
 
     .message-block span {
@@ -118,17 +140,23 @@
     }
 }
 
-@media (max-width: 389px) {
+@media (max-width: 417px) {
     .card-container {
-        font-size: 80%;
+        font-size: 83% !important;
+    }
+}
+
+@media (max-width: 375px) {
+    .card-container {
+        font-size: 80% !important;
     }
 
     .new-balance span {
-        margin-right: 33%;
+        margin-right: 33% !important;
     }
 
     .message-block span {
-        padding: 0;
+        padding: 0 !important;
     }
 
     .message-block div {

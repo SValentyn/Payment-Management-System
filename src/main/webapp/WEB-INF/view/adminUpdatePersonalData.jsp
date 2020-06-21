@@ -120,7 +120,7 @@
                 <fmt:message key="registration.email" var="email"/>
                 <fmt:message key="user.update_data.password" var="password"/>
                 <fmt:message key="user.update_data.updateData" var="updateDataButton"/>
-                <fmt:message key="user.update_data.changePassword" var="changePasswordButton"/>
+                <fmt:message key="user.update_data.changePassword" var="changePassword"/>
                 <fmt:message key="registration.nameError" var="nameError"/>
                 <fmt:message key="registration.surnameError" var="surnameError"/>
                 <fmt:message key="registration.phoneError" var="loginError"/>
@@ -134,7 +134,7 @@
 
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
-                        <div class="col-xl-6 offset-xl-2 mr-auto">
+                        <div class="col-xl-8 offset-xl-1 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">
@@ -261,7 +261,7 @@
                                                 <input type="hidden" name="command" value="updatePassword"/>
                                                 <button type="submit" class="btn btn-primary signup btn-default"
                                                         style="width: 56%;">
-                                                    ${changePasswordButton}
+                                                    ${changePassword}
                                                 </button>
                                             </form>
                                         </div>

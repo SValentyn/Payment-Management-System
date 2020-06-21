@@ -2,11 +2,6 @@
     width: 92%;
 }
 
-.card-container {
-    width: 100%;
-    margin: 0;
-}
-
 .login-wrapper .box .group-btn {
     margin-bottom: 26px;
     display: block;
@@ -17,6 +12,11 @@
     padding: 8px;
     margin: 0;
     font-size: 14px;
+}
+
+.card-container {
+    width: 100%;
+    margin: 0;
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
@@ -58,13 +58,31 @@
     .login-wrapper .box .group-btn label {
         min-width: 100px;
         width: auto;
-        margin: 2px;
+        margin: 2px !important;
     }
 }
 
 @media (max-width: 992px) {
+    .content-wrap .row .col-lg-3 {
+        width: 70%;
+        margin: auto !important;
+    }
+
+    .content-wrap .row .action {
+        width: 72%;
+        margin: auto !important;
+    }
+
     .tooltip {
         visibility: hidden;
+    }
+}
+
+@media (max-width: 512px) {
+    .content-wrap .row .col-lg-3 {
+        width: 100%;
+        margin: unset !important;
+        padding: 0 35px 0 35px !important;
     }
 }
 
@@ -74,7 +92,7 @@
     }
 
     .card-container {
-        font-size: 80%;
+        font-size: 80% !important;
     }
 }
 
@@ -84,6 +102,6 @@
     }
 
     .card-container {
-        font-size: 65%;
+        font-size: 65% !important;
     }
 }

@@ -233,7 +233,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-9 col-xl-9" style="padding: 0;">
+                                                    <div class="col-lg-9 col-xl-9" style="padding: 0 10px 0 25px;">
                                                         <div class="table-responsive">
                                                             <table class="table table-sm table-hover">
                                                                 <thead class="thead-light">

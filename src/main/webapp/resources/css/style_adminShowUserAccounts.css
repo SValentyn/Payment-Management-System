@@ -47,8 +47,30 @@
 }
 
 @media (max-width: 992px) {
+    .content-wrap .row .col-lg-3 {
+        width: 70%;
+        margin: auto !important;
+    }
+
+    .content-wrap .row .action {
+        width: 72%;
+        margin: auto !important;
+    }
+
     .tooltip {
         visibility: hidden;
+    }
+}
+
+@media (max-width: 512px) {
+    .content-wrap .row .col-lg-3 {
+        width: 100%;
+        margin: unset !important;
+        padding: 0 35px 0 35px !important;
+    }
+
+    .content-wrap .row .col-lg-9 {
+        padding: 0 20px !important;
     }
 }
 
@@ -58,7 +80,7 @@
     }
 
     .card-container {
-        font-size: 80%;
+        font-size: 80% !important;
     }
 }
 
@@ -68,6 +90,6 @@
     }
 
     .card-container {
-        font-size: 65%;
+        font-size: 65% !important;
     }
 }

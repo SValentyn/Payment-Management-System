@@ -250,7 +250,7 @@
                                                                         });
                                                                     </script>
 
-                                                                    <div class="action" style="padding: 10px 0 0 0;">
+                                                                    <div class="action" style="padding: 10px 0 5px 0;">
                                                                         <button id="search" type="submit"
                                                                                 class="btn btn-primary signup">
                                                                                 ${searchButton}

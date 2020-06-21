@@ -301,7 +301,7 @@
 
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
-                        <div class="col-xl-6 offset-xl-2 mr-auto">
+                        <div class="col-xl-8 offset-xl-1 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
                                     <div class="content-wrap">

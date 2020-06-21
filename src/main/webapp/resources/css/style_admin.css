@@ -14,7 +14,70 @@
     font-size: 22px !important;
 }
 
+@media (max-width: 991px) {
+    .card-body .row .col-lg-3 {
+        width: 70%;
+        margin: auto !important;
+    }
+
+    .card-body .row {
+        padding: 0 20px 0 20px !important;
+    }
+
+    .login-wrapper .box .action {
+        width: 72%;
+        margin: auto !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-body .row .col-lg-9 {
+        padding: 0 !important;
+    }
+}
+
+@media (max-width: 642px) {
+    .card-body .row {
+        padding: 0 25px 0 25px !important;
+    }
+
+    .card-body .row .col-lg-3 {
+        width: 100%;
+        margin: unset !important;
+    }
+}
+
+@media (max-width: 519px) {
+    .card-body .card-title {
+        font-size: 17px !important;
+    }
+
+    .login-wrapper .box .action {
+        width: 62%;
+    }
+}
+
 @media (max-width: 439px) {
+    .card-body .row {
+        padding: 0 15px 0 15px !important;
+    }
+
+    .card-body .row .col-lg-3 {
+        padding: 0 16px !important;
+    }
+
+    .card-body .row .col-lg-9 {
+        padding: 0 !important;
+    }
+
+    .col-lg-9 .col-xl-12 {
+        padding: 0 !important;
+    }
+
+    .login-wrapper .box .action {
+        width: 100%;
+    }
+
     .message-block span {
         font-size: 20px !important;
     }
@@ -26,6 +89,12 @@
     .message-block div img {
         width: 132px !important;
         height: 132px !important;
+    }
+}
+
+@media (max-width: 408px) {
+    .card-title img {
+        display: none;
     }
 }
 

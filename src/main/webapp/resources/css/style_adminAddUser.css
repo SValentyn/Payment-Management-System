@@ -1,0 +1,21 @@
+.login-wrapper .box .content-wrap {
+    width: 88%;
+}
+
+@media (max-width: 681px) {
+    .login-wrapper .box .content-wrap {
+        width: 84%;
+    }
+}
+
+@media (max-width: 547px) {
+    .login-wrapper .box .content-wrap {
+        width: 80%;
+    }
+}
+
+@media (max-width: 464px) {
+    .login-wrapper .box .content-wrap {
+        width: 76%;
+    }
+}

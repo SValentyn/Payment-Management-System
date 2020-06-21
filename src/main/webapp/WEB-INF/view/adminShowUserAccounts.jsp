@@ -149,7 +149,7 @@
 
                                                 <c:if test="${response ne 'unableGetUserId' &&
                                                               response ne 'showUserAccountsError'}">
-                                                    <div class="row" style="padding: 0 0 0 10px;">
+                                                    <div class="row">
                                                         <div class="col-lg-3 col-xl-3">
                                                             <div>
                                                                 <form action="/" method="GET" role="form">
@@ -224,7 +224,7 @@
                                                                         <label class="default-label">&nbsp;</label>
                                                                     </div>
 
-                                                                    <div class="action" style="padding: 10px 0 0 0">
+                                                                    <div class="action" style="padding: 10px 0 5px 0;">
                                                                         <button id="search" type="submit"
                                                                                 class="btn btn-primary signup">
                                                                                 ${searchButton}

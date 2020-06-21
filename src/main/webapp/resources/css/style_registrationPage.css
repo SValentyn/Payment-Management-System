@@ -10,6 +10,10 @@
     top: 22px;
 }
 
+.block-password {
+    margin-top: 20px;
+}
+
 #submit {
     width: 44%;
 }
@@ -20,4 +24,27 @@
 
 .alert {
     margin-top: 22px !important;
+}
+
+@media (max-width: 767px) {
+    .block-password {
+        margin-top: 0 !important;
+    }
+
+    #submit {
+        width: 52%;
+    }
+}
+
+@media (max-width: 445px) {
+    #submit {
+        width: 62%;
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 362px) {
+    #submit {
+        width: 72%;
+    }
 }

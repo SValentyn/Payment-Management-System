@@ -206,7 +206,7 @@
                                                                            class="default-label">&nbsp;</label>
                                                                 </div>
 
-                                                                <div class="action" style="padding: 15px 0 0 0">
+                                                                <div class="action" style="padding: 15px 0 10px 0">
                                                                     <button id="search" type="submit"
                                                                             class="btn btn-primary signup">
                                                                             ${searchButton}

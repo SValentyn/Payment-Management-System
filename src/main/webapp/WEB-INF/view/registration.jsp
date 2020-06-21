@@ -233,56 +233,60 @@
                                             </div>
                                         </div>
 
-                                        <!-- Password -->
-                                        <div class="row justify-content-center" style="margin-top: 20px;">
-                                            <div class="col-md-6">
-                                                <div class="password-input">
-                                                    <input id="password" name="password"
-                                                           type="password" class="form-control"
-                                                           data-toggle="tooltip"
-                                                           data-title="${tooltipPassword}"
-                                                           minlength="6" maxlength="255"
-                                                           placeholder="${password}*"
-                                                           value="${passwordValue}"/>
-                                                    <a href="#" class="password-control"
-                                                       onfocus="this.blur();"
-                                                       onclick="return toggle_password(this);"></a>
-                                                </div>
-                                                <label for="password" class="default-label">
-                                                    <span id="valid-msg-password" class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
-                                                    </span>
-                                                    <span id="error-msg-password" class="error-msg invisible">
-                                                        ${passwordError}</span>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <div class="block-password">
 
-                                        <!-- Password Confirmation -->
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-6 ">
-                                                <div class="password-input">
-                                                    <input id="passwordConfirmation" name="passwordConfirmation"
-                                                           type="password" class="form-control"
-                                                           data-toggle="tooltip"
-                                                           data-title="${tooltipPasswordConfirmation}"
-                                                           minlength="6" maxlength="255"
-                                                           placeholder="${confirmation}*"
-                                                           value="${passwordConfirmationValue}"/>
-                                                    <a href="#" class="password-control"
-                                                       onfocus="this.blur();"
-                                                       onclick="return toggle_passwordConfirmation(this);"></a>
+                                            <!-- Password -->
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-6">
+                                                    <div class="password-input">
+                                                        <input id="password" name="password"
+                                                               type="password" class="form-control"
+                                                               data-toggle="tooltip"
+                                                               data-title="${tooltipPassword}"
+                                                               minlength="6" maxlength="255"
+                                                               placeholder="${password}*"
+                                                               value="${passwordValue}"/>
+                                                        <a href="#" class="password-control"
+                                                           onfocus="this.blur();"
+                                                           onclick="return toggle_password(this);"></a>
+                                                    </div>
+                                                    <label for="password" class="default-label">
+                                                        <span id="valid-msg-password" class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt=""/>
+                                                        </span>
+                                                        <span id="error-msg-password" class="error-msg invisible">
+                                                            ${passwordError}
+                                                        </span>
+                                                    </label>
                                                 </div>
-                                                <label for="passwordConfirmation" class="default-label">
-                                                    <span id="valid-msg-passwordConfirmation"
-                                                          class="valid-msg invisible">
-                                                        ${correct}<img src="resources/images/correct.png" alt=""/>
-                                                    </span>
-                                                    <span id="error-msg-passwordConfirmation"
-                                                          class="error-msg invisible">
-                                                        ${passwordConfirmationError}
-                                                    </span>
-                                                </label>
+                                            </div>
+
+                                            <!-- Password Confirmation -->
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-6 ">
+                                                    <div class="password-input">
+                                                        <input id="passwordConfirmation" name="passwordConfirmation"
+                                                               type="password" class="form-control"
+                                                               data-toggle="tooltip"
+                                                               data-title="${tooltipPasswordConfirmation}"
+                                                               minlength="6" maxlength="255"
+                                                               placeholder="${confirmation}*"
+                                                               value="${passwordConfirmationValue}"/>
+                                                        <a href="#" class="password-control"
+                                                           onfocus="this.blur();"
+                                                           onclick="return toggle_passwordConfirmation(this);"></a>
+                                                    </div>
+                                                    <label for="passwordConfirmation" class="default-label">
+                                                        <span id="valid-msg-passwordConfirmation"
+                                                              class="valid-msg invisible">
+                                                            ${correct}<img src="resources/images/correct.png" alt=""/>
+                                                        </span>
+                                                        <span id="error-msg-passwordConfirmation"
+                                                              class="error-msg invisible">
+                                                            ${passwordConfirmationError}
+                                                        </span>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
 

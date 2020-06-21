@@ -12,13 +12,13 @@
     margin-right: 6px;
 }
 
+.login-wrapper .card-body-main {
+    padding: 40px 50px 40px 50px;
+}
+
 .content-wrap {
     width: 100% !important;
     min-height: 505px;
-}
-
-.card-body-main {
-    padding: 40px 50px 40px 50px;
 }
 
 .form-control {
@@ -61,6 +61,12 @@ span[class="title-label"] label {
     font-size: 22px !important;
 }
 
+@media (max-width: 768px) {
+    .login-wrapper .card-body-main {
+        padding: 40px 30px 40px 30px !important;
+    }
+}
+
 @media (max-width: 744px) {
     .options a img {
         width: 56px;
@@ -98,6 +104,10 @@ span[class="title-label"] label {
 
     .options .col-md-6 h5 {
         font-size: 13px !important;
+    }
+
+    .card-container {
+        font-size: 90% !important;
     }
 
     span[class="title-label"] label {

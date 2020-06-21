@@ -6,6 +6,11 @@
     width: 88% !important;
 }
 
+.card-container {
+    padding: 0;
+    margin: auto;
+}
+
 .form-control {
     height: 46px !important;
     margin-top: 0 !important;
@@ -27,9 +32,14 @@ span[class="title-label"] label {
     font-size: 22px !important;
 }
 
-.card-container {
-    padding: 0;
-    margin: auto;
+@media (max-width: 767px) {
+    .content-wrap .col-xl-12:first-child {
+        padding: 0 25px !important;
+    }
+
+    .content-wrap .form-row .col-lg-4 {
+        margin-top: 12px;
+    }
 }
 
 @media (max-width: 744px) {
@@ -47,16 +57,16 @@ span[class="title-label"] label {
         font-size: 18px !important;
     }
 
+    .card-container {
+        font-size: 80% !important;
+    }
+
     .form-control {
         font-size: 13px !important;
     }
 
     span[class="title-label"] label {
         font-size: 16px !important;
-    }
-
-    .card-container {
-        font-size: 80%;
     }
 }
 
@@ -65,12 +75,12 @@ span[class="title-label"] label {
         font-size: 16px !important;
     }
 
-    .form-control {
-        font-size: 12px !important;
+    .card-container {
+        font-size: 65% !important;
     }
 
-    .card-container {
-        font-size: 65%;
+    .form-control {
+        font-size: 12px !important;
     }
 
     span[class="title-label"] label {

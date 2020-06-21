@@ -2,6 +2,14 @@
     min-height: 100vh;
 }
 
+.content-wrap {
+    width: 100% !important;
+}
+
+.login-wrapper .card-body-main {
+    padding: 40px 50px 40px 50px;
+}
+
 .login-wrapper .box {
     padding: 0;
     border: none;
@@ -12,16 +20,20 @@
     margin-right: 6px;
 }
 
-.content-wrap {
-    width: 100% !important;
-}
-
-.content-wrap h4 {
+.content-wrap .card-body h4 {
     margin-bottom: 5px !important;
 }
 
-.card-body-main {
-    padding: 45px 50px 40px 50px;
+.content-wrap .card-body .first-detail {
+    padding: 5px 15px 15px 0;
+    font-size: 18px;
+    text-align: right;
+}
+
+.content-wrap .card-body .last-detail {
+    padding: 10px 15px 0 15px;
+    font-size: 18px;
+    text-align: right;
 }
 
 .form-control {
@@ -29,18 +41,13 @@
     margin-top: 0 !important;
 }
 
-.detail {
-    margin-bottom: 15px;
-    font-size: 18px;
-    text-align: right;
-}
-
-@media (max-width: 744px) {
-    .content-wrap h4 {
-        margin-top: 15px !important;
+@media (max-width: 767px) {
+    .content-wrap .card-body .first-detail {
+        padding: 10px 15px 10px 0 !important;
+        font-size: 16px !important;
     }
 
-    .detail {
+    .content-wrap .card-body .last-detail {
         font-size: 16px !important;
     }
 
@@ -50,12 +57,8 @@
 }
 
 @media (max-width: 470px) {
-    .card-body-main {
-        padding: 25px 38px 35px 38px;
-    }
-
-    .detail {
-        margin-bottom: 0;
+    .login-wrapper .card-body-main {
+        padding: 25px 32px 35px 32px !important;
     }
 
     .col-md-12 a {
@@ -64,16 +67,17 @@
 }
 
 @media (max-width: 412px) {
-    .content-wrap h4 {
+    .content-wrap .card-body h4 {
         font-size: 18px !important;
+    }
+
+    .content-wrap .card-body .first-detail,
+    .content-wrap .card-body .last-detail {
+        font-size: 12px !important;
     }
 
     .form-control {
         font-size: 13px !important;
-    }
-
-    .detail {
-        font-size: 80% !important;
     }
 
     .col-md-12 a {
@@ -82,16 +86,17 @@
 }
 
 @media (max-width: 354px) {
-    .content-wrap h4 {
+    .content-wrap .card-body h4 {
         font-size: 14px !important;
+    }
+
+    .content-wrap .card-body .first-detail,
+    .content-wrap .card-body .last-detail {
+        font-size: 11px !important;
     }
 
     .form-control {
         font-size: 12px !important;
-    }
-
-    .detail {
-        font-size: 65% !important;
     }
 
     .col-md-12 a {

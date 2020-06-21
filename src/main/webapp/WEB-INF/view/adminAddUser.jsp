@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/intlTelInput.css">
     <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet" href="resources/css/style_adminAddUser.css">
     <link rel="stylesheet" href="resources/css/style-fixed-footer.css">
 </head>
 <body>
@@ -96,10 +97,10 @@
 
                 <div class="page-content container-fluid">
                     <div class="row justify-content-center">
-                        <div class="col-xl-6 offset-xl-2 mr-auto">
+                        <div class="col-xl-8 offset-xl-1 mr-auto">
                             <div class="login-wrapper">
                                 <div class="box">
-                                    <div class="content-wrap" style="width: 88%;">
+                                    <div class="content-wrap">
 
                                         <h4>
                                             ${addNewUser}

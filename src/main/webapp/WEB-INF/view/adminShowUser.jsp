@@ -318,7 +318,7 @@
                                                                         <c:choose>
                                                                             <c:when test="${!paymentsEmpty}">
                                                                                 <div class="card-container"
-                                                                                     style="width: 75% !important;">
+                                                                                     style="width: 75%;">
                                                                                     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
                                                                                         <c:forEach items="${payments}"
                                                                                                    var="payment">

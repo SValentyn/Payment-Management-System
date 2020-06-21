@@ -12,13 +12,13 @@
     margin-right: 6px;
 }
 
+.login-wrapper .card-body-main {
+    padding: 45px 50px 40px 50px;
+}
+
 .content-wrap {
     width: 100% !important;
     min-height: 505px;
-}
-
-.card-body-main {
-    padding: 45px 50px 40px 50px;
 }
 
 .form-control {

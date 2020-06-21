@@ -141,8 +141,8 @@
                                                 <c:when test="${response ne 'showAccountsError' &&
                                                                 accountsEmpty == false}">
 
-                                                    <div class="card-body" style="padding: 42px 40px 20px 40px;">
-                                                        <div class="row" style="padding: 0 0 0 10px;">
+                                                    <div class="card-body card-body-main">
+                                                        <div class="row">
                                                             <div class="col-lg-3 col-xl-3">
                                                                 <div class="search-block">
                                                                     <label>
@@ -200,7 +200,7 @@
                                                                         </div>
 
                                                                         <div class="action"
-                                                                             style="padding: 10px 0 0 0;">
+                                                                             style="padding: 15px 0 10px 0;">
                                                                             <button id="search" type="submit"
                                                                                     class="btn btn-primary signup">
                                                                                     ${searchButton}

@@ -193,7 +193,7 @@
                                                                         </script>
 
                                                                         <div class="action"
-                                                                             style="padding: 10px 0 0 0;">
+                                                                             style="padding: 10px 0 5px 0;">
                                                                             <button id="search" type="submit"
                                                                                     class="btn btn-primary signup">
                                                                                     ${searchButton}
@@ -203,10 +203,11 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-lg-9 col-xl-9" style="padding: 0 0 0 15px;">
+                                                            <div class="col-lg-9 col-xl-9">
                                                                 <div class="col-xl-12">
                                                                     <div class="card-container">
                                                                         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1">
+
                                                                             <c:forEach items="${letters}" var="letter">
                                                                                 <div class="col mb-4">
                                                                                     <a href="?command=showLetterInfo&letterId=${letter.letterId}">
@@ -272,12 +273,18 @@
                                                         </div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <div class="message-block">
-                                                            <span class="title-label">
-                                                                <label>
-                                                                    <fmt:message key="admin.support.noLetters"/>
-                                                                </label>
-                                                            </span>
+                                                        <div class="card-body" style="min-height: 325px;">
+                                                            <div class="message-block">
+                                                                <span class="title-label">
+                                                                    <label>
+                                                                        <fmt:message key="admin.support.noLetters"/>
+                                                                    </label>
+                                                                </span>
+                                                                <div class="w-100" style="height:172px;">
+                                                                    <img src="resources/images/mail-empty.png" alt=""
+                                                                         style="width: 172px; height: 172px; position: absolute; bottom: 35px; right: 50px;"/>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </c:otherwise>
                                                 </c:choose>

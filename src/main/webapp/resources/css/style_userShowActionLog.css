@@ -2,14 +2,14 @@
     width: 92%;
 }
 
-.card-body-main {
-    padding: 30px 0;
-}
-
 .login-wrapper .box {
     padding: 0;
     border: none;
     border-radius: 6px;
+}
+
+.login-wrapper .card-body-main {
+    padding: 30px 0;
 }
 
 table {
@@ -26,6 +26,7 @@ table {
 }
 
 .table-sm td, .table-sm th {
+    padding-left: 7px;
     font-size: 82%;
 }
 
@@ -48,17 +49,63 @@ table {
 }
 
 @media (max-width: 992px) {
+    .card-body .row .col-lg-3 {
+        width: 70%;
+        margin: auto !important;
+    }
+
+    .card-body .row .col-lg-9 {
+        padding: 0 15px !important;
+    }
+
+    .login-wrapper .box .action {
+        width: 72%;
+        margin: auto !important;
+    }
+
     .tooltip {
         visibility: hidden;
     }
 }
 
+@media (max-width: 642px) {
+    .card-body .row .col-lg-9 {
+        padding: 0 25px !important;
+    }
+}
+
+@media (max-width: 498px) {
+    .card-body .row .col-lg-3 {
+        width: 100%;
+        margin: unset !important;
+        padding: 0 32px !important;
+    }
+
+    .card-body .row .col-lg-9 {
+        padding: 0 !important;
+    }
+}
+
 @media (max-width: 439px) {
-    .card-container {
-        font-size: 90%;
+    .login-wrapper .block-questions {
+        font-size: 12px !important;
+    }
+
+    .card-body .row .col-lg-9 {
+        font-size: 12px !important;
     }
 
     .message-block span {
         font-size: 16px !important;
+    }
+}
+
+@media (max-width: 377px) {
+    .login-wrapper .block-questions {
+        font-size: 11px !important;
+    }
+
+    .card-body .row .col-lg-9 {
+        font-size: 10px !important;
     }
 }

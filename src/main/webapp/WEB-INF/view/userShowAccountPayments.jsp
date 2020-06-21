@@ -168,7 +168,7 @@
                                                                 <!-- Account Number -->
                                                                 <div>
                                                                     <label class="for-form-label"
-                                                                           style="margin-top: 8px;">
+                                                                           style="margin-top: 12px;">
                                                                             ${accountNumber}:
                                                                     </label>
                                                                     <input id="number" name="number"

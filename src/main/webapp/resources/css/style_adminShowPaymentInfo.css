@@ -3,11 +3,18 @@
 }
 
 .content-wrap h4 {
+    margin-top: 5px !important;
     margin-bottom: 5px !important;
 }
 
-.detail {
-    margin-bottom: 15px;
+.content-wrap .first-detail {
+    padding: 5px 15px 15px 0;
+    font-size: 18px;
+    text-align: right;
+}
+
+.content-wrap .last-detail {
+    padding: 10px 15px 0 15px;
     font-size: 18px;
     text-align: right;
 }
@@ -17,12 +24,17 @@
     margin-top: 0 !important;
 }
 
-@media (max-width: 744px) {
+@media (max-width: 767px) {
     .content-wrap h4 {
         margin-top: 15px !important;
     }
 
-    .detail {
+    .content-wrap .first-detail {
+        padding: 10px 15px 10px 0 !important;
+        font-size: 16px !important;
+    }
+
+    .content-wrap .last-detail {
         font-size: 16px !important;
     }
 
@@ -32,8 +44,13 @@
 }
 
 @media (max-width: 470px) {
-    .detail {
-        margin-bottom: 0;
+    .login-wrapper .card-body-main {
+        padding: 25px 32px 35px 32px !important;
+    }
+
+    .content-wrap .first-detail,
+    .content-wrap .last-detail {
+        font-size: 14px !important;
     }
 
     .col-md-12 a {
@@ -46,12 +63,13 @@
         font-size: 18px !important;
     }
 
-    .form-control {
-        font-size: 13px !important;
+    .content-wrap .first-detail,
+    .content-wrap .last-detail {
+        font-size: 12px !important;
     }
 
-    .detail {
-        font-size: 80% !important;
+    .form-control {
+        font-size: 13px !important;
     }
 
     .col-md-12 a {
@@ -64,12 +82,13 @@
         font-size: 14px !important;
     }
 
-    .form-control {
-        font-size: 12px !important;
+    .content-wrap .first-detail,
+    .content-wrap .last-detail {
+        font-size: 11px !important;
     }
 
-    .detail {
-        font-size: 65% !important;
+    .form-control {
+        font-size: 12px !important;
     }
 
     .col-md-12 a {

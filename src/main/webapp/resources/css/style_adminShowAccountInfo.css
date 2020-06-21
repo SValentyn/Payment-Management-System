@@ -6,6 +6,11 @@
     width: 88% !important;
 }
 
+.card-container {
+    padding: 0;
+    margin: auto;
+}
+
 .form-control {
     height: 46px !important;
     margin-top: 0 !important;
@@ -27,11 +32,6 @@
     background-color: #e9ecef;
 }
 
-.card-container {
-    padding: 0;
-    margin: auto;
-}
-
 span[class="title-label"] label {
     font-size: 22px !important;
 }
@@ -51,16 +51,16 @@ span[class="title-label"] label {
         font-size: 18px !important;
     }
 
+    .card-container {
+        font-size: 80% !important;
+    }
+
     .form-control {
         font-size: 13px !important;
     }
 
     span[class="title-label"] label {
         font-size: 16px !important;
-    }
-
-    .card-container {
-        font-size: 80%;
     }
 }
 
@@ -69,15 +69,15 @@ span[class="title-label"] label {
         font-size: 16px !important;
     }
 
+    .card-container {
+        font-size: 65% !important;
+    }
+
     .form-control {
         font-size: 12px !important;
     }
 
     span[class="title-label"] label {
         font-size: 14px !important;
-    }
-
-    .card-container {
-        font-size: 65%;
     }
 }

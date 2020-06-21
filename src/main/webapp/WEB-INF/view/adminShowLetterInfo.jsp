@@ -115,7 +115,7 @@
                                 <div class="box">
                                     <div class="content-wrap">
 
-                                        <h4 style="margin-bottom: 25px;">
+                                        <h4 style="margin-bottom: 35px;">
                                             ${letterFromUser}
                                         </h4>
 
@@ -245,7 +245,7 @@
                                                     <!-- Submit -->
                                                     <c:choose>
                                                         <c:when test="${response ne 'letterWasProcessed'}">
-                                                            <div class="action" style="padding: 25px 0 10px 0">
+                                                            <div class="action" style="padding: 30px 0 10px 0">
                                                                 <button id="submit" type="submit"
                                                                         class="btn btn-primary signup"
                                                                         style="width: 62%;">
@@ -254,7 +254,7 @@
                                                             </div>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <div class="action" style="padding: 25px 0 10px 0">
+                                                            <div class="action" style="padding: 30px 0 10px 0">
                                                                 <button type="submit"
                                                                         class="btn btn-primary signup disabled"
                                                                         disabled="disabled" style="width: 62%;">
