@@ -8,12 +8,13 @@
 ---
 
 The goal of the project is to create a complete payment system with all the basic functionality.  
-I deployed the application on the hosting. `Go to this address:` https://payment-management-system.herokuapp.com/  
+I deployed the application on the hosting.     
+`Go to this address:` https://payment-management-system.herokuapp.com/  
 
 ## Used tools for project implementation
 
-`Primary:` MySQL 5.7, Java 8 (Core + Servlets + JDBC + JSP), JSTL, Maven 3, HTML CSS, JavaScript, jQuery v3.4, Bootstrap v4.4.
-`Secondary:` Apache Tomcat v9.0, Apache Commons Lang v2.6, Apache Log4j v1.2, JUnit v4.13, Mockito v1.10.  
+`Primary:` MySQL 5.7, Java 8 (Core + Servlets + JDBC + JSP), JSTL, Maven 3, HTML CSS, JavaScript, jQuery v3.4, Bootstrap v4.4.    
+`Secondary:` Apache Tomcat v9.0, Apache Commons Lang v2.6, Apache Log4j v1.2, JUnit v4.13, Mockito v1.10.    
 <i>*For more information on dependencies and plugins, see the pom.xml file.</i>
 
 ## Initialization and launch of the project
@@ -23,7 +24,7 @@ For the correct launch and stable operation of the site (locally) you need to:
     `git clone https://github.com/SValentyn/Payment-Management-System.git`
 - Specify the correct path to the JDK home folder in the IDE.
 - Connect, configure and start your database server.
-- Import the database dump from the /resources/sql/dump.sql file (substituting your DB name). Optionally, execute trigger scripts.
+- Import the database dump from the /resources/sql/dump.sql file (substituting your DB name).
 - Specify the correct database connection parameters in the /webapp/META-INF/context.xml file
 - Uncomment the block of code needed for your purposes in the /persistence/dao/impl/QueryExecutor.java file (contains the basic methods for working with the DB).
 - Run the project build command: `mvn clean package`
@@ -36,8 +37,14 @@ For the correct launch and stable operation of the site (locally) you need to:
 All options for using the system can be found in Use Case diagrams. Since there are two types of users in the system: Regular User (Client) and Administrator, the corresponding two Use Case diagrams were created. Their main difference from each other is that they have different privileges and specific capabilities.
 
 `Use Case diagram for Regular User (Client):`  
+<p align="center">
+  <img src="https://github.com/SValentyn/Payment-Management-System/blob/master/diagrams/UseCase_for_Client.png" alt="UseCase for Regular User">
+</p>
 
 `Use Case diagram for Administrator:`  
+<p align="center">
+  <img src="https://github.com/SValentyn/Payment-Management-System/blob/master/diagrams/UseCase_for_Admin.png" alt="UseCase for Admin">
+</p>
 
 ## Support
 
