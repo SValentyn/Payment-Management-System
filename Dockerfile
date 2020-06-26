@@ -1,11 +1,15 @@
 # Images: JDK8 and Maven
 FROM maven:3.5.2-jdk-8-alpine AS MAVEN_TOOL_CHAIN
 
-# Copy
+# Project Author
+MAINTAINER Syniuk Valentyn <planet.sv01@gmail.com>
+
+# Copy components
 COPY pom.xml /usr/app/
 COPY src /usr/app/src/
 WORKDIR /usr/app/
 
+# Build project (compile + .war)
 RUN mvn package
 
 # Images: OpenJDK JRE and Tomcat
@@ -18,4 +22,4 @@ COPY --from=MAVEN_TOOL_CHAIN /usr/app/target/Payment-Management-System-*.war $CA
 EXPOSE 8080
 
 # Run application with this command line
-HEALTHCHECK --interval=1m --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:8080/pms/ || exit 1
+HEALTHCHECK --interval=1m --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:8080/ || exit 1
