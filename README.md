@@ -59,7 +59,8 @@ All options for using the system can be found in Use Case diagrams. Since there 
 
 ## Support
 
-Patches are encouraged, and may be submitted by forking this project and submitting a pull request through GitHub. Please see CONTRIBUTING.md for more details.
+Patches are encouraged, and may be submitted by forking this project and submitting a pull request through GitHub. 
+Please see [CONTRIBUTING.md](../master/CONTRIBUTING.md) for more details.
 
 ---  
 
